@@ -1,0 +1,5 @@
+#ifndef UTILITIES_GLOBAL_H
+#define UTILITIES_GLOBAL_H
+
+
+#endif // UTILITIES_GLOBAL_H

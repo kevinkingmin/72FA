@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TestPaperManage</class>
+ <widget class="QWidget" name="TestPaperManage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1523</width>
+    <height>722</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>TestPaperManage</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>20</y>
+     <width>281</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>膜条厂家选择</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_Company">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>60</y>
+     <width>256</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>公司名称</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_TestPaper">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>60</y>
+     <width>1141</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>No</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>膜条名称</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>货号</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>排序</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>是否启用</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>620</y>
+     <width>821</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="3">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="4">
+     <widget class="QPushButton" name="Add_Button">
+      <property name="text">
+       <string>追加</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="6">
+     <widget class="QPushButton" name="Modify_Button">
+      <property name="text">
+       <string>修改</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="8">
+     <widget class="QPushButton" name="Delete_Button">
+      <property name="text">
+       <string>不启用</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="Inport_Button">
+      <property name="text">
+       <string>导入</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="10">
+     <widget class="QPushButton" name="Delete_Button_2">
+      <property name="text">
+       <string>启用</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="5">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="7">
+     <spacer name="horizontalSpacer_6">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="Export_Button">
+      <property name="text">
+       <string>导出</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="9">
+     <spacer name="horizontalSpacer_7">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>1270</x>
+     <y>670</y>
+     <width>21</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2"/>
+  </widget>
+  <widget class="QPushButton" name="Down_Sort_Button_3">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>630</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="btnStyle" stdset="0">
+    <string>normalBtnxia</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Up_Sort_Button_2">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>630</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="btnStyle" stdset="0">
+    <string>normalBtnshang</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Add_Company_Button">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>625</y>
+     <width>40</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="btnStyle" stdset="0">
+    <string>normalBtnadd</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Delete_Company_Button">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>630</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="btnStyle" stdset="0">
+    <string>normalBtnshanc</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TubeManage</class>
+ <widget class="QWidget" name="TubeManage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1102</width>
+    <height>675</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>TubeManage</string>
+  </property>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>60</y>
+     <width>1001</width>
+     <height>501</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>名称</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>是否质控管</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>试管内径</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>试管高度</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>液位高度</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="Add_Button">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>600</y>
+     <width>75</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>追加</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Modify_Button">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>600</y>
+     <width>75</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>修正</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Delete_Button">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>600</y>
+     <width>75</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>删除</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Inport_Button">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>600</y>
+     <width>75</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>导入</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="Export_Button">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>600</y>
+     <width>75</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>导出</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

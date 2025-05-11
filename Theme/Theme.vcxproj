@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{18C62377-1079-3F4B-A57E-1CEB13BBDE50}</ProjectGuid>
+    <RootNamespace>Theme</RootNamespace>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
+  <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\Lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>Theme</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\Lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>Theme</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" /><Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')"><Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." /></Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')"><Import Project="$(QtMsBuild)\qt_defaults.props" /></ImportGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><OutDir>..\Lib\</OutDir><IntDir>debug\</IntDir><TargetName>Theme</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary><PostBuildEventUseInBuild>true</PostBuildEventUseInBuild></PropertyGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><OutDir>..\Lib\</OutDir><IntDir>release\</IntDir><TargetName>Theme</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary><LinkIncremental>false</LinkIncremental><PostBuildEventUseInBuild>true</PostBuildEventUseInBuild></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><QtInstall>5.12.4_msvc2017_64</QtInstall><QtModules>core;gui</QtModules></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><QtInstall>5.12.4_msvc2017_64</QtInstall><QtModules>core;gui</QtModules></PropertyGroup><ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')"><Import Project="$(QtMsBuild)\qt.props" /></ImportGroup>
+  
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\Include;release;\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;THEME_LIBRARY;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <LinkIncremental>false</LinkIncremental>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)\Theme.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;THEME_LIBRARY;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy ".\src\theme.h" ".\..\Include\Theme\" /y &amp; rcc -binary ./resources.qrc -o ./../Bin/default.rcc &amp;
+if errorlevel 1 goto VCEnd
+copy "$(TargetPath)" ..\Bin</Command>
+      <Message>xcopy ".\src\theme.h" ".\..\Include\Theme\" /y &amp; rcc -binary ./resources.qrc -o ./../Bin/default.rcc &amp;Copy Theme.dll to ..\Bin</Message>
+    </PostBuildEvent>
+  <QtRcc><InitFuncName>resources</InitFuncName><Compression>default</Compression><ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription><QtRccDir>$(Configuration)</QtRccDir><QtRccFileName>qrc_%(Filename).cpp</QtRccFileName></QtRcc></ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\Include;debug;\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;THEME_LIBRARY;QT_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
+    <Link>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <OutputFile>$(OutDir)\Theme.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;THEME_LIBRARY;QT_DEPRECATED_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy ".\src\theme.h" ".\..\Include\Theme\" /y &amp; rcc -binary ./resources.qrc -o ./../Bin/default.rcc &amp;
+if errorlevel 1 goto VCEnd
+copy "$(TargetPath)" ..\Bin</Command>
+      <Message>xcopy ".\src\theme.h" ".\..\Include\Theme\" /y &amp; rcc -binary ./resources.qrc -o ./../Bin/default.rcc &amp;Copy Theme.dll to ..\Bin</Message>
+    </PostBuildEvent>
+  <QtRcc><InitFuncName>resources</InitFuncName><Compression>default</Compression><ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription><QtRccDir>$(Configuration)</QtRccDir><QtRccFileName>qrc_%(Filename).cpp</QtRccFileName></QtRcc></ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Theme.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Theme.h" />
+    <ClInclude Include="theme_global.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;debug\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -Zi -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;release\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_predefs.h;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+    
+    
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\background\43.png" />
+    <None Include="images\background\4388.png" />
+    <None Include="images\background\4399.png" />
+    <None Include="images\appMenu\AppClose.png" />
+    <None Include="images\appMenu\AppLoginOut.png" />
+    <None Include="images\checkButton\CheckBox.png" />
+    <None Include="images\checkButton\CheckBox1.png" />
+    <None Include="images\dialog\DialogBackground.png" />
+    <None Include="images\dialog\DialogBackground_Gray.png" />
+    <None Include="images\dialog\DialogBackground__.png" />
+    <None Include="images\dialog\DialogBackground_blue.png" />
+    <None Include="images\dialog\DialogClose.png" />
+    <None Include="images\combox\DownArrow.png" />
+    <None Include="font\FontAwesome.otf" />
+    <None Include="images\appMenu\Help.png" />
+    <None Include="images\buttonIcon\LOGOlogo.png" />
+    <None Include="images\radioButton\RadioButton.png" />
+    <None Include="images\radioButton\RadioButtonChecked.png" />
+    <None Include="images\ScrollBar\ScrollBarDownButton01.png" />
+    <None Include="images\ScrollBar\ScrollBarDownButton02.png" />
+    <None Include="images\ScrollBar\ScrollBarLeftButton01.png" />
+    <None Include="images\ScrollBar\ScrollBarLeftButton02.png" />
+    <None Include="images\ScrollBar\ScrollBarRightButton01.png" />
+    <None Include="images\ScrollBar\ScrollBarRightButton02.png" />
+    <None Include="images\ScrollBar\ScrollBarUpButton01.png" />
+    <None Include="images\ScrollBar\ScrollBarUpButton02.png" />
+    <None Include="images\buttonIcon\aboutIcon16.png" />
+    <None Include="images\buttonIcon\add.png" />
+    <None Include="images\menu\addNew.png" />
+    <None Include="images\buttonIcon\anniu_click.png" />
+    <None Include="images\buttonIcon\anniu_normal.png" />
+    <None Include="images\buttonIcon\anniu_on.png" />
+    <None Include="images\buttonIcon\arrow_down.png" />
+    <None Include="images\menu\assayGroup16.png" />
+    <None Include="images\buttonIcon\bangzhuyushuoming.png" />
+    <None Include="images\background\bg_1.png" />
+    <None Include="images\background\bg_login.png" />
+    <None Include="images\background\bg_login1.jpg" />
+    <None Include="images\buttonIcon\bigrect.png" />
+    <None Include="images\buttonIcon\blackgray_click.png" />
+    <None Include="images\buttonIcon\blackgray_move.png" />
+    <None Include="images\buttonIcon\blackgray_press.png" />
+    <None Include="images\background\body.png" />
+    <None Include="images\menu\btnSystem.png" />
+    <None Include="images\menu\btnSystemLack.png" />
+    <None Include="images\buttonIcon\btn_help_normal.png" />
+    <None Include="images\buttonIcon\btn_help_normal_en.png" />
+    <None Include="images\buttonIcon\btn_help_on.png" />
+    <None Include="images\buttonIcon\btn_help_on_en.png" />
+    <None Include="images\background\btn_login_out.png" />
+    <None Include="images\buttonIcon\btn_report_normal.png" />
+    <None Include="images\buttonIcon\btn_report_normal_en.png" />
+    <None Include="images\buttonIcon\btn_report_on.png" />
+    <None Include="images\buttonIcon\btn_report_on_en.png" />
+    <None Include="images\buttonIcon\btn_set_normal.png" />
+    <None Include="images\buttonIcon\btn_set_normal_en.png" />
+    <None Include="images\buttonIcon\btn_set_on.png" />
+    <None Include="images\buttonIcon\btn_set_on_en.png" />
+    <None Include="images\buttonIcon\btn_test_normal.png" />
+    <None Include="images\buttonIcon\btn_test_normal_en.png" />
+    <None Include="images\buttonIcon\btn_test_on.png" />
+    <None Include="images\buttonIcon\btn_test_on_en.png" />
+    <None Include="images\buttonIcon\btn_weihu_normal.png" />
+    <None Include="images\buttonIcon\btn_weihu_normal_en.png" />
+    <None Include="images\buttonIcon\btn_weihu_on.png" />
+    <None Include="images\buttonIcon\btn_weihu_on_en.png" />
+    <None Include="images\buttonIcon\button_del.png" />
+    <None Include="images\menu\camer16.png" />
+    <None Include="images\buttonIcon\cardSet16.png" />
+    <None Include="images\buttonIcon\close_beep.png" />
+    <None Include="images\buttonIcon\closebeep.png" />
+    <None Include="images\buttonIcon\codeAdd16.png" />
+    <None Include="images\buttonIcon\communicateIcon16.png" />
+    <None Include="favicon.ico" />
+    <None Include="images\buttonIcon\icon.png" />
+    <None Include="images\indicate\indicate.png" />
+    <None Include="images\indicate\indicateRed.png" />
+    <None Include="images\indicate\indicateSelect.png" />
+    <None Include="images\indicate\indicateSkip.png" />
+    <None Include="images\buttonIcon\initBtn.png" />
+    <None Include="images\buttonIcon\irrigationIcon.png" />
+    <None Include="images\buttonIcon\irrigationIconSmall.png" />
+    <None Include="images\buttonIcon\jingshi.png" />
+    <None Include="images\buttonIcon\lis_all_sample_get.png" />
+    <None Include="images\buttonIcon\lis_sample_get.png" />
+    <None Include="images\menu\lisgreen.png" />
+    <None Include="images\menu\lisred.png" />
+    <None Include="images\buttonIcon\login16.png" />
+    <None Include="images\buttonIcon\login_logo.png" />
+    <None Include="images\buttonIcon\maintanceIcon16.png" />
+    <None Include="images\appMenu\mini.png" />
+    <None Include="images\menu\monthMaintain.png" />
+    <None Include="images\buttonIcon\mul_hole.png" />
+    <None Include="normal.qss" />
+    <None Include="images\buttonIcon\open_keyboard.png" />
+    <None Include="images\buttonIcon\password16.png" />
+    <None Include="images\buttonIcon\pauseIcon.png" />
+    <None Include="images\buttonIcon\pink.png" />
+    <None Include="images\buttonIcon\printlogo.png" />
+    <None Include="images\buttonIcon\printlogo1.png" />
+    <None Include="images\buttonIcon\rDelay.png" />
+    <None Include="images\buttonIcon\rFlowBack128.png" />
+    <None Include="images\buttonIcon\rReady.png" />
+    <None Include="images\buttonIcon\reagentRecordIcon16.png" />
+    <None Include="images\buttonIcon\reagent_normal.png" />
+    <None Include="images\buttonIcon\reagent_normal_en.png" />
+    <None Include="images\buttonIcon\reagent_on.png" />
+    <None Include="images\buttonIcon\reagent_on_en.png" />
+    <None Include="images\menu\reagents16.png" />
+    <None Include="images\buttonIcon\red_button_bg.png" />
+    <QtRcc Include="resources.qrc">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtRcc>
+    <None Include="images\buttonIcon\returm_main.png" />
+    <None Include="images\menu\runCorrect.png" />
+    <None Include="images\menu\runError.png" />
+    <None Include="images\menu\runIntermediate.png" />
+    <None Include="images\buttonIcon\runSelfCheck16.png" />
+    <None Include="images\background\run_bg_1.png" />
+    <None Include="images\background\run_bg_2.png" />
+    <None Include="images\background\run_bg_3.png" />
+    <None Include="images\background\run_bg_4.png" />
+    <None Include="images\buttonIcon\save_bg.png" />
+    <None Include="images\buttonIcon\setIcon.png" />
+    <None Include="images\buttonIcon\setIcon16.png" />
+    <None Include="images\buttonIcon\setIconDisable.png" />
+    <None Include="images\buttonIcon\shanc.png" />
+    <None Include="images\buttonIcon\shang.png" />
+    <None Include="images\buttonIcon\solutionIcon16.png" />
+    <None Include="images\buttonIcon\startIcon.png" />
+    <None Include="images\buttonIcon\stopBtn.png" />
+    <None Include="images\buttonIcon\systemLiquidIcon16.png" />
+    <None Include="images\menu\systemLiquidStatusFull.png" />
+    <None Include="images\menu\systemLiquidStatusNoFull.png" />
+    <None Include="images\menu\systemSet16.png" />
+    <None Include="images\buttonIcon\tableview_bg.png" />
+    <None Include="images\buttonIcon\tableview_item_bg.png" />
+    <None Include="images\buttonIcon\testGroupIcon16.png" />
+    <None Include="images\buttonIcon\testRecord16.png" />
+    <None Include="images\buttonIcon\testRecordIcon16.png" />
+    <None Include="images\menu\testRegister16.png" />
+    <None Include="images\buttonIcon\tip.png" />
+    <None Include="images\appMenu\title.png" />
+    <None Include="images\background\title.png" />
+    <None Include="images\menu\tube16.png" />
+    <None Include="images\menu\tube16_d.png" />
+    <None Include="images\buttonIcon\tupe16.png" />
+    <None Include="images\buttonIcon\unclose.png" />
+    <None Include="images\buttonIcon\users16.png" />
+    <None Include="images\buttonIcon\users32.png" />
+    <None Include="images\background\wasteBottle.png" />
+    <None Include="images\menu\wasteBottle.png" />
+    <None Include="images\menu\wasteBottleFull.png" />
+    <None Include="images\background\welcome_bj1.png" />
+    <None Include="images\buttonIcon\wen.png" />
+    <None Include="images\dialog\widgetTop.png" />
+    <None Include="images\buttonIcon\xia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include=".\logo.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')"><Import Project="$(QtMsBuild)\qt.targets" /></ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

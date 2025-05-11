@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{362D8077-BB4B-3508-9480-B6A4183B15D5}</ProjectGuid>
+    <RootNamespace>DAO</RootNamespace>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
+  <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\Lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>DAO</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\Lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>DAO</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" /><Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')"><Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." /></Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')"><Import Project="$(QtMsBuild)\qt_defaults.props" /></ImportGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><OutDir>..\Lib\</OutDir><IntDir>debug\</IntDir><TargetName>DAO</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary><PostBuildEventUseInBuild>true</PostBuildEventUseInBuild></PropertyGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><OutDir>..\Lib\</OutDir><IntDir>release\</IntDir><TargetName>DAO</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary><LinkIncremental>false</LinkIncremental><PostBuildEventUseInBuild>true</PostBuildEventUseInBuild></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><QtInstall>5.12.4_msvc2017_64</QtInstall><QtModules>core;sql</QtModules></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><QtInstall>5.12.4_msvc2017_64</QtInstall><QtModules>core;sql</QtModules></PropertyGroup><ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')"><Import Project="$(QtMsBuild)\qt.props" /></ImportGroup>
+  
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\Third;..\Third\spdlog;..\Third\breakpad;moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>..\Include\Precomp\precompile.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>..\Include\Precomp\precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\DAO.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;DAO_LIBRARY;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
+    <Link>
+      <AdditionalDependencies>..\Lib\Model.lib;..\Lib\Utilities.lib;..\Lib\Database.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <LinkIncremental>false</LinkIncremental>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)\DAO.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;DAO_LIBRARY;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy ".\src\dao.h" ".\..\Include\DAO\" /y &amp; xcopy ".\src\baseSet\*.h" ".\..\Include\DAO\baseSet\" /y &amp; xcopy ".\src\sample\*.h" ".\..\Include\DAO\sample\" /y &amp; xcopy ".\src\user\*.h" ".\..\Include\DAO\user\" /y &amp; xcopy ".\src\reagent\*.h" ".\..\Include\DAO\reagent\" /y &amp; xcopy ".\src\Analysis\*.h" ".\..\Include\DAO\Analysis\" /y &amp;
+if errorlevel 1 goto VCEnd
+copy "$(TargetPath)" ..\Bin</Command>
+      <Message>xcopy ".\src\dao.h" ".\..\Include\DAO\" /y &amp; xcopy ".\src\baseSet\*.h" ".\..\Include\DAO\baseSet\" /y &amp; xcopy ".\src\sample\*.h" ".\..\Include\DAO\sample\" /y &amp; xcopy ".\src\user\*.h" ".\..\Include\DAO\user\" /y &amp; xcopy ".\src\reagent\*.h" ".\..\Include\DAO\reagent\" /y &amp; xcopy ".\src\Analysis\*.h" ".\..\Include\DAO\Analysis\" /y &amp;Copy DAO.dll to ..\Bin</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\Third;..\Third\spdlog;..\Third\breakpad;moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>..\Include\Precomp\precompile.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>..\Include\Precomp\precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\DAO.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;DAO_LIBRARY;QT_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
+    <Link>
+      <AdditionalDependencies>..\Lib\Model.lib;..\Lib\Utilities.lib;..\Lib\Databased.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <OutputFile>$(OutDir)\DAO.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;DAO_LIBRARY;QT_DEPRECATED_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy ".\src\dao.h" ".\..\Include\DAO\" /y &amp; xcopy ".\src\baseSet\*.h" ".\..\Include\DAO\baseSet\" /y &amp; xcopy ".\src\sample\*.h" ".\..\Include\DAO\sample\" /y &amp; xcopy ".\src\user\*.h" ".\..\Include\DAO\user\" /y &amp; xcopy ".\src\reagent\*.h" ".\..\Include\DAO\reagent\" /y &amp; xcopy ".\src\Analysis\*.h" ".\..\Include\DAO\Analysis\" /y &amp;
+if errorlevel 1 goto VCEnd
+copy "$(TargetPath)" ..\Bin</Command>
+      <Message>xcopy ".\src\dao.h" ".\..\Include\DAO\" /y &amp; xcopy ".\src\baseSet\*.h" ".\..\Include\DAO\baseSet\" /y &amp; xcopy ".\src\sample\*.h" ".\..\Include\DAO\sample\" /y &amp; xcopy ".\src\user\*.h" ".\..\Include\DAO\user\" /y &amp; xcopy ".\src\reagent\*.h" ".\..\Include\DAO\reagent\" /y &amp; xcopy ".\src\Analysis\*.h" ".\..\Include\DAO\Analysis\" /y &amp;Copy DAO.dll to ..\Bin</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\baseSet\AgeUnitDao.cpp" />
+    <ClCompile Include="src\Analysis\AnalysisDao.cpp" />
+    <ClCompile Include="src\Analysis\AnalysisUIDao.cpp" />
+    <ClCompile Include="src\baseSet\BedNoDao.cpp" />
+    <ClCompile Include="src\baseSet\DepartmentDao.cpp" />
+    <ClCompile Include="src\baseSet\DiagnosisDao.cpp" />
+    <ClCompile Include="src\baseSet\InstrumentParasSetDao.cpp" />
+    <ClCompile Include="src\baseSet\ItemDao.cpp" />
+    <ClCompile Include="src\baseSet\ProcessDao.cpp" />
+    <ClCompile Include="src\baseSet\ProcessParaDao.cpp" />
+    <ClCompile Include="src\Reagent\ProcessReagentDao.cpp" />
+    <ClCompile Include="src\baseSet\ProcessStepDao.cpp" />
+    <ClCompile Include="src\Reagent\ReagentDao.cpp" />
+    <ClCompile Include="src\baseSet\RemarkDao.cpp" />
+    <ClCompile Include="src\sample\SampleDao.cpp" />
+    <ClCompile Include="src\baseSet\SampleSenderDao.cpp" />
+    <ClCompile Include="src\sample\SampleTestDao.cpp" />
+    <ClCompile Include="src\baseSet\SexDao.cpp" />
+    <ClCompile Include="src\baseSet\SystemSetDao.cpp" />
+    <ClCompile Include="src\baseSet\TestPaperDao.cpp" />
+    <ClCompile Include="src\user\UserDao.cpp" />
+    <ClCompile Include="src\user\UserGroupDao.cpp" />
+    <ClCompile Include="src\baseSet\WardDao.cpp" />
+    <ClCompile Include="src\aes\aes.cpp" />
+    <ClCompile Include="src\aes\aesencryptor.cpp" />
+    <ClCompile Include="src\dao.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\baseSet\AgeUnitDao.h" />
+    <ClInclude Include="src\Analysis\AnalysisDao.h" />
+    <ClInclude Include="src\Analysis\AnalysisUIDao.h" />
+    <ClInclude Include="src\baseSet\BedNoDao.h" />
+    <ClInclude Include="src\baseSet\DepartmentDao.h" />
+    <ClInclude Include="src\baseSet\DiagnosisDao.h" />
+    <ClInclude Include="src\baseSet\InstrumentParasSetDao.h" />
+    <ClInclude Include="src\baseSet\ItemDao.h" />
+    <ClInclude Include="src\baseSet\ProcessDao.h" />
+    <ClInclude Include="src\baseSet\ProcessParaDao.h" />
+    <ClInclude Include="src\Reagent\ProcessReagentDao.h" />
+    <ClInclude Include="src\baseSet\ProcessStepDao.h" />
+    <ClInclude Include="src\Reagent\ReagentDao.h" />
+    <ClInclude Include="src\baseSet\RemarkDao.h" />
+    <ClInclude Include="src\sample\SampleDao.h" />
+    <ClInclude Include="src\baseSet\SampleSenderDao.h" />
+    <ClInclude Include="src\sample\SampleTestDao.h" />
+    <ClInclude Include="src\baseSet\SexDao.h" />
+    <ClInclude Include="src\baseSet\SystemSetDao.h" />
+    <ClInclude Include="src\baseSet\TestPaperDao.h" />
+    <ClInclude Include="src\user\UserDao.h" />
+    <ClInclude Include="src\user\UserGroupDao.h" />
+    <ClInclude Include="src\baseSet\WardDao.h" />
+    <ClInclude Include="src\aes\aes.h" />
+    <ClInclude Include="src\aes\aesencryptor.h" />
+    <ClInclude Include="src\dao.h" />
+    <CustomBuild Include="..\Include\Precomp\precompile.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">echo /*-------------------------------------------------------------------- &gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating precompiled header source file '..\Include\Precomp\precompile.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\Include\Precomp\precompile.h.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">echo /*-------------------------------------------------------------------- &gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating precompiled header source file '..\Include\Precomp\precompile.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\Include\Precomp\precompile.h.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="moc\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -Zi -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">moc\moc_predefs.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')"><Import Project="$(QtMsBuild)\qt.targets" /></ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

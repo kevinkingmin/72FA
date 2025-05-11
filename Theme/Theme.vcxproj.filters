@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Theme.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Theme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="theme_global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    
+    
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="images\background\43.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\4388.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\4399.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\appMenu\AppClose.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\appMenu\AppLoginOut.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\checkButton\CheckBox.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\checkButton\CheckBox1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\dialog\DialogBackground.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\dialog\DialogBackground_Gray.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\dialog\DialogBackground__.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\dialog\DialogBackground_blue.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\dialog\DialogClose.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\combox\DownArrow.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="font\FontAwesome.otf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\appMenu\Help.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\LOGOlogo.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\radioButton\RadioButton.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\radioButton\RadioButtonChecked.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\ScrollBar\ScrollBarDownButton01.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\ScrollBar\ScrollBarDownButton02.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\ScrollBar\ScrollBarLeftButton01.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\ScrollBar\ScrollBarLeftButton02.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\ScrollBar\ScrollBarRightButton01.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\ScrollBar\ScrollBarRightButton02.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\ScrollBar\ScrollBarUpButton01.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\ScrollBar\ScrollBarUpButton02.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\aboutIcon16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\add.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\addNew.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\anniu_click.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\anniu_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\anniu_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\arrow_down.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\assayGroup16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\bangzhuyushuoming.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\bg_1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\bg_login.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\bg_login1.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\bigrect.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\blackgray_click.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\blackgray_move.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\blackgray_press.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\body.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\btnSystem.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\btnSystemLack.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_help_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_help_normal_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_help_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_help_on_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\btn_login_out.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_report_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_report_normal_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_report_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_report_on_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_set_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_set_normal_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_set_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_set_on_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_test_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_test_normal_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_test_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_test_on_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_weihu_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_weihu_normal_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_weihu_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\btn_weihu_on_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\button_del.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\camer16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\cardSet16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\close_beep.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\closebeep.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\codeAdd16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\communicateIcon16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="favicon.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\icon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\indicate\indicate.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\indicate\indicateRed.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\indicate\indicateSelect.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\indicate\indicateSkip.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\initBtn.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\irrigationIcon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\irrigationIconSmall.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\jingshi.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\lis_all_sample_get.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\lis_sample_get.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\lisgreen.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\lisred.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\login16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\login_logo.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\maintanceIcon16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\appMenu\mini.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\monthMaintain.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\mul_hole.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="normal.qss">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\open_keyboard.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\password16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\pauseIcon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\pink.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\printlogo.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\printlogo1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\rDelay.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\rFlowBack128.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\rReady.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\reagentRecordIcon16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\reagent_normal.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\reagent_normal_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\reagent_on.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\reagent_on_en.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\reagents16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\red_button_bg.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="resources.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="images\buttonIcon\returm_main.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\runCorrect.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\runError.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\runIntermediate.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\runSelfCheck16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\run_bg_1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\run_bg_2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\run_bg_3.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\run_bg_4.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\save_bg.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\setIcon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\setIcon16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\setIconDisable.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\shanc.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\shang.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\solutionIcon16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\startIcon.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\stopBtn.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\systemLiquidIcon16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\systemLiquidStatusFull.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\systemLiquidStatusNoFull.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\systemSet16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\tableview_bg.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\tableview_item_bg.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\testGroupIcon16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\testRecord16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\testRecordIcon16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\testRegister16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\tip.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\appMenu\title.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\title.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\tube16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\tube16_d.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\tupe16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\unclose.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\users16.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\users32.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\wasteBottle.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\wasteBottle.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\menu\wasteBottleFull.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\background\welcome_bj1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\wen.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\dialog\widgetTop.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\buttonIcon\xia.png">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D:\liuxing\work\HumaBlotPro\FA72_DXP\Theme\logo.rc" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+#ifndef INSTRUMENT_GLOBAL_H
+#define INSTRUMENT_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(INSTRUMENT_LIBRARY)
+#  define INSTRUMENTSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define INSTRUMENTSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // INSTRUMENT_GLOBAL_H

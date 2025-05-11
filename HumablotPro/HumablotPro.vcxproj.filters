@@ -1,0 +1,960 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\utility\AboutUsWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\AddCompany.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\AddReagent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\model\AddSampleVModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\AddSampleWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\AddTubeStep1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\AddTubeStep2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\AddTubeStep3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\AddTubeStep4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\AlarmInfoWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\BaseDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\BatchAddSampleWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\CameraCheckWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera\CameraControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera\CameraParametersSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\delegate\ComboxDelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\CreateDump.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\CustClickWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\CustomButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\CustomLabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\CustomLabel1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\CustomerPumpStateLable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\DataConvertHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\EmptyWasteBottleWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\subDialog\FromLisByIntervalWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\GetLanguageCls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\Global.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\GlobalData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\types\HumaClia2000Data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\InitWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\IrrigationSystemLiquidWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model\LanguageInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\LightButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\LiquidDetectionWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\LisSettingWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\MainWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\MaintainCmdWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\subDialog\ManualIncubationWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\MonthMaintenanceWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\subDialog\MyMessageBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\NewPumpRunningWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\PipeRefluxWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\PipeWashEmptyingWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\PipeWashWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\subDialog\PrepareReagentDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\PrepareReagentWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\ProcessParaWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\subDialog\ProgressDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\PumpAutoCheckWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\PumpCalibrateWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\PumpManaCheckWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\QtWidgetstOperateLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera\RGBConvert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\ReagentManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\subDialog\RepeatSetDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\model\RepeatSetModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\ResultDetail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\ResultManage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\RulesSetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\RunPaperPosThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\SampleWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\subDialog\SelectProcessDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\subDialog\SelfCheckResultShowDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\subDialog\SetFirstPaperPosDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\ShowAllPicWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\subDialog\ShowImageDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\ShowTestResultDetail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\SystemLiquidPipeWashWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\SystemSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\model\TestDataListVModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\TestDataListWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\TestPaper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\TestPaperManage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera\TestResultDataAll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera\TestResultDataManage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Camera\TestResultDataOneType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\TestResultDetailDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\TestSampleWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\TubeManage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\UserManageWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\UtilityWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\maintain\WeekMaintenanceWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\WelcomWidgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\WorkerThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\customerTableView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\firstwidgetbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\freezetableview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\loginform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\mainwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qtsingleapplication\qtlocalpeer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="qtsingleapplication\qtsingleapplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\workArea\workAreaForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="src\utility\AboutUsWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\AddCompany.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\AddReagent.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\model\AddSampleVModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\AddSampleWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\AddTubeStep1.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\AddTubeStep2.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\AddTubeStep3.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\AddTubeStep4.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\AlarmInfoWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\comm\BaseDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\BatchAddSampleWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\Camera\Camera.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\CameraCheckWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\Camera\CameraControl.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\Camera\CameraParametersSet.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\delegate\ComboxDelegate.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="src\main\CreateDump.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="src\comm\CustClickWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="src\comm\CustomButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="src\comm\CustomLabel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\comm\CustomLabel1.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="src\comm\CustomerPumpStateLable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\comm\DataConvertHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\delegate\DelegateData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="src\sample\EmptyWasteBottleWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\FromLisByIntervalWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="src\model\GetLanguageCls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\comm\Global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\comm\GlobalData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\types\HumaClia2000.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\types\HumaClia2000Data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="src\main\InitWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\IrrigationSystemLiquidWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="src\model\LanguageInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="src\comm\LightButton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\LiquidDetectionWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\LisSettingWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\MainWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\MaintainCmdWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\ManualIncubationWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\MonthMaintenanceWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\subDialog\MyMessageBox.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\NewPumpRunningWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="src\comm\ObjectTr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="src\utility\maintain\PipeRefluxWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PipeWashEmptyingWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PipeWashWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\PrepareReagentDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\PrepareReagentWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\ProcessParaWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\subDialog\ProgressDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PumpAutoCheckWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PumpCalibrateWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PumpManaCheckWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\QtWidgetstOperateLog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="src\Camera\RGBConvert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="src\utility\ReagentManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\RepeatSetDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\model\RepeatSetModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\ResultDetail.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\ResultManage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\RulesSetting.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\RunPaperPosThread.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\SampleWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\SelectProcessDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\SelfCheckResultShowDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\SetFirstPaperPosDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\ShowAllPicWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\subDialog\ShowImageDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\ShowTestResultDetail.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\SystemLiquidPipeWashWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\SystemSet.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\model\TestDataListVModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\TestDataListWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\TestPaper.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\TestPaperManage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\Camera\TestResultDataAll.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\Camera\TestResultDataManage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\Camera\TestResultDataOneType.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\TestResultDetailDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\TestSampleWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\TubeManage.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\UserManageWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\UtilityWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\WeekMaintenanceWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\WelcomWidgets.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\WorkerThread.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\comm\customerTableView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\firstwidgetbase.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\comm\freezetableview.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\loginform.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\main\mainwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <CustomBuild Include="..\Include\Precomp\precompile.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <QtMoc Include="qtsingleapplication\qtlocalpeer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="qtsingleapplication\qtsingleapplication.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\workArea\workAreaForm.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <CustomBuild Include="moc\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    
+    
+    
+    <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="src\utility\AboutUsWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\AddCompany.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\AddReagent.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\AddSampleWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\AddTubeStep1.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\AddTubeStep2.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\AddTubeStep3.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\AddTubeStep4.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\main\AlarmInfoWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\BatchAddSampleWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\Camera\Camera.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\CameraCheckWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\EmptyWasteBottleWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\FromLisByIntervalWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\main\InitWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\IrrigationSystemLiquidWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\LiquidDetectionWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\main\LisSettingWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\main\MainWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\utility\maintain\MaintainCmdWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\ManualIncubationWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\MonthMaintenanceWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\NewPumpRunningWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PipeRefluxWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PipeWashEmptyingWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PipeWashWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\PrepareReagentDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\PrepareReagentWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\ProcessParaWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\main\subDialog\ProgressDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PumpAutoCheckWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\utility\maintain\PumpCalibrateWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PumpManaCheckWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\QtWidgetstOperateLog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\ReagentManager.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\RepeatSetDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\ResultDetail.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\ResultManage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\RulesSetting.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\SampleWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\SelectProcessDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\sample\subDialog\SelfCheckResultShowDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\SetFirstPaperPosDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\sample\ShowAllPicWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\main\subDialog\ShowImageDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\SystemLiquidPipeWashWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\SystemSet.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\TestDataListWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\TestPaper.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\TestPaperManage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\Camera\TestResultDataAll.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\Camera\TestResultDataManage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\Camera\TestResultDataOneType.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\TestSampleWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\TubeManage.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\main\UserManageWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\utility\UtilityWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\maintain\WeekMaintenanceWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="src\utility\WelcomWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\main\loginform.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\main\mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\workArea\workAreaForm.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D:\liuxing\work\HumaBlotPro\FA72_DXP\HumaBlotPro\HumablotPro_resource.rc" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1CEE71B4-E035-3906-A472-28E66E20A6AD}</ProjectGuid>
+    <RootNamespace>BLL</RootNamespace>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
+  <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\Lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>BLL</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\Lib\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>BLL</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" /><Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')"><Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." /></Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')"><Import Project="$(QtMsBuild)\qt_defaults.props" /></ImportGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><OutDir>..\Lib\</OutDir><IntDir>debug\</IntDir><TargetName>BLL</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary><PostBuildEventUseInBuild>true</PostBuildEventUseInBuild></PropertyGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><OutDir>..\Lib\</OutDir><IntDir>release\</IntDir><TargetName>BLL</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary><LinkIncremental>false</LinkIncremental><PostBuildEventUseInBuild>true</PostBuildEventUseInBuild></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><QtInstall>5.12.4_msvc2017_64</QtInstall><QtModules>core</QtModules></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><QtInstall>5.12.4_msvc2017_64</QtInstall><QtModules>core</QtModules></PropertyGroup><ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')"><Import Project="$(QtMsBuild)\qt.props" /></ImportGroup>
+  
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\Third;..\Third\spdlog;..\Third\breakpad;moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>..\Include\Precomp\precompile.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>..\Include\Precomp\precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\BLL.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;BLL_LIBRARY;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
+    <Link>
+      <AdditionalDependencies>..\Lib\Model.lib;..\Lib\Utilities.lib;..\Lib\DAO.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <LinkIncremental>false</LinkIncremental>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)\BLL.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;BLL_LIBRARY;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy ".\src\bll.h" ".\..\Include\BLL\" /y &amp; xcopy ".\src\baseSet\*.h" ".\..\Include\BLL\baseSet\" /y &amp; xcopy ".\src\sample\*.h" ".\..\Include\BLL\sample\" /y &amp; xcopy ".\src\user\*.h" ".\..\Include\BLL\user\" /y &amp; xcopy ".\src\reagent\*.h" ".\..\Include\BLL\reagent\" /y &amp; xcopy ".\src\comm\*.h" ".\..\Include\BLL\comm\" /y &amp;
+if errorlevel 1 goto VCEnd
+copy "$(TargetPath)" ..\Bin</Command>
+      <Message>xcopy ".\src\bll.h" ".\..\Include\BLL\" /y &amp; xcopy ".\src\baseSet\*.h" ".\..\Include\BLL\baseSet\" /y &amp; xcopy ".\src\sample\*.h" ".\..\Include\BLL\sample\" /y &amp; xcopy ".\src\user\*.h" ".\..\Include\BLL\user\" /y &amp; xcopy ".\src\reagent\*.h" ".\..\Include\BLL\reagent\" /y &amp; xcopy ".\src\comm\*.h" ".\..\Include\BLL\comm\" /y &amp;Copy BLL.dll to ..\Bin</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\Third;..\Third\spdlog;..\Third\breakpad;moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>..\Include\Precomp\precompile.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>..\Include\Precomp\precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\BLL.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;BLL_LIBRARY;QT_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
+    <Link>
+      <AdditionalDependencies>..\Lib\Model.lib;..\Lib\Utilities.lib;..\Lib\DAO.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkDLL>true</LinkDLL>
+      <OutputFile>$(OutDir)\BLL.dll</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;BLL_LIBRARY;QT_DEPRECATED_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <PostBuildEvent>
+      <Command>xcopy ".\src\bll.h" ".\..\Include\BLL\" /y &amp; xcopy ".\src\baseSet\*.h" ".\..\Include\BLL\baseSet\" /y &amp; xcopy ".\src\sample\*.h" ".\..\Include\BLL\sample\" /y &amp; xcopy ".\src\user\*.h" ".\..\Include\BLL\user\" /y &amp; xcopy ".\src\reagent\*.h" ".\..\Include\BLL\reagent\" /y &amp; xcopy ".\src\comm\*.h" ".\..\Include\BLL\comm\" /y &amp;
+if errorlevel 1 goto VCEnd
+copy "$(TargetPath)" ..\Bin</Command>
+      <Message>xcopy ".\src\bll.h" ".\..\Include\BLL\" /y &amp; xcopy ".\src\baseSet\*.h" ".\..\Include\BLL\baseSet\" /y &amp; xcopy ".\src\sample\*.h" ".\..\Include\BLL\sample\" /y &amp; xcopy ".\src\user\*.h" ".\..\Include\BLL\user\" /y &amp; xcopy ".\src\reagent\*.h" ".\..\Include\BLL\reagent\" /y &amp; xcopy ".\src\comm\*.h" ".\..\Include\BLL\comm\" /y &amp;Copy BLL.dll to ..\Bin</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\baseSet\AgeUnitBLL.cpp" />
+    <ClCompile Include="src\comm\BarCodeRule.cpp" />
+    <ClCompile Include="src\baseSet\BedNoBLL.cpp" />
+    <ClCompile Include="src\comm\CliaEncryption.cpp" />
+    <ClCompile Include="src\baseSet\DepartmentBLL.cpp" />
+    <ClCompile Include="src\baseSet\DiagnosisBLL.cpp" />
+    <ClCompile Include="src\comm\GetLanguageClsBLL.cpp" />
+    <ClCompile Include="src\baseSet\InstrumentParasSetBLL.cpp" />
+    <ClCompile Include="src\baseSet\ItemBll.cpp" />
+    <ClCompile Include="src\baseSet\ProcessBLL.cpp" />
+    <ClCompile Include="src\baseSet\ProcessParaBLL.cpp" />
+    <ClCompile Include="src\reagent\ProcessReagentBLL.cpp" />
+    <ClCompile Include="src\baseSet\ProcessStepBLL.cpp" />
+    <ClCompile Include="src\reagent\ReagentBLL.cpp" />
+    <ClCompile Include="src\baseSet\RemarkBLL.cpp" />
+    <ClCompile Include="src\sample\SampleBLL.cpp" />
+    <ClCompile Include="src\baseSet\SampleSenderBLL.cpp" />
+    <ClCompile Include="src\baseSet\SexBLL.cpp" />
+    <ClCompile Include="src\baseSet\SystemSetBLL.cpp" />
+    <ClCompile Include="src\baseSet\TestPaperBLL.cpp" />
+    <ClCompile Include="src\user\UserBLL.cpp" />
+    <ClCompile Include="src\baseSet\WardBLL.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\baseSet\AgeUnitBLL.h" />
+    <ClInclude Include="src\comm\BarCodeRule.h" />
+    <ClInclude Include="src\baseSet\BedNoBLL.h" />
+    <ClInclude Include="src\comm\CliaEncryption.h" />
+    <ClInclude Include="src\baseSet\DepartmentBLL.h" />
+    <ClInclude Include="src\baseSet\DiagnosisBLL.h" />
+    <ClInclude Include="src\comm\GetLanguageClsBLL.h" />
+    <ClInclude Include="src\baseSet\InstrumentParasSetBLL.h" />
+    <ClInclude Include="src\baseSet\ItemBll.h" />
+    <ClInclude Include="src\baseSet\ProcessBLL.h" />
+    <ClInclude Include="src\baseSet\ProcessParaBLL.h" />
+    <ClInclude Include="src\reagent\ProcessReagentBLL.h" />
+    <ClInclude Include="src\baseSet\ProcessStepBLL.h" />
+    <ClInclude Include="src\reagent\ReagentBLL.h" />
+    <ClInclude Include="src\baseSet\RemarkBLL.h" />
+    <ClInclude Include="src\sample\SampleBLL.h" />
+    <ClInclude Include="src\baseSet\SampleSenderBLL.h" />
+    <ClInclude Include="src\baseSet\SexBLL.h" />
+    <ClInclude Include="src\baseSet\SystemSetBLL.h" />
+    <ClInclude Include="src\baseSet\TestPaperBLL.h" />
+    <ClInclude Include="src\user\UserBLL.h" />
+    <ClInclude Include="src\baseSet\WardBLL.h" />
+    <ClInclude Include="src\bll.h" />
+    <CustomBuild Include="..\Include\Precomp\precompile.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">echo /*-------------------------------------------------------------------- &gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating precompiled header source file '..\Include\Precomp\precompile.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\Include\Precomp\precompile.h.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">echo /*-------------------------------------------------------------------- &gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating precompiled header source file '..\Include\Precomp\precompile.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\Include\Precomp\precompile.h.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="moc\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -Zi -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">moc\moc_predefs.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')"><Import Project="$(QtMsBuild)\qt.targets" /></ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

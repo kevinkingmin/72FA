@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ReagentManager</class>
+ <widget class="QWidget" name="ReagentManager">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1327</width>
+    <height>741</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ReagentManager</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>20</y>
+     <width>281</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>试剂厂家选择</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_Company">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>70</y>
+     <width>231</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>公司名称</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_Reagent">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>70</y>
+     <width>971</width>
+     <height>541</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>试剂名称</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>膜条名称</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>防挂滴</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>试剂回流</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>运行前灌注</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>泵的分配</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>大充灌量</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>小充灌量</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>890</x>
+     <y>620</y>
+     <width>391</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="4">
+     <widget class="QPushButton" name="Delete_Button">
+      <property name="text">
+       <string>删除</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="Add_Button">
+      <property name="text">
+       <string>追加</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="Modify_Button">
+      <property name="text">
+       <string>修正</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

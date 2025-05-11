@@ -1,0 +1,2005 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{ECA6A421-FC50-3006-AE2C-BC17111BA489}</ProjectGuid>
+    <RootNamespace>HumablotPro</RootNamespace>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
+  <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild></PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\Bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>HumablotPro</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\Bin\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>HumablotPro</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" /><Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')"><Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." /></Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')"><Import Project="$(QtMsBuild)\qt_defaults.props" /></ImportGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><OutDir>..\Bin\</OutDir><IntDir>debug\</IntDir><TargetName>HumablotPro</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary></PropertyGroup><PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><OutDir>..\Bin\</OutDir><IntDir>release\</IntDir><TargetName>HumablotPro</TargetName><IgnoreImportLibrary>true</IgnoreImportLibrary><LinkIncremental>false</LinkIncremental></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"><QtInstall>5.12.4_msvc2017_64</QtInstall><QtModules>core;xml;sql;network;gui;widgets;printsupport;concurrent;charts</QtModules></PropertyGroup><PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'"><QtInstall>5.12.4_msvc2017_64</QtInstall><QtModules>core;xml;sql;network;gui;widgets;printsupport;concurrent;charts</QtModules></PropertyGroup><ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')"><Import Project="$(QtMsBuild)\qt.props" /></ImportGroup>
+  
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\Include;..\Include\Model;..\Include\Model\sample;..\Third;..\Third\spdlog;..\Third\breakpad;..\opencv_build\include;qtsingleapplication;moc;\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>..\Include\Precomp\precompile.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>..\Include\Precomp\precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\HumablotPro.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <ProgramDataBaseFileName></ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
+    <Link>
+      <AdditionalDependencies>D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\BLL.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Utilities.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\DAO.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Analysis.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\ImageConvert.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\MVSDKmd.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\VideoRender.lib;..\Lib\OpenCV\opencv_world340.lib;..\Lib\Database.lib;..\Lib\Instrument.lib;..\Lib\TCPClient.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>-Wl,--kill-at "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\HumablotPro.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <Version>1.0</Version>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  <QtMoc><CompilerFlavor>msvc</CompilerFlavor><Include>./moc/moc_predefs.h</Include><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><DynamicSource>output</DynamicSource><QtMocDir>moc</QtMocDir><QtMocFileName>moc_%(Filename).cpp</QtMocFileName></QtMoc><QtUic><ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription><QtUicDir>moc</QtUicDir><QtUicFileName>ui_%(Filename).h</QtUicFileName></QtUic></ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;..\Include;..\Include\Model;..\Include\Model\sample;..\Third;..\Third\spdlog;..\Third\breakpad;..\opencv_build\include;qtsingleapplication;moc;\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForcedIncludeFiles>..\Include\Precomp\precompile.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>..\Include\Precomp\precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)\HumablotPro.pch</PrecompiledHeaderOutputFile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
+    <Link>
+      <AdditionalDependencies>D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\BLL.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Utilities.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\DAO.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Analysis.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\ImageConvert.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\MVSDKmd.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\VideoRender.lib;..\Lib\OpenCV\opencv_world340d.lib;..\Lib\Databased.lib;..\Lib\Instrumentd.lib;..\Lib\TCPClientd.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>-Wl,--kill-at "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\HumablotPro.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <Version>1.0</Version>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  <QtMoc><CompilerFlavor>msvc</CompilerFlavor><Include>./moc/moc_predefs.h</Include><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><DynamicSource>output</DynamicSource><QtMocDir>moc</QtMocDir><QtMocFileName>moc_%(Filename).cpp</QtMocFileName></QtMoc><QtUic><ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription><QtUicDir>moc</QtUicDir><QtUicFileName>ui_%(Filename).h</QtUicFileName></QtUic></ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\utility\AboutUsWidgets.cpp" />
+    <ClCompile Include="src\utility\AddCompany.cpp" />
+    <ClCompile Include="src\utility\AddReagent.cpp" />
+    <ClCompile Include="src\sample\model\AddSampleVModel.cpp" />
+    <ClCompile Include="src\sample\AddSampleWidget.cpp" />
+    <ClCompile Include="src\utility\AddTubeStep1.cpp" />
+    <ClCompile Include="src\utility\AddTubeStep2.cpp" />
+    <ClCompile Include="src\utility\AddTubeStep3.cpp" />
+    <ClCompile Include="src\utility\AddTubeStep4.cpp" />
+    <ClCompile Include="src\main\AlarmInfoWidgets.cpp" />
+    <ClCompile Include="src\comm\BaseDialog.cpp" />
+    <ClCompile Include="src\sample\BatchAddSampleWidgets.cpp" />
+    <ClCompile Include="src\Camera\Camera.cpp" />
+    <ClCompile Include="src\utility\maintain\CameraCheckWidgets.cpp" />
+    <ClCompile Include="src\Camera\CameraControl.cpp" />
+    <ClCompile Include="src\Camera\CameraParametersSet.cpp" />
+    <ClCompile Include="src\delegate\ComboxDelegate.cpp" />
+    <ClCompile Include="src\main\CreateDump.cpp" />
+    <ClCompile Include="src\comm\CustClickWidget.cpp" />
+    <ClCompile Include="src\comm\CustomButton.cpp" />
+    <ClCompile Include="src\comm\CustomLabel.cpp" />
+    <ClCompile Include="src\comm\CustomLabel1.cpp" />
+    <ClCompile Include="src\comm\CustomerPumpStateLable.cpp" />
+    <ClCompile Include="src\comm\DataConvertHelper.cpp" />
+    <ClCompile Include="src\sample\EmptyWasteBottleWidget.cpp" />
+    <ClCompile Include="src\sample\subDialog\FromLisByIntervalWidgets.cpp" />
+    <ClCompile Include="src\model\GetLanguageCls.cpp" />
+    <ClCompile Include="src\comm\Global.cpp" />
+    <ClCompile Include="src\comm\GlobalData.cpp" />
+    <ClCompile Include="src\types\HumaClia2000Data.cpp" />
+    <ClCompile Include="src\main\InitWidgets.cpp" />
+    <ClCompile Include="src\sample\IrrigationSystemLiquidWidget.cpp" />
+    <ClCompile Include="src\model\LanguageInfo.cpp" />
+    <ClCompile Include="src\comm\LightButton.cpp" />
+    <ClCompile Include="src\utility\maintain\LiquidDetectionWidgets.cpp" />
+    <ClCompile Include="src\main\LisSettingWidgets.cpp" />
+    <ClCompile Include="src\main\MainWidget.cpp" />
+    <ClCompile Include="src\utility\maintain\MaintainCmdWidget.cpp" />
+    <ClCompile Include="src\sample\subDialog\ManualIncubationWidgets.cpp" />
+    <ClCompile Include="src\utility\maintain\MonthMaintenanceWidgets.cpp" />
+    <ClCompile Include="src\main\subDialog\MyMessageBox.cpp" />
+    <ClCompile Include="src\utility\maintain\NewPumpRunningWidgets.cpp" />
+    <ClCompile Include="src\utility\maintain\PipeRefluxWidgets.cpp" />
+    <ClCompile Include="src\utility\maintain\PipeWashEmptyingWidgets.cpp" />
+    <ClCompile Include="src\utility\maintain\PipeWashWidgets.cpp" />
+    <ClCompile Include="src\sample\subDialog\PrepareReagentDialog.cpp" />
+    <ClCompile Include="src\sample\PrepareReagentWidget.cpp" />
+    <ClCompile Include="src\utility\ProcessParaWidgets.cpp" />
+    <ClCompile Include="src\main\subDialog\ProgressDialog.cpp" />
+    <ClCompile Include="src\utility\maintain\PumpAutoCheckWidgets.cpp" />
+    <ClCompile Include="src\utility\maintain\PumpCalibrateWidget.cpp" />
+    <ClCompile Include="src\utility\maintain\PumpManaCheckWidgets.cpp" />
+    <ClCompile Include="src\utility\QtWidgetstOperateLog.cpp" />
+    <ClCompile Include="src\Camera\RGBConvert.cpp" />
+    <ClCompile Include="src\utility\ReagentManager.cpp" />
+    <ClCompile Include="src\sample\subDialog\RepeatSetDialog.cpp" />
+    <ClCompile Include="src\sample\model\RepeatSetModel.cpp" />
+    <ClCompile Include="src\utility\ResultDetail.cpp" />
+    <ClCompile Include="src\utility\ResultManage.cpp" />
+    <ClCompile Include="src\utility\RulesSetting.cpp" />
+    <ClCompile Include="src\sample\RunPaperPosThread.cpp" />
+    <ClCompile Include="src\sample\SampleWidget.cpp" />
+    <ClCompile Include="src\sample\subDialog\SelectProcessDialog.cpp" />
+    <ClCompile Include="src\sample\subDialog\SelfCheckResultShowDialog.cpp" />
+    <ClCompile Include="src\sample\subDialog\SetFirstPaperPosDialog.cpp" />
+    <ClCompile Include="src\sample\ShowAllPicWidgets.cpp" />
+    <ClCompile Include="src\main\subDialog\ShowImageDialog.cpp" />
+    <ClCompile Include="src\sample\ShowTestResultDetail.cpp" />
+    <ClCompile Include="src\utility\maintain\SystemLiquidPipeWashWidgets.cpp" />
+    <ClCompile Include="src\utility\SystemSet.cpp" />
+    <ClCompile Include="src\sample\model\TestDataListVModel.cpp" />
+    <ClCompile Include="src\sample\TestDataListWidget.cpp" />
+    <ClCompile Include="src\utility\TestPaper.cpp" />
+    <ClCompile Include="src\utility\TestPaperManage.cpp" />
+    <ClCompile Include="src\Camera\TestResultDataAll.cpp" />
+    <ClCompile Include="src\Camera\TestResultDataManage.cpp" />
+    <ClCompile Include="src\Camera\TestResultDataOneType.cpp" />
+    <ClCompile Include="src\sample\TestResultDetailDialog.cpp" />
+    <ClCompile Include="src\sample\TestSampleWidget.cpp" />
+    <ClCompile Include="src\utility\TubeManage.cpp" />
+    <ClCompile Include="src\main\UserManageWidget.cpp" />
+    <ClCompile Include="src\utility\UtilityWidget.cpp" />
+    <ClCompile Include="src\utility\maintain\WeekMaintenanceWidgets.cpp" />
+    <ClCompile Include="src\utility\WelcomWidgets.cpp" />
+    <ClCompile Include="src\main\WorkerThread.cpp" />
+    <ClCompile Include="src\comm\customerTableView.cpp" />
+    <ClCompile Include="src\main\firstwidgetbase.cpp" />
+    <ClCompile Include="src\comm\freezetableview.cpp" />
+    <ClCompile Include="src\main\loginform.cpp" />
+    <ClCompile Include="src\main\main.cpp" />
+    <ClCompile Include="src\main\mainwindow.cpp" />
+    <ClCompile Include="qtsingleapplication\qtlocalpeer.cpp" />
+    <ClCompile Include="qtsingleapplication\qtsingleapplication.cpp" />
+    <ClCompile Include="src\workArea\workAreaForm.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="src\utility\AboutUsWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\AddCompany.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\AddReagent.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\model\AddSampleVModel.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\AddSampleWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\AddTubeStep1.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\AddTubeStep2.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\AddTubeStep3.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\AddTubeStep4.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\AlarmInfoWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\comm\BaseDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\BatchAddSampleWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\Camera\Camera.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\CameraCheckWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\Camera\CameraControl.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\Camera\CameraParametersSet.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\delegate\ComboxDelegate.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <ClInclude Include="src\main\CreateDump.h" />
+    <QtMoc Include="src\comm\CustClickWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <ClInclude Include="src\comm\CustomButton.h" />
+    <QtMoc Include="src\comm\CustomLabel.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\comm\CustomLabel1.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <ClInclude Include="src\comm\CustomerPumpStateLable.h" />
+    <ClInclude Include="src\comm\DataConvertHelper.h" />
+    <ClInclude Include="src\delegate\DelegateData.h" />
+    <QtMoc Include="src\sample\EmptyWasteBottleWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\FromLisByIntervalWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <ClInclude Include="src\model\GetLanguageCls.h" />
+    <ClInclude Include="src\comm\Global.h" />
+    <ClInclude Include="src\comm\GlobalData.h" />
+    <ClInclude Include="src\types\HumaClia2000.h" />
+    <ClInclude Include="src\types\HumaClia2000Data.h" />
+    <QtMoc Include="src\main\InitWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\IrrigationSystemLiquidWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <ClInclude Include="src\model\LanguageInfo.h" />
+    <QtMoc Include="src\comm\LightButton.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\LiquidDetectionWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\LisSettingWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\MainWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\MaintainCmdWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\ManualIncubationWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\MonthMaintenanceWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\subDialog\MyMessageBox.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\NewPumpRunningWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <ClInclude Include="src\comm\ObjectTr.h" />
+    <QtMoc Include="src\utility\maintain\PipeRefluxWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PipeWashEmptyingWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PipeWashWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\PrepareReagentDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\PrepareReagentWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\ProcessParaWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\subDialog\ProgressDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PumpAutoCheckWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PumpCalibrateWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\PumpManaCheckWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\QtWidgetstOperateLog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <ClInclude Include="src\Camera\RGBConvert.h" />
+    <QtMoc Include="src\utility\ReagentManager.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\RepeatSetDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\model\RepeatSetModel.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\ResultDetail.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\ResultManage.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\RulesSetting.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\RunPaperPosThread.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\SampleWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\SelectProcessDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\SelfCheckResultShowDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\SetFirstPaperPosDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\ShowAllPicWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\subDialog\ShowImageDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\ShowTestResultDetail.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\SystemLiquidPipeWashWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\SystemSet.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\model\TestDataListVModel.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\TestDataListWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\TestPaper.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\TestPaperManage.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\Camera\TestResultDataAll.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\Camera\TestResultDataManage.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\Camera\TestResultDataOneType.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\TestResultDetailDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\sample\TestSampleWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\TubeManage.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\UserManageWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\UtilityWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\maintain\WeekMaintenanceWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\WelcomWidgets.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\WorkerThread.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\comm\customerTableView.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\firstwidgetbase.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\comm\freezetableview.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\loginform.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\main\mainwindow.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <CustomBuild Include="..\Include\Precomp\precompile.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">echo /*-------------------------------------------------------------------- &gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating precompiled header source file '..\Include\Precomp\precompile.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\Include\Precomp\precompile.h.cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">echo /*-------------------------------------------------------------------- &gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Precompiled header source file used by Visual Studio.NET to generate&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * the .pch file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * Due to issues with the dependencies checker within the IDE, it&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * sometimes fails to recompile the PCH file, if we force the IDE to&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * create the PCH file directly from the header file.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * This file is auto-generated by qmake since no PRECOMPILED_SOURCE was&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * specified, and is used as the common stdafx.cpp. The file is only&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * generated when creating .vcxproj project files, and is not used for&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * command line compilations by nmake.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo *&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo * WARNING: All changes made in this file will be lost.&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo --------------------------------------------------------------------*/&gt;&gt;..\Include\Precomp\precompile.h.cpp
+if errorlevel 1 goto VCEnd
+echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating precompiled header source file '..\Include\Precomp\precompile.h.cpp' ...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\Include\Precomp\precompile.h.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <QtMoc Include="qtsingleapplication\qtlocalpeer.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="qtsingleapplication\qtsingleapplication.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\workArea\workAreaForm.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <CustomBuild Include="moc\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MD -std:c++17 -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">moc\moc_predefs.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -std:c++17 -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    
+    
+    
+    <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NOINHERIT)</ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">precompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="src\utility\AboutUsWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\AddCompany.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\AddReagent.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\AddSampleWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\AddTubeStep1.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\AddTubeStep2.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\AddTubeStep3.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\AddTubeStep4.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\main\AlarmInfoWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\BatchAddSampleWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\Camera\Camera.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\CameraCheckWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\EmptyWasteBottleWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\FromLisByIntervalWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\main\InitWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\IrrigationSystemLiquidWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\LiquidDetectionWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\main\LisSettingWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\main\MainWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\utility\maintain\MaintainCmdWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\ManualIncubationWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\MonthMaintenanceWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\NewPumpRunningWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PipeRefluxWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PipeWashEmptyingWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PipeWashWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\PrepareReagentDialog.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\PrepareReagentWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\ProcessParaWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\main\subDialog\ProgressDialog.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PumpAutoCheckWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\utility\maintain\PumpCalibrateWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\PumpManaCheckWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\QtWidgetstOperateLog.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\ReagentManager.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\RepeatSetDialog.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\ResultDetail.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\ResultManage.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\RulesSetting.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\SampleWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\SelectProcessDialog.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\sample\subDialog\SelfCheckResultShowDialog.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\SetFirstPaperPosDialog.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\sample\ShowAllPicWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\main\subDialog\ShowImageDialog.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\SystemLiquidPipeWashWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\SystemSet.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\TestDataListWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\TestPaper.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\TestPaperManage.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\Camera\TestResultDataAll.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\Camera\TestResultDataManage.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\Camera\TestResultDataOneType.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\TestSampleWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\TubeManage.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\main\UserManageWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\utility\UtilityWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\maintain\WeekMaintenanceWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="src\utility\WelcomWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\main\loginform.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\main\mainwindow.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\workArea\workAreaForm.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include=".\HumablotPro_resource.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" /><ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')"><Import Project="$(QtMsBuild)\qt.targets" /></ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
