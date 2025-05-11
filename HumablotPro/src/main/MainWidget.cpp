@@ -1536,13 +1536,13 @@ void MainWidget::on_pushButton_osk_open_clicked()
 void MainWidget::on_btnCloseBeep1_clicked()
 {
      // slz
-     qDebug() << "close bee wz2";
-     Analysis m_analysis;
-     m_analysis.AnalysisMothed("202503140959581",29,"202503140959581", "solutionName","");
-     iLog("wangzhen");
+    //  qDebug() << "close bee wz2";
+    //  Analysis m_analysis;
+    //  m_analysis.AnalysisMothed("202503140959581",29,"202503140959581", "solutionName","");
+    //  iLog("wangzhen");
 
 
-//    _instr->shutdownBee();
+    _instr->shutdownBee();
     //OnAction_CloseBeep();
     // TODO::WangZ
 //    qDebug() << "close bee wz";

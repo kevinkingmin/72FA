@@ -16,6 +16,10 @@
 #include "../Include/Model/sample/SampleTestModel.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
 #include "../Include/DAO/Analysis/AnalysisDao.h"
+#include "../Include/BLL/baseSet/SystemSetBLL.h"
+#include "../Include/Model/baseSet/SystemSetModel.h"
+#include "../Include/Utilities/log.h"
+#include "../Include/Utilities/async_task.h"
 #include "BatchAddSampleWidgets.h"
 #include "src/comm/Global.h"
 #include <QThread>
@@ -37,14 +41,16 @@ AddSampleWidget::AddSampleWidget(QWidget *parent) :
   , _repeatSetDialog(new RepeatSetDialog(this))
   , m_batchAddSampleWidget(new BatchAddSampleWidgets(this))
   , m_instr(Instrument::instance())
+  , m_scanBarcodeError("")
+  , m_tcpClient(nullptr)
+  , m_LISRepeatBarcord{}
+  , m_LISERRDes("")
+  , m_samplePos(-1)
+  , m_progressDialog(nullptr)
+  , m_isLISRequestDataFinish(true)
 {
     ui->setupUi(this);
-    m_progressDialog = new ProgressDialog(this);
-    auto dao = AnalysisUIDao::instance();
-    bool bResult;
-    g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
     initUI();
-
 }
 void AddSampleWidget::setProgressDialog(ProgressDialog *progressDialog){
     m_progressDialog = progressDialog;
@@ -56,30 +62,199 @@ AddSampleWidget::~AddSampleWidget()
     delete ui;
 }
 
-void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData){
-    m_progressDialog->done(1);
-    QJsonDocument doc = QJsonDocument::fromJson(resultData);
-    if(doc.isNull()||doc.isEmpty()){
-        return;
-    }
-    QJsonArray jsonArray =doc.array();
+void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
+{
     int star_pos = ui->lineEdit_3->text().toInt();
     int end_pos = ui->lineEdit_4->text().toInt();
-    for(int i=star_pos;i<end_pos+1;i++){
-        slotGetSampleBarCode(i,jsonArray.at(i-star_pos).toString());
+    QJsonDocument doc = QJsonDocument::fromJson(resultData);
+    if(doc.isNull()||doc.isEmpty())
+    {
+		scanWorkState(true);
+        return;
+    }
+    QJsonArray jsonArray =doc.array();    
+    QString barcode("");
+    for(int i=star_pos;i<end_pos+1;i++)
+	{
+        barcode=jsonArray.at(i-star_pos).toString();
+        if(!m_tcpClient->m_connectedState)
+            slotGetSampleBarCode(i,barcode);
+        auto it(m_barCodePosMap.find(i));
+        if(it==m_barCodePosMap.end())
+        {
+            eLog("scan data wrong,pos:{},barcode:{}",i,barcode.toStdString());
+            continue;
+        }		
+        m_barCodePosMap.insert(i,barcode);
+    }
+
+    if(m_tcpClient==nullptr || !m_tcpClient->m_connectedState)
+    {
+		scanWorkState(true);
+        return;
+    }
+
+    AsyncTask::post([this]()
+    {
+        QTime timer;
+        for(auto it=m_barCodePosMap.begin();it!=m_barCodePosMap.end();it++)
+        {	
+            if (!m_tcpClient->m_connectedState)
+			{
+				emit sglSendRequestDataToLIS("finish");
+				eLog("TCP break");
+				break;
+			}
+
+            if(it.value().isEmpty())
+            {
+                eLog("data is empty,pos:{}",it.key());
+                continue;
+            }
+
+            auto sendData(getHL7RequestData(it.value()));
+            timer.start();
+            while (!m_isLISRequestDataFinish)
+            {
+                if(timer.elapsed()>8000)
+                {
+                    eLog("request data failed,data:{}",sendData.toStdString());
+                    break;
+                }
+                Sleep(100);
+            }
+
+            m_isLISRequestDataFinish=false;
+            m_samplePos=it.key()-1;
+            emit sglSendRequestDataToLIS(sendData);
+        }
+
+        m_isLISRequestDataFinish=true;
+		Sleep(2000);
+		timer.restart();
+		while (m_progressDialog->isVisible())
+		{
+			if (timer.elapsed() > 6000)
+			{
+				emit sglSendRequestDataToLIS("finish");
+				break;
+			}
+			Sleep(100);
+		}
+    });
+}
+
+void AddSampleWidget::slotRecivedLISData(const QString &data)
+{
+    if (m_samplePos < 0)
+    {
+        m_isLISRequestDataFinish=true;
+        eLog("sample pos error,pos:{}", m_samplePos+1);
+        return;
+    }
+    QString sample_id("");
+    QVector<QString> paperIds;
+    QStringList segments(data.split("\r"));
+    for (int i = 0; i < segments.size(); i++)
+    {
+        QString need_sz = segments[i];
+        QString modifiedString = need_sz.replace("\n", "");
+        if (!modifiedString.startsWith("OBR"))
+            continue;
+        QStringList obrFields = modifiedString.split("|");
+        if (obrFields.length() < 6)
+        {
+            eLog("LIS data wrong:{}", modifiedString.toStdString());
+            continue;
+        }
+        paperIds.push_back(obrFields.at(5).simplified());
+        if (sample_id.isEmpty())
+            sample_id = obrFields.at(3).simplified();
+    }
+    if (m_LISRepeatBarcord.contains(sample_id))
+            m_LISERRDes += tr("LIS服务器返回重复条码:%1,样本位置:%2\r\n").arg(sample_id).arg(m_samplePos+1);
+    QDate currentDate = QDate::currentDate();
+    
+    QString create_time = currentDate.toString("yyyy-MM-dd");
+    auto dao = AnalysisUIDao::instance();
+    bool bResult = true;
+    if (paperIds.isEmpty())
+    {
+        m_isLISRequestDataFinish=true;
+        return;
+    }
+    QString sql_insert = "insert into tsample(sampleNo,Id,paperPos,paperId,stateFlag,createDay,samplePos,cupType)values";
+    QString valueStr{ "" };
+    for (auto paperId : paperIds)
+        valueStr += QString("('%1','%1',1,%2,1,'%3',%4,1),").arg(sample_id).arg(paperId).arg(create_time).arg(m_samplePos);
+    sql_insert = sql_insert + valueStr.left(valueStr.length() - 1);
+    dao->UpdateRecord(&bResult, sql_insert);
+    if (!bResult)
+        eLog("insert into tsample failed,barcode:{},samplePos:{}", sample_id.toStdString(), m_samplePos);
+    m_isLISRequestDataFinish=true;
+    if(m_samplePos+1 >= m_barCodePosMap.lastKey())
+    {
+        ShowTestInfoFromDatabase();
+		scanWorkState(true);
+		if (!m_LISERRDes.isEmpty())
+		{
+			MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), m_LISERRDes, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+			m_LISERRDes = "";
+		}
     }
 }
 
+QString AddSampleWidget::getHL7RequestData(const QString &barCode)
+{
+    QString send_sz = "";
+    send_sz += QString("%1MSH | ^ |||||  || OUL ^ R21 |  | P |||| AL | AL || ASCII |||%2").arg(QChar(0x0B)).arg(QChar(0x0D));
+    send_sz += QString("PID | %1 ||||||  | 0 |||||||||||||||||||||||%2").arg(barCode).arg(QChar(0x0D));
+    send_sz += QString("%1%2").arg(QChar(0x1C)).arg(QChar(0x0D));
+    return send_sz;
+}
+
+void AddSampleWidget::slotSendRequestDataToLIS(const QString &requstData)
+{
+    if (m_tcpClient == nullptr || requstData=="finish")
+    {
+		scanWorkState(true);
+		if (m_tcpClient == nullptr)
+			eLog("m_tcpClient is null");
+		else
+			MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("从LIS服务器下载数据出错！"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+		ShowTestInfoFromDatabase();
+		return;
+    }
+
+    if (m_tcpClient->m_connectedState)
+    {		
+        m_tcpClient->sendData(requstData);
+    }
+}
+void AddSampleWidget::scanWorkState(const bool isFinish)
+{
+	if (isFinish)
+	{
+		m_progressDialog->hide();
+		ui->btnBCR->setEnabled(true);
+		emit ChangeBtnSaveSignal(true);
+		emit ChangeBtnNextSignal(true);
+	}
+	else
+	{
+		emit ChangeBtnSaveSignal(false);
+		emit ChangeBtnNextSignal(false);
+		ui->btnBCR->setEnabled(false);
+	}
+	
+}
 //得到查询条件，然后传进去查询函数中去。
 void AddSampleWidget::slotGetQueryCondition(QString condition1,QString condition2)
 {
     QString a = condition1 + "--" + condition2;
     MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), a, MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-
-    if (condition1 != "" && condition2!="")
-    {
-        Send_ID_ToList("Intervalrequest:" + condition1 + "|" + condition2);
-    }
+    //if (condition1 != "" && condition2!="")
+        //Send_ID_ToList("Intervalrequest:" + condition1 + "|" + condition2);
 }
 
 void AddSampleWidget::showEvent(QShowEvent *e)
@@ -96,15 +271,15 @@ void AddSampleWidget::on_btnBatchAdd_clicked()
 
 void AddSampleWidget::initUI()
 {
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1042");
+    QString sz = GlobalData::LoadLanguageInfo("K1042");
     ui->label_2->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1043");
+    sz = GlobalData::LoadLanguageInfo("K1043");
     ui->label_5->setText(sz);
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1044");
+    sz = GlobalData::LoadLanguageInfo("K1044");
     ui->btnBatchAdd->setText(sz);
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1045");
+    sz = GlobalData::LoadLanguageInfo("K1045");
     ui->btnBCR->setText(sz);
 
     createSamplePos();
@@ -210,8 +385,6 @@ void AddSampleWidget::initUI()
     });
 
     ui->tvSampleSet->setContextMenuPolicy(Qt::CustomContextMenu);
-    //连接右键菜单对应的信号槽
-    connect(ui->tvSampleSet, &QTableView::customContextMenuRequested, this, &AddSampleWidget::on_tableView_customContextMenuRequested);
     //connect(ui->checkBoxBCR, SIGNAL(stateChanged(int)), this, SLOT(OnShowBtnState()));
     connect(m_instr, SIGNAL(sglGetSampleBatchNo(int,QString)), this, SLOT(slotGetSampleBarCode(int,QString)));
     //从条件查询窗口得到数据
@@ -259,7 +432,7 @@ void AddSampleWidget::initUI()
             .QScrollBar::add-line:vertical {subcontrol-origin: margin; border: 0px solid green; height:63px;subcontrol-position:bottom;}";
             ui->tvSampleSet->setStyleSheet(VSCROLLBAR_STYLE3);
     //去掉网格线
-    ui->tvSampleSet->setShowGrid(false);
+    //ui->tvSampleSet->setShowGrid(false);
 
     ui->tvSampleSet->setDragEnabled(true);
     ui->tvSampleSet->setSelectionMode(QAbstractItemView::SingleSelection); 	//拖动行列必选
@@ -297,31 +470,8 @@ void AddSampleWidget::initUI()
     connect(m_instr, SIGNAL(sglScanSampleCodeResult(QByteArray)), this, SLOT(slotGetSampleBarCodeList(QByteArray)));
 }
 
-void AddSampleWidget::contextMenuEvent(QContextMenuEvent *event)
-{
-    Q_UNUSED(event);
-    QMenu menu;
-    menu.exec(QCursor::pos());
-}
-
-void AddSampleWidget::on_tableView_customContextMenuRequested(const QPoint &pos)
-{
-
-}
-
-//点击QAction时触发
-void AddSampleWidget::SlotAction_triggered()
-{
-    QAction* pEven = qobject_cast<QAction*>(this->sender()); //this->sender()就是发信号者 QAction
-    //获取到的行数
-    int currentRow = pEven->data().toInt();
-    //显示
-    //ui->tvSampleSet->setselect//setSelect(currentRow, true);
-}
-
 void AddSampleWidget::ShowTestInfoFromDatabase()
 {
-    createSamplePos();
     auto dao = AnalysisUIDao::instance();
     bool bResult;
     int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
@@ -363,59 +513,49 @@ void AddSampleWidget::ShowTestInfoFromDatabase()
     setSamplePaperIdMap();
     setBtnCheckStyle();
     if (count > 0)
-    {
         emit ChangeBtnNextSignal(true);
-    }
     else
-    {
         emit ChangeBtnNextSignal(false);
-    }
-}
-void AddSampleWidget::ChangeBtnBCREnabled(bool flage)
-{
-    ui->btnBCR->setEnabled(flage);
 }
 
 void AddSampleWidget::slotGetSampleBarCode(int pos,QString barCode)
 {
     mScanBarCodePos++;
-    if (m_barCodePosVect.count()> 0)
+    if (m_barCodePosMap.count()> 0)
     {
-        //m_barCodePosMap[mScanBarCodePos] = barCode;
-        //_vModel->_vect[mScanBarCodePos - 1].sampleNo = barCode;
         m_barCodePosMap[pos] = barCode;
         _vModel->_vect[pos - 1].sampleNo = barCode;
     }
-    m_barCodePosMapFinshiFlage.insert(pos, "1");
-    if (m_barCodePosMapFinshiFlage.size() == m_barCodePosMap.size())
-    {
-        ui->tvSampleSet->setEditTriggers(QAbstractItemView::AllEditTriggers);
-        m_barCodePosMapFinshiFlage.clear();
-        ui->btnBCR->setEnabled(true);
-        emit ChangeBtnSaveSignal(true);
-        emit ChangeBtnNextSignal(true);
-        //m_instr->motorInitialize(0x01, 60000);
 
-    }
+    if (mScanBarCodePos == m_barCodePosMap.size())
+		scanWorkState(true);
+
     setSamplePaperIdMap();
     setBtnCheckStyle();
     ui->tvSampleSet->show();
     ui->tvSampleSet->setMouseTracking(true);
     ui->tvSampleSet->update();
-    QString request_str = "";
-    //request_str = QString("request:%1|%2,").arg(barCode).arg(pos - 1);
-    request_str = QString("%1|%2,").arg(barCode).arg(pos - 1);
-    //Send_ID_ToList("request:" + barCode + "|" + (pos - 1));
-    Send_ID_ToList(request_str);
 }
 
 void AddSampleWidget::on_btnBCR_clicked()
 {
+    m_scanBarcodeError = "";
+    if (!m_tcpClient->m_connectedState)
+    {
+        bool ret= GlobalData::reconnect();
+        if (ret && !m_tcpClient->m_connectedState)
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1736"), MyMessageBox::Ok, "OK", "");
+            return;
+        }
+    }
     OnShowBtnState();
 }
 
 void AddSampleWidget::OnShowBtnState()
 {
+	m_samplePos = -1;
+	m_LISERRDes = "";
     int star_pos = ui->lineEdit_3->text().toInt();
     int end_pos = ui->lineEdit_4->text().toInt();
     if (star_pos > end_pos)
@@ -433,50 +573,16 @@ void AddSampleWidget::OnShowBtnState()
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1375"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
         return;
     }
-    //return;
-    m_barCodePosVect.clear();
     m_barCodePosMap.clear();
     mScanBarCodePos = 0;
-    QVector<int> m_barCodePosVect_tmp;
-    QMap<int, QString> m_barCodePosMap_tmp;
+	m_samplePos = -1;
     for (int ipos = star_pos; ipos < end_pos + 1; ipos++)
     {
-        if (ipos % 2 == 0)
-        {
-        }
-        else
-        {
-            m_barCodePosVect_tmp.append(ipos);
-            m_barCodePosMap_tmp.insert(ipos, "");
-            //m_barCodePosMap.insert(ipos, "");
-        }
+        m_barCodePosMap.insert(ipos, "");
     }
-    for (int ipos = star_pos; ipos < end_pos + 1; ipos++)
-    {
-        if (ipos % 2 == 0)
-        {
-            m_barCodePosVect_tmp.append(ipos);
-            m_barCodePosMap_tmp.insert(ipos, "");
-            //m_barCodePosMap.insert(ipos, "");
-        }
-    }
-    m_barCodePosVect = m_barCodePosVect_tmp;
-    m_barCodePosMap = m_barCodePosMap_tmp;
-    if (m_barCodePosVect.count()>0)
-    {
-        ui->tvSampleSet->setEditTriggers(QAbstractItemView::NoEditTriggers); //>item(1, 0)->setFlags(Qt::NoItemFlags);
-        m_barCodePosMapFinshiFlage.clear();
-        emit ChangeBtnSaveSignal(false);
-        emit ChangeBtnNextSignal(false);
-        ui->btnBCR->setEnabled(false);
-        //每次扫码前先删除掉要请求的数据
-        bool bResult;
-        auto dao1 = AnalysisUIDao::instance();
-        QString sql = "";
-        sql += QString("delete from request_lis_data");
-        dao1->UpdateRecord(&bResult, sql);
-        //m_instr->scanSampleBatchNo(m_barCodePosVect);
-    }
+
+    if (m_barCodePosMap.count()>0)
+		scanWorkState(false);
     m_instr->scanSampleCode(QString::number(star_pos),QString::number(end_pos));
     m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1712"));
     m_progressDialog->exec();
@@ -497,14 +603,11 @@ void AddSampleWidget::createSamplePos()
         text=QString::number(i);
         auto btn=new QPushButton(this);
         btn->setText(text);
-        //btn->setProperty("btnStyle","btnPosStyle");
-        //btn->setFixedSize(200, 200);
         btn->setObjectName(text);
         btn->setCheckable(true);
         _btnGroup.addButton(btn);
         row=i%2;
         col=(i-1)/2;
-
         ui->gdLSamplePos->setProperty("lblStyle", "QTableView");
 
         if(i<=36)
@@ -522,27 +625,6 @@ void AddSampleWidget::createSamplePos()
         }
         btn->setStyleSheet("border-image: url((:/images/menu/tube16_d.png)");
     }
-}
-
-void AddSampleWidget::drawButton()
-{
-    QLabel* label = new QLabel();
-    QLabel* label4 = new QLabel();
-
-    QPixmap *pixmap4 = new QPixmap(":/images/menu/camer16.png");
-    pixmap4->scaled(label4->size(), Qt::KeepAspectRatio);
-    label4->setScaledContents(true);
-    label4->setPixmap(*pixmap4);
-
-    label->setText("1");
-    label->setFixedWidth(120);
-    QVBoxLayout* myLayout2 = new QVBoxLayout();
-    myLayout2->addSpacing(0);
-    myLayout2->addWidget(label4);
-    myLayout2->addSpacing(0);
-    myLayout2->addWidget(label);
-    myLayout2->addStretch();
-    //ui->pushButton_3->setLayout(myLayout2);
 }
 
 void AddSampleWidget::setBtnCheckStyle()
@@ -578,7 +660,7 @@ void AddSampleWidget::DeleteAllSample()
 
     QList<QModelIndex> list = ui->tvSampleSet->selectionModel()->selectedIndexes();
     int rows = ui->tvSampleSet->selectionModel()->Rows;
-    for (size_t i = 0; i <rows; i++)
+    for (int i = 0; i <rows; i++)
     {
         DeleteSampleList(i);
     }
@@ -613,7 +695,7 @@ void AddSampleWidget::SaveSampleListToDataBase()
     SaveSample();
 }
 
-#define WM_MYMESSAGE WM_USER + 1
+#define WM_MYMESSAGE WM_USER + 1 
 #define   WM_MYMSG WM_USER + 2001 //WM_USER为系统定义好的值为0x0400
 
 #ifdef Q_OS_WIN
@@ -621,32 +703,7 @@ void AddSampleWidget::SaveSampleListToDataBase()
 #include <qt_windows.h>
 #endif
 
-const ULONG_PTR CUSTOM_TYPE = 10000;
 const QString c_strTitle = "LisTool";
-
-bool AddSampleWidget::Send_ID_ToList(QString id)
-{
-    bool bResult;
-    auto dao1 = AnalysisUIDao::instance();
-    QString sql = "";
-
-    QStringList splitList = id.split(",");
-    if (splitList.size() > 0)
-    {
-        for (size_t i = 0; i < splitList.size(); i++)
-        {
-            QStringList splitList1 = splitList[i].split("|");
-            if (splitList1.size() > 1)
-            {
-                sql = "";
-                sql += QString("INSERT INTO request_lis_data(sample_id,request_statue,sample_pos)VALUES('%1',0,%2);").arg(splitList1[0]).arg(splitList1[1]);
-                dao1->UpdateRecord(&bResult, sql);
-            }
-        }
-    }
-
-    return false;
-}
 
 void AddSampleWidget::Incubation(int witch,int incubation_time)
 {
@@ -671,11 +728,8 @@ void AddSampleWidget::FromLis()
             QString sampleNo = _vModel->_vect[i].sampleNo;
             id1 = sampleNo;
             id += sampleNo+"|"+QString::number(i)+",";
-            int samplePos = _vModel->_vect[i].samplePos - 1;
             //int paperId = _vModel->_vect[i].;
             QString PatientName = _vModel->_vect[i].patientName;
-            int SexID = _vModel->_vect[i].sexID;
-            int Age = _vModel->_vect[i].age;
             int paper_id = 0;
             auto map = _vModel->_vect[i].paperCheckedCountMap;
             QMap<int, std::tuple<bool, int>>paperCheckedCountMap1;
@@ -685,7 +739,7 @@ void AddSampleWidget::FromLis()
                 int paper_id_tmp = m.key();
                 auto isChecked = std::get<0>(m.value());
                 int number = std::get<1>(m.value());
-                for (size_t jj = 0; jj < number; jj++)
+                for (int jj = 0; jj < number; jj++)
                 {
                     std::tuple tp(false, 1);
                     paperCheckedCountMap1.insert(paper_id_tmp, tp);
@@ -709,10 +763,6 @@ void AddSampleWidget::FromLis()
         QString sql = "";
         sql += QString("delete from request_lis_data");
         dao1->UpdateRecord(&bResult, sql);
-
-        //Send_ID_ToList("request:"+id);
-        //Send_ID_ToList("request:" + id);
-        Send_ID_ToList(id);
     }
 }
 
@@ -727,9 +777,6 @@ void AddSampleWidget::OnFromBatchAdd(QString content)
 
 void AddSampleWidget::FromTestDataByBatchAdd(QString condition)
 {
-
-
-
     m_batchAddSampleWidget->GetTestPaperInfo();
     m_batchAddSampleWidget->show();
 }
@@ -817,7 +864,7 @@ void AddSampleWidget::SaveSample()
                 int paper_id_tmp = m.key();
                 auto isChecked = std::get<0>(m.value());
                 int number = std::get<1>(m.value());
-                for (size_t jj = 0; jj < number; jj++)
+                for (int jj = 0; jj < number; jj++)
                 {
                     paper_id = GetPaperId(paper_id_tmp);
                     if (isChecked)
@@ -985,7 +1032,6 @@ bool AddSampleWidget::judgeTipInfo()
     {
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1384"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
         return false;
-        return_Value = false;
     }
     int totalTest = 0;
     for (auto it : testMap)
@@ -1069,7 +1115,7 @@ void AddSampleWidget::cancelAction()
     _vModel->updateData();
     for(auto btn:_btnGroup.buttons())
     {
-        if (btn==NULL)
+        if (btn==nullptr)
             return;
         style()->unpolish(btn);
         btn->setChecked(false);
@@ -1306,6 +1352,15 @@ void AddSampleWidget::setTestDataSlotPos(int startPos, int totalTest)
     }
 }
 
+void AddSampleWidget::setTcpClient(TcpClient *tcpClient)
+{
+    m_tcpClient = tcpClient;
+    disconnect(m_tcpClient, &TcpClient::dataReceived, this, &AddSampleWidget::slotRecivedLISData);
+    disconnect(this, &AddSampleWidget::sglSendRequestDataToLIS, this, &AddSampleWidget::slotSendRequestDataToLIS);
+    connect(m_tcpClient, &TcpClient::dataReceived, this, &AddSampleWidget::slotRecivedLISData,Qt::UniqueConnection);
+    connect(this, &AddSampleWidget::sglSendRequestDataToLIS, this, &AddSampleWidget::slotSendRequestDataToLIS,Qt::QueuedConnection);
+}
+
 QVector<std::tuple<AddSampleWidget::ptrSample, QVector<AddSampleWidget::ptrTest>>>AddSampleWidget::getSampleTestTpVect() const
 {
     return _sampleTestTpVect;
@@ -1345,10 +1400,3 @@ QVector<AddSampleWidget::ptrTest> AddSampleWidget::getListTestData() const
 {
     return _listTestData;
 }
-
-QVector<AddSampleWidget::ptrTest> AddSampleWidget::getListTestDataAll() const
-{
-    return _listTestData;
-}
-
-

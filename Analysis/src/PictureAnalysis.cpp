@@ -109,58 +109,15 @@ bool PictureAnalysis::AnalysisOneSample(int paper_id,int company_id,QString test
         {
             return false;
         }
-    }
-    double cutoffGray = testPaperParameterStruct.isCutOff == 1 ? testPaperParameterStruct.dItemGrayValue[1] : testPaperParameterStruct.cutoff_value_user;
-    for(int i = 0; i < testPaperParameterStruct.nTotalNumber+2; i++)
-    {
-        if(i == 1)
-        {
-            testPaperParameterStruct.dItemGrayValue[i] = cutoffGray;
-            testPaperParameterStruct.dItemGrayRatio[i] = 1;
-            testPaperParameterStruct.dItemErrorCode[i] = 0;
-        }else
-        {
-            if(testPaperParameterStruct.paperId==929 || testPaperParameterStruct.paperId==931 ||
-                    testPaperParameterStruct.paperId==932 || testPaperParameterStruct.paperId==930 ||
-                    testPaperParameterStruct.paperId==933 || testPaperParameterStruct.paperId==934 ||
-                    testPaperParameterStruct.paperId==935){
-                auto exe_path = QCoreApplication::applicationDirPath()+"/config/AnalysisConfig.ini";
-                QSettings config_set(exe_path, QSettings::IniFormat);
+        double cutoffGray = testPaperParameterStruct.isCutOff == 1 ? testPaperParameterStruct.dItemGrayValue[1] : testPaperParameterStruct.cutoff_value_user;
 
-                double finaleGrayValue = testPaperParameterStruct.dBackgroundGrayValue[i] - testPaperParameterStruct.dItemGrayValue[i];
-                qDebug()<<"tv1" << testPaperParameterStruct.dBackgroundGrayValue[i] <<testPaperParameterStruct.dItemGrayValue[i];
-                double A = 0, B = 0, C = 0, D = 0, OFFSET = 0;
-                if(testPaperParameterStruct.paperId==929 || testPaperParameterStruct.paperId==931 ||
-                        testPaperParameterStruct.paperId==932 ){
-                    // 直线拟合
-                    A    =      config_set.value("Analysis/929A", "416.42522").toDouble();
-                    B    =      config_set.value("Analysis/929B", "-0.60888").toDouble();
-                    C    =      config_set.value("Analysis/929C", "397.75936").toDouble();
-                    D    =      config_set.value("Analysis/929D", "1.47768").toDouble();
-                    OFFSET = config_set.value("Analysis/929RGV", "0").toDouble();
-                }else{
-                    // 四参数拟合
-                    A    =      config_set.value("Analysis/930A", "242.12218").toDouble();
-                    B    =      config_set.value("Analysis/930B", "-0.76019").toDouble();
-                    C    =      config_set.value("Analysis/930C", "94.72419").toDouble();
-                    D    =      config_set.value("Analysis/930D", "1.34921").toDouble();
-                    OFFSET = config_set.value("Analysis/930RGV", "0").toDouble();
-                }
-                double tempValue = finaleGrayValue-D;
-                if(tempValue < 0)
-                {
-                    testPaperParameterStruct.dItemGrayRatio[i] = 0;
-                    testPaperParameterStruct.dItemGrayValue[i] = 0;
-                }
-                else
-                {
-                    tempValue = tempValue < 1e-5 ? 1e-5 : tempValue;
-                    tempValue = (A-finaleGrayValue)/tempValue;
-                    tempValue = tempValue < 0 ? 0 :  C * pow(tempValue, 1/B) + OFFSET;
-                    testPaperParameterStruct.dItemGrayRatio[i] = tempValue < 0 ? 0 : tempValue;
-                    testPaperParameterStruct.dItemGrayValue[i] = finaleGrayValue;
-                }
-                qDebug()<<"tv" << finaleGrayValue <<testPaperParameterStruct.dItemGrayRatio[i];
+        for(int i = 0; i < testPaperParameterStruct.nTotalNumber+2; i++)
+        {
+            if(i == 1)
+            {
+                testPaperParameterStruct.dItemGrayValue[i] = cutoffGray;
+                testPaperParameterStruct.dItemGrayRatio[i] = 1;
+                testPaperParameterStruct.dItemErrorCode[i] = 0;
             }else
             {
                 if(testPaperParameterStruct.isCutOff == 0)
@@ -176,7 +133,6 @@ bool PictureAnalysis::AnalysisOneSample(int paper_id,int company_id,QString test
             }
         }
     }
-
     qDebug()<<"resultCode" << resultCode;
     UpdateSampleAnalysisState(resultCode);
 //    for(int i = 0; i < 32; i++)
@@ -578,42 +534,27 @@ int PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperPar
     }
     qDebug() << edgeThresh << top << bottom;
 
-    {
-        // 剪裁膜条并保存
-        double yPercent = 1;
-        double yCenter = maxRect.y + top + (bottom - top)/2;
-        double cutHeight = totalHeigth * yPercent;
-        cv::Rect lastEdge(maxRect.x, static_cast<int>(yCenter - cutHeight / 2), maxRect.width, static_cast<int>(cutHeight));
-        cv::Mat croppedMat = grayRotMat(lastEdge);
-        std::string croppedPath = path.toStdString();
-        //剪裁后的图片保存
-        croppedPath = croppedPath +"\\" + "analysised" + "\\" + testPaperParameterStruct.sampleId.toStdString().data() + ".png";
-        cv::imwrite(croppedPath, croppedMat);
-    }
-    {
-        // 裁剪并保存
-        double yPercent = testPaperParameterStruct.analysis_height_percentage / 100;
-        double yCenter = maxRect.y + top + (bottom - top)/2;
-        double cutHeight = totalHeigth * yPercent;
-        cv::Rect lastEdge(maxRect.x, static_cast<int>(yCenter - cutHeight / 2), maxRect.width, static_cast<int>(cutHeight));
-        cv::Mat croppedMat = grayRotMat(lastEdge);
-//        std::string croppedPath = path.toStdString();
-//        //剪裁后的图片保存
-//        croppedPath = croppedPath +"\\" + "analysised" + "\\" + testPaperParameterStruct.sampleId.toStdString().data() + ".png";
-//        cv::imwrite(croppedPath, croppedMat);
+    // 裁剪并保存
+    double yPercent = testPaperParameterStruct.analysis_height_percentage / 100;
+    double yCenter = maxRect.y + top + (bottom - top)/2;
+    double cutHeight = totalHeigth * yPercent;
+    cv::Rect lastEdge(maxRect.x, static_cast<int>(yCenter - cutHeight / 2), maxRect.width, static_cast<int>(cutHeight));
+    cv::Mat croppedMat = grayRotMat(lastEdge);
+    std::string croppedPath = path.toStdString();
+    //剪裁后的图片保存
+    croppedPath = croppedPath +"\\" + "analysised" + "\\" + testPaperParameterStruct.sampleId.toStdString().data() + ".png";
+    cv::imwrite(croppedPath, croppedMat);
 
-        // 将处理后的对象传递出去
-        croppedMat.copyTo(dstMat);
-        //
-        cv::Mat croppedMat1 = rotedMat(lastEdge);
-        std::string croppedPath1 = path.toStdString();
-        /*剪裁后的图片保存
-        croppedPath1 = croppedPath1 +"\\" + "analysised" + "\\" + testPaperParameterStruct.sampleId.toStdString().data() + "-1.png";
-        cv::imwrite(croppedPath1, croppedMat1);
-        */
-        croppedMat1.copyTo(dst_thresh_mat);
-    }
-
+    // 将处理后的对象传递出去
+    croppedMat.copyTo(dstMat);
+    //
+    cv::Mat croppedMat1 = rotedMat(lastEdge);
+    std::string croppedPath1 = path.toStdString();
+    /*剪裁后的图片保存
+    croppedPath1 = croppedPath1 +"\\" + "analysised" + "\\" + testPaperParameterStruct.sampleId.toStdString().data() + "-1.png";
+    cv::imwrite(croppedPath1, croppedMat1);
+    */
+    croppedMat1.copyTo(dst_thresh_mat);
     return 0;
 }
 
@@ -1661,6 +1602,8 @@ int PictureAnalysis::GetTestPaperImageCalcIndexWz(const cv::Mat& srcMat,TestPape
     markLineXCenter = markLineLimitStart + target_rect.x + target_rect.width/2;
     qDebug() << "markLineXCenter:" << markLineXCenter;
     //默认fc第一   cutoff第二  以上两个不存在
+    auto exe_path = QCoreApplication::applicationDirPath()+"/config/AnalysisConfig.ini";
+    QSettings config_set(exe_path, QSettings::IniFormat);
 
     for(uint i = 1; i < lineCenterRelArraySize; i++)
     {
@@ -1692,9 +1635,52 @@ int PictureAnalysis::GetTestPaperImageCalcIndexWz(const cv::Mat& srcMat,TestPape
         {
             testPaperParameterStruct.dItemErrorCode[i] = 9994;
         }
+        double finaleGrayValue = std::get<3>(grayArray[i]);
+
+        double A = 0;
+        double B = 0;
+        double C = 0;
+        double D = 0;
+        double OFFSET = 0;
+
         testPaperParameterStruct.dItemGrayValue[i] = std::get<2>(grayArray[i]);
         testPaperParameterStruct.dBackgroundGrayValue[i] = std::get<3>(grayArray[i]);
         testPaperParameterStruct.dItemPosition[i] = std::get<0>(grayArray[i]);
+
+        // 计算浓度
+        if(testPaperParameterStruct.paperId==929 || testPaperParameterStruct.paperId==931 ||
+                testPaperParameterStruct.paperId==932){
+            // 直线拟合
+
+            A    =      config_set.value("Analysis/929A", "416.42522").toDouble();
+            B    =      config_set.value("Analysis/929B", "-0.60888").toDouble();
+            C    =      config_set.value("Analysis/929C", "397.75936").toDouble();
+            D    =      config_set.value("Analysis/929D", "1.47768").toDouble();
+            OFFSET = config_set.value("Analysis/929RGV", "0").toDouble();
+        }else if(testPaperParameterStruct.paperId==930 || testPaperParameterStruct.paperId==933 ||
+                 testPaperParameterStruct.paperId==934 || testPaperParameterStruct.paperId==935){
+            // 四参数拟合
+            A    =      config_set.value("Analysis/930A", "242.12218").toDouble();
+            B    =      config_set.value("Analysis/930B", "-0.76019").toDouble();
+            C    =      config_set.value("Analysis/930C", "94.72419").toDouble();
+            D    =      config_set.value("Analysis/930D", "1.34921").toDouble();
+            OFFSET = config_set.value("Analysis/930RGV", "0").toDouble();
+        }
+
+        double tempValue = finaleGrayValue-D;
+        if(tempValue < 0)
+        {
+            testPaperParameterStruct.dItemGrayRatio[i] = 0;
+        }
+        else
+        {
+            tempValue = tempValue < 1e-5 ? 1e-5 : tempValue;
+            tempValue = (A-finaleGrayValue)/tempValue;
+            tempValue = tempValue < 0 ? 0 :  C * pow(tempValue, 1/B) + OFFSET;
+            testPaperParameterStruct.dItemGrayRatio[i] = tempValue < 0 ? 0 : tempValue;
+        }
+        qDebug()<<"tv" << finaleGrayValue <<testPaperParameterStruct.dItemGrayRatio[i];
+        //testPaperReal.dItemErrorCode[i] = error_code;
     }
 
     cv::Mat drawMat = srcMat.clone();

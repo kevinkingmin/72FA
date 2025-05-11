@@ -7,6 +7,8 @@
 #include "subDialog/FromLisByIntervalWidgets.h"
 #include "subDialog/ManualIncubationWidgets.h"
 #include "../HumablotPro/src/main/subDialog/ProgressDialog.h"
+#include "../Include/TCPClient/TcpClient.h"
+
 class BatchAddSampleWidgets;
 class FromLisIntervalWidgets;
 class AddSampleVModel;
@@ -54,26 +56,24 @@ public:
     using ptrTest=QSharedPointer<SampleTestModel>;
     explicit AddSampleWidget(QWidget *parent = nullptr);
     ~AddSampleWidget();
-    Instrument *m_instr;
-    QVector<int> m_barCodePosVect;
-    QMap<int, QString> m_barCodePosMap;
-    QMap<int, QString> m_barCodePosMapFinshiFlage;
-    int mScanBarCodePos = 0;
 
 protected:
     void showEvent(QShowEvent *e);
 private:
     void initUI();
     void createSamplePos();
-    void drawButton();
     void setBtnCheckStyle();
     QList<int> getPosList();
     bool setSamplePaperIdMap();
-
+    void createSampleTestData(QMap<SampleStrc,QVector<int>>testMap, QVector<ptrTest>&listTestData);
+    void sortTestData(QVector<ptrTest> &listTestData);
+    void setTestDataSlotPos(int startPos,int totalTest);
+    QString getHL7RequestData(const QString &barCode);
+	void scanWorkState(const bool isFinish);
 signals:
     void ChangeBtnNextSignal(bool flage);
     void ChangeBtnSaveSignal(bool flage);
-
+    void sglSendRequestDataToLIS(const QString &bar_code);
 private slots:
     void slotBtnGroupTuble(QAbstractButton *btn);
     void slotSelectionChanged(const QItemSelection &,const QItemSelection &);
@@ -81,18 +81,16 @@ private slots:
     void OnShowBtnState();
     void slotGetSampleBarCode(int pos, QString barCode);
     void slotGetQueryCondition(QString condition1, QString condition2);
-    void on_tableView_customContextMenuRequested(const QPoint &pos);
-    void SlotAction_triggered();
     void OnFromBatchAdd(QString content);
     void on_btnBCR_clicked();
     void on_btnBatchAdd_clicked();
     void slotGetSampleBarCodeList(QByteArray resultData);
-
+    void slotRecivedLISData(const QString &data);
+    void slotSendRequestDataToLIS(const QString &requstData);
 public:
     void cancelAction();
     bool nextAction();
     QVector<ptrTest> getListTestData() const;
-    QVector<ptrTest> getListTestDataAll() const;
     QVector<std::tuple<ptrSample, QVector<ptrTest>>>getSampleTestTpVect() const;
     void createRepeatTest();
     bool judgeTipInfo();
@@ -108,19 +106,9 @@ public:
     int  GetPaperId(int ii);
     int  GetPaperId1(int ii);
     void ShowTestInfoFromDatabase();
-    bool Send_ID_ToList(QString id);
     void FromTestDataByBatchAdd(QString condition);
-    void ChangeBtnBCREnabled(bool flage);
     void setProgressDialog(ProgressDialog *progressDialog);
-
-public:
-    QMap<int, QString> barCodeList;
-    QString g_language_type = "";
-private:
-    void createSampleTestData(QMap<SampleStrc,QVector<int>>testMap, QVector<ptrTest>&listTestData);
-    void sortTestData(QVector<ptrTest> &listTestData);
-    void setTestDataSlotPos(int startPos,int totalTest);
-    ProgressDialog *m_progressDialog;
+    void setTcpClient(TcpClient *tcpClient);
 private:
     Ui::AddSampleWidget *ui;
     QButtonGroup _btnGroup;
@@ -132,10 +120,17 @@ private:
     RepeatSetDialog *_repeatSetDialog;
     FromLisByIntervalWidgets *_mFromLisByIntervalWidgets;
     ManualIncubationWidgets *_mManualIncubationWidgets;
-
     BatchAddSampleWidgets *m_batchAddSampleWidget;
-
-    void contextMenuEvent(QContextMenuEvent *event);
+    QString    m_scanBarcodeError;
+    TcpClient          *m_tcpClient;
+    Instrument *m_instr;
+    QMap<int, QString> m_barCodePosMap;
+    int mScanBarCodePos = 0;
+    QVector<QString>  m_LISRepeatBarcord;
+    QString   m_LISERRDes;
+    int       m_samplePos;
+    ProgressDialog *m_progressDialog;
+    bool     m_isLISRequestDataFinish;
 };
 
 #endif // ADDSAMPLEWIDGET_H

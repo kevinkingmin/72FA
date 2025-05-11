@@ -37,9 +37,10 @@
 #include <QtXml>
 #include <QFileDialog>
 #include "../Model/sample/SampleTestModel.h"
-#include "../Model/sample/SampleModel.h"
 #include "../Model/baseSet/TestPaperModel.h"
 #include <QtConcurrent/QtConcurrent>
+#include "../Include/BLL/baseSet/SystemSetBLL.h"
+#include "../Include/Model/baseSet/SystemSetModel.h"
 #define PROPERTY "lbl"
 QString TestSampleWidget::_imgPath(":/images/indicate/");
 QString TestSampleWidget::_readyFileName("indicateSelect.png");
@@ -146,8 +147,22 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
         QtConcurrent::run([this]() {
             // 这里是线程要执行的任务
             Analysis m_analysis;
-            for(auto test:m_listTest){
-                m_analysis.AnalysisMothed(test->getTestId(), test->getPaperId(), test->getTestId(),test->getSolutionName(),test->getPatientName());
+            auto dao = AnalysisUIDao::instance();
+            auto pm{ SystemSetBLL().getRowById(9994) };
+            bool isUploadLis{ pm.isNull() ? false : pm->getSaveSet() > 0 };
+            for(auto test:m_listTest)
+            {
+                bool ret = m_analysis.AnalysisMothed(test->getTestId(), test->getPaperId(), test->getTestId(),test->getSolutionName(),test->getPatientName());
+                if(ret & isUploadLis)
+                {
+                    QString send_sz=dao->createLISData(test->getTestId());
+                    if(send_sz.isEmpty())
+                    {
+                        eLog("create LIS data failed,testId:{}",test->getTestId().toStdString());
+                        continue;
+                    }
+                    m_tcpClient->sendData(send_sz);
+                }
             }
             //检测完成，弹窗提示
             _instrState->setMachineState(InstrumentStateModel::enumStandby);
@@ -613,6 +628,11 @@ bool TestSampleWidget::SaveDataFromPic()
     return true;
 }
 
+void TestSampleWidget::setTcpClient(TcpClient *tcpClient)
+{
+    m_tcpClient = tcpClient;
+}
+
 TestSampleWidget::~TestSampleWidget()
 {
     if (_timer != nullptr)
@@ -772,19 +792,14 @@ void TestSampleWidget::createPapers()
         lbl->setPos(i);
         _lblPaperVect.push_back(lbl);
 
-        if (i>0 && i < 25)
+        if (i>0 && i <= 36)
         {
             ui->hLayPaperPos->addWidget(lbl);
         }
 
-        if (i > 24 && i < 49)
+        if (i > 36)
         {
             ui->hLayPaperPos1->addWidget(lbl);
-        }
-
-        if (i > 48 && i < 73)
-        {
-            ui->hLayPaperPos2->addWidget(lbl);
         }
     }
 }
@@ -1382,11 +1397,6 @@ void TestSampleWidget::setSelectPDialog(SelectProcessDialog *selectPDialog)
 
 void TestSampleWidget::setSampleTestTpVect(QVector<std::tuple<ptrSample, QVector<ptrTest>>>sampleTestTpVect)
 {
-    for(auto& m : sampleTestTpVect )
-    {
-        auto& sampleModelPtr = std::get<0>(m);
-        qDebug()<<"wz2"<<sampleModelPtr->getSampleNo();
-    }
     _sampleTestTpVect.swap(sampleTestTpVect);
 }
 
