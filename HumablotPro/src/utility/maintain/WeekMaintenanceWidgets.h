@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QWidget>
-#include <QMap>
+#include <QMap> 
 #include <QButtonGroup>
 #include "ui_WeekMaintenanceWidgets.h"
 #include "src/comm/GlobalData.h"
@@ -63,7 +63,7 @@ public slots:
 
 
 signals:
-	void sglPumpStateChanged();//ÓÃÀ´¸üĞÂTestSampleWidget::btnFlushWidget
+	void sglPumpStateChanged();//ç”¨æ¥æ›´æ–°TestSampleWidget::btnFlushWidget
 	void ChangeBtnNextSignal(bool flage);
 
 	//void Onchk_1State();
@@ -95,7 +95,7 @@ public:
 	int _maintainStep;
 	int _maintainType;
 
-	QTimer *myTimer;// ¶¨Òå¶¨Ê±Æ÷¶ÔÏó
+	QTimer *myTimer;// å®šä¹‰å®šæ—¶å™¨å¯¹è±¡
 
 	void HideGroupBox();
 	void createPumpBtn(QPushButton *pushButton, bool selected_status);

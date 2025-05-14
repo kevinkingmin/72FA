@@ -1,11 +1,11 @@
-#include "..\include\precomp\precompile.h"
+ï»¿#include "..\include\precomp\precompile.h"
 #include "WeekMaintenanceWidgets.h"
 #include <QMessageBox>
 #include "../Include/Instrument/Instrument.h"
 #include "../Include/Model/baseSet/InstrumentStateModel.h"
 #include "../Include/BLL/baseSet/SystemSetBLL.h"
 #include "../Include/Model/baseSet/SystemSetModel.h"
-#include "src/main/subDialog/ProgressDialog.h"
+#include "src/main/subDialog/ProgressDialog.h" 
 
 #include <QMessageBox>
 #include <string>
@@ -66,8 +66,8 @@ WeekMaintenanceWidgets::WeekMaintenanceWidgets(QWidget *parent)
 
     connect(myTimer, &QTimer::timeout, [=]() {
 
-        //¹ÜÂ·½şÅİÖĞ......
-        QString tip = "";//QString("¹ÜÂ·½şÅİÖĞ,Ê£ÓàÃëÊı£º[%0]").arg(m_i);
+        //ç®¡è·¯æµ¸æ³¡ä¸­......
+        QString tip = "";//QString("ç®¡è·¯æµ¸æ³¡ä¸­,å‰©ä½™ç§’æ•°ï¼š[%0]").arg(m_i);
         tip = QString("%1[%0]").arg(m_i).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1628"));
         m_progressDialog->setHead(tip);
 
@@ -333,7 +333,7 @@ void WeekMaintenanceWidgets::on_pushButton_clicked()
     _instr->weeklyMaintenance(pumpList);
 
     _maintainStep = 1;
-    m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1626"));//"ÖÜÎ¬»¤½øĞĞÖĞ......");
+    m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1626"));//"å‘¨ç»´æŠ¤è¿›è¡Œä¸­......");
     m_progressDialog->exec();
     //ui->btn_down_step->setEnabled(false);
 }
@@ -344,7 +344,7 @@ void WeekMaintenanceWidgets::slotMonthMaintain(int result)
     {
         switch (_maintainStep)
         {
-        case 1://½şÅİ
+        case 1://æµ¸æ³¡
         {
             if (result < 0)
             {
@@ -355,7 +355,7 @@ void WeekMaintenanceWidgets::slotMonthMaintain(int result)
             }
             //			_instr->maintain(eTubeSoak);
             _maintainStep = 2;
-            m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1627"));//"¹ÜÂ·½şÅİÖĞ......");
+            m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1627"));//"ç®¡è·¯æµ¸æ³¡ä¸­......");
 
             //auto pm1 = SystemSetBLL().getRowById(24);
             //int delay_time = pm1.isNull() ? 200 : pm1->getSaveSet();
@@ -404,11 +404,11 @@ void WeekMaintenanceWidgets::slotMonthMaintain(int result)
             //	_maintainStep = 3;
             //else if (_maintainType == MENU_ID_WEEK_MANTAINCE)
             //	_maintainStep = 4;
-            //        m_progressDialog->setHead("ÇåË®³ä¹à......");
+            //        m_progressDialog->setHead("æ¸…æ°´å……çŒ......");
             //        m_progressDialog->exec();
             break;
         }
-        case 3://Èä¶¯±ÃĞ£×¼
+        case 3://è •åŠ¨æ³µæ ¡å‡†
         {
             if (result < 0)
             {
@@ -421,11 +421,11 @@ void WeekMaintenanceWidgets::slotMonthMaintain(int result)
             //_instr->setPumpVect(pumpVect);
             //_instr->maintain(ePumpFill);
             _maintainStep = 4;
-            //        m_progressDialog->setHead("Èä¶¯±ÃĞ£×¼......");
+            //        m_progressDialog->setHead("è •åŠ¨æ³µæ ¡å‡†......");
             //        m_progressDialog->exec();
             //break;
         }
-        case 4://³ä¹àÅÅ¿Õ
+        case 4://å……çŒæ’ç©º
         {
             if (result < 0)
             {
@@ -440,7 +440,7 @@ void WeekMaintenanceWidgets::slotMonthMaintain(int result)
             //_instr->setPumpVect(mOutVect);
             //			_instr->maintain(ePumpFill);
             _maintainStep = 5;
-            //        m_progressDialog->setHead("×îºó³ä¹à......");
+            //        m_progressDialog->setHead("æœ€åå……çŒ......");
             //        m_progressDialog->exec();
             break;
         }
@@ -510,7 +510,7 @@ void WeekMaintenanceWidgets::on_btn_down_step_2_clicked()
         ui->chk_9->setChecked(true);
         all_select_flage = true;
         //K1637
-        ui->btn_down_step_2->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1637"));//"È¡ÏûÈ«Ñ¡");
+        ui->btn_down_step_2->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1637"));//"å–æ¶ˆå…¨é€‰");
     }
     else
     {
@@ -524,7 +524,7 @@ void WeekMaintenanceWidgets::on_btn_down_step_2_clicked()
         ui->chk_8->setChecked(false);
         ui->chk_9->setChecked(false);
         //K1081
-        ui->btn_down_step_2->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1081"));//"È«Ñ¡");
+        ui->btn_down_step_2->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1081"));//"å…¨é€‰");
         all_select_flage = false;
     }
     getCheckBtn();
@@ -547,7 +547,7 @@ void WeekMaintenanceWidgets::on_btn_down_step_clicked()
     //step_index++;
     //if (step_index == 1)
     //{
-    //	int ret = QMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("½«±Ã¹ÜÍ··Åµ½×ãÁ¿µÄÈÜÒºÖĞ£¿"), tr("È¡Ïû"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+    //	int ret = QMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("å°†æ³µç®¡å¤´æ”¾åˆ°è¶³é‡çš„æº¶æ¶²ä¸­ï¼Ÿ"), tr("å–æ¶ˆ"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
     //	if (ret == QMessageBox::NoButton) {
     //		step_index = 0;
     //		return;
@@ -559,7 +559,7 @@ void WeekMaintenanceWidgets::on_btn_down_step_clicked()
 
     //if (step_index == 2)
     //{
-    //	int ret = QMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("È·ÈÏ³ä¹à£¿"), tr("È¡Ïû"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+    //	int ret = QMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("ç¡®è®¤å……çŒï¼Ÿ"), tr("å–æ¶ˆ"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
     //	if (ret == QMessageBox::NoButton) {
     //		step_index = 0;
     //		return;
@@ -622,7 +622,7 @@ void WeekMaintenanceWidgets::setCenterImageColor(QImage &image, QColor &color)
     int bmpHeight = image.height();
     for (int i = 0; i < bmpWidth; ++i) {
         for (int j = 0; j < bmpHeight; ++j) {
-            //½«»ÒÉ«(0~255)È«²¿Ìæ»»³ÉÉè¶¨µÄÑÕÉ«£¬È«Í¸Ã÷µÄ²»Ìæ»»
+            //å°†ç°è‰²(0~255)å…¨éƒ¨æ›¿æ¢æˆè®¾å®šçš„é¢œè‰²ï¼Œå…¨é€æ˜çš„ä¸æ›¿æ¢
             QColor tempColor = image.pixelColor(i, j);
             if (tempColor.alpha() != 0) {
                 color.setAlpha(tempColor.alpha());
@@ -661,13 +661,13 @@ void WeekMaintenanceWidgets::createPumpBtn(QPushButton *pushButton, bool selecte
 
     //ui->pumpLB1_1->resize(image.width(), image.height());
 
-    //auto empty = "rFlowBack128.png";//±íÃ÷±ÃÃ»ÓĞ±»Õ¼ÓÃ
+    //auto empty = "rFlowBack128.png";//è¡¨æ˜æ³µæ²¡æœ‰è¢«å ç”¨
     //for (int i = 0; i < PUMPCOUNT; i++)
     //{
     //	auto btn = new CustomButton(this);
     //	btn->setLblPixSize(64, 64);
     //	btn->setPixPath(_pixPath + empty);
-    //	btn->setUpText("±Ã" + QString::number(i + 1) );
+    //	btn->setUpText("æ³µ" + QString::number(i + 1) );
     //	btn->setObjectName(QString::number(i));
     //	btn->setReagentName("");
     //	btn->setCheckable(false);
@@ -705,7 +705,7 @@ void WeekMaintenanceWidgets::on_btnFlash_clicked()
     //auto state = InstrumentStateModel::instance()->getMachineState();
     //if (!state.canRun)
     //{
-    //	QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("µ±Ç°×´Ì¬²»ÔÊĞíÔËĞĞ£¬ÇëÏÈ½øĞĞ³õÊ¼»¯²Ù×÷"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+    //	QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("å½“å‰çŠ¶æ€ä¸å…è®¸è¿è¡Œï¼Œè¯·å…ˆè¿›è¡Œåˆå§‹åŒ–æ“ä½œ"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
     //	return;
     //}
     //QMap<uchar, ushort>map;
@@ -722,12 +722,12 @@ void WeekMaintenanceWidgets::on_btnFlash_clicked()
     //}
     //if (map.isEmpty())
     //{
-    //	QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("ÇëÑ¡ÔñÒª½øĞĞÊÔ¼Á×¼±¸µÄÎ»ÖÃ£¡"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+    //	QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("è¯·é€‰æ‹©è¦è¿›è¡Œè¯•å‰‚å‡†å¤‡çš„ä½ç½®ï¼"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
     //	return;
     //}
     //_instrument->setReagentPosVolumnMap(map);
     //_instrument->maintain(ePrepareReagent);
-    //m_progressDialog->setHead(tr("ÊÔ¼Á×¼±¸ÖĞ,ÇëÉÔºò......"));
+    //m_progressDialog->setHead(tr("è¯•å‰‚å‡†å¤‡ä¸­,è¯·ç¨å€™......"));
     //m_progressDialog->exec();
     if (InstrumentStateModel::instance()->getMachineState().state == InstrumentStateModel::enumStandby)
         changeIcon(_readyFile, PumpPosState::enumReady);

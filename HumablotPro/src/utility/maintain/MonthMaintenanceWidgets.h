@@ -1,4 +1,4 @@
-#ifndef MonthMaintenanceWidgets_H
+ï»¿#ifndef MonthMaintenanceWidgets_H
 #define MonthMaintenanceWidgets_H
 
 #include <QWidget>
@@ -11,7 +11,7 @@ class CustomButton;
 class InstrumentStateModel;
 class Instrument;
 class ProgressDialog;
-
+ 
 namespace Ui {
 	class MonthMaintenanceWidgetsClass;
 }
@@ -66,7 +66,7 @@ public slots:
 
 	
 signals:
-	void sglPumpStateChanged();//ÓÃÀ´¸üĞÂTestSampleWidget::btnFlushWidget
+	void sglPumpStateChanged();//ç”¨æ¥æ›´æ–°TestSampleWidget::btnFlushWidget
 	void ChangeBtnNextSignal(bool flage);
 
 	//void Onchk_1State();
@@ -96,7 +96,7 @@ public:
 	int _maintainStep;
 	int _maintainType;
 
-	QTimer *myTimer;// ¶¨Òå¶¨Ê±Æ÷¶ÔÏó
+	QTimer *myTimer;// å®šä¹‰å®šæ—¶å™¨å¯¹è±¡
 
 	bool all_select_flage = false;
 
