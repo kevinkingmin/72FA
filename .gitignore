@@ -29,3 +29,5 @@ Analysis/debug/
 *.log
 *.pdb
 *.pch
+*.Debug
+Makefile
