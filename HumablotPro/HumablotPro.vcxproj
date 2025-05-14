@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{ECA6A421-FC50-3006-AE2C-BC17111BA489}</ProjectGuid>
+    <ProjectGuid>{DBC51179-6618-3A0C-9337-211A414E84A8}</ProjectGuid>
     <RootNamespace>HumablotPro</RootNamespace>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
@@ -71,8 +71,8 @@
       <WarningLevel>Level3</WarningLevel>
     <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
-      <AdditionalDependencies>D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\BLL.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Utilities.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\DAO.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Analysis.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\ImageConvert.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\MVSDKmd.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\VideoRender.lib;..\Lib\OpenCV\opencv_world340.lib;..\Lib\Database.lib;..\Lib\Instrument.lib;..\Lib\TCPClient.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\BLL.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Utilities.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\DAO.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Analysis.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Camera\ImageConvert.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Camera\MVSDKmd.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Camera\VideoRender.lib;..\Lib\OpenCV\opencv_world340.lib;..\Lib\Database.lib;..\Lib\Instrument.lib;..\Lib\TCPClient.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>-Wl,--kill-at "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -117,8 +117,8 @@
       <WarningLevel>Level3</WarningLevel>
     <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
-      <AdditionalDependencies>D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\BLL.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Utilities.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\DAO.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Analysis.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\ImageConvert.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\MVSDKmd.lib;D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib\Camera\VideoRender.lib;..\Lib\OpenCV\opencv_world340d.lib;..\Lib\Databased.lib;..\Lib\Instrumentd.lib;..\Lib\TCPClientd.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\liuxing\work\HumaBlotPro\FA72_DXP\Lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Model.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\BLL.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Utilities.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\DAO.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Analysis.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Camera\ImageConvert.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Camera\MVSDKmd.lib;D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib\Camera\VideoRender.lib;..\Lib\OpenCV\opencv_world340d.lib;..\Lib\Databased.lib;..\Lib\Instrumentd.lib;..\Lib\TCPClientd.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>-Wl,--kill-at "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>

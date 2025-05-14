@@ -31,3 +31,5 @@ Analysis/debug/
 *.pch
 *.Debug
 Makefile
+/*.user
+*.user

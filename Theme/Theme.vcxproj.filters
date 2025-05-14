@@ -527,6 +527,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="D:\liuxing\work\HumaBlotPro\FA72_DXP\Theme\logo.rc" />
+    <ResourceCompile Include="D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\Theme\logo.rc" />
   </ItemGroup>
 </Project>

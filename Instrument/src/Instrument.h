@@ -9,6 +9,7 @@
 #include <QSharedPointer>
 #include <QTcpSocket>
 #include "../Include/Model/baseSet/CommonType.h"
+#include "../Include/Model/baseSet/InstrumentStateModel.h"
 #include <QMutex>
 
 template <class T>
@@ -313,7 +314,7 @@ private:
     QTcpSocket *tcpsocket;
     void analysisFrame();
     bool isReadFrame=true;
-
+    InstrumentStateModel *_stateModel;
 private slots:
     void connected_SLOT();
     void disconnected_SLOT();

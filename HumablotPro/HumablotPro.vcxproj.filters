@@ -955,6 +955,6 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="D:\liuxing\work\HumaBlotPro\FA72_DXP\HumaBlotPro\HumablotPro_resource.rc" />
+    <ResourceCompile Include="D:\liuxing\work\HumaBlotPro\HumaBlotPro_DXP\HumaBlotPro\HumablotPro_resource.rc" />
   </ItemGroup>
 </Project>

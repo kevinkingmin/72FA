@@ -953,12 +953,14 @@ void MainWidget::autoSelfCheckResult(QString code){
 void MainWidget::shutdownMaintenResult(QString code){
     qDebug()<<"autoSelfCheckResult down："<<code;
     if(code=="0"){
+        _InstrumentState->setMachineState(enumState::enumStandby);
         m_progressDialog->done(1);
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "关机维护已完成" , MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }else if(code=="K1345"||code=="K1348"||code=="K1501"||code=="K1502"){
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
         _instr->testContinue();
     }else{
+        _InstrumentState->setMachineState(enumState::enumError);
         m_progressDialog->done(1);
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }
@@ -968,12 +970,14 @@ void MainWidget::MonthMaintenResult(QString code){
     qDebug()<<"autoSelfCheckResult down";
     if(code=="0"){
         m_progressDialog->done(1);
+        _InstrumentState->setMachineState(_InstrumentState->enumStandby);
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"),GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1446"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }else if(code=="K1345"||code=="K1348"){
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
         _instr->testContinue();
     }else{
         m_progressDialog->done(1);
+        _InstrumentState->setMachineState(_InstrumentState->enumError);
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }
 }
@@ -981,6 +985,7 @@ void MainWidget::MonthMaintenResult(QString code){
 void MainWidget::WeekMaintenResult(QString code){
     qDebug()<<"autoSelfCheckResult down";
     if(code=="0"){
+        _InstrumentState->setMachineState(_InstrumentState->enumStandby);
         m_progressDialog->done(1);
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1524"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }else if(code=="K1345"||code=="K1348"){
@@ -988,6 +993,7 @@ void MainWidget::WeekMaintenResult(QString code){
         _instr->testContinue();
     }else{
         m_progressDialog->done(1);
+        _InstrumentState->setMachineState(_InstrumentState->enumError);
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }
 }
@@ -1011,9 +1017,11 @@ void MainWidget::pipWashResult(QString code){
 
 void MainWidget::pipFlowbackResultResult(QString code){
     if(code=="0"){
+        _InstrumentState->setMachineState(_InstrumentState->enumStandby);
         m_progressDialog->done(1);
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1500"), MyMessageBox::Ok, "OK", "");
     }else{
+        _InstrumentState->setMachineState(_InstrumentState->enumError);
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }
 }
@@ -1142,13 +1150,19 @@ void MainWidget::setIndicateLight()
         _ui->btnSystemLiquid->setStyleSheet("QPushButton {qproperty-icon: url(:/images/menu/btnSystemLack.png);}");
         _ui->btnSystemLiquid->setToolTip("系统液未完成灌注");
     }
-    //style()->unpolish(_ui->btnRunState);
+    style()->unpolish(_ui->btnRunState);
     auto m = _InstrumentState->getMachineState();
 
     QString save_set1 = dao->SelectSaveSetById(&bResult, 20001);
 
-    if (m.state == enumState::enumUnKnown)
-        return;
+	if (m.state == enumState::enumUnKnown)
+	{
+		_ui->btnRunState->setProperty("btnStyle", "stateErrorStyle");
+		_ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1059"));
+		_ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1059"));
+		style()->polish(_ui->btnRunState);
+		return;
+	}
     int state = m.state;
     switch (state)
     {
@@ -1184,8 +1198,8 @@ void MainWidget::setIndicateLight()
             _ui->btnRunState->setProperty("btnStyle","stateIntermediateStyle");
         }
         _twinkleFlag = !_twinkleFlag;
-        //_ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1062"));//tr("设备运行状态"));
-        //_ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1062"));//"设备运行状态");
+        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1062"));//tr("设备运行状态"));
+        _ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1062"));//"设备运行状态");
         break;
     }
     case enumState::enumCloseSoft:
@@ -1212,7 +1226,7 @@ void MainWidget::setIndicateLight()
         break;
     }
     }
-    //style()->polish(_ui->btnRunState);
+    style()->polish(_ui->btnRunState);
 
 }
 

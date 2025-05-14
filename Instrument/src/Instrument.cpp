@@ -20,7 +20,6 @@
 #include "src/function/timing/Timing.h"
 #include "src/function/timing/ActionModel.h"
 #include "src/component/Camera.h"
-#include "../Include/Model/baseSet/InstrumentStateModel.h"
 #include "../Include/SerialPortDriver/SerialPortDriver.h"
 #include "../Include/Model/reagent/ProcessReagentModel.h"
 #include "../Include/Model/baseSet/ProcessParaModel.h"
@@ -48,6 +47,7 @@ QByteArray getMd5(QByteArray content){
 Instrument::Instrument(QObject *parent) :QObject(parent)
   , _functions(Functions::instance())
   , _pumpVect{}
+  ,_stateModel(InstrumentStateModel::instance())
 {
     connect(_functions->getMaintain(), &MaintainSystem::sglRunResult, this, [this](const QString &strResult) {
         emit sglMaintainInfor(strResult);
@@ -262,7 +262,7 @@ void Instrument::analysisFrame(){
 void Instrument::connected_SLOT()
 {
     QObject::connect(tcpsocket, &QTcpSocket::readyRead, this, &Instrument::readyRead_Slot);
-    InstrumentStateModel::instance()->setMachineState(InstrumentStateModel::enumConn);
+    _stateModel->setMachineState(InstrumentStateModel::enumConn);
     getMathineCode();
     QtConcurrent::run([this]() {
         // 这里是线程要执行的任务
@@ -533,6 +533,7 @@ bool Instrument::shutdownMaintenance(QList<uint8_t> pumpList){
         requestFrame[1007+i]=md5[i];
     }
     requestFrame[1023] = end;
+    _stateModel->setMachineState(_stateModel->enumRuning);
     return sendBySocket(requestFrame);
 }
 
@@ -571,7 +572,7 @@ bool Instrument::monthlyMaintenance(QList<uint8_t> pumpList){
         requestFrame[1007+i]=md5[i];
     }
     requestFrame[1023] = end;
-
+    _stateModel->setMachineState(_stateModel->enumRuning);
     return sendBySocket(requestFrame);
 }
 
@@ -607,7 +608,6 @@ bool Instrument::scanSampleCode(QString startPosition,QString endPosition){
         requestFrame[1007+i]=md5[i];
     }
     requestFrame[1023] = end;
-
     return sendBySocket(requestFrame);
 }
 
@@ -681,7 +681,7 @@ bool Instrument::weeklyMaintenance(QList<uint8_t> pumpList){
         requestFrame[1007+i]=md5[i];
     }
     requestFrame[1023] = end;
-
+    _stateModel->setMachineState(_stateModel->enumRuning);
     return sendBySocket(requestFrame);
 }
 
@@ -761,7 +761,7 @@ bool Instrument::pipFlowback(QList<uint8_t> pumpList,uint16_t volume){
         requestFrame[1007+i]=md5[i];
     }
     requestFrame[1023] = end;
-
+    _stateModel->setMachineState(_stateModel->enumRuning);
     return sendBySocket(requestFrame);
 }
 
