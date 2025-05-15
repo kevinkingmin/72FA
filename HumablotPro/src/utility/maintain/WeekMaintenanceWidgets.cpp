@@ -532,10 +532,6 @@ void WeekMaintenanceWidgets::on_btn_down_step_2_clicked()
 
 void WeekMaintenanceWidgets::on_btn_down_step_clicked()
 {
-    if (!_InstrumentState->enumStandby)
-    {
-        return;
-    }
     int vect_count = mOutVect.count();
     if (vect_count == 0)
     {

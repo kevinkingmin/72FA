@@ -7,6 +7,7 @@
 #include "../Include/Utilities/log.h"
 #include <QBitmap>
 #include <QPainter>
+#include <QTime>
 
 
 ProgressDialog::ProgressDialog(QWidget *parent) :
@@ -15,6 +16,8 @@ ProgressDialog::ProgressDialog(QWidget *parent) :
   ,_StartPosReg(QRegExp("^[1-9]$|^[1-6][0-9]$|^7[0-2]$"))
   ,_timer(nullptr)
   ,_instrState(InstrumentStateModel::instance())
+  ,_maxValue(0)
+  ,_showTime(0)
 {
     setWindowModality(Qt::WindowModal);
     this->setWindowFlags(Qt::Dialog |Qt::FramelessWindowHint);
@@ -99,6 +102,7 @@ void ProgressDialog::showEvent(QShowEvent *)
 void ProgressDialog::hideEvent(QHideEvent *)
 {
     _maxValue=0;
+    _showTime=0;
 	_timer->stop();
 }
 
@@ -112,8 +116,16 @@ void ProgressDialog::updateProgress(int maxValue)
     _timer = new QTimer(this);
     _timer->setInterval(1000);
     ui->progressBar->setRange(0, maxValue);
-    connect(_timer, &QTimer::timeout, this, [this, maxValue]()
+    QTime time;
+    time.start();
+    connect(_timer, &QTimer::timeout, this, [this, maxValue,time]()
     {
+        _showTime-=time.elapsed()/1000;
+        if(_showTime>0)
+            ui->lblHead->setText(ui->lblHead->text()+tr("(%1)").arg(_showTime));
+        else
+            _showTime=0;
+
         if (maxValue <= 0)
         {
             setProgressState();
@@ -166,6 +178,11 @@ void ProgressDialog::setProgressState()
         iLog("当前状态为:{}", state);
     }
     }
+}
+
+void ProgressDialog::setShowTime(int showTime)
+{
+    _showTime = showTime;
 }
 
 void ProgressDialog::setMaxValue(int maxValue)

@@ -21,6 +21,7 @@ public:
     void setHead(const QString &str);
     void setMaxValue(int maxValue);
 	//void resizeEvent(QResizeEvent* e);
+    void setShowTime(int showTime);
 
 protected:
     void showEvent(QShowEvent *);
@@ -33,6 +34,7 @@ private:
     QTimer *_timer;
     InstrumentStateModel *_instrState;
     int _maxValue;
+    int _showTime;
 };
 
 #endif // ProgressDialog_H
