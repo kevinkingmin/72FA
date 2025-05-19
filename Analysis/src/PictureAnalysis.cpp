@@ -383,7 +383,7 @@ int PictureAnalysis::CalcImageItemSegmentation(TestPaperParameter &testPaperPara
     if(code != 0)
     {
         dLog("error code = " + std::to_string(code));
-        return 81;
+        return (code == 3 || code == 4) ? 83 : 81;
     }
 
     dLog("error code = 88");
@@ -877,7 +877,6 @@ int PictureAnalysis::GetTestPaperImageSegmentation(QString filePath,TestPaperPar
     QString path = dao->SelectTestPicturesRootPath(&bResult);
     double mm_to_pixel= dao->SelectSystemMMPixel(&bResult).toDouble();
     double yPercent = testPaperParameterStruct.analysis_height_percentage / 100;
-    int bgDiff = testPaperParameterStruct.bg_difference;
 
     if(yPercent > 1 || yPercent < 0.4)
     {
@@ -937,7 +936,7 @@ int PictureAnalysis::GetTestPaperImageSegmentation(QString filePath,TestPaperPar
         cv::Rect calcRect(limitStart, 0,  limitWidth, cutMat.rows);
         cv::Mat calMat = cutMat(calcRect);
         // 处理计算时的错误码，并不中断其他项目的计算
-        int calcCode = GetTestOneItemCalcIndexWz(calMat, grayArray[i], lineWidth, bgDiff);
+        int calcCode = GetTestOneItemCalcIndexWz(calMat, grayArray[i], lineWidth, -1);
         if(i == 0 && std::get<2>(grayArray[i]) > 150)
         {
             calcCode = 2;
@@ -1672,7 +1671,7 @@ int PictureAnalysis::GetTestPaperImageCalcIndexWz(const cv::Mat& srcMat,TestPape
         cv::Rect roi(limitStart, 0,  lineLimit, srcMat.rows );
         cv::Mat calMat = srcMat(roi);
         // 处理计算时的错误码，并不中断其他项目的计算
-        int calcCode = GetTestOneItemCalcIndexWz(calMat, grayArray[i], lineWidth, bgDiff);
+        int calcCode = GetTestOneItemCalcIndexWz(calMat, grayArray[i], lineWidth, 15);
         if(finalCode == 0)
         {
             if(calcCode == 1)
@@ -1783,17 +1782,20 @@ int PictureAnalysis::GetTestOneItemCalcIndexWz(const cv::Mat& srcMat, std::tuple
     // 黑点检测
     int higth = 3;
     double preGray = 0;
-    for(int i = 0; i < destMat.rows - higth; i++)
+    if(bgDiff > 0)
     {
-        cv::Rect roi(0, i, destMat.cols, higth);
-        cv::Mat tempMat = destMat(roi);
-        double tempGray = cv::mean(tempMat)[0];
-        // 引入魔法值15，后续可以写进数据库
-        if(i != 0 && std::abs(preGray - tempGray) > bgDiff)
+        for(int i = 0; i < destMat.rows - higth; i++)
         {
-            finalCode = finalCode == 0 ? 2 : finalCode;
+            cv::Rect roi(0, i, destMat.cols, higth);
+            cv::Mat tempMat = destMat(roi);
+            double tempGray = cv::mean(tempMat)[0];
+            // 引入魔法值15，后续可以写进数据库
+            if(i != 0 && std::abs(preGray - tempGray) > bgDiff)
+            {
+                finalCode = finalCode == 0 ? 2 : finalCode;
+            }
+            preGray = tempGray;
         }
-        preGray = tempGray;
     }
 
     // 抠图拼接方便后续去本底
@@ -1840,17 +1842,20 @@ int PictureAnalysis::GetTestOneItemCalcIndexWz(const cv::Mat& srcMat, std::tuple
     {
         cv::hconcat(stitchMat(leftRoi), stitchMat(rightRoi), stitchAgainMat);
     }
-    for(int i = 0; i < stitchAgainMat.rows - higth; i++)
+    if(bgDiff > 0)
     {
-        cv::Rect roi(0, i, stitchAgainMat.cols, higth);
-        cv::Mat tempMat = stitchAgainMat(roi);
-        double tempGray = cv::mean(tempMat)[0];
-        // 引入魔法值15，后续可以写进数据库
-        if(i != 0 && std::abs(preGray - tempGray) > 15)
+        for(int i = 0; i < stitchAgainMat.rows - higth; i++)
         {
-            finalCode = finalCode == 0 ? 2 : finalCode;
+            cv::Rect roi(0, i, stitchAgainMat.cols, higth);
+            cv::Mat tempMat = stitchAgainMat(roi);
+            double tempGray = cv::mean(tempMat)[0];
+            // 引入魔法值15，后续可以写进数据库
+            if(i != 0 && std::abs(preGray - tempGray) > bgDiff)
+            {
+                finalCode = finalCode == 0 ? 2 : finalCode;
+            }
+            preGray = tempGray;
         }
-        preGray = tempGray;
     }
     result = std::make_tuple(minIdx+lineWidth/2, lineWidth, minValue, cv::mean(stitchAgainMat)[0]);
     return finalCode;
