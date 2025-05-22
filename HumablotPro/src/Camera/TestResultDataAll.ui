@@ -62,6 +62,11 @@
      <string>判读结果</string>
     </property>
    </column>
+   <column>
+    <property name="text">
+     <string>pkid</string>
+    </property>
+   </column>
   </widget>
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">

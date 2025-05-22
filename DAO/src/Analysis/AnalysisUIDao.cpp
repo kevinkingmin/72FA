@@ -655,6 +655,51 @@ QString AnalysisUIDao::createLISData(const QString &testId)
     return send_sz;
 }
 
+int AnalysisUIDao::getPaperItemCountBySampleId(const int pkid)
+{
+	QSqlQuery query;
+	if (DAO::createQuery(query) < 0)
+		return 0;
+	QString sqlStr("SELECT COUNT(*) FROM titem WHERE TestPaperID=(SELECT paperId FROM tsample WHERE pkid=" + QString::number(pkid) + ")");
+	if (!query.exec(sqlStr))
+		return 0;
+	while (query.next())
+		return query.value(0).toInt();
+	return 0;
+}
+
+QSqlRecord AnalysisUIDao::getSampleByPkid(const int pkid, bool &ret)
+{
+	QSqlQuery query;
+	ret = false;
+	if (DAO::createQuery(query) < 0)
+		return QSqlRecord();
+	QString sqlStr = QString("select * from tsample where pkid=%1").arg(pkid);
+	if(!query.exec(sqlStr))
+		return QSqlRecord();
+	if(!query.next())
+		return QSqlRecord();
+	ret = true;
+	return query.record();
+}
+
+QString AnalysisUIDao::getItemCHName(const QString &itemName, const int paperId)
+{
+	QSqlQuery query;
+	if (DAO::createQuery(query) < 0)
+		return "";
+	QString sqlStr = QString("select * from titem where TestPaperID=%1 and itemName='%2'").arg(paperId).arg(itemName);
+	if (!query.exec(sqlStr))
+		return "";
+	if (query.next())
+	{
+		if (query.value("chItemName").isNull())
+			return "";
+		return query.value("chItemName").toString();
+	}
+	return "";
+}
+
 QMap<QString, QVector<JudgeRules> > AnalysisUIDao::getPaperJudgeRules(const int paperId)
 {
     QMap<QString, QVector<JudgeRules>>outMap{};
@@ -2088,23 +2133,22 @@ QSqlQuery AnalysisUIDao::SelectSamples(QString strProjectName, bool *bResult)
     return query;
 }
 
-QSqlQuery AnalysisUIDao::SelectSamplesByTestId(QString test_Id, bool *bResult)
+QVector<QSqlRecord> AnalysisUIDao::SelectSamplesByTestId(QString test_Id)
 {
     QSqlQuery query;
+	QVector<QSqlRecord> outVect{};
     if (DAO::createQuery(query) < 0)
     {
-        *bResult = false;
-        return query;
+		return outVect;
     }
-
-    QString strSql;
-    strSql = "";
-    strSql = "select * from tsample_test where Id = '" + test_Id + "'";
-    //strSql = "select * from wgm_Sample where ProjectName = '";
-    //strSql += strProjectName;
-    //strSql += "' order by SampleID";
-    *bResult = query.exec(strSql);
-    return query;
+	QString strSql = "select * from tsample_test where Id = " + test_Id + "";
+	if (!query.exec(strSql))
+		return outVect;
+	while (query.next())
+	{
+		outVect.push_back(query.record());
+	}
+    return outVect;
 }
 
 QSqlQuery AnalysisUIDao::SelectLeftRightPosition(QString test_Id, bool *bResult)
@@ -2150,22 +2194,6 @@ QSqlQuery AnalysisUIDao::SelectSamplesByQuery(QString start_time, QString end_ti
         max_pkid = SelectMaxPkid(project_name1, start_time, end_time);
     }
 
-    //提示用户查询时间会比较长
-    //if (project_name == "全部all")
-    //{
-    //	//strSql += " order by A.pkid desc ";
-    //	strSql = QString("%1 %2").arg(strSql).arg(" order by A.pkid desc");
-    //}
-    //else
-    //{
-    //	//默认最多只查出来前500条数据
-    //	//strSql += "";
-    //	//and   A.pkid > 24644 - 30    order by A.pkid desc  LIMIT  30
-    //	strSql = QString("%1  and A.pkid>%2    %3  LIMIT  %4").arg(strSql).arg(max_pkid.toInt() - (one_page_number*page_index)).arg("   ").arg(one_page_number);
-    //}
-    //strSql = QString("%1  and A.pkid<=%2    %3  LIMIT  %4").arg(strSql).arg(max_pkid.toInt() - (one_page_number*(page_index-1))).arg("  ORDER BY A.pkid  DESC   ").arg(one_page_number);
-    //strSql = QString("%1  and A.pkid>%2   %3  LIMIT  %4").arg(strSql).arg(max_pkid.toInt() - (one_page_number*(page_index ))).arg("  ORDER BY A.pkid  ASC   ").arg(one_page_number);
-
     int number_i = 0;
     number_i = one_page_number * (page_index-1);
     m_count_i = 0;
@@ -2175,7 +2203,6 @@ QSqlQuery AnalysisUIDao::SelectSamplesByQuery(QString start_time, QString end_ti
 
     if (max_pkid.toInt() <= one_page_number)
     {
-        //strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY A.pkid    ").arg(one_page_number);
         strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY test_batch DESC    ").arg(one_page_number);
     }
     else
@@ -2184,56 +2211,36 @@ QSqlQuery AnalysisUIDao::SelectSamplesByQuery(QString start_time, QString end_ti
         {
             if ((page_size)< one_page_number && page_size>0)
             {
-                //strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number).arg("  ORDER BY A.pkid    ").arg(page_size + one_page_number);
                 strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number).arg("  ORDER BY test_batch DESC    ").arg(page_size + one_page_number);
             }
             else if(page_size==0)
             {
-                //strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY A.pkid    ").arg(one_page_number);
                 strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY test_batch DESC     ").arg(one_page_number);
             }
             else
             {
-                //strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number).arg("  ORDER BY A.pkid    ").arg(page_size + one_page_number);
                 strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number).arg("  ORDER BY test_batch DESC     ").arg(page_size + one_page_number);
-                //strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY A.pkid    ").arg(one_page_number);
             }
         }
         else
         {
-
-
-
-
-
             if (page_size < one_page_number)
             {
-
-                //strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY A.pkid     ").arg(one_page_number);
                 strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number*(page_index - 1)).arg(" ORDER BY test_batch DESC     ").arg(one_page_number);
             }
             else
             {
-                //strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(count_i - number_i).arg("  ORDER BY A.pkid    ").arg(one_page_number);
                 if (page_index == 1)
                 {
                     strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY test_batch DESC   ").arg(one_page_number);
                 }
                 else
                 {
-                    //strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(count_i - number_i).arg("  ORDER BY test_batch DESC   ").arg(one_page_number);
                     strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number*(page_index - 1)).arg("  ORDER BY test_batch DESC   ").arg(one_page_number);
                 }
             }
-
-
         }
     }
-
-    //strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(max_pkid.toInt() - (one_page_number*(page_index))).arg("  ORDER BY A.pkid  ASC   ").arg(one_page_number);
-    //strSql = "select * from wgm_Sample where ProjectName = '";
-    //strSql += strProjectName;
-    //strSql += "' order by SampleID";
     *bResult = query.exec(strSql);
     return query;
 }

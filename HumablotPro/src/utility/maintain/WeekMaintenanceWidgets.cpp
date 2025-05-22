@@ -330,10 +330,12 @@ void WeekMaintenanceWidgets::on_pushButton_clicked()
     for(int pumpNum:mOutVect){
         pumpList.push_back(static_cast<uint8_t>(pumpNum+1));
     }
+    auto pm{SystemSetBLL().getRowById(27)};
+    int showTime{pm.isNull()?900:pm->getSaveSet()/1000};
     _instr->weeklyMaintenance(pumpList);
-
     _maintainStep = 1;
     m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1626"));//"周维护进行中......");
+    m_progressDialog->setShowTime(showTime+35);
     m_progressDialog->exec();
     //ui->btn_down_step->setEnabled(false);
 }

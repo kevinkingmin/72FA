@@ -118,13 +118,19 @@ void ProgressDialog::updateProgress(int maxValue)
     ui->progressBar->setRange(0, maxValue);
     QTime time;
     time.start();
-    connect(_timer, &QTimer::timeout, this, [this, maxValue,time]()
+    QString headStr=ui->lblHead->text();
+    connect(_timer, &QTimer::timeout, this, [this, maxValue,time,headStr]()
     {
-        _showTime-=time.elapsed()/1000;
-        if(_showTime>0)
-            ui->lblHead->setText(ui->lblHead->text()+tr("(%1)").arg(_showTime));
+        int showTime=_showTime-time.elapsed()/1000;
+        if(showTime>0)
+        {
+            ui->lblHead->setText(headStr+tr("(%1)").arg(showTime));
+        }
         else
+        {
+            ui->lblHead->setText(headStr);
             _showTime=0;
+        }
 
         if (maxValue <= 0)
         {

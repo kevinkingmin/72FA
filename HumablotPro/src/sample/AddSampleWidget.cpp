@@ -69,13 +69,13 @@ void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
     QJsonDocument doc = QJsonDocument::fromJson(resultData);
     if(doc.isNull()||doc.isEmpty())
     {
-		scanWorkState(true);
+        scanWorkState(true);
         return;
     }
-    QJsonArray jsonArray =doc.array();    
+    QJsonArray jsonArray =doc.array();
     QString barcode("");
     for(int i=star_pos;i<end_pos+1;i++)
-	{
+    {
         barcode=jsonArray.at(i-star_pos).toString();
         if(!m_tcpClient->m_connectedState)
             slotGetSampleBarCode(i,barcode);
@@ -84,13 +84,13 @@ void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
         {
             eLog("scan data wrong,pos:{},barcode:{}",i,barcode.toStdString());
             continue;
-        }		
+        }
         m_barCodePosMap.insert(i,barcode);
     }
 
     if(m_tcpClient==nullptr || !m_tcpClient->m_connectedState)
     {
-		scanWorkState(true);
+        scanWorkState(true);
         return;
     }
 
@@ -98,13 +98,13 @@ void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
     {
         QTime timer;
         for(auto it=m_barCodePosMap.begin();it!=m_barCodePosMap.end();it++)
-        {	
+        {
             if (!m_tcpClient->m_connectedState)
-			{
-				emit sglSendRequestDataToLIS("finish");
-				eLog("TCP break");
-				break;
-			}
+            {
+                emit sglSendRequestDataToLIS("finish");
+                eLog("TCP break");
+                break;
+            }
 
             if(it.value().isEmpty())
             {
@@ -130,17 +130,17 @@ void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
         }
 
         m_isLISRequestDataFinish=true;
-		Sleep(2000);
-		timer.restart();
-		while (m_progressDialog->isVisible())
-		{
-			if (timer.elapsed() > 6000)
-			{
-				emit sglSendRequestDataToLIS("finish");
-				break;
-			}
-			Sleep(100);
-		}
+        Sleep(2000);
+        timer.restart();
+        while (m_progressDialog->isVisible())
+        {
+            if (timer.elapsed() > 6000)
+            {
+                emit sglSendRequestDataToLIS("finish");
+                break;
+            }
+            Sleep(100);
+        }
     });
 }
 
@@ -174,7 +174,7 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
     if (m_LISRepeatBarcord.contains(sample_id))
             m_LISERRDes += tr("LIS服务器返回重复条码:%1,样本位置:%2\r\n").arg(sample_id).arg(m_samplePos+1);
     QDate currentDate = QDate::currentDate();
-    
+
     QString create_time = currentDate.toString("yyyy-MM-dd");
     auto dao = AnalysisUIDao::instance();
     bool bResult = true;
@@ -195,12 +195,12 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
     if(m_samplePos+1 >= m_barCodePosMap.lastKey())
     {
         ShowTestInfoFromDatabase();
-		scanWorkState(true);
-		if (!m_LISERRDes.isEmpty())
-		{
-			MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), m_LISERRDes, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
-			m_LISERRDes = "";
-		}
+        scanWorkState(true);
+        if (!m_LISERRDes.isEmpty())
+        {
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), m_LISERRDes, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+            m_LISERRDes = "";
+        }
     }
 }
 
@@ -217,36 +217,36 @@ void AddSampleWidget::slotSendRequestDataToLIS(const QString &requstData)
 {
     if (m_tcpClient == nullptr || requstData=="finish")
     {
-		scanWorkState(true);
-		if (m_tcpClient == nullptr)
-			eLog("m_tcpClient is null");
-		else
-			MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("从LIS服务器下载数据出错！"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
-		ShowTestInfoFromDatabase();
-		return;
+        scanWorkState(true);
+        if (m_tcpClient == nullptr)
+            eLog("m_tcpClient is null");
+        else
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("从LIS服务器下载数据出错！"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+        ShowTestInfoFromDatabase();
+        return;
     }
 
     if (m_tcpClient->m_connectedState)
-    {		
+    {
         m_tcpClient->sendData(requstData);
     }
 }
 void AddSampleWidget::scanWorkState(const bool isFinish)
 {
-	if (isFinish)
-	{
-		m_progressDialog->hide();
-		ui->btnBCR->setEnabled(true);
-		emit ChangeBtnSaveSignal(true);
-		emit ChangeBtnNextSignal(true);
-	}
-	else
-	{
-		emit ChangeBtnSaveSignal(false);
-		emit ChangeBtnNextSignal(false);
-		ui->btnBCR->setEnabled(false);
-	}
-	
+    if (isFinish)
+    {
+        m_progressDialog->hide();
+        ui->btnBCR->setEnabled(true);
+        emit ChangeBtnSaveSignal(true);
+        emit ChangeBtnNextSignal(true);
+    }
+    else
+    {
+        emit ChangeBtnSaveSignal(false);
+        emit ChangeBtnNextSignal(false);
+        ui->btnBCR->setEnabled(false);
+    }
+
 }
 //得到查询条件，然后传进去查询函数中去。
 void AddSampleWidget::slotGetQueryCondition(QString condition1,QString condition2)
@@ -528,7 +528,7 @@ void AddSampleWidget::slotGetSampleBarCode(int pos,QString barCode)
     }
 
     if (mScanBarCodePos == m_barCodePosMap.size())
-		scanWorkState(true);
+        scanWorkState(true);
 
     setSamplePaperIdMap();
     setBtnCheckStyle();
@@ -554,8 +554,8 @@ void AddSampleWidget::on_btnBCR_clicked()
 
 void AddSampleWidget::OnShowBtnState()
 {
-	m_samplePos = -1;
-	m_LISERRDes = "";
+    m_samplePos = -1;
+    m_LISERRDes = "";
     int star_pos = ui->lineEdit_3->text().toInt();
     int end_pos = ui->lineEdit_4->text().toInt();
     if (star_pos > end_pos)
@@ -575,14 +575,14 @@ void AddSampleWidget::OnShowBtnState()
     }
     m_barCodePosMap.clear();
     mScanBarCodePos = 0;
-	m_samplePos = -1;
+    m_samplePos = -1;
     for (int ipos = star_pos; ipos < end_pos + 1; ipos++)
     {
         m_barCodePosMap.insert(ipos, "");
     }
 
     if (m_barCodePosMap.count()>0)
-		scanWorkState(false);
+        scanWorkState(false);
     m_instr->scanSampleCode(QString::number(star_pos),QString::number(end_pos));
     m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1712"));
     m_progressDialog->exec();
@@ -695,7 +695,7 @@ void AddSampleWidget::SaveSampleListToDataBase()
     SaveSample();
 }
 
-#define WM_MYMESSAGE WM_USER + 1 
+#define WM_MYMESSAGE WM_USER + 1
 #define   WM_MYMSG WM_USER + 2001 //WM_USER为系统定义好的值为0x0400
 
 #ifdef Q_OS_WIN

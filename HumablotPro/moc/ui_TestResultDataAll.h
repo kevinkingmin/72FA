@@ -78,8 +78,8 @@ public:
             TestResultDataAll->setObjectName(QString::fromUtf8("TestResultDataAll"));
         TestResultDataAll->resize(1907, 794);
         tableWidget = new QTableWidget(TestResultDataAll);
-        if (tableWidget->columnCount() < 8)
-            tableWidget->setColumnCount(8);
+        if (tableWidget->columnCount() < 9)
+            tableWidget->setColumnCount(9);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -96,6 +96,8 @@ public:
         tableWidget->setHorizontalHeaderItem(6, __qtablewidgetitem6);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(7, __qtablewidgetitem7);
+        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(8, __qtablewidgetitem8);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
         tableWidget->setGeometry(QRect(15, 61, 1881, 681));
         layoutWidget = new QWidget(TestResultDataAll);
@@ -313,6 +315,8 @@ public:
         ___qtablewidgetitem6->setText(QApplication::translate("TestResultDataAll", "LIS\347\212\266\346\200\201", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
         ___qtablewidgetitem7->setText(QApplication::translate("TestResultDataAll", "\345\210\244\350\257\273\347\273\223\346\236\234", nullptr));
+        QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(8);
+        ___qtablewidgetitem8->setText(QApplication::translate("TestResultDataAll", "pkid", nullptr));
         pushButtonUpdateToLis->setText(QApplication::translate("TestResultDataAll", "\344\274\240\350\276\223", nullptr));
         pushButtonUpdateToLis->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
         label_3->setText(QApplication::translate("TestResultDataAll", "\350\206\234\346\235\241\351\200\211\346\213\251", nullptr));

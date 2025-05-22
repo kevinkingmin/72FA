@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QVector>
+#include <QSqlRecord>
 #include "../dao.h"
 #include "../Include/Model/result/JudgeRules.h"
 
@@ -69,7 +70,7 @@ public:
 	QSqlQuery SelectSamplesByQuery(QString start_time, QString end_time, QString project_name, QString strProjectName, bool *bResult, int one_page_number, int page_index);
 
 
-	QSqlQuery SelectSamplesByTestId(QString test_Id, bool *bResult);
+	QVector<QSqlRecord> SelectSamplesByTestId(QString test_Id);
 	///得到膜条在判断中的位置。
 	QSqlQuery SelectLeftRightPosition(QString test_Id, bool *bResult);
 	
@@ -270,11 +271,14 @@ public:
 		QString selectDataBaseVersion(bool *bResult);
 		//UpdateTargetValue(bool *bResult, QString id, QString value);
         QString  createLISData(const QString &testId);
-		int m_count_i = 0;
+		int getPaperItemCountBySampleId(const int pkid);
+		QSqlRecord getSampleByPkid(const int pkid,bool &ret);
+		QString getItemCHName(const QString &itemName,const int paperId);
 private:
         QMap<QString, QVector<JudgeRules>> getPaperJudgeRules(const int paperId);
         QMap<int, QVector<JudgeRules> > convertGrayRadio();
         std::tuple<QString, QString> getConvertPara(QVector<JudgeRules>&judgeRulesVect, const double &dRatioToCut, const int paperId);
 private:
         QVector<int> m_paperIdVect;
+		int m_count_i = 0;
 };

@@ -19,18 +19,24 @@
 #include "../Include/Utilities/log.h"
 #include "../main/mainwindow.h"
 #include "src/main/subDialog/MyMessageBox.h"
+#include "../Include/BLL/baseSet/SystemSetBLL.h"
+#include "../Include/Model/baseSet/SystemSetModel.h"
+#include "../Include/BLL/baseSet/SexBLL.h"
+#include "../Include/Model/baseSet/SexModel.h"
+#include "../Include/BLL/baseSet/AgeUnitBLL.h"
+#include "../Include/Model/baseSet/AgeUnitModel.h"
 
 TestResultDataAll::TestResultDataAll(QWidget *parent)
 	: QWidget(parent)
     ,m_tcpClient(nullptr)
     ,m_progressDialog(nullptr)
+	,m_printIndexs{}
+	,m_itemCount(0)
 {
 	ui.setupUi(this);
 	auto dao = AnalysisUIDao::instance();
 	bool bResult;
-	g_language_type = dao->SelectTargetValue(&bResult, "20005");
 	QString page_size_database = dao->SelectTargetValue(&bResult, "20009");
-
 	ui.tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows); //设置选择行为，以行为单位
 	ui.tableWidget->setSelectionMode(QAbstractItemView::SingleSelection); //设置选择膜式，选择单行
 	ui.tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -39,14 +45,14 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
 	bResult = true;
 
 	QStringList headerString;
-	QString sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1156");//是否选中
-	QString sz = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1163");//是否选中
-	QString sz2 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1157");
-	QString sz3 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1158");
-	QString sz4 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1159");
-	QString sz5 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1160");
-	QString sz6 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1161");
-	QString sz7= GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1162");
+	QString sz1 = GlobalData::LoadLanguageInfo("K1156");//是否选中
+	QString sz = GlobalData::LoadLanguageInfo("K1163");//是否选中
+	QString sz2 = GlobalData::LoadLanguageInfo("K1157");
+	QString sz3 = GlobalData::LoadLanguageInfo("K1158");
+	QString sz4 = GlobalData::LoadLanguageInfo("K1159");
+	QString sz5 = GlobalData::LoadLanguageInfo("K1160");
+	QString sz6 = GlobalData::LoadLanguageInfo("K1161");
+	QString sz7= GlobalData::LoadLanguageInfo("K1162");
 
 	headerString << sz1 << sz2 << sz << sz3 << sz4 << sz5 << sz6 << sz7;
 	ui.tableWidget->setHorizontalHeaderLabels(headerString);
@@ -63,14 +69,14 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
 	auto TestPaperListQuery = dao->SelectTestPaperIDs(m_test_project_name, &bResult);
 	if (bResult == false)
 	{
-		MyMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1304"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(0, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1304"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
 
 	int nTestPaperTypeNumber = TestPaperListQuery.size();
 	int nTestPaperID = 0;
 	QString strTestPaperName;
-	ui.comboBoxPaperID->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1594"));
+	ui.comboBoxPaperID->addItem(GlobalData::LoadLanguageInfo("K1594"));
 
 	m_paper_map.clear();
 	while (TestPaperListQuery.next())
@@ -120,18 +126,18 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
 	m_bottom = 685;
 	ui.pushButtonTopPage->setEnabled(false);
 
-	ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1081"));
-	ui.pushButtonUpdateToLis->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1146"));
+	ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo("K1081"));
+	ui.pushButtonUpdateToLis->setText(GlobalData::LoadLanguageInfo("K1146"));
 
-	ui.pushButtonPrint->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1147"));
-	ui.pushButtonPrintA->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1148"));
-	ui.pushButtonPdf->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1149"));
-	ui.pushButtonPdfAll->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1150"));
-	ui.label->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1151"));
-	ui.label_2->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1152"));
-	ui.label_3->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1153"));
-	ui.pushButtonQuery->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1154"));
-	ui.pushButton->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1155"));
+	ui.pushButtonPrint->setText(GlobalData::LoadLanguageInfo("K1147"));
+	ui.pushButtonPrintA->setText(GlobalData::LoadLanguageInfo("K1148"));
+	ui.pushButtonPdf->setText(GlobalData::LoadLanguageInfo("K1149"));
+	ui.pushButtonPdfAll->setText(GlobalData::LoadLanguageInfo("K1150"));
+	ui.label->setText(GlobalData::LoadLanguageInfo("K1151"));
+	ui.label_2->setText(GlobalData::LoadLanguageInfo("K1152"));
+	ui.label_3->setText(GlobalData::LoadLanguageInfo("K1153"));
+	ui.pushButtonQuery->setText(GlobalData::LoadLanguageInfo("K1154"));
+	ui.pushButton->setText(GlobalData::LoadLanguageInfo("K1155"));
 
 	if (page_size_database == "")
 	{
@@ -193,7 +199,7 @@ void TestResultDataAll::slotUpdateStatus(QString a, QString b)
 //	//	//QString strMessage2 = QString::fromStdString(reinterpret_cast<char*>(cds->lpData));
 //	//	//QString strMessage3 = QString::fromStdWString(reinterpret_cast<char*>(cds->lpData));
 //	//	//QString strMessage4 = QString::fromUtf8(reinterpret_cast<char*>(cds->lpData), cds->cbData);
-//	//	QMessageBox::information(this, QStringLiteral(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180")), strMessage);
+//	//	QMessageBox::information(this, QStringLiteral(GlobalData::LoadLanguageInfo("K1180")), strMessage);
 //	//	*result = 1;
 //	//	return true;
 //	//}
@@ -265,9 +271,9 @@ void TestResultDataAll::on_pushButtonPrint_clicked()
 			{
 				if (project_name != project_name1)
 				{
-					QString str = QString("%3：%1,%2").arg(project_name).arg(project_name1).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1305"));
-					MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), str, MyMessageBox::Ok, "OK", "");
-					//QMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), "概述操作，只能选择一个项目！", QMessageBox::Ok);
+					QString str = QString("%3：%1,%2").arg(project_name).arg(project_name1).arg(GlobalData::LoadLanguageInfo("K1305"));
+					MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), str, MyMessageBox::Ok, "OK", "");
+					//QMessageBox::warning(0, GlobalData::LoadLanguageInfo("K1271"), "概述操作，只能选择一个项目！", QMessageBox::Ok);
 					return;
 				}
 			}
@@ -278,14 +284,14 @@ void TestResultDataAll::on_pushButtonPrint_clicked()
 
 	if (m_colNum == 0 || m_rowNum == 0)
 	{
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1306"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
 
-	QString tip = QString( "%2 %1").arg(m_rowNum).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1307"));
+	QString tip = QString( "%2 %1").arg(m_rowNum).arg(GlobalData::LoadLanguageInfo("K1307"));
 	if (m_rowNum >100)
 	{
-		MyMessageBox::warning(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), tip, MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(this,GlobalData::LoadLanguageInfo("K1271"), tip, MyMessageBox::Ok, "OK", "");
 		return;
 	}
 
@@ -324,10 +330,10 @@ void TestResultDataAll::on_pushButtonPrintA_clicked()
 	}
 	if (m_colNum == 0 || m_rowNum == 0)
 	{
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1306"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
-	m_all_page_number = m_rowNum;
+	m_all_page_number = m_rowNum;	
 	QPrinter printer(QPrinter::ScreenResolution);
 	printer.setPageSize(QPrinter::A4);
 	printer.setOrientation(QPrinter::Portrait); //打印方向 Portrait 纵向，Landscape：横向
@@ -363,7 +369,7 @@ void  TestResultDataAll::on_pushButtonPdf_clicked()
 	}
 	if (m_all_page_number == 0 )
 	{
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1306"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
 	SavePdfA();
@@ -392,7 +398,7 @@ void  TestResultDataAll::on_pushButtonPdfAll_clicked()
 				if (project_name != project_name1)
 				{
 					QString str = QString("概述操作，只能选择一个项目,当前选择的项目有：%1,%2").arg(project_name).arg(project_name1);
-					MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), str, MyMessageBox::Ok, "OK", "");
+					MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), str, MyMessageBox::Ok, "OK", "");
 					return;
 				}
 			}
@@ -401,14 +407,14 @@ void  TestResultDataAll::on_pushButtonPdfAll_clicked()
 	}
 	if (m_all_page_number == 0)
 	{
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1306"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
 	if (m_all_page_number > 100)
 	{
 		//QString tip = QString("排版要求，请选择至于10条以上有效数据！当前已选择：%1").arg(m_all_page_number);
 		QString tip = QString("排版要求，选择数量不要超出100！当前已选择：%1").arg(m_all_page_number);
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), tip, MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), tip, MyMessageBox::Ok, "OK", "");
 		return;
 	}
 	QPrinter printer(QPrinter::ScreenResolution);
@@ -460,7 +466,6 @@ void  TestResultDataAll::on_pushButtonPdfAll_clicked()
 
 	QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)); //打开PDF文件
 }
-
 
 void TestResultDataAll::SavePdf(QPainter* pPdfPainter,QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue)
 {
@@ -528,8 +533,6 @@ void TestResultDataAll::drawTableB(QPainter *painter, QString test_Id, QString r
 		}
 	}
 
-
-
 	for (size_t ik = 0; ik < m_PrintDataListValue.count(); ik++)
 	{
 		QString wtext = m_PrintDataListValue[ik];
@@ -559,27 +562,6 @@ void TestResultDataAll::drawTableB(QPainter *painter, QString test_Id, QString r
 		//painter->drawPixmap(QRect(260, -170, 500, rowHeight), pixBig);
 		painter->drawPixmap(QRect(260, -170, w1*0.4, h1*0.4), pixBig);
 	}
-
-
-
-
-
-	//for (size_t ik = 0; ik < m_PrintDataListValue.count(); ik++)
-	//{
-	//	QString wtext = m_PrintDataListValue[ik];
-	//	QString wtext1 = m_PrintDataListProject[ik];
-	//	painter->drawText(QRect(startx, starty + titleHeight + (rowHeight * (5 + ik) * 1.33) + 100, colWidth, rowHeight), Qt::AlignLeft, QString("%1").arg(wtext1));
-	//}
-
-	//painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
-	//pixBig.load(strPath + "\\" + test_Id + ".png");  //图片路径
-	//int w1 = pixBig.width();
-	//int h1 = pixBig.height();
-	//painter->rotate(-270);
-	//if (h1 > 0 && w1 > 0)
-	//{
-	//	painter->drawPixmap(QRect(260, -170, 500, rowHeight), pixBig);//->drawPixmap(x, y, pixmap);
-	//}
 	painter->rotate(-90);
 	//第一个矩形
 	painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
@@ -626,7 +608,6 @@ void TestResultDataAll::drawTableB(QPainter *painter, QString test_Id, QString r
 	pen_3_dashe.setDashPattern(dashes);
 	pen_3_dashe.setWidth(2);
 
-
 	for (size_t ik = 0; ik < 24; ik++)
 	{
 		line_y1 = ik * rowHeight;
@@ -660,34 +641,6 @@ void TestResultDataAll::drawTableB(QPainter *painter, QString test_Id, QString r
 			painter->drawLine(line_rect1_x1, rect1_y1 + 2, line_rect1_x1, rect1_y1 + (24 * rowHeight) - 2);
 		}
 	}
-
-
-	//for (size_t ik = 0; ik < m_PrintDataListValue.count(); ik++)
-	//{
-	//	QString wtext = m_PrintDataListValue[ik];
-	//	int width = (PrintDataListCutGrayValue[ik] / max) * 225 * 1;
-	//	QBrush brush1;   //画刷。填充几何图形的调色板，由颜色和填充风格组成
-	//	if (wtext == "+++") {
-	//		brush1.setColor(QColor(255, 0, 0, 120));
-	//	}
-	//	else if (wtext == "++")
-	//	{
-	//		brush1.setColor(QColor(211, 167, 0, 200));
-	//	}
-	//	else if (wtext == "+")
-	//	{
-	//		brush1.setColor(QColor(255, 255, 0, 120));
-	//	}
-	//	else {
-	//		brush1.setColor(QColor(242, 255, 255, 120));
-	//	}
-	//	brush1.setStyle(Qt::SolidPattern);
-	//	painter->setBrush(brush1);
-	//	painter->fillRect(startx + 170, starty + titleHeight + (rowHeight * (5 + ik) * 1.4) + 100, width, (rowHeight * 2) / 5, brush1);//->drawRect(line_x11 + 2, rect1_y1 + line_y1 + 2, 75 - 2, rowHeight - 2);
-	//	painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
-	//	painter->drawText(QRect(startx + 172 + width, starty + titleHeight + (rowHeight * (5 + ik) * 1.4) + 100, colWidth, rowHeight), Qt::AlignLeft, QString("%1").arg(wtext));
-	//}
-
 
 	for (size_t ik = 0; ik < m_PrintDataListValue.count(); ik++)
 	{
@@ -734,9 +687,6 @@ void TestResultDataAll::drawTableB(QPainter *painter, QString test_Id, QString r
 		}
 	}
 
-
-
-
 	QPen pen; //画笔。绘制图形边线，由颜色、宽度、线风格等参数组成
 	pen.setColor(QColor(255, 255, 255, 120));
 	QBrush brush;   //画刷。填充几何图形的调色板，由颜色和填充风格组成
@@ -777,7 +727,6 @@ void TestResultDataAll::drawTableB(QPainter *painter, QString test_Id, QString r
 			break;
 		}
 	}
-
 	int y11 = 0;
 	int startx1 = 0;
 	int startx2 = 0;
@@ -818,7 +767,6 @@ void TestResultDataAll::drawTableB(QPainter *painter, QString test_Id, QString r
 			}
 		}
 	}
-
 	painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
 	painter->drawLine(startx, starty + height, startx + width, starty + height);
 	painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
@@ -839,16 +787,10 @@ void TestResultDataAll::drawTableB(QPainter *painter, QString test_Id, QString r
 	painter->setPen(pen1);
 	painter->setBrush(brush2);
 	painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
-
-
 }
 
 void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position)
 {
-	//QPixmap map(700, 1200);
-	//map.fill(Qt::transparent);
-	//painter->begin(&map);
-	//p.setTransform(m
 	double max = *std::max_element(PrintDataListCutGrayValue.begin(), PrintDataListCutGrayValue.end());
 	QString pic_name = "";
 	//DB中取Testitems表数据
@@ -1792,7 +1734,10 @@ void TestResultDataAll::SavePdfA()
 	QString result_data = "";
 	QString sample_id = "";
 	QString project_name = "";
+	int pkid = 0;
 	int iii = 0;
+	auto pm = SystemSetBLL().getRowById(5);
+	int companyId = pm.isNull() ? 1 : pm->getSaveSet();
 	for (int i = 0; i < ui.tableWidget->rowCount(); i++)
 	{
 		bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
@@ -1802,6 +1747,7 @@ void TestResultDataAll::SavePdfA()
 			result_data = dao->GetTestResultByTestId(test_Id);//ui.tableWidget->item(i, 7)->text();
 			sample_id = ui.tableWidget->item(i, 2)->text();
 			project_name = ui.tableWidget->item(i, 3)->text();
+			pkid = ui.tableWidget->item(i, 8)->text().simplified().toInt();
 			painter.setPen(Qt::black);
 			bool bResult = true;
 			auto dao = AnalysisUIDao::instance();
@@ -1810,10 +1756,10 @@ void TestResultDataAll::SavePdfA()
 			QList<QString> PrintDataListCutGrayValue;
 			PrintDataListGrayValue.clear();
 			PrintDataListCutGrayValue.clear();
-			auto SampleTestQuery = dao->SelectSamplesByTestId(test_Id, &bResult);
+			auto SampleTests = dao->SelectSamplesByTestId(test_Id);
 			if (bResult == false)
 			{
-				MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1304"), MyMessageBox::Ok, "OK", "");
+				MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1304"), MyMessageBox::Ok, "OK", "");
 				return;
 			}
 
@@ -1831,21 +1777,17 @@ void TestResultDataAll::SavePdfA()
 
 			QList<float> PrintDataListCutGrayValue_list;
 			PrintDataListCutGrayValue_list.clear();
-			while (SampleTestQuery.next())
+			for (auto record : SampleTests)
 			{
-				PrintDataListCutGrayValue.append(SampleTestQuery.value("cutGrayValue").toString());
-				PrintDataListCutGrayValue_list.append(SampleTestQuery.value("cutGrayValue").toFloat());
-				PrintDataListGrayValue.append(SampleTestQuery.value("testGrayValue").toString());
+				PrintDataListCutGrayValue.append(record.value("cutGrayValue").toString());
+				PrintDataListCutGrayValue_list.append(record.value("cutGrayValue").toFloat());
+				PrintDataListGrayValue.append(record.value("testGrayValue").toString());
 			}
-			printOnePageB(&painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue_list, map_position);
-			//painter.drawText(printer.width() / 2 - 800, 600, QString("QTxxx1 ").arg(iii));
-			if (iii != m_all_page_number - 1) //判断是否最后一页，如果不是最后一页则新建一页
+			painter.setPen(Qt::black);
+			printOnePageA(&painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue_list, map_position, pkid, companyId);
+			if (iii != m_all_page_number - 1) 
 			{
-				printer.newPage(); //新建页
-				printer.setPageSize(QPrinter::A4);
-				printer.setOrientation(QPrinter::Portrait); //打印方向 Portrait 纵向，Landscape：横向
-				printer.setOutputFormat(QPrinter::NativeFormat);
-				printer.setOutputFormat(QPrinter::PdfFormat);//PDF格式
+				printer.newPage(); 
 			}
 			iii++;
 		}
@@ -1893,10 +1835,10 @@ void TestResultDataAll::SavePdfB()
 			QList<QString> PrintDataListCutGrayValue;
 			PrintDataListGrayValue.clear();
 			PrintDataListCutGrayValue.clear();
-			auto SampleTestQuery = dao->SelectSamplesByTestId(test_Id, &bResult);
+			auto SampleTests = dao->SelectSamplesByTestId(test_Id);
 			if (bResult == false)
 			{
-				MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1304"), MyMessageBox::Ok, "OK", "");
+				MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1304"), MyMessageBox::Ok, "OK", "");
 				return;
 			}
 
@@ -1912,13 +1854,12 @@ void TestResultDataAll::SavePdfB()
 
 			QList<float> PrintDataListCutGrayValue_list;
 			PrintDataListCutGrayValue_list.clear();
-			while (SampleTestQuery.next())
+			for (auto r : SampleTests)
 			{
-				PrintDataListCutGrayValue.append(SampleTestQuery.value("cutGrayValue").toString());
-				PrintDataListCutGrayValue_list.append(SampleTestQuery.value("cutGrayValue").toFloat());
-				PrintDataListGrayValue.append(SampleTestQuery.value("testGrayValue").toString());
+				PrintDataListCutGrayValue.append(r.value("cutGrayValue").toString());
+				PrintDataListCutGrayValue_list.append(r.value("cutGrayValue").toFloat());
+				PrintDataListGrayValue.append(r.value("testGrayValue").toString());
 			}
-
 			printOnePageB(&painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue_list, map_position);
 			//painter.drawText(printer.width() / 2 - 800, 600, QString("QTxxx1 ").arg(iii));
 			if (iii != m_all_page_number - 1) //判断是否最后一页，如果不是最后一页则新建一页
@@ -1932,6 +1873,46 @@ void TestResultDataAll::SavePdfB()
 	QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)); //打开PDF文件
 }
 
+bool TestResultDataAll::getPrintIndexs(const bool isSamePaper)
+{
+	m_printIndexs.clear();
+	int totalItems = ui.tableWidget->rowCount();
+	for (int i = 0; i < totalItems; i++)
+	{
+		if (ui.tableWidget->item(i, 0)->checkState())
+			m_printIndexs.push_back(i);
+	}
+	if (m_printIndexs.isEmpty())
+	{
+		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
+		return false;
+	}
+	if (m_printIndexs.count() >= 100)
+	{
+		QString tip = QString("%2 %1").arg(m_rowNum).arg(GlobalData::LoadLanguageInfo("K1307"));
+		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), tip, MyMessageBox::Ok, "OK", "");
+		return false;
+	}
+
+	if (!isSamePaper)
+		return true;
+
+	QString paperName{ ui.tableWidget->item(m_printIndexs.first(), 3)->text() };
+	int pkId{ ui.tableWidget->item(m_printIndexs.first(), 8)->text().toInt() };
+	m_itemCount = AnalysisUIDao::instance()->getPaperItemCountBySampleId(pkId);
+	for (auto index : m_printIndexs)
+	{
+		if (paperName != ui.tableWidget->item(index, 3)->text())
+		{
+			m_itemCount = 0;
+			QString str = QString("概述操作，只能选择一个项目,当前选择的项目有：%1,%2").arg(paperName).arg(ui.tableWidget->item(index, 3)->text());
+			MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), str, MyMessageBox::Ok, "OK", "");
+			return false;
+		}
+	}
+	return true;
+}
+
 void TestResultDataAll::printDocumentA(QPrinter *printer)
 {
 	QString test_Id = "";
@@ -1939,9 +1920,12 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
 	QString sample_id = "";
 	QString project_name = "";
 	QPainter painter;
+	int pkid = 0;
 	auto dao = AnalysisUIDao::instance();
 	//printOnePageA(&painter, test_Id, result_data, sample_id, project_name);
 	int iii = 0;
+	auto pm = SystemSetBLL().getRowById(5);
+	int companyId = pm.isNull() ? 1 : pm->getSaveSet();
 	for (int i = 0; i < ui.tableWidget->rowCount(); i++)
 	{
 		bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
@@ -1951,6 +1935,7 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
 			result_data = dao->GetTestResultByTestId(test_Id);//ui.tableWidget->item(i, 7)->text();
 			sample_id = ui.tableWidget->item(i, 2)->text();
 			project_name = ui.tableWidget->item(i, 3)->text();
+			pkid= ui.tableWidget->item(i, 3)->text().simplified().toInt();
 			painter.begin(printer);
 			painter.setPen(Qt::black);
 
@@ -1961,7 +1946,7 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
 			QList<QString> PrintDataListCutGrayValue;
 			PrintDataListGrayValue.clear();
 			PrintDataListCutGrayValue.clear();
-			auto SampleTestQuery = dao->SelectSamplesByTestId(test_Id, &bResult);
+			auto SampleTests = dao->SelectSamplesByTestId(test_Id);
 
 			QMap<QString, int> map_position;
 			map_position.clear();
@@ -1977,19 +1962,18 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
 
 			if (bResult == false)
 			{
-				MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1304"), MyMessageBox::Ok, "OK", "");
+				MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1304"), MyMessageBox::Ok, "OK", "");
 				return;
 			}
 			QList<float> PrintDataListCutGrayValue_list;
 			PrintDataListCutGrayValue_list.clear();
-			while (SampleTestQuery.next())
+			for (auto rd : SampleTests)
 			{
-				PrintDataListCutGrayValue.append(SampleTestQuery.value("cutGrayValue").toString());
-				PrintDataListCutGrayValue_list.append(SampleTestQuery.value("cutGrayValue").toFloat());
-				PrintDataListGrayValue.append(SampleTestQuery.value("testGrayValue").toString());
+				PrintDataListCutGrayValue.append(rd.value("cutGrayValue").toString());
+				PrintDataListCutGrayValue_list.append(rd.value("cutGrayValue").toFloat());
+				PrintDataListGrayValue.append(rd.value("testGrayValue").toString());
 			}
-
-			printOnePageA(&painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue_list, map_position);
+			printOnePageA(&painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue_list, map_position,pkid, companyId);
 			if (iii != m_all_page_number -1) //判断是否最后一页，如果不是最后一页则新建一页
 			{
 				printer->newPage(); //新建页
@@ -2004,7 +1988,6 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
 
 void TestResultDataAll::printDocument(QPrinter *printer)
 {
-
 	m_rowNum = 0;
 	for (int i = 0; i < ui.tableWidget->rowCount(); i++)
 	{
@@ -2016,7 +1999,7 @@ void TestResultDataAll::printDocument(QPrinter *printer)
 	}
 	if (m_colNum == 0 || m_rowNum == 0)
 	{
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1271"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1306"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
 	//m_all_page_number = m_rowNum;
@@ -2032,15 +2015,8 @@ void TestResultDataAll::printDocument(QPrinter *printer)
 		{
 			printer->newPage(); //新建页
 		}
-		//if (i != 4) //判断是否最后一页，如果不是最后一页则新建一页
-		//{
-		//	painter.setPen(Qt::black);
-		//}
 	}
 	painter.end();
-
-
-
 }
 
 void TestResultDataAll::printOnePage(QPainter *painter, int page_no)
@@ -2064,96 +2040,13 @@ void TestResultDataAll::printOnePageC(QPainter *painter, QString test_Id, QStrin
 	drawTableB(painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue, map_position);
 }
 
-void TestResultDataAll::printOnePageA(QPainter *painter,  QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position)
+void TestResultDataAll::printOnePageA(QPainter *painter,  QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position, int pkid, int companyId)
 {
-	//    qDebug()<<"reportInfo title: "<<reportInfo->getTitle();
-		//正常使用painter 绘制文字、pixmap等在printer上
 	drawTableA(painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue, map_position);
 }
 
 void TestResultDataAll::paintRequestedHandler(QPrinter *printerPixmap)
-{
-	//QPainter* pPdfPainter = new QPainter(printerPixmap);   // qt绘制工具
-	//// 标题,居中
-	//QTextOption option(Qt::AlignHCenter | Qt::AlignVCenter);
-	//option.setWrapMode(QTextOption::WordWrap); //字段太长自动换行
-	//// iTop 标题上边留白数字
-	//int iTop = 0;
-	//int lineheihgt = 30; //行高
-	//// 文本宽度 去除页边距后盛满
-	//int iContentWidth = 700;// pPdfWriter->width();
-	//// 标题,18号字
-	//QFont font;
-	//font.setFamily("新宋体");
-	//int fontSize = 18;
-	//font.setPointSize(fontSize);
-	//pPdfPainter->setFont(font);                    // 为绘制工具设置字体
-	//QString str = "";
-	//str = "检测结果";
-	//pPdfPainter->drawText(QRect(0, iTop, iContentWidth, 90), str, option); //打印标题
-	//iTop += 90;
-	//iTop += 10; //多留10个像素空格
-	//fontSize = 11;
-	//font.setPointSize(fontSize);
-	//pPdfPainter->setFont(font);
-	//QTextOption detailoption(Qt::AlignVCenter);
-	//detailoption.setWrapMode(QTextOption::WordWrap);
-	//int rows = ui.tableWidget->rowCount(); //取总行数
-	//int cols =  ui.tableWidget->columnCount() - 1; //取总列数 忽略最后一列 idd
-	//int colwidth = iContentWidth / cols;
-	//QString pic_name = "";
-	////DB中取Testitems表数据
-	//bool bResult = true;
-	//auto dao = AnalysisUIDao::instance();
-	//QString paper_name = "";
-	//QString strPathFileName;
-	//QString piture_root_str = dao->SelectTestPicturesRootPath(&bResult);
-	//QString analysised_piture_path = "analysised";
-	////QString strPath = piture_root_str + "\\" + m_test_project_name + "\\" + analysised_piture_path;
-	//QString strPath = piture_root_str + "\\" + analysised_piture_path;
-	//QPixmap pixBig;
-	//for (int i = 0; i < rows; i++) // 取出每个格子的内容
-	//{
-	//	// 反走样
-	//	pPdfPainter->setRenderHint(QPainter::Antialiasing, true);
-	//	// 设置画笔颜色
-	//	pPdfPainter->setPen(QPen(Qt::black, 2)); //设置颜色和粗细
-	//	// 绘制直线
-	//	pPdfPainter->drawLine(QPointF(0, iTop), QPointF(iContentWidth, iTop)); //表格横线
-	//	pPdfPainter->drawLine(QPointF(0, iTop), QPointF(0, iTop + lineheihgt));//第一根竖线
-	//	pPdfPainter->drawLine(QPointF(iContentWidth, iTop), QPointF(iContentWidth, iTop + lineheihgt));//最后一根竖线
-	//	for (int j = 0; j < cols; j++) {
-	//		//是图像名称
-	//		if (j == 1)
-	//		{
-	//			QString str = ui.tableWidget->item(i, j)->text();
-	//			//pixBig.load(strPath + "\\" + QString::number(nSampleID) + +"_" + QString::number(nTestPaperID) + ".png");  //图片路径
-	//			pixBig.load(strPath + "\\" + str + ".png");  //图片路径
-	//		}
-	//		if (j==4)
-	//		{
-	//			int w1 = pixBig.width();
-	//			int h1 = pixBig.height();
-	//			if (h1 > 0 && w1 > 0)
-	//			{
-	//				pPdfPainter->drawPixmap(QRect(colwidth*j + 10, iTop, colwidth, lineheihgt), pixBig);//->drawPixmap(x, y, pixmap);
-	//			}
-	//			else
-	//			{
-	//				pPdfPainter->drawText(QRect(colwidth*j + 10, iTop, colwidth, lineheihgt), "555555555", detailoption);
-	//			}
-	//			pPdfPainter->drawLine(QPointF(colwidth*j, iTop), QPointF(colwidth*j, iTop + lineheihgt));//竖线
-	//	}
-	//	iTop += lineheihgt;
-	//}
-	//pPdfPainter->setPen(QColor(0, 0, 0));
-	//delete pPdfPainter;
-	//QPainter Painter(printerPixmap);
-	//Painter.drawText(30, 20, "第1页");//页面显示内容
-	//printerPixmap->newPage();//新建立一个页面
-	//Painter.drawText(30, 20, "第2页");//页面显示内容
-	//printerPixmap->newPage();//新建立一个页面
-	//Painter.drawText(30, 20, "第3页");//页面显示内容
+{	
 }
 
 /*给列表单元格添加内容*/
@@ -2178,14 +2071,14 @@ void TestResultDataAll::addContent(int row, int column, QString content, int nCo
 	if (nColor == 4)
 		item->setForeground(QBrush(QColor(246, 180, 4)));
 	ui.tableWidget->setItem(row, column, item);
+	if (column == 8)
+	{
+		ui.tableWidget->hideColumn(8);
+	}
 }
 
 void TestResultDataAll::on_tableWidget_cellClicked(int row, int column)
 {
-	//if (column == 4 && row >= 0)
-	//{
-	//	QMessageBox::warning(0, "aa", "显示详细画面！", QMessageBox::Ok);
-	//}
 }
 
 //刷新界面
@@ -2223,7 +2116,7 @@ void TestResultDataAll::on_pushButtonSelectAll_clicked()
 		//ui.tableWidget->horizontalHeaderItem(0)->setIcon(QIcon(":/new/prefix1/image/AllSelect.png"));
 		selectedFlage = false;
 		//K1134|取消|取消en
-		ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+		ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo("K1134"));
 		//ui.pushButtonSelectAll->setText("取消");
 	}
 	else
@@ -2234,7 +2127,7 @@ void TestResultDataAll::on_pushButtonSelectAll_clicked()
 		}
 		//ui.tableWidget->horizontalHeaderItem(0)->setIcon(QIcon(":/new/prefix1/image/NoSelect.png"));
 		selectedFlage = true;
-		ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1081"));//setText("全选");
+		ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo("K1081"));//setText("全选");
 	}
 }
 
@@ -2281,6 +2174,11 @@ void TestResultDataAll::setProgressDialog(ProgressDialog *progressDialog)
 void TestResultDataAll::setTcpClient(TcpClient *tcpClient)
 {
     m_tcpClient=tcpClient;
+}
+
+void TestResultDataAll::set_print_doing(int v)
+{
+	m_print_doing = v;
 }
 
 void TestResultDataAll::on_pushButtonUpdateToLis_clicked()
@@ -2394,7 +2292,7 @@ void TestResultDataAll::on_pushButtonTopPage_clicked()
 		InitTableWidget(m_query_condition1, m_currentPage);//初始化状态列表
 	}
 
-	ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1081"));//setText("全选");
+	ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo("K1081"));//setText("全选");
 
 	//if (m_currentPage > 1)
 	//{
@@ -2425,7 +2323,7 @@ void TestResultDataAll::on_pushButtonNextPage_clicked()
 	//Sleep(1500);
 	if (m_currentPage >= m_all_page_number1 )
 	{
-		MyMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1311"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(0, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1311"), MyMessageBox::Ok, "OK", "");
 		ui.pushButtonTopPage->setEnabled(true);
 		return;
 	}
@@ -2435,7 +2333,7 @@ void TestResultDataAll::on_pushButtonNextPage_clicked()
 
 	//InitTableWidget("", m_currentPage);//初始化状态列表
 	InitTableWidget(m_query_condition1, m_currentPage);//初始化状态列表
-	ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1081"));//setText("全选");
+	ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo("K1081"));//setText("全选");
 	//if (m_currentPage > 1)
 	//{
 	//	ui.pushButtonNextPage->setEnabled(true);
@@ -2465,13 +2363,7 @@ void TestResultDataAll::on_pushButton_clicked()
 
 void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化状态列表
 {
-
-	//清空列表
 	ui.tableWidget->setRowCount(0);
-	////不显示左边默认自带序列号
-	//QHeaderView* headerView = ui.tableWidget->verticalHeader();
-	//headerView->setHidden(true);
-	////使行列头自适应宽度，最后一列将会填充空白部分
 	ui.tableWidget->horizontalHeader()->setStretchLastSection(true);
 	ui.tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows); //设置选择行为，以行为单位
 	ui.tableWidget->setSelectionMode(QAbstractItemView::SingleSelection); //设置选择膜式，选择单行
@@ -2487,12 +2379,9 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
              .QScrollBar::down-arrow:vertical { background-color: rgb(255, 255, 255, 255); }\
              .QScrollBar::add-line:vertical {subcontrol-origin: margin; border: 0px solid green; height:63px;subcontrol-position:bottom;}";
 	ui.tableWidget->setStyleSheet(VSCROLLBAR_STYLE2);
-
-
-	//m_one_page_number = 37;//ui.lineEditPageNumber->text().toInt();
 	if (m_one_page_number == 0)
 	{
-		MyMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1312"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(0, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1312"), MyMessageBox::Ok, "OK", "");
 	}
 	QString strValue;
 	QString strRel;
@@ -2513,7 +2402,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 	QString strPathFileName;
 	QString piture_root_str = dao->SelectTestPicturesRootPath(&bResult);
 	QString analysised_piture_path = "analysised";
-	//QString strPath = piture_root_str + "\\" + m_test_project_name + "\\" + analysised_piture_path;
 	QString strPath = piture_root_str + "\\" + analysised_piture_path;
 	int row = 0;
 	int need_change_bg_color = false;
@@ -2521,9 +2409,8 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 	int need_change_bg_color_fun = false;
 	int lis_Status = 0;
 	QString paper_name_query = ui.comboBoxPaperID->currentText();
-	if (paper_name_query != GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1594"))
+	if (paper_name_query != GlobalData::LoadLanguageInfo("K1594"))
 	{
-		//QMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "查询所有数据，耗时比较长，请耐心等待！", QMessageBox::Ok);
 		int targetKey;
 		for (auto it = m_paper_map.begin(); it != m_paper_map.end(); ++it) {
 			if (it.value() == paper_name_query) {
@@ -2540,7 +2427,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 
 	if (rows_need <= 0)
 	{
-		MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1313"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1313"), MyMessageBox::Ok, "OK", "");
 		ui.lineEditRowsPerPage->setText("24");
 		ui.lineEditRowsPerPage->setFocus();//.setFocus();
 		m_rowsPerPage = 24;
@@ -2548,7 +2435,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 	}
 	else if (rows_need > 100)
 	{
-		MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1313"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1313"), MyMessageBox::Ok, "OK", "");
 		ui.lineEditRowsPerPage->setText("100");
 		ui.lineEditRowsPerPage->setFocus();//.setFocus();
 		m_rowsPerPage = 100;
@@ -2560,12 +2447,8 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 
 	if (sz == "当天")
 	{
-		//QString createDay = QDate::currentDate().toString("yyyy-MM-dd");
-		//start_time = QDate::currentDate().addDays(-1).toString("yyyy-MM-dd");
-		//end_time = QDate::currentDate().toString("yyyy-MM-dd");
 		start_time = QString("%1 00:00:00").arg(QDate::currentDate().toString("yyyy-MM-dd"));//QDate::currentDate().addDays(-1).toString("yyyy-MM-dd");
 		end_time = QString("%1 23:59:59").arg(QDate::currentDate().toString("yyyy-MM-dd"));
-		//m_rowsPerPage = 300;
 		m_rowsPerPage = rows_need;
 	}
 	else
@@ -2581,25 +2464,23 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 	{
 		totalPages = 1;
 	}
+	QString sz1 = GlobalData::LoadLanguageInfo("K1164");
+	QString sz2 = GlobalData::LoadLanguageInfo("K1165");
+	QString sz3 = GlobalData::LoadLanguageInfo("K1166");
+	QString sz4 = GlobalData::LoadLanguageInfo("K1167");
 
-	QString sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1164");
-	QString sz2 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1165");
-	QString sz3 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1166");
-	QString sz4 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1167");
-
-	ui.label_5->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1168"));
-	ui.pushButtonPageNumberSet->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1169"));
-	ui.pushButtonTopPage->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1170"));
-	ui.pushButtonNextPage->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1171"));
-	ui.label_4->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1172"));
-	ui.label_6->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1167"));
+	ui.label_5->setText(GlobalData::LoadLanguageInfo("K1168"));
+	ui.pushButtonPageNumberSet->setText(GlobalData::LoadLanguageInfo("K1169"));
+	ui.pushButtonTopPage->setText(GlobalData::LoadLanguageInfo("K1170"));
+	ui.pushButtonNextPage->setText(GlobalData::LoadLanguageInfo("K1171"));
+	ui.label_4->setText(GlobalData::LoadLanguageInfo("K1172"));
+	ui.label_6->setText(GlobalData::LoadLanguageInfo("K1167"));
 
 	int a = test_count1 % m_rowsPerPage;
 	QString count_txt = "";
 	if (a == 0)
 	{
 		m_all_page_number1 = totalPages;
-		//count_txt = QString("统计：%1,共 %2 页,当前在第%3页。").arg(test_count1).arg(totalPages).arg(m_currentPage);
 		count_txt = QString(sz1 + "：%1," + sz2 + " %2 " + sz3 + "%3" + sz4 + "。").arg(test_count1).arg(totalPages).arg(m_currentPage);
 	}
 	else
@@ -2607,33 +2488,20 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 		if (totalPages == 1 && test_count1< m_rowsPerPage)
 		{
 			m_all_page_number1 = totalPages;
-			//count_txt = QString("统计：%1,共 %2 页,当前在第%3页。").arg(test_count1).arg(totalPages+1).arg(m_currentPage);
-			//count_txt = QString("统计：%1,共 %2 页,当前在第%3页。").arg(test_count1).arg(totalPages + 1).arg(m_currentPage);
 			count_txt = QString(sz1 + "：%1," + sz2 + " %2 " + sz3 + "%3" + sz4 + "。").arg(test_count1).arg(totalPages).arg(m_currentPage);
 		}
 		else
 		{
 			m_all_page_number1 = totalPages + 1;
-			//count_txt = QString("统计：%1,共 %2 页,当前在第%3页。").arg(test_count1).arg(totalPages+1).arg(m_currentPage);
-			//count_txt = QString("统计：%1,共 %2 页,当前在第%3页。").arg(test_count1).arg(totalPages + 1).arg(m_currentPage);
 			count_txt = QString(sz1 + "：%1," + sz2 + " %2 " + sz3 + "%3" + sz4 + "。").arg(test_count1).arg(totalPages + 1).arg(m_currentPage);
 		}
 	}
-	//if (m_currentPage > totalPages+1)
-	//{
-	//	QMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "已经到最后一页！", QMessageBox::Ok);
-	//	return;
-	//}
 	ui.labelCount->setText(count_txt);//text(count_txt);
 	ui.lineEditPageIndex->setText(QString("%1").arg(m_currentPage));
-	//ui.pushButtonNextPage->setEnabled(false);
-	//ui.pushButtonTopPage->setEnabled(false);
-	//Sleep(1000);
-	//auto SampleQuery = dao->SelectSamples(m_test_project_name, &bResult);
 	auto SampleQuery = dao->SelectSamplesByQuery(start_time, end_time, paper_name_query, m_test_project_name, &bResult, m_rowsPerPage, page_index);
 	if (bResult == false)
 	{
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1304"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1304"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
 	int test_count = 0;
@@ -2641,7 +2509,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 
 	int error_number_cut_off = 0;
 	int error_number_fun = 0;
-
+	QString pkid = "";
 	while (SampleQuery.next())
 	{
 		ui.tableWidget->insertRow(row);
@@ -2649,6 +2517,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 		paper_name = SampleQuery.value("PaperName").toString();
 		pic_name = SampleQuery.value("testId").toString();
 		stateFlag = SampleQuery.value("stateFlag").toInt();
+		pkid = SampleQuery.value("pkid").toString();
 		error_code = 0;
 
 		QTableWidgetItem *itemcheck = new QTableWidgetItem();
@@ -2657,48 +2526,37 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 		ui.tableWidget->setItem(row, 0, itemcheck);//显示label 
 		//测试编号
 		strValue = pic_name;//QString::number(nSampleID);
-
 		ui.tableWidget->setColumnWidth(1, 80);
-		if (strValue == "")
-		{
-			addContent(row, 1, "");
-		}
-		else
-		{
-			addContent(row, 1, strValue);
-		}
-		//ui.tableWidget->setColumnHidden(1, true);
+		addContent(row, 1, strValue);
 		ui.tableWidget->setColumnWidth(2, 160);
 		//样本编号
-		//addContent(row, 2, QString::number(sampleNo));
 		addContent(row, 2, sampleNo);
+		addContent(row, 8, pkid);
 		//检测类型
 		auto TestPaperQuery = dao->SelectTestPaper(pic_name, &bResult);
 		if (bResult == false)
 		{
 			addContent(row, 3, paper_name);
-			addContent(row, 5, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1261"));//"异常");
-			addContent(row, 6, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1686"));//"未知");
+			addContent(row, 5, GlobalData::LoadLanguageInfo("K1261"));//"异常");
+			addContent(row, 6, GlobalData::LoadLanguageInfo("K1686"));//"未知");
 
 			if (stateFlag == 81)
 			{
-				addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"),4);// "功能线异常，未识别膜条");
+				addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"),4);// "功能线异常，未识别膜条");
 			}else if(stateFlag==82)
 			{ 
-				addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"),4);//"Cutoff值异常");
+				addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
             }else if(stateFlag == 83){
-                addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K16881"), 4);//"检测线异常");
+                addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
             }
 			else if(stateFlag == 1)
 			{
-				addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1689"));//"未完成检测");
+				addContent(row, 7, GlobalData::LoadLanguageInfo("K1689"));//"未完成检测");
 			}
 			else
 			{
-				addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1690"));//"无结果");
+				addContent(row, 7, GlobalData::LoadLanguageInfo("K1690"));//"无结果");
 			}
-
-			//QMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "检索测试膜条数据失败！", QMessageBox::Ok);
 		}
 		else
 		{
@@ -2710,9 +2568,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 
 			ui.tableWidget->setColumnWidth(3, 120);
 			addContent(row, 3, paper_name);
-			//子检测
-			//strValue = "子检测";
-			//addContent(row, 3, paper_name);
 			ui.tableWidget->setColumnHidden(4, true);
 			//列表中显示图片
 			QFont font("Microsoft YaHei", 7);
@@ -2720,7 +2575,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 			int pixelsHigh = fm.height();//字体高度
 			int nRowHeight = pixelsHigh;//行高度
 			QPixmap pixBig;
-			//pixBig.load(strPath + "\\" + QString::number(nSampleID) + +"_" + QString::number(nTestPaperID) + ".png");  //图片路径
 			pixBig.load(strPath + "\\" + pic_name + ".png");  //图片路径
 			int w1 = pixBig.width();
 			int h1 = pixBig.height();
@@ -2733,9 +2587,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 			ui.tableWidget->setCellWidget(row, 5, label1);//显示label 
 			w1 = m_width / 10;
 			h1 = m_height;
-			//int w1 = 100;
-			//int h1 = 30;
-			//QString strSampleID= QString::number(sampleNo);
 			QString strSampleID = sampleNo;
 			QString strTestPaper_ID = QString::number(nTestPaperID);
 			auto TestDataQuery = dao->SelectTestData(pic_name, strSampleID, strTestPaper_ID, &bResult);
@@ -2743,39 +2594,30 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 			int lis_Status1 = 0;
 			if (bResult == false)
 			{
-				//addContent(row, 7, "无结果！");
-
 				if (stateFlag == 81)
 				{
-					//K1687
-					addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"),4);//"功能线异常，未识别膜条");
+					addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"),4);//"功能线异常，未识别膜条");
 				}
 				else if (stateFlag == 82)
 				{
-					addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"),4);//"Cutoff值异常");
+					addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
                 }else if(stateFlag == 83){
-                    addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K16881"), 4);//"检测线异常");
+                    addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
                 }
 				else if (stateFlag == 1)
 				{
-					addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1689"));//"未完成检测");
+					addContent(row, 7, GlobalData::LoadLanguageInfo("K1689"));//"未完成检测");
 				}
 				else
 				{
-					addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1690"));//"无结果");
+					addContent(row, 7, GlobalData::LoadLanguageInfo("K1690"));//"无结果");
 				}
-
-				//QMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "检索测试结果数据失败！", QMessageBox::Ok);
-				//return;
 			}
 			else
 			{
-
 				strRel = "";
 				lis_Status1 = 0;
 				error_code = 0;
-
-
 				while (TestDataQuery.next())
 				{
 					strItemName = TestDataQuery.value("projectName").toString();
@@ -2784,7 +2626,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 					lis_Status = TestDataQuery.value("sendLisFlag").toInt();
 					int error_code1 = TestDataQuery.value("error_code").toInt();
 					testResult = TestDataQuery.value("testResult").toString();
-
 					if (strItemName == "FC" )
 					{
 						if (error_code1 == 10002 || error_code1 == 10003 )
@@ -2805,8 +2646,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 					{
 						error_number++;
 					}
-
-
 
 					if (error_code1 > 0)
 					{
@@ -2832,65 +2671,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 					//新的显示方式
 					if (strItemName != "FC" && strItemName != "Cut")
 					{
-						//根据strItemName查出项目判断规制RulesId，
-
-						/*
-						QString sql = "";
-						sql.sprintf("select * from t_judge_rules where RulesId = (select RulesId from titem where itemName = '%s' and TestPaperID =%d ) order by GrayValue asc", strItemName.toUtf8().data(), paperId);
-						auto JudgeRulesQuery = dao->SelectRecord(&bResult, sql);
-						QMap<double, QString> mapJudgeRules;
-						testResult = "";
-						while (JudgeRulesQuery.next())
-						{
-							double grayValue = JudgeRulesQuery.value("GrayValue").toDouble();
-							QString grayWord = JudgeRulesQuery.value("GrayWord").toString();
-							mapJudgeRules.insert(grayValue, grayWord);
-						}
-						QList<double> key_list;
-						QList<QString> value_list;
-						QMap<double, QString>::Iterator it = mapJudgeRules.begin();
-						int tmp_i = 0;
-						while (it != mapJudgeRules.end())
-						{
-							if (tmp_i == 0)
-							{
-								key_list.push_back(-1000);
-								value_list.push_back(it.value());
-							}
-							key_list.push_back(it.key());
-							value_list.push_back(it.value());
-							if (tmp_i == (mapJudgeRules.count() - 1))
-							{
-								key_list.push_back(2000);
-								value_list.push_back(it.value());
-							}
-							tmp_i++;
-							it++;
-						}
-						int key_count = key_list.count();
-						//找出下标，从而找出key对应的value
-						int find_index = 0;
-						for (int i = 0; i < key_count; )
-						{
-							double min = key_list[0];
-							double max = 1000;
-							if (i > 0)
-							{
-								min = key_list[i - 1];
-								max = key_list[i];
-								if (dRatioToCut > min && dRatioToCut <= max)
-								{
-									find_index = i;
-								}
-							}
-							i++;
-						}
-						if (value_list.count() > 0)
-						{
-							testResult = value_list[find_index];
-						}
-						*/
-
 						if (error_code1 == 10002)
 						{
 							testResult = "-";
@@ -2944,14 +2724,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 						}
 						else
 						{
-							//if (strItemName == "FC")
-							//{
-							//	if (error_code == 10002|| error_code == 10003)
-							//	{
-							//		need_change_bg_color_cut_fun = true;
-							//	}
-							//}
-
 							if (strItemName == "Cut")
 							{
 								if (error_code == 10002 || error_code == 10003)
@@ -2970,122 +2742,60 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 						}
 					}
 				}
-
-
 				strValue = strRel;
 				if (strRel == "")
 				{
-
 					if (stateFlag == 81)
 					{
-						//K1687
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"), 4);//"功能线异常，未识别膜条");
+						addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"), 4);//"功能线异常，未识别膜条");
 					}
 					else if (stateFlag == 82)
 					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"), 4);//"Cutoff值异常");
+						addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"), 4);//"Cutoff值异常");
                     }else if(stateFlag == 83){
-                        addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K16881"), 4);//"检测线异常");
+                        addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
                     }
 					else if (need_change_bg_color_fun)
 					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"), 4);//"功能线异常，未识别膜条！");
+						addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"), 4);//"功能线异常，未识别膜条！");
 					}
 					else if (need_change_bg_color_cut_fun)
 					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"), 4);//"Cutoff线异常！");
-						//if (need_change_bg_color_cut_fun)
-						//{
-						//	addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"), 4);//"Cutoff线异常！");
-						//}
-
-						//if (need_change_bg_color_fun)
-						//{
-						//	addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"), 4);//"Cutoff线异常！");
-						//}
+						addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"), 4);//"Cutoff线异常！");
 					}
 					else
 					{
-
 						if (error_number_fun >0|| error_number_cut_off>0 || error_number>0)
 						{
-							//addContent(row, 7, strValue, 4);
-							addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1683"), 4);//"无阳性结果！");
+							addContent(row, 7, GlobalData::LoadLanguageInfo("K1683"), 4);//"无阳性结果！");
 						}
 						else
 						{
-							addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1683"),0);//"无阳性结果！");
-							//addContent(row, 7, strValue);
+							addContent(row, 7, GlobalData::LoadLanguageInfo("K1683"),0);//"无阳性结果！");
 						}
-
-		
-						//addContent(row, 7, strValue);
 					}
-
-					/*
-					if (need_change_bg_color_cut_fun)
-					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"),4);//"Cutoff线异常！");
-					}
-					else
-					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1683"));//"无阳性结果！");
-					}
-
-					if (need_change_bg_color_fun)
-					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"), 4);//"功能线异常，未识别膜条！");
-					}
-					else
-					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1683"));//"无阳性结果！");
-					}
-
-
-					if (stateFlag == 81)
-					{
-						//K1687
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"),4);//"功能线异常，未识别膜条");
-					}
-					else if (stateFlag == 82)
-					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"),4);//"Cutoff值异常");
-					}
-					*/
-
-
 				}
 				else
 				{
 					if (stateFlag == 81)
 					{
-						//K1687
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"),4);//"功能线异常，未识别膜条");
+						addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"),4);//"功能线异常，未识别膜条");
 					}
 					else if (stateFlag == 82)
 					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"),4);//"Cutoff值异常");
+						addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
                     }
                     else if(stateFlag == 83)
                     {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K16881"), 4);//"检测线异常");
+                        addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
                     }
 					else if (need_change_bg_color_fun)
 					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"), 4);//"功能线异常，未识别膜条！");
+						addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"), 4);//"功能线异常，未识别膜条！");
 					}
 					else if(need_change_bg_color_cut_fun)
 					{
-						addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"), 4);//"Cutoff线异常！");
-						//if (need_change_bg_color_cut_fun)
-						//{
-						//	addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1688"), 4);//"Cutoff线异常！");
-						//}
-
-						//if (need_change_bg_color_fun)
-						//{
-						//	addContent(row, 7, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1687"), 4);//"Cutoff线异常！");
-						//}
+						addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"), 4);//"Cutoff线异常！");
 					}
 					else
 					{
@@ -3097,23 +2807,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 						{
 							addContent(row, 7, strValue,0);
 						}
-
 					}
-					//if (need_change_bg_color || need_change_bg_color_cut_fun) {
-					//	addContent(row, 7, strValue, 4);
-					//}
-					//else
-					//{
-					//	addContent(row, 7, strValue);
-					//}
-
-					//if (need_change_bg_color || need_change_bg_color_fun) {
-					//	addContent(row, 7, strValue, 4);
-					//}
-					//else
-					//{
-					//	addContent(row, 7, strValue);
-					//}
 				}
 			}
 
@@ -3124,20 +2818,20 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 
 			if (lis_Status == 1)
 			{
-				addContent(row, 6, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1682"));//"等待上传");
+				addContent(row, 6, GlobalData::LoadLanguageInfo("K1682"));//"等待上传");
 			}
 			else if (lis_Status == 2)
 			{
-				addContent(row, 6, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1684"));//"上传中");
+				addContent(row, 6, GlobalData::LoadLanguageInfo("K1684"));//"上传中");
 			}
 
 			else if (lis_Status == 3)
 			{
-				addContent(row, 6, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1685"));//"已完成");
+				addContent(row, 6, GlobalData::LoadLanguageInfo("K1685"));//"已完成");
 			}
 			else
 			{
-				addContent(row, 6, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1686"));//"未知");
+				addContent(row, 6, GlobalData::LoadLanguageInfo("K1686"));//"未知");
 			}
 
 			row++;
@@ -3153,61 +2847,21 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 			strRel = "";
 		}
 	}
-
-	//# 获取当前的行数和列数   倒序显示行
-	//int rowCount = ui.tableWidget->rowCount();//tableWidget.rowCount()
-	//int columnCount = ui.tableWidget->columnCount();
-
-	//for (int row = 0; row < rowCount ; ++row) {
-	//	// 交换当前行和对应的倒序行
-	//	for (int col = 0; col < columnCount; ++col) {
-	//		QTableWidgetItem *item1 = ui.tableWidget->takeItem(row, col);
-	//		QTableWidgetItem *item2 = ui.tableWidget->takeItem(rowCount - row - 1, col);
-	//		ui.tableWidget->setItem(row, col, item2);
-	//		ui.tableWidget->setItem(rowCount - row - 1, col, item1);
-	//	}
-	//}
-
-		//# 倒序显示行
-		//for row in range(row_count // 2):
-		//	tableWidget.insertRow(row)
-		//	tableWidget.setRowHidden(row, True)
-		//	tableWidget.insertRow(row_count - row)
-		//	tableWidget.setRowHidden(row_count - row, True)
-		//	for col in range(column_count) :
-		//		item1 = tableWidget.takeItem(row, col)
-		//		item2 = tableWidget.takeItem(row_count - row - 1, col)
-		//		tableWidget.setItem(row, col, item2)
-		//		tableWidget.setItem(row_count - row - 1, col, item1)
-	//-------------------------------------------------
-
-
 	//默认选中，显示行
 	if (row > 0)
 	{
-		/*设置让某个单元格或某行选中*/
-		//选中单元格 第一行：
-		//ui.tableWidget->setCurrentCell(0, 0, QItemSelectionModel::Select);
 	}
-
-	//QString count_txt = QString("统计：%1").arg(test_count);
-	//ui.labelCount->setText(count_txt);//text(count_txt);
-	//connect(dialog, SIGNAL(UpdateTestResultTable(QString)), this, SLOT(UpdateTestResultTableSlot(QString)));
-	//Sleep(4500);
 	if (m_currentPage > 1)
 	{
 		ui.pushButtonNextPage->setEnabled(true);
 		ui.pushButtonTopPage->setEnabled(true);
-
 	}
 	else
 	{
 		ui.pushButtonNextPage->setEnabled(true);
 		ui.pushButtonTopPage->setEnabled(false);
 	}
-
 	ui.pushButtonJumpPage->setEnabled(true);
-
 }
 
 void TestResultDataAll::on_pushButtonPageNumberSet_clicked()
@@ -3230,14 +2884,10 @@ void TestResultDataAll::on_pushButtonPageNumberSet_clicked()
 			auto dao = AnalysisUIDao::instance();
 			bool bResult;
 			dao->UpdateSystemSet("20009", str);
-			//m_query_condition1
-			//InitTableWidget("", m_currentPage);//初始化状态列表
 			InitTableWidget(m_query_condition1, m_currentPage);//初始化状态列表
-			//ui.pushButtonSelectAll->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1081"));//setText("全选");
 		}
 	}
 	else {
-		//qDebug() << "字符串不只包含数字";
 		return;
 	}
 }
@@ -3253,70 +2903,21 @@ void TestResultDataAll::on_pushButtonJumpPage_clicked()
 	//判断是否为数字
 	if (!regExp.exactMatch(szText))
 	{
-		MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1314"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1314"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
 	//是否为空
 	if (szText.isEmpty())
 	{
-		MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1315"),MyMessageBox::Ok, "OK", "");
+		MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1315"),MyMessageBox::Ok, "OK", "");
 		return;
 	}
-
-	//bool bResult = true;
-	//auto dao = AnalysisUIDao::instance();
-
-	//int test_count = dao->SelectTotalNumber().toInt();
-	//int totalPages = test_count / m_one_page_number;//1000 / m_rowsPerPage + (1000 % m_rowsPerPage == 0 ? 0 : 1);
-
 	m_currentPage = szText.toInt();
-
 	if (m_currentPage >m_all_page_number1)
 	{
-		MyMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1316"), MyMessageBox::Ok, "OK", "");
+		MyMessageBox::warning(0, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1316"), MyMessageBox::Ok, "OK", "");
 		ui.pushButtonJumpPage->setEnabled(true);
 		return;
 	}
-
-	//QString count_txt = QString("统计：%1,共 %2 页,当前在第%3页。").arg(test_count).arg(totalPages).arg(m_currentPage);
-	//ui.labelCount->setText(count_txt);//text(count_txt);
-	//ui.lineEditPageIndex->setText(QString("%1").arg(m_currentPage));
-
-	
-	//InitTableWidget("", m_currentPage);//初始化状态列表
 	InitTableWidget(m_query_condition1, m_currentPage);//初始化状态列表
-
-	//得到页数
-	//int pageIndex = szText.toInt();
-	////判断是否有指定页
-	//if (pageIndex > totalPage || pageIndex < 1)
-	//{
-	//	QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("没有指定的页面，请重新输入"));
-	//	return;
-	//}
-	////得到查询起始行号
-	//int limitIndex = (pageIndex - 1) * PageRecordCount;
-	////记录查询
-	////RecordQuery(limitIndex);
-	////设置当前页
-	//currentPage = pageIndex;
-	////刷新状态
-	//UpdateStatus();
 }
-//
-//int TestResultDataAll::GetTotalRecordCount()
-//{
-//	//queryModel->setQuery("select * from student");
-//	return 100;//queryModel->rowCount();
-//}
-
-//int TestResultDataAll::GetPageCount()
-//{
-//	return (totalRecrodCount % PageRecordCount == 0) ? (totalRecrodCount / PageRecordCount) : (totalRecrodCount / PageRecordCount + 1);
-//}
-
-//void TestResultDataAll::on_pushButtonSavePageNumber_clicked()
-//{
-//	//int one_page_number = ui.lineEditPageNumber
-//	m_one_page_number = 10;
-//}
