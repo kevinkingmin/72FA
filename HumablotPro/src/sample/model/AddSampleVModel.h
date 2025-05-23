@@ -41,7 +41,7 @@ public:
 		int sexID;
 		QString sexIDText;
 		int age;
-		QString articleNo;
+        QString articleNo;
         QMap<int,std::tuple<bool,int>>paperCheckedCountMap;
         dataStrc()
             :samplePos(0)
@@ -87,8 +87,6 @@ public :
 	QVector<QVector<bool>> m_data_check;
 	QVector<bool> checkboxes_;
 	QWidget* g_parent;
-	QString g_language_type = "";
-
 
 };
 

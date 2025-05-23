@@ -62,7 +62,7 @@ SOURCES += \
         src/comm/CustomButton.cpp \
         src/comm/CustomLabel.cpp \
         src/comm/CustomerPumpStateLable.cpp \
-        src/comm/DataConvertHelper.cpp \        
+        src/comm/DataConvertHelper.cpp \
         src/comm/Global.cpp \
         src/comm/GlobalData.cpp \
         src/comm/LightButton.cpp \
@@ -159,7 +159,7 @@ HEADERS += \
         src/comm/CustomerPumpStateLable.h \
         src/comm/DataConvertHelper.h \
         src/comm/Global.h \
-        src/comm/GlobalData.h \    
+        src/comm/GlobalData.h \
         src/comm/LightButton.h \
         src/comm/ObjectTr.h \
         src/comm/customerTableView.h \

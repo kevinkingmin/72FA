@@ -5,7 +5,8 @@
 #include <QJsonParseError>
 
 SampleModel::SampleModel():
-    _Id("")
+    _pkid(0)
+  ,_Id("")
   ,_sampleNo("1")
   ,_barcode("")
   ,_PatientName("")
@@ -33,7 +34,9 @@ SampleModel::SampleModel():
   , _paperId(0)
   ,_testId("")
   ,_paperPos(0)
-	,_test_batch(1)
+  ,_test_batch(1)
+  ,_remark("")
+  ,_checkerName("")
 {
 }
 
@@ -331,6 +334,7 @@ QString SampleModel::getTestId() const
 bool SampleModel::operator==(SampleModel &it) const
 {
     if(
+            _pkid           == it._pkid           &&
             _Id             == it._Id             &&
             _sampleNo       == it._sampleNo       &&
             _PatientName    == it._PatientName    &&
@@ -355,5 +359,35 @@ bool SampleModel::operator==(SampleModel &it) const
         return true;
     }
     return false;
+}
+
+QString SampleModel::getRemark() const
+{
+    return _remark;
+}
+
+void SampleModel::setRemark(const QString &remark)
+{
+    _remark = remark;
+}
+
+QString SampleModel::getCheckerName() const
+{
+    return _checkerName;
+}
+
+void SampleModel::setCheckerName(const QString &checkerName)
+{
+    _checkerName = checkerName;
+}
+
+int SampleModel::getPkid() const
+{
+    return _pkid;
+}
+
+void SampleModel::setPkid(int pkid)
+{
+    _pkid = pkid;
 }
 

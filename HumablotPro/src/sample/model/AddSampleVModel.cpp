@@ -26,29 +26,27 @@ AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 
 	auto dao = AnalysisUIDao::instance();
 	bool bResult;
-	g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
-
 
 	g_parent = parent;
 	HeadStrc pos;
 	pos.id = 0;
 	pos.paperId = 0;
 
-	QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1048");
+    QString sz = GlobalData::LoadLanguageInfo("K1048");
 	pos.field = sz;//tr(" 位置");
 	_headVect.push_back(pos);
 
 	HeadStrc sampleNo;
 	sampleNo.paperId = 1;
 	sampleNo.id = 1;
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1049");
+    sz = GlobalData::LoadLanguageInfo("K1049");
 	sampleNo.field = sz;//tr("样本编号");
 	_headVect.push_back(sampleNo);
 
 	HeadStrc cupType;
 	cupType.paperId = 2;
 	cupType.id = 2;
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1050");
+    sz = GlobalData::LoadLanguageInfo("K1050");
 	cupType.field = sz;//tr("试管型号");
 	_headVect.push_back(cupType);
 
@@ -60,21 +58,21 @@ AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 	HeadStrc patientName;
 	patientName.paperId = 3;
 	patientName.id = 3;
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1051");
+    sz = GlobalData::LoadLanguageInfo("K1051");
 	patientName.field = sz;//tr("病人姓名");
 	_headVect.push_back(patientName);
 
 	HeadStrc sexID;
 	sexID.paperId = 4;
 	sexID.id = 4;
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1052");
+    sz = GlobalData::LoadLanguageInfo("K1052");
 	sexID.field = sz;// tr("性别");
 	_headVect.push_back(sexID);
 
 	HeadStrc age;
 	age.paperId = 5;
 	age.id = 5;
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1053");
+    sz = GlobalData::LoadLanguageInfo("K1053");
 	age.field = sz;// tr("年龄");
 	_headVect.push_back(age);
 
@@ -82,7 +80,7 @@ AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 	articleNo.paperId = 6;
 	articleNo.id = 6;
 
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1054");
+    sz = GlobalData::LoadLanguageInfo("K1054");
 	articleNo.field = sz;// tr("批号");
 
 	_headVect.push_back(articleNo);
@@ -202,11 +200,11 @@ QVariant AddSampleVModel::data(const QModelIndex &index, int role) const
 		if (_vect.count() > row && column < _headVect.count())
 		{
 			if (column == 0)
-				return m.samplePos;
+                return m.samplePos;
 			else if (column == 1)
-				return m.sampleNo;
+                return m.sampleNo;
 			else if (column == 2)
-				return m.cupTypeText;
+                return m.cupTypeText;
 			else if (column == 3)
 				return m.patientName;
 			else if (column == 4)
@@ -314,7 +312,7 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 			sample_no = value.toString();
 			if (sample_no.length() > 20)
 			{
-				MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1355"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+                MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1355"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 				_vect[row].sampleNo = "";
 			}
 			else
@@ -324,7 +322,7 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 					_vect[row].sampleNo = value.toString();
 				}
 				else {
-					MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1356"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+                    MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1356"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 					// 不符合条件
 				}
 				//_vect[row].sampleNo = value.toString();
@@ -340,11 +338,11 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 			//_vect[row].articleNo = arr[2];
 			break;
 		}
-		case 3:
+        case 3:
 		{
 			if (value.toString().length() > 20)
 			{
-				MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1357"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+                MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1357"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 				_vect[row].patientName = "";
 			}
 			else
@@ -362,12 +360,12 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 
 			//if (value.toInt() > 1)
 			//{
-			//	QMessageBox::information(NULL, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "性别不能为大于1", "确定");
+            //	QMessageBox::information(NULL, GlobalData::LoadLanguageInfo("K1180"), "性别不能为大于1", "确定");
 			//	_vect[row].sexID = 1;// "4ssddd";// value.toString();
 			//}
 			//else if (value.toInt() < 0)
 			//{
-			//	QMessageBox::information(NULL, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "性别不能为负数", "确定");
+            //	QMessageBox::information(NULL, GlobalData::LoadLanguageInfo("K1180"), "性别不能为负数", "确定");
 			//	_vect[row].sexID = 0;// "4ssddd";// value.toString();
 			//}
 			//else
@@ -384,13 +382,13 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 		case 5:
 			if (value.toInt() < 0)
 			{
-				MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1358"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+                MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1358"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 				_vect[row].age = 0;
 			}
 			else if (value.toInt() > 150)
 			{
-				//QMessageBox::warning(AddSampleVModel.t, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "数据上传LIS完成！", "确定");
-				MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1359"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+                //QMessageBox::warning(AddSampleVModel.t, GlobalData::LoadLanguageInfo("K1180"), "数据上传LIS完成！", "确定");
+                MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1359"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 				_vect[row].age = 150;
 			}
 			else
@@ -402,7 +400,7 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 		case 6:
 			if (value.toString().length() > 15)
 			{
-				MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1360"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+                MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1360"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 				_vect[row].articleNo = "";
 			}
 			else
@@ -477,7 +475,7 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 				{
 					//是否要取消选择
 					//int ret = QMessageBox::information(nullptr, "提示信息", "确定要取消项目选择？", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-					int ret = MyMessageBox::question(g_parent, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1088"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1361"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+                    int ret = MyMessageBox::question(g_parent, GlobalData::LoadLanguageInfo("K1088"), GlobalData::LoadLanguageInfo("K1361"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
 					if (ret== MyMessageBox::Yes)
 					{
 						std::get<0>(tp) = value.toBool();

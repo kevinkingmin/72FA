@@ -167,6 +167,12 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
             eLog("LIS data wrong:{}", modifiedString.toStdString());
             continue;
         }
+		auto paperId = obrFields.at(5).simplified().simplified();
+		if (paperId.isEmpty())
+		{
+			eLog("paperId error,data:{}", data.toStdString());
+			continue;
+		}
         paperIds.push_back(obrFields.at(5).simplified());
         if (sample_id.isEmpty())
             sample_id = obrFields.at(3).simplified();
@@ -180,6 +186,7 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
     bool bResult = true;
     if (paperIds.isEmpty())
     {
+		m_samplePos = -1;
         m_isLISRequestDataFinish=true;
         return;
     }
@@ -728,7 +735,6 @@ void AddSampleWidget::FromLis()
             QString sampleNo = _vModel->_vect[i].sampleNo;
             id1 = sampleNo;
             id += sampleNo+"|"+QString::number(i)+",";
-            //int paperId = _vModel->_vect[i].;
             QString PatientName = _vModel->_vect[i].patientName;
             int paper_id = 0;
             auto map = _vModel->_vect[i].paperCheckedCountMap;
@@ -845,71 +851,70 @@ void AddSampleWidget::SaveSample()
 
     for (auto it : vect)
     {
-        if (_vModel->_vect[i].sampleNo !="")
+        if(_vModel->_vect[i].sampleNo.simplified().isEmpty())
+            continue;
+        QString sampleNo = _vModel->_vect[i].sampleNo;
+        int samplePos = _vModel->_vect[i].samplePos-1;
+        //int paperId = _vModel->_vect[i].;
+        QString PatientName = _vModel->_vect[i].patientName;
+        int SexID = _vModel->_vect[i].sexID;
+        int Age = _vModel->_vect[i].age;
+        int paper_id = 0;
+        auto map = _vModel->_vect[i].paperCheckedCountMap;
+        int ii = 0;
+        //QString sql_delete = QString("delete from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3 and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
+        QString sql_delete = QString("delete from tsample where  createDay='%1' and samplePos=%2 and stateFlag=1").arg(createDay).arg(samplePos);
+        dao->SelectRecord(&bResult, sql_delete);
+        for (auto m = map.begin(); m != map.end(); m++)
         {
-            QString sampleNo = _vModel->_vect[i].sampleNo;
-            int samplePos = _vModel->_vect[i].samplePos-1;
-            //int paperId = _vModel->_vect[i].;
-            QString PatientName = _vModel->_vect[i].patientName;
-            int SexID = _vModel->_vect[i].sexID;
-            int Age = _vModel->_vect[i].age;
-            int paper_id = 0;
-            auto map = _vModel->_vect[i].paperCheckedCountMap;
-            int ii = 0;
-            //QString sql_delete = QString("delete from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3 and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
-            QString sql_delete = QString("delete from tsample where  createDay='%1' and samplePos=%2 and stateFlag=1").arg(createDay).arg(samplePos);
-            dao->SelectRecord(&bResult, sql_delete);
-            for (auto m = map.begin(); m != map.end(); m++)
+            int paper_id_tmp = m.key();
+            auto isChecked = std::get<0>(m.value());
+            int number = std::get<1>(m.value());
+            for (int jj = 0; jj < number; jj++)
             {
-                int paper_id_tmp = m.key();
-                auto isChecked = std::get<0>(m.value());
-                int number = std::get<1>(m.value());
-                for (int jj = 0; jj < number; jj++)
+                paper_id = GetPaperId(paper_id_tmp);
+                if (isChecked)
                 {
-                    paper_id = GetPaperId(paper_id_tmp);
-                    if (isChecked)
+                    QString sql = "";
+                    QString sql_query = QString("select * from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3  and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
+                    auto countNumberQuery = dao->SelectRecord(&bResult, sql_query);
+                    int number = 0;
+                    while (countNumberQuery.next())
                     {
-                        QString sql = "";
-                        QString sql_query = QString("select * from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3  and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
-                        auto countNumberQuery = dao->SelectRecord(&bResult, sql_query);
-                        int number = 0;
-                        while (countNumberQuery.next())
-                        {
-                            QString id = countNumberQuery.value("Id").toString();
-                            Id_list.append(id);
-                            number++;
-                        }
-                        if (number > 0)
-                        {
-                            QString id11 = Id_list.at(ii);
-                            //生成修改sql
-                            sql = QString("update tsample set samplePos=%1,paperId=%2,PatientName='%3',SexID=%4,Age=%5,stateFlag=1,paperPos=0 where Id=%6 and samplePos=%1").arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id11);
-                            sql_list.append(sql);
-                        }
-                        else
-                        {
-                            id += 1;
-                            //生成添加sql
-                            sql = QString("insert tsample(sampleNo,samplePos,paperId,PatientName,SexID,Age,id,stateFlag,paperPos,createDay,test_batch)VALUES('%1',%2,%3,'%4',%5,%6,%7,1,0,'%8',%9)").arg(sampleNo).arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id).arg(createDay).arg(test_batch_max);
-                            sql_list.append(sql);
-                        }
-                        ii++;
+                        QString id = countNumberQuery.value("Id").toString();
+                        Id_list.append(id);
+                        number++;
                     }
+                    if (number > 0)
+                    {
+                        QString id11 = Id_list.at(ii);
+                        //生成修改sql
+                        sql = QString("update tsample set samplePos=%1,paperId=%2,PatientName='%3',SexID=%4,Age=%5,stateFlag=1,paperPos=0 where Id=%6 and samplePos=%1").arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id11);
+                        sql_list.append(sql);
+                    }
+                    else
+                    {
+                        id += 1;
+                        //生成添加sql
+                        sql = QString("insert tsample(sampleNo,samplePos,paperId,PatientName,SexID,Age,id,stateFlag,paperPos,createDay,test_batch)VALUES('%1',%2,%3,'%4',%5,%6,%7,1,0,'%8',%9)").arg(sampleNo).arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id).arg(createDay).arg(test_batch_max);
+                        sql_list.append(sql);
+                    }
+                    ii++;
                 }
             }
-            for (int iv = 0; iv < sql_list.size(); ++iv)
-            {
-                QString sql = "";
-                sql = sql_list.at(iv);
-                QString sql_query = "";
-                dao->addRecord(&bResult, sql);
-                if (bResult)
-                {
-                    tip += GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1378");//"保存成功";
-                }
-            }
-            sql_list.clear();
         }
+        for (int iv = 0; iv < sql_list.size(); ++iv)
+        {
+            QString sql = "";
+            sql = sql_list.at(iv);
+            QString sql_query = "";
+            dao->addRecord(&bResult, sql);
+            if (bResult)
+            {
+                tip += GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1378");//"保存成功";
+            }
+        }
+        sql_list.clear();
         i++;
     }
     if (tip != "")
@@ -1371,7 +1376,7 @@ void AddSampleWidget::createRepeatTest()
     auto index=ui->tvSampleSet->currentIndex().row();
     if(index<0)
     {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1390"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1390"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     auto &vect = _vModel->getVect();

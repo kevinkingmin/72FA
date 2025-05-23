@@ -2203,7 +2203,7 @@ QSqlQuery AnalysisUIDao::SelectSamplesByQuery(QString start_time, QString end_ti
 
     if (max_pkid.toInt() <= one_page_number)
     {
-        strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY test_batch DESC    ").arg(one_page_number);
+        strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("   ORDER BY createDay DESC , paperPos ASC   ").arg(one_page_number);
     }
     else
     {
@@ -2211,32 +2211,32 @@ QSqlQuery AnalysisUIDao::SelectSamplesByQuery(QString start_time, QString end_ti
         {
             if ((page_size)< one_page_number && page_size>0)
             {
-                strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number).arg("  ORDER BY test_batch DESC    ").arg(page_size + one_page_number);
+                strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number).arg("   ORDER BY createDay DESC , paperPos ASC   ").arg(page_size + one_page_number);
             }
             else if(page_size==0)
             {
-                strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY test_batch DESC     ").arg(one_page_number);
+                strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY createDay DESC , paperPos ASC    ").arg(one_page_number);
             }
             else
             {
-                strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number).arg("  ORDER BY test_batch DESC     ").arg(page_size + one_page_number);
+                strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number).arg("   ORDER BY createDay DESC , paperPos ASC   ").arg(page_size + one_page_number);
             }
         }
         else
         {
             if (page_size < one_page_number)
             {
-                strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number*(page_index - 1)).arg(" ORDER BY test_batch DESC     ").arg(one_page_number);
+                strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number*(page_index - 1)).arg("  ORDER BY createDay DESC , paperPos ASC  ").arg(one_page_number);
             }
             else
             {
                 if (page_index == 1)
                 {
-                    strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("  ORDER BY test_batch DESC   ").arg(one_page_number);
+                    strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("   ORDER BY createDay DESC , paperPos ASC  ").arg(one_page_number);
                 }
                 else
                 {
-                    strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number*(page_index - 1)).arg("  ORDER BY test_batch DESC   ").arg(one_page_number);
+                    strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(one_page_number*(page_index - 1)).arg(" ORDER BY createDay DESC , paperPos ASC ").arg(one_page_number);
                 }
             }
         }
