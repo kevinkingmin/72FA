@@ -459,7 +459,7 @@ int PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperPar
         for (auto& contour : contours)
         {
             cv::Rect rect = cv::boundingRect(contour);
-            if (rect.width < segmentMinWidth*0.8 || rect.height < totalHeigth/3*2)
+            if (rect.width < segmentMinWidth*0.15 || rect.height < totalHeigth/3*2)
             {
                 continue;
             }
@@ -509,7 +509,7 @@ int PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperPar
         for (auto& contour : contours)
         {
             cv::Rect rect = cv::boundingRect(contour);
-            if (rect.width < segmentMinWidth*0.8 || rect.height < totalHeigth/3*2)
+            if (rect.width < segmentMinWidth*0.15 || rect.height < totalHeigth/3*2)
             {
                 continue;
             }
@@ -1573,7 +1573,6 @@ int PictureAnalysis::GetTestPaperImageCalcIndexWz(const cv::Mat& srcMat,TestPape
     int finalCode = 0;
     uint lineCenterRelArraySize = static_cast<uint>(lineCenterRelArray.count());
     std::vector<std::tuple<int,int, double,double>> grayArray(lineCenterRelArraySize, {0,0,0,0});
-    int bgDiff = testPaperParameterStruct.bg_difference;
 
     // 标记线在X方向的坐标
     int markLineXCenter = 0;
@@ -1644,7 +1643,8 @@ int PictureAnalysis::GetTestPaperImageCalcIndexWz(const cv::Mat& srcMat,TestPape
     std::get<2>(grayArray[0]) = markMatGray;
     // 标记线结果先保存
     testPaperParameterStruct.dItemGrayValue[0] = markMatGray;
-    testPaperParameterStruct.dItemPosition[0] = markMatGray;
+    testPaperParameterStruct.dItemPosition[0] = markLineLimitStart + target_rect.x + target_rect.width/2;
+    testPaperParameterStruct.dBackgroundGrayValue[0] = 255;
 
     /*保存标记线图片
     cv::Mat cloneMat = markLimitMat.clone();
