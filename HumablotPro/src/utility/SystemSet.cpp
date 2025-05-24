@@ -38,7 +38,7 @@ SystemSet::SystemSet(QWidget *parent)
     QString strRootPathReport = dao->SelectTestReportsRootPath(&bResult);
     ui.lineEdit_RootPathReport->setText(strRootPathReport);
 
-    ui.lineEdit_week_finish_time->setEnabled(false);
+    //ui.lineEdit_week_finish_time->setEnabled(false);
 
     //打开、关闭
     ui.comboBox_aspirate_sample->clear();//.addItem('条目1')
@@ -178,7 +178,7 @@ SystemSet::SystemSet(QWidget *parent)
             ui.lineEdit_between_two_drops_of_pump_max->setText(QString::number(saveSet1));
         }
 
-        if (pkid == 24)
+        if (pkid == 27)
         {
             //9991	9999	2022 - 04 - 29 14:14 : 12	周维护完成时间
             int saveSet = all_system_set_para.value("saveSet").toInt()/60000;
@@ -562,7 +562,7 @@ void SystemSet::on_pushButtonPara_clicked()
 
 void SystemSet::on_pushButton_Save_clicked() 
 {
-    auto dao = AnalysisUIDao::instance();
+    auto dao = AnalysisUIDao::instance(); 
     bool bResult;
 
 
@@ -843,7 +843,7 @@ void SystemSet::on_pushButton_Save_clicked()
     //9991	9999	2022 - 04 - 29 14:14 : 12	周维护完成时间
     //value_set = ui.lineEdit_week_finish_time->text();
     value_set = QString("%1").arg(ui.lineEdit_week_finish_time->text().toInt() * 60000);
-    bResult = dao->UpdateSystemSet("24", value_set);
+    bResult = dao->UpdateSystemSet("27", value_set);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");

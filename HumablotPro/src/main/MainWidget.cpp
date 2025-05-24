@@ -973,6 +973,7 @@ void MainWidget::MonthMaintenResult(QString code){
         _InstrumentState->setMachineState(_InstrumentState->enumStandby);
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"),GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1446"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }else if(code=="K1345"||code=="K1348"){
+        m_progressDialog->setShowTime(0);
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
         _instr->testContinue();
     }else{
@@ -989,6 +990,7 @@ void MainWidget::WeekMaintenResult(QString code){
         m_progressDialog->done(1);
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1524"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }else if(code=="K1345"||code=="K1348"){
+        m_progressDialog->setShowTime(0);
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
         _instr->testContinue();
     }else{
@@ -1178,7 +1180,7 @@ void MainWidget::setIndicateLight()
         _ui->btnRunState->setProperty("btnStyle","stateConnectStyle");
         _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1060"));//tr("设备联接成功"));
         _ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1060"));//"设备联接成功");
-        break;
+        break; 
     }
     case enumState::enumStandby:
     {
@@ -1660,7 +1662,7 @@ void MainWidget::OnAction_ResultManage()
     _mTestResultDataAll->setProgressDialog(m_progressDialog);
     _mTestResultDataAll->m_test_project_name = "";
     _mTestResultDataAll->Show_UI_Data("");
-    _mTestResultDataAll->m_print_doing = 0;
+    _mTestResultDataAll->set_print_doing(0);
     actionClick(MENU_ID_RESULTINFO, GlobalData::LoadLanguageInfo("K1017"), _mTestResultDataAll);
 }
 

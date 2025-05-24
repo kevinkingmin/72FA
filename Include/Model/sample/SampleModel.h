@@ -72,11 +72,20 @@ public:
 	int getPaperPos() const;
 	void setPaperPos(int paper_pos);
     bool operator==(SampleModel &it)const;
+    QString getRemark() const;
+    void setRemark(const QString &remark);
+
+    QString getCheckerName() const;
+    void setCheckerName(const QString &checkerName);
+
+    int getPkid() const;
+    void setPkid(int pkid);
 
 private:
-	QString    _Id;
-	QString    _testId;
-	QString    _sampleNo;
+    int        _pkid;
+    QString    _Id;
+    QString    _testId;
+    QString    _sampleNo;
     QString    _barcode;
     QString    _PatientName;
     int        _SexID;
@@ -94,7 +103,7 @@ private:
     QString    _errorFlag;
     QString    _skipFlag;
     int        _stateFlag;
-	int _test_batch;
+    int        _test_batch;
     bool       _isDelete;
     qint64     _testTime;
     QString    _testUser;
@@ -103,6 +112,8 @@ private:
 	QString    _articleNo;
 	int        _paperId;
 	int        _paperPos;
+    QString    _remark;
+    QString    _checkerName;
 };
 
 #endif // SAMPLEMODEL_H

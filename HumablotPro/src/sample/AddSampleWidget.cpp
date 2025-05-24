@@ -69,13 +69,13 @@ void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
     QJsonDocument doc = QJsonDocument::fromJson(resultData);
     if(doc.isNull()||doc.isEmpty())
     {
-		scanWorkState(true);
+        scanWorkState(true);
         return;
     }
-    QJsonArray jsonArray =doc.array();    
+    QJsonArray jsonArray =doc.array();
     QString barcode("");
     for(int i=star_pos;i<end_pos+1;i++)
-	{
+    {
         barcode=jsonArray.at(i-star_pos).toString();
         if(!m_tcpClient->m_connectedState)
             slotGetSampleBarCode(i,barcode);
@@ -84,13 +84,13 @@ void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
         {
             eLog("scan data wrong,pos:{},barcode:{}",i,barcode.toStdString());
             continue;
-        }		
+        }
         m_barCodePosMap.insert(i,barcode);
     }
 
     if(m_tcpClient==nullptr || !m_tcpClient->m_connectedState)
     {
-		scanWorkState(true);
+        scanWorkState(true);
         return;
     }
 
@@ -98,13 +98,13 @@ void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
     {
         QTime timer;
         for(auto it=m_barCodePosMap.begin();it!=m_barCodePosMap.end();it++)
-        {	
+        {
             if (!m_tcpClient->m_connectedState)
-			{
-				emit sglSendRequestDataToLIS("finish");
-				eLog("TCP break");
-				break;
-			}
+            {
+                emit sglSendRequestDataToLIS("finish");
+                eLog("TCP break");
+                break;
+            }
 
             if(it.value().isEmpty())
             {
@@ -130,17 +130,17 @@ void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
         }
 
         m_isLISRequestDataFinish=true;
-		Sleep(2000);
-		timer.restart();
-		while (m_progressDialog->isVisible())
-		{
-			if (timer.elapsed() > 6000)
-			{
-				emit sglSendRequestDataToLIS("finish");
-				break;
-			}
-			Sleep(100);
-		}
+        Sleep(2000);
+        timer.restart();
+        while (m_progressDialog->isVisible())
+        {
+            if (timer.elapsed() > 6000)
+            {
+                emit sglSendRequestDataToLIS("finish");
+                break;
+            }
+            Sleep(100);
+        }
     });
 }
 
@@ -167,6 +167,12 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
             eLog("LIS data wrong:{}", modifiedString.toStdString());
             continue;
         }
+		auto paperId = obrFields.at(5).simplified().simplified();
+		if (paperId.isEmpty())
+		{
+			eLog("paperId error,data:{}", data.toStdString());
+			continue;
+		}
         paperIds.push_back(obrFields.at(5).simplified());
         if (sample_id.isEmpty())
             sample_id = obrFields.at(3).simplified();
@@ -174,12 +180,13 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
     if (m_LISRepeatBarcord.contains(sample_id))
             m_LISERRDes += tr("LIS服务器返回重复条码:%1,样本位置:%2\r\n").arg(sample_id).arg(m_samplePos+1);
     QDate currentDate = QDate::currentDate();
-    
+
     QString create_time = currentDate.toString("yyyy-MM-dd");
     auto dao = AnalysisUIDao::instance();
     bool bResult = true;
     if (paperIds.isEmpty())
     {
+		m_samplePos = -1;
         m_isLISRequestDataFinish=true;
         return;
     }
@@ -195,12 +202,12 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
     if(m_samplePos+1 >= m_barCodePosMap.lastKey())
     {
         ShowTestInfoFromDatabase();
-		scanWorkState(true);
-		if (!m_LISERRDes.isEmpty())
-		{
-			MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), m_LISERRDes, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
-			m_LISERRDes = "";
-		}
+        scanWorkState(true);
+        if (!m_LISERRDes.isEmpty())
+        {
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), m_LISERRDes, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+            m_LISERRDes = "";
+        }
     }
 }
 
@@ -217,36 +224,36 @@ void AddSampleWidget::slotSendRequestDataToLIS(const QString &requstData)
 {
     if (m_tcpClient == nullptr || requstData=="finish")
     {
-		scanWorkState(true);
-		if (m_tcpClient == nullptr)
-			eLog("m_tcpClient is null");
-		else
-			MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("从LIS服务器下载数据出错！"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
-		ShowTestInfoFromDatabase();
-		return;
+        scanWorkState(true);
+        if (m_tcpClient == nullptr)
+            eLog("m_tcpClient is null");
+        else
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("从LIS服务器下载数据出错！"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+        ShowTestInfoFromDatabase();
+        return;
     }
 
     if (m_tcpClient->m_connectedState)
-    {		
+    {
         m_tcpClient->sendData(requstData);
     }
 }
 void AddSampleWidget::scanWorkState(const bool isFinish)
 {
-	if (isFinish)
-	{
-		m_progressDialog->hide();
-		ui->btnBCR->setEnabled(true);
-		emit ChangeBtnSaveSignal(true);
-		emit ChangeBtnNextSignal(true);
-	}
-	else
-	{
-		emit ChangeBtnSaveSignal(false);
-		emit ChangeBtnNextSignal(false);
-		ui->btnBCR->setEnabled(false);
-	}
-	
+    if (isFinish)
+    {
+        m_progressDialog->hide();
+        ui->btnBCR->setEnabled(true);
+        emit ChangeBtnSaveSignal(true);
+        emit ChangeBtnNextSignal(true);
+    }
+    else
+    {
+        emit ChangeBtnSaveSignal(false);
+        emit ChangeBtnNextSignal(false);
+        ui->btnBCR->setEnabled(false);
+    }
+
 }
 //得到查询条件，然后传进去查询函数中去。
 void AddSampleWidget::slotGetQueryCondition(QString condition1,QString condition2)
@@ -528,7 +535,7 @@ void AddSampleWidget::slotGetSampleBarCode(int pos,QString barCode)
     }
 
     if (mScanBarCodePos == m_barCodePosMap.size())
-		scanWorkState(true);
+        scanWorkState(true);
 
     setSamplePaperIdMap();
     setBtnCheckStyle();
@@ -554,8 +561,8 @@ void AddSampleWidget::on_btnBCR_clicked()
 
 void AddSampleWidget::OnShowBtnState()
 {
-	m_samplePos = -1;
-	m_LISERRDes = "";
+    m_samplePos = -1;
+    m_LISERRDes = "";
     int star_pos = ui->lineEdit_3->text().toInt();
     int end_pos = ui->lineEdit_4->text().toInt();
     if (star_pos > end_pos)
@@ -575,14 +582,14 @@ void AddSampleWidget::OnShowBtnState()
     }
     m_barCodePosMap.clear();
     mScanBarCodePos = 0;
-	m_samplePos = -1;
+    m_samplePos = -1;
     for (int ipos = star_pos; ipos < end_pos + 1; ipos++)
     {
         m_barCodePosMap.insert(ipos, "");
     }
 
     if (m_barCodePosMap.count()>0)
-		scanWorkState(false);
+        scanWorkState(false);
     m_instr->scanSampleCode(QString::number(star_pos),QString::number(end_pos));
     m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1712"));
     m_progressDialog->exec();
@@ -695,7 +702,7 @@ void AddSampleWidget::SaveSampleListToDataBase()
     SaveSample();
 }
 
-#define WM_MYMESSAGE WM_USER + 1 
+#define WM_MYMESSAGE WM_USER + 1
 #define   WM_MYMSG WM_USER + 2001 //WM_USER为系统定义好的值为0x0400
 
 #ifdef Q_OS_WIN
@@ -728,7 +735,6 @@ void AddSampleWidget::FromLis()
             QString sampleNo = _vModel->_vect[i].sampleNo;
             id1 = sampleNo;
             id += sampleNo+"|"+QString::number(i)+",";
-            //int paperId = _vModel->_vect[i].;
             QString PatientName = _vModel->_vect[i].patientName;
             int paper_id = 0;
             auto map = _vModel->_vect[i].paperCheckedCountMap;
@@ -845,71 +851,70 @@ void AddSampleWidget::SaveSample()
 
     for (auto it : vect)
     {
-        if (_vModel->_vect[i].sampleNo !="")
+        if(_vModel->_vect[i].sampleNo.simplified().isEmpty())
+            continue;
+        QString sampleNo = _vModel->_vect[i].sampleNo;
+        int samplePos = _vModel->_vect[i].samplePos-1;
+        //int paperId = _vModel->_vect[i].;
+        QString PatientName = _vModel->_vect[i].patientName;
+        int SexID = _vModel->_vect[i].sexID;
+        int Age = _vModel->_vect[i].age;
+        int paper_id = 0;
+        auto map = _vModel->_vect[i].paperCheckedCountMap;
+        int ii = 0;
+        //QString sql_delete = QString("delete from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3 and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
+        QString sql_delete = QString("delete from tsample where  createDay='%1' and samplePos=%2 and stateFlag=1").arg(createDay).arg(samplePos);
+        dao->SelectRecord(&bResult, sql_delete);
+        for (auto m = map.begin(); m != map.end(); m++)
         {
-            QString sampleNo = _vModel->_vect[i].sampleNo;
-            int samplePos = _vModel->_vect[i].samplePos-1;
-            //int paperId = _vModel->_vect[i].;
-            QString PatientName = _vModel->_vect[i].patientName;
-            int SexID = _vModel->_vect[i].sexID;
-            int Age = _vModel->_vect[i].age;
-            int paper_id = 0;
-            auto map = _vModel->_vect[i].paperCheckedCountMap;
-            int ii = 0;
-            //QString sql_delete = QString("delete from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3 and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
-            QString sql_delete = QString("delete from tsample where  createDay='%1' and samplePos=%2 and stateFlag=1").arg(createDay).arg(samplePos);
-            dao->SelectRecord(&bResult, sql_delete);
-            for (auto m = map.begin(); m != map.end(); m++)
+            int paper_id_tmp = m.key();
+            auto isChecked = std::get<0>(m.value());
+            int number = std::get<1>(m.value());
+            for (int jj = 0; jj < number; jj++)
             {
-                int paper_id_tmp = m.key();
-                auto isChecked = std::get<0>(m.value());
-                int number = std::get<1>(m.value());
-                for (int jj = 0; jj < number; jj++)
+                paper_id = GetPaperId(paper_id_tmp);
+                if (isChecked)
                 {
-                    paper_id = GetPaperId(paper_id_tmp);
-                    if (isChecked)
+                    QString sql = "";
+                    QString sql_query = QString("select * from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3  and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
+                    auto countNumberQuery = dao->SelectRecord(&bResult, sql_query);
+                    int number = 0;
+                    while (countNumberQuery.next())
                     {
-                        QString sql = "";
-                        QString sql_query = QString("select * from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3  and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
-                        auto countNumberQuery = dao->SelectRecord(&bResult, sql_query);
-                        int number = 0;
-                        while (countNumberQuery.next())
-                        {
-                            QString id = countNumberQuery.value("Id").toString();
-                            Id_list.append(id);
-                            number++;
-                        }
-                        if (number > 0)
-                        {
-                            QString id11 = Id_list.at(ii);
-                            //生成修改sql
-                            sql = QString("update tsample set samplePos=%1,paperId=%2,PatientName='%3',SexID=%4,Age=%5,stateFlag=1,paperPos=0 where Id=%6 and samplePos=%1").arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id11);
-                            sql_list.append(sql);
-                        }
-                        else
-                        {
-                            id += 1;
-                            //生成添加sql
-                            sql = QString("insert tsample(sampleNo,samplePos,paperId,PatientName,SexID,Age,id,stateFlag,paperPos,createDay,test_batch)VALUES('%1',%2,%3,'%4',%5,%6,%7,1,0,'%8',%9)").arg(sampleNo).arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id).arg(createDay).arg(test_batch_max);
-                            sql_list.append(sql);
-                        }
-                        ii++;
+                        QString id = countNumberQuery.value("Id").toString();
+                        Id_list.append(id);
+                        number++;
                     }
+                    if (number > 0)
+                    {
+                        QString id11 = Id_list.at(ii);
+                        //生成修改sql
+                        sql = QString("update tsample set samplePos=%1,paperId=%2,PatientName='%3',SexID=%4,Age=%5,stateFlag=1,paperPos=0 where Id=%6 and samplePos=%1").arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id11);
+                        sql_list.append(sql);
+                    }
+                    else
+                    {
+                        id += 1;
+                        //生成添加sql
+                        sql = QString("insert tsample(sampleNo,samplePos,paperId,PatientName,SexID,Age,id,stateFlag,paperPos,createDay,test_batch)VALUES('%1',%2,%3,'%4',%5,%6,%7,1,0,'%8',%9)").arg(sampleNo).arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id).arg(createDay).arg(test_batch_max);
+                        sql_list.append(sql);
+                    }
+                    ii++;
                 }
             }
-            for (int iv = 0; iv < sql_list.size(); ++iv)
-            {
-                QString sql = "";
-                sql = sql_list.at(iv);
-                QString sql_query = "";
-                dao->addRecord(&bResult, sql);
-                if (bResult)
-                {
-                    tip += GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1378");//"保存成功";
-                }
-            }
-            sql_list.clear();
         }
+        for (int iv = 0; iv < sql_list.size(); ++iv)
+        {
+            QString sql = "";
+            sql = sql_list.at(iv);
+            QString sql_query = "";
+            dao->addRecord(&bResult, sql);
+            if (bResult)
+            {
+                tip += GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1378");//"保存成功";
+            }
+        }
+        sql_list.clear();
         i++;
     }
     if (tip != "")
@@ -1371,7 +1376,7 @@ void AddSampleWidget::createRepeatTest()
     auto index=ui->tvSampleSet->currentIndex().row();
     if(index<0)
     {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1390"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1390"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     auto &vect = _vModel->getVect();
