@@ -23,7 +23,7 @@ public:
 	//表格
 	ShowTestResultDetail *mytable;
 	//对话框
-	TestResultDetailDialog *dialog;
+    TestResultDetailDialog *dialog;
     void setProgressDialog(ProgressDialog *progressDialog);
     void setTcpClient(TcpClient *tcpClient);
 	void set_print_doing(int v);
@@ -46,6 +46,7 @@ private:
 	void SavePdfA();
 	void SavePdfB();
 	bool getPrintIndexs(const bool isSamePaper);
+	QString getPDFTestIds(int &companyId);
 signals:
 	void sglUpdateStatus(QString a, QString b);
 private slots:

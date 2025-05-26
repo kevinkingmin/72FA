@@ -274,6 +274,7 @@ public:
 		int getPaperItemCountBySampleId(const int pkid);
 		QSqlRecord getSampleByPkid(const int pkid,bool &ret);
 		QString getItemCHName(const QString &itemName,const int paperId);
+        bool updateTestResult(const QVector<QVector<QString>> &testResult);
 private:
         QMap<QString, QVector<JudgeRules>> getPaperJudgeRules(const int paperId);
         QMap<int, QVector<JudgeRules> > convertGrayRadio();

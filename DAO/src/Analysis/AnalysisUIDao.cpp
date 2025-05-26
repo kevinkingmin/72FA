@@ -697,7 +697,27 @@ QString AnalysisUIDao::getItemCHName(const QString &itemName, const int paperId)
 			return "";
 		return query.value("chItemName").toString();
 	}
-	return "";
+    return "";
+}
+
+bool AnalysisUIDao::updateTestResult(const QVector<QVector<QString> > &testResult)
+{
+    QSqlQuery query;
+    if (DAO::createQuery(query) < 0)
+        return false;
+    QString sqlStr="";
+    for(auto result:testResult)
+    {
+		bool sus = true;
+		result.at(1).toDouble(&sus);
+		if (!sus)
+			continue;
+		result.at(3).toDouble(&sus);
+		if (!sus)
+			continue;
+        sqlStr+="UPDATE tsample_test set cutGrayValue="+result.at(1)+",testGrayValue="+result.at(3)+",testResult='"+result.at(2)+"' WHERE pkid="+result.at(0)+";";
+    }
+    return query.exec(sqlStr);
 }
 
 QMap<QString, QVector<JudgeRules> > AnalysisUIDao::getPaperJudgeRules(const int paperId)

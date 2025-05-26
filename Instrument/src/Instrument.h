@@ -105,6 +105,7 @@ public:
     bool prepareReagent(QList<uint8_t> pumpList,QString type);
     bool shutdownMaintenance(QList<uint8_t> pumpList);
     bool shutdownBee();
+    bool getPDFReport(const QByteArray &datas);
     int16_t initMachineCommand = 0x0001;//开机自检
     int16_t systemPipWashCommand = 0x0002;//系统管路清洗
     int16_t PipWashCommand = 0x0003;//管路清洗
@@ -128,7 +129,7 @@ public:
     int16_t getTemperatureCommand = 0x0101;//获取机器编号
     int16_t getLiquidStateCommand = 0x0102;//获取液位信息  系统液/废液 报警 取消报警
     int16_t frameResponeCommand = 0x0200;//消息收到响应
-
+    int16_t getPDFReportCommand= 0x0015;//打印PDF
     int getUnitReagentVolumn(int companyId,int reagentId);
     //static void write_iccard_log(const std::string &text);
     //static InstrumentType get_instrument_type();

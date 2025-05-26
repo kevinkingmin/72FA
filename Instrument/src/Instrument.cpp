@@ -498,6 +498,37 @@ bool Instrument::shutdownBee(){
     return sendBySocket(requestCommand);
 }
 
+bool Instrument::getPDFReport(const QByteArray &datas)
+{
+    uint32_t msgId = getMessageId();
+    QByteArray requestCommand;
+    requestCommand.fill(0x00,1024);
+    requestCommand[0] = start;
+    requestCommand[1] = static_cast<char>(msgId);
+    requestCommand[2] = static_cast<char>(msgId>>8);
+    requestCommand[3] = static_cast<char>(msgId>>16);
+    requestCommand[4] = static_cast<char>(msgId>>24);
+    requestCommand[5] = 0x01;
+    requestCommand[6] = 0x00;
+    requestCommand[7] = 0x01;
+    requestCommand[8] = 0x00;
+    requestCommand[9] = 0x00;
+    requestCommand[10] = 0x00;
+    requestCommand[11] = static_cast<char>(getPDFReportCommand);
+    requestCommand[12] = static_cast<char>(getPDFReportCommand>>8);
+    int16_t contentLength=static_cast<int16_t>(datas.length());
+    QByteArray md5 = getMd5(datas);
+    for(int i=0;i<contentLength;i++){
+        requestCommand[13+i]=datas[i];
+    }
+
+    for(int i=0;i<16;i++){
+        requestCommand[1007+i]=md5[i];
+    }
+    requestCommand[1023] = end;
+    return sendBySocket(requestCommand);
+}
+
 bool Instrument::shutdownMaintenance(QList<uint8_t> pumpList){
     QByteArray requestFrame;
     QJsonObject jsonObject;

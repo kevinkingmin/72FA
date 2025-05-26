@@ -849,23 +849,6 @@ QTableWidget::item::selected
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #MainWidget #tBtnSample{
     qproperty-icon: url(:/images2000/Main/SampleToolButton.png);
 }

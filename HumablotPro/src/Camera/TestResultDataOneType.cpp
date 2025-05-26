@@ -29,7 +29,7 @@ void TestResultDataOneType::getItemDataSlot(int row)
 	mytable = new ShowTestResultDetail(this);//实例化表格
 	QString testId = username->text();
 	//dialog->testId = testId;
-	dialog = new TestResultDetailDialog(testId,"",this);
+    dialog = new TestResultDetailDialog(testId,"",this);
 	connect(dialog, SIGNAL(UpdateTestResultTableOneTypeSignal(QString)), this, SLOT(UpdateTestResultTableOneTypeSlot(QString)));
 	//关联一个single
 	dialog->show();//显示弹窗

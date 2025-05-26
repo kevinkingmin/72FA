@@ -20,15 +20,15 @@
 #include "src/main/subDialog/MyMessageBox.h"
 #include "../comm/GlobalData.h"
 
-TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no,QWidget *parent) : QDialog()
+TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no,QWidget *parent)
+    : QDialog(parent)
 {
 	setWindowIcon(QIcon(":/favicon.ico"));
 	setWindowIcon(QIcon(":/images/buttonIcon/icon.png"));
 	bool bResult = true; 
 	auto dao = AnalysisUIDao::instance();
 	QString company_info = dao->SelectTargetValue(&bResult, "5");
-	g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
-	setWindowTitle(GlobalData::LoadLanguageInfo(g_language_type, "K1704"));
+    setWindowTitle(GlobalData::LoadLanguageInfo("K1704"));
 	int windows_width = 0;// 1500;
 	if (company_info == "2")
 	{
@@ -39,17 +39,8 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 		windows_width = 1500;
 	}
 	QDesktopWidget* desktop = QApplication::desktop(); 
-	if (company_info == "2")
-	{
-		move(((desktop->width() - windows_width) / 2) - 0, ((desktop->height() - this->height()) / 2) - 170);
-	}
-	else
-	{
-		move(((desktop->width() - windows_width) / 2) - 30, ((desktop->height() - this->height()) / 2) - 170);
-	}
-	int width = this->geometry().width();
-	int height = this->geometry().height();
-	this->setFixedSize(windows_width, height + 300); 
+    this->setFixedSize(windows_width, 855);
+	move((desktop->width() - windows_width) / 2, (desktop->height() - this->height()) / 2);
 	m_testId = testIda;
 	QString strRel;
 	QString strValue;
@@ -60,46 +51,44 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 	int pos = 0;
 	int left_pix_position = 0;
 	int right_pix_position = 0;
-	int error_code = 0;
 	int top = 0;
 	int height1 = 0;
 	QString testResult = "";
 	QString testGrayValue = "";
 	auto TestDataQuery = dao->SelectTestDataByTestId(m_testId,&bResult);
-	QString sz1 = GlobalData::LoadLanguageInfo(g_language_type, "K1173");
-	QString sz2 = GlobalData::LoadLanguageInfo(g_language_type, "K1174");
-	QString sz3 = GlobalData::LoadLanguageInfo(g_language_type, "K1175");
+    QString sz1 = GlobalData::LoadLanguageInfo("K1173");
+    QString sz2 = GlobalData::LoadLanguageInfo("K1174");
+    QString sz3 = GlobalData::LoadLanguageInfo("K1175");
 	if (bResult == false)
 	{
-		//MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "�������Խ������ʧ�ܣ�", MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
 		MyMessageBox::warning(this, sz1, sz2,  MyMessageBox::Ok, sz3, "");
 		return;
 	}
 	mainLayout = new QGridLayout(this);
-	noLabel = new QLabel;
-	testIdLabel = new QLabel;
-	topBarLayout = new QGridLayout;//����������ť�Ĳ���
+	noLabel = new QLabel(this);
+	testIdLabel = new QLabel(this);
+    topBarLayout = new QGridLayout(this);
 	topBarLayout->addWidget(noLabel, 0, 1);
 	topBarLayout->addWidget(testIdLabel, 0, 0);
-	QString sz4 = GlobalData::LoadLanguageInfo(g_language_type, "K1049");
+    QString sz4 = GlobalData::LoadLanguageInfo("K1049");
 	testIdLabel->setText("     "+sz4+":"+sample_no);
 	mainLayout->addLayout(topBarLayout, 0, 0);
-	tableWidget = new QTableWidget;
+	tableWidget = new QTableWidget(this);
+	tableWidget->setObjectName("resultData");
 	int row_numbers = TestDataQuery.size();
-	tableWidget->setColumnCount(6);
+	tableWidget->setColumnCount(7);
 	tableWidget->setRowCount(row_numbers);
-	QString sz5 = GlobalData::LoadLanguageInfo(g_language_type, "K1175");
-	QString sz6 = GlobalData::LoadLanguageInfo(g_language_type, "K1176");
-	QString sz7 = GlobalData::LoadLanguageInfo(g_language_type, "K1177");
-	QString sz8 = GlobalData::LoadLanguageInfo(g_language_type, "K1178");
-	QString sz9 = GlobalData::LoadLanguageInfo(g_language_type, "K1179");
-	QString sz10 = GlobalData::LoadLanguageInfo(g_language_type, "K1702");
-	tableWidget->setHorizontalHeaderLabels(QStringList() << sz5 << sz6 << sz7 << sz8 << sz9 << sz10);
-	tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);  //����ѡ�еķ�ʽ
-	tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);   //��ֹ�޸�
-	tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);  //����Ϊ����ѡ�е���
-	tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed); //����Ӧ�и�
-
+    QString sz5 = GlobalData::LoadLanguageInfo("K1175");
+    QString sz6 = GlobalData::LoadLanguageInfo("K1176");
+    QString sz7 = GlobalData::LoadLanguageInfo("K1177");
+    QString sz8 = GlobalData::LoadLanguageInfo("K1178");
+    QString sz9 = GlobalData::LoadLanguageInfo("K1179");
+    QString sz10 = GlobalData::LoadLanguageInfo("K1702");
+	tableWidget->setHorizontalHeaderLabels(QStringList() << sz5 << sz6 << sz7 << sz8 << sz9 << sz10<<"pkid");
+    tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    tableWidget->setEditTriggers(QAbstractItemView::CurrentChanged);
+    tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 	if (company_info == "2")
 	{
 		tableWidget->setColumnWidth(0, 250);
@@ -118,28 +107,22 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 		tableWidget->setColumnWidth(4, 50);
 		tableWidget->setColumnWidth(5, 350);
 	}
+	tableWidget->hideColumn(6);
 	tableWidget->selectRow(0);
 	strRel = "";
 	int item_number = 0;
 	QString file_name = "";
-	auto dao1 = AnalysisUIDao::instance();
-	int sampleNo = 0;
-	int nTestPaperID = 0;
 	QString strPathFileName;
-	QString piture_root_str = dao1->SelectTestPicturesRootPath(&bResult);
+	QString piture_root_str = dao->SelectTestPicturesRootPath(&bResult);
 	QString analysised_piture_path = "analysised";
 	QString strPath = piture_root_str + "\\" + analysised_piture_path;
 	file_name = QString("%0\\%1.png").arg(strPath).arg(testIda);  //testIda
 	QPixmap result_pic = QPixmap(file_name);
-	int pic_width = result_pic.width();
-	int pic_height = result_pic.height();
-
 	if (result_pic.width() == 0)
 	{
-		QString sz10 = GlobalData::LoadLanguageInfo(g_language_type, "K1180");
-		QString sz11 = GlobalData::LoadLanguageInfo(g_language_type, "K1182");
-		QString sz12 = GlobalData::LoadLanguageInfo(g_language_type, "K1181");
-		//QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("��ͼƬ��Ϣ"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+        QString sz10 = GlobalData::LoadLanguageInfo("K1180");
+        QString sz11 = GlobalData::LoadLanguageInfo("K1182");
+        QString sz12 = GlobalData::LoadLanguageInfo("K1181");
 		MyMessageBox::information(this, sz10, sz11, MyMessageBox::Ok, sz12, "");
 		noLabel->setVisible(false);
 		testIdLabel->setVisible(false);
@@ -165,18 +148,20 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 		int font_size = 17;
 		font.setPointSize(font_size);
 		p.setFont(font);
+		QString pkid = "";
 		while (TestDataQuery.next())
 		{
 			int tmp_item_number = item_number + 1;
 			strItemName = TestDataQuery.value("projectName").toString();
-			strItemName = strItemName.replace("\n", ""); // �����з��滻Ϊ���ַ�
+            strItemName = strItemName.replace("\n", "");
 			dRatioToCut = TestDataQuery.value("cutGrayValue").toDouble();
 			int error_code = TestDataQuery.value("error_code").toInt();
 			double tgv = TestDataQuery.value("testGrayValue").toDouble();
 			error_code = TestDataQuery.value("error_code").toInt();
+			pkid= TestDataQuery.value("pkid").toString();
 			if (tgv > 255)
 			{
-				testGrayValue = QString("%1").arg(GlobalData::LoadLanguageInfo(g_language_type, "K1261"));
+                testGrayValue = QString("%1").arg(GlobalData::LoadLanguageInfo("K1261"));
 			}
 			else
 			{
@@ -201,9 +186,9 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 				p.drawRect(left_pix_position, top + 25, right_pix_position - left_pix_position, height1);
 				p.drawText(pos - 10, 30, i_text);
 			}
-
+			tableWidget->setItem(item_number, 6, new QTableWidgetItem(pkid));
 			QTableWidgetItem *item_strItemName = new QTableWidgetItem(strItemName);
-			item_strItemName->setTextAlignment(Qt::AlignCenter); // �����ı�������ʾ
+            item_strItemName->setTextAlignment(Qt::AlignCenter);
 			tableWidget->setItem(item_number, 0, item_strItemName);
 			QString dRatioToCut_sz = "";
 			if (strItemName == "FC")
@@ -215,7 +200,7 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 				dRatioToCut_sz = QString("%1").arg(dRatioToCut);
 			}
 			QTableWidgetItem *item_dRatioToCut = new QTableWidgetItem(dRatioToCut_sz);
-			item_dRatioToCut->setTextAlignment(Qt::AlignCenter); // �����ı�������ʾ
+            item_dRatioToCut->setTextAlignment(Qt::AlignCenter);
 			tableWidget->setItem(item_number, 1, item_dRatioToCut);
 
 			if (strItemName != "FC" && strItemName != "Cut")
@@ -255,7 +240,6 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 					it++;
 				}
 				int key_count = key_list.count();
-				//�ҳ��±꣬�Ӷ��ҳ�key��Ӧ��value
 				int find_index = 0;
 				for (int i = 0; i < key_count; )
 				{
@@ -304,7 +288,7 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 				}
 			}
 			QTableWidgetItem *item_resut = new QTableWidgetItem(strRel);
-			item_resut->setTextAlignment(Qt::AlignCenter); // �����ı�������ʾ
+            item_resut->setTextAlignment(Qt::AlignCenter);
 			tableWidget->setItem(item_number, 2, item_resut);
 
 			if (error_code >0 && error_code != 10002 )
@@ -314,14 +298,14 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
                     QString gray_value_str = QString("%1").arg(testGrayValue.toDouble());
 					QTableWidgetItem *item = new QTableWidgetItem(gray_value_str);
 					tableWidget->setItem(item_number, 3, item);
-					item->setTextAlignment(Qt::AlignCenter); // �����ı�������ʾ
-					tableWidget->item(item_number, 3)->setBackground(Qt::red); // ���õ�Ԫ�񱳾���ɫΪ��ɫ
+                    item->setTextAlignment(Qt::AlignCenter);
+                    tableWidget->item(item_number, 3)->setBackground(Qt::red);
 				}
 				else
 				{
                     QString gray_value_str = QString("%1").arg(testGrayValue.toDouble());
 					QTableWidgetItem *item = new QTableWidgetItem(gray_value_str);
-					item->setTextAlignment(Qt::AlignCenter); // �����ı�������ʾ
+                    item->setTextAlignment(Qt::AlignCenter);
 					tableWidget->setItem(item_number, 3, item);
 				}
 
@@ -330,61 +314,61 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
                 QString gray_value_str = QString("%1").arg(testGrayValue.toDouble());
 				QTableWidgetItem *item = new QTableWidgetItem(gray_value_str);
 				tableWidget->setItem(item_number, 3, item);
-				item->setTextAlignment(Qt::AlignCenter); // �����ı�������ʾ
-				tableWidget->item(item_number, 3)->setBackground(Qt::red); // ���õ�Ԫ�񱳾���ɫΪ��ɫ
+                item->setTextAlignment(Qt::AlignCenter);
+                tableWidget->item(item_number, 3)->setBackground(Qt::red);
 			}
 
 			QTableWidgetItem *item4 = new QTableWidgetItem(i_text);
-			item4->setTextAlignment(Qt::AlignCenter); // �����ı�������ʾ
+            item4->setTextAlignment(Qt::AlignCenter);
 			tableWidget->setItem(item_number, 4, item4);
 			QString error_code_str = "";
 
 			switch (error_code)
 			{
 			case 0:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K1703"));//QString("����");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K1703"));
 				break;
 			case 9990:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9990"));//"��һ�����ȳ���Χ���ҵ��˵ڶ�����Ч�����ڵ�������Ч����");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9990"));
 				break;
 			case 9991:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9991"));//QString("��һ�����ȳ���Χ�ҵڶ������Ȼ�С����С��δ�ҵ�������");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9991"));
 				break;
 			case 9992:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9992"));//QString(" ��һ�����ȳ���Χ�ҵڶ������Ȼ��������");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9992"));
 				break;
 			case 9993:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9993"));//QString("��һ�����ȳ����ҵڶ������Ȼ��ǳ���");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9993"));
 				break;
 			case 9994:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9994"));//QString("�ӽ�һ��ƽ��");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9994"));
 				break;
 			case 9995:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9995"));//QString("û���ҵ��������������������󲨿�");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9995"));
 				break;
 			case 9996:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9996"));//QString("û���ҵ��������������򲻴�����󲨿�");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9996"));
 				break;
 			case 9997:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9997"));//QString("���½���, ������");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9997"));
 				break;
 			case 9998:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9998"));//QString("��������, ���½���");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9998"));
 				break;
 			case 9999:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K9999"));//QString("���½��غ������ص���û����Ч����");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K9999"));
 				break;
 			case 10000:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K10000"));//QString("δ�ҵ���Ч��������ֵ�������趨����ֵ");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K10000"));
 				break;
 			case 10001:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K10001"));//QString("���������������쳣��");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K10001"));
 				break;
 			case 10002:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K10002"));//QString("����������Ч����");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K10002"));
 				break;
 			case 10003:
-				error_code_str = QString(GlobalData::LoadLanguageInfo(g_language_type, "K10003"));//QString("����������Ч����");
+                error_code_str = QString(GlobalData::LoadLanguageInfo("K10003"));
 				break;
 			default:
 				error_code_str = QString("");
@@ -392,22 +376,21 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 			}
 
 			QTableWidgetItem *item5 = new QTableWidgetItem(error_code_str);
-			item5->setTextAlignment(Qt::AlignCenter); // �����ı�������ʾ
+            item5->setTextAlignment(Qt::AlignCenter);
 			if (error_code == 10003 || error_code==9990)
 			{
-				//item5->setBackground(Qt::yellow); // ���ñ�����ɫΪ��ɫ
-				item5->setForeground(QColor(246, 180, 4));  //# ����Ϊ��ɫ
+                item5->setForeground(QColor(246, 180, 4));
 			}
 			else
 			{
-				item5->setBackground(Qt::gray); // ���ñ�����ɫΪ
+                item5->setBackground(Qt::gray);
 			}
 			tableWidget->setItem(item_number, 5, item5);
 			item_number++;
 		}
 
 		mainLayout->addWidget(tableWidget, 1, 0);
-		mark_showPicLabel = new QLabel;
+		mark_showPicLabel = new QLabel(this);
 		p.end();
 		pix.save("mark_pic.png");
 		QPixmap mark_pic = QPixmap("mark_pic.png");
@@ -415,56 +398,75 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 		mark_showPicLabel->setScaledContents(true);
 		mark_showPicLabel->resize(mark_showPicLabel->width(), mark_showPicLabel->height());
 		mainLayout->addWidget(mark_showPicLabel, 2, 0);
-		QString sz13 = GlobalData::LoadLanguageInfo(g_language_type, "K1183");
-		closeButton = new QPushButton(sz13);//�رնԻ���ť
-		sz13 = GlobalData::LoadLanguageInfo(g_language_type, "K1184");
-		//show_all_pic_Button = new QPushButton(tr("����ͼ��"));//�رնԻ���ť
-		show_all_pic_Button = new QPushButton(sz13);//
-		sz13 = GlobalData::LoadLanguageInfo(g_language_type, "K1681");
-		show_all_pic_Button_correction = new QPushButton(sz13);//
-		bottomBarLayout = new QGridLayout;//����������ť�Ĳ���
+        closeButton = new QPushButton(GlobalData::LoadLanguageInfo("K1183"),this);
+		show_all_pic_Button = new QPushButton(GlobalData::LoadLanguageInfo("K1184"),this);
+		show_all_pic_Button_correction = new QPushButton(GlobalData::LoadLanguageInfo("K1681"),this);
+		saveButton = new QPushButton(GlobalData::LoadLanguageInfo("K1141"), this);
+        bottomBarLayout = new QGridLayout(this);
 		bottomBarLayout->setSpacing(5);
 		bottomBarLayout->setMargin(5);
 		bottomBarLayout->addWidget(closeButton, 0, 0);
 		bottomBarLayout->addWidget(show_all_pic_Button, 0, 1);
 		bottomBarLayout->addWidget(show_all_pic_Button_correction, 0, 2);
+		bottomBarLayout->addWidget(saveButton, 0, 3);
 		mainLayout->addLayout(bottomBarLayout, 3, 0);
-		connect(closeButton, &QPushButton::clicked, this,
-			[=]()
+        connect(closeButton, &QPushButton::clicked, this,[=]()
 		{
-		QWidget:close();
-		}
-		);
-		connect(show_all_pic_Button, &QPushButton::clicked, this,
-			[=]()
+            close();
+        });
+        connect(show_all_pic_Button, &QPushButton::clicked, this,[=]()
 		{
 			QString analysised_piture_path = "original";
 			QString strPath = piture_root_str + "\\" + analysised_piture_path;
 			QString file_name = QString("%0\\%1.png").arg(strPath).arg(testIda);  //testIda
 			QPixmap result_pic = QPixmap(file_name);
-			int height = result_pic.height();
-			int width = result_pic.width();
 			ShowAllPicWidgets show_all_pic_w1 = new ShowAllPicWidgets();
 			show_all_pic_w1.ShowPic(file_name);
 			show_all_pic_w1.exec();
-		}
-		);
+        });
 
-		connect(show_all_pic_Button_correction, &QPushButton::clicked, this,
-				[=]()
+        connect(show_all_pic_Button_correction, &QPushButton::clicked, this,[=]()
 		{
 			QString analysised_piture_path = "analysised";
 			QString strPath = piture_root_str + "\\" + analysised_piture_path;
 			QString file_name = QString("%0\\%1_new1.png").arg(strPath).arg(testIda);  //testIda
 			QPixmap result_pic = QPixmap(file_name);
-			int height = result_pic.height();
-			int width = result_pic.width();
 			ShowAllPicWidgets show_all_pic_w1 = new ShowAllPicWidgets();
 			show_all_pic_w1.ShowPic(file_name);
 			show_all_pic_w1.exec();
-		}
-		);
+        });
+
+		connect(saveButton, &QPushButton::clicked, this, [=]() 
+		{
+            QVector <QVector<QString>> results{};
+			for (int i = 0; i < row_numbers; i++)
+			{
+				QVector<QString> values{};
+				values.push_back(tableWidget->item(i, 6)->text());
+				values.push_back(tableWidget->item(i, 1)->text());
+				values.push_back(tableWidget->item(i, 2)->text());
+				values.push_back(tableWidget->item(i, 3)->text());
+                results.push_back(values);
+			}
+            if(!dao->updateTestResult(results))
+                QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1294"),GlobalData::LoadLanguageInfo("K1181"));
+            else
+                emit sglUpdateUI();
+		});
 	}
+
+    for (int row = 0; row < tableWidget->rowCount(); ++row)
+    {
+        for (int column = 0; column < tableWidget->columnCount(); ++column)
+        {
+            auto item = tableWidget->item(row, column);
+            if (column == 0 || column == 4 || column == 5 || column == 6)
+                item->setFlags(Qt::ItemIsEnabled);// 第0列不可编辑
+            else
+                item->setForeground(QBrush(QColor(0, 0, 250)));
+            tableWidget->setItem(row, column, item);
+        }
+    }
 }
 
 void TestResultDetailDialog::exportSlot()
@@ -486,69 +488,55 @@ void TestResultDetailDialog::exportSlot()
 	pen.setColor(Qt::black);
 	pen.setWidth(1);
 	painter.setPen(pen);
-	int paperWidth = printer.width();
-	int paperHeigth = printer.height();
 	textDocument.print(&printer);
-	QPrintDialog dlg(&printer);//������ӡҳ�棬�������ӡ��
-	qDebug() << dlg.exec();//��ʾ��ӡ���棬����ֵ�жϵ������0��ʾȡ����1��ʾ��ӡ
+    QPrintDialog dlg(&printer);
+    qDebug() << dlg.exec();
 }
 
 void TestResultDetailDialog::paintRequestedHandler(QPrinter *printerPixmap)
 {
-	//QPageLayout("A4", Landscape, l:0 r:0 t:0 b:0 pt);
-   //A4ֽ�Ŵ�С��Portrait����Landscape����l/r/t/b��������ҳ�߾ࣻ
-	qDebug() << "��ǰҳ�沼�֣�" << printerPixmap->pageLayout();//����Ļ�ͼ�ο��⼸������
-	QPainter* pPdfPainter = new QPainter(printerPixmap);   // qt���ƹ���
-	// ����,����
+	//QPageLayout("A4", Landscape, l:0 r:0 t:0 b:0 pt);   
+    QPainter* pPdfPainter = new QPainter(printerPixmap);
 	QTextOption option(Qt::AlignHCenter | Qt::AlignVCenter);
-	option.setWrapMode(QTextOption::WordWrap); //�ֶ�̫���Զ�����
-	// iTop �����ϱ���������
+    option.setWrapMode(QTextOption::WordWrap);
 	int iTop = 0;
-	int lineheihgt = 30; //�и�
-	// �ı����� ȥ��ҳ�߾��ʢ��
+    int lineheihgt = 30;
 	int iContentWidth = 700;// pPdfWriter->width();
-	// ����,18����
 	QFont font;
-	//font.setFamily("simhei.ttf");
-	font.setFamily("������");
+    font.setFamily("宋体");
 	int fontSize = 18;
 
 	font.setPointSize(fontSize);
-	pPdfPainter->setFont(font);                    // Ϊ���ƹ�����������
+    pPdfPainter->setFont(font);
 	QString str = "";
 
-	QString sz13 = GlobalData::LoadLanguageInfo(g_language_type, "K1185");
+    QString sz13 = GlobalData::LoadLanguageInfo("K1185");
 
-	str = sz13;//"�����";
-	pPdfPainter->drawText(QRect(0, iTop, iContentWidth, 90), str, option); //��ӡ����
+    str = sz13;
+    pPdfPainter->drawText(QRect(0, iTop, iContentWidth, 90), str, option);
 	iTop += 90;
-	iTop += 10; //����10�����ؿո�
+    iTop += 10;
 	fontSize = 11;
 	font.setPointSize(fontSize);
 	pPdfPainter->setFont(font);
 	QTextOption detailoption(Qt::AlignVCenter);
 	detailoption.setWrapMode(QTextOption::WordWrap);
-	int rows = tableWidget->rowCount(); //ȡ������
-	int cols = tableWidget->columnCount() - 1; //ȡ������ �������һ�� idd
+    int rows = tableWidget->rowCount();
+    int cols = tableWidget->columnCount() - 1;
 	int colwidth = iContentWidth / cols;
-	for (int i = 0; i < rows; i++) // ȡ��ÿ�����ӵ�����
+    for (int i = 0; i < rows; i++)
 	{
-		// ������
 		pPdfPainter->setRenderHint(QPainter::Antialiasing, true);
-		// ���û�����ɫ
-		pPdfPainter->setPen(QPen(Qt::black, 2)); //������ɫ�ʹ�ϸ
-		// ����ֱ��
-		pPdfPainter->drawLine(QPointF(0, iTop), QPointF(iContentWidth, iTop)); //�������
-		pPdfPainter->drawLine(QPointF(0, iTop), QPointF(0, iTop + lineheihgt));//��һ������
-		pPdfPainter->drawLine(QPointF(iContentWidth, iTop), QPointF(iContentWidth, iTop + lineheihgt));//���һ������
+        pPdfPainter->setPen(QPen(Qt::black, 2));
+        pPdfPainter->drawLine(QPointF(0, iTop), QPointF(iContentWidth, iTop));
+        pPdfPainter->drawLine(QPointF(0, iTop), QPointF(0, iTop + lineheihgt));
+        pPdfPainter->drawLine(QPointF(iContentWidth, iTop), QPointF(iContentWidth, iTop + lineheihgt));
 		for (int j = 0; j < cols; j++) {
 			pPdfPainter->drawText(QRect(colwidth*j + 10, iTop, colwidth, lineheihgt), tableWidget->item(i, j)->text(), detailoption);
-			pPdfPainter->drawLine(QPointF(colwidth*j, iTop), QPointF(colwidth*j, iTop + lineheihgt));//����
+            pPdfPainter->drawLine(QPointF(colwidth*j, iTop), QPointF(colwidth*j, iTop + lineheihgt));
 		}
 		iTop += lineheihgt;
 	}
-
-	//��ȡ�ؼ�ͼ��
 	bool bResult = false;
 	QString file_name = "";
 	auto dao1 = AnalysisUIDao::instance();
@@ -558,10 +546,10 @@ void TestResultDetailDialog::paintRequestedHandler(QPrinter *printerPixmap)
 	QString analysised_piture_path = "analysised";
 	QString strPath = piture_root_str + "\\" + analysised_piture_path;
 	file_name = QString("%0\\%1.png").arg(strPath).arg(m_testId);  //testIda
-	pPdfPainter->drawLine(QPointF(0, iTop), QPointF(iContentWidth, iTop)); //���������
+    pPdfPainter->drawLine(QPointF(0, iTop), QPointF(iContentWidth, iTop));
 	QPixmap result_pic = QPixmap(file_name);
 	QPixmap pixmap(file_name);
-	pPdfPainter->scale(0.5, 1);   //�Ŵ�10��
+    pPdfPainter->scale(0.5, 1);
 	pPdfPainter->drawPixmap(0, iTop + 50, pixmap);
 	pPdfPainter->setPen(QColor(0, 0, 0));
 	delete pPdfPainter;
@@ -591,25 +579,12 @@ QString TestResultDetailDialog::CaculateResultText(double dItemGrayRatio)
 	{
 		resultText = "+++";
 	}
-	return resultText;
+    return resultText;
 }
 
 void TestResultDetailDialog::OnClickModifyOneTestResult()
 {
-	int a = 0;
-	//���½���
-	emit UpdateTestResultTableOneTypeSignal(m_testId);
 	//emit UpdateTestResultTableSignal(testId);
-}
-
-void TestResultDetailDialog::on_pdfSaveButton_clicked()
-{
-	int a = 100;
-}
-
-void TestResultDetailDialog::on_printButton_clicked()
-{
-	int b = 100;
 }
 
 TestResultDetailDialog::~TestResultDetailDialog()

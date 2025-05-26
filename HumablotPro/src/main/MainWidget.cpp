@@ -1835,15 +1835,24 @@ void MainWidget::OnActive_new_pump_running_in()
 
 void MainWidget::ChangWidgetsStartStatus()
 {
-    _mSystemLiquidPipeWashWidgets->m_start_system_liquid_pipe_wash = false;
-    _pipeRefluxWidgets->m_start_PipeRefluxWidgets = false;
-    _pipeWashWidgets->m_start_pile_wash = false;
-    _pumpAutoCheckWidgets->m_start_pump_auto_check = false;
-    _pumpManaCheckWidgets->m_start_pump_manal_check = false;
-    _liquidDetectionWidgets->start_liquid_detection = false;
-    _weekMaintenanceWidgets->mWeekMaintenance_run_flage = false;
-    _monthMaintenanceWidgets->mMonthMaintenance_run_flage = false;
-    _newPumpRunninInWidgets->m_start_NewPumpRunningWidgets = false;
+	if (_mSystemLiquidPipeWashWidgets != nullptr)
+		_mSystemLiquidPipeWashWidgets->m_start_system_liquid_pipe_wash = false;
+	if (_pipeRefluxWidgets != nullptr)
+		_pipeRefluxWidgets->m_start_PipeRefluxWidgets = false;
+	if (_pipeWashWidgets != nullptr)
+		_pipeWashWidgets->m_start_pile_wash = false;
+	if (_pumpAutoCheckWidgets != nullptr)
+		_pumpAutoCheckWidgets->m_start_pump_auto_check = false;
+	if (_pumpManaCheckWidgets != nullptr)
+		_pumpManaCheckWidgets->m_start_pump_manal_check = false;
+	if (_liquidDetectionWidgets != nullptr)
+		_liquidDetectionWidgets->start_liquid_detection = false;
+	if (_weekMaintenanceWidgets != nullptr)
+		_weekMaintenanceWidgets->mWeekMaintenance_run_flage = false;
+	if (_monthMaintenanceWidgets != nullptr)
+		_monthMaintenanceWidgets->mMonthMaintenance_run_flage = false;
+	if (_newPumpRunninInWidgets != nullptr)
+		_newPumpRunninInWidgets->m_start_NewPumpRunningWidgets = false;
 }
 
 void MainWidget::on_btnMonthMaintain_clicked()
