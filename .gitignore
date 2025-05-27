@@ -33,3 +33,4 @@ Analysis/debug/
 Makefile
 /*.user
 *.user
+/HumablotPro/*.user
