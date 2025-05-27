@@ -17,7 +17,6 @@ SystemSet::SystemSet(QWidget *parent)
     setAttribute(Qt::WA_ShowModal, true);
     auto dao = AnalysisUIDao::instance();
     bool bResult;
-    g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
     //QRegExp regExp;
     //regExp.setPattern("[1-6]?[0-9]|[7][0-2]|[1-9]");
     //QValidator * q_validator = new QRegExpValidator(regExp, ui.lineEdit_ControlThreshold);
@@ -42,22 +41,22 @@ SystemSet::SystemSet(QWidget *parent)
 
     //打开、关闭
     ui.comboBox_aspirate_sample->clear();//.addItem('条目1')
-    ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1698"));//.addItem('条目1')
-    ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1699"));//.addItem('条目1')
+    ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo("K1698"));//.addItem('条目1')
+    ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo("K1699"));//.addItem('条目1')
 
     ui.comboBox_vomit->clear();//.addItem('条目1')
-    ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1698"));//.addItem('条目1')
-    ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1699"));//.addItem('条目1')
+    ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo("K1698"));//.addItem('条目1')
+    ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo("K1699"));//.addItem('条目1')
 
     //是、否
     ui.comboBox_beep_enable->clear();
-    ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1701"));//.addItem('条目1')
-    ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1700"));//.addItem('条目1')
+    ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));//.addItem('条目1')
+    ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));//.addItem('条目1')
 
 
     ui.comboBox_waste_liquid_tank_enable->clear();
-    ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1701"));//.addItem('条目1')
-    ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1700"));//.addItem('条目1')
+    ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));//.addItem('条目1')
+    ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));//.addItem('条目1')
 
 
     //当前应用膜条公司名字
@@ -69,7 +68,7 @@ SystemSet::SystemSet(QWidget *parent)
 
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1290"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1290"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -101,7 +100,7 @@ SystemSet::SystemSet(QWidget *parent)
                                                         ));
             //6	1	defaultProcess	默认时序
         }
-        if (pkid == 20005)
+        else if (pkid == 20005)
         {
             int saveSet = all_system_set_para.value("saveDes").toInt();
             ui.comboBox_language->setCurrentIndex(saveSet);
@@ -120,23 +119,20 @@ SystemSet::SystemSet(QWidget *parent)
                                                     "}"
                                                     ));
         }
-
-
-        if (pkid == 20)
+        else if (pkid == 20)
         {
             //20	500	systemLiquidIrrigate	系统液充灌体积
             int saveSet = all_system_set_para.value("saveSet").toInt()/1000;
             ui.lineEdit_system_filling_volume->setText(QString::number(saveSet));
         }
 
-        if (pkid == 21)
+        else if (pkid == 21)
         {
             //21	600		系统液清洗体积
             int saveSet = all_system_set_para.value("saveSet").toInt()/1000;
             ui.lineEdit_system_wash_volume->setText(QString::number(saveSet));
         }
-
-        if (pkid == 22)
+        else if (pkid == 22)
         {
             //22	300	300, 300, 300	月维护泵充灌
             int saveSet = all_system_set_para.value("saveSet").toInt()/1000;
@@ -148,7 +144,7 @@ SystemSet::SystemSet(QWidget *parent)
         //4	0	D:\HumablotProFiles\Reports	测试报告保存根目录
         //5	1	human	当前使用的膜条所属公司
 
-        if (pkid == 23)
+        else if (pkid == 23)
         {
             //23	200	200, 200, 200	周维护泵充灌
             int saveSet = all_system_set_para.value("saveSet").toInt()/1000;
@@ -162,14 +158,13 @@ SystemSet::SystemSet(QWidget *parent)
         //	ui.lineEdit_pip_15_min->setText(QString::number(saveSet));
         //}
 
-        if (pkid == 25)
+        else if (pkid == 25)
         {
             //25	50		月维护泵校准
             int saveSet = all_system_set_para.value("saveSet").toInt();
             ui.lineEdit_monthly_maintenance_pump_calibration->setText(QString::number(saveSet));
         }
-
-        if (pkid == 26)
+        else if (pkid == 26)
         {
             //26	500	1000	泵校准两次下降最大差值
             int saveSet = all_system_set_para.value("saveSet").toInt();
@@ -177,30 +172,25 @@ SystemSet::SystemSet(QWidget *parent)
             int saveSet1 = all_system_set_para.value("saveDes").toInt();
             ui.lineEdit_between_two_drops_of_pump_max->setText(QString::number(saveSet1));
         }
-
-        if (pkid == 27)
+        else if (pkid == 27)
         {
             //9991	9999	2022 - 04 - 29 14:14 : 12	周维护完成时间
             int saveSet = all_system_set_para.value("saveSet").toInt()/60000;
             ui.lineEdit_week_finish_time->setText(QString::number(saveSet));
         }
-
-        if (pkid == 24)
+        else if (pkid == 24)
         {
             //9992	9999	2022 - 10 - 09 10:50 : 57	月维护完成时间
             int saveSet = all_system_set_para.value("saveSet").toInt()/60000;
             ui.lineEdit_month_finish_time->setText(QString::number(saveSet));
         }
-
-        if (pkid == 20006)
+        else if (pkid == 20006)
         {
             //9992	9999	2022 - 10 - 09 10:50 : 57	月维护完成时间
             double save_des = all_system_set_para.value("saveDes").toDouble();
             ui.lineEdit_Weight->setText(QString("%1").arg(save_des));
         }
-
-
-        if (pkid == 20001)
+        else if (pkid == 20001)
         {
             //20001	0	0	增加蜂鸣器声音“使能 - 1 / 关闭 - 0”按钮
             int saveSet = all_system_set_para.value("saveSet").toInt();
@@ -220,8 +210,7 @@ SystemSet::SystemSet(QWidget *parent)
                                                        "}"
                                                        ));
         }
-
-        if (pkid == 20002)
+        else if (pkid == 20002)
         {
             //20002	0	0	废液桶 使能 1、去使能为 0”
             int saveSet = all_system_set_para.value("saveSet").toInt();
@@ -241,8 +230,7 @@ SystemSet::SystemSet(QWidget *parent)
                                                                     "}"
                                                                     ));
         }
-
-        if (pkid == 20008)
+        else if (pkid == 20008)
         {
             //20008	0	0	 是否拍照  使能 1、去使能为 0”
             int saveSet = all_system_set_para.value("saveSet").toInt();
@@ -262,24 +250,19 @@ SystemSet::SystemSet(QWidget *parent)
                                                                       "}"
                                                                       ));
         }
-
-
-
-        if (pkid == 20003)
+        else if (pkid == 20003)
         {
             //20002	0	0	废液桶 使能 1、去使能为 0”
             int saveSet = all_system_set_para.value("saveSet").toInt()/1000;
             ui.lineEdit_system_wash_volume_2->setText(QString::number(saveSet));
         }
-
-        if (pkid == 20004)
+        else if (pkid == 20004)
         {
             //20002	0	0	废液桶 使能 1、去使能为 0”
             int saveSet = all_system_set_para.value("saveSet").toInt()/1000;
             ui.lineEdit_system_wash_volume_3->setText(QString::number(saveSet));
         }
-
-        if (pkid == 7)
+        else if (pkid == 7)
         {
             //7	1	sampleNeedle suck	样本针吸样液位探测，1 = 打开，0 = 关闭
             int saveSet = all_system_set_para.value("saveSet").toInt();
@@ -306,8 +289,7 @@ SystemSet::SystemSet(QWidget *parent)
                                                            "}"
                                                            ));
         }
-
-        if (pkid == 8)
+        else if (pkid == 8)
         {
             //8	1	sampleNeedle spit	样本针吐样液位探测，1 = 打开，0 = 关闭
             int saveSet = all_system_set_para.value("saveSet").toInt();
@@ -338,7 +320,10 @@ SystemSet::SystemSet(QWidget *parent)
 
             //ui.comboBox_vomit->setCurrentIndex(saveSet);
         }
-
+        else if(pkid == 20010)
+        {
+            ui.txtReportTitle->setText(all_system_set_para.value("saveDes").toString());
+        }
 
     }
 
@@ -455,61 +440,61 @@ SystemSet::SystemSet(QWidget *parent)
     QRegExpValidator* validator10 = new QRegExpValidator(QRegExp("^[1-5]$"), ui.lineEdit_system_wash_volume_3);
     ui.lineEdit_system_wash_volume_3->setValidator(validator10);
 
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1188");
+    QString sz = GlobalData::LoadLanguageInfo("K1188");
     ui.label_17->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1189");
+    sz = GlobalData::LoadLanguageInfo("K1189");
     ui.label_16->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1190");
+    sz = GlobalData::LoadLanguageInfo("K1190");
     ui.label_13->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1191");
+    sz = GlobalData::LoadLanguageInfo("K1191");
     ui.label_14->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1192");
+    sz = GlobalData::LoadLanguageInfo("K1192");
     ui.label_21->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1193");
+    sz = GlobalData::LoadLanguageInfo("K1193");
     ui.label_15->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1194");
+    sz = GlobalData::LoadLanguageInfo("K1194");
     ui.label_4->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1195");
+    sz = GlobalData::LoadLanguageInfo("K1195");
     ui.label_11->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1196");
+    sz = GlobalData::LoadLanguageInfo("K1196");
     ui.label_12->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1197");
+    sz = GlobalData::LoadLanguageInfo("K1197");
     ui.label_22->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1198");
+    sz = GlobalData::LoadLanguageInfo("K1198");
     ui.label_23->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1199");
+    sz = GlobalData::LoadLanguageInfo("K1199");
     ui.label_6->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1200");
+    sz = GlobalData::LoadLanguageInfo("K1200");
     ui.label_3->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1201");
+    sz = GlobalData::LoadLanguageInfo("K1201");
     ui.label_8->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1202");
+    sz = GlobalData::LoadLanguageInfo("K1202");
     ui.label_9->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1203");
+    sz = GlobalData::LoadLanguageInfo("K1203");
     ui.label_10->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1204");
+    sz = GlobalData::LoadLanguageInfo("K1204");
     ui.label_7->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1205");
+    sz = GlobalData::LoadLanguageInfo("K1205");
     ui.label_18->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1206");
+    sz = GlobalData::LoadLanguageInfo("K1206");
     ui.label_19->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1207");
+    sz = GlobalData::LoadLanguageInfo("K1207");
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1587");
+    sz = GlobalData::LoadLanguageInfo("K1587");
     ui.label_28->setText(sz);
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1207");
+    sz = GlobalData::LoadLanguageInfo("K1207");
     ui.label_5->setText("5-240"+sz);
     ui.label_24->setText("5-240" + sz);
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1208");
+    sz = GlobalData::LoadLanguageInfo("K1208");
     ui.pushButton_Test->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1141");
+    sz = GlobalData::LoadLanguageInfo("K1141");
     ui.pushButton_Save->setText(sz);
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1134");
+    sz = GlobalData::LoadLanguageInfo("K1134");
     ui.pushButton_Cancel->setText(sz);
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1122");
+    sz = GlobalData::LoadLanguageInfo("K1122");
     ui.label_55->setText(sz);
 
     //ui.pushButtonPara->setHidden(true);//.hide();
@@ -540,10 +525,10 @@ void SystemSet::on_pushButton_Test_clicked()
     ui.lineEdit_system_filling_volume->setText("3");
     ui.lineEdit_system_wash_volume->setText("3");
 
-    ui.comboBox_beep_enable->setCurrentText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1700"));//"是");
-    ui.comboBox_aspirate_sample->setCurrentText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1698"));//"打开");
-    ui.comboBox_vomit->setCurrentText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1698"));//"打开");
-    ui.comboBox_waste_liquid_tank_enable->setCurrentText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1700"));//"是");
+    ui.comboBox_beep_enable->setCurrentText(GlobalData::LoadLanguageInfo("K1700"));//"是");
+    ui.comboBox_aspirate_sample->setCurrentText(GlobalData::LoadLanguageInfo("K1698"));//"打开");
+    ui.comboBox_vomit->setCurrentText(GlobalData::LoadLanguageInfo("K1698"));//"打开");
+    ui.comboBox_waste_liquid_tank_enable->setCurrentText(GlobalData::LoadLanguageInfo("K1700"));//"是");
 
     ui.lineEdit_system_wash_volume_2->setText("3");
     ui.lineEdit_system_wash_volume_3->setText("3");
@@ -557,7 +542,7 @@ void SystemSet::on_pushButtonPara_clicked()
     _ProcessParaWidgets.exec();
     //_ProcessParaWidgets.show();
     //_ProcessParaWidgets.show();
-    //MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1287"), MyMessageBox::Ok, "OK", "");
+    //MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1287"), MyMessageBox::Ok, "OK", "");
 }
 
 void SystemSet::on_pushButton_Save_clicked() 
@@ -668,21 +653,21 @@ void SystemSet::on_pushButton_Save_clicked()
     if (value_set.toInt() > value_des.toInt())
     {
         ui.lineEdit_between_two_drops_of_pump->setFocus();
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1289"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1289"), MyMessageBox::Ok,"OK","");
         return;
     }
 
     bResult = dao->UpdateSystemSet("1", ui.lineEdit_ControlThreshold->text());
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1288"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1288"), MyMessageBox::Ok,"OK","");
         return;
     }
 
     bResult = dao->UpdateSystemSet("2", ui.lineEdit_CutOffThreshold->text());
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1287"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1287"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -691,7 +676,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("3", root_path_picture);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1286"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1286"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -700,7 +685,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("4", root_path_resport);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1285"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1285"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -709,7 +694,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSetId5("5", select_paper_company_name);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1284"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1284"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -718,7 +703,7 @@ void SystemSet::on_pushButton_Save_clicked()
     //bResult = dao->UpdateSystemSetId5("5", select_paper_company_name);
     //if (bResult == false)
     //{
-    //	QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "更新膜条所属公司失败！", QMessageBox::Ok);
+    //	QMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), "更新膜条所属公司失败！", QMessageBox::Ok);
     //	return;
     //}
 
@@ -740,7 +725,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("6", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -749,7 +734,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("20", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -759,7 +744,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("21", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -768,7 +753,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("20003", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -780,7 +765,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("20004", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -790,7 +775,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("22", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -807,7 +792,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("23", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -816,7 +801,7 @@ void SystemSet::on_pushButton_Save_clicked()
     //bResult = dao->UpdateSystemSet("24", value_set);
     //if (bResult == false)
     //{
-    //	MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+    //	MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
     //	return;
     //}
 
@@ -825,7 +810,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("25", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -836,7 +821,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemDes("26", value_des);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -846,7 +831,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("27", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -856,12 +841,12 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("24", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
     //20001	0	0	增加蜂鸣器声音“使能 - 1 / 关闭 - 0”按钮
     value_set = ui.comboBox_beep_enable->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1700"))//"是")
+    if (value_set == GlobalData::LoadLanguageInfo("K1700"))//"是")
     {
         value_set = "1";
     }
@@ -872,11 +857,11 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("20001", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
-    if (value_set == GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1700"))//"是")
+    if (value_set == GlobalData::LoadLanguageInfo("K1700"))//"是")
     {
         value_set = "1";
     }
@@ -887,7 +872,7 @@ void SystemSet::on_pushButton_Save_clicked()
 
     //20002	0	0	废液桶 使能 1、去使能为 0”
     value_set = ui.comboBox_waste_liquid_tank_enable->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1700"))//"是")
+    if (value_set == GlobalData::LoadLanguageInfo("K1700"))//"是")
     {
         value_set = "1";
     }
@@ -898,13 +883,13 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("20002", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
 
     value_set = ui.comboBox_waste_liquid_tank_enable_2->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1700"))//"是")
+    if (value_set == GlobalData::LoadLanguageInfo("K1700"))//"是")
     {
         value_set = "1";
     }
@@ -915,7 +900,7 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("20008", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok, "OK", "");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok, "OK", "");
         return;
     }
 
@@ -923,7 +908,7 @@ void SystemSet::on_pushButton_Save_clicked()
     //7	1	sampleNeedle suck	样本针吸样液位探测，1 = 打开，0 = 关闭
 
     value_set = ui.comboBox_aspirate_sample->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1698"))//"打开")
+    if (value_set == GlobalData::LoadLanguageInfo("K1698"))//"打开")
     {
         value_set = "1";
     }
@@ -934,13 +919,13 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("7", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
     //8	1	sampleNeedle spit	样本针吐样液位探测，1 = 打开，0 = 关闭	//
     value_set = ui.comboBox_vomit->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1698"))//"打开")
+    if (value_set == GlobalData::LoadLanguageInfo("K1698"))//"打开")
     {
         value_set = "1";
     }
@@ -952,27 +937,31 @@ void SystemSet::on_pushButton_Save_clicked()
     bResult = dao->UpdateSystemSet("8", value_set);
     if (bResult == false)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1283"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
-
-
+    bResult = dao->UpdateSystemSet("20010",ui.txtReportTitle->text().simplified());
+    if (bResult == false)
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
+        return;
+    }
     //if (!(state.state == _InstrumentState->enumStandby))
     //{
-    //	MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+    //	MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
     //	return;
     //}
 
     //QMessageBox::information(this, "成功", "更新系统参数成功，软件将重新启动！", QMessageBox::Ok);
-    auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1259"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1278"), MyMessageBox::Ok| MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+    auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1259"), GlobalData::LoadLanguageInfo("K1278"), MyMessageBox::Ok| MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if (ret == MyMessageBox::Ok)
     {
         InstrumentStateModel *_InstrumentState(InstrumentStateModel::instance());
         auto state = _InstrumentState->getMachineState();
         if ((state.state == _InstrumentState->enumRuning) || (state.state == _InstrumentState->enumMaintain))
         {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1711"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1711"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
             return;
         }
         // 或者   aApp->closeAllWindows();

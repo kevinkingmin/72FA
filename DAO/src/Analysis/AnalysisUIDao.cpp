@@ -50,7 +50,7 @@ bool AnalysisUIDao::UpdateSystemSet(QString strID,QString strsaveDes)
         return false;
     }
     QString strSql;
-    if (strID == "4" || strID == "3" || strID == "6")
+    if (strID == "4" || strID == "3" || strID == "6" || strID=="20010")
     {
         strSql = "update tsystemset set saveDes = '";
     }
@@ -1914,7 +1914,7 @@ QSqlQuery AnalysisUIDao::SelectRecord(bool *bResult, QString sql)
     QString strSql;
     strSql = sql;//"select * from tsample";
     //strSql += " order by Id";
-    *bResult = query.exec(strSql);
+    *bResult = query.exec(sql);
     return query;
 }
 

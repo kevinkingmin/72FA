@@ -86,9 +86,9 @@
    <property name="geometry">
     <rect>
      <x>280</x>
-     <y>88</y>
+     <y>58</y>
      <width>1311</width>
-     <height>611</height>
+     <height>641</height>
     </rect>
    </property>
    <property name="title">
@@ -98,7 +98,7 @@
     <property name="geometry">
      <rect>
       <x>1060</x>
-      <y>530</y>
+      <y>560</y>
       <width>239</width>
       <height>61</height>
      </rect>
@@ -137,7 +137,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>130</y>
+      <y>160</y>
       <width>161</width>
       <height>291</height>
      </rect>
@@ -244,7 +244,7 @@
     <property name="geometry">
      <rect>
       <x>500</x>
-      <y>50</y>
+      <y>80</y>
       <width>251</width>
       <height>71</height>
      </rect>
@@ -276,7 +276,7 @@
     <property name="geometry">
      <rect>
       <x>500</x>
-      <y>130</y>
+      <y>160</y>
       <width>251</width>
       <height>281</height>
      </rect>
@@ -361,7 +361,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>50</y>
+      <y>80</y>
       <width>511</width>
       <height>71</height>
      </rect>
@@ -379,7 +379,7 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>51</y>
+      <y>81</y>
       <width>281</width>
       <height>531</height>
      </rect>
@@ -534,7 +534,7 @@
     <property name="geometry">
      <rect>
       <x>360</x>
-      <y>50</y>
+      <y>80</y>
       <width>131</width>
       <height>241</height>
      </rect>
@@ -581,7 +581,7 @@
     <property name="geometry">
      <rect>
       <x>360</x>
-      <y>390</y>
+      <y>420</y>
       <width>131</width>
       <height>191</height>
      </rect>
@@ -621,7 +621,7 @@
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>450</y>
+      <y>480</y>
       <width>120</width>
       <height>18</height>
      </rect>
@@ -653,7 +653,7 @@
     <property name="geometry">
      <rect>
       <x>775</x>
-      <y>440</y>
+      <y>470</y>
       <width>151</width>
       <height>41</height>
      </rect>
@@ -666,7 +666,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>500</y>
+      <y>530</y>
       <width>159</width>
       <height>31</height>
      </rect>
@@ -686,7 +686,7 @@
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>506</y>
+      <y>536</y>
       <width>120</width>
       <height>18</height>
      </rect>
@@ -702,13 +702,39 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>540</y>
+      <y>570</y>
       <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>参数</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_29">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>40</y>
+      <width>96</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>打印报告标题：</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="txtReportTitle">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>30</y>
+      <width>431</width>
+      <height>31</height>
+     </rect>
     </property>
    </widget>
   </widget>

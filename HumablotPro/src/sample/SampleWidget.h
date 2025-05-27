@@ -80,8 +80,6 @@ private:
     TcpClient                     *m_tcpClient;
 public:
 	int mCheckCameraPos = 0;
-	QString g_language_type = "";
-
 };
 
 #endif // SAMPLEWIDGET_H

@@ -37,6 +37,7 @@ SampleModel::SampleModel():
   ,_test_batch(1)
   ,_remark("")
   ,_checkerName("")
+  ,_sampleSender("")
 {
 }
 
@@ -389,5 +390,15 @@ int SampleModel::getPkid() const
 void SampleModel::setPkid(int pkid)
 {
     _pkid = pkid;
+}
+
+QString SampleModel::getSampleSender() const
+{
+    return _sampleSender;
+}
+
+void SampleModel::setSampleSender(const QString &sampleSender)
+{
+    _sampleSender = sampleSender;
 }
 

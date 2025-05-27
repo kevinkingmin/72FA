@@ -181,6 +181,7 @@
     <ClCompile Include="src\utility\maintain\MonthMaintenanceWidgets.cpp" />
     <ClCompile Include="src\main\subDialog\MyMessageBox.cpp" />
     <ClCompile Include="src\utility\maintain\NewPumpRunningWidgets.cpp" />
+    <ClCompile Include="src\sample\subDialog\PatientDialog.cpp" />
     <ClCompile Include="src\utility\maintain\PipeRefluxWidgets.cpp" />
     <ClCompile Include="src\utility\maintain\PipeWashEmptyingWidgets.cpp" />
     <ClCompile Include="src\utility\maintain\PipeWashWidgets.cpp" />
@@ -577,6 +578,16 @@
       
     </QtMoc>
     <ClInclude Include="src\comm\ObjectTr.h" />
+    <QtMoc Include="src\sample\subDialog\PatientDialog.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
     <QtMoc Include="src\utility\maintain\PipeRefluxWidgets.h">
       
       
@@ -1228,6 +1239,7 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
     
     
     
+    
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
@@ -1250,6 +1262,7 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">precompile.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    
     
     
     
@@ -1557,6 +1570,17 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       
     </QtUic>
     <QtUic Include="src\utility\maintain\NewPumpRunningWidgets.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\PatientDialog.ui">
       
       
       

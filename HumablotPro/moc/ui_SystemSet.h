@@ -107,6 +107,8 @@ public:
     QComboBox *comboBox_waste_liquid_tank_enable_2;
     QLabel *label_56;
     QPushButton *pushButtonPara;
+    QLabel *label_29;
+    QLineEdit *txtReportTitle;
 
     void setupUi(QWidget *SystemSet)
     {
@@ -133,10 +135,10 @@ public:
         lineEdit_pip_15_min->setGeometry(QRect(1320, 770, 133, 20));
         groupBox = new QGroupBox(SystemSet);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(280, 88, 1311, 611));
+        groupBox->setGeometry(QRect(280, 58, 1311, 641));
         layoutWidget = new QWidget(groupBox);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(1060, 530, 239, 61));
+        layoutWidget->setGeometry(QRect(1060, 560, 239, 61));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -159,7 +161,7 @@ public:
 
         layoutWidget1 = new QWidget(groupBox);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(770, 130, 161, 291));
+        layoutWidget1->setGeometry(QRect(770, 160, 161, 291));
         verticalLayout_2 = new QVBoxLayout(layoutWidget1);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -216,7 +218,7 @@ public:
 
         layoutWidget2 = new QWidget(groupBox);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(500, 50, 251, 71));
+        layoutWidget2->setGeometry(QRect(500, 80, 251, 71));
         verticalLayout_3 = new QVBoxLayout(layoutWidget2);
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -236,7 +238,7 @@ public:
 
         layoutWidget3 = new QWidget(groupBox);
         layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(500, 130, 251, 281));
+        layoutWidget3->setGeometry(QRect(500, 160, 251, 281));
         verticalLayout = new QVBoxLayout(layoutWidget3);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -287,7 +289,7 @@ public:
 
         layoutWidget4 = new QWidget(groupBox);
         layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(770, 50, 511, 71));
+        layoutWidget4->setGeometry(QRect(770, 80, 511, 71));
         verticalLayout_4 = new QVBoxLayout(layoutWidget4);
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -305,7 +307,7 @@ public:
 
         layoutWidget5 = new QWidget(groupBox);
         layoutWidget5->setObjectName(QString::fromUtf8("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(60, 51, 281, 531));
+        layoutWidget5->setGeometry(QRect(60, 81, 281, 531));
         gridLayout = new QGridLayout(layoutWidget5);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -434,7 +436,7 @@ public:
 
         layoutWidget6 = new QWidget(groupBox);
         layoutWidget6->setObjectName(QString::fromUtf8("layoutWidget6"));
-        layoutWidget6->setGeometry(QRect(360, 50, 131, 241));
+        layoutWidget6->setGeometry(QRect(360, 80, 131, 241));
         verticalLayout_6 = new QVBoxLayout(layoutWidget6);
         verticalLayout_6->setSpacing(6);
         verticalLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -467,7 +469,7 @@ public:
 
         layoutWidget7 = new QWidget(groupBox);
         layoutWidget7->setObjectName(QString::fromUtf8("layoutWidget7"));
-        layoutWidget7->setGeometry(QRect(360, 390, 131, 191));
+        layoutWidget7->setGeometry(QRect(360, 420, 131, 191));
         verticalLayout_5 = new QVBoxLayout(layoutWidget7);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -495,7 +497,7 @@ public:
 
         label_55 = new QLabel(groupBox);
         label_55->setObjectName(QString::fromUtf8("label_55"));
-        label_55->setGeometry(QRect(630, 450, 120, 18));
+        label_55->setGeometry(QRect(630, 480, 120, 18));
         label_55->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         label_41 = new QLabel(groupBox);
         label_41->setObjectName(QString::fromUtf8("label_41"));
@@ -503,19 +505,26 @@ public:
         label_41->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         lineEdit_Weight = new QLineEdit(groupBox);
         lineEdit_Weight->setObjectName(QString::fromUtf8("lineEdit_Weight"));
-        lineEdit_Weight->setGeometry(QRect(775, 440, 151, 41));
+        lineEdit_Weight->setGeometry(QRect(775, 470, 151, 41));
         comboBox_waste_liquid_tank_enable_2 = new QComboBox(groupBox);
         comboBox_waste_liquid_tank_enable_2->addItem(QString());
         comboBox_waste_liquid_tank_enable_2->addItem(QString());
         comboBox_waste_liquid_tank_enable_2->setObjectName(QString::fromUtf8("comboBox_waste_liquid_tank_enable_2"));
-        comboBox_waste_liquid_tank_enable_2->setGeometry(QRect(770, 500, 159, 31));
+        comboBox_waste_liquid_tank_enable_2->setGeometry(QRect(770, 530, 159, 31));
         label_56 = new QLabel(groupBox);
         label_56->setObjectName(QString::fromUtf8("label_56"));
-        label_56->setGeometry(QRect(630, 506, 120, 18));
+        label_56->setGeometry(QRect(630, 536, 120, 18));
         label_56->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         pushButtonPara = new QPushButton(groupBox);
         pushButtonPara->setObjectName(QString::fromUtf8("pushButtonPara"));
-        pushButtonPara->setGeometry(QRect(770, 540, 131, 31));
+        pushButtonPara->setGeometry(QRect(770, 570, 131, 31));
+        label_29 = new QLabel(groupBox);
+        label_29->setObjectName(QString::fromUtf8("label_29"));
+        label_29->setGeometry(QRect(60, 40, 96, 20));
+        label_29->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        txtReportTitle = new QLineEdit(groupBox);
+        txtReportTitle->setObjectName(QString::fromUtf8("txtReportTitle"));
+        txtReportTitle->setGeometry(QRect(160, 30, 431, 31));
 
         retranslateUi(SystemSet);
 
@@ -590,6 +599,7 @@ public:
 
         label_56->setText(QApplication::translate("SystemSet", "\346\213\215\347\205\247\345\212\237\350\203\275\357\274\232", nullptr));
         pushButtonPara->setText(QApplication::translate("SystemSet", "\345\217\202\346\225\260", nullptr));
+        label_29->setText(QApplication::translate("SystemSet", "\346\211\223\345\215\260\346\212\245\345\221\212\346\240\207\351\242\230\357\274\232", nullptr));
     } // retranslateUi
 
 };

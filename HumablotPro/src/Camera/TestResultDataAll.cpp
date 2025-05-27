@@ -14,7 +14,7 @@
 #include "../comm/GlobalData.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
 #include "../Include/Model/result/JudgeRules.h"
-#include "../Include/TCPClient/TCPClient.h"
+#include "../Include/TCPClient/TcpClient.h"
 #include "src/main/subDialog/ProgressDialog.h"
 #include "../Include/Utilities/log.h"
 #include "../main/mainwindow.h"
@@ -26,6 +26,7 @@
 #include "../Include/BLL/baseSet/AgeUnitBLL.h"
 #include "../Include/Model/baseSet/AgeUnitModel.h"
 #include "../Include/Instrument/Instrument.h"
+#include "src/sample/subDialog/PatientDialog.h"
 
 TestResultDataAll::TestResultDataAll(QWidget *parent)
     : QWidget(parent)
@@ -331,7 +332,7 @@ void TestResultDataAll::on_pushButtonPrintA_clicked()
     }
 	if (companyId == 6)
 	{
-		Instrument::instance()->getPDFReport(jsonStr.toUtf8());
+		Instrument::instance()->getPDFReport(jsonStr.toLocal8Bit());
 		dLog(jsonStr.toStdString());
 		return;
 	}
@@ -368,7 +369,7 @@ void  TestResultDataAll::on_pushButtonPdf_clicked()
     }
 	if (companyId == 6)
 	{
-		Instrument::instance()->getPDFReport(jsonStr.toUtf8());
+		Instrument::instance()->getPDFReport(jsonStr.toLocal8Bit());
 		dLog(jsonStr.toStdString());
 		return;
 	}
@@ -1916,6 +1917,7 @@ bool TestResultDataAll::getPrintIndexs(const bool isSamePaper)
 QString TestResultDataAll::getPDFTestIds(int & companyId)
 {
 	m_all_page_number = 0;
+    _pkidVect.clear();
 	QString jsonStr = "{\"testId\":[";
 	for (int i = 0; i < ui.tableWidget->rowCount(); i++)
 	{
@@ -1923,6 +1925,7 @@ QString TestResultDataAll::getPDFTestIds(int & companyId)
 		if (selectRow)
 		{
 			m_all_page_number++;
+            _pkidVect.push_back(ui.tableWidget->item(i, 8)->text().toInt());
 			jsonStr += "\"";
 			jsonStr += ui.tableWidget->item(i, 1)->text();
 			jsonStr += "\",";
@@ -2937,9 +2940,23 @@ void TestResultDataAll::on_pushButtonJumpPage_clicked()
     m_currentPage = szText.toInt();
     if (m_currentPage >m_all_page_number1)
     {
-        MyMessageBox::warning(0, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1316"), MyMessageBox::Ok, "OK", "");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1316"), MyMessageBox::Ok, "OK", "");
         ui.pushButtonJumpPage->setEnabled(true);
         return;
     }
     InitTableWidget(m_query_condition1, m_currentPage);//初始化状态列表
+}
+
+void TestResultDataAll::on_btnSampleInfo_clicked()
+{
+    int companyid=0;
+    getPDFTestIds(companyid);
+    if(_pkidVect.isEmpty())
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
+        return;
+    }
+    PatientDialog dialog(this);
+    dialog.setPkid(_pkidVect.first());
+    dialog.exec();
 }
