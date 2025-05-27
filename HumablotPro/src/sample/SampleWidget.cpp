@@ -46,11 +46,7 @@ SampleWidget::SampleWidget(QWidget *parent) :
 
 	auto dao = AnalysisUIDao::instance();
     bool bResult;
-	g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
-
-	GlobalData::setLanguageType(g_language_type);
-
-	//ui->sampleTopWidget->setMinimumSize(QSize(screenWidth-50, screenHeight-200));
+	GlobalData::setLanguageType(dao->SelectTargetValueDes(&bResult, "20005"));
 	ui->sampleTopWidget->setMinimumSize(QSize(screenWidth - 0, screenHeight - 0));
     m_testSampleWidget->setSelectPDialog(m_selectPDialog);
     m_testSampleWidget->setBtnGroup(m_prepareReagent->getBtnGroup());
@@ -88,15 +84,15 @@ SampleWidget::SampleWidget(QWidget *parent) :
 	ui->btnReQuestLisAll->setVisible(false);
 	this->setWindowFlags(Qt::FramelessWindowHint);
 
-	QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1038");
+	QString sz = GlobalData::LoadLanguageInfo("K1038");
 	ui->btnSaveAdd->setText(sz);
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1039");
+	sz = GlobalData::LoadLanguageInfo("K1039");
 	ui->btnDelete->setText(sz);
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1040");
+	sz = GlobalData::LoadLanguageInfo("K1040");
 	ui->btnRequestLis->setText(sz);
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1041");
+	sz = GlobalData::LoadLanguageInfo("K1041");
 	ui->btnReTest->setText(sz);
-	sz = GlobalData::LoadLanguageInfo(g_language_type, "K1046");
+	sz = GlobalData::LoadLanguageInfo("K1046");
 	ui->btnNext->setText(sz);
 }
 
@@ -110,7 +106,7 @@ void SampleWidget::ShowFunctionBtn(bool status)
 	QString lbl_title = "";
 	lbl_title = ui->lblTitle->text();
 
-	QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1037");
+	QString sz = GlobalData::LoadLanguageInfo("K1037");
 	if (lbl_title == sz)//"工作列表")
 	{
 		ui->btnDelete->setVisible(status);
@@ -168,7 +164,7 @@ SampleWidget::~SampleWidget()
 
 void SampleWidget::initUi()
 {
-	QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1037");
+	QString sz = GlobalData::LoadLanguageInfo("K1037");
     ui->lblTitle->setText(sz);
     ui->btnPre->setVisible(false);
     ui->btnCancel->setVisible(false);
@@ -181,7 +177,7 @@ void SampleWidget::initUi()
 
 void SampleWidget::stackIndexChange()
 {
-	ui->btnPre->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1047"));
+	ui->btnPre->setText(GlobalData::LoadLanguageInfo("K1047"));
     ui->btnPre->setVisible(true);
     ui->btnNext->setVisible(true);
     ui->btnCancel->setVisible(false);
@@ -192,23 +188,23 @@ void SampleWidget::stackIndexChange()
         ui->btnPre->setVisible(false);
         ui->btnCancel->setVisible(false);
         ui->btnReTest->setVisible(true);
-		QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1037");
+		QString sz = GlobalData::LoadLanguageInfo("K1037");
 		ui->lblTitle->setText(sz);//tr("工作列表"));
     }
     else if(index==STACK_TESTDATALIST)
     {        
-        ui->lblTitle->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1070"));//tr("实验列表"));
+        ui->lblTitle->setText(GlobalData::LoadLanguageInfo("K1070"));//tr("实验列表"));
     }
     else if(index==STACK_TESTSAMPLE)
     {
-        ui->lblTitle->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1072"));//tr("测试运行"));
+        ui->lblTitle->setText(GlobalData::LoadLanguageInfo("K1072"));//tr("测试运行"));
 		ui->btnCancel->setVisible(false);
 		//ui->btnCancel->setVisible(false);
 		ui->btnPre->setVisible(false);
     }
     else if(index==STACK_PREPAREREAGENT)
     {
-        ui->lblTitle->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1071")); //tr("试剂准备"));
+        ui->lblTitle->setText(GlobalData::LoadLanguageInfo("K1071")); //tr("试剂准备"));
     }
     if(index==STACK_END-1)
         ui->btnNext->setVisible(false);

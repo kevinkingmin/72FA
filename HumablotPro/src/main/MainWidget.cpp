@@ -1626,13 +1626,13 @@ void MainWidget::removeSubTab(int index)
 void MainWidget::OnAction_SystemSet()
 {
     //actionClick(MENU_ID_SYSTEMSET,STR_MENU_SYSTEMSET,new SystemSet(this));
-    actionClick(MENU_ID_SYSTEMSET, GlobalData::LoadLanguageInfo(g_language_type, "K1020"), new SystemSet(this));
+    actionClick(MENU_ID_SYSTEMSET, GlobalData::LoadLanguageInfo("K1020"), new SystemSet(this));
 }
 
 void MainWidget::OnAction_MagicManage()
 {
     //actionClick(MENU_ID_MAGIC,STR_MENU_MAGIC,new TestPaperManage(this));
-    actionClick(MENU_ID_MAGIC, GlobalData::LoadLanguageInfo(g_language_type, "K1015"), new TestPaperManage(this));
+    actionClick(MENU_ID_MAGIC, GlobalData::LoadLanguageInfo("K1015"), new TestPaperManage(this));
 }
 
 void MainWidget::OnAction_ReagentManager()

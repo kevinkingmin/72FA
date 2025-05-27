@@ -65,6 +65,8 @@ private slots:
 	void on_pushButtonNextPage_clicked();
 	void on_pushButtonJumpPage_clicked();
 	void on_pushButton_clicked();
+    void on_btnSampleInfo_clicked();
+
 public slots:
 	void sltUpdateTestResultDataList(QString a, QString b);
 	void paintRequestedHandler(QPrinter *printerPixmap);
@@ -106,4 +108,5 @@ private:
 	int m_print_doing = 0; //1为正在打印，0为未打印。
 	QVector<int>  m_printIndexs;
 	int           m_itemCount;
+    QVector<int>  _pkidVect;
 };

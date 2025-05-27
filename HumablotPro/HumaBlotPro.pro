@@ -98,6 +98,7 @@ SOURCES += \
         src/sample/model/TestDataListVModel.cpp \
         src/sample/subDialog/FromLisByIntervalWidgets.cpp \
         src/sample/subDialog/ManualIncubationWidgets.cpp \
+        src/sample/subDialog/PatientDialog.cpp \
         src/sample/subDialog/PrepareReagentDialog.cpp \
         src/sample/subDialog/RepeatSetDialog.cpp \
         src/sample/subDialog/SelectProcessDialog.cpp \
@@ -194,6 +195,7 @@ HEADERS += \
         src/sample/model/TestDataListVModel.h \
         src/sample/subDialog/FromLisByIntervalWidgets.h \
         src/sample/subDialog/ManualIncubationWidgets.h \
+        src/sample/subDialog/PatientDialog.h \
         src/sample/subDialog/PrepareReagentDialog.h \
         src/sample/subDialog/RepeatSetDialog.h \
         src/sample/subDialog/SelectProcessDialog.h \
@@ -282,6 +284,7 @@ FORMS += \
         src/utility/maintain/WeekMaintenanceWidgets.ui \
         ui/sample/subDialog/FromLisByIntervalWidgets.ui \
         ui/sample/subDialog/ManualIncubationWidgets.ui \
+        ui/sample/subDialog/PatientDialog.ui \
         ui/utility/maintain/PumpCalibrateWidget.ui \
         ui/main/subDialog/ProgressDialog.ui \
         ui/sample/PrepareReagentWidget.ui \

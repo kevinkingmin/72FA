@@ -81,6 +81,9 @@ public:
     int getPkid() const;
     void setPkid(int pkid);
 
+    QString getSampleSender() const;
+    void setSampleSender(const QString &sampleSender);
+
 private:
     int        _pkid;
     QString    _Id;
@@ -114,6 +117,7 @@ private:
 	int        _paperPos;
     QString    _remark;
     QString    _checkerName;
+    QString    _sampleSender;
 };
 
 #endif // SAMPLEMODEL_H

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_TestResultDataAll_t {
-    QByteArrayData data[31];
-    char stringdata0[599];
+    QByteArrayData data[32];
+    char stringdata0[624];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -54,14 +54,15 @@ QT_MOC_LITERAL(19, 360, 28), // "on_pushButtonTopPage_clicked"
 QT_MOC_LITERAL(20, 389, 29), // "on_pushButtonNextPage_clicked"
 QT_MOC_LITERAL(21, 419, 29), // "on_pushButtonJumpPage_clicked"
 QT_MOC_LITERAL(22, 449, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(23, 471, 27), // "sltUpdateTestResultDataList"
-QT_MOC_LITERAL(24, 499, 21), // "paintRequestedHandler"
-QT_MOC_LITERAL(25, 521, 9), // "QPrinter*"
-QT_MOC_LITERAL(26, 531, 13), // "printerPixmap"
-QT_MOC_LITERAL(27, 545, 16), // "slotUpdateStatus"
-QT_MOC_LITERAL(28, 562, 13), // "printDocument"
-QT_MOC_LITERAL(29, 576, 7), // "printer"
-QT_MOC_LITERAL(30, 584, 14) // "printDocumentA"
+QT_MOC_LITERAL(23, 471, 24), // "on_btnSampleInfo_clicked"
+QT_MOC_LITERAL(24, 496, 27), // "sltUpdateTestResultDataList"
+QT_MOC_LITERAL(25, 524, 21), // "paintRequestedHandler"
+QT_MOC_LITERAL(26, 546, 9), // "QPrinter*"
+QT_MOC_LITERAL(27, 556, 13), // "printerPixmap"
+QT_MOC_LITERAL(28, 570, 16), // "slotUpdateStatus"
+QT_MOC_LITERAL(29, 587, 13), // "printDocument"
+QT_MOC_LITERAL(30, 601, 7), // "printer"
+QT_MOC_LITERAL(31, 609, 14) // "printDocumentA"
 
     },
     "TestResultDataAll\0sglUpdateStatus\0\0a\0"
@@ -79,7 +80,8 @@ QT_MOC_LITERAL(30, 584, 14) // "printDocumentA"
     "on_pushButtonTopPage_clicked\0"
     "on_pushButtonNextPage_clicked\0"
     "on_pushButtonJumpPage_clicked\0"
-    "on_pushButton_clicked\0sltUpdateTestResultDataList\0"
+    "on_pushButton_clicked\0on_btnSampleInfo_clicked\0"
+    "sltUpdateTestResultDataList\0"
     "paintRequestedHandler\0QPrinter*\0"
     "printerPixmap\0slotUpdateStatus\0"
     "printDocument\0printer\0printDocumentA"
@@ -92,7 +94,7 @@ static const uint qt_meta_data_TestResultDataAll[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -100,29 +102,30 @@ static const uint qt_meta_data_TestResultDataAll[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  119,    2, 0x06 /* Public */,
+       1,    2,  124,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    2,  124,    2, 0x08 /* Private */,
-       8,    1,  129,    2, 0x08 /* Private */,
-      10,    1,  132,    2, 0x08 /* Private */,
-      11,    0,  135,    2, 0x08 /* Private */,
-      12,    0,  136,    2, 0x08 /* Private */,
-      13,    0,  137,    2, 0x08 /* Private */,
-      14,    0,  138,    2, 0x08 /* Private */,
-      15,    0,  139,    2, 0x08 /* Private */,
-      16,    0,  140,    2, 0x08 /* Private */,
-      17,    0,  141,    2, 0x08 /* Private */,
-      18,    0,  142,    2, 0x08 /* Private */,
-      19,    0,  143,    2, 0x08 /* Private */,
-      20,    0,  144,    2, 0x08 /* Private */,
-      21,    0,  145,    2, 0x08 /* Private */,
-      22,    0,  146,    2, 0x08 /* Private */,
-      23,    2,  147,    2, 0x0a /* Public */,
-      24,    1,  152,    2, 0x0a /* Public */,
-      27,    2,  155,    2, 0x0a /* Public */,
-      28,    1,  160,    2, 0x0a /* Public */,
-      30,    1,  163,    2, 0x0a /* Public */,
+       5,    2,  129,    2, 0x08 /* Private */,
+       8,    1,  134,    2, 0x08 /* Private */,
+      10,    1,  137,    2, 0x08 /* Private */,
+      11,    0,  140,    2, 0x08 /* Private */,
+      12,    0,  141,    2, 0x08 /* Private */,
+      13,    0,  142,    2, 0x08 /* Private */,
+      14,    0,  143,    2, 0x08 /* Private */,
+      15,    0,  144,    2, 0x08 /* Private */,
+      16,    0,  145,    2, 0x08 /* Private */,
+      17,    0,  146,    2, 0x08 /* Private */,
+      18,    0,  147,    2, 0x08 /* Private */,
+      19,    0,  148,    2, 0x08 /* Private */,
+      20,    0,  149,    2, 0x08 /* Private */,
+      21,    0,  150,    2, 0x08 /* Private */,
+      22,    0,  151,    2, 0x08 /* Private */,
+      23,    0,  152,    2, 0x08 /* Private */,
+      24,    2,  153,    2, 0x0a /* Public */,
+      25,    1,  158,    2, 0x0a /* Public */,
+      28,    2,  161,    2, 0x0a /* Public */,
+      29,    1,  166,    2, 0x0a /* Public */,
+      31,    1,  169,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
@@ -143,11 +146,12 @@ static const uint qt_meta_data_TestResultDataAll[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
-    QMetaType::Void, 0x80000000 | 25,   26,
+    QMetaType::Void, 0x80000000 | 26,   27,
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
-    QMetaType::Void, 0x80000000 | 25,   29,
-    QMetaType::Void, 0x80000000 | 25,   29,
+    QMetaType::Void, 0x80000000 | 26,   30,
+    QMetaType::Void, 0x80000000 | 26,   30,
 
        0        // eod
 };
@@ -174,11 +178,12 @@ void TestResultDataAll::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 13: _t->on_pushButtonNextPage_clicked(); break;
         case 14: _t->on_pushButtonJumpPage_clicked(); break;
         case 15: _t->on_pushButton_clicked(); break;
-        case 16: _t->sltUpdateTestResultDataList((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 17: _t->paintRequestedHandler((*reinterpret_cast< QPrinter*(*)>(_a[1]))); break;
-        case 18: _t->slotUpdateStatus((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 19: _t->printDocument((*reinterpret_cast< QPrinter*(*)>(_a[1]))); break;
-        case 20: _t->printDocumentA((*reinterpret_cast< QPrinter*(*)>(_a[1]))); break;
+        case 16: _t->on_btnSampleInfo_clicked(); break;
+        case 17: _t->sltUpdateTestResultDataList((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 18: _t->paintRequestedHandler((*reinterpret_cast< QPrinter*(*)>(_a[1]))); break;
+        case 19: _t->slotUpdateStatus((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 20: _t->printDocument((*reinterpret_cast< QPrinter*(*)>(_a[1]))); break;
+        case 21: _t->printDocumentA((*reinterpret_cast< QPrinter*(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -222,13 +227,13 @@ int TestResultDataAll::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 22)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 21;
+        _id -= 22;
     }
     return _id;
 }

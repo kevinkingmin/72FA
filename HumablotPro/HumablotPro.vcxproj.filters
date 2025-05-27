@@ -163,6 +163,9 @@
     <ClCompile Include="src\utility\maintain\NewPumpRunningWidgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\sample\subDialog\PatientDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\utility\maintain\PipeRefluxWidgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -456,6 +459,9 @@
     <ClInclude Include="src\comm\ObjectTr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <QtMoc Include="src\sample\subDialog\PatientDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <QtMoc Include="src\utility\maintain\PipeRefluxWidgets.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -694,6 +700,7 @@
     
     
     
+    
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -703,6 +710,7 @@
     <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    
     
     
     
@@ -834,6 +842,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="src\utility\maintain\NewPumpRunningWidgets.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\PatientDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="src\utility\maintain\PipeRefluxWidgets.ui">
