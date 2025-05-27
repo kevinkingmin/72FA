@@ -257,6 +257,14 @@ void Instrument::analysisFrame(){
         QString result= obj.value( keys[0]).toString();
         emit sglLiquidState(result);
     }
+    else if(code==getPDFReportCommand)
+    {
+        QJsonObject obj = doc.object();
+        QStringList keys = obj.keys();
+        QString result= obj.value( keys[0]).toString();
+        dLog("PDF print,result:{}",result.toStdString());
+        emit sglPrintPDFState(result.toInt());
+    }
 }
 
 void Instrument::connected_SLOT()
@@ -521,15 +529,14 @@ bool Instrument::getPDFReport(const QVector<QString> &testIds)
     requestCommand[6] = 0x00;
     requestCommand[7] = 0x01;
     requestCommand[8] = 0x00;
-    requestCommand[9] = 0x00;
-    requestCommand[10] = 0x00;
+	requestCommand[9] = static_cast<char>(contentLength);
+	requestCommand[10] = static_cast<char>(contentLength >> 8);
     requestCommand[11] = static_cast<char>(getPDFReportCommand);
     requestCommand[12] = static_cast<char>(getPDFReportCommand>>8);
     QByteArray md5 = getMd5(json);
     for(int i=0;i<contentLength;i++){
         requestCommand[13+i]=json[i];
     }
-
     for(int i=0;i<16;i++){
         requestCommand[1007+i]=md5[i];
     }

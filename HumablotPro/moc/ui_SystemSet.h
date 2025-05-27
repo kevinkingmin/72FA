@@ -501,7 +501,7 @@ public:
         label_55->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         label_41 = new QLabel(groupBox);
         label_41->setObjectName(QString::fromUtf8("label_41"));
-        label_41->setGeometry(QRect(940, 450, 66, 16));
+        label_41->setGeometry(QRect(940, 480, 66, 16));
         label_41->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         lineEdit_Weight = new QLineEdit(groupBox);
         lineEdit_Weight->setObjectName(QString::fromUtf8("lineEdit_Weight"));
@@ -520,11 +520,11 @@ public:
         pushButtonPara->setGeometry(QRect(770, 570, 131, 31));
         label_29 = new QLabel(groupBox);
         label_29->setObjectName(QString::fromUtf8("label_29"));
-        label_29->setGeometry(QRect(60, 40, 96, 20));
+        label_29->setGeometry(QRect(60, 40, 131, 20));
         label_29->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         txtReportTitle = new QLineEdit(groupBox);
         txtReportTitle->setObjectName(QString::fromUtf8("txtReportTitle"));
-        txtReportTitle->setGeometry(QRect(160, 30, 431, 31));
+        txtReportTitle->setGeometry(QRect(200, 30, 431, 31));
 
         retranslateUi(SystemSet);
 
