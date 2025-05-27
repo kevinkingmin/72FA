@@ -637,7 +637,7 @@
     <property name="geometry">
      <rect>
       <x>940</x>
-      <y>450</y>
+      <y>480</y>
       <width>66</width>
       <height>16</height>
      </rect>
@@ -716,7 +716,7 @@
      <rect>
       <x>60</x>
       <y>40</y>
-      <width>96</width>
+      <width>131</width>
       <height>20</height>
      </rect>
     </property>
@@ -730,7 +730,7 @@
    <widget class="QLineEdit" name="txtReportTitle">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>200</x>
       <y>30</y>
       <width>431</width>
       <height>31</height>
