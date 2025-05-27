@@ -46,7 +46,7 @@ private:
 	void SavePdfA();
 	void SavePdfB();
 	bool getPrintIndexs(const bool isSamePaper);
-	QString getPDFTestIds(int &companyId);
+    QVector<QString> getPDFTestIds(int &companyId);
 signals:
 	void sglUpdateStatus(QString a, QString b);
 private slots:

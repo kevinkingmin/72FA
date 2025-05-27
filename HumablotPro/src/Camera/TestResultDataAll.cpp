@@ -324,7 +324,7 @@ void TestResultDataAll::printDirect()
 void TestResultDataAll::on_pushButtonPrintA_clicked()
 {
 	int companyId = 0;
-	QString jsonStr = getPDFTestIds(companyId);	
+    QVector<QString> testIds = getPDFTestIds(companyId);
     if (m_all_page_number == 0)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
@@ -332,8 +332,8 @@ void TestResultDataAll::on_pushButtonPrintA_clicked()
     }
 	if (companyId == 6)
 	{
-		Instrument::instance()->getPDFReport(jsonStr.toLocal8Bit());
-		dLog(jsonStr.toStdString());
+        Instrument::instance()->getPDFReport(testIds);
+        dLog(testIds.count());
 		return;
 	}
     QPrinter printer(QPrinter::ScreenResolution);
@@ -361,7 +361,7 @@ void TestResultDataAll::printDirectA()
 void  TestResultDataAll::on_pushButtonPdf_clicked()
 {
 	int companyId = 0;
-	QString jsonStr = getPDFTestIds(companyId);    
+    QVector<QString> testIds = getPDFTestIds(companyId);
     if (m_all_page_number == 0 )
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
@@ -369,8 +369,8 @@ void  TestResultDataAll::on_pushButtonPdf_clicked()
     }
 	if (companyId == 6)
 	{
-		Instrument::instance()->getPDFReport(jsonStr.toLocal8Bit());
-		dLog(jsonStr.toStdString());
+        Instrument::instance()->getPDFReport(testIds);
+        dLog(testIds.count());
 		return;
 	}
     SavePdfA();
@@ -1914,11 +1914,11 @@ bool TestResultDataAll::getPrintIndexs(const bool isSamePaper)
     return true;
 }
 
-QString TestResultDataAll::getPDFTestIds(int & companyId)
+QVector<QString> TestResultDataAll::getPDFTestIds(int & companyId)
 {
 	m_all_page_number = 0;
     _pkidVect.clear();
-	QString jsonStr = "{\"testId\":[";
+    QVector<QString>outVect{};
 	for (int i = 0; i < ui.tableWidget->rowCount(); i++)
 	{
 		bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
@@ -1926,16 +1926,12 @@ QString TestResultDataAll::getPDFTestIds(int & companyId)
 		{
 			m_all_page_number++;
             _pkidVect.push_back(ui.tableWidget->item(i, 8)->text().toInt());
-			jsonStr += "\"";
-			jsonStr += ui.tableWidget->item(i, 1)->text();
-			jsonStr += "\",";
+            outVect.push_back(ui.tableWidget->item(i, 1)->text());
 		}
 	}
-	jsonStr = jsonStr.left(jsonStr.length() - 1);
-	jsonStr += "]}";
 	auto pm = SystemSetBLL().getRowById(5);
 	companyId = pm.isNull() ? 0 : pm->getSaveSet();
-	return jsonStr;
+    return outVect;
 }
 
 void TestResultDataAll::printDocumentA(QPrinter *printer)

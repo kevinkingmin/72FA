@@ -498,9 +498,18 @@ bool Instrument::shutdownBee(){
     return sendBySocket(requestCommand);
 }
 
-bool Instrument::getPDFReport(const QByteArray &datas)
+bool Instrument::getPDFReport(const QVector<QString> &testIds)
 {
     uint32_t msgId = getMessageId();
+    QJsonObject jsonObject;
+    QJsonArray array;
+    for(QString testId:testIds)
+        array.append(testId);
+    jsonObject.insert("testId",array);
+    QJsonDocument doc(jsonObject);
+    QByteArray json = doc.toJson();
+    int16_t contentLength=static_cast<int16_t>(json.length());
+
     QByteArray requestCommand;
     requestCommand.fill(0x00,1024);
     requestCommand[0] = start;
@@ -512,16 +521,14 @@ bool Instrument::getPDFReport(const QByteArray &datas)
     requestCommand[6] = 0x00;
     requestCommand[7] = 0x01;
     requestCommand[8] = 0x00;
-    requestCommand[9] = 0x00;
-    requestCommand[10] = 0x00;
+	requestCommand[9] = static_cast<char>(contentLength);
+	requestCommand[10] = static_cast<char>(contentLength >> 8);
     requestCommand[11] = static_cast<char>(getPDFReportCommand);
     requestCommand[12] = static_cast<char>(getPDFReportCommand>>8);
-    int16_t contentLength=static_cast<int16_t>(datas.length());
-    QByteArray md5 = getMd5(datas);
+    QByteArray md5 = getMd5(json);
     for(int i=0;i<contentLength;i++){
-        requestCommand[13+i]=datas[i];
+        requestCommand[13+i]=json[i];
     }
-
     for(int i=0;i<16;i++){
         requestCommand[1007+i]=md5[i];
     }

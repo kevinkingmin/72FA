@@ -105,7 +105,7 @@ public:
     bool prepareReagent(QList<uint8_t> pumpList,QString type);
     bool shutdownMaintenance(QList<uint8_t> pumpList);
     bool shutdownBee();
-    bool getPDFReport(const QByteArray &datas);
+    bool getPDFReport(const QVector<QString>&testIds);
     int16_t initMachineCommand = 0x0001;//开机自检
     int16_t systemPipWashCommand = 0x0002;//系统管路清洗
     int16_t PipWashCommand = 0x0003;//管路清洗
