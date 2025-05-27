@@ -1643,7 +1643,8 @@ int PictureAnalysis::GetTestPaperImageCalcIndexWz(const cv::Mat& srcMat,TestPape
     std::get<2>(grayArray[0]) = markMatGray;
     // 标记线结果先保存
     testPaperParameterStruct.dItemGrayValue[0] = markMatGray;
-    testPaperParameterStruct.dItemPosition[0] = markMatGray;
+    testPaperParameterStruct.dItemPosition[0] = markLineLimitStart + target_rect.x + target_rect.width/2;
+    testPaperParameterStruct.dBackgroundGrayValue[0] = 255;
 
     /*保存标记线图片
     cv::Mat cloneMat = markLimitMat.clone();
