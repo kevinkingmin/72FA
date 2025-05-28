@@ -91,14 +91,14 @@ void Instrument::analysisFrame(){
         return;
     }
     qDebug()<<"size:"<<messageQueueList.size();
-
+	
     QByteArray frameData=Instrument::instance()->messageQueueList[0];
     uint32_t messageId = static_cast<uint32_t>(frameData[1] + (frameData[2]<<8) + (frameData[3]<<16) + (frameData[3]<<24));
     int16_t code = static_cast<int16_t>(frameData[11] + (frameData[12]<<8));
     uint16_t index =static_cast<uint16_t>(frameData[5] + (frameData[6]<<8));
     int16_t count =static_cast<int16_t>(frameData[7] + (frameData[8]<<8));
     QByteArray contentData;
-
+	
     //数据不完整，不连续，删除
     /* if(index!=1){
         messageQueueList.removeAt(0);
@@ -131,7 +131,6 @@ void Instrument::analysisFrame(){
     if(doc.isNull()||doc.isEmpty()){
         return;
     }
-
     if(code==initMachineCommand){
         QJsonObject obj = doc.object();
         QStringList keys = obj.keys();
