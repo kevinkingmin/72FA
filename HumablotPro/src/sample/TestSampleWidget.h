@@ -6,6 +6,7 @@
 #include "QTime"
 #include "../HumablotPro/src/main/subDialog/ProgressDialog.h"
 #include "../Include/TCPClient/TcpClient.h"
+#include <QMutex>
 
 class QProgressBar;
 
@@ -185,6 +186,7 @@ private:
     int m_Enzyme_number = 1;
     ProgressDialog *m_progressDialog;
     TcpClient  *m_tcpClient;
+	QMutex _lock;
 public slots:
     void UpdateSlot(int num);
     void slotUpdateTime();

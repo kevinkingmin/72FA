@@ -77,11 +77,11 @@ TestSampleWidget::TestSampleWidget(PrepareReagentDialog * dialog, QWidget *paren
     //connect(_instrument, &Instrument::sglAlarmInfo, this, &TestSampleWidget::slotAlarmInfo);
     //connect(_instrument, &Instrument::sglHandleStepDetail, this, &TestSampleWidget::slotHandleStepDetail);
     //connect(_instrument, &Instrument::sglIsStepSuc, this, &TestSampleWidget::slotIsStepSuc);
-    connect(_instrument, &Instrument::sglDetectionStartResult, this, &TestSampleWidget::slotDetectionStartResult);
+    connect(_instrument, &Instrument::sglDetectionStartResult, this, &TestSampleWidget::slotDetectionStartResult,Qt::QueuedConnection);
     connect(_instrument, &Instrument::sglDetectionPauseResult, this, &TestSampleWidget::slotDetectionPauseResult);
     connect(_instrument, &Instrument::sglDetectionContinueResult,this, &TestSampleWidget::slotDetectionContinueResult);
     connect(_instrument, &Instrument::sglDetectionStopResult,this, &TestSampleWidget::slotDetectionStopResult);
-    connect(this, &TestSampleWidget::testFinish,this,&TestSampleWidget::slotTestFinish);
+    connect(this, &TestSampleWidget::testFinish,this,&TestSampleWidget::slotTestFinish,Qt::QueuedConnection);
 
     ui->lblStep->setVisible(false);
     ui->subStepsWidget->setVisible(false);
@@ -119,11 +119,13 @@ void TestSampleWidget::slotUpdateTime(){
 }
 void TestSampleWidget::slotTestFinish(){
     ui->lblPlainEnd->setText("00:00:00:00");
+	_instrState->setMachineState(InstrumentStateModel::enumStandby);
     MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1424"),MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
 }
 
 void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sample,QString slot,QString step,QString code,QString time){
-    if(messageType=="1"){//开始
+	QMutexLocker lock(&_lock);
+	if(messageType=="1"){//开始
         ui->progressBar->setRange(0, 0);
         ui->progressBar->setVisible(true);
         if(_timer==nullptr){
