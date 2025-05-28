@@ -135,7 +135,8 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
         _timer->start(1000);
     }else if(messageType=="2"){//结果
         ui->progressBar->setVisible(false);
-        _timer->stop();
+		if (_timer != nullptr)
+			_timer->stop();
         //QString result = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1029");
         if(code!="0"){
             QString result= GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code);
@@ -167,7 +168,7 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
             //检测完成，弹窗提示
             _instrState->setMachineState(InstrumentStateModel::enumStandby);
             emit testFinish();
-            return;//emit testStop();
+            return;
         });
 
     }else if(messageType=="3"){//阶段信息

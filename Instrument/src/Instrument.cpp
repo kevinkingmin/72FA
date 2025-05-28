@@ -257,6 +257,14 @@ void Instrument::analysisFrame(){
         QString result= obj.value( keys[0]).toString();
         emit sglLiquidState(result);
     }
+    else if(code==getPDFReportCommand)
+    {
+        QJsonObject obj = doc.object();
+        QStringList keys = obj.keys();
+        QString result= obj.value( keys[0]).toString();
+        dLog("PDF print,result:{}",result.toStdString());
+        emit sglPrintPDFState(result.toInt());
+    }
 }
 
 void Instrument::connected_SLOT()

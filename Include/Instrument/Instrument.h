@@ -305,6 +305,8 @@ signals:
     void sglOnTemperature(float code);
 
     void sglScanSampleCodeResult(QByteArray resultData);
+
+    void sglPrintPDFState(const int result);
 private:
     Components *_components;
     Functions *_functions;

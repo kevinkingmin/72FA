@@ -145,7 +145,13 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     connect(_instr, &Instrument::sglOnTemperature, this, &MainWidget::slotMinitorTemperature);
     connect(_instr, &Instrument::sglLiquidState, this, &MainWidget::onLiquidState);
     connect(m_tcpClient, &TcpClient::connectStatus, this, &MainWidget::slotConnectStatus);
-
+    connect(_instr, &Instrument::sglPrintPDFState, this,[this](const int ret)
+    {
+        if(ret==0)
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("打印成功"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+        else
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("打印失败"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+    });
     auto ipPm{ SystemSetBLL().getRowById(9995) };
     QString ip = ipPm.isNull()?"": ipPm->getSaveDes();
     auto portPm{ SystemSetBLL().getRowById(9996) };

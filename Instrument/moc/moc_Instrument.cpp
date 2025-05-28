@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Instrument_t {
-    QByteArrayData data[66];
-    char stringdata0[936];
+    QByteArrayData data[67];
+    char stringdata0[953];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -94,9 +94,10 @@ QT_MOC_LITERAL(59, 812, 23), // "sglPrepareReagentResult"
 QT_MOC_LITERAL(60, 836, 16), // "sglOnTemperature"
 QT_MOC_LITERAL(61, 853, 23), // "sglScanSampleCodeResult"
 QT_MOC_LITERAL(62, 877, 10), // "resultData"
-QT_MOC_LITERAL(63, 888, 14), // "connected_SLOT"
-QT_MOC_LITERAL(64, 903, 17), // "disconnected_SLOT"
-QT_MOC_LITERAL(65, 921, 14) // "readyRead_Slot"
+QT_MOC_LITERAL(63, 888, 16), // "sglPrintPDFState"
+QT_MOC_LITERAL(64, 905, 14), // "connected_SLOT"
+QT_MOC_LITERAL(65, 920, 17), // "disconnected_SLOT"
+QT_MOC_LITERAL(66, 938, 14) // "readyRead_Slot"
 
     },
     "Instrument\0sglDataArrive\0\0datas\0"
@@ -124,8 +125,8 @@ QT_MOC_LITERAL(65, 921, 14) // "readyRead_Slot"
     "sglDetectionContinueResult\0"
     "sglDetectionStopResult\0sglPrepareReagentResult\0"
     "sglOnTemperature\0sglScanSampleCodeResult\0"
-    "resultData\0connected_SLOT\0disconnected_SLOT\0"
-    "readyRead_Slot"
+    "resultData\0sglPrintPDFState\0connected_SLOT\0"
+    "disconnected_SLOT\0readyRead_Slot"
 };
 #undef QT_MOC_LITERAL
 
@@ -135,52 +136,53 @@ static const uint qt_meta_data_Instrument[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      36,   14, // methods
+      37,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      33,       // signalCount
+      34,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  194,    2, 0x06 /* Public */,
-       4,    0,  197,    2, 0x06 /* Public */,
-       5,    1,  198,    2, 0x06 /* Public */,
-       7,    2,  201,    2, 0x06 /* Public */,
-      10,    1,  206,    2, 0x06 /* Public */,
-      12,    1,  209,    2, 0x06 /* Public */,
-      14,    4,  212,    2, 0x06 /* Public */,
-      18,    1,  221,    2, 0x06 /* Public */,
-      20,    3,  224,    2, 0x06 /* Public */,
-      24,    4,  231,    2, 0x06 /* Public */,
-      26,    1,  240,    2, 0x06 /* Public */,
-      28,    1,  243,    2, 0x06 /* Public */,
-      30,    2,  246,    2, 0x06 /* Public */,
-      32,    2,  251,    2, 0x06 /* Public */,
-      35,    2,  256,    2, 0x06 /* Public */,
-      37,    1,  261,    2, 0x06 /* Public */,
-      38,    1,  264,    2, 0x06 /* Public */,
-      40,    1,  267,    2, 0x06 /* Public */,
-      42,    1,  270,    2, 0x06 /* Public */,
-      43,    1,  273,    2, 0x06 /* Public */,
-      44,    1,  276,    2, 0x06 /* Public */,
-      45,    1,  279,    2, 0x06 /* Public */,
-      46,    1,  282,    2, 0x06 /* Public */,
-      47,    1,  285,    2, 0x06 /* Public */,
-      48,    1,  288,    2, 0x06 /* Public */,
-      49,    1,  291,    2, 0x06 /* Public */,
-      50,    6,  294,    2, 0x06 /* Public */,
-      56,    1,  307,    2, 0x06 /* Public */,
-      57,    1,  310,    2, 0x06 /* Public */,
-      58,    1,  313,    2, 0x06 /* Public */,
-      59,    1,  316,    2, 0x06 /* Public */,
-      60,    1,  319,    2, 0x06 /* Public */,
-      61,    1,  322,    2, 0x06 /* Public */,
+       1,    1,  199,    2, 0x06 /* Public */,
+       4,    0,  202,    2, 0x06 /* Public */,
+       5,    1,  203,    2, 0x06 /* Public */,
+       7,    2,  206,    2, 0x06 /* Public */,
+      10,    1,  211,    2, 0x06 /* Public */,
+      12,    1,  214,    2, 0x06 /* Public */,
+      14,    4,  217,    2, 0x06 /* Public */,
+      18,    1,  226,    2, 0x06 /* Public */,
+      20,    3,  229,    2, 0x06 /* Public */,
+      24,    4,  236,    2, 0x06 /* Public */,
+      26,    1,  245,    2, 0x06 /* Public */,
+      28,    1,  248,    2, 0x06 /* Public */,
+      30,    2,  251,    2, 0x06 /* Public */,
+      32,    2,  256,    2, 0x06 /* Public */,
+      35,    2,  261,    2, 0x06 /* Public */,
+      37,    1,  266,    2, 0x06 /* Public */,
+      38,    1,  269,    2, 0x06 /* Public */,
+      40,    1,  272,    2, 0x06 /* Public */,
+      42,    1,  275,    2, 0x06 /* Public */,
+      43,    1,  278,    2, 0x06 /* Public */,
+      44,    1,  281,    2, 0x06 /* Public */,
+      45,    1,  284,    2, 0x06 /* Public */,
+      46,    1,  287,    2, 0x06 /* Public */,
+      47,    1,  290,    2, 0x06 /* Public */,
+      48,    1,  293,    2, 0x06 /* Public */,
+      49,    1,  296,    2, 0x06 /* Public */,
+      50,    6,  299,    2, 0x06 /* Public */,
+      56,    1,  312,    2, 0x06 /* Public */,
+      57,    1,  315,    2, 0x06 /* Public */,
+      58,    1,  318,    2, 0x06 /* Public */,
+      59,    1,  321,    2, 0x06 /* Public */,
+      60,    1,  324,    2, 0x06 /* Public */,
+      61,    1,  327,    2, 0x06 /* Public */,
+      63,    1,  330,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      63,    0,  325,    2, 0x08 /* Private */,
-      64,    0,  326,    2, 0x08 /* Private */,
-      65,    0,  327,    2, 0x08 /* Private */,
+      64,    0,  333,    2, 0x08 /* Private */,
+      65,    0,  334,    2, 0x08 /* Private */,
+      66,    0,  335,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QByteArray,    3,
@@ -216,6 +218,7 @@ static const uint qt_meta_data_Instrument[] = {
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::Float,   31,
     QMetaType::Void, QMetaType::QByteArray,   62,
+    QMetaType::Void, QMetaType::Int,   19,
 
  // slots: parameters
     QMetaType::Void,
@@ -264,9 +267,10 @@ void Instrument::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 30: _t->sglPrepareReagentResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 31: _t->sglOnTemperature((*reinterpret_cast< float(*)>(_a[1]))); break;
         case 32: _t->sglScanSampleCodeResult((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 33: _t->connected_SLOT(); break;
-        case 34: _t->disconnected_SLOT(); break;
-        case 35: _t->readyRead_Slot(); break;
+        case 33: _t->sglPrintPDFState((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 34: _t->connected_SLOT(); break;
+        case 35: _t->disconnected_SLOT(); break;
+        case 36: _t->readyRead_Slot(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -502,6 +506,13 @@ void Instrument::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 return;
             }
         }
+        {
+            using _t = void (Instrument::*)(const int );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglPrintPDFState)) {
+                *result = 33;
+                return;
+            }
+        }
     }
 }
 
@@ -534,13 +545,13 @@ int Instrument::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 36)
+        if (_id < 37)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 36;
+        _id -= 37;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 36)
+        if (_id < 37)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 36;
+        _id -= 37;
     }
     return _id;
 }
@@ -773,6 +784,13 @@ void Instrument::sglScanSampleCodeResult(QByteArray _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 32, _a);
+}
+
+// SIGNAL 33
+void Instrument::sglPrintPDFState(const int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 33, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE
