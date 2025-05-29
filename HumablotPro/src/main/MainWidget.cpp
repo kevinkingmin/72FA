@@ -1568,7 +1568,7 @@ void MainWidget::on_btnCloseBeep1_clicked()
     //OnAction_CloseBeep();
     // TODO::WangZ
 //    qDebug() << "close bee wz";
-//    QString folderPath = "C:/img/";
+//    QString folderPath = "D:/HumablotProFiles/TestPictures/original";
 //    QDir dir(folderPath);
 //    dir.setFilter(QDir::Files);
 //    QFileInfoList fileInfoList = dir.entryInfoList();
@@ -1580,27 +1580,15 @@ void MainWidget::on_btnCloseBeep1_clicked()
 //        qDebug() << "图片名称：" << fileName;
 //        // 开始图片分析
 //        Analysis m_analysis;
-//        int code = m_analysis.AnalysisMothed_wz(folderPath,fileName);
+//        int code = m_analysis.AnalysisMothed(fileName,930,fileName, "solutionName","");
 //        if(code == 0)
 //        {
-//            qDebug() << "success wz";
+//            qDebug() << "success ";
 //        }else
 //        {
-//            qDebug() << "file wz " << code;
+//            qDebug() << "fail " << code;
 //        }
 //    }
-
-//    Analysis m_analysis;
-//    int code = m_analysis.AnalysisMothed_wz("C:/img/","1");
-//    if(code == 0)
-//    {
-//        qDebug() << "success wz";
-//    }else
-//    {
-//        qDebug() << "file wz " << code;
-//    }
-//    Analysis m_analysis;
-//    m_analysis.AnalysisMothed("202502141638021",929, "solutionName");
 }
 
 //处理窗口关闭

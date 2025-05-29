@@ -21,8 +21,10 @@ typedef struct {
     bool	isNullArea[32];
     double dItemPosition[32];
     int dItemNo[32];
+    int dItemCurveId[32];
     double dItemGrayValue[32];
     double dBackgroundGrayValue[32];
+    double dItemResultOffset[32];
     int dItemErrorCode[32];
     double dItemGrayRatio[32];
     QString solutionName;

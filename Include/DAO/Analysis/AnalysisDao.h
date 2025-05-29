@@ -38,15 +38,15 @@ public:
     QSqlQuery SelectSamples(QString sampleNo, bool *bResult);
     QSqlQuery SelectSamples2(QString sampleNo, QString strTestPaper_ID, bool *bResult);
     QSqlQuery SelectTestData(QString sampleNo,QString strSampleID,QString strTestPaper_ID,bool *bResult);
-	QSqlQuery SelectTestIdFromSamples(QString testId, bool *bResult);
-	QString SelectCampanyId(bool *bResult);
+    QSqlQuery SelectTestIdFromSamples(QString testId, bool *bResult);
+    QString SelectCampanyId(bool *bResult);
 
     bool InsertTestData(
-		QString strSolutionName,
-		QString id,
-		QString paper_id,
-		QString articleNo,
-		QString manageName,
+        QString strSolutionName,
+        QString id,
+        QString paper_id,
+        QString articleNo,
+        QString manageName,
         QString sampleNo,
         QString strSampleID,
         QString strTestPaper_ID,
@@ -64,9 +64,10 @@ public:
         QString strAnalysisState,
         QString strTestDateTime);
 
-	//插入左右位置记录表中
-	bool Insert_tresult_left_right_pixp(QString testId,int position_index, int left, int right,QString projectName, int top, int height);
+    //插入左右位置记录表中
+    bool Insert_tresult_left_right_pixp(QString testId,int position_index, int left, int right,QString projectName, int top, int height);
     int GetTestBacthMax();
+    QSqlQuery SelectStandardCurveParameter(QString curveIdStr, bool *bResult);
 };
 
 #endif // ANALYSISDAO_H

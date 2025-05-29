@@ -32,12 +32,14 @@ HEADERS += \
     src/analysis.h \
 	src/cpp_wrapped.h \
 	src/Wave_Low_Top_Info.h \
-    src/analysis_global.h
+    src/analysis_global.h \
+    src/standard_curve.h
 
 SOURCES += \
     src/PictureAnalysis.cpp \
 	src/Wave_Low_Top_Info.cpp \
-    src/analysis.cpp
+    src/analysis.cpp \
+    src/standard_curve.cpp
 
 MOC_DIR=moc/
 UI_DIR=moc/
