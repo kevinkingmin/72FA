@@ -18,7 +18,7 @@
 #include "../Instrument/src/Instrument.h"
 #include "../Model/src/baseSet/InstrumentStateModel.h"
 #include "../DAO/Analysis/AnalysisUIDao.h"
-#include "../Utilities/log.h"
+#include "../Include/Utilities/log.h"
 #include "../BLL/src/baseSet/TestPaperBLL.h"
 #include "../BLL/src/sample/SampleBLL.h"
 #include "../Analysis/analysis.h"
@@ -120,7 +120,7 @@ void TestSampleWidget::slotUpdateTime(){
 void TestSampleWidget::slotTestFinish(){
     ui->lblPlainEnd->setText("00:00:00:00");
 	_instrState->setMachineState(InstrumentStateModel::enumStandby);
-    MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1424"),MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+    MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1424"),MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
 }
 
 void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sample,QString slot,QString step,QString code,QString time){
@@ -144,12 +144,12 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
             QString result= GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code);
             MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), result,MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
             return;
-        }
-
+        }		
         //处理照片
-        QtConcurrent::run([this]() {
+        QtConcurrent::run([this, messageType]()
+		{
             // 这里是线程要执行的任务
-            Analysis m_analysis;
+			Analysis m_analysis;
             auto dao = AnalysisUIDao::instance();
             auto pm{ SystemSetBLL().getRowById(9994) };
             bool isUploadLis{ pm.isNull() ? false : pm->getSaveSet() > 0 };
@@ -158,7 +158,7 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
                 bool ret = m_analysis.AnalysisMothed(test->getTestId(), test->getPaperId(), test->getTestId(),test->getSolutionName(),test->getPatientName());
                 if(ret & isUploadLis)
                 {
-                    QString send_sz=dao->createLISData(test->getTestId());
+                    QString send_sz=dao->createLISData(test->getTestId()); 
                     if(send_sz.isEmpty())
                     {
                         eLog("create LIS data failed,testId:{}",test->getTestId().toStdString());
@@ -170,9 +170,7 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
             //检测完成，弹窗提示
             _instrState->setMachineState(InstrumentStateModel::enumStandby);
             emit testFinish();
-            return;
-        });
-
+		});
     }else if(messageType=="3"){//阶段信息
         QString result = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1029");
         QDateTime timeNow = QDateTime::currentDateTime();
@@ -269,7 +267,7 @@ void TestSampleWidget::slotIsStepSuc(int ret) {
             if (m_i_init_number == 3)
             {
                 m_test_result_flage = FALSE;
-                m_i_init_number == 0;
+                m_i_init_number = 0;
 
                 /*if (Global::g_stop_flage == 0)
                 {

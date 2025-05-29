@@ -611,7 +611,22 @@ QString AnalysisUIDao::selectDataBaseVersion(bool *bResult)
 
 QString AnalysisUIDao::createLISData(const QString &testId)
 {
-    QString query_sql = QString("SELECT * from tsample,tsample_test WHERE tsample.testId=tsample_test.Id and tsample_test.Id='%1'").arg(testId);
+    QString query_sql = QString("SELECT tsample.pkid,tsample.Id,tsample.testId,tsample.sampleNo,"
+		                         "tsample.samplePos,tsample.paperId,tsample.paperPos,tsample.barcode,"
+		                         "tsample.PatientName,tsample.SexID,tsample.Age,tsample.AgeUnitID,"
+		                         "tsample.birthday,tsample.bloodType,tsample.AnamnesisNO,tsample.wardName,"
+		                         "tsample.BedNo,tsample.departmentName,tsample.cupType,tsample.diagnosis,"
+		                         "tsample.errorFlag,tsample.skipFlag,tsample.stateFlag,tsample.isDelete,"
+		                         "tsample.testUser,tsample.intPreField,tsample.strPreField,tsample.articleNo,"
+		                         "tsample.createDay,tsample.test_batch,tsample_test.pkid as tpkid,"
+		                         "tsample_test.Id as tId,tsample_test.solutionName,tsample_test.manageName,"
+		                         "tsample_test.sampleId,tsample_test.paperId,tsample_test.slotPos,"
+		                         "tsample_test.projectName,tsample_test.cutGrayValue,tsample_test.coefficient,"
+		                         "tsample_test.testGrayValue,tsample_test.testResult,tsample_test.testTime,"
+		                         "tsample_test.runStatus,tsample_test.isDelete as tisDelete,tsample_test.remark as tremark,"
+		                         "tsample_test.articleNo as tarticleNo,tsample_test.sendLisFlag,tsample_test.error_code "
+		                         " FROM tsample ,tsample_test "
+		                         "WHERE tsample.testId=tsample_test.Id and tsample_test.Id='%1'").arg(testId);
     bool bResult{ true };
     auto TestDataQuery = SelectRecord(&bResult, query_sql);
     QString send_sz = "";
@@ -637,7 +652,9 @@ QString AnalysisUIDao::createLISData(const QString &testId)
         if (jdit != judgeRulesMap.end())
             judgeRecords = jdit.value();
         auto tp{ getConvertPara(judgeRecords,cutGrayValue.toDouble(),paperId) };
-        cutGrayValue = std::get<0>(tp);
+		auto cutValue{ std::get<0>(tp) };
+		if (!cutValue.isEmpty())
+			cutGrayValue = std::get<0>(tp);
         int error_code = TestDataQuery.value("error_code").toInt();
         QString testTime = TestDataQuery.value("testTime").toString();
         QString testResult = TestDataQuery.value("testResult").toString();
