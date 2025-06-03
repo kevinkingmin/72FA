@@ -33,8 +33,8 @@ PatientDialog::PatientDialog(QWidget *parent) :
     ui->setupUi(this);
     ui->cmbAgeUnitID->setView(new QListView(this));
     ui->cmbSexID->setView(new QListView(this));
+    ui->cmbBloodType->setView(new QListView(this));
     ui->txtAge->setValidator(new QIntValidator(0,200,this));
-
     ui->txtAnamnesisNO->setValidator(&_regLISValid);
     ui->txtPatientName->setValidator(&_regLISValid);
     ui->cmbWardName->setValidator(&_regLISValid);
@@ -60,12 +60,15 @@ void PatientDialog::initUIControl()
 {    
     ui->cmbAgeUnitID->clear();
     ui->cmbSexID->clear();
-
+    ui->cmbBloodType->clear();
     for(auto it:AgeUnitBLL().getAllRows())
         ui->cmbAgeUnitID->addItem(it->getAgeName(),it->getID());
     auto sexMap=GlobalData::mapSexType();
     for(auto it=sexMap.begin();it!=sexMap.end();it++)
-        ui->cmbSexID->addItem(it.value(),it.key());
+        ui->cmbSexID->addItem(it.value(),it.key());    
+    auto bloodMap=GlobalData::mapSampleType();
+    for(auto it=bloodMap.begin();it!=bloodMap.end();it++)
+        ui->cmbBloodType->addItem(it.value(),it.key());
 
     ui->cmbDepartmentName->setText("");
     ui->cmbSampleSender->setText("");
@@ -110,27 +113,31 @@ void PatientDialog::setUIData()
     ui->cmbDepartmentName->setText(record.value("departmentName").toString());
     QString sampleSender=record.value("sampleSender").isNull()||record.value("sampleSender").toString().isNull()?"":record.value("sampleSender").toString();
     ui->cmbSampleSender->setText(sampleSender);
+    int bloodType = record.value("bloodType").toInt()<=0?1:record.value("bloodType").toInt();
+    index=ui->cmbBloodType->findData(bloodType);
+    ui->cmbBloodType->setCurrentIndex(index);
 }
 
 void PatientDialog::getUIData()
 {
     bool succ=true;
-    QString sqlStr="update tsample set ";
-    sqlStr+="AnamnesisNO='"+ui->txtAnamnesisNO->text()+"',";
-    sqlStr+="PatientName='"+ui->txtPatientName->text()+"',";
-    sqlStr+="Age='"+ui->txtAge->text().simplified()+"',";
-    sqlStr+="AgeUnitID='"+ui->cmbAgeUnitID->currentData().toString()+"',";
-    sqlStr+="SexID='"+ui->cmbSexID->currentData().toString()+"',";
+    QString sqlStr="update tsample as t1 left join tsample as t2 on t1.samplePos=t2.samplePos and t1.createDay=t2.createDay and t1.sampleNo=t2.sampleNo set ";
+    sqlStr+="t1.AnamnesisNO='"+ui->txtAnamnesisNO->text()+"',";
+    sqlStr+="t1.PatientName='"+ui->txtPatientName->text()+"',";
+    sqlStr+="t1.Age='"+(ui->txtAge->text().simplified().isEmpty()?"0": ui->txtAge->text().simplified()) +"',";
+    sqlStr+="t1.AgeUnitID='"+(ui->cmbAgeUnitID->currentData().toString().isEmpty()?"0": ui->cmbAgeUnitID->currentData().toString()) +"',";
+    sqlStr+="t1.SexID='"+ui->cmbSexID->currentData().toString()+"',";
+    sqlStr+="t1.bloodType='"+ui->cmbBloodType->currentData().toString()+"',";
     //sqlStr+="createDay='"+ui->dtSampleSendTime->text().simplified()+"',";
-    sqlStr+="testUser='"+ui->txtTestDoctor->text().simplified()+"',";
-    sqlStr+="checkerName='"+ui->txtVerifyDoctor->text().simplified()+"',";
-    sqlStr+="diagnosis='"+ui->txtDiagnosis->toPlainText().simplified()+"',";
-    sqlStr+="remark='"+ui->txtRemark->toPlainText().simplified()+"',";
-    sqlStr+="wardName='"+ui->cmbWardName->text().simplified()+"',";
-    sqlStr+="BedNo='"+ui->cmbBedNo->text().simplified()+"',";
-    sqlStr+="departmentName='"+ui->cmbDepartmentName->text().simplified()+"',";
-    sqlStr+="sampleSender='"+ui->cmbSampleSender->text().simplified()+"' ";
-    sqlStr+="where pkid="+QString::number(_pkid)+";";
+    sqlStr+="t1.testUser='"+ui->txtTestDoctor->text().simplified()+"',";
+    sqlStr+="t1.checkerName='"+ui->txtVerifyDoctor->text().simplified()+"',";
+    sqlStr+="t1.diagnosis='"+ui->txtDiagnosis->toPlainText().simplified()+"',";
+    sqlStr+="t1.remark='"+ui->txtRemark->toPlainText().simplified()+"',";
+    sqlStr+="t1.wardName='"+ui->cmbWardName->text().simplified()+"',";
+    sqlStr+="t1.BedNo='"+ui->cmbBedNo->text().simplified()+"',";
+    sqlStr+="t1.departmentName='"+ui->cmbDepartmentName->text().simplified()+"',";
+    sqlStr+="t1.sampleSender='"+ui->cmbSampleSender->text().simplified()+"' ";
+    sqlStr+="where t2.pkid="+QString::number(_pkid)+";";
     AnalysisUIDao::instance()-> UpdateRecord(&succ,sqlStr);
     if(!succ)
     {

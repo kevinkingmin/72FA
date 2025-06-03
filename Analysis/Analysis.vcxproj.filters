@@ -36,6 +36,9 @@
     <ClCompile Include="src\analysis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\standard_curve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\PictureAnalysis.h">
@@ -56,12 +59,16 @@
     <CustomBuild Include="..\Include\Precomp\precompile.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <QtMoc Include="src\standard_curve.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
+    
     <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
