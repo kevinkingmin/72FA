@@ -44,9 +44,9 @@ int DatabaseFactory::connect()
     _database->setHostName("localhost");
     //_database->setHostName("192.168.0.187");
     _database->setPort(3306);
-    _database->setDatabaseName("HumaBlotPro");//HumaBlotPro_dxp
+    _database->setDatabaseName("HumaBlotPro_dxp");//HumaBlotPro_dxp
     _database->setUserName("root");
-    _database->setPassword("123456");// TaiWen_666666_$
+    _database->setPassword("TaiWen_666666_$");// TaiWen_666666_$
 	try
 	{
 		if (!_database->open())

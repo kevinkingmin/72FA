@@ -20,8 +20,8 @@ QMap<int,QString> GlobalData::_mapSampleCupType({
 
 
 QMap<int, QString> GlobalData::_mapSexType({
-													   {0, tr("女")},
-													   {1, tr("男")}});
+                                                       {0, tr("男")},
+                                                       {1, tr("女")}});
 
 
 QMap<ushort,QString>GlobalData::_mapClinicType({

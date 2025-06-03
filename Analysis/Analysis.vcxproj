@@ -146,6 +146,7 @@
     <ClCompile Include="src\PictureAnalysis.cpp" />
     <ClCompile Include="src\Wave_Low_Top_Info.cpp" />
     <ClCompile Include="src\analysis.cpp" />
+    <ClCompile Include="src\standard_curve.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="src\PictureAnalysis.h">
@@ -230,6 +231,16 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating precompiled header source file '..\Include\Precomp\precompile.h.cpp' ...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\Include\Precomp\precompile.h.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <QtMoc Include="src\standard_curve.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     
@@ -244,6 +255,7 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">moc\moc_predefs.h;%(Outputs)</Outputs>
     </CustomBuild>
+    
     <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NOINHERIT)</ForcedIncludeFiles>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">precompile.h</PrecompiledHeaderFile>
