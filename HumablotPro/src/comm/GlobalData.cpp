@@ -9,7 +9,8 @@
 
 
 QMap<ushort,QString> GlobalData::_mapSampleType({
-                                                    {1, tr("血清/血浆")}
+                                                    {1, tr("血清")},
+                                                    {2, tr("血浆")}
                                                 });
 
 QMap<int,QString> GlobalData::_mapSampleCupType({

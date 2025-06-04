@@ -22,7 +22,7 @@
   <property name="dialogStyle" stdset="0">
    <string>BGStyle</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>9</x>
@@ -157,24 +157,27 @@
       <property name="verticalSpacing">
        <number>5</number>
       </property>
-      <item row="7" column="0">
-       <widget class="QLabel" name="label_11">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="txtAnamnesisNO">
+        <property name="maxLength">
+         <number>20</number>
+        </property>
+        <property name="showFull" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
+       <widget class="QLabel" name="label_12">
         <property name="styleSheet">
          <string notr="true">margin-right:20px;
 margin-left:10px</string>
         </property>
         <property name="text">
-         <string>送检医生</string>
+         <string>送检日期</string>
         </property>
         <property name="lblStyle" stdset="0">
          <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="1">
-       <widget class="QLineEdit" name="txtTestDoctor">
-        <property name="enabled">
-         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -184,35 +187,96 @@ margin-left:10px</string>
          <string notr="true">color:rgb(255, 0, 0)</string>
         </property>
         <property name="text">
-         <string>*</string>
+         <string/>
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="label_18">
-        <property name="styleSheet">
-         <string notr="true">color:rgb(255, 0, 0)</string>
-        </property>
-        <property name="text">
-         <string>*</string>
+      <item row="10" column="1">
+       <widget class="QLineEdit" name="txtTestDoctor">
+        <property name="enabled">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="label_15">
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_9">
         <property name="styleSheet">
          <string notr="true">margin-right:20px;
 margin-left:10px</string>
         </property>
         <property name="text">
-         <string>诊    断</string>
+         <string>床    号</string>
         </property>
         <property name="lblStyle" stdset="0">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="11" column="1">
+      <item row="9" column="1">
+       <widget class="QDateTimeEdit" name="dtSampleSendTime">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="displayFormat">
+         <string>yyyy-MM-dd HH:mm</string>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+        <property name="dtStyle" stdset="0">
+         <string>dtNormalStyle</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="styleSheet">
+         <string notr="true">margin-right:20px;
+margin-left:10px</string>
+        </property>
+        <property name="text">
+         <string>性    别</string>
+        </property>
+        <property name="lblStyle" stdset="0">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0">
+       <widget class="QLabel" name="label_13">
+        <property name="styleSheet">
+         <string notr="true">margin-right:20px;
+margin-left:10px</string>
+        </property>
+        <property name="text">
+         <string>检验医生</string>
+        </property>
+        <property name="lblStyle" stdset="0">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLineEdit" name="cmbBedNo">
+        <property name="maxLength">
+         <number>48</number>
+        </property>
+        <property name="showFull" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="cmbDepartmentName">
+        <property name="maxLength">
+         <number>48</number>
+        </property>
+        <property name="showFull" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="1">
        <widget class="QTextEdit" name="txtDiagnosis">
         <property name="minimumSize">
          <size>
@@ -231,51 +295,53 @@ margin-left:10px</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_8">
+      <item row="11" column="0">
+       <widget class="QLabel" name="label_14">
         <property name="styleSheet">
          <string notr="true">margin-right:20px;
 margin-left:10px</string>
         </property>
         <property name="text">
-         <string>病    区</string>
+         <string>审核医生</string>
         </property>
         <property name="lblStyle" stdset="0">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="10" column="1">
-       <widget class="QLineEdit" name="txtVerifyDoctor">
-        <property name="enabled">
+      <item row="12" column="0">
+       <widget class="QLabel" name="label_15">
+        <property name="styleSheet">
+         <string notr="true">margin-right:20px;
+margin-left:10px</string>
+        </property>
+        <property name="text">
+         <string>诊    断</string>
+        </property>
+        <property name="lblStyle" stdset="0">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLineEdit" name="cmbSampleSender">
+        <property name="maxLength">
+         <number>48</number>
+        </property>
+        <property name="showFull" stdset="0">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="label_12">
-        <property name="styleSheet">
-         <string notr="true">margin-right:20px;
-margin-left:10px</string>
-        </property>
-        <property name="text">
-         <string>送检日期</string>
-        </property>
-        <property name="lblStyle" stdset="0">
-         <string/>
-        </property>
-       </widget>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="cmbSexID"/>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_4">
+      <item row="3" column="3">
+       <widget class="QLabel" name="label_20">
         <property name="styleSheet">
-         <string notr="true">margin-right:20px;
-margin-left:10px</string>
+         <string notr="true">color:rgb(255, 0, 0)</string>
         </property>
         <property name="text">
-         <string>性    别</string>
-        </property>
-        <property name="lblStyle" stdset="0">
          <string/>
         </property>
        </widget>
@@ -290,31 +356,17 @@ margin-left:10px</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="txtAnamnesisNO">
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="cmbWardName">
         <property name="maxLength">
-         <number>20</number>
+         <number>48</number>
         </property>
         <property name="showFull" stdset="0">
          <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="label_14">
-        <property name="styleSheet">
-         <string notr="true">margin-right:20px;
-margin-left:10px</string>
-        </property>
-        <property name="text">
-         <string>审核医生</string>
-        </property>
-        <property name="lblStyle" stdset="0">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
+      <item row="7" column="0">
        <widget class="QLabel" name="label_10">
         <property name="styleSheet">
          <string notr="true">margin-right:20px;
@@ -328,8 +380,86 @@ margin-left:10px</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="cmbSexID"/>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">margin-right:20px;
+margin-left:10px</string>
+        </property>
+        <property name="text">
+         <string>病 历 号</string>
+        </property>
+        <property name="lblStyle" stdset="0">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="styleSheet">
+         <string notr="true">margin-right:20px;
+margin-left:10px</string>
+        </property>
+        <property name="text">
+         <string>病    区</string>
+        </property>
+        <property name="lblStyle" stdset="0">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="label_11">
+        <property name="styleSheet">
+         <string notr="true">margin-right:20px;
+margin-left:10px</string>
+        </property>
+        <property name="text">
+         <string>送检医生</string>
+        </property>
+        <property name="lblStyle" stdset="0">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="1">
+       <widget class="QTextEdit" name="txtRemark">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="showFull" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLineEdit" name="txtAge"/>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cmbAgeUnitID"/>
+        </item>
+       </layout>
+      </item>
+      <item row="11" column="1">
+       <widget class="QLineEdit" name="txtVerifyDoctor">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_5">
@@ -339,20 +469,6 @@ margin-left:10px</string>
         </property>
         <property name="text">
          <string>年    龄</string>
-        </property>
-        <property name="lblStyle" stdset="0">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_9">
-        <property name="styleSheet">
-         <string notr="true">margin-right:20px;
-margin-left:10px</string>
-        </property>
-        <property name="text">
-         <string>床    号</string>
         </property>
         <property name="lblStyle" stdset="0">
          <string/>
@@ -379,97 +495,21 @@ margin-left:10px;</string>
          <string notr="true">color:rgb(255, 0, 0)</string>
         </property>
         <property name="text">
-         <string>*</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="styleSheet">
-         <string notr="true">margin-right:20px;
-margin-left:10px</string>
-        </property>
-        <property name="text">
-         <string>病 历 号</string>
-        </property>
-        <property name="lblStyle" stdset="0">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="8" column="1">
-       <widget class="QDateTimeEdit" name="dtSampleSendTime">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="displayFormat">
-         <string>yyyy-MM-dd HH:mm</string>
-        </property>
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-        <property name="dtStyle" stdset="0">
-         <string>dtNormalStyle</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLineEdit" name="txtAge"/>
-        </item>
-        <item>
-         <widget class="QComboBox" name="cmbAgeUnitID"/>
-        </item>
-       </layout>
-      </item>
-      <item row="3" column="3">
-       <widget class="QLabel" name="label_20">
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_18">
         <property name="styleSheet">
          <string notr="true">color:rgb(255, 0, 0)</string>
         </property>
         <property name="text">
-         <string>*</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="label_13">
-        <property name="styleSheet">
-         <string notr="true">margin-right:20px;
-margin-left:10px</string>
-        </property>
-        <property name="text">
-         <string>检验医生</string>
-        </property>
-        <property name="lblStyle" stdset="0">
          <string/>
         </property>
        </widget>
       </item>
-      <item row="12" column="1">
-       <widget class="QTextEdit" name="txtRemark">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>60</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>60</height>
-         </size>
-        </property>
-        <property name="showFull" stdset="0">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="0">
+      <item row="13" column="0">
        <widget class="QLabel" name="label_16">
         <property name="styleSheet">
          <string notr="true">margin-right:20px;
@@ -483,45 +523,22 @@ margin-left:10px</string>
         </property>
        </widget>
       </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="styleSheet">
+         <string notr="true">margin-right:20px;
+margin-left:10px</string>
+        </property>
+        <property name="text">
+         <string>样本类型</string>
+        </property>
+        <property name="lblStyle" stdset="0">
+         <string/>
+        </property>
+       </widget>
+      </item>
       <item row="4" column="1">
-       <widget class="QLineEdit" name="cmbWardName">
-        <property name="maxLength">
-         <number>48</number>
-        </property>
-        <property name="showFull" stdset="0">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QLineEdit" name="cmbBedNo">
-        <property name="maxLength">
-         <number>48</number>
-        </property>
-        <property name="showFull" stdset="0">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLineEdit" name="cmbDepartmentName">
-        <property name="maxLength">
-         <number>48</number>
-        </property>
-        <property name="showFull" stdset="0">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QLineEdit" name="cmbSampleSender">
-        <property name="maxLength">
-         <number>48</number>
-        </property>
-        <property name="showFull" stdset="0">
-         <bool>true</bool>
-        </property>
-       </widget>
+       <widget class="QComboBox" name="cmbBloodType"/>
       </item>
      </layout>
     </item>
