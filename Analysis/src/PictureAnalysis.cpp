@@ -1208,7 +1208,7 @@ int PictureAnalysis::GetTestPaperImageContinuous(QString filePath,TestPaperParam
 
     // 重新确定边缘
     int xStart = -1, yTop = -1, yBottom = -1;
-    double head_thresh = cv::mean(edgeMat)[0];
+    double head_thresh = thresh;
     //按照3个像素的宽度，精细头端位置
     for(int i = 0; i < edgeMat.cols/2-3;i++)
     {
@@ -1628,7 +1628,7 @@ int PictureAnalysis::GetTestPaperImageCalcIndexWz(const cv::Mat& srcMat,TestPape
             minGrayContourIdx = static_cast<int>(i);
         }
     }
-    if (minGrayContourIdx < 0 || markMatGray > 150)
+   if (minGrayContourIdx < 0 || markMatGray > 180)
     {
         return 2;
     }
