@@ -27,10 +27,10 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 	setWindowIcon(QIcon(":/images/buttonIcon/icon.png"));
 	bool bResult = true; 
 	auto dao = AnalysisUIDao::instance();
-	QString company_info = dao->SelectTargetValue(&bResult, "5");
+    int company_info = dao->SelectTargetValue(&bResult, "5").toInt();
     setWindowTitle(GlobalData::LoadLanguageInfo("K1704"));
 	int windows_width = 0;// 1500;
-	if (company_info == "2")
+    if (company_info == 2)
 	{
 		windows_width = 1900;
 	}
@@ -89,7 +89,7 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
     tableWidget->setEditTriggers(QAbstractItemView::CurrentChanged);
     tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
     tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-	if (company_info == "2")
+    if (company_info == 2)
 	{
 		tableWidget->setColumnWidth(0, 250);
 		tableWidget->setColumnWidth(1, 400);
@@ -199,6 +199,8 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 			else
 			{
 				dRatioToCut_sz = QString("%1").arg(dRatioToCut);
+                if(company_info==6 && dRatioToCut>=100 && strItemName=="Total IgE")
+                    dRatioToCut_sz=">100";
 			}
 			QTableWidgetItem *item_dRatioToCut = new QTableWidgetItem(dRatioToCut_sz);
             item_dRatioToCut->setTextAlignment(Qt::AlignCenter);
