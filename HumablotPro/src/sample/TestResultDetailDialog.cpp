@@ -158,6 +158,7 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 			int error_code = TestDataQuery.value("error_code").toInt();
 			double tgv = TestDataQuery.value("testGrayValue").toDouble();
 			error_code = TestDataQuery.value("error_code").toInt();
+            testResult = TestDataQuery.value("testResult").toString();
 			pkid= TestDataQuery.value("pkid").toString();
 			if (tgv > 255)
 			{
@@ -205,63 +206,7 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 
 			if (strItemName != "FC" && strItemName != "Cut")
 			{
-				strRel = "";
-				QString sql = "";
-				sql.sprintf("select * from t_judge_rules where RulesId = (select RulesId from titem where itemName = '%s' and TestPaperID =%d ) order by GrayValue asc", strItemName.toUtf8().data(), paperId);
-				auto JudgeRulesQuery = dao->SelectRecord(&bResult, sql);
-				QMap<double, QString> mapJudgeRules;
-				testResult = "";
-				while (JudgeRulesQuery.next())
-				{
-					double grayValue = JudgeRulesQuery.value("GrayValue").toDouble();
-					QString grayWord = JudgeRulesQuery.value("GrayWord").toString();
-					mapJudgeRules.insert(grayValue, grayWord);
-				}
-				QList<double> key_list;
-				QList<QString> value_list;
-				QMap<double, QString>::Iterator it = mapJudgeRules.begin();
-				int tmp_i = 0;
-				while (it != mapJudgeRules.end())
-				{
-					if (tmp_i == 0)
-					{
-						key_list.push_back(-1000);
-						value_list.push_back(it.value());
-					}
-					key_list.push_back(it.key());
-					value_list.push_back(it.value());
-
-					if (tmp_i == (mapJudgeRules.count()-1))
-					{
-						key_list.push_back(2000);
-						value_list.push_back(it.value());
-					}
-					tmp_i++;
-					it++;
-				}
-				int key_count = key_list.count();
-				int find_index = 0;
-				for (int i = 0; i < key_count; )
-				{
-					double min = key_list[0];;
-					double max = 1000;
-					if (i > 0)
-					{
-						min = key_list[i - 1];
-						max = key_list[i];
-
-						if (dRatioToCut > min && dRatioToCut <= max)
-						{
-							find_index = i;
-						}
-					}
-					i++;
-				}
-				if (value_list.count() > 0)
-				{
-					testResult = value_list[find_index];//mapJudgeRules.find(find_index).value();//.key();
-				}
-				strRel += testResult;
+                strRel = testResult;
 			}
 
 			if (error_code == 10002)

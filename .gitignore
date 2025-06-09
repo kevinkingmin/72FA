@@ -34,3 +34,5 @@ Makefile
 /*.user
 *.user
 /HumablotPro/*.user
+/Database/SourceCode/Database/DatabaseFactory.cpp
+/Database/SourceCode/Database/DatabaseFactory.h
