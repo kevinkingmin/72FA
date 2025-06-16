@@ -644,7 +644,11 @@ QString AnalysisUIDao::createLISData(const QString &testId)
             send_sz += QString("PID | %1 |||||| %1 | 0 ||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D));//"PID | " + List[0].SampleNo + " |||||| " + List[0].SampleNo + " | 0 |||||||||||||||||||||||" + getstringforbyte(0x0D);
             send_sz += QString("OBR | 4 | %1  | 4 | E - LAB ^ ES - 480 | N | %1 | %1  ||||||||| ||||  |||||||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D));//"OBR | 4 | " + List[0].SampleNo + " | 4 | E - LAB ^ ES - 480 | N | " + List[0].SampleNo + " | " + List[0].SampleNo + " ||||||||| ||||  ||||||||||||||||||||||||||||" + getstringforbyte(0x0D);
         }
-        judgeRulesMap = getPaperJudgeRules(paperId);
+		if (paperId != TestDataQuery.value("paperId").toInt())
+		{
+			paperId = TestDataQuery.value("paperId").toInt();
+			judgeRulesMap = getPaperJudgeRules(paperId);
+		}
         QString projectName = TestDataQuery.value("projectName").toString();
         QString cutGrayValue = TestDataQuery.value("cutGrayValue").toString();
         QVector<JudgeRules> judgeRecords{};

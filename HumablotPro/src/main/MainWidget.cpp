@@ -104,13 +104,13 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     switch (_userFlage)
     {
     case 1:
-        userType = GlobalData::LoadLanguageInfo(g_language_type, "K1010");//"管理员";
+        userType = GlobalData::LoadLanguageInfo("K1010");//"管理员";
         break;
     case 2:
-        userType = GlobalData::LoadLanguageInfo(g_language_type, "K1011");//"工程师";
+        userType = GlobalData::LoadLanguageInfo("K1011");//"工程师";
         break;
     case 3:
-        userType = GlobalData::LoadLanguageInfo(g_language_type, "K1012");//"普通用户";
+        userType = GlobalData::LoadLanguageInfo("K1012");//"普通用户";
         break;
     default:
         break;
@@ -182,12 +182,12 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     _ui->btnMonthMaintain->setVisible(false);
     _ui->btnSystemLiquid->setVisible(false);
     bResult = false;
-    QString KVersion = GlobalData::LoadLanguageInfo(g_language_type, "KVersion");
+    QString KVersion = GlobalData::LoadLanguageInfo("KVersion");
     _ui->lbVersion->setText(KVersion);
 
-    _ui->btnCloseBeep1->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1005"));
-    _ui->pushButton_osk_open->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1006"));
-    _ui->lbTemperature->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1007") + "__.__℃ ");
+    _ui->btnCloseBeep1->setText(GlobalData::LoadLanguageInfo("K1005"));
+    _ui->pushButton_osk_open->setText(GlobalData::LoadLanguageInfo("K1006"));
+    _ui->lbTemperature->setText(GlobalData::LoadLanguageInfo("K1007") + "__.__℃ ");
 
     _ui->btnRunState->setStyleSheet("border:none");
     _ui->btnWasteBottle->setStyleSheet("border:none");
@@ -202,16 +202,16 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
 //1，废液报警 2，废液正常 3，系统液报警 4，系统液正常
 void MainWidget::onLiquidState(QString state){
     if(state=="1"){
-        _ui->btnWasteBottle->setToolTip(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f01"));
+        _ui->btnWasteBottle->setToolTip(GlobalData::LoadLanguageInfo("0x8f01"));
         _ui->btnWasteBottle->setStyleSheet("QPushButton{ qproperty-icon: url(:/images/menu/wasteBottleFull.png);}");
     }else if(state=="2"){
-        _ui->btnWasteBottle->setToolTip(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f04"));
+        _ui->btnWasteBottle->setToolTip(GlobalData::LoadLanguageInfo("0x8f04"));
         _ui->btnWasteBottle->setStyleSheet("QPushButton{ qproperty-icon: url(:/images/menu/wasteBottle.png);}");
     }else if(state=="3"){
-        _ui->btnSystemLiquidStatus->setToolTip(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f02"));
+        _ui->btnSystemLiquidStatus->setToolTip(GlobalData::LoadLanguageInfo("0x8f02"));
         _ui->btnSystemLiquidStatus->setStyleSheet("QPushButton {qproperty-icon: url(:/images/menu/systemLiquidStatusNoFull.png);}");
     }else if(state=="4"){
-        _ui->btnSystemLiquidStatus->setToolTip(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f05"));
+        _ui->btnSystemLiquidStatus->setToolTip(GlobalData::LoadLanguageInfo("0x8f05"));
         _ui->btnSystemLiquidStatus->setStyleSheet("QPushButton {qproperty-icon: url(:/images/menu/systemLiquidStatusFull.png);}");
     }
 }
@@ -221,12 +221,12 @@ void MainWidget::slotMaintainStep(int index, QString des)
     if (index == 11 && des != "HumaDX 72FA")
     {
         //1640失败
-        mCheckInfoVector.push_back(GlobalData::LoadLanguageInfo(g_language_type, "K1640"));//"扫码失败");
+        mCheckInfoVector.push_back(GlobalData::LoadLanguageInfo("K1640"));//"扫码失败");
     }
     else if (des == "HumaDX 72FA")
     {
         //1641成功
-        mCheckInfoVector.push_back(GlobalData::LoadLanguageInfo(g_language_type, "K1641"));//"扫码成功");
+        mCheckInfoVector.push_back(GlobalData::LoadLanguageInfo("K1641"));//"扫码成功");
     }
     else
     {
@@ -632,7 +632,7 @@ void MainWidget::addTabWidget(QWidget *w, const QString &tabName, const MainWidg
         }
     }
 
-    if (tabName == "欢迎界面"|| tabName == "欢迎界面en" || tabName == GlobalData::LoadLanguageInfo(g_language_type, "K1113"))
+    if (tabName == "欢迎界面"|| tabName == "欢迎界面en" || tabName == GlobalData::LoadLanguageInfo("K1113"))
     {
         _ui->tabWidget->setTabEnabled(0, false);
         _ui->tabWidget->setStyleSheet("QTabBar::tab:disabled {width: 0; color: transparent;}");
@@ -664,7 +664,7 @@ void MainWidget::createBaseSetMenu()
     QMenu* menu = new QMenu(STR_MAINMENU_SET,this);
     QAction* action=nullptr;
     _ui->stackedWidget->setCurrentIndex(STACK_PAGE_SAMPLE);
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1014");
+    QString sz = GlobalData::LoadLanguageInfo("K1014");
     action = new QAction(QIcon(":/images/menu/addNew.png"), sz, this);//STR_SAMPLE_MANAGE, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(on_btnSample_clicked()));
@@ -685,12 +685,12 @@ void MainWidget::createMantanceMenu()
     QAction* action=nullptr;
     if (_userFlage == 1 || _userFlage == 2)
     {
-        QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1015");
+        QString sz = GlobalData::LoadLanguageInfo("K1015");
         action = new QAction(QIcon(":/images/menu/assayGroup16.png"), sz, this);//STR_MENU_MAGIC, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnAction_MagicManage()));
     }
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1016");
+    QString sz = GlobalData::LoadLanguageInfo("K1016");
     action = new QAction(QIcon(":/images/menu/reagents16.png"), sz, this);//STR_MENU_REAGENT, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_ReagentManager()));
@@ -712,7 +712,7 @@ void MainWidget::createHistoryMenu()
     QMenu* menu = new QMenu(STR_MAINMENU_HISTORY,this);
     QAction* action=nullptr;
 
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1017");
+    QString sz = GlobalData::LoadLanguageInfo("K1017");
     action = new QAction(QIcon(":/images/buttonIcon/testRecord16.png"), sz, this);//STR_MENU_RESULTINFO, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_ResultManage()));
@@ -735,29 +735,29 @@ void MainWidget::createEditMenu()
     QMenu* menu = new QMenu(STR_MAINMENU_EDIT,this);
     QAction* action=nullptr;
 
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1018");
+    QString sz = GlobalData::LoadLanguageInfo("K1018");
     action = new QAction(QIcon(":/images/buttonIcon/users32.png"), sz);//STR_MENU_APPLICATION_USERS, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_applicationUsers()));
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1019");
+    sz = GlobalData::LoadLanguageInfo("K1019");
     action = new QAction(QIcon(":/images/buttonIcon/login16.png"), sz, this);//STR_MENU_APPLICATION_LOGIN, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_applicationLogin()));
 
     if (_userFlage == 1 || _userFlage == 2)
     {
-        sz = GlobalData::LoadLanguageInfo(g_language_type, "K1020");
+        sz = GlobalData::LoadLanguageInfo("K1020");
         action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_SYSTEMSET, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnAction_SystemSet()));
 
-        sz = GlobalData::LoadLanguageInfo(g_language_type, "K1021");
+        sz = GlobalData::LoadLanguageInfo("K1021");
         action = new QAction(QIcon(":/images/buttonIcon/users32.png"), sz, this);//STR_LIS_SETTING, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnAction_LisSetting()));
 
-        sz = GlobalData::LoadLanguageInfo(g_language_type, "K1022");
+        sz = GlobalData::LoadLanguageInfo("K1022");
         action = new QAction(QIcon(":/images/menu/camer16.png"), sz, this);//STR_RULES_SETTING, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnAction_RulesSetting()));
@@ -777,51 +777,51 @@ void MainWidget::createApplicationMenu()
     QMenu* menu = new QMenu(STR_MAINMENU_APPLICATION,this);
     QAction* action=nullptr;
 
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1023");
+    QString sz = GlobalData::LoadLanguageInfo("K1023");
     action = new QAction(QIcon(":/images/buttonIcon/runSelfCheck16.png"), sz, this);//STR_MENU_SELF_CHECK, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_selfRunCheck()));
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1024");
+    sz = GlobalData::LoadLanguageInfo("K1024");
     action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_SYSTEM_LIQUID_PIPE_WASH, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_system_liquid_pipe_wash()));
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1025");
+    sz = GlobalData::LoadLanguageInfo("K1025");
     action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_PIPE_REFLUX, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_pipe_reflux()));
 
     //液位探测
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1026");
+    sz = GlobalData::LoadLanguageInfo("K1026");
     action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_NEW_PIPE_WASH, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_pipe_wash()));
 
     if (_userFlage == 1 || _userFlage == 2)
     {
-        /*sz = GlobalData::LoadLanguageInfo(g_language_type, "K1027");
+        /*sz = GlobalData::LoadLanguageInfo("K1027");
         action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_NEW_PERISTALTIC_PUMP_AUTO_CHECK, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnAction_pump_auto_check()));*/
 
-        /*sz = GlobalData::LoadLanguageInfo(g_language_type, "K1028");
+        /*sz = GlobalData::LoadLanguageInfo("K1028");
         action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_NEW_PERISTALTIC_PUMP_MANA_CHECK, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnAction_pump_mana_check()));*/
 
-        /*sz = GlobalData::LoadLanguageInfo(g_language_type, "K1029");
+        /*sz = GlobalData::LoadLanguageInfo("K1029");
         action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_NEW_LIQUID_DETECTION, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnAction_liquid_detection()));*/
     }
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1030");
+    sz = GlobalData::LoadLanguageInfo("K1030");
     action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_WEEK_MANTANCE, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_week_mantace()));
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1031");
+    sz = GlobalData::LoadLanguageInfo("K1031");
     action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_MONTH_MANTANCE, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_month_mantace()));
@@ -829,18 +829,18 @@ void MainWidget::createApplicationMenu()
     if (_userFlage == 1|| _userFlage == 2)
     {
 
-        /*sz = GlobalData::LoadLanguageInfo(g_language_type, "K1032");
+        /*sz = GlobalData::LoadLanguageInfo("K1032");
         action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_CAMERA_CHECK, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnActive_camera_check()));*/
 
-        /* sz = GlobalData::LoadLanguageInfo(g_language_type, "K1033");
+        /* sz = GlobalData::LoadLanguageInfo("K1033");
         action = new QAction(QIcon(":/images/menu/systemSet16.png"), sz, this);//STR_MENU_NEW_PUMP_RUNNING_IN, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnActive_new_pump_running_in()));*/
     }
 
-    sz = GlobalData::LoadLanguageInfo(g_language_type, "K1034");
+    sz = GlobalData::LoadLanguageInfo("K1034");
     action = new QAction(QIcon(":/images/buttonIcon/maintanceIcon16.png"), sz, this);//STR_MENU_MAN_INCUBAT, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_ManIncubation()));
@@ -860,14 +860,14 @@ void MainWidget::createApplicationHelp()
     QMenu* menu = new QMenu(STR_MENU_HELP, this);
     QAction* action = nullptr;
 
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1035");
+    QString sz = GlobalData::LoadLanguageInfo("K1035");
     action = new QAction(QIcon(":/images/buttonIcon/aboutIcon16.png"), sz, this);// STR_MENU_APPLICATION_ABOUT, this);
     menu->addAction(action);
     connect(action, SIGNAL(triggered()), this, SLOT(OnAction_applicationAbout()));
 
     if (_userFlage == 1 || _userFlage == 2)
     {
-        sz = GlobalData::LoadLanguageInfo(g_language_type, "K1036");
+        sz = GlobalData::LoadLanguageInfo("K1036");
         action = new QAction(QIcon(":/images/buttonIcon/aboutIcon16.png"), sz, this);//STR_MENU_HELP_OPERATELOG, this);
         menu->addAction(action);
         connect(action, SIGNAL(triggered()), this, SLOT(OnAction_OperatorLog()));
@@ -892,18 +892,18 @@ void MainWidget::maintainStart(int type)
     auto state = _InstrumentState->getMachineState();
     if (!state.canRun)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1321"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");// GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1321"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");// GlobalData::LoadLanguageInfo("K1181"));
         return;
     }
 
     QString tip = "";
     if (1 == type)
     {
-        tip = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1322"));//"开始周维护\n\n请先将将泵管头放到足量的系统液中，再点击【确认】按钮进行下一步！");
+        tip = QString("%1").arg(GlobalData::LoadLanguageInfo("K1322"));//"开始周维护\n\n请先将将泵管头放到足量的系统液中，再点击【确认】按钮进行下一步！");
     }
     if (2 == type)
     {
-        tip = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1323"));//"开始月维护\n\n请先将将泵管头放到足量的系统液中，再点击【确认】按钮进行下一步！");
+        tip = QString("%1").arg(GlobalData::LoadLanguageInfo("K1323"));//"开始月维护\n\n请先将将泵管头放到足量的系统液中，再点击【确认】按钮进行下一步！");
         QDateTime time = QDateTime::currentDateTime();
         QString str = time.toString("yyyy-MM-dd hh:mm:ss");
         bool bResult = true;
@@ -912,8 +912,8 @@ void MainWidget::maintainStart(int type)
         dao->UpdateRecord(&bResult, sql);
     }
 
-    //auto ret = QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tip, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), tr("取消"));
-    auto ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tip, MyMessageBox::Ok | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));//GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), tr("取消"));
+    //auto ret = QMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tip, GlobalData::LoadLanguageInfo("K1181"), tr("取消"));
+    auto ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo("K1180"), tip, MyMessageBox::Ok | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));//GlobalData::LoadLanguageInfo("K1181"), tr("取消"));
     //int ret = MyMessageBox::question(this, "\n提示\n", "\n数据上传LIS完成！", MyMessageBox::Save | MyMessageBox::No);
 
     if(ret!= MyMessageBox::Ok)
@@ -929,14 +929,14 @@ void MainWidget::autoSelfCheck()
     //状态不符合则不进行初始化
     /*auto state = _InstrumentState->getMachineState();
     if(state.state==InstrumentStateModel::enumIniting||state.state==InstrumentStateModel::enumRuning){
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1334"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1334"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }*/
 
     //_InstrumentState->setMachineState(InstrumentStateModel::enumIniting);
     //通信异常 如果返回通信异常则弹此弹窗
-    //MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1324"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-    m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1325"));//"自检进行中......");
+    //MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1324"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+    m_progressDialog->setHead(GlobalData::LoadLanguageInfo("K1325"));//"自检进行中......");
     m_progressDialog->setMaxValue(1 * 35 * 1500);
     m_progressDialog->exec();
     mOpenSoftwareInitFlage = 2;
@@ -950,8 +950,8 @@ void MainWidget::autoSelfCheckResult(QString code){
         _mSelfCheckResultShowDialog->show();
         _InstrumentState->setMachineState(enumState::enumStandby);
     }else{
-        QString result =GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code);
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), result, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        QString result =GlobalData::LoadLanguageInfo(code);
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), result, MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         _InstrumentState->setMachineState(enumState::enumError);
     }
 }
@@ -961,14 +961,14 @@ void MainWidget::shutdownMaintenResult(QString code){
     if(code=="0"){
         _InstrumentState->setMachineState(enumState::enumStandby);
         m_progressDialog->done(1);
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "关机维护已完成" , MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), "关机维护已完成" , MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }else if(code=="K1345"||code=="K1348"||code=="K1501"||code=="K1502"){
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo(code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         _instr->testContinue();
     }else{
         _InstrumentState->setMachineState(enumState::enumError);
         m_progressDialog->done(1);
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo(code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }
 }
 
@@ -977,15 +977,15 @@ void MainWidget::MonthMaintenResult(QString code){
     if(code=="0"){
         m_progressDialog->done(1);
         _InstrumentState->setMachineState(_InstrumentState->enumStandby);
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"),GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1446"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1446"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }else if(code=="K1345"||code=="K1348"){
         m_progressDialog->setShowTime(0);
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo(code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         _instr->testContinue();
     }else{
         m_progressDialog->done(1);
         _InstrumentState->setMachineState(_InstrumentState->enumError);
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo(code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }
 }
 
@@ -994,32 +994,32 @@ void MainWidget::WeekMaintenResult(QString code){
     if(code=="0"){
         _InstrumentState->setMachineState(_InstrumentState->enumStandby);
         m_progressDialog->done(1);
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1524"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1524"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }else if(code=="K1345"||code=="K1348"){
         m_progressDialog->setShowTime(0);
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo(code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         _instr->testContinue();
     }else{
         m_progressDialog->done(1);
         _InstrumentState->setMachineState(_InstrumentState->enumError);
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo(code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }
 }
 void MainWidget::systemPipWashResult(QString code){
     if(code=="0"){
         m_progressDialog->done(1);
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1024")+ GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(),"K1685"), MyMessageBox::Ok,  GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1024")+ GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(),"K1685"), MyMessageBox::Ok,  GlobalData::LoadLanguageInfo("K1181"), "");
     }else{
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo(code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }
 }
 
 void MainWidget::pipWashResult(QString code){
     if(code=="0"){
         m_progressDialog->done(1);
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1506"), MyMessageBox::Ok, "OK", "");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1506"), MyMessageBox::Ok, "OK", "");
     }else{
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo(code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }
 }
 
@@ -1027,10 +1027,10 @@ void MainWidget::pipFlowbackResultResult(QString code){
     if(code=="0"){
         _InstrumentState->setMachineState(_InstrumentState->enumStandby);
         m_progressDialog->done(1);
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1500"), MyMessageBox::Ok, "OK", "");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1500"), MyMessageBox::Ok, "OK", "");
     }else{
         _InstrumentState->setMachineState(_InstrumentState->enumError);
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo(code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }
 }
 
@@ -1053,7 +1053,7 @@ void MainWidget::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == _timerId)
     {
-        QString strDateTime = GlobalData::LoadLanguageInfo(g_language_type, "K1008");
+        QString strDateTime = GlobalData::LoadLanguageInfo("K1008");
         strDateTime += QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
         _ui->lblDateTime->setText(strDateTime);
         setIndicateLight();
@@ -1085,25 +1085,25 @@ void MainWidget::initUI()
 
     connect(_instr,&Instrument::sglMaintainInfor,this,[this](const QString &strResult){
         //if ("开机自检执行成功" == strResult)
-        QString sz_check_self_result = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1023") + GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1259");
+        QString sz_check_self_result = GlobalData::LoadLanguageInfo("K1023") + GlobalData::LoadLanguageInfo("K1259");
         if (sz_check_self_result != strResult){
-            //QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), strResult, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+            //QMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), strResult, GlobalData::LoadLanguageInfo("K1181"));
             if (mCheckInfoVector.size() > 0)
             {
                 QString error_content = "";
-                error_content = QString("%1%2").arg(mCheckInfoVector[mCheckInfoVector.size()-1]).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1679"));
-                if (error_content == GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1679"))
+                error_content = QString("%1%2").arg(mCheckInfoVector[mCheckInfoVector.size()-1]).arg(GlobalData::LoadLanguageInfo("K1679"));
+                if (error_content == GlobalData::LoadLanguageInfo("K1679"))
                 {
-                    MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), strResult, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+                    MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), strResult, MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
                 }
                 else
                 {
-                    MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), error_content, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+                    MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), error_content, MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
                 }
             }
             else
             {
-                MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), strResult, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+                MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), strResult, MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
             }
 
             //_InstrumentState->setMachineState(enumState::enumError);
@@ -1166,8 +1166,8 @@ void MainWidget::setIndicateLight()
 	if (m.state == enumState::enumUnKnown)
 	{
 		_ui->btnRunState->setProperty("btnStyle", "stateErrorStyle");
-		_ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1059"));
-		_ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1059"));
+		_ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo("K1059"));
+		_ui->label_3->setText(GlobalData::LoadLanguageInfo("K1059"));
 		style()->polish(_ui->btnRunState);
 		return;
 	}
@@ -1177,22 +1177,22 @@ void MainWidget::setIndicateLight()
     case enumState::enumUnConn:
     {
         _ui->btnRunState->setProperty("btnStyle","stateErrorStyle");
-        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1059"));//tr("串口联接失败"));
-        _ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1059"));//"串口联接失败");
+        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo("K1059"));//tr("串口联接失败"));
+        _ui->label_3->setText(GlobalData::LoadLanguageInfo("K1059"));//"串口联接失败");
         break;
     }
     case enumState::enumConn:
     {
         _ui->btnRunState->setProperty("btnStyle","stateConnectStyle");
-        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1060"));//tr("设备联接成功"));
-        _ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1060"));//"设备联接成功");
+        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo("K1060"));//tr("设备联接成功"));
+        _ui->label_3->setText(GlobalData::LoadLanguageInfo("K1060"));//"设备联接成功");
         break; 
     }
     case enumState::enumStandby:
     {
         _ui->btnRunState->setProperty("btnStyle","stateConnectStyle");
-        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1061"));//tr("设备就绪状态"));
-        _ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1061"));//"设备就绪状态");
+        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo("K1061"));//tr("设备就绪状态"));
+        _ui->label_3->setText(GlobalData::LoadLanguageInfo("K1061"));//"设备就绪状态");
         break;
     }
     case enumState::enumRuning:
@@ -1206,8 +1206,8 @@ void MainWidget::setIndicateLight()
             _ui->btnRunState->setProperty("btnStyle","stateIntermediateStyle");
         }
         _twinkleFlag = !_twinkleFlag;
-        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1062"));//tr("设备运行状态"));
-        _ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1062"));//"设备运行状态");
+        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo("K1062"));//tr("设备运行状态"));
+        _ui->label_3->setText(GlobalData::LoadLanguageInfo("K1062"));//"设备运行状态");
         break;
     }
     case enumState::enumCloseSoft:
@@ -1222,15 +1222,15 @@ void MainWidget::setIndicateLight()
             _ui->btnRunState->setProperty("btnStyle","stateIntermediateStyle");
         }
         _twinkleFlag = !_twinkleFlag;
-        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1063"));//tr("设备初始化状态"));
-        _ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1063"));//"设备初始化状态");
+        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo("K1063"));//tr("设备初始化状态"));
+        _ui->label_3->setText(GlobalData::LoadLanguageInfo("K1063"));//"设备初始化状态");
         break;
     }
     case enumState::enumError:
     {
         _ui->btnRunState->setProperty("btnStyle","stateErrorStyle");
-        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo(g_language_type, "K1064"));//tr("设备运行错误状态"));
-        _ui->label_3->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1064"));//"设备运行错误状态");
+        _ui->btnRunState->setToolTip(GlobalData::LoadLanguageInfo("K1064"));//tr("设备运行错误状态"));
+        _ui->label_3->setText(GlobalData::LoadLanguageInfo("K1064"));//"设备运行错误状态");
         break;
     }
     }
@@ -1240,7 +1240,7 @@ void MainWidget::setIndicateLight()
 
 void MainWidget::on_pBtnLogout_clicked()
 {
-    int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1326"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1327"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+    int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo("K1326"), GlobalData::LoadLanguageInfo("K1327"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if (ret == MyMessageBox::Yes)
     {
         emit sglLogout();
@@ -1260,7 +1260,7 @@ void MainWidget::on_pBtnAbout_clicked()
 void MainWidget::on_pBtnExit_clicked()
 {
     //int ret = MyMessageBox::question(this, STR_SHUT_DOWN, STR_SHUT_DOWN_CONFIRM, MyMessageBox::Yes | MyMessageBox::No, STR_OK, STR_CANCEL);
-    int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1328"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1329"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+    int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo("K1328"), GlobalData::LoadLanguageInfo("K1329"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if (ret == MyMessageBox::Yes)
     {
     }
@@ -1270,8 +1270,8 @@ void MainWidget::slotSoftClose(bool isSuccess)
 {
     if (!isSuccess)
     {
-        //auto ret = QMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "关机流程执行失败，是否继续关机！！", "是", "否");
-        auto ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+        //auto ret = QMessageBox::question(this, GlobalData::LoadLanguageInfo("K1180"), "关机流程执行失败，是否继续关机！！", "是", "否");
+        auto ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1180"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
         if (!ret)
         {
             qApp->quit();
@@ -1284,13 +1284,13 @@ void MainWidget::slotSoftClose(bool isSuccess)
 void MainWidget::on_pBtnClose_clicked()
 {
     QMessageBox messageBox;
-    messageBox.setWindowTitle(GlobalData::LoadLanguageInfo(g_language_type, "K1003"));//"退出");
-    messageBox.setText(GlobalData::LoadLanguageInfo(g_language_type, "K1578"));//"软件退出提示.");
+    messageBox.setWindowTitle(GlobalData::LoadLanguageInfo("K1003"));//"退出");
+    messageBox.setText(GlobalData::LoadLanguageInfo("K1578"));//"软件退出提示.");
     messageBox.setIconPixmap(QPixmap(":/images/buttonIcon/icon.png"));
 
-    QPushButton *yesButton = messageBox.addButton(GlobalData::LoadLanguageInfo(g_language_type, "K1332"), QMessageBox::YesRole);
-    QPushButton *noButton = messageBox.addButton(GlobalData::LoadLanguageInfo(g_language_type, "K1333"), QMessageBox::NoRole);
-    QPushButton *cancelButton = messageBox.addButton(GlobalData::LoadLanguageInfo(g_language_type, "K1579"), QMessageBox::RejectRole);
+    QPushButton *yesButton = messageBox.addButton(GlobalData::LoadLanguageInfo("K1332"), QMessageBox::YesRole);
+    QPushButton *noButton = messageBox.addButton(GlobalData::LoadLanguageInfo("K1333"), QMessageBox::NoRole);
+    QPushButton *cancelButton = messageBox.addButton(GlobalData::LoadLanguageInfo("K1579"), QMessageBox::RejectRole);
     messageBox.setDefaultButton(cancelButton);
     messageBox.exec();
 
@@ -1299,7 +1299,7 @@ void MainWidget::on_pBtnClose_clicked()
         //qDebug() << "User clicked Yes";
 
         //actionClick(MENU_ID_APPLICATION_PIPEWASHEMPTY, STR_MENU_PIPE_WASH_EMPTY, _PipeWashEmptyingWidgets);
-        actionClick(MENU_ID_APPLICATION_PIPEWASHEMPTY, GlobalData::LoadLanguageInfo(g_language_type, "K1332"), _PipeWashEmptyingWidgets);
+        actionClick(MENU_ID_APPLICATION_PIPEWASHEMPTY, GlobalData::LoadLanguageInfo("K1332"), _PipeWashEmptyingWidgets);
     }
     else if (messageBox.clickedButton() == noButton) {
         /*_instr->setBuzzleOnOff(0x00);
@@ -1379,7 +1379,7 @@ void MainWidget::on_pBtnClose_clicked()
     }
     return;
     //int ret = QMessageBox::question(this, STR_SHUT_DOWN, STR_SHUT_DOWN_CONFIRM, STR_OK, STR_CANCEL);
-    int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1328"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1331"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1332"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1333"));
+    int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo("K1328"), GlobalData::LoadLanguageInfo("K1331"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1332"), GlobalData::LoadLanguageInfo("K1333"));
     if (ret == MyMessageBox::Yes)
     {
         actionClick(MENU_ID_APPLICATION_PIPEWASHEMPTY, STR_MENU_PIPE_WASH_EMPTY, _PipeWashEmptyingWidgets);
@@ -1484,10 +1484,10 @@ void MainWidget::on_btnRunState_clicked()
     auto m = _InstrumentState->getMachineState();
     if(!m.canInit)
     {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1334"), MyMessageBox::Yes, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1334"), MyMessageBox::Yes, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
-    auto ret= MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1335"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+    auto ret= MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1335"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if(ret != 0)
         return;
     //_instr->maintain(eStartUpCheck);
@@ -1505,11 +1505,11 @@ void MainWidget::on_btnReturnMain_clicked()
     auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1581"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1581"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
 
-    int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1260"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1336"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+    int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo("K1260"), GlobalData::LoadLanguageInfo("K1336"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if (ret != MyMessageBox::Yes)
     {
         return;
@@ -1533,7 +1533,7 @@ void MainWidget::on_pushButton_osk_open_clicked()
         }
         m_open_key_word = 1;
         //K1638
-        _ui->pushButton_osk_open->setText("     " + GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1638"));
+        _ui->pushButton_osk_open->setText("     " + GlobalData::LoadLanguageInfo("K1638"));
     }
     else
     {
@@ -1551,7 +1551,7 @@ void MainWidget::on_pushButton_osk_open_clicked()
         }
         m_open_key_word = 0;
         //K1006 打开键盘
-        _ui->pushButton_osk_open->setText("     "+ GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1006"));
+        _ui->pushButton_osk_open->setText("     "+ GlobalData::LoadLanguageInfo("K1006"));
     }
 }
 
@@ -1596,13 +1596,13 @@ void MainWidget::removeSubTab(int index)
 {
     /*if (_weekMaintenanceWidgets->mWeekMaintenance_run_flage)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1338"), MyMessageBox::Yes, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1338"), MyMessageBox::Yes, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
 
     if (_monthMaintenanceWidgets->mMonthMaintenance_run_flage)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1339"), MyMessageBox::Yes, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1339"), MyMessageBox::Yes, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }*/
 
@@ -1632,7 +1632,7 @@ void MainWidget::OnAction_MagicManage()
 void MainWidget::OnAction_ReagentManager()
 {
     //actionClick(MENU_ID_REAGENT,STR_MENU_REAGENT,new ReagentManager(this));
-    actionClick(MENU_ID_REAGENT, GlobalData::LoadLanguageInfo(g_language_type, "K1016"), new ReagentManager(this));
+    actionClick(MENU_ID_REAGENT, GlobalData::LoadLanguageInfo("K1016"), new ReagentManager(this));
 }
 
 void MainWidget::OnAction_TubeManage()
@@ -1668,7 +1668,7 @@ void MainWidget::OnAction_Camera()
 void MainWidget::OnAction_RulesSetting()
 {
     //actionClick(MENU_ID_RULESETTING, STR_RULES_SETTING, new RulesSetting(this));
-    actionClick(MENU_ID_RULESETTING, GlobalData::LoadLanguageInfo(g_language_type, "K1022"), new RulesSetting(this));
+    actionClick(MENU_ID_RULESETTING, GlobalData::LoadLanguageInfo("K1022"), new RulesSetting(this));
 }
 
 void MainWidget::OnAction_systemLiquid()
@@ -1691,7 +1691,7 @@ void MainWidget::OnAction_pipe_reflux()
     auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     ChangWidgetsStartStatus();
@@ -1699,7 +1699,7 @@ void MainWidget::OnAction_pipe_reflux()
 
 
 
-    actionClick(MENU_ID_PIPE_REFLUX, GlobalData::LoadLanguageInfo(g_language_type, "K1219"), _pipeRefluxWidgets);
+    actionClick(MENU_ID_PIPE_REFLUX, GlobalData::LoadLanguageInfo("K1219"), _pipeRefluxWidgets);
     //actionClick(MENU_ID_PIPE_REFLUX, STR_MENU_NEW_PIPE_FEFLUX, _pipeRefluxWidgets);
 }
 
@@ -1708,13 +1708,13 @@ void MainWidget::OnAction_system_liquid_pipe_wash()
     auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     ChangWidgetsStartStatus();
     _mSystemLiquidPipeWashWidgets->updateUI();
 
-    actionClick(MENU_ID_SYSTEM_LIQUID_PIPE_WASH, GlobalData::LoadLanguageInfo(g_language_type, "K1217"), _mSystemLiquidPipeWashWidgets);
+    actionClick(MENU_ID_SYSTEM_LIQUID_PIPE_WASH, GlobalData::LoadLanguageInfo("K1217"), _mSystemLiquidPipeWashWidgets);
     //actionClick(MENU_ID_SYSTEM_LIQUID_PIPE_WASH, STR_MENU_SYSTEM_LIQUID_PIPE_WASH, _mSystemLiquidPipeWashWidgets);
 }
 
@@ -1723,24 +1723,24 @@ void MainWidget::OnAction_pipe_wash()
     auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     ChangWidgetsStartStatus();
     _pipeWashWidgets->updateUI();
     //actionClick(MENU_ID_PIPE_WASH, STR_MENU_NEW_PIPE_WASH, _pipeWashWidgets);
-    actionClick(MENU_ID_PIPE_WASH, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1026"), _pipeWashWidgets);
+    actionClick(MENU_ID_PIPE_WASH, GlobalData::LoadLanguageInfo("K1026"), _pipeWashWidgets);
 }
 void MainWidget::OnAction_pump_auto_check()
 {
     /*auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }*/
     ChangWidgetsStartStatus();
-    actionClick(MENU_ID_PERISTALTIC_PUMP_AUTO_CHECK, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1027"), _pumpAutoCheckWidgets);
+    actionClick(MENU_ID_PERISTALTIC_PUMP_AUTO_CHECK, GlobalData::LoadLanguageInfo("K1027"), _pumpAutoCheckWidgets);
     //actionClick(MENU_ID_PERISTALTIC_PUMP_AUTO_CHECK, STR_MENU_NEW_PERISTALTIC_PUMP_AUTO_CHECK, _pumpAutoCheckWidgets);
 }
 void MainWidget::OnAction_pump_mana_check()
@@ -1748,22 +1748,22 @@ void MainWidget::OnAction_pump_mana_check()
     /*auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }*/
     ChangWidgetsStartStatus();
-    actionClick(MENU_ID_PERISTALTIC_PUMP_MANA_CHECK, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1028"), _pumpManaCheckWidgets);
+    actionClick(MENU_ID_PERISTALTIC_PUMP_MANA_CHECK, GlobalData::LoadLanguageInfo("K1028"), _pumpManaCheckWidgets);
 }
 void MainWidget::OnAction_liquid_detection()
 {
     /*auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }*/
     ChangWidgetsStartStatus();
-    actionClick(MENU_ID_LIQUID_DETECTION, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1029"), _liquidDetectionWidgets);
+    actionClick(MENU_ID_LIQUID_DETECTION, GlobalData::LoadLanguageInfo("K1029"), _liquidDetectionWidgets);
 }
 
 void MainWidget::OnAction_week_mantace()
@@ -1773,12 +1773,12 @@ void MainWidget::OnAction_week_mantace()
     auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     ChangWidgetsStartStatus();
     _weekMaintenanceWidgets->updateUI();
-    actionClick(MENU_ID_WEEK_MANTAINCE, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1030"), _weekMaintenanceWidgets);
+    actionClick(MENU_ID_WEEK_MANTAINCE, GlobalData::LoadLanguageInfo("K1030"), _weekMaintenanceWidgets);
 }
 
 void MainWidget::OnAction_ManIncubation()//手动孵育
@@ -1789,7 +1789,7 @@ void MainWidget::OnAction_ManIncubation()//手动孵育
     auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     ChangWidgetsStartStatus();
@@ -1801,7 +1801,7 @@ void MainWidget::OnAction_month_mantace()
     auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     ChangWidgetsStartStatus();
@@ -1811,7 +1811,7 @@ void MainWidget::OnAction_month_mantace()
 void MainWidget::OnActive_camera_check()
 {
     ChangWidgetsStartStatus();
-    actionClick(MENU_ID_CAMERA_CHECK, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1032"), _cameraCheckWidgets);
+    actionClick(MENU_ID_CAMERA_CHECK, GlobalData::LoadLanguageInfo("K1032"), _cameraCheckWidgets);
 }
 
 //新泵磨合
@@ -1820,11 +1820,11 @@ void MainWidget::OnActive_new_pump_running_in()
     auto state = _InstrumentState->getMachineState();
     if (state.state != enumState::enumStandby)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     ChangWidgetsStartStatus();
-    actionClick(MENU_ID_NEW_PUMP_RUNNING_IN, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1033"), _newPumpRunninInWidgets);
+    actionClick(MENU_ID_NEW_PUMP_RUNNING_IN, GlobalData::LoadLanguageInfo("K1033"), _newPumpRunninInWidgets);
 }
 
 void MainWidget::ChangWidgetsStartStatus()
@@ -1857,7 +1857,7 @@ void MainWidget::on_btnMonthMaintain_clicked()
     _monthMaintenanceWidgets->HideGroupBox();
     _monthMaintenanceWidgets->step_index = 0;
     _monthMaintenanceWidgets->updateUI();
-    actionClick(MENU_ID_MONTH_MANTAINCE, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1031"), _monthMaintenanceWidgets);
+    actionClick(MENU_ID_MONTH_MANTAINCE, GlobalData::LoadLanguageInfo("K1031"), _monthMaintenanceWidgets);
 }
 
 void MainWidget::OnAction_CloseBeep()
@@ -1872,7 +1872,7 @@ void MainWidget::OnAction_selfRunCheck()
     auto state = _InstrumentState->getMachineState();
     if (state.state==_InstrumentState->enumRuning)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1340"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
 
@@ -1940,14 +1940,14 @@ void MainWidget::OnAction_applicationPassword()
 void MainWidget::OnAction_applicationUsers()
 {
     UserManageWidget* user_manage_widget = new UserManageWidget(this,_userFlage, mUserName);
-    actionClick(MENU_ID_APPLICATION_USERS, GlobalData::LoadLanguageInfo(g_language_type, "K1018"), user_manage_widget);
+    actionClick(MENU_ID_APPLICATION_USERS, GlobalData::LoadLanguageInfo("K1018"), user_manage_widget);
 }
 
 void MainWidget::OnAction_LisSetting()
 {
     LisSettingWidgets* lisSetting = new LisSettingWidgets(this);
     lisSetting->setTcpClient(m_tcpClient);
-    actionClick(MENU_ID_APPLICATION_LIS, GlobalData::LoadLanguageInfo(g_language_type, "K1209"), lisSetting);
+    actionClick(MENU_ID_APPLICATION_LIS, GlobalData::LoadLanguageInfo("K1209"), lisSetting);
 }
 
 void MainWidget::OnAction_applicationSet()
@@ -1975,7 +1975,7 @@ void MainWidget::openWelcomeWidgets() {
     welcome__w->move(ax, ay);
     //actionClick(MENU_ID_APPLICATION_OPERATELOG, STR_MENU_HELP_OPERATELOG, operate_log_w);
     //actionClick(MENU_ID_APPLICATION_WELCOME, STR_MENU_APPLICATION_WELCOME, welcome__w);
-    actionClick(MENU_ID_APPLICATION_WELCOME, GlobalData::LoadLanguageInfo(g_language_type, "K1113"), welcome__w);
+    actionClick(MENU_ID_APPLICATION_WELCOME, GlobalData::LoadLanguageInfo("K1113"), welcome__w);
 }
 
 void MainWidget::OnAction_applicationAbout()
@@ -1988,7 +1988,7 @@ void MainWidget::OnAction_applicationAbout()
     about_us_w->move(ax, ay);
     //actionClick(MENU_ID_APPLICATION_OPERATELOG, STR_MENU_HELP_OPERATELOG, operate_log_w);
     //actionClick(MENU_ID_APPLICATION_ABOUT,STR_MENU_APPLICATION_ABOUT, about_us_w);
-    actionClick(MENU_ID_APPLICATION_ABOUT, GlobalData::LoadLanguageInfo(g_language_type, "K1035"), about_us_w);
+    actionClick(MENU_ID_APPLICATION_ABOUT, GlobalData::LoadLanguageInfo("K1035"), about_us_w);
 }
 
 void MainWidget::OnAction_applicationTechSupport()
@@ -2037,26 +2037,26 @@ void MainWidget::alarmDeal(int code_level,QString tip_content)
         tip_content1 = QString("%1-%2").arg(tip_content).arg(code_level);
         emit sglAlarmInfo_SampleWidget(tip_content1,"01");
         writeAlarmInfo(tip_content1, "alarmInfo.log");
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tip_content1, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), tip_content1, MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         break;
     case 0x02:
         stopInstrument();
         tip_content1 = QString("%1-%2").arg(tip_content).arg(code_level);
         emit sglAlarmInfo_SampleWidget(tip_content1,"02");
         writeAlarmInfo(tip_content1, "alarmInfo.log");
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tip_content1, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), tip_content1, MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         break;
     case 0xFD:
         tip_content1 = QString("%1").arg(tip_content);
         emit sglAlarmInfo_SampleWidget(tip_content1,"FD");
         writeAlarmInfo(tip_content1, "alarmInfo.log");
-        //QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tip_content1, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+        //QMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), tip_content1, GlobalData::LoadLanguageInfo("K1181"));
         break;
     case 0xFE:
         tip_content1 = QString("%1").arg(tip_content);
         emit sglAlarmInfo_SampleWidget(tip_content1,"FE");
         writeAlarmInfo(tip_content1, "alarmInfo.log");
-        //QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tip_content1, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+        //QMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tip_content1, GlobalData::LoadLanguageInfo("K1181"));
         break;
     case 0xFF:
         tip_content1 = QString("%1").arg(tip_content);
@@ -2076,419 +2076,419 @@ void MainWidget::slotAlarmInfo(int warnCode)
     switch (warnCode)
     {
     case 0x9000:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9000"));//"样本臂吸样时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9000"));//"样本臂吸样时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9001:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9001"));//.arg("样本臂吸样时X轴电机运动至吸样位时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9001"));//.arg("样本臂吸样时X轴电机运动至吸样位时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9002:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9002"));//.arg("样本臂吸样时X轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9002"));//.arg("样本臂吸样时X轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9003:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9003"));//.arg("样本臂吸样时Y轴电机运动至吸样位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9003"));//.arg("样本臂吸样时Y轴电机运动至吸样位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9004:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9004"));//.arg("样本臂吸样时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9004"));//.arg("样本臂吸样时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9005:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9005"));//.arg("样本臂吸样时样Z轴电机使能液位探测时右光电立即有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9005"));//.arg("样本臂吸样时样Z轴电机使能液位探测时右光电立即有效");
         alarmDeal(0xFD, str);
         break;
     case 0x9006:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9006"));//.arg("样本臂吸样时Z轴电机运动至吸液位置发生垂直碰撞");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9006"));//.arg("样本臂吸样时Z轴电机运动至吸液位置发生垂直碰撞");
         //emit sglAlarmInfo_SampleWidget(str);
         //pauseInstrument();
         //pauseInstrument();
         alarmDeal(0xFD, str);
         break;
     case 0x9007:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9007"));//.arg("样本臂吸样时Z轴电机运动至吸液位置复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9007"));//.arg("样本臂吸样时Z轴电机运动至吸液位置复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x9008:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9008"));//.arg("样本臂吸样时样本针柱塞泵吸样复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9008"));//.arg("样本臂吸样时样本针柱塞泵吸样复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x9009:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9009"));//.arg("样本臂吸样时样本针柱塞泵吸样堵针");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9009"));//.arg("样本臂吸样时样本针柱塞泵吸样堵针");
         //emit sglAlarmInfo_SampleWidget(str);
         //pauseInstrument();
         //emit sglAlarmInfo_SampleWidget(str);
         alarmDeal(0xFD, str);
         break;
     case 0x900D:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x900D"));//.arg("样本臂吸样前样本针内压力值与设置的环境压力值相差大于100");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x900D"));//.arg("样本臂吸样前样本针内压力值与设置的环境压力值相差大于100");
         //emit sglAlarmInfo_SampleWidget(str);
         //pauseInstrument();
         //emit sglAlarmInfo_SampleWidget(str);
         alarmDeal(0xFE, str);
         break;
     case 0x900A:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x900A"));//.arg("样本臂吸样时Z轴电机第二次运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x900A"));//.arg("样本臂吸样时Z轴电机第二次运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x900B:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x900B"));//.arg("样本臂吸样时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x900B"));//.arg("样本臂吸样时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x900C:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x900C"));//.arg("样本臂吸样时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x900C"));//.arg("样本臂吸样时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9010:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9010"));//.arg("样本臂清洗时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9010"));//.arg("样本臂清洗时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9011:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9011"));//.arg("样本臂清洗时Y轴电机运动至清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9011"));//.arg("样本臂清洗时Y轴电机运动至清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9012:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9012"));//.arg("样本臂清洗时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9012"));//.arg("样本臂清洗时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9013:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9013"));//.arg("样本臂清洗时Z轴电机运动至清洗位置复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9013"));//.arg("样本臂清洗时Z轴电机运动至清洗位置复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x9014:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9014"));//.arg("样本臂清洗时样本针柱塞泵运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9014"));//.arg("样本臂清洗时样本针柱塞泵运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9015:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9015"));//.arg("样本臂清洗时Z轴电机第二次运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9015"));//.arg("样本臂清洗时Z轴电机第二次运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9016:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9016"));//.arg("清洗针下降时垂直碰撞");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9016"));//.arg("清洗针下降时垂直碰撞");
         alarmDeal(0xFD, str);
         break;
     case 0x9018:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9018"));//.arg("样本臂吐样时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9018"));//.arg("样本臂吐样时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9019:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9019"));//.arg("样本臂吐样时X轴电机运动至吐样位时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9019"));//.arg("样本臂吐样时X轴电机运动至吐样位时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x901A:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x901A"));//.arg("样本臂吐样时X轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x901A"));//.arg("样本臂吐样时X轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x901B:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x901B"));//.arg("样本臂吐样时摇床电机运动至吸液位置复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x901B"));//.arg("样本臂吐样时摇床电机运动至吸液位置复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x901C:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x901C"));//.arg("样本臂吐样时Y轴电机运动至吐样位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x901C"));//.arg("样本臂吐样时Y轴电机运动至吐样位置时编码器差值超48步以上");
         break;
     case 0x901D:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x901D"));//.arg("样本臂吐样时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x901D"));//.arg("样本臂吐样时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x901E:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x901E"));//.arg("样本臂吐样时Z轴电机使能液位探测时右光电立即有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x901E"));//.arg("样本臂吐样时Z轴电机使能液位探测时右光电立即有效");
         alarmDeal(0x02, str);
         break;
     case 0x901F:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x901F"));//.arg("样本臂吐样时Z轴电机运动至吐样位置发生垂直碰撞");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x901F"));//.arg("样本臂吐样时Z轴电机运动至吐样位置发生垂直碰撞");
         alarmDeal(0xFD, str);
         break;
     case 0x9020:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9020"));//.arg("样本臂吐样时Z轴电机第二次运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9020"));//.arg("样本臂吐样时Z轴电机第二次运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9021:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9021"));//.arg("样本臂吐样时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9021"));//.arg("样本臂吐样时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9022:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9022"));//.arg("样本臂吐样时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9022"));//.arg("样本臂吐样时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9028:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9028"));//.arg("样本条码扫描时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9028"));//.arg("样本条码扫描时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9029:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9029"));//.arg("样本条码扫描时Y轴电机运动至清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9029"));//.arg("样本条码扫描时Y轴电机运动至清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x902A:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x902A"));//.arg("样本条码扫描时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x902A"));//.arg("样本条码扫描时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x902B:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x902B"));//.arg("样本条码扫描时X轴电机运动至扫描位时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x902B"));//.arg("样本条码扫描时X轴电机运动至扫描位时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x902C:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x902C"));//.arg("样本条码扫描时X轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x902C"));//.arg("样本条码扫描时X轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9030:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9030"));//.arg("相机校准时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9030"));//.arg("相机校准时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9031:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9031"));//.arg("相机校准时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9031"));//.arg("相机校准时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9032:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9032"));//.arg("相机校准时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9032"));//.arg("相机校准时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9033:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9033"));//.arg("相机校准时X轴电机运动至相机校准位时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9033"));//.arg("相机校准时X轴电机运动至相机校准位时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9034:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9034"));//.arg("相机校准时X轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9034"));//.arg("相机校准时X轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9038:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9038"));//.arg("排废液及蠕动泵加液时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9038"));//.arg("排废液及蠕动泵加液时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9039:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9039"));//.arg("排废液及蠕动泵加液时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9039"));//.arg("排废液及蠕动泵加液时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x903A:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x903A"));//.arg("排废液及蠕动泵加液时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x903A"));//.arg("排废液及蠕动泵加液时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x903B:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x903B"));//.arg("排废液及蠕动泵加液时摇床电机运动至吸液位置复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x903B"));//.arg("排废液及蠕动泵加液时摇床电机运动至吸液位置复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x903C:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x903C"));//.arg("排废液及蠕动泵加液时X轴电机运动至排液位时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x903C"));//.arg("排废液及蠕动泵加液时X轴电机运动至排液位时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x903D:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x903D"));//.arg("排废液及蠕动泵加液时X轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x903D"));//.arg("排废液及蠕动泵加液时X轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x903E:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x903E"));//.arg("排废液及蠕动泵加液时Y轴电机运动至废液槽触发抽废液位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x903E"));//.arg("排废液及蠕动泵加液时Y轴电机运动至废液槽触发抽废液位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x903F:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x903F"));//.arg("排废液及蠕动泵加液时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x903F"));//.arg("排废液及蠕动泵加液时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9040:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9040"));//.arg("排废液及蠕动泵加液时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9040"));//.arg("排废液及蠕动泵加液时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9041:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9041"));//.arg("排废液及蠕动泵加液时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9041"));//.arg("排废液及蠕动泵加液时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9048:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9048"));//.arg("蠕动泵充灌时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9048"));//.arg("蠕动泵充灌时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9049:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9049"));//.arg("蠕动泵充灌时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9049"));//.arg("蠕动泵充灌时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x904A:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x904A"));//.arg("蠕动泵充灌时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x904A"));//.arg("蠕动泵充灌时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x904B:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x904B"));//.arg("蠕动泵充灌时X轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x904B"));//.arg("蠕动泵充灌时X轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x904C:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x904C"));//.arg("蠕动泵充灌时Y轴电机运动至废液槽触发抽废液位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x904C"));//.arg("蠕动泵充灌时Y轴电机运动至废液槽触发抽废液位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x904D:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x904D"));//.arg("蠕动泵充灌时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x904D"));//.arg("蠕动泵充灌时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x904E:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x904E"));//.arg("蠕动泵充灌时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x904E"));//.arg("蠕动泵充灌时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x904F:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x904F"));//.arg("蠕动泵充灌时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x904F"));//.arg("蠕动泵充灌时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9050:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9050"));//.arg("扫码器自检时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9050"));//.arg("扫码器自检时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9051:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9051"));//.arg("扫码器自检时Y轴电机运动至清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9051"));//.arg("扫码器自检时Y轴电机运动至清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9052:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9052"));//.arg("扫码器自检时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9052"));//.arg("扫码器自检时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9053:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9053"));//.arg("扫码器自检时X轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9053"));//.arg("扫码器自检时X轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9058:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9058"));//.arg("蠕动泵校准时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9058"));//.arg("蠕动泵校准时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9059:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9059"));//.arg("蠕动泵校准时X轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9059"));//.arg("蠕动泵校准时X轴电机运动至复位位置复位光耦无效");
         //pauseInstrument();
         alarmDeal(0x02, str);
         break;
     case 0x905A:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x905A"));//.arg("蠕动泵校准时Y轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x905A"));//.arg("蠕动泵校准时Y轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x905B:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x905B"));//.arg("蠕动泵校准时Y轴电机运动至废液槽触发抽废液位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x905B"));//.arg("蠕动泵校准时Y轴电机运动至废液槽触发抽废液位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x905C:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x905C"));//.arg("蠕动泵校准时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x905C"));//.arg("蠕动泵校准时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x905D:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x905D"));//.arg("蠕动泵校准时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x905D"));//.arg("蠕动泵校准时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x905E:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x905E"));//.arg("蠕动泵校准时Y轴电机运动至样本针清洗位置补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x905E"));//.arg("蠕动泵校准时Y轴电机运动至样本针清洗位置补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x905F:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x905F"));//.arg("蠕动泵校准时Y轴电机第二次运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x905F"));//.arg("蠕动泵校准时Y轴电机第二次运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9060:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9060"));//.arg("蠕动泵校准时Z轴电机使能液位探测时右光电立即有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9060"));//.arg("蠕动泵校准时Z轴电机使能液位探测时右光电立即有效");
         alarmDeal(0xFD, str);
         break;
     case 0x9061:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9061"));//.arg("蠕动泵校准时Z轴电机运动至废液槽高度位置复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9061"));//.arg("蠕动泵校准时Z轴电机运动至废液槽高度位置复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x9062:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9062"));//.arg("蠕动泵校准时Z轴电机第二次运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9062"));//.arg("蠕动泵校准时Z轴电机第二次运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9063:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9063"));//.arg("蠕动泵校准时Z轴电机第二次使能液位探测时右光电立即有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9063"));//.arg("蠕动泵校准时Z轴电机第二次使能液位探测时右光电立即有效");
         alarmDeal(0x02, str);
         break;
     case 0x9064:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9064"));//.arg("蠕动泵校准时Z轴电机第二次运动至废液槽高度位置复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9064"));//.arg("蠕动泵校准时Z轴电机第二次运动至废液槽高度位置复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x9065:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9065"));//.arg("蠕动泵校准时Z轴电机第三次运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9065"));//.arg("蠕动泵校准时Z轴电机第三次运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9066:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9066"));//.arg("蠕动泵校准时Y轴电机第二次运动至废液槽触发抽废液位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9066"));//.arg("蠕动泵校准时Y轴电机第二次运动至废液槽触发抽废液位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9067:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9067"));//.arg("蠕动泵校准时Y轴电机第二次运动至废液槽触发抽废液位置补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9067"));//.arg("蠕动泵校准时Y轴电机第二次运动至废液槽触发抽废液位置补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9068:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9068"));//.arg("蠕动泵校准时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9068"));//.arg("蠕动泵校准时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9069:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9069"));//.arg("蠕动泵校准时Y轴电机第二次运动至样本针清洗位置补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9069"));//.arg("蠕动泵校准时Y轴电机第二次运动至样本针清洗位置补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9070:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9070"));//.arg("膜条拍照时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9070"));//.arg("膜条拍照时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9071:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9071"));//.arg("膜条拍照时Y轴电机运动至清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9071"));//.arg("膜条拍照时Y轴电机运动至清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9072:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9072"));//.arg("膜条拍照时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9072"));//.arg("膜条拍照时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9073:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9073"));//.arg("膜条拍照时X轴电机运动至膜条拍照位时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9073"));//.arg("膜条拍照时X轴电机运动至膜条拍照位时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9074:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9074"));//.arg("膜条拍照时X轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9074"));//.arg("膜条拍照时X轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9075:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9075"));//.arg("膜条拍照时摇床电机运动至拍照位置复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9075"));//.arg("膜条拍照时摇床电机运动至拍照位置复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x9080:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9080"));//.arg("系统液充灌时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9080"));//.arg("系统液充灌时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9081:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9081"));//.arg("系统液充灌时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9081"));//.arg("系统液充灌时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
         break;
     case 0x9082:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9082"));//.arg("系统液充灌时Y轴电机运动至样本针清洗位置补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9082"));//.arg("系统液充灌时Y轴电机运动至样本针清洗位置补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9083:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9083"));//.arg("系统液充灌时 样本针柱塞泵电机初始化复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9083"));//.arg("系统液充灌时 样本针柱塞泵电机初始化复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9084:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9084"));//.arg("系统液充灌时Z轴电机运动至清洗位一半高度时复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9084"));//.arg("系统液充灌时Z轴电机运动至清洗位一半高度时复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x9088:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9088"));//.arg("系统液管路清洗时Z轴电机运动至复位位置复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9088"));//.arg("系统液管路清洗时Z轴电机运动至复位位置复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x9089:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9089"));//.arg("系统液管路清洗时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9089"));//.arg("系统液管路清洗时Y轴电机运动至样本针清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x908A:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x908A"));//.arg("系统液管路清洗时Y轴电机运动至样本针清洗位置补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x908A"));//.arg("系统液管路清洗时Y轴电机运动至样本针清洗位置补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x908B:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x908B"));//.arg("系统液管路清洗时 样本针柱塞泵电机初始化复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x908B"));//.arg("系统液管路清洗时 样本针柱塞泵电机初始化复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0x908C:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x908C"));//.arg("系统液管路清洗时Z轴电机运动至清洗位高度时复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x908C"));//.arg("系统液管路清洗时Z轴电机运动至清洗位高度时复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0x9090:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9090"));//.arg("调速风扇工作时Y轴电机运动至清洗位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9090"));//.arg("调速风扇工作时Y轴电机运动至清洗位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9091:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9091"));//.arg("调速风扇工作时Y轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9091"));//.arg("调速风扇工作时Y轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
     case 0x9092:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9092"));//.arg("调速风扇工作时X轴电机运动至相机校准位 + 偏离槽距离位置时编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9092"));//.arg("调速风扇工作时X轴电机运动至相机校准位 + 偏离槽距离位置时编码器差值超48步以上");
         alarmDeal(0xFF, str);
         break;
     case 0x9093:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x9093"));//.arg("调速风扇工作时X轴电机补偿运动后编码器差值超48步以上");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x9093"));//.arg("调速风扇工作时X轴电机补偿运动后编码器差值超48步以上");
         alarmDeal(0x02, str);
         break;
         //FF	0x9090	调速风扇工作时Y轴电机运动至清洗位置时编码器差值超48步以上
@@ -2496,47 +2496,47 @@ void MainWidget::slotAlarmInfo(int warnCode)
         //	FF	0x9092	调速风扇工作时X轴电机运动至相机校准位 + 偏离槽距离位置时编码器差值超48步以上
         //	02	0x9093	调速风扇工作时X轴电机补偿运动后编码器差值超48步以上
     case 0xA001:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA001"));//.arg("X轴电机初始化时定速运动到复位位置时用时12s复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA001"));//.arg("X轴电机初始化时定速运动到复位位置时用时12s复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0xA101:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA101"));//.arg("X轴电机初始化时退出复位位置设定的步数时复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA101"));//.arg("X轴电机初始化时退出复位位置设定的步数时复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0xA002:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA002"));//.arg("Y轴电机初始化时定速运动到复位位置时用时12s复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA002"));//.arg("Y轴电机初始化时定速运动到复位位置时用时12s复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0xA102:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA102"));//.arg("Y轴电机初始化时退出复位位置设定的步数时复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA102"));//.arg("Y轴电机初始化时退出复位位置设定的步数时复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0xA003:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA003"));//.arg("Z轴电机初始化时定速运动到复位位置时用时12s复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA003"));//.arg("Z轴电机初始化时定速运动到复位位置时用时12s复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0xA103:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA103"));//.arg("Z轴电机初始化时退出复位位置设定的步数时复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA103"));//.arg("Z轴电机初始化时退出复位位置设定的步数时复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0xA004:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA004"));//.arg("样本柱塞泵电机初始化时定速运动到复位位置时用时12s复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA004"));//.arg("样本柱塞泵电机初始化时定速运动到复位位置时用时12s复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0xA104:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA104"));//.arg("样本柱塞泵电机初始化时退出复位位置设定的步数时复位光耦有效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA104"));//.arg("样本柱塞泵电机初始化时退出复位位置设定的步数时复位光耦有效");
         alarmDeal(0x02, str);
         break;
     case 0xA005:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA005"));//.arg("摇床电机初始化时定速运动到复位位置时用时12s复位光耦无效");
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA005"));//.arg("摇床电机初始化时定速运动到复位位置时用时12s复位光耦无效");
         alarmDeal(0x02, str);
         break;
     case 0xA105:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0xA105"));
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0xA105"));
         alarmDeal(0x02, str);
         break;
     case 0x8f01:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f04"));
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x8f04"));
         _ui->btnWasteBottle->setToolTip(str);
         _ui->btnWasteBottle->setStyleSheet("QPushButton{ qproperty-icon: url(:/images/menu/wasteBottle.png);}");
         update();
@@ -2544,8 +2544,8 @@ void MainWidget::slotAlarmInfo(int warnCode)
         Sleep(150);
         break;
     case 0x8f02:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f02"));
-        _ui->btnSystemLiquidStatus->setToolTip(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f02"));
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x8f02"));
+        _ui->btnSystemLiquidStatus->setToolTip(GlobalData::LoadLanguageInfo("0x8f02"));
         _ui->btnSystemLiquidStatus->setStyleSheet("QPushButton {qproperty-icon: url(:/images/menu/systemLiquidStatusNoFull.png);}");
         update();
         writeAlarmInfo(str, "alarmInfo.log");
@@ -2558,7 +2558,7 @@ void MainWidget::slotAlarmInfo(int warnCode)
         QString save_set1 = dao->SelectSaveSetById(&bResult, 20001);
         if (save_set == "1")
         {
-            _ui->btnWasteBottle->setToolTip(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f01"));
+            _ui->btnWasteBottle->setToolTip(GlobalData::LoadLanguageInfo("0x8f01"));
             _ui->btnWasteBottle->setStyleSheet("QPushButton{ qproperty-icon: url(:/images/menu/wasteBottleFull.png);}");
             update();
             writeAlarmInfo(str, "alarmInfo.log");
@@ -2574,17 +2574,17 @@ void MainWidget::slotAlarmInfo(int warnCode)
         break;
     }
     case 0x8f05:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f05"));
-        _ui->btnSystemLiquidStatus->setToolTip(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f05"));
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x8f05"));
+        _ui->btnSystemLiquidStatus->setToolTip(GlobalData::LoadLanguageInfo("0x8f05"));
         _ui->btnSystemLiquidStatus->setStyleSheet("QPushButton {qproperty-icon: url(:/images/menu/systemLiquidStatusFull.png);}");
         break;
     case 0x8f06:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f06"));
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x8f06"));
         alarmDeal(0xFE, str);
 
         break;
     case 0x8f07:
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f07"));
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x8f07"));
         alarmDeal(0xFE, str);
         break;
     case 0x8f00:
@@ -2592,11 +2592,11 @@ void MainWidget::slotAlarmInfo(int warnCode)
             break;
         if (mActiveQuery == 3)
             break;
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1343"));
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("K1343"));
         //_instr->setIsPause(true);
-        ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1342"), MyMessageBox::Ok| MyMessageBox::Cancel, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1341"),GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+        ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1342"), MyMessageBox::Ok| MyMessageBox::Cancel, GlobalData::LoadLanguageInfo("K1341"),GlobalData::LoadLanguageInfo("K1181"));
 
-        emit sglAlarmInfo_SampleWidget(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1342"), "FE");
+        emit sglAlarmInfo_SampleWidget(GlobalData::LoadLanguageInfo("K1342"), "FE");
         if (ret == QMessageBox::NoButton) {
             mActiveQuery = 3;
             Global::g_OpenCoverStatus = 5;
@@ -2613,7 +2613,7 @@ void MainWidget::slotAlarmInfo(int warnCode)
             break;
         if (mActiveQuery == 3)
             break;
-        str = QString("%1").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "0x8f03"));
+        str = QString("%1").arg(GlobalData::LoadLanguageInfo("0x8f03"));
         //_instr->setIsPause(false);
         break;
     default:
@@ -2676,7 +2676,7 @@ void MainWidget::slotMinitorTemperature(float temperature)
     }
     QString str = "";
     QString str2 = QString::number(temperature, 'f', 1);
-    str = QString("%1：%2 ℃  ").arg(GlobalData::LoadLanguageInfo(g_language_type, "K1007")).arg(str2);
+    str = QString("%1：%2 ℃  ").arg(GlobalData::LoadLanguageInfo("K1007")).arg(str2);
     _ui->lbTemperature->setText(str);
 }
 
@@ -2688,19 +2688,19 @@ void MainWidget::slotMonthMaintain(int result)
     {
         if (result < 0)
         {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1344"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1344"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
             return;
         }
         //_instr->maintain(eTubeSoak);
         _maintainStep = 2;
-        m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1627"));//"管路浸泡中......");
+        m_progressDialog->setHead(GlobalData::LoadLanguageInfo("K1627"));//"管路浸泡中......");
         m_progressDialog->setMaxValue(15 * 60 * 1000);
         m_progressDialog->exec();
         break;
     }
     case 2:
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1345"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1345"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         QVector<uchar>pumpVect{ 0,1,2,3,4,5,6,7,8 };
         //_instr->setPumpVect(pumpVect);
         //_instr->maintain(ePumpFill);
@@ -2716,7 +2716,7 @@ void MainWidget::slotMonthMaintain(int result)
     {
         if (result < 0)
         {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1346"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1346"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
             return;
         }
         QVector<uchar>pumpVect{ 0,1,2,3,4,5,6,7,8 };
@@ -2731,10 +2731,10 @@ void MainWidget::slotMonthMaintain(int result)
     {
         if (result < 0)
         {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1347"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1347"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
             return;
         }
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1348"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1348"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         QVector<uchar>pumpVect{ 0,1,2,3,4,5,6,7,8 };
         //_instr->setPumpVect(pumpVect);
         //_instr->maintain(ePumpFill);

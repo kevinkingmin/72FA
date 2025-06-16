@@ -96,20 +96,20 @@ void LogInForm::SetControlText()
 	QString language_type = dao->SelectTargetValueDes(&bResult, "20005");
 	GlobalData::setLanguageType(language_type);
 	bResult = false;
-	QString user_name_info = GlobalData::LoadLanguageInfo(language_type, "K1004");//.GetLanguagInfo("K1001");
-	QString password_info = GlobalData::LoadLanguageInfo(language_type, "KPassword");
-	QString TitleLoginKTitle = GlobalData::LoadLanguageInfo(language_type, "KTitle");
-	QString TitleLoginK1001 = GlobalData::LoadLanguageInfo(language_type, "K1001");
-	QString KCampany = GlobalData::LoadLanguageInfo(language_type, "KCampany");
-	QString KVersion = GlobalData::LoadLanguageInfo(language_type, "KVersion");
+	QString user_name_info = GlobalData::LoadLanguageInfo("K1004");//.GetLanguagInfo("K1001");
+	QString password_info = GlobalData::LoadLanguageInfo("KPassword");
+	QString TitleLoginKTitle = GlobalData::LoadLanguageInfo("KTitle");
+	QString TitleLoginK1001 = GlobalData::LoadLanguageInfo("K1001");
+	QString KCampany = GlobalData::LoadLanguageInfo("KCampany");
+	QString KVersion = GlobalData::LoadLanguageInfo("KVersion");
 	ui->labelLogInUserName->setText(user_name_info);
 	ui->labelLogInPasssord->setText(password_info);
 	ui->labelTitleLogin->setText(TitleLoginKTitle);
 	ui->labelLogIn->setText(TitleLoginK1001);
-	ui->pushButtonLogIn->setText(GlobalData::LoadLanguageInfo(language_type, "K1002"));
-	ui->pushButtonLogOut->setText(GlobalData::LoadLanguageInfo(language_type, "K1003"));
+	ui->pushButtonLogIn->setText(GlobalData::LoadLanguageInfo("K1002"));
+	ui->pushButtonLogOut->setText(GlobalData::LoadLanguageInfo("K1003"));
 	ui->labelVersionInfo->setText(KVersion);
-	ui->labelCampanyInfo->setText(GlobalData::LoadLanguageInfo(language_type, "KCampany"));
+	ui->labelCampanyInfo->setText(GlobalData::LoadLanguageInfo("KCampany"));
 }
 
 void LogInForm::comboBoxInit(QComboBox*box, int widthScroll, int height, bool bSheet)

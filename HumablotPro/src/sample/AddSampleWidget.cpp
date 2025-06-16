@@ -205,7 +205,7 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
         scanWorkState(true);
         if (!m_LISERRDes.isEmpty())
         {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), m_LISERRDes, MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), m_LISERRDes, MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
             m_LISERRDes = "";
         }
     }
@@ -228,7 +228,7 @@ void AddSampleWidget::slotSendRequestDataToLIS(const QString &requstData)
         if (m_tcpClient == nullptr)
             eLog("m_tcpClient is null");
         else
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("从LIS服务器下载数据出错！"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("从LIS服务器下载数据出错！"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
         ShowTestInfoFromDatabase();
         return;
     }
@@ -259,7 +259,7 @@ void AddSampleWidget::scanWorkState(const bool isFinish)
 void AddSampleWidget::slotGetQueryCondition(QString condition1,QString condition2)
 {
     QString a = condition1 + "--" + condition2;
-    MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), a, MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+    MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), a, MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
     //if (condition1 != "" && condition2!="")
         //Send_ID_ToList("Intervalrequest:" + condition1 + "|" + condition2);
 }
@@ -460,7 +460,7 @@ void AddSampleWidget::initUI()
         QString sz = lineEdit->text();
         if (sz.isEmpty())
         {
-            MyMessageBox::information(lineEdit, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1372"),MyMessageBox::Ok,"OK","");
+            MyMessageBox::information(lineEdit, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1372"),MyMessageBox::Ok,"OK","");
             lineEdit->setText("1");
         }
     });
@@ -469,7 +469,7 @@ void AddSampleWidget::initUI()
         QString sz = lineEdit->text();
         if (sz.isEmpty())
         {
-            MyMessageBox::information(nullptr, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1372"), MyMessageBox::Ok, "OK", "");
+            MyMessageBox::information(nullptr, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1372"), MyMessageBox::Ok, "OK", "");
             lineEdit->setText("72");
         }
     });
@@ -567,17 +567,17 @@ void AddSampleWidget::OnShowBtnState()
     int end_pos = ui->lineEdit_4->text().toInt();
     if (star_pos > end_pos)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1373"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1373"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     if (star_pos > 72 || end_pos > 72)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1374"),MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1374"),MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     if (star_pos < 1 || end_pos < 1)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1375"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1375"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;
     }
     m_barCodePosMap.clear();
@@ -591,7 +591,7 @@ void AddSampleWidget::OnShowBtnState()
     if (m_barCodePosMap.count()>0)
         scanWorkState(false);
     m_instr->scanSampleCode(QString::number(star_pos),QString::number(end_pos));
-    m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1712"));
+    m_progressDialog->setHead(GlobalData::LoadLanguageInfo("K1712"));
     m_progressDialog->exec();
 }
 
@@ -659,7 +659,7 @@ QList<int> AddSampleWidget::getPosList()
 }
 void AddSampleWidget::DeleteAllSample()
 {
-    int ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1376"),MyMessageBox::Yes|MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+    int ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1376"),MyMessageBox::Yes|MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if (ret == 16384)
     {
         return;
@@ -674,7 +674,7 @@ void AddSampleWidget::DeleteAllSample()
 }
 void AddSampleWidget::DeleteSample()
 {
-    int ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1377"), MyMessageBox::Yes| MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+    int ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1377"), MyMessageBox::Yes| MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if (ret != 16384)
     {
         return;
@@ -843,7 +843,6 @@ void AddSampleWidget::SaveSample()
     auto head = _vModel->getHeadVect();
     QMap<SampleStrc, QVector<int>> tempMap;
     _samplePaperIdMap.swap(tempMap);
-    int i = 0;
     QString tip = "";
     auto dao1 = AnalysisDao::instance();
     int test_batch_max = dao1->GetTestBacthMax();
@@ -851,16 +850,16 @@ void AddSampleWidget::SaveSample()
 
     for (auto it : vect)
     {
-        if(_vModel->_vect[i].sampleNo.simplified().isEmpty())
+        if(it.sampleNo.simplified().isEmpty())
             continue;
-        QString sampleNo = _vModel->_vect[i].sampleNo;
-        int samplePos = _vModel->_vect[i].samplePos-1;
+        QString sampleNo = it.sampleNo;
+        int samplePos = it.samplePos-1;
         //int paperId = _vModel->_vect[i].;
-        QString PatientName = _vModel->_vect[i].patientName;
-        int SexID = _vModel->_vect[i].sexID;
-        int Age = _vModel->_vect[i].age;
+        QString PatientName = it.patientName;
+        int SexID = it.sexID;
+        int Age = it.age;
         int paper_id = 0;
-        auto map = _vModel->_vect[i].paperCheckedCountMap;
+        auto map = it.paperCheckedCountMap;
         int ii = 0;
         //QString sql_delete = QString("delete from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3 and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
         QString sql_delete = QString("delete from tsample where  createDay='%1' and samplePos=%2 and stateFlag=1").arg(createDay).arg(samplePos);
@@ -911,16 +910,15 @@ void AddSampleWidget::SaveSample()
             dao->addRecord(&bResult, sql);
             if (bResult)
             {
-                tip += GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1378");//"保存成功";
+                tip += GlobalData::LoadLanguageInfo("K1378");//"保存成功";
             }
         }
         sql_list.clear();
-        i++;
     }
     if (tip != "")
     {
         emit ChangeBtnNextSignal(true);
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1378"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1378"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
     }
 }
 
@@ -993,13 +991,13 @@ bool AddSampleWidget::judgeTipInfo()
     bool return_Value = true;
     if (!setSamplePaperIdMap())
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1379"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1379"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         //return false;
         return_Value = false;
     }
     if (_samplePaperIdMap.isEmpty())
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1380"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1380"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         //return false;
         return_Value = false;
     }
@@ -1015,7 +1013,7 @@ bool AddSampleWidget::judgeTipInfo()
         }
         else
         {
-            lackInfo += GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1382") + QString::number(it.key().samplePos) + "" + GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1049") + it.key().sampleNo +"    ";
+            lackInfo += GlobalData::LoadLanguageInfo("K1382") + QString::number(it.key().samplePos) + "" + GlobalData::LoadLanguageInfo("K1049") + it.key().sampleNo +"    ";
             if (i_n % 2==0)
             {
                 lackInfo += "\n";
@@ -1026,7 +1024,7 @@ bool AddSampleWidget::judgeTipInfo()
 
     if (!lackInfo.isEmpty())
     {
-        auto ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1260"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1381")+"\n" + lackInfo, MyMessageBox::Ok|MyMessageBox::Cancel, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
+        auto ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo("K1260"), GlobalData::LoadLanguageInfo("K1381")+"\n" + lackInfo, MyMessageBox::Ok|MyMessageBox::Cancel, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
         if (ret == MyMessageBox::Cancel)
         {
             return_Value = false;
@@ -1035,7 +1033,7 @@ bool AddSampleWidget::judgeTipInfo()
     }
     if (testMap.isEmpty())
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1384"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1384"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return false;
     }
     int totalTest = 0;
@@ -1045,7 +1043,7 @@ bool AddSampleWidget::judgeTipInfo()
     }
     if (totalTest > PAPERCOUNT)
     {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1385") + QString::number(totalTest)+ GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1386") + QString::number(PAPERCOUNT), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1385") + QString::number(totalTest)+ GlobalData::LoadLanguageInfo("K1386") + QString::number(PAPERCOUNT), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         //return false;
         return_Value = false;
     }
@@ -1080,7 +1078,7 @@ bool AddSampleWidget::setSamplePaperIdMap()
                 continue;
             if(head.count() <= t.key())
             {
-                MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1387"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+                MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1387"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
                 return false;
             }
             for(int i=0;i<count;i++)
@@ -1134,12 +1132,12 @@ bool AddSampleWidget::nextAction()
 {
     if(!setSamplePaperIdMap())
     {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1379"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1379"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return false;
     }
     if(_samplePaperIdMap.isEmpty())
     {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1380"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1380"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return false;
     }
     int i_n = 1;
@@ -1162,21 +1160,21 @@ bool AddSampleWidget::nextAction()
         if (sampleNo == "" && selected_project_flage)
         {
             //K1382
-            lackInfo22 += GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1382") + QString::number(i + 1) + "  ";
+            lackInfo22 += GlobalData::LoadLanguageInfo("K1382") + QString::number(i + 1) + "  ";
             if (i_n % 3 == 0)
             {
                 lackInfo22 += "\n";
 
             }
             i_n++;
-            //QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("存在样本编号未填写"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+            //QMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("存在样本编号未填写"), GlobalData::LoadLanguageInfo("K1181"));
         }
     }
 
     if (lackInfo22 != "")
     {
         //
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1630")+ "\n\r" +lackInfo22, MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1630")+ "\n\r" +lackInfo22, MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return false;
     }
 
@@ -1192,7 +1190,7 @@ bool AddSampleWidget::nextAction()
         }
         else
         {
-            lackInfo+= GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1382") +QString::number(it.key().samplePos)+" "+" "+ GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1049") +" :  "+it.key().sampleNo+"    ";
+            lackInfo+= GlobalData::LoadLanguageInfo("K1382") +QString::number(it.key().samplePos)+" "+" "+ GlobalData::LoadLanguageInfo("K1049") +" :  "+it.key().sampleNo+"    ";
             if (i_n % 3 == 0)
             {
                 lackInfo += "\n";
@@ -1204,13 +1202,13 @@ bool AddSampleWidget::nextAction()
 
     if(!lackInfo.isEmpty())
     {
-        auto ret= MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1260"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1381")+"\n"+lackInfo, MyMessageBox::Cancel| MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"),GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+        auto ret= MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1260"), GlobalData::LoadLanguageInfo("K1381")+"\n"+lackInfo, MyMessageBox::Cancel| MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1134"),GlobalData::LoadLanguageInfo("K1181"));
         if(ret== MyMessageBox::Ok)
             return false;
     }
     if(testMap.isEmpty())
     {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1384"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1384"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
 
 
         return false;
@@ -1222,7 +1220,7 @@ bool AddSampleWidget::nextAction()
     }
     if(totalTest>PAPERCOUNT)
     {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"),GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1385") +QString::number(totalTest)+ GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1386") +QString::number(PAPERCOUNT), MyMessageBox::Ok,"OK","");
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1385") +QString::number(totalTest)+ GlobalData::LoadLanguageInfo("K1386") +QString::number(PAPERCOUNT), MyMessageBox::Ok,"OK","");
         return false;
     }
     setBtnCheckStyle();
@@ -1235,7 +1233,7 @@ bool AddSampleWidget::nextAction()
     auto startPos=_setPaperPosDialog->getStartPos();
     if(startPos<=0)
     {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1389"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1389"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return false;
     }
     QVector<ptrTest>listTestData;
