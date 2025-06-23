@@ -49,6 +49,15 @@ SampleBLL::ptrSample SampleBLL::getRowById(QString id)
     return sampleResult;
 }
 
+SampleBLL::ptrSample SampleBLL::getRowByPkId(const int pkid)
+{
+    QList<SampleModel> sampleList= getSampleList(QString(" where pkid=%1").arg(pkid));
+    if(sampleList.isEmpty())
+        return nullptr;
+    ptrSample sampleResult(new SampleModel(sampleList.at(0)));
+    return sampleResult;
+}
+
 SampleBLL::ptrSample SampleBLL::getUnTestSampleByBarcode(const QString &barcode)
 {
     ptrSample sm=nullptr;

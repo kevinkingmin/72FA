@@ -151,6 +151,8 @@ private:
     void clearLayOut(QHBoxLayout *layOut);
     void updateProgress(int maxValue);
     void setProgressState();
+	bool createDir();
+private:
     Ui::TestSampleWidget *ui;
     QVector<ptrTest> m_listTest;
     SelectProcessDialog *m_selectPDialog;
