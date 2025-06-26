@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
 <Qt_DEFINES_>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_NO_DEBUG;QT_GUI_LIB;QT_CORE_LIB;NDEBUG</Qt_DEFINES_>
-<Qt_INCLUDEPATH_>C:\Users\xing\AppData\Local\Temp\4bey2buz.2e4;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtGui;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtANGLE;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtCore;C:\Users\xing\AppData\Local\Temp\4bey2buz.2e4;\include;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\mkspecs\win32-msvc</Qt_INCLUDEPATH_>
+<Qt_INCLUDEPATH_>C:\Users\xing\AppData\Local\Temp\mgud10gg.3wl;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtGui;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtANGLE;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtCore;C:\Users\xing\AppData\Local\Temp\mgud10gg.3wl;\include;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\mkspecs\win32-msvc</Qt_INCLUDEPATH_>
 <Qt_STDCPP_></Qt_STDCPP_>
 <Qt_RUNTIME_>MultiThreadedDLL</Qt_RUNTIME_>
 <Qt_CL_OPTIONS_>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus</Qt_CL_OPTIONS_>

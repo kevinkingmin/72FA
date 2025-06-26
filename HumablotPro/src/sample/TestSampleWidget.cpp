@@ -999,7 +999,7 @@ void TestSampleWidget::setProgressState()
 bool TestSampleWidget::createDir()
 {
 	auto pathPm = SystemSetBLL().getRowById(3);
-	auto rootPath = pathPm.isNull() ? "D:\\HumablotProFiles\\TestPictures\\" : pathPm->getSaveDes();
+	auto rootPath = pathPm.isNull() ? "D:\\HumablotProFiles\\TestPictures" : pathPm->getSaveDes();
 	QDir dir;
 	auto mkFun = [dir](const QString &pathStr)
 	{
