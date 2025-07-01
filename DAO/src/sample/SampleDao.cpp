@@ -20,7 +20,7 @@ SampleDao::SampleDao()
     _editStr="update tsample set "
              "paperPos=:paperPos,testId=:testId,sampleNo=:sampleNo,paperId=:paperId,barcode=:barcode,PatientName=:PatientName,SexID=:SexID,Age=:Age,AgeUnitID=:AgeUnitID,birthday=:birthday,bloodType=:bloodType,AnamnesisNO=:AnamnesisNO,wardName=:wardName,BedNo=:BedNo,departmentName=:departmentName,cupType=:cupType,samplePos=:samplePos,diagnosis=:diagnosis,errorFlag=:errorFlag,skipFlag=:skipFlag,stateFlag=:stateFlag,isDelete=:isDelete,testTime=:testTime,testUser=:testUser,intPreField=:intPreField,strPreField=:strPreField,test_batch=:test_batch "
              " where Id=:Id";
-    _insertStr="insert into tsample(paperPos,testId,Id,sampleNo,paperId,barcode,PatientName,SexID,Age,AgeUnitID,birthday,bloodType,AnamnesisNO,wardName,BedNo,departmentName,cupType,samplePos,diagnosis,errorFlag,skipFlag,stateFlag,isDelete,testTime,testUser,intPreField,strPreField,test_batch) values(:paperPos,:testId,:Id,:sampleNo,:paperId,:barcode,:PatientName,:SexID,:Age,:AgeUnitID,:birthday,:bloodType,:AnamnesisNO,:wardName,:BedNo,:departmentName,:cupType,:samplePos,:diagnosis,:errorFlag,:skipFlag,:stateFlag,:isDelete,:testTime,:testUser,:intPreField,:strPreField,:test_batch)";
+    _insertStr="insert into tsample(paperPos,testId,Id,sampleNo,paperId,barcode,PatientName,SexID,Age,AgeUnitID,birthday,bloodType,AnamnesisNO,wardName,BedNo,departmentName,cupType,samplePos,diagnosis,errorFlag,skipFlag,stateFlag,isDelete,testTime,testUser,intPreField,strPreField,test_batch,createDay) values(:paperPos,:testId,:Id,:sampleNo,:paperId,:barcode,:PatientName,:SexID,:Age,:AgeUnitID,:birthday,:bloodType,:AnamnesisNO,:wardName,:BedNo,:departmentName,:cupType,:samplePos,:diagnosis,:errorFlag,:skipFlag,:stateFlag,:isDelete,:testTime,:testUser,:intPreField,:strPreField,:test_batch,:createDay)";
 }
 
 SampleDao::~SampleDao()
@@ -105,6 +105,7 @@ void SampleDao::queryBindValue(QSqlQuery &query, ptrModel pm)
     query.bindValue(":intPreField", pm->getIntPreField());
     query.bindValue(":strPreField",pm->getStrPreField());
 	query.bindValue(":test_batch", pm->getTestBatch());
+	query.bindValue(":createDay", pm->getCreateDay());
 }
 
 SampleDao *SampleDao::instance()
@@ -212,6 +213,7 @@ bool SampleDao::insertModel(QVector<std::tuple<ptrModel ,QVector<ptrTest>>>tps)
         return false;
     }
 	int i = 0;
+	QString createTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     for(auto tp:tps)
     {
         auto pSample = std::get<0>(tp);
@@ -241,6 +243,7 @@ bool SampleDao::insertModel(QVector<std::tuple<ptrModel ,QVector<ptrTest>>>tps)
 				pSample->setPaperPos(paper_pos);
 				pSample->setSamplePos(sample_pos);
 				pSample->setTestBatch(test_batch_max);
+				pSample->setCreateDay(createTime);
 
 				query.prepare(_insertStr);
 				queryBindValue(query, pSample);
@@ -293,7 +296,7 @@ bool SampleDao::insertModel(QVector<std::tuple<ptrModel ,QVector<ptrTest>>>tps)
 			pSample->setTestBatch(test_batch_max);
 			//pSample->setPaperId(paper_id);
 			//pSample->setTestId(test_id);
-
+			pSample->setCreateDay(createTime);
 
 			QString createDay = QDate::currentDate().toString("yyyy-MM-dd");
 			//在插入前先删除掉原有记录。

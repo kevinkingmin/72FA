@@ -402,3 +402,13 @@ void SampleModel::setSampleSender(const QString &sampleSender)
     _sampleSender = sampleSender;
 }
 
+QString SampleModel::getCreateDay() const
+{
+	return _createDay;
+}
+
+void SampleModel::setCreateDay(const QString & createDay)
+{
+	_createDay = createDay;
+}
+

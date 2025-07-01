@@ -1507,7 +1507,6 @@ void TestResultDataAll::SavePdfA()
     painter.begin(&printer);//开始在打印区域上绘制类容
     //painter.setRenderHint(QPainter::Antialiasing, true);
     QString test_Id = "";
-    QString result_data = "";
     QString sample_id = "";
     QString project_name = "";
     int pkid = 0;
@@ -1520,7 +1519,6 @@ void TestResultDataAll::SavePdfA()
         if (selectRow)
         {
             test_Id = ui.tableWidget->item(i, 1)->text();
-            result_data = dao->GetTestResultByTestId(test_Id);//ui.tableWidget->item(i, 7)->text();
             sample_id = ui.tableWidget->item(i, 2)->text();
             project_name = ui.tableWidget->item(i, 3)->text();
             pkid = ui.tableWidget->item(i, 8)->text().simplified().toInt();
@@ -2575,8 +2573,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             {
                 addContent(row, 6, GlobalData::LoadLanguageInfo("K1686"));//"未知");
             }
-
-            row++;
             need_change_bg_color = false;
             need_change_bg_color_cut_fun = false;
             need_change_bg_color_fun = false;
@@ -2588,10 +2584,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             strItemName = "";
             strRel = "";
         }
-    }
-    //默认选中，显示行
-    if (row > 0)
-    {
+		row++;
     }
     if (m_currentPage > 1)
     {
