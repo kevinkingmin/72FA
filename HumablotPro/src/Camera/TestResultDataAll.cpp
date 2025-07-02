@@ -3,7 +3,6 @@
 #include <QLabel>
 #include <QSqlQuery>
 #include <QDate>
-//#include <QPdfWriter>
 #include <QPainter>
 #include <QFileDialog>
 #include <QDesktopServices>
@@ -27,6 +26,9 @@
 #include "../Include/Model/baseSet/AgeUnitModel.h"
 #include "../Include/Instrument/Instrument.h"
 #include "src/sample/subDialog/PatientDialog.h"
+#include "../Include/Analysis/analysis.h"
+#include "../Include/BLL/sample/SampleBLL.h"
+#define PAGESIZE 27
 
 TestResultDataAll::TestResultDataAll(QWidget *parent)
     : QWidget(parent)
@@ -71,7 +73,7 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
     auto TestPaperListQuery = dao->SelectTestPaperIDs(m_test_project_name, &bResult);
     if (bResult == false)
     {
-        MyMessageBox::warning(0, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1304"), MyMessageBox::Ok, "OK", "");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1304"), MyMessageBox::Ok, "OK", "");
         return;
     }
 
@@ -149,8 +151,6 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
     {
         ui.lineEditRowsPerPage->setText(page_size_database);
     }
-
-
 }
 
 void TestResultDataAll::getItemDataSlot(int row)
@@ -254,51 +254,8 @@ void TestResultDataAll::populateTable(int page) {
 
 void TestResultDataAll::on_pushButtonPrint_clicked()
 {
-    QString project_name = "";
-    QString project_name1 = "";
-    m_rowNum = 0;
-    //m_colNum = 0;
-    for (int i = 0; i < ui.tableWidget->rowCount(); i++)
-    {
-        bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
-        if (selectRow)
-        {
-            if (m_rowNum == 0)
-            {
-                project_name = ui.tableWidget->item(i, 3)->text();
-            }
-            else
-            {
-                project_name1 = ui.tableWidget->item(i, 3)->text();
-            }
-            if (project_name1 != "")
-            {
-                if (project_name != project_name1)
-                {
-                    QString str = QString("%3：%1,%2").arg(project_name).arg(project_name1).arg(GlobalData::LoadLanguageInfo("K1305"));
-                    MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), str, MyMessageBox::Ok, "OK", "");
-                    //QMessageBox::warning(0, GlobalData::LoadLanguageInfo("K1271"), "概述操作，只能选择一个项目！", QMessageBox::Ok);
-                    return;
-                }
-            }
-            //m_PrintDataList.append(test_Id + "|" + result_data + "|" + project_name+"|"+ sample_id);
-            m_rowNum++;
-        }
-    }
-
-    if (m_colNum == 0 || m_rowNum == 0)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
-        return;
-    }
-
-    QString tip = QString( "%2 %1").arg(m_rowNum).arg(GlobalData::LoadLanguageInfo("K1307"));
-    if (m_rowNum >100)
-    {
-        MyMessageBox::warning(this,GlobalData::LoadLanguageInfo("K1271"), tip, MyMessageBox::Ok, "OK", "");
-        return;
-    }
-
+	if (!getPrintIndexs(true))
+		return;
     QPrinter printer(QPrinter::ScreenResolution);
     printer.setPageSize(QPrinter::A4);
     printer.setOrientation(QPrinter::Landscape); //打印方向 Portrait 纵向，Landscape：横向
@@ -378,46 +335,8 @@ void  TestResultDataAll::on_pushButtonPdf_clicked()
 
 void  TestResultDataAll::on_pushButtonPdfAll_clicked()
 {
-    QString project_name = "";
-    QString project_name1 = "";
-    m_all_page_number = 0;
-    for (int i = 0; i < ui.tableWidget->rowCount(); i++)
-    {
-        bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
-        if (selectRow)
-        {
-            if (m_all_page_number == 0)
-            {
-                project_name = ui.tableWidget->item(i, 3)->text();
-            }
-            else
-            {
-                project_name1 = ui.tableWidget->item(i, 3)->text();
-            }
-            if (project_name1 != "")
-            {
-                if (project_name != project_name1)
-                {
-                    QString str = QString("概述操作，只能选择一个项目,当前选择的项目有：%1,%2").arg(project_name).arg(project_name1);
-                    MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), str, MyMessageBox::Ok, "OK", "");
-                    return;
-                }
-            }
-            m_all_page_number++;
-        }
-    }
-    if (m_all_page_number == 0)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
-        return;
-    }
-    if (m_all_page_number > 100)
-    {
-        //QString tip = QString("排版要求，请选择至于10条以上有效数据！当前已选择：%1").arg(m_all_page_number);
-        QString tip = QString("排版要求，选择数量不要超出100！当前已选择：%1").arg(m_all_page_number);
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), tip, MyMessageBox::Ok, "OK", "");
-        return;
-    }
+	if (!getPrintIndexs(true))
+		return;
     QPrinter printer(QPrinter::ScreenResolution);
     printer.setPageSize(QPrinter::A4);
     printer.setOrientation(QPrinter::Landscape); //打印方向 Portrait 纵向，Landscape：横向
@@ -430,41 +349,21 @@ void  TestResultDataAll::on_pushButtonPdfAll_clicked()
     QString report_path = dao->SelectTargetValueDes(&bResult, "4");
     fileName = QString("%1\\Report_Landscape_%2.pdf").arg(report_path).arg(current_time);
     printer.setOutputFileName(fileName);//输出到桌面
-
-    //QPrinter *printer
-
-    int page_size = m_all_page_number / 27 + 1;
-    //printOnePage(&painter, 0);
-    QPainter painter;
-    for (int i = 0; i < page_size; i++)
+	int rowSize{ m_printIndexs.count() };
+	int pagesize{ PAGESIZE };
+	int page_count = rowSize / pagesize + (rowSize%pagesize > 0 ? 1 : 0);
+	QPainter painter;
+    for (int i = 0; i < page_count; i++)
     {
         painter.begin(&printer);
         painter.setPen(Qt::black);
-        printOnePage(&painter, i);
-        if (i != page_size - 1)
+		drawTable(&painter, i, pagesize);
+        if (i != page_count - 1)
         {
             printer.newPage(); //新建页
         }
-        //if (i != 4) //判断是否最后一页，如果不是最后一页则新建一页
-        //{
-        //	painter.setPen(Qt::black);
-        //}
     }
     painter.end();
-
-
-
-
-    //QPainter painter;
-    //painter.begin(&printer);//开始在打印区域上绘制类容
-    //printOnePage(&painter, 0);
-    //painter.end();
-
-
-
-
-
-
     QDesktopServices::openUrl(QUrl::fromLocalFile(fileName)); //打开PDF文件
 }
 
@@ -790,9 +689,8 @@ void TestResultDataAll::drawTableB(QPainter *painter, QString test_Id, QString r
     painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
 }
 
-void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position)
-{
-    double max = *std::max_element(PrintDataListCutGrayValue.begin(), PrintDataListCutGrayValue.end());
+void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString sample_id, QString project_name, const QVector<QSqlRecord> &testResults, QMap<QString, int> map_position)
+{   
     QString pic_name = "";
     //DB中取Testitems表数据
     bool bResult = true;
@@ -826,31 +724,10 @@ void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString r
     painter->drawImage(QRect(startx+600, top - 10, 110, 43), img);
     //标题栏
     painter->drawLine(startx, starty + titleHeight, startx + width, starty + titleHeight);
-
     painter->drawText(QRect(startx, starty + titleHeight + rowHeight * 2, colWidth, rowHeight), Qt::AlignLeft, QString("Test：%1              ").arg(project_name));
     painter->drawText(QRect(startx, starty + titleHeight + rowHeight * 3, colWidth, rowHeight), Qt::AlignLeft, QString("Surname：%1              ").arg(""));
     painter->drawText(QRect(startx, starty + titleHeight + rowHeight * 4, colWidth, rowHeight), Qt::AlignLeft, QString("Name：%1              ").arg(""));
     painter->drawText(QRect(startx, starty + titleHeight + rowHeight * 5, colWidth, rowHeight), Qt::AlignLeft, QString("SampleNo：%1              ").arg(sample_id));
-
-    m_PrintDataListValue.clear();
-    m_PrintDataListProject.clear();
-    QStringList list = result_data.split("(");//QString字符串分割函数
-    m_PrintDataListProject.append("  " + list[0]);
-
-    for (size_t ij = 1; ij < list.count(); ij++)
-    {
-        QStringList list1 = list[ij].split(")");
-        if (ij == list.count() - 1)
-        {
-            m_PrintDataListValue.append(list1[0]);
-        }
-        else
-        {
-            m_PrintDataListValue.append(list1[0]);
-            m_PrintDataListProject.append(list1[1]);
-        }
-    }
-
     double y_y_space_coefficient = 0.25;
     double y_y_start = 220;
 
@@ -867,29 +744,26 @@ void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString r
         y_y_space_coefficient = 0.4;
         y_y_start = 268;
     }
-
-    for (size_t ik = 0; ik < m_PrintDataListValue.count(); ik++)
-    {
-        QString wtext = m_PrintDataListValue[ik];
-        QString wtext1 = m_PrintDataListProject[ik];
-        int position_value = 0;
-        QString trimmedStr = wtext1.trimmed();
-        if (map_position.contains(trimmedStr))
-        {
-            position_value = map_position[trimmedStr];
-        }
-        //painter->drawText(QRect(startx, starty + titleHeight + (rowHeight * (5 + ik) * 1.33) + 100, colWidth, rowHeight), Qt::AlignLeft, QString("%1").arg(wtext1));
-        //painter->drawText(QRect(startx, starty + titleHeight + ((rowHeight+1) * (5 + ik) * 1.33) + 100, colWidth, rowHeight+1), Qt::AlignLeft, QString("%1").arg(wtext1));
-        if (position_value > 0)
-        {
-            painter->drawText(QRect(startx - 50, (y_y_start + position_value * y_y_space_coefficient) - 12, colWidth, rowHeight + 1), Qt::AlignRight, QString("%1").arg(wtext1));
-        }
-
-    }
-
+	double max = 0;
+	for (auto rd:testResults)
+	{
+		QString projectName = rd.value("projectName").toString();
+		QString testResult = rd.value("testResult").toString();
+		double cutGrayValue = rd.value("cutGrayValue").toDouble();
+		if (max < cutGrayValue)
+			max = cutGrayValue;
+		int position_value = 0;
+		if (map_position.contains(projectName.trimmed()))
+		{
+			position_value = map_position[projectName.trimmed()];
+		}
+		if (position_value > 0)
+		{
+			painter->drawText(QRect(startx - 50, (y_y_start + position_value * y_y_space_coefficient) - 12, colWidth, rowHeight + 1), Qt::AlignRight, QString("%1").arg(projectName));
+		}
+	}    
     int h1 = pixBig.height();
     painter->rotate(-270);
-
     if (h1 > 0 && w1 > 0)
     {
         //painter->drawPixmap(QRect(260, -170, 500, rowHeight), pixBig);
@@ -979,10 +853,10 @@ void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString r
     }
 
 
-    for (size_t ik = 0; ik < m_PrintDataListValue.count(); ik++)
+    for (auto rd:testResults)
     {
-        QString wtext = m_PrintDataListValue[ik];
-        int width = (PrintDataListCutGrayValue[ik] / max)*225*1;
+        QString wtext = rd.value("testResult").toString();
+        int width = (rd.value("cutGrayValue").toDouble() / max)*225*1;
         QBrush brush1;   //画刷。填充几何图形的调色板，由颜色和填充风格组成
         if (wtext == "+++") {
             brush1.setColor(QColor(255, 0, 0, 120));
@@ -1001,7 +875,7 @@ void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString r
         painter->setBrush(brush1);
 
 
-        QString wtext1 = m_PrintDataListProject[ik];
+        QString wtext1 = rd.value("projectName").toString();
         int position_value = 0;
         QString trimmedStr = wtext1.trimmed();
         if (map_position.contains(trimmedStr))
@@ -1038,12 +912,12 @@ void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString r
     painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
 
     //第二个矩形的内容画图
-    painter->drawRect(200+250, starty + titleHeight + (rowHeight * (6)) + 64, colWidth1 *3, (m_PrintDataListValue.count()*rowHeight)+rowHeight);
+    painter->drawRect(200+250, starty + titleHeight + (rowHeight * (6)) + 64, colWidth1 *3, (testResults.count()*rowHeight)+rowHeight);
     painter->drawLine(200 + 250, starty + titleHeight + (rowHeight * (7)) + 64, 200 + 250+colWidth1 * 3, starty + titleHeight + (rowHeight * (7)) + 64);
     int x1, y1, x2, y2;
     painter->setFont(QFont("宋体", 10));
     y1 = starty + titleHeight + (rowHeight * (6)) + 64;
-    y2 = starty + titleHeight + (rowHeight * (6)) + 64 + (m_PrintDataListValue.count()*rowHeight) + rowHeight;
+    y2 = starty + titleHeight + (rowHeight * (6)) + 64 + (testResults.count()*rowHeight) + rowHeight;
     x1 = 200 + 250;
     //绘制表格列单元线
     for (int i = 0; i < 3; i++)
@@ -1072,14 +946,16 @@ void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString r
     int y11 = 0;
     int startx1 = 0;
     int startx2 = 0;
-    for (size_t ik = 0; ik < m_PrintDataListValue.count(); ik++)
+
+    for (int ik=0;ik<testResults.count();ik++)
     {
+		auto rd = testResults.at(ik);
         y11 = y1 + rowHeight + (rowHeight*ik);
         startx2 = x1 + colWidth1 * 3;
         painter->drawLine(x1, y11, startx2, y11);
-        QString wtext = m_PrintDataListValue[ik];
-        QString wtext1 = m_PrintDataListProject[ik];
-        QString wtext2 = QString("%1").arg(PrintDataListCutGrayValue[ik]);
+        QString wtext = rd.value("testResult").toString();
+        QString wtext1 = rd.value("projectName").toString();
+        QString wtext2 = rd.value("cutGrayValue").toString();
 
         QString trimmedStr = wtext1.trimmed();
         for (size_t i = 0; i < 3; i++)
@@ -1120,8 +996,6 @@ void TestResultDataAll::drawTableA(QPainter *painter, QString test_Id, QString r
     painter->drawLine(startx + 515, starty + height - 40, startx + width, starty + height - 40);
     painter->drawText(QRect(startx+400, starty + height - 37, 450, 25), Qt::AlignCenter, "Signature");
     //painter->drawText(QRect(m_startx + m_width - 200, m_starty + m_height + 2, 200, m_rowHeight), Qt::AlignRight, "制表时间：" + dateTime);
-
-
 }
 
 void TestResultDataAll::drawTableC(QPainter *painter, int no)
@@ -1370,56 +1244,28 @@ void TestResultDataAll::drawTableC(QPainter *painter, int no)
     painter->drawText(QRect(m_startx + m_width1 - 200, m_bottom, 200, m_rowHeight), Qt::AlignRight, "Signature");
 }
 
-void TestResultDataAll::drawTable(QPainter *painter, int no)
+void TestResultDataAll::drawTable(QPainter *painter, int no, const int pagesize)
 {
-    int selected_row = 0;
-    //int start_i = (no) * 27;
-    int rowCount1 = ui.tableWidget->rowCount();
+	QVector<int>printIndexs{};
+	for (int i = no * pagesize; i < pagesize + no * pagesize; i++)
+	{
+		if (i >= m_printIndexs.count())
+			break;
+		printIndexs.push_back(m_printIndexs.at(i));
+	}
 
-    int totalItems = rowCount1;
-    int itemsPerPage = 27;
-
-    int startIndex = 0;
-    int end_i = 0;
-
-    for (int page = no+1; page <= totalItems / itemsPerPage + 1; ++page) {
-        startIndex = (page-1) * itemsPerPage;
-        end_i = (startIndex + itemsPerPage < totalItems) ? (startIndex + itemsPerPage) : (totalItems);
-        break;
-    }
-
-
-    for (int i = startIndex; i < end_i; i++)
-    {
-        bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
-        if (selectRow)
-        {
-            selected_row = i;
-        }
-    }
-    //调整表格整体的高度
-    //总框体
-    //painter->drawRect(m_startx, m_starty, m_width1, m_height1);
-    //标题栏
-    //painter->drawLine(m_startx, m_starty + m_titleHeight, m_startx + m_width1, m_starty + m_titleHeight);
+	if (printIndexs.isEmpty())
+		return;
     painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
     QString dateTime = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    //painter->setFont(QFont("宋体", 20));
-    //painter->drawText(QRect(m_startx, m_top, m_width1, m_titleHeight), Qt::AlignLeft, QString("测试报表%1").arg(no));
     QImage img(":/images/buttonIcon/printlogo1.png");
-    //QRectF r{ m_startx, m_top,228,87 };
     painter->drawImage(QRect(m_startx, m_top-10, 110, 43), img);
     painter->setPen(QPen(Qt::black, 5, Qt::SolidLine));
-    QString prject_name = ui.tableWidget->item(selected_row, 3)->text();
+    QString prject_name = ui.tableWidget->item(printIndexs.first(), 3)->text();
     painter->drawText(QRect(m_startx+10, m_top+50, m_width1, m_titleHeight), Qt::AlignLeft, QString("%1").arg(prject_name));
     painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
-    //painter->setFont(QFont("宋体", 20));
-    //2019 - 6 - 5 下午5:01
-    //	HumaBlot 44FA
     painter->drawText(QRect(m_startx, m_top, m_width1, m_titleHeight), Qt::AlignRight, QString("%1   \r\n  HumaBlot 72FA").arg(dateTime));
-    //painter->drawLine(m_startx, m_starty + m_height1, m_startx + m_width1, m_starty + m_height1);
     QString pic_name = "";
-    //DB中取Testitems表数据
     bool bResult = true;
     auto dao = AnalysisUIDao::instance();
     QString paper_name = "";
@@ -1429,15 +1275,7 @@ void TestResultDataAll::drawTable(QPainter *painter, int no)
     //QString strPath = piture_root_str + "\\" + m_test_project_name + "\\" + analysised_piture_path;
     QString strPath = piture_root_str + "\\" + analysised_piture_path;
     QPixmap pixBig;
-    m_rowNum = 0;
-    for (int i = startIndex; i < end_i; i++)
-    {
-        bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
-        if (selectRow)
-        {
-            m_rowNum++;
-        }
-    }
+    m_rowNum = printIndexs.count();
     m_colWidth = m_width1 / m_colNum;
     //m_rowHeight = m_height1 / m_rowNum;
     m_rowHeight = 20;
@@ -1459,7 +1297,7 @@ void TestResultDataAll::drawTable(QPainter *painter, int no)
     painter->drawLine(x1, y1, x2, y2);
     rowNo++;
 
-    for (int i = startIndex; i < end_i; i++)
+    for (auto index : printIndexs)
     {
 
         QPen pen1; //画笔。绘制图形边线，由颜色、宽度、线风格等参数组成
@@ -1471,18 +1309,15 @@ void TestResultDataAll::drawTable(QPainter *painter, int no)
         painter->setBrush(brush2);
         painter->setPen(QPen(Qt::black, 1, Qt::SolidLine));
 
-        bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
+        bool selectRow = ui.tableWidget->item(index, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
         if (selectRow)
         {
-            test_Id = ui.tableWidget->item(i, 1)->text();
+            test_Id = ui.tableWidget->item(index, 1)->text();
 
             auto dao = AnalysisUIDao::instance();
-            result_data = dao->GetTestResultByTestId(test_Id);
-            //result_data = "";  //ui.tableWidget->item(i, 7)->text();  //U1-snRNP(+++)  SSA/Ro 60 kD(+++)  SSA/Ro 52 kD(+++)
-            sample_id = ui.tableWidget->item(i, 2)->text();
-            project_name = ui.tableWidget->item(i, 3)->text();
-            //m_PrintDataList.append(test_Id + "|" + result_data + "|" + project_name + "|" + sample_id);
-            //pixBig.load(strPath + "\\" + QString::number(nSampleID) + +"_" + QString::number(nTestPaperID) + ".png");  //图片路径
+			auto SampleTests = dao->SelectSamplesByTestId(test_Id);
+            sample_id = ui.tableWidget->item(index, 2)->text();
+            project_name = ui.tableWidget->item(index, 3)->text();
             pixBig.load(strPath + "\\" + test_Id + ".png");  //图片路径
             x1 = m_startx;
             y1 = m_starty + m_titleHeight + m_rowHeight * rowNo;
@@ -1498,148 +1333,88 @@ void TestResultDataAll::drawTable(QPainter *painter, int no)
             int h1 = pixBig.height();
             if (h1 > 0 && w1 > 0)
             {
-                //painter->drawPixmap(QRect(x1 + 40, y1 - m_rowHeight + 5, m_colWidth * 9 - 20, m_rowHeight - 10), pixBig);
                 painter->drawPixmap(QRect(x1 + 40, y1 - m_rowHeight + 5, w1*0.21, h1*0.21), pixBig);
-                QString str1 = "";
-                m_PrintDataListValue.clear();
-                m_PrintDataListProject.clear();
-                QStringList list = result_data.split("(");//QString字符串分割函数
-                m_PrintDataListProject.append("  "+list[0]);
-                for (size_t ij = 1; ij < list.count(); ij++)
-                {
-                    QStringList list1 = list[ij].split(")");
-                    if (ij == list.count() - 1)
-                    {
-                        m_PrintDataListValue.append(list1[0]);
-                    }
-                    else
-                    {
-                        m_PrintDataListValue.append(list1[0]);
-                        m_PrintDataListProject.append(list1[1]);
-                    }
-                }
-                int wtext_i = 0;
                 QString wtext = "";
                 QString wtext1 = "";
                 int x11 = 0;
                 int y11 = 0;
                 int x21 = 0;
-
-                for (size_t ik = 12; ik < (12+m_PrintDataListValue.count()); ik++)
+                for (size_t ik = 12; ik < (12+ SampleTests.count()); ik++)
                 {
-                    wtext = m_PrintDataListValue[wtext_i];
-                    wtext1 = m_PrintDataListProject[wtext_i];
+					auto rd = SampleTests.at(ik - 12);
+					wtext = rd.value("testResult").toString();
+					wtext1 = "  " + rd.value("projectName").toString();
                     x11 = m_startx + m_colWidth * ik;
                     y11 = m_starty + m_titleHeight;
                     x21 = m_startx + m_colWidth * ik;
-                    //y2 = m_starty + m_height1 + m_titleHeight;
-                    if (ik > 9 || ik == 1)
-                    {
-                        painter->drawLine(x11, y11, x21, y11);
-                        if (ik != 1)
-                        {
-                            QString fc_sz = "";
-                            QString cutoff_sz = "";
-                            fc_sz = QString("%1").arg(wtext1).replace(" ", "");
+					painter->drawLine(x11, y11, x21, y11);
+					QString fc_sz = "";
+					QString cutoff_sz = "";
+					fc_sz = QString("%1").arg(wtext1).replace(" ", "");
+					if (fc_sz == "FC" || fc_sz == "Cut")
+					{
+						painter->setPen(QPen(Qt::white, 2, Qt::SolidLine));
+						wtext1 = "";
+					}
+					else
+					{
+						painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
+					}
+					painter->rotate(270);
+					painter->drawText(QRectF(-y11 - 30, x11 + 8, m_colWidth * 5, m_rowHeight), Qt::AlignTop | Qt::AlignLeft, QString("%1").arg(wtext1));
+					painter->rotate(90);
+					if (fc_sz == "FC" || fc_sz == "Cut")
+					{
+						painter->setPen(QPen(Qt::white, 2, Qt::SolidLine));
+						if (fc_sz == "FC")
+						{
+							painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
+							painter->drawText(QRectF(x11 - (m_colWidth * 2) + 5, y1 - m_rowHeight + 3, m_colWidth * 4, m_rowHeight), Qt::AlignLeft, QString("%1").arg(sample_id));
+						}
+						else
+						{
+							painter->drawText(QRectF(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight), Qt::AlignCenter, QString("%1").arg(""));
+						}
 
-                            //painter->drawText(QRectF(-y11 - 30, x11 + 8, m_colWidth * 5, m_rowHeight), Qt::AlignTop | Qt::AlignLeft, QString("%1").arg(wtext1));
-
-                            if (fc_sz == "FC" || fc_sz=="Cut")
-                            {
-                                painter->setPen(QPen(Qt::white, 2, Qt::SolidLine));
-                                painter->rotate(270);
-                                painter->drawText(QRectF(-y11 - 30, x11 + 8, m_colWidth * 5, m_rowHeight), Qt::AlignTop | Qt::AlignLeft, QString("%1").arg(""));
-                            }
-                            else
-                            {
-                                painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
-                                painter->rotate(270);
-                                painter->drawText(QRectF(-y11 - 30, x11 + 8, m_colWidth * 5, m_rowHeight), Qt::AlignTop | Qt::AlignLeft, QString("%1").arg(wtext1));
-                            }
-
-                            //painter->drawText(QRectF(x11, y11, m_colWidth, m_rowHeight), Qt::AlignCenter, QString("%1").arg(wtext1));
-                            painter->rotate(90);
-                            //transform.rotate(+315.0);
-                            //painter->setWorldTransform(transform);
-                            if (wtext == "+")
-                            {
-                                if (fc_sz == "FC" || fc_sz == "Cut")
-                                {
-                                }
-                                else
-                                {
-                                    QPen pen; //画笔。绘制图形边线，由颜色、宽度、线风格等参数组成
-                                    pen.setColor(QColor(255, 255, 0, 120));
-                                    QBrush brush;   //画刷。填充几何图形的调色板，由颜色和填充风格组成
-                                    brush.setColor(QColor(255, 255, 0, 120));
-                                    brush.setStyle(Qt::SolidPattern);
-                                    painter->setPen(pen);
-                                    painter->setBrush(brush);
-                                    painter->drawRect(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight);
-                                }
-                            }
-                            if (wtext == "++")
-                            {
-                                if (fc_sz == "FC" || fc_sz == "Cut")
-                                {
-                                }
-                                else
-                                {
-                                    QPen pen; //画笔。绘制图形边线，由颜色、宽度、线风格等参数组成
-                                    pen.setColor(QColor(211, 167, 0, 200));
-                                    QBrush brush;   //画刷。填充几何图形的调色板，由颜色和填充风格组成
-                                    brush.setColor(QColor(211, 167, 0, 200));
-                                    brush.setStyle(Qt::SolidPattern);
-                                    painter->setPen(pen);
-                                    painter->setBrush(brush);
-                                    painter->drawRect(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight);
-                                }
-                            }
-                            if (wtext == "+++")
-                            {
-                                if (fc_sz == "FC" || fc_sz == "Cut")
-                                {
-                                }
-                                else
-                                {
-                                    QPen pen; //画笔。绘制图形边线，由颜色、宽度、线风格等参数组成
-                                    pen.setColor(QColor(255, 0, 0, 120));
-                                    QBrush brush;   //画刷。填充几何图形的调色板，由颜色和填充风格组成
-                                    brush.setColor(QColor(255, 0, 0, 120));
-                                    brush.setStyle(Qt::SolidPattern);
-                                    painter->setPen(pen);
-                                    painter->setBrush(brush);
-                                    painter->drawRect(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight);
-                                }
-                            }
-
-                            if (fc_sz == "FC" || fc_sz == "Cut")
-                            {
-                                painter->setPen(QPen(Qt::white, 2, Qt::SolidLine));
-                                if (fc_sz == "FC")
-                                {
-                                    painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
-                                    painter->drawText(QRectF(x11-(m_colWidth*2)+5, y1 - m_rowHeight+3, m_colWidth*4, m_rowHeight), Qt::AlignLeft, QString("%1").arg(sample_id));
-                                }
-                                else
-                                {
-                                    painter->drawText(QRectF(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight), Qt::AlignCenter, QString("%1").arg(""));
-                                }
-
-                            }
-                            else
-                            {
-                                painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
-                                painter->drawText(QRectF(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight), Qt::AlignCenter, QString("%1").arg(wtext));
-                            }
-
-                        }
-                    }
-                    wtext_i++;
-                    //wtext_x1 = (m_colWidth-9) * (10+ ik);
-                    ////wtext_x2 = m_colWidth * (8 + ik + 1);
-                    //wtext = m_PrintDataListValue[ik];
-                    //painter->drawText(QRect(wtext_x1 , y1 - m_rowHeight + 5, wtext_x1, m_rowHeight - 10), Qt::AlignCenter, QString("%1").arg(wtext));
+					}
+					else if (wtext == "+")
+					{
+						QPen pen; //画笔。绘制图形边线，由颜色、宽度、线风格等参数组成
+						pen.setColor(QColor(255, 255, 0, 120));
+						QBrush brush;   //画刷。填充几何图形的调色板，由颜色和填充风格组成
+						brush.setColor(QColor(255, 255, 0, 120));
+						brush.setStyle(Qt::SolidPattern);
+						painter->setPen(pen);
+						painter->setBrush(brush);
+						painter->drawRect(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight);
+					}
+					else if (wtext == "++")
+					{
+						QPen pen; //画笔。绘制图形边线，由颜色、宽度、线风格等参数组成
+						pen.setColor(QColor(211, 167, 0, 200));
+						QBrush brush;   //画刷。填充几何图形的调色板，由颜色和填充风格组成
+						brush.setColor(QColor(211, 167, 0, 200));
+						brush.setStyle(Qt::SolidPattern);
+						painter->setPen(pen);
+						painter->setBrush(brush);
+						painter->drawRect(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight);
+					}
+					else if (wtext == "+++")
+					{
+						QPen pen; //画笔。绘制图形边线，由颜色、宽度、线风格等参数组成
+						pen.setColor(QColor(255, 0, 0, 120));
+						QBrush brush;   //画刷。填充几何图形的调色板，由颜色和填充风格组成
+						brush.setColor(QColor(255, 0, 0, 120));
+						brush.setStyle(Qt::SolidPattern);
+						painter->setPen(pen);
+						painter->setBrush(brush);
+						painter->drawRect(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight);
+					}
+					if (fc_sz != "FC" && fc_sz != "Cut")
+					{
+						painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
+						painter->drawText(QRectF(x11, y1 - m_rowHeight, m_colWidth, m_rowHeight), Qt::AlignCenter, QString("%1").arg(wtext));
+					}
                 }
             }
             else
@@ -1732,7 +1507,6 @@ void TestResultDataAll::SavePdfA()
     painter.begin(&printer);//开始在打印区域上绘制类容
     //painter.setRenderHint(QPainter::Antialiasing, true);
     QString test_Id = "";
-    QString result_data = "";
     QString sample_id = "";
     QString project_name = "";
     int pkid = 0;
@@ -1745,18 +1519,12 @@ void TestResultDataAll::SavePdfA()
         if (selectRow)
         {
             test_Id = ui.tableWidget->item(i, 1)->text();
-            result_data = dao->GetTestResultByTestId(test_Id);//ui.tableWidget->item(i, 7)->text();
             sample_id = ui.tableWidget->item(i, 2)->text();
             project_name = ui.tableWidget->item(i, 3)->text();
             pkid = ui.tableWidget->item(i, 8)->text().simplified().toInt();
             painter.setPen(Qt::black);
             bool bResult = true;
             auto dao = AnalysisUIDao::instance();
-            //灰度值列表
-            QList<QString> PrintDataListGrayValue;
-            QList<QString> PrintDataListCutGrayValue;
-            PrintDataListGrayValue.clear();
-            PrintDataListCutGrayValue.clear();
             auto SampleTests = dao->SelectSamplesByTestId(test_Id);
             if (bResult == false)
             {
@@ -1765,27 +1533,15 @@ void TestResultDataAll::SavePdfA()
             }
 
             QMap<QString, int> map_position;
-            map_position.clear();
-
             auto SelectLeftRightPositionQuery = dao->SelectLeftRightPosition(test_Id, &bResult);
-
             while (SelectLeftRightPositionQuery.next())
             {
                 QString project_name = SelectLeftRightPositionQuery.value("projectName").toString();
                 int position_value = SelectLeftRightPositionQuery.value("right_pix_position").toInt();
                 map_position.insert(project_name, position_value);
             }
-
-            QList<float> PrintDataListCutGrayValue_list;
-            PrintDataListCutGrayValue_list.clear();
-            for (auto record : SampleTests)
-            {
-                PrintDataListCutGrayValue.append(record.value("cutGrayValue").toString());
-                PrintDataListCutGrayValue_list.append(record.value("cutGrayValue").toFloat());
-                PrintDataListGrayValue.append(record.value("testGrayValue").toString());
-            }
             painter.setPen(Qt::black);
-            printOnePageA(&painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue_list, map_position, pkid, companyId);
+            printOnePageA(&painter, test_Id, sample_id, project_name, SampleTests, map_position, pkid, companyId);
             if (iii != m_all_page_number - 1)
             {
                 printer.newPage();
@@ -1956,24 +1712,16 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
             result_data = dao->GetTestResultByTestId(test_Id);//ui.tableWidget->item(i, 7)->text();
             sample_id = ui.tableWidget->item(i, 2)->text();
             project_name = ui.tableWidget->item(i, 3)->text();
-            pkid= ui.tableWidget->item(i, 3)->text().simplified().toInt();
+            pkid= ui.tableWidget->item(i, 8)->text().simplified().toInt();
             painter.begin(printer);
             painter.setPen(Qt::black);
 
             bool bResult = true;
             auto dao = AnalysisUIDao::instance();
-            //灰度值列表
-            QList<QString> PrintDataListGrayValue;
-            QList<QString> PrintDataListCutGrayValue;
-            PrintDataListGrayValue.clear();
-            PrintDataListCutGrayValue.clear();
             auto SampleTests = dao->SelectSamplesByTestId(test_Id);
-
             QMap<QString, int> map_position;
             map_position.clear();
-
             auto SelectLeftRightPositionQuery = dao->SelectLeftRightPosition(test_Id, &bResult);
-
             while (SelectLeftRightPositionQuery.next())
             {
                 QString project_name = SelectLeftRightPositionQuery.value("projectName").toString();
@@ -1986,15 +1734,7 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
                 MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1304"), MyMessageBox::Ok, "OK", "");
                 return;
             }
-            QList<float> PrintDataListCutGrayValue_list;
-            PrintDataListCutGrayValue_list.clear();
-            for (auto rd : SampleTests)
-            {
-                PrintDataListCutGrayValue.append(rd.value("cutGrayValue").toString());
-                PrintDataListCutGrayValue_list.append(rd.value("cutGrayValue").toFloat());
-                PrintDataListGrayValue.append(rd.value("testGrayValue").toString());
-            }
-            printOnePageA(&painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue_list, map_position,pkid, companyId);
+            printOnePageA(&painter, test_Id, sample_id, project_name, SampleTests, map_position,pkid, companyId);
             if (iii != m_all_page_number -1) //判断是否最后一页，如果不是最后一页则新建一页
             {
                 printer->newPage(); //新建页
@@ -2009,42 +1749,21 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
 
 void TestResultDataAll::printDocument(QPrinter *printer)
 {
-    m_rowNum = 0;
-    for (int i = 0; i < ui.tableWidget->rowCount(); i++)
-    {
-        bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
-        if (selectRow)
-        {
-            m_rowNum++;
-        }
-    }
-    if (m_colNum == 0 || m_rowNum == 0)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), GlobalData::LoadLanguageInfo("K1306"), MyMessageBox::Ok, "OK", "");
-        return;
-    }
-    //m_all_page_number = m_rowNum;
-    int page_size = m_rowNum / 27 + 1;
-    //printOnePage(&painter, 0);
-    QPainter painter;
-    for (int i = 0; i < page_size; i++)
-    {
-        painter.begin(printer);
-        painter.setPen(Qt::black);
-        printOnePage(&painter, i);
-        if (i != page_size - 1)
-        {
-            printer->newPage(); //新建页
-        }
-    }
-    painter.end();
-}
-
-void TestResultDataAll::printOnePage(QPainter *painter, int page_no)
-{
-    //    qDebug()<<"reportInfo title: "<<reportInfo->getTitle();
-        //正常使用painter 绘制文字、pixmap等在printer上
-    drawTable(painter, page_no);
+	int rowSize{ m_printIndexs.count() };
+	int pagesize{ PAGESIZE };
+	int page_count = rowSize / pagesize + (rowSize%pagesize > 0 ? 1 : 0);
+	QPainter painter;
+	for (int i = 0; i < page_count; i++)
+	{
+		painter.begin(printer);
+		painter.setPen(Qt::black);
+		drawTable(&painter, i, pagesize);
+		if (i != page_count - 1)
+		{
+			printer->newPage(); //新建页
+		}
+	}
+	painter.end();
 }
 
 void TestResultDataAll::printOnePageB(QPainter *painter, QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position)
@@ -2061,9 +1780,9 @@ void TestResultDataAll::printOnePageC(QPainter *painter, QString test_Id, QStrin
     drawTableB(painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue, map_position);
 }
 
-void TestResultDataAll::printOnePageA(QPainter *painter,  QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position, int pkid, int companyId)
+void TestResultDataAll::printOnePageA(QPainter *painter, QString test_Id, QString sample_id, QString project_name, const QVector<QSqlRecord> &testResults, QMap<QString, int> map_position, int pkid, int companyId)
 {
-    drawTableA(painter, test_Id, result_data, sample_id, project_name, PrintDataListCutGrayValue, map_position);
+    drawTableA(painter, test_Id, sample_id, project_name, testResults, map_position);
 }
 
 void TestResultDataAll::paintRequestedHandler(QPrinter *printerPixmap)
@@ -2854,8 +2573,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             {
                 addContent(row, 6, GlobalData::LoadLanguageInfo("K1686"));//"未知");
             }
-
-            row++;
             need_change_bg_color = false;
             need_change_bg_color_cut_fun = false;
             need_change_bg_color_fun = false;
@@ -2867,10 +2584,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             strItemName = "";
             strRel = "";
         }
-    }
-    //默认选中，显示行
-    if (row > 0)
-    {
+		row++;
     }
     if (m_currentPage > 1)
     {

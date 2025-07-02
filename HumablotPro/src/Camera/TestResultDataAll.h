@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <QWidget>
+#include <QSqlRecord>
 #include "ui_TestResultDataAll.h"
 #include "../sample/TestResultDetailDialog.h"
 #include "../sample/ShowTestResultDetail.h"
@@ -33,13 +34,12 @@ private:
 	void addContent(int row, int column, QString content, int nColor = 0);
 	void printDirect();
 	void printDirectA();
-	void printOnePage(QPainter *painter, int no);
-	void printOnePageA(QPainter *painter, QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position,int pkid,int companyId);
+	void printOnePageA(QPainter *painter, QString test_Id, QString sample_id, QString project_name, const QVector<QSqlRecord> &testResults, QMap<QString, int> map_position,int pkid,int companyId);
 	void printOnePageB(QPainter *painter, QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position);
 	void printOnePageC(QPainter *painter, QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position);
-	void drawTable(QPainter *painter, int no);
+	void drawTable(QPainter *painter, int no, const int pagesize);
 	void drawTableC(QPainter *painter, int no);
-	void drawTableA(QPainter *painter,  QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue,QMap<QString, int> map_position);
+	void drawTableA(QPainter *painter,  QString test_Id, QString sample_id, QString project_name, const QVector<QSqlRecord> &testResults,QMap<QString, int> map_position);
 	void drawTableB(QPainter *painter, QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue, QMap<QString, int> map_position);
 	//void drawTableC(QPainter *painter, QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue);
 	void SavePdf(QPainter* pPdfPainter ,QString test_Id, QString result_data, QString sample_id, QString project_name, QList<float> PrintDataListCutGrayValue);
@@ -66,7 +66,6 @@ private slots:
 	void on_pushButtonJumpPage_clicked();
 	void on_pushButton_clicked();
     void on_btnSampleInfo_clicked();
-
 public slots:
 	void sltUpdateTestResultDataList(QString a, QString b);
 	void paintRequestedHandler(QPrinter *printerPixmap);

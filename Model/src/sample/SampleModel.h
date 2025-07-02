@@ -84,6 +84,8 @@ public:
     QString getSampleSender() const;
     void setSampleSender(const QString &sampleSender);
 
+	QString getCreateDay() const;
+	void setCreateDay(const QString &createDay);
 private:
     int        _pkid;
     QString    _Id;
@@ -118,6 +120,7 @@ private:
     QString    _remark;
     QString    _checkerName;
     QString    _sampleSender;
+	QString    _createDay;
 };
 
 #endif // SAMPLEMODEL_H

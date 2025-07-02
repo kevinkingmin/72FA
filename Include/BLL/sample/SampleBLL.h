@@ -19,6 +19,7 @@ public:
     SampleBLL();
     QVector<ptrSample> getRowsByIds(QVector<QString> ids);
     ptrSample getRowById(QString id);
+    ptrSample getRowByPkId(const int pkid);
     ptrSample getUnTestSampleByBarcode(const QString &barcode);
     QVector<ptrSample>getUnTestSampleByBarcode(const QVector<QString>&vect);
 

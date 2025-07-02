@@ -66,7 +66,6 @@ TestSampleWidget::TestSampleWidget(PrepareReagentDialog * dialog, QWidget *paren
   ,_stepName("")
 {
     ui->setupUi(this);
-
     auto dao = AnalysisUIDao::instance();
     bool bResult;
     g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
@@ -144,7 +143,12 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
             QString result= GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code);
             MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), result,MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
             return;
-        }		
+        }
+		if (!createDir())
+		{
+			_instrState->setMachineState(_instrState->enumError);
+			return;
+		}
         //处理照片
         QtConcurrent::run([this, messageType]()
 		{
@@ -990,6 +994,34 @@ void TestSampleWidget::setProgressState()
         ui->lblPause->setText(traslationSecondToString(mPause_time));
         TimeShow(_stepName, str1, "", "", "");
     }
+}
+
+bool TestSampleWidget::createDir()
+{
+	auto pathPm = SystemSetBLL().getRowById(3);
+	auto rootPath = pathPm.isNull() ? "D:\\HumablotProFiles\\TestPictures" : pathPm->getSaveDes();
+	QDir dir;
+	auto mkFun = [dir](const QString &pathStr)
+	{
+		if (!dir.exists(pathStr))
+		{
+			if (!dir.mkpath(pathStr))
+			{
+				eLog("make dir failed,path:{}", pathStr.toStdString());
+				return false;
+			}
+		}
+		return true;
+	};
+	if(!mkFun(rootPath + "\\analysised"))
+		return false;
+	if (!mkFun(rootPath + "\\original"))
+		return false;
+	pathPm = SystemSetBLL().getRowById(4);
+	QString reportPath= pathPm.isNull() ? "D:\\HumablotProFiles\\Reports" : pathPm->getSaveDes();
+	if (!mkFun(reportPath))
+		return false;
+	return true;
 }
 
 QString TestSampleWidget::traslationSecondToString(int second)
