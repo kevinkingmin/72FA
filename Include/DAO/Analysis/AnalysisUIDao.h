@@ -270,11 +270,12 @@ public:
 
 		QString selectDataBaseVersion(bool *bResult);
 		//UpdateTargetValue(bool *bResult, QString id, QString value);
-        QString  createLISData(const QString &testId);
+        QString  createLISData(const QString &testId, const int companyId);
 		int getPaperItemCountBySampleId(const int pkid);
 		QSqlRecord getSampleByPkid(const int pkid,bool &ret);
 		QString getItemCHName(const QString &itemName,const int paperId);
         bool updateTestResult(const QVector<QVector<QString>> &testResult);
+		QString convetItemCutValue(const int companyId, const QString &itemName, const double &cutValue);
 private:
         QMap<QString, QVector<JudgeRules>> getPaperJudgeRules(const int paperId);
         QMap<int, QVector<JudgeRules> > convertGrayRadio();

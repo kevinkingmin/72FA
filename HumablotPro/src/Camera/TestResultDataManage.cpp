@@ -32,10 +32,7 @@ void TestResultDataManage::Show_UI_Data()
 	testResultDataAll->m_test_project_name = this->m_test_project_name;
 	testResultDataAll->Show_UI_Data("");
 	ui.tabWidget->addTab(testResultDataAll, "概述");
-
-
 	connect(this, SIGNAL(sglUpdateStatus(QString, QString)), testResultDataAll, SLOT(sltUpdateTestResultDataList(QString, QString)));
-
 	bool bResult = true;
     auto dao = AnalysisUIDao::instance();
     auto TestPaperListQuery = dao->SelectTestPaperIDs(m_test_project_name, &bResult);
@@ -44,7 +41,6 @@ void TestResultDataManage::Show_UI_Data()
 		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1304"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
-
     int nTestPaperTypeNumber = TestPaperListQuery.size();
 	int nTestPaperID = 0;
 	QString strTestPaperName;

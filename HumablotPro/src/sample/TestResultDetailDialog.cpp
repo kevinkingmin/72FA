@@ -198,9 +198,7 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 			}
 			else
 			{
-				dRatioToCut_sz = QString("%1").arg(dRatioToCut);
-                if(company_info==6 && dRatioToCut>=100 && strItemName=="Total IgE")
-                    dRatioToCut_sz=">100";
+				dRatioToCut_sz = dao->convetItemCutValue(company_info, strItemName, dRatioToCut);
 			}
 			QTableWidgetItem *item_dRatioToCut = new QTableWidgetItem(dRatioToCut_sz);
             item_dRatioToCut->setTextAlignment(Qt::AlignCenter);

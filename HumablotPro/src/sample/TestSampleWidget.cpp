@@ -157,12 +157,14 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
             auto dao = AnalysisUIDao::instance();
             auto pm{ SystemSetBLL().getRowById(9994) };
             bool isUploadLis{ pm.isNull() ? false : pm->getSaveSet() > 0 };
+			bool bResult = true;
+			int company_info = dao->SelectTargetValue(&bResult, "5").toInt();
             for(auto test:m_listTest)
             {
                 bool ret = m_analysis.AnalysisMothed(test->getTestId(), test->getPaperId(), test->getTestId(),test->getSolutionName(),test->getPatientName());
                 if(ret & isUploadLis)
                 {
-                    QString send_sz=dao->createLISData(test->getTestId()); 
+                    QString send_sz=dao->createLISData(test->getTestId(), company_info);
                     if(send_sz.isEmpty())
                     {
                         eLog("create LIS data failed,testId:{}",test->getTestId().toStdString());

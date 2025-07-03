@@ -1944,6 +1944,7 @@ void TestResultDataAll::on_pushButtonUpdateToLis_clicked()
     QString tip("");
     QString id("Send:");
     int i_n(0);
+	int company_info = dao->SelectTargetValue(&bResult, "5").toInt();
     QString send_sz("");
     for (int i = 0; i < ui.tableWidget->rowCount(); i++)
     {
@@ -1956,7 +1957,7 @@ void TestResultDataAll::on_pushButtonUpdateToLis_clicked()
                 MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1736"), MyMessageBox::Ok, "OK", "");
                 return;
             }
-            send_sz=dao->createLISData(testId);
+            send_sz=dao->createLISData(testId, company_info);
             if(send_sz.isEmpty())
             {
                 eLog("数据发送失败,testId:{}",testId.toStdString());

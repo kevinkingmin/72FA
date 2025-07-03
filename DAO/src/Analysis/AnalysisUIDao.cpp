@@ -609,7 +609,7 @@ QString AnalysisUIDao::selectDataBaseVersion(bool *bResult)
     return strTargetValue;
 }
 
-QString AnalysisUIDao::createLISData(const QString &testId)
+QString AnalysisUIDao::createLISData(const QString &testId, const int companyId)
 {
     QString query_sql = QString("SELECT tsample.pkid,tsample.Id,tsample.testId,tsample.sampleNo,"
 		                         "tsample.samplePos,tsample.paperId,tsample.paperPos,tsample.barcode,"
@@ -650,20 +650,10 @@ QString AnalysisUIDao::createLISData(const QString &testId)
 			judgeRulesMap = getPaperJudgeRules(paperId);
 		}
         QString projectName = TestDataQuery.value("projectName").toString();
-        QString cutGrayValue = TestDataQuery.value("cutGrayValue").toString();
-        QVector<JudgeRules> judgeRecords{};
-        auto jdit{ judgeRulesMap.find(projectName) };
-        if (jdit != judgeRulesMap.end())
-            judgeRecords = jdit.value();
-        auto tp{ getConvertPara(judgeRecords,cutGrayValue.toDouble(),paperId) };
-		auto cutValue{ std::get<0>(tp) };
-		if (!cutValue.isEmpty())
-			cutGrayValue = std::get<0>(tp);
+        QString cutGrayValue = convetItemCutValue(companyId, projectName,TestDataQuery.value("cutGrayValue").toDouble());
         int error_code = TestDataQuery.value("error_code").toInt();
         QString testTime = TestDataQuery.value("testTime").toString();
         QString testResult = TestDataQuery.value("testResult").toString();
-        if (error_code == 10002)
-            testResult = "-";
         double testGrayValue = TestDataQuery.value("testGrayValue").toDouble();
         send_sz += QString("OBX | |NM|%1||%2|F%3||%4 |%5||| F ||| BetchNo || Admin || HumaBlot 72FA  | %6").arg(testTime).arg(projectName).arg(testResult).arg(testGrayValue).arg(cutGrayValue).arg(QChar(0x0D)); //"OBX | " + "" + "|NM|" + s.TestTime + "||" + s.ProjectName + "|F" + s.TestResult + "||" + s.TestGrayValue + " |||| F ||| 批号 || Admin || HumaBlot 72FA  | " + "" + "" + getstringforbyte(0x0D);
         iii_count++;
@@ -739,6 +729,19 @@ bool AnalysisUIDao::updateTestResult(const QVector<QVector<QString> > &testResul
         sqlStr+="UPDATE tsample_test set cutGrayValue="+result.at(1)+",testGrayValue="+result.at(3)+",testResult='"+result.at(2)+"' WHERE pkid="+result.at(0)+";";
     }
     return query.exec(sqlStr);
+}
+
+QString AnalysisUIDao::convetItemCutValue(const int companyId, const QString & itemName, const double &cutValue)
+{
+	QString outValue = QString("%1").arg(cutValue);
+	if (companyId == 6 && itemName == "Total IgE")
+	{
+		if (cutValue >= 100)
+			outValue = "≥100";
+		else
+			outValue = "＜100";
+	}
+	return outValue;
 }
 
 QMap<QString, QVector<JudgeRules> > AnalysisUIDao::getPaperJudgeRules(const int paperId)
