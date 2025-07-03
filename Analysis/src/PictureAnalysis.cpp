@@ -1136,7 +1136,7 @@ int PictureAnalysis::GetTestPaperImageContinuous(QString filePath,TestPaperParam
     {
         // 膨胀操作合并相邻轮廓（关键步骤）
         cv::Mat mergedMat;
-        cv::Mat dilate_kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(20,20));
+        cv::Mat dilate_kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(30,20));
         cv::dilate(erodedMat, mergedMat, dilate_kernel);
         /*保存图片膨胀后的图片保存
         std::string mergedPath = dao->SelectTestPicturesRootPath(&bResult).toStdString();
@@ -1580,6 +1580,10 @@ int PictureAnalysis::GetTestPaperImageCalcIndexWz(const cv::Mat& srcMat,TestPape
     // 这里是故意为之，方便找标记
     // 向照片头多找一段距离
     cv::Rect roi(markLineLimitStart, 0, lineLimit*3/2, srcMat.rows);
+    if(srcMat.cols < markLineLimitStart + lineLimit*3/2)
+    {
+        return 2;
+    }
     cv::Mat markLimitMat = srcMat(roi);
 
     /*保存二值化后的图片
@@ -1628,7 +1632,7 @@ int PictureAnalysis::GetTestPaperImageCalcIndexWz(const cv::Mat& srcMat,TestPape
             minGrayContourIdx = static_cast<int>(i);
         }
     }
-   if (minGrayContourIdx < 0 || markMatGray > 180)
+   if (minGrayContourIdx < 0 || markMatGray > 160)
     {
         return 2;
     }
