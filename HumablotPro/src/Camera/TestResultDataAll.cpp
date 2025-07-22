@@ -2012,7 +2012,7 @@ void TestResultDataAll::on_pushButtonUpdateToLis_clicked()
             MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1310"), MyMessageBox::Ok, "OK", "");
         }
     }
-    Show_UI_Data("");
+    //Show_UI_Data("");
 }
 
 void TestResultDataAll::on_pushButtonTopPage_clicked()

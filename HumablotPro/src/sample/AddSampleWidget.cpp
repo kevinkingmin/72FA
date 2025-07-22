@@ -227,8 +227,8 @@ void AddSampleWidget::slotSendRequestDataToLIS(const QString &requstData)
         scanWorkState(true);
         if (m_tcpClient == nullptr)
             eLog("m_tcpClient is null");
-        else
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("从LIS服务器下载数据出错！"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
+        else if(requstData=="finish")
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("从LIS服务器下载数据完成！"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
         ShowTestInfoFromDatabase();
         return;
     }
