@@ -81,7 +81,17 @@ TestSampleWidget::TestSampleWidget(PrepareReagentDialog * dialog, QWidget *paren
     connect(_instrument, &Instrument::sglDetectionContinueResult,this, &TestSampleWidget::slotDetectionContinueResult);
     connect(_instrument, &Instrument::sglDetectionStopResult,this, &TestSampleWidget::slotDetectionStopResult);
     connect(this, &TestSampleWidget::testFinish,this,&TestSampleWidget::slotTestFinish,Qt::QueuedConnection);
-
+    connect(this,&TestSampleWidget::sglUploadLIS,this,[this,dao](const QString &testId,int companyInfo)
+    {
+        dLog("upload data to LIS");
+        QString send_sz=dao->createLISData(testId, companyInfo);
+        if(send_sz.isEmpty())
+        {
+            eLog("create LIS data failed,testId:{}",testId.toStdString());
+            return;
+        }
+        m_tcpClient->sendData(send_sz);
+    },Qt::QueuedConnection);
     ui->lblStep->setVisible(false);
     ui->subStepsWidget->setVisible(false);
 
@@ -163,14 +173,8 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
             {
                 bool ret = m_analysis.AnalysisMothed(test->getTestId(), test->getPaperId(), test->getTestId(),test->getSolutionName(),test->getPatientName());
                 if(ret & isUploadLis)
-                {
-                    QString send_sz=dao->createLISData(test->getTestId(), company_info);
-                    if(send_sz.isEmpty())
-                    {
-                        eLog("create LIS data failed,testId:{}",test->getTestId().toStdString());
-                        continue;
-                    }
-                    m_tcpClient->sendData(send_sz);
+                {                    
+                    emit sglUploadLIS(test->getTestId(),company_info);
                 }
             }
             //检测完成，弹窗提示

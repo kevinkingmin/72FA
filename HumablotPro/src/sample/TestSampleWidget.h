@@ -205,7 +205,6 @@ signals:
     void ResetSignal();
     void testStop();
     void testFinish();
-
-
+    void sglUploadLIS(const QString &testId,int companyInfo);
 };
 #endif

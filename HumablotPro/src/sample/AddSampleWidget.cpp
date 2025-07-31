@@ -1300,45 +1300,45 @@ void AddSampleWidget::createSampleTestData(QMap<SampleStrc,QVector<int>>testMap,
 
 void AddSampleWidget::sortTestData(QVector<ptrTest> &listTestData)
 {
-    _listTestData.swap(listTestData);
-//    QVector<ptrTest>tempList;
-//    _listTestData.swap(tempList);
-//    if(listTestData.isEmpty())
-//        return;
-//    _listTestData.push_back(listTestData[0]);
-//    listTestData.remove(0);
-//NEXT:
-//    auto last=_listTestData.last();
-//    for(int i=0;i<listTestData.count();i++)
-//    {
-//        if(listTestData.count()==1)
-//        {
-//            _listTestData.push_back(listTestData[0]);
-//            break;
-//        }
+    //_listTestData.swap(listTestData);
+	QVector<ptrTest>tempList{};
+    _listTestData.swap(tempList);
+    if(listTestData.isEmpty())
+        return;
+    _listTestData.push_back(listTestData[0]);
+    listTestData.remove(0);
+NEXT:
+    auto last=_listTestData.last();
+    for(int i=0;i<listTestData.count();i++)
+    {
+        if(listTestData.count()==1)
+        {
+            _listTestData.push_back(listTestData[0]);
+            break;
+        }
 
-//        if(i==listTestData.count()-1)
-//        {
-//            if(last->getPaperId()==listTestData[i]->getPaperId())
-//            {
-//                _listTestData.push_back(listTestData[i]);
-//                listTestData.remove(i);
-//            }
-//            else
-//            {
-//                _listTestData.push_back(listTestData[0]);
-//                listTestData.remove(0);
-//            }
-//            goto NEXT;
-//        }
+        if(i==listTestData.count()-1)
+        {
+            if(last->getPaperId()==listTestData[i]->getPaperId())
+            {
+                _listTestData.push_back(listTestData[i]);
+                listTestData.remove(i);
+            }
+            else
+            {
+                _listTestData.push_back(listTestData[0]);
+                listTestData.remove(0);
+            }
+            goto NEXT;
+        }
 
-//        if(last->getPaperId()==listTestData[i]->getPaperId())
-//        {
-//            _listTestData.push_back(listTestData[i]);
-//            listTestData.remove(i);
-//            goto NEXT;
-//        }
-//    }
+        if(last->getPaperId()==listTestData[i]->getPaperId())
+        {
+            _listTestData.push_back(listTestData[i]);
+            listTestData.remove(i);
+            goto NEXT;
+        }
+    }
 }
 
 void AddSampleWidget::setTestDataSlotPos(int startPos, int totalTest)
