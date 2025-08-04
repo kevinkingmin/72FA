@@ -32,31 +32,26 @@ public:
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout;
-    QDateEdit *dateEdit;
-    QDateEdit *dateEdit_2;
     QSpacerItem *horizontalSpacer_4;
-    QPushButton *pushButtonPdf;
-    QSpacerItem *horizontalSpacer_7;
-    QSpacerItem *horizontalSpacer_8;
-    QSpacerItem *horizontalSpacer;
-    QComboBox *comboBoxPaperID;
-    QSpacerItem *horizontalSpacer_10;
-    QSpacerItem *horizontalSpacer_3;
     QPushButton *pushButtonPrint;
-    QPushButton *pushButtonSelectAll;
-    QSpacerItem *horizontalSpacer_5;
-    QPushButton *pushButtonPrintA;
-    QPushButton *pushButtonUpdateToLis;
-    QSpacerItem *horizontalSpacer_6;
-    QSpacerItem *horizontalSpacer_2;
-    QLabel *label_2;
+    QPushButton *btnDelete;
     QLabel *label_3;
-    QPushButton *pushButton;
-    QSpacerItem *horizontalSpacer_11;
-    QPushButton *pushButtonQuery;
-    QLabel *label;
+    QPushButton *pushButtonPdf;
     QPushButton *btnSampleInfo;
+    QSpacerItem *horizontalSpacer_10;
+    QLabel *label_2;
     QPushButton *pushButtonPdfAll;
+    QPushButton *pushButtonUpdateToLis;
+    QPushButton *pushButtonSelectAll;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *pushButtonQuery;
+    QDateEdit *dateEdit_2;
+    QDateEdit *dateEdit;
+    QComboBox *comboBoxPaperID;
+    QSpacerItem *horizontalSpacer_5;
+    QPushButton *pushButton;
+    QPushButton *pushButtonPrintA;
+    QLabel *label;
     QTableWidget *tableWidget;
     QHBoxLayout *horizontalLayout;
     QLabel *labelCount;
@@ -75,7 +70,7 @@ public:
     {
         if (TestResultDataAll->objectName().isEmpty())
             TestResultDataAll->setObjectName(QString::fromUtf8("TestResultDataAll"));
-        TestResultDataAll->resize(1534, 794);
+        TestResultDataAll->resize(1505, 794);
         verticalLayout_2 = new QVBoxLayout(TestResultDataAll);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -86,124 +81,106 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        dateEdit = new QDateEdit(TestResultDataAll);
-        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
-        dateEdit->setDateTime(QDateTime(QDate(2023, 1, 1), QTime(0, 0, 0)));
-        dateEdit->setCalendarPopup(true);
-
-        gridLayout->addWidget(dateEdit, 0, 14, 1, 1);
-
-        dateEdit_2 = new QDateEdit(TestResultDataAll);
-        dateEdit_2->setObjectName(QString::fromUtf8("dateEdit_2"));
-        dateEdit_2->setDateTime(QDateTime(QDate(2022, 12, 19), QTime(0, 0, 0)));
-        dateEdit_2->setCalendarPopup(true);
-
-        gridLayout->addWidget(dateEdit_2, 0, 17, 1, 1);
-
+        gridLayout->setHorizontalSpacing(4);
         horizontalSpacer_4 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer_4, 0, 18, 1, 1);
-
-        pushButtonPdf = new QPushButton(TestResultDataAll);
-        pushButtonPdf->setObjectName(QString::fromUtf8("pushButtonPdf"));
-
-        gridLayout->addWidget(pushButtonPdf, 0, 10, 1, 1);
-
-        horizontalSpacer_7 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_7, 0, 5, 1, 1);
-
-        horizontalSpacer_8 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_8, 0, 11, 1, 1);
-
-        horizontalSpacer = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer, 0, 1, 1, 1);
-
-        comboBoxPaperID = new QComboBox(TestResultDataAll);
-        comboBoxPaperID->setObjectName(QString::fromUtf8("comboBoxPaperID"));
-
-        gridLayout->addWidget(comboBoxPaperID, 0, 20, 1, 1);
-
-        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_10, 0, 24, 1, 1);
-
-        horizontalSpacer_3 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_3, 0, 15, 1, 1);
+        gridLayout->addItem(horizontalSpacer_4, 0, 12, 1, 1);
 
         pushButtonPrint = new QPushButton(TestResultDataAll);
         pushButtonPrint->setObjectName(QString::fromUtf8("pushButtonPrint"));
 
-        gridLayout->addWidget(pushButtonPrint, 0, 6, 1, 1);
+        gridLayout->addWidget(pushButtonPrint, 0, 3, 1, 1);
+
+        btnDelete = new QPushButton(TestResultDataAll);
+        btnDelete->setObjectName(QString::fromUtf8("btnDelete"));
+
+        gridLayout->addWidget(btnDelete, 0, 18, 1, 1);
+
+        label_3 = new QLabel(TestResultDataAll);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        gridLayout->addWidget(label_3, 0, 13, 1, 1);
+
+        pushButtonPdf = new QPushButton(TestResultDataAll);
+        pushButtonPdf->setObjectName(QString::fromUtf8("pushButtonPdf"));
+
+        gridLayout->addWidget(pushButtonPdf, 0, 5, 1, 1);
+
+        btnSampleInfo = new QPushButton(TestResultDataAll);
+        btnSampleInfo->setObjectName(QString::fromUtf8("btnSampleInfo"));
+
+        gridLayout->addWidget(btnSampleInfo, 0, 2, 1, 1);
+
+        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_10, 0, 19, 1, 1);
+
+        label_2 = new QLabel(TestResultDataAll);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        gridLayout->addWidget(label_2, 0, 10, 1, 1);
+
+        pushButtonPdfAll = new QPushButton(TestResultDataAll);
+        pushButtonPdfAll->setObjectName(QString::fromUtf8("pushButtonPdfAll"));
+
+        gridLayout->addWidget(pushButtonPdfAll, 0, 6, 1, 1);
+
+        pushButtonUpdateToLis = new QPushButton(TestResultDataAll);
+        pushButtonUpdateToLis->setObjectName(QString::fromUtf8("pushButtonUpdateToLis"));
+
+        gridLayout->addWidget(pushButtonUpdateToLis, 0, 1, 1, 1);
 
         pushButtonSelectAll = new QPushButton(TestResultDataAll);
         pushButtonSelectAll->setObjectName(QString::fromUtf8("pushButtonSelectAll"));
 
         gridLayout->addWidget(pushButtonSelectAll, 0, 0, 1, 1);
 
-        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer_3 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer_5, 0, 21, 1, 1);
-
-        pushButtonPrintA = new QPushButton(TestResultDataAll);
-        pushButtonPrintA->setObjectName(QString::fromUtf8("pushButtonPrintA"));
-
-        gridLayout->addWidget(pushButtonPrintA, 0, 8, 1, 1);
-
-        pushButtonUpdateToLis = new QPushButton(TestResultDataAll);
-        pushButtonUpdateToLis->setObjectName(QString::fromUtf8("pushButtonUpdateToLis"));
-
-        gridLayout->addWidget(pushButtonUpdateToLis, 0, 2, 1, 1);
-
-        horizontalSpacer_6 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_6, 0, 7, 1, 1);
-
-        horizontalSpacer_2 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_2, 0, 9, 1, 1);
-
-        label_2 = new QLabel(TestResultDataAll);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        gridLayout->addWidget(label_2, 0, 16, 1, 1);
-
-        label_3 = new QLabel(TestResultDataAll);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-
-        gridLayout->addWidget(label_3, 0, 19, 1, 1);
-
-        pushButton = new QPushButton(TestResultDataAll);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-
-        gridLayout->addWidget(pushButton, 0, 23, 1, 1);
-
-        horizontalSpacer_11 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_11, 0, 3, 1, 1);
+        gridLayout->addItem(horizontalSpacer_3, 0, 9, 1, 1);
 
         pushButtonQuery = new QPushButton(TestResultDataAll);
         pushButtonQuery->setObjectName(QString::fromUtf8("pushButtonQuery"));
 
-        gridLayout->addWidget(pushButtonQuery, 0, 22, 1, 1);
+        gridLayout->addWidget(pushButtonQuery, 0, 16, 1, 1);
+
+        dateEdit_2 = new QDateEdit(TestResultDataAll);
+        dateEdit_2->setObjectName(QString::fromUtf8("dateEdit_2"));
+        dateEdit_2->setDateTime(QDateTime(QDate(2022, 12, 19), QTime(0, 0, 0)));
+        dateEdit_2->setCalendarPopup(true);
+
+        gridLayout->addWidget(dateEdit_2, 0, 11, 1, 1);
+
+        dateEdit = new QDateEdit(TestResultDataAll);
+        dateEdit->setObjectName(QString::fromUtf8("dateEdit"));
+        dateEdit->setDateTime(QDateTime(QDate(2023, 1, 1), QTime(0, 0, 0)));
+        dateEdit->setCalendarPopup(true);
+
+        gridLayout->addWidget(dateEdit, 0, 8, 1, 1);
+
+        comboBoxPaperID = new QComboBox(TestResultDataAll);
+        comboBoxPaperID->setObjectName(QString::fromUtf8("comboBoxPaperID"));
+
+        gridLayout->addWidget(comboBoxPaperID, 0, 14, 1, 1);
+
+        horizontalSpacer_5 = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_5, 0, 15, 1, 1);
+
+        pushButton = new QPushButton(TestResultDataAll);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+
+        gridLayout->addWidget(pushButton, 0, 17, 1, 1);
+
+        pushButtonPrintA = new QPushButton(TestResultDataAll);
+        pushButtonPrintA->setObjectName(QString::fromUtf8("pushButtonPrintA"));
+
+        gridLayout->addWidget(pushButtonPrintA, 0, 4, 1, 1);
 
         label = new QLabel(TestResultDataAll);
         label->setObjectName(QString::fromUtf8("label"));
 
-        gridLayout->addWidget(label, 0, 13, 1, 1);
-
-        btnSampleInfo = new QPushButton(TestResultDataAll);
-        btnSampleInfo->setObjectName(QString::fromUtf8("btnSampleInfo"));
-
-        gridLayout->addWidget(btnSampleInfo, 0, 4, 1, 1);
-
-        pushButtonPdfAll = new QPushButton(TestResultDataAll);
-        pushButtonPdfAll->setObjectName(QString::fromUtf8("pushButtonPdfAll"));
-
-        gridLayout->addWidget(pushButtonPdfAll, 0, 12, 1, 1);
+        gridLayout->addWidget(label, 0, 7, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout);
@@ -310,27 +287,29 @@ public:
     void retranslateUi(QWidget *TestResultDataAll)
     {
         TestResultDataAll->setWindowTitle(QApplication::translate("TestResultDataAll", "TestResultDataAll", nullptr));
-        pushButtonPdf->setText(QApplication::translate("TestResultDataAll", "\345\215\225\351\241\265\344\277\235\345\255\230PDF", nullptr));
-        pushButtonPdf->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
         pushButtonPrint->setText(QApplication::translate("TestResultDataAll", "\346\246\202\350\277\260\346\212\245\345\221\212\346\211\223\345\215\260", nullptr));
         pushButtonPrint->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
-        pushButtonSelectAll->setText(QApplication::translate("TestResultDataAll", "\345\205\250\351\200\211", nullptr));
-        pushButtonSelectAll->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
-        pushButtonPrintA->setText(QApplication::translate("TestResultDataAll", "\345\215\225\351\241\265\346\212\245\345\221\212\346\211\223\345\215\260", nullptr));
-        pushButtonPrintA->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
-        pushButtonUpdateToLis->setText(QApplication::translate("TestResultDataAll", "\344\274\240\350\276\223", nullptr));
-        pushButtonUpdateToLis->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
-        label_2->setText(QApplication::translate("TestResultDataAll", "\347\273\223\346\235\237\346\227\266\351\227\264\357\274\232", nullptr));
+        btnDelete->setText(QApplication::translate("TestResultDataAll", "\345\210\240\351\231\244", nullptr));
+        btnDelete->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnRed", nullptr)));
         label_3->setText(QApplication::translate("TestResultDataAll", "\350\206\234\346\235\241\351\200\211\346\213\251", nullptr));
-        pushButton->setText(QApplication::translate("TestResultDataAll", "\345\275\223\345\244\251\346\243\200\346\265\213\347\273\223\346\236\234\346\237\245\350\257\242", nullptr));
-        pushButton->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnRed", nullptr)));
-        pushButtonQuery->setText(QApplication::translate("TestResultDataAll", "\346\237\245\350\257\242", nullptr));
-        pushButtonQuery->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnRed", nullptr)));
-        label->setText(QApplication::translate("TestResultDataAll", "\345\274\200\345\247\213\346\227\266\351\227\264\357\274\232", nullptr));
+        pushButtonPdf->setText(QApplication::translate("TestResultDataAll", "\345\215\225\351\241\265\344\277\235\345\255\230PDF", nullptr));
+        pushButtonPdf->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
         btnSampleInfo->setText(QApplication::translate("TestResultDataAll", "\346\240\267\346\234\254\344\277\241\346\201\257", nullptr));
         btnSampleInfo->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
+        label_2->setText(QApplication::translate("TestResultDataAll", "\347\273\223\346\235\237\346\227\266\351\227\264\357\274\232", nullptr));
         pushButtonPdfAll->setText(QApplication::translate("TestResultDataAll", "\346\246\202\350\277\260\344\277\235\345\255\230PDF", nullptr));
         pushButtonPdfAll->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
+        pushButtonUpdateToLis->setText(QApplication::translate("TestResultDataAll", "\344\274\240\350\276\223", nullptr));
+        pushButtonUpdateToLis->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
+        pushButtonSelectAll->setText(QApplication::translate("TestResultDataAll", "\345\205\250\351\200\211", nullptr));
+        pushButtonSelectAll->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
+        pushButtonQuery->setText(QApplication::translate("TestResultDataAll", "\346\237\245\350\257\242", nullptr));
+        pushButtonQuery->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnRed", nullptr)));
+        pushButton->setText(QApplication::translate("TestResultDataAll", "\345\275\223\345\244\251\347\273\223\346\236\234", nullptr));
+        pushButton->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnRed", nullptr)));
+        pushButtonPrintA->setText(QApplication::translate("TestResultDataAll", "\345\215\225\351\241\265\346\212\245\345\221\212\346\211\223\345\215\260", nullptr));
+        pushButtonPrintA->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
+        label->setText(QApplication::translate("TestResultDataAll", "\345\274\200\345\247\213\346\227\266\351\227\264\357\274\232", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("TestResultDataAll", "\346\230\257\345\220\246\351\200\211\344\270\255", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);

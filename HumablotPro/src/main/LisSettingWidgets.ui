@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1135</width>
+    <width>1110</width>
     <height>665</height>
    </rect>
   </property>
@@ -123,6 +123,19 @@
                 </property>
                 <property name="text">
                  <string>实时模式</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="chkOneWay">
+                <property name="font">
+                 <font>
+                  <family>Adobe 黑体 Std R</family>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>单向</string>
                 </property>
                </widget>
               </item>

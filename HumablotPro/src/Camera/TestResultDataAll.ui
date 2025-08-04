@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1534</width>
+    <width>1505</width>
     <height>794</height>
    </rect>
   </property>
@@ -18,41 +18,10 @@
     <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1,0">
      <item>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="14">
-        <widget class="QDateEdit" name="dateEdit">
-         <property name="dateTime">
-          <datetime>
-           <hour>0</hour>
-           <minute>0</minute>
-           <second>0</second>
-           <year>2023</year>
-           <month>1</month>
-           <day>1</day>
-          </datetime>
-         </property>
-         <property name="calendarPopup">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="17">
-        <widget class="QDateEdit" name="dateEdit_2">
-         <property name="dateTime">
-          <datetime>
-           <hour>0</hour>
-           <minute>0</minute>
-           <second>0</second>
-           <year>2022</year>
-           <month>12</month>
-           <day>19</day>
-          </datetime>
-         </property>
-         <property name="calendarPopup">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="18">
+       <property name="horizontalSpacing">
+        <number>4</number>
+       </property>
+       <item row="0" column="12">
         <spacer name="horizontalSpacer_4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -68,7 +37,34 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="10">
+       <item row="0" column="3">
+        <widget class="QPushButton" name="pushButtonPrint">
+         <property name="text">
+          <string>概述报告打印</string>
+         </property>
+         <property name="btnStyle" stdset="0">
+          <string>normalBtnpink</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="18">
+        <widget class="QPushButton" name="btnDelete">
+         <property name="text">
+          <string>删除</string>
+         </property>
+         <property name="btnStyle" stdset="0">
+          <string>normalBtnRed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="13">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>膜条选择</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
         <widget class="QPushButton" name="pushButtonPdf">
          <property name="text">
           <string>单页保存PDF</string>
@@ -78,58 +74,17 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="5">
-        <spacer name="horizontalSpacer_7">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btnSampleInfo">
+         <property name="text">
+          <string>样本信息</string>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+         <property name="btnStyle" stdset="0">
+          <string>normalBtnpink</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
-       <item row="0" column="11">
-        <spacer name="horizontalSpacer_8">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="20">
-        <widget class="QComboBox" name="comboBoxPaperID"/>
-       </item>
-       <item row="0" column="24">
+       <item row="0" column="19">
         <spacer name="horizontalSpacer_10">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -142,26 +97,27 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="15">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+       <item row="0" column="10">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>结束时间：</string>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
        <item row="0" column="6">
-        <widget class="QPushButton" name="pushButtonPrint">
+        <widget class="QPushButton" name="pushButtonPdfAll">
          <property name="text">
-          <string>概述报告打印</string>
+          <string>概述保存PDF</string>
+         </property>
+         <property name="btnStyle" stdset="0">
+          <string>normalBtnpink</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButtonUpdateToLis">
+         <property name="text">
+          <string>传输</string>
          </property>
          <property name="btnStyle" stdset="0">
           <string>normalBtnpink</string>
@@ -178,57 +134,8 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="21">
-        <spacer name="horizontalSpacer_5">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="8">
-        <widget class="QPushButton" name="pushButtonPrintA">
-         <property name="text">
-          <string>单页报告打印</string>
-         </property>
-         <property name="btnStyle" stdset="0">
-          <string>normalBtnpink</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="pushButtonUpdateToLis">
-         <property name="text">
-          <string>传输</string>
-         </property>
-         <property name="btnStyle" stdset="0">
-          <string>normalBtnpink</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="7">
-        <spacer name="horizontalSpacer_6">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
        <item row="0" column="9">
-        <spacer name="horizontalSpacer_2">
+        <spacer name="horizontalSpacer_3">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -244,46 +151,6 @@
         </spacer>
        </item>
        <item row="0" column="16">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>结束时间：</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="19">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>膜条选择</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="23">
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>当天检测结果查询</string>
-         </property>
-         <property name="btnStyle" stdset="0">
-          <string>normalBtnRed</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <spacer name="horizontalSpacer_11">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="22">
         <widget class="QPushButton" name="pushButtonQuery">
          <property name="text">
           <string>查询</string>
@@ -293,30 +160,80 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="13">
-        <widget class="QLabel" name="label">
+       <item row="0" column="11">
+        <widget class="QDateEdit" name="dateEdit_2">
+         <property name="dateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>2022</year>
+           <month>12</month>
+           <day>19</day>
+          </datetime>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8">
+        <widget class="QDateEdit" name="dateEdit">
+         <property name="dateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>2023</year>
+           <month>1</month>
+           <day>1</day>
+          </datetime>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="14">
+        <widget class="QComboBox" name="comboBoxPaperID"/>
+       </item>
+       <item row="0" column="15">
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="17">
+        <widget class="QPushButton" name="pushButton">
          <property name="text">
-          <string>开始时间：</string>
+          <string>当天结果</string>
+         </property>
+         <property name="btnStyle" stdset="0">
+          <string>normalBtnRed</string>
          </property>
         </widget>
        </item>
        <item row="0" column="4">
-        <widget class="QPushButton" name="btnSampleInfo">
+        <widget class="QPushButton" name="pushButtonPrintA">
          <property name="text">
-          <string>样本信息</string>
+          <string>单页报告打印</string>
          </property>
          <property name="btnStyle" stdset="0">
           <string>normalBtnpink</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="12">
-        <widget class="QPushButton" name="pushButtonPdfAll">
+       <item row="0" column="7">
+        <widget class="QLabel" name="label">
          <property name="text">
-          <string>概述保存PDF</string>
-         </property>
-         <property name="btnStyle" stdset="0">
-          <string>normalBtnpink</string>
+          <string>开始时间：</string>
          </property>
         </widget>
        </item>

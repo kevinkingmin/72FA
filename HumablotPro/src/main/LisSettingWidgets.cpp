@@ -42,7 +42,9 @@ LisSettingWidgets::LisSettingWidgets(QWidget *parent)
 	{
 		ui.checkBoxAutoConnete->setChecked(false);
 	}
-	QString ip = dao->SelectTargetValueDes(&bResult,"9995");
+    auto ipPm{SystemSetBLL().getRowById(9995)};
+    QString ip = ipPm.isNull()?"":ipPm->getSaveDes();
+    ui.chkOneWay->setChecked(ipPm.isNull()?false:ipPm->getSaveSet()>0);
 	QString port = dao->SelectTargetValueDes(&bResult, "9996");
 	ui.lineEditPort->setText(port);
 	ui.lineEditIP->setText(ip);
@@ -149,15 +151,17 @@ void LisSettingWidgets::on_pushButtonSave_clicked()
 	autoSet->setSaveDes(QString::number(autoSetV));
 	if (!SystemSetBLL().updateByModel(autoSet))
 		eLog("SystemSet update error");
-		
+
 	auto ipModel{ SystemSetBLL().getRowById(9995) };
 	if (ipModel.isNull())
 	{
 		eLog("ipModel is null");
 		return;
-	}
+    }
 	auto ip{ ui.lineEditIP->text() };
 	ipModel->setSaveDes(ip);
+    auto waySet{ ui.chkOneWay->isChecked() ? 1 : 0 };
+    ipModel->setSaveSet(waySet);
 	if (!SystemSetBLL().updateByModel(ipModel))
 		eLog("ipModel update error");
 

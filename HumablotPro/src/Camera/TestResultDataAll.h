@@ -66,6 +66,8 @@ private slots:
 	void on_pushButtonJumpPage_clicked();
 	void on_pushButton_clicked();
     void on_btnSampleInfo_clicked();
+    void on_btnDelete_clicked();
+
 public slots:
 	void sltUpdateTestResultDataList(QString a, QString b);
 	void paintRequestedHandler(QPrinter *printerPixmap);

@@ -87,9 +87,12 @@ void AddSampleWidget::slotGetSampleBarCodeList(QByteArray resultData)
         }
         m_barCodePosMap.insert(i,barcode);
     }
-
-    if(m_tcpClient==nullptr || !m_tcpClient->m_connectedState)
+    auto wayPm{SystemSetBLL().getRowById(9995)};
+    bool isOneWay{wayPm.isNull()?false:wayPm->getSaveSet()>0};
+    if(m_tcpClient==nullptr || !m_tcpClient->m_connectedState || isOneWay)
     {
+        if(isOneWay)
+            iLog("LIS one way");
         scanWorkState(true);
         return;
     }

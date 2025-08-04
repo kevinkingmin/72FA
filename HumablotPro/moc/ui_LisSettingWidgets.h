@@ -42,6 +42,7 @@ public:
     QSpacerItem *horizontalSpacer;
     QCheckBox *checkBoxStartLis;
     QCheckBox *checkBoxAutoConnete;
+    QCheckBox *chkOneWay;
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer_4;
@@ -77,7 +78,7 @@ public:
     {
         if (LisSettingWidgets->objectName().isEmpty())
             LisSettingWidgets->setObjectName(QString::fromUtf8("LisSettingWidgets"));
-        LisSettingWidgets->resize(1135, 665);
+        LisSettingWidgets->resize(1110, 665);
         verticalLayout_5 = new QVBoxLayout(LisSettingWidgets);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -136,6 +137,12 @@ public:
         checkBoxAutoConnete->setFont(font);
 
         horizontalLayout->addWidget(checkBoxAutoConnete);
+
+        chkOneWay = new QCheckBox(vertical_1);
+        chkOneWay->setObjectName(QString::fromUtf8("chkOneWay"));
+        chkOneWay->setFont(font);
+
+        horizontalLayout->addWidget(chkOneWay);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -330,6 +337,7 @@ public:
         label_4->setText(QApplication::translate("LisSettingWidgets", "TextLabel", nullptr));
         checkBoxStartLis->setText(QApplication::translate("LisSettingWidgets", "\345\220\257\345\212\250LIS", nullptr));
         checkBoxAutoConnete->setText(QApplication::translate("LisSettingWidgets", "\345\256\236\346\227\266\346\250\241\345\274\217", nullptr));
+        chkOneWay->setText(QApplication::translate("LisSettingWidgets", "\345\215\225\345\220\221", nullptr));
         groupBox->setTitle(QString());
         label_3->setText(QApplication::translate("LisSettingWidgets", "\351\200\232\344\277\241\345\215\217\350\256\256\357\274\232", nullptr));
         lineEditIP->setText(QApplication::translate("LisSettingWidgets", "192.168.20.83", nullptr));

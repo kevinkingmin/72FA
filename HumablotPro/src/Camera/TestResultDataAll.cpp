@@ -2671,3 +2671,32 @@ void TestResultDataAll::on_btnSampleInfo_clicked()
     dialog.setPkid(_pkidVect.first());
     dialog.exec();
 }
+void TestResultDataAll::on_btnDelete_clicked()
+{
+    int ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1713"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
+    if (ret != 16384)
+        return;
+    QString test_id = "";
+    QString sample_id = "";
+    int pkid = 0;
+    m_rowNum = 0;
+    for (int i = 0; i < ui.tableWidget->rowCount(); i++)
+    {
+        if (ui.tableWidget->item(i, 0)->checkState())
+        {
+            test_id = ui.tableWidget->item(i, 1)->text();
+            sample_id = ui.tableWidget->item(i, 2)->text();
+            pkid = ui.tableWidget->item(i, 8)->text().toInt();
+            auto dao = AnalysisUIDao::instance();
+            bool bResult = false;
+            QString sql = QString("update tsample set stateFlag=99 where pkid=%1").arg(pkid);
+            dao->UpdateRecord(&bResult, sql);
+
+            QString delete_content = QString("test_id:%1-pkid:%2-sample_id:%3").arg(test_id).arg(pkid).arg(sample_id);
+            QString sql1_log = QString("insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('%1','%2','%3','%4')").arg("Test result list ").arg("").arg(delete_content).arg(GlobalData::getLoginName1());
+            dao->SelectRecord(&bResult, sql1_log);
+            m_rowNum++;
+        }
+    }
+    InitTableWidget(m_query_condition1, m_currentPage);//初始化状态列表
+}
