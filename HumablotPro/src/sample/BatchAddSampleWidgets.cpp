@@ -1,4 +1,4 @@
-#include "..\include\precomp\precompile.h"
+ï»¿#include "..\include\precomp\precompile.h"
 #include "BatchAddSampleWidgets.h"
 #include <QColor>
 #include <QDateTime>
@@ -39,7 +39,7 @@ BatchAddSampleWidgets::BatchAddSampleWidgets(QWidget *parent)
 	QStringList labels;
 
 	labels << GlobalData::LoadLanguageInfo(g_language_type, "K1553") << GlobalData::LoadLanguageInfo(g_language_type, "K1554") << GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1041") << GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1555") << GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1049");
-	//labels << "±àºÅ" << "Ä¤ÌõÀàĞÍ" << "¸´¿×" << "Ñù±¾Î»ÖÃ" << "Ñù±¾±àºÅ";
+	//labels << "ç¼–å·" << "è†œæ¡ç±»å‹" << "å¤å­”" << "æ ·æœ¬ä½ç½®" << "æ ·æœ¬ç¼–å·";
 	model->setHorizontalHeaderLabels(labels);
 	view->setModel(model);
 	ui.tvSampleSet->setHorizontalHeader(view);
@@ -63,7 +63,7 @@ BatchAddSampleWidgets::BatchAddSampleWidgets(QWidget *parent)
 	//QTableWidget.verticalHeader().setSectionResizeMode(QHeaderView::);
 	ui.tvSampleSet->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 	ui.tvSampleSet->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	//ui.tvSampleSet->setSelectionMode(QAbstractItemView::SelectionMode::MultiSelection);//¿ªÆô¶àÑ¡
+	//ui.tvSampleSet->setSelectionMode(QAbstractItemView::SelectionMode::MultiSelection);//å¼€å¯å¤šé€‰
 	//GetTestPaperInfo();
 	ui.pushButtonUpdate->setVisible(false);
 
@@ -91,7 +91,7 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
 {
 	m_paper_name = "";
 		/*
-	ÒòÎª QHeaderView Ò²ÊÇÊôÓÚ model/view Ä£Ê½ËùÒÔĞèÒªÒ»¸ömodelÀ´Ìá¹©Êı¾İ¹© QHeaderViewÀ´ÏÔÊ¾
+	å› ä¸º QHeaderView ä¹Ÿæ˜¯å±äº model/view æ¨¡å¼æ‰€ä»¥éœ€è¦ä¸€ä¸ªmodelæ¥æä¾›æ•°æ®ä¾› QHeaderViewæ¥æ˜¾ç¤º
 	*/
 
 	ui.tvSampleSet->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Fixed);
@@ -112,7 +112,7 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
 	ui.tvSampleSet->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 	ui.tvSampleSet->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	m_added_paper_number = 0;
-	//±£Ö¤Ã¿´Î½øÀ´Êı¾İÇå¿Õ
+	//ä¿è¯æ¯æ¬¡è¿›æ¥æ•°æ®æ¸…ç©º
 	m_BatchSampleList.clear();
 	QVector<QString> sql_list;
 	QVector<QString> Id_list;
@@ -127,7 +127,7 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
 	//	ui.tvSampleSet->removeRow(i);
 	//}
 	ui.tvSampleSet->model()->removeRows(0, row_number);//->removeRows(0, ui.tvSampleSet->rowCount());
-	// »òÕß
+	// æˆ–è€…
 	//while (ui->categoryTableWidget->rowCount() != 0) {
 	//	ui->categoryTableWidget->removeRow(0);
 	//}
@@ -149,20 +149,20 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
 		_vModel->_vect[i].sampleNo = "";
 	}
 	ui.gridLayout_3->removeWidget(this);
-	//Çå¿ÕhorizontalLayout²¼¾ÖÄÚµÄËùÓĞÔªËØ
+	//æ¸…ç©ºhorizontalLayoutå¸ƒå±€å†…çš„æ‰€æœ‰å…ƒç´ 
 	QLayoutItem *child;
 	while ((child = ui.gridLayout_3->takeAt(0)) != 0)
 	{
-		//setParentÎªNULL£¬·ÀÖ¹É¾³ıÖ®ºó½çÃæ²»ÏûÊ§
+		//setParentä¸ºNULLï¼Œé˜²æ­¢åˆ é™¤ä¹‹åç•Œé¢ä¸æ¶ˆå¤±
 		if (child->widget())
 		{
 			child->widget()->setParent(this);
-			delete child->widget();//ÊÍ·Å
+			delete child->widget();//é‡Šæ”¾
 		}
 		delete child;
 	}
 	m_pButtonGroup = new QButtonGroup(this);
-	// ÉèÖÃ»¥³â
+	// è®¾ç½®äº’æ–¥
 	m_pButtonGroup->setExclusive(true);
 	QVector<HeadStrc> headv = _vModel->getHeadVect();
 	m_PaperinfoMap.clear();
@@ -172,7 +172,7 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
 		QString paper_name = headv[i].field;
 		m_PaperinfoMap.insert(headv[i].paperId, headv[i].field);//.push_back(headv[i].paperId, headv[i].patientName);
 		QRadioButton *pButton = new QRadioButton(this);
-		// ÉèÖÃÎÄ±¾
+		// è®¾ç½®æ–‡æœ¬
 		pButton->setText(QString::fromLocal8Bit("%1").arg(paper_name));
 		//ui.horizontalLayout->addWidget(pButton);
 		ui.gridLayout_3->addWidget(pButton);
@@ -233,7 +233,7 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
 		}
 	}
 
-	// Á¬½ÓĞÅºÅ²Û
+	// è¿æ¥ä¿¡å·æ§½
 	connect(m_pButtonGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
 		[=](QAbstractButton *button) {
 		m_paper_name = button->text();
@@ -291,11 +291,11 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 	INT64 sample_no_i = 0;
 	QRegExp regExp("^[A-Za-z0-9]+$");
 	if (regExp.exactMatch(sample_no)) {
-		// Æ¥Åä³É¹¦£¬×Ö·û´®Ö»°üº¬×ÖÄ¸ºÍÊı×Ö
+		// åŒ¹é…æˆåŠŸï¼Œå­—ç¬¦ä¸²åªåŒ…å«å­—æ¯å’Œæ•°å­—
 		//qDebug() << "String only contains letters and numbers.";
 	}
 	else {
-		// Æ¥ÅäÊ§°Ü£¬×Ö·û´®º¬ÓĞÆäËü×Ö·û
+		// åŒ¹é…å¤±è´¥ï¼Œå­—ç¬¦ä¸²å«æœ‰å…¶å®ƒå­—ç¬¦
 		//qDebug() << "String contains characters other than letters and numbers.";
 		MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1392"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
 		return;
@@ -327,7 +327,7 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 		MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1396"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
 		return;
 	}
-	//ĞèÒªÄ¤ÌõÊıÁ¿
+	//éœ€è¦è†œæ¡æ•°é‡
 	int need_paper_number = 0;
 	//quint64 aaa = sample_no.toLongLong();//toInt();
 	//quint64 sample_no_i = aaa + (sample_end_index1 - sample_start_index1);
@@ -342,9 +342,9 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 		return;
 	}
 	//QString paper_start_index = ui.lineEditPaperStartIndex->text();
-	//ÊÇ·ñ¸´¿×
+	//æ˜¯å¦å¤å­”
 	bool duplicate_hole = ui.checkBox->checkState();//->isCheckable();
-	//¸´¿×ÊıÁ¿
+	//å¤å­”æ•°é‡
 	QString duplicate_number;
 	duplicate_number = ui.lineEditPaperEndIndex->text();
 	if (duplicate_number.toInt() == 0)
@@ -386,7 +386,7 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 
 	if ((m_added_paper_number + need_paper_number) > 72)
 	{
-		QString str = QString("%3 %1£¬%4 %2 %5").arg(m_added_paper_number).arg((72- m_added_paper_number-1)<0?0: (72 - m_added_paper_number - 1)).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1401")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1402")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1403"));
+		QString str = QString("%3 %1ï¼Œ%4 %2 %5").arg(m_added_paper_number).arg((72- m_added_paper_number-1)<0?0: (72 - m_added_paper_number - 1)).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1401")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1402")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1403"));
 		int max_number_tmp = ui.lineEditSampleEndIndex->text().toInt();
 		int iii_tmp = max_number_tmp - (max_number_tmp - (72 - m_added_paper_number));
 		ui.lineEditSampleEndIndex->setText(QString("%1").arg(sample_start_index1 + iii_tmp -1));
@@ -436,10 +436,10 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 
 		if ((m_BatchSampleList.size()+(sample_end_index1- sample_start_index1)) > 72)
 		{
-			//QString str = QString("ºÏ¹²Ñù±¾Î»ÊäÈë³¬72£¬ÒÑÕ¼ÓÃÑù±¾Î»£º%1£¬»¹¿ÉÒÔÊäÈëÑù±¾Î»£º%2£¬ÇëÖØĞÂÊäÈë¡£").arg(m_added_paper_number).arg(72 - m_added_paper_number-1);
-			//QMessageBox::information(NULL, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), str, "È·¶¨");
-			//QMessageBox::information(NULL, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "ºÏ¹²Ñù±¾ÊäÈë³¬72£¬ÇëÖØĞÂÊäÈë", "È·¶¨");
-			QString str = QString("%3%1£¬%4%2%5").arg(m_added_paper_number).arg(72 - m_added_paper_number - 1).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1401")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1402")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1403"));
+			//QString str = QString("åˆå…±æ ·æœ¬ä½è¾“å…¥è¶…72ï¼Œå·²å ç”¨æ ·æœ¬ä½ï¼š%1ï¼Œè¿˜å¯ä»¥è¾“å…¥æ ·æœ¬ä½ï¼š%2ï¼Œè¯·é‡æ–°è¾“å…¥ã€‚").arg(m_added_paper_number).arg(72 - m_added_paper_number-1);
+			//QMessageBox::information(NULL, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), str, "ç¡®å®š");
+			//QMessageBox::information(NULL, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "åˆå…±æ ·æœ¬è¾“å…¥è¶…72ï¼Œè¯·é‡æ–°è¾“å…¥", "ç¡®å®š");
+			QString str = QString("%3%1ï¼Œ%4%2%5").arg(m_added_paper_number).arg(72 - m_added_paper_number - 1).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1401")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1402")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1403"));
 			int max_number_tmp = ui.lineEditSampleEndIndex->text().toInt();
 			int iii_tmp = max_number_tmp - (max_number_tmp - (72 - m_added_paper_number));
 			ui.lineEditSampleEndIndex->setText(QString("%1").arg(sample_start_index1 + iii_tmp - 1));
@@ -593,7 +593,7 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 }
 
 bool BatchAddSampleWidgets::isPureNumber(const QString& str) {
-	QRegularExpression regex("^\\d+$");  // ÕıÔò±í´ïÊ½Æ¥Åä´¿Êı×Ö
+	QRegularExpression regex("^\\d+$");  // æ­£åˆ™è¡¨è¾¾å¼åŒ¹é…çº¯æ•°å­—
 	QRegularExpressionMatch match = regex.match(str);
 	return match.hasMatch();
 }
@@ -623,15 +623,15 @@ void BatchAddSampleWidgets::on_pushButtonDeleteAll_clicked()
 
 void BatchAddSampleWidgets::on_pushButtonDelete_clicked()
 {
-	// »ñÈ¡µ±Ç°Ñ¡ÔñµÄµ¥Ôª¸ñÁĞ±í
+	// è·å–å½“å‰é€‰æ‹©çš„å•å…ƒæ ¼åˆ—è¡¨
 	QList<QTableWidgetItem *> items = ui.tvSampleSet->selectedItems();
 	if (items.isEmpty()) {
-		// Ã»ÓĞÑ¡ÔñÈÎºÎĞĞ
+		// æ²¡æœ‰é€‰æ‹©ä»»ä½•è¡Œ
 		MyMessageBox::information(NULL, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1407"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
 		return;
 	}
 	else {
-		// ÖÁÉÙÑ¡ÔñÁËÒ»ĞĞ
+		// è‡³å°‘é€‰æ‹©äº†ä¸€è¡Œ
 	}
 	int i = ui.tvSampleSet->currentRow();
 	int size = m_BatchSampleList.size();
@@ -678,14 +678,14 @@ void BatchAddSampleWidgets::SaveSample()
 		return;
 	}
 	QVector<QString> sql_list;
-	//È¥²åÈëµÄÊ±ºò²éÑ¯Ñù±¾±àºÅÊÇ²»ÊÇ´æÔÚÑù±¾±íÖĞ
+	//å»æ’å…¥çš„æ—¶å€™æŸ¥è¯¢æ ·æœ¬ç¼–å·æ˜¯ä¸æ˜¯å­˜åœ¨æ ·æœ¬è¡¨ä¸­
 	QVector<QString> sample_list;
 	QVector<QString> samplePos_list;
 	auto dao = AnalysisUIDao::instance();
 	bool bResult;
 	quint64 id = dao->getMaxId();
 	QString createDay = QDate::currentDate().toString("yyyy-MM-dd");
-	//É¾³ıµ±Ìì£¬¾ÉµÄ£¬Î´¼ìÑéµÄÏîÄ¿ĞÅÏ¢¡£
+	//åˆ é™¤å½“å¤©ï¼Œæ—§çš„ï¼Œæœªæ£€éªŒçš„é¡¹ç›®ä¿¡æ¯ã€‚
 	int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1408"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1409"), MyMessageBox::Ok| MyMessageBox::No,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
 	if (ret == MyMessageBox::Ok) {
 		QString sql_delete = QString("delete from tsample where  createDay='%1' and stateFlag=1").arg(createDay);
@@ -731,8 +731,8 @@ void BatchAddSampleWidgets::SaveSample()
 		dao->addRecord(&bResult, sql);
 		if (bResult)
 		{
-			//QMessageBox::information(NULL, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "±£´æ³É¹¦", "È·¶¨");
-			//tip += "±£´æ³É¹¦";
+			//QMessageBox::information(NULL, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "ä¿å­˜æˆåŠŸ", "ç¡®å®š");
+			//tip += "ä¿å­˜æˆåŠŸ";
 		}
 	}
 	/*
@@ -757,9 +757,9 @@ void BatchAddSampleWidgets::SaveSample()
 			//m.samplePos = it.samplePos;
 			//_vModel->_vect[i].sampleNo = "";
 			//_vModel->_vect[i].cupType = 1;
-			//_vModel->_vect[i].articleNo = "»õºÅ";
+			//_vModel->_vect[i].articleNo = "è´§å·";
 			//_vModel->_vect[i].age = 20;
-			//_vModel->_vect[i].patientName = "ÕÅÈı";
+			//_vModel->_vect[i].patientName = "å¼ ä¸‰";
 			//QMap<int, std::tuple<bool, int>>paperCheckedCountMap1;
 			QString sampleNo = _vModel->_vect[i].sampleNo;
 			int samplePos = _vModel->_vect[i].samplePos - 1;
@@ -795,14 +795,14 @@ void BatchAddSampleWidgets::SaveSample()
 						if (number > 0)
 						{
 							QString id11 = Id_list.at(ii);
-							//Éú³ÉĞŞ¸Äsql
+							//ç”Ÿæˆä¿®æ”¹sql
 							sql = QString("update tsample set samplePos=%1,paperId=%2,PatientName='%3',SexID=%4,Age=%5,stateFlag=1,paperPos=0 where Id=%6 and samplePos=%1").arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id11);
 							sql_list.append(sql);
 						}
 						else
 						{
 							id += 1;
-							//Éú³ÉÌí¼Ósql
+							//ç”Ÿæˆæ·»åŠ sql
 							sql = QString("insert tsample(sampleNo,samplePos,paperId,PatientName,SexID,Age,id,stateFlag,paperPos,createDay)VALUES('%1',%2,%3,'%4',%5,%6,%7,1,0,'%8')").arg(sampleNo).arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id).arg(createDay);
 							sql_list.append(sql);
 						}
@@ -817,7 +817,7 @@ void BatchAddSampleWidgets::SaveSample()
 			//	dao->addRecord(&bResult, sql);
 			//	if (bResult)
 			//	{
-			//		tip += "±£´æ³É¹¦";
+			//		tip += "ä¿å­˜æˆåŠŸ";
 			//	}
 			//}
 			for (int iv = 0; iv < sql_list.size(); ++iv)
@@ -828,7 +828,7 @@ void BatchAddSampleWidgets::SaveSample()
 				dao->addRecord(&bResult, sql);
 				if (bResult)
 				{
-					tip += "±£´æ³É¹¦";
+					tip += "ä¿å­˜æˆåŠŸ";
 				}
 			}
 			sql_list.clear();
@@ -838,23 +838,23 @@ void BatchAddSampleWidgets::SaveSample()
 	if (tip != "")
 	{
 		//emit ChangeBtnNextSignal(true);
-		QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("±£´æ³É¹¦"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+		QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("ä¿å­˜æˆåŠŸ"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
 	}
 	*/
 
 }
-//¹Ø±ÕÊÂ¼ş
+//å…³é—­äº‹ä»¶
 void BatchAddSampleWidgets::closeEvent(QCloseEvent *e) {
 	int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1410"), MyMessageBox::Ok| MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
 	if (ret== MyMessageBox::Ok) {
-		//¹Ø±Õ´°¿Ú
-		//´¦Àí¹Ø±Õ´°¿ÚÊÂ¼ş£¬½ÓÊÜÊÂ¼ş£¬ÊÂ¼ş¾Í²»»áÍùÏÂÔÙ´«µİ
+		//å…³é—­çª—å£
+		//å¤„ç†å…³é—­çª—å£äº‹ä»¶ï¼Œæ¥å—äº‹ä»¶ï¼Œäº‹ä»¶å°±ä¸ä¼šå¾€ä¸‹å†ä¼ é€’
 		e->accept();
 		m_added_paper_number = 0;
 	}
 	else {
-		//²»¹Ø±Õ´°¿Ú
-		//ºöÂÔÊÂ¼ş£¬ÊÂ¼ş¼ÌĞø¸ø ¸¸×é¼ş ´«µİ
+		//ä¸å…³é—­çª—å£
+		//å¿½ç•¥äº‹ä»¶ï¼Œäº‹ä»¶ç»§ç»­ç»™ çˆ¶ç»„ä»¶ ä¼ é€’
 		e->ignore();
 	}
 }
