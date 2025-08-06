@@ -1,4 +1,4 @@
-#include "GetLanguageCls.h"
+ï»¿#include "GetLanguageCls.h"
 #include <QObject>
 #include <QDateTime>
 #include <QSettings>
@@ -23,7 +23,7 @@ void GetLanguageCls::LoadLanguageInfoList(int language_type)
 	QFile f(image_path);
 	 if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
 	 {
-		 //qDebug() << ("´ò¿ªÎÄ¼þÊ§°Ü");
+		 //qDebug() << ("æ‰“å¼€æ–‡ä»¶å¤±è´¥");
 	 }
 	 QTextStream txtInput(&f);
 	 QString lineStr;

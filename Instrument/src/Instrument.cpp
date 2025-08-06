@@ -29,6 +29,7 @@
 #include "../Include/BLL/reagent/ReagentBLL.h"
 #include "../Include/Model/reagent/ReagentModel.h"
 #include "../Include/Utilities/async_task.h"
+#include "../Include/BLL/comm/GetLanguageClsBLL.h"
 #include <QCryptographicHash>
 #include <QThread>
 #include <QObject>
@@ -263,6 +264,25 @@ void Instrument::analysisFrame(){
         QString result= obj.value( keys[0]).toString();
         dLog("PDF print,result:{}",result.toStdString());
         emit sglPrintPDFState(result.toInt());
+    }
+    else if(code==addSampleFailed)
+    {
+        auto arr=doc.array();
+        QString arrStr=GetLanguageClsBLL::getlangValue("K1756")+"!\n\n";
+        QString samplDsc=GetLanguageClsBLL::getlangValue("K1382");
+        QString posDsc=GetLanguageClsBLL::getlangValue("K1383");
+        for(auto it:arr)
+        {
+            auto obj=it.toObject();
+            QString s=obj.value("s").toString();
+            s=(s.length()==2?s:"0"+s);
+            QString p=obj.value("p").toString();
+            p=(p.length()==2?p:"0"+p);
+
+            arrStr+=(samplDsc+s+"    ");
+            arrStr+=(posDsc+p+"\r\n");
+        }
+        emit sglAddSampleFailed(arrStr);
     }
 }
 

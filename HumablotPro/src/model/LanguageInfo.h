@@ -1,10 +1,10 @@
-#ifndef LANGUAGEINFO
+ï»¿#ifndef LANGUAGEINFO
 #define LANGUAGEINFO
-#include <iostream>//µÈ¼ÛÓÚCÓïÑÔÖĞµÄ#include<stdio.h>
+#include <iostream>//ç­‰ä»·äºCè¯­è¨€ä¸­çš„#include<stdio.h>
 #include <cstring>
 #include <string.h>
-//ÒÔÉÏÁ½ÖÖ¶¼ÊÇCÓïÑÔµÄstringÍ·ÎÄ¼ş
-#include <string>//ÕæÕıµÄC++Í·ÎÄ¼ş
+//ä»¥ä¸Šä¸¤ç§éƒ½æ˜¯Cè¯­è¨€çš„stringå¤´æ–‡ä»¶
+#include <string>//çœŸæ­£çš„C++å¤´æ–‡ä»¶
 #include <string.h>
 #include <iostream>
 

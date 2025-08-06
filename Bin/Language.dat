@@ -1,0 +1,1008 @@
+编号|汉语|英语
+KTitle|HumaBlot 72FA 全自动免疫印迹仪|HumaBlot 72FA
+K1001|欢迎登录|Welcome
+KCampany|北京胡曼智造科技有限责任公司|Beijing HumaDX Tech Co., Ltd.
+KVersion|版本：V1.0.0.7 alpha   @2024/5/7|Version: V1.0.0.7 alpha  @April 7, 2024
+K1249|软件完整版本：V1.0.0.7|Full software version: V1.0.0.7
+K1002|立刻登录|Sign in
+K1003|    退出|    Exit
+K1004|用户名|User name
+KPassword|密码|Password
+K1005|    关闭蜂鸣器|    Turn off buzzer
+K1006|    打开键盘|        Show keyboard
+K1007|孵育盘:|Incubation plate:
+K1007|管理员：|Administrator:
+K1008|日期时间：|Date:
+K1009|欢迎标题|Welcome title
+K1010|管理员|Administrator
+K1011|工程师|Engineer
+K1012|普通用户|user
+K1013|追求诊断之臻|Make diagnostics better
+K1014|样本信息录入|Sample information entry
+K1015|膜条管理|Strip management
+K1016|试剂管理|Reagent management
+K1017|报告查询|Report query
+K1018|用户管理|User management
+K1019|退出登录|Logout
+K1020|系统设置|System settings
+K1021|LIS设置|LIS Setting
+K1022|判读规则设置|Judgment rule settings
+K1023|开机自检|Startup self-checking
+K1024|系统管路清洗|System pipeline cleaning
+K1025|管路回流|Pipeline backflow
+K1026|管路清洗|Pipeline cleaning
+K1027|泵自动校准|Automatic pump calibration
+K1028|泵手动校准|Manual pump calibration
+K1029|液位探测测试|Liquid level detection test
+K1030|周维护|Weekly maintenance
+K1031|月维护|Monthly maintenance
+K1032|相机设置|Camera setting
+K1033|新泵磨合|New pump running-in
+K1034|手动孵育|Manual incubation
+K1035|关于软件|About the software
+K1036|操作日志查询|Operation log query
+K1037|工作列表|Task list
+K1038|    保存|       Save
+K1039|    删除|       Delete
+K1040|   LIS获取|   LIS acquisition
+K1041|  复孔|             Multiple holes
+K1042|厂家名称|Name of manufacturer
+K1043|扫码位置|Position of code scanning
+K1044|批量添加|Add in batch
+K1045|Scan|Scan
+K1046|下一步|Next
+K1047|上一步|Back
+K1048|位置|Position
+K1049|样本编号|Sample No.
+K1050|试管型号|Sample tube model
+K1051|病人姓名|Patient name
+K1052|性别|Gender
+K1053|年龄|Age
+K1054|批号|Batch No.
+K1055|      膜条起始位置设置|      Strip start position setting
+K1056|托盘位置|Tray position
+K1057|开始位置|Start position
+K1058|确  定|OK
+K1059|串口联接失败|Serial port connection failed
+K1060|设备联接成功|Device connected successfully
+K1061|设备就绪状态|Device ready status
+K1062|设备运行状态|Device operation status
+K1063|设备初始化状态|Device initial status
+K1064|设备运行错误状态|Device operation error status
+K1065|膜条预订位|Reserved strip position
+K1066|样本编号|Sample No.
+K1067|检测|Test
+K1068|样本位|Sample position
+K1069|批号|Batch No.
+K1070|实验列表|Experiment list
+K1071|试剂准备|Reagent preparation
+K1072|测试运行|Test run
+K1073|试剂准备|Reagent preparation
+K1074|检测前准备|Preparation before test
+K1075|总用量：|Total usage:
+K1076|系统液灌注|System liquid perfusion
+K1077|灌注系统液体！|Fill the system liquid!
+K1078|系统液管路充灌|Fill the system liquid pipeline
+K1079|跳过充灌|Skip filling
+K1080|位置|Position
+K1081|全选|Select all
+K1082|灌注系统液体！<br/>状态:<b style=\"color:blue;\">已完成灌注</b>|Fill the system liquid! <br/>Status:<b style=\"color:blue;\">Filling completed</b>
+K1083|灌注系统液体！<br/>状态:<b style=\"color:red;\">灌注失败</b>|Fill the system liquid! <br/>Status:<b style=\"color:red;\">Filling failed</b>
+K1084|灌注系统液体！<br/>状态:<b style=\"color:blue;\">跳过灌注</b>|Fill the system liquid! <br/>Status:<b style=\"color:blue;\">Skip filling</b>
+K1085|总用量|Total usage
+K1086|待测状态|Ready for test
+K1087|步骤|Step
+K1088|提示信息|Prompt information
+K1089|提示描述信息|Prompt description information
+K1090|略去用盖子保护|Skip the protection with cover
+K1091|当前进度|Current progress
+K1092|步骤结束时间  |Step end time  
+K1093|暂停时间  |Time out  
+K1094|方案总共用时  |Total protocol time  
+K1095|预期完成时间  |Estimated completion time  
+K1096|显示  |Display  
+K1097|步骤  |Step  
+K1098|膜条厂家选择  |Select strip manufacturers  
+K1099|公司名称  |Company name  
+K1100|膜条名称：|Strip name  
+K1101|货号：|Item No. 
+K1102|排序|Ranking
+K1103|是否启用|Enable or not
+K1104|启用|Enable
+K1105|不启用|Not enabled
+K1106|导入|Import
+K1107|导出|Export
+K1108|追加|Add
+K1109|修改|Modify
+K1110|检索测试膜条厂家失败！|Failed to retrieve the test strip manufacturer!
+K1111|错误|Error
+K1112|膜条参数|Strip parameters
+K1113|欢迎界面|Welcome interface
+K1114|选择|Select
+K1115|设置|Settings
+K1116|CutOff线阈值|Cutoff line threshold
+K1117|是否有CutOff线|Cutoff line available?
+K1118|功能线阈值：|Function line threshold:
+K1119|功能条位置：|Function bar location:
+K1120|是否有功能线|Function line available?
+K1121|颜色值：|Color value
+K1122|毫米对应像素：|Corresponding millimeter pixel
+K1123|计算区间：|calculation interval
+K1124|降噪阈值：|Threshold
+K1125|次数：|Time(s)
+K1126|膜条头：|Strip head
+K1127|分析区百分比：|Percentage of analysis area
+K1128|膜条总长度：|Total strip length
+K1129|项目数量：|Number of items：
+K1130|像素|Pixel
+K1131|项目名称：|Item name
+K1132|空白|Blank
+K1133|判读规制|Judgment rules
+K1134|取消|Cancel
+K1135|试剂厂家选择|Select reagent manufacturers
+K1136|试剂名称|Reagent name
+K1137|泵的分配|Pump distribution
+K1138|大充灌量|Large filling volume
+K1139|小充灌量|Small filling volume
+K1140|删除|Delete
+K1141|保存|Save
+K1142|防挂滴|Prevent suspended drops
+K1143|试剂回流|Reagent backflow
+K1144|运行前灌装|Filling before operation
+K1145|关联膜条|Correlate with strips
+K1146|传输|Transfer
+K1147|概述报告打印|Print overview report
+K1148|单页报告打印|Printing single-page report
+K1149|单页保存PDF|Save single page as PDF
+K1150|概述保存PDF|Save overview as PDF
+K1151|开始时间|Start time
+K1152|结束时间|End time
+K1153|膜条选择|Select strip
+K1154|查询|Query
+K1155|当天结果|Today's results
+K1156|是否选中|Select or not
+K1157|测试编号|Test No.
+K1158|检测类型|Test type
+K1159|子检测|Subtest
+K1160|图像|Image
+K1161|LIS状态|LIS status
+K1162|判读结果|Judgment results
+K1163|样本编号|Sample No.
+K1164|统计|Statistics
+K1165|共 |Page 
+K1166|页,当前在第|of 
+K1167|页|pages
+K1168|每页行数|Number of lines per page
+K1169|设定|Setting
+K1170|上一页|Previous page
+K1171|下一页|Next page
+K1172|跳转到|Jump to
+K1173|错误|Error
+K1174|检索测试结果数据失败！|Failed to retrieve the test result data!
+K1175|项目名|Item name
+K1176|比值|Ratio
+K1177|判定结果|Judgment results
+K1178|显色值|Gray value
+K1179|位置：|Position
+K1180|提示|Prompt
+K1181|确定|OK
+K1182|无图片信息|No picture information
+K1183|关闭|Close
+K1184|完整图像|Full image
+K1185|检测结果|Test results
+K1186|用户管理|User management
+K1187|权限组名|Authority group name
+K1188|周维护浸泡时间：|Soak time of weekly maintenance:
+K1189|月维护浸泡时间：|Soak time of monthly maintenance:
+K1190|月维护泵充灌量：|Pump filling volume of monthly maintenance:
+K1191|周维护泵充灌量：|Pumping filling volume of weekly maintenance:
+K1192|月维护泵校准量：|Pump calibration volume of monthly maintenance:
+K1193|泵校准下限值：|Lower limit of pump calibration:
+K1194|泵校准上限值：|Upper limit of pump calibration:
+K1195|系统液充灌体积：|System liquid filling volume:
+K1196|系统液清洗体积：|System liquid cleaning volume:
+K1197|关机排空液量：|Shutdown emptying fluid volume:
+K1198|泵回流指定液量：|Pump backflow-specified liquid volume:
+K1199|测试报告保存根目录：|Root directory for saving test reports:
+K1200|测试图像保存根目录：|Root directory for saving test images:
+K1201|时序选择：|Time sequence selection:
+K1202|样本针吸样液位探测选择：|Selection of sample suction liquid level detection with sample needle
+K1203|样本针吐样液位探测选择：|Selection of sample discharge liquid level detection with sample needle
+K1204|当前使用的膜条所属公司：|Manufacturing company of the strip in current use:
+K1205|蜂鸣器声音使能：|Enable buzzer sound:
+K1206|废液桶使能：|Enable waste liquid container:
+K1207|分钟|Minute
+K1208|默认值|Default value
+K1209|LIS设置|LIS settings
+K1210|启动LIS|Start LIS
+K1211|实时模式|Real-time mode
+K1212|端    口：|Port:
+K1213|IP 地 址：|IP address:
+K1214|通信协议：|Communication protocol:
+K1215|显示字符|Display character
+K1216|名称|Name
+K1217|系统液管路清洗|System liquid pipeline cleaning
+K1218|清洗液量：|Cleaning liquid volume:
+K1219|管路回流|Pipeline backflow
+K1220|请选择泵|Please select a pump
+K1221|号泵|Pump No.
+K1222|开始|Start
+K1223|运行设置|Operation settings
+K1224|磨合时间：|Time of running-in:
+K1225|手动停止|Manual stop
+K1226|孵育时间|Incubation time
+K1227|开始孵育|Start incubation
+K1228|停止并关闭|Stop and close
+K1229|拍照|Take photos
+K1230|读灰度值|Read gray value
+K1231|显色值：|Gray value:
+K1232|曝光值：|Exposure value:
+K1233|修改曝光值|Modify exposure value:
+K1234|照片|Photo
+K1235|探测位置：|Detection position:
+K1236|杯类型：|Cup type:
+K1237|吸液量（ul）：|Sucked liquid volume (ul):
+K1238|探测次数：|Number of detection:
+K1239|保存结果：|Save results:
+K1240|充灌量：|Filling volume:
+K1241|校准结果|Calibration results
+K1242|开始校准|Start calibration
+K1243|停止校准|Stop calibration
+K1244|下限值：|Lower limit:
+K1245|上限值：|Upper limit:
+K1246|发布版本|Released version
+K1247|完整版本|Full version
+K1248|软件发布版本：V1|Released software version: V1
+K1250|模块名称|Module name
+K1251|机器序号|Device No.
+K1252|操作内容|Operation contents
+K1253|操作员|Operator
+K1254|操作时间|Operation time
+K1255|解决方案|Solution
+K1256|日志内容|Log content
+K1256|检验人|Tested by
+K1257|操作日志|Operation log
+K1258|运行日志|Operation log
+K1259|成功|Succeeded
+K1260|询问|Inquiry
+K1261|异常|Abnormal
+K1262|导出膜条数据文件成功！|Strip data file exported successfully!
+K1263|检索测试膜条数据失败！|Failed to retrieve the test strip data!
+K1264|请先选择膜条！|Please select strip first!
+K1265|请先选择膜条厂家！|Please select strip manufacturer first!
+K1266|导入膜条数据文件成功！|Strip data file imported successfully!
+K1267|追加测试膜条数据失败！|Failed to add the test strip data!
+K1268|删除测试膜条数据失败！|Failed to delete the test strip data!
+K1269|更新测试膜条数据失败！|Failed to update the test strip data!
+K1270|已经存在相同名称的膜条，是否覆盖？|The strip with the same name has already existed. Overwrite?
+K1271|警告|Warning
+K1272|检索膜条数据失败|Failed to retrieve the strip data!
+K1273|文件格式不正确！|Incorrect file format!
+K1274|即将删除膜条厂家，确定是否删除？|The strip manufacturer is about to be deleted. Are you sure to delete it?
+K1275|检索规制失败！|Failed to retrieve the rules!
+K1276|该膜条名称已经存在，请重新输入！|The strip name has existed. Please enter another name!
+K1277|计算区间不能大于3.0！|Calculation interval cannot be greater than 3.0!
+K1278|更新系统参数成功， 需重启软件后更改才生效。|The system parameters are updated successfully. The changes will take effect after restarting the software.
+K1279|请输入全部项目名称！|Please enter the full item name!
+K1280|请输入功能条位置！|Please enter the function bar location!
+K1281|请输入膜条总长度！|Please enter total strip length!
+K1282|请输入膜条名称！|Please enter strip name!
+K1283|更新参数失败！|Failed to update parameters!
+K1284|更新膜条所属公司失败！|Failed to update the strip manufacturing company!
+K1285|更新测试报告保存根目录失败！|Failed to update the root directory for saving test reports!
+K1286|更新测试图像保存根目录失败！|Failed to update the root directory for saving test images!
+K1287|更新Cut Off条灰度阈值失败！|Failed to update the cutoff line gray threshold!
+K1288|更新功能条灰度阈值失败！|Failed to update the function bar gray threshold!
+K1289|泵校准下限值不能大于上限值！|The lower limit of pump calibration cannot be greater than the upper limit!
+K1290|检索试剂厂家失败！|Failed to retrieve the reagent manufacturer!
+K1291|删除数据失败！|Failed to delete data!
+K1292|是否删除当前选择规则？|Delete the current rule?
+K1293|请先选择规则!|Please select a rule first!
+K1294|修改数据失败!|Failed to modify data!
+K1295|显示字符已经存在！|The displayed character has already existed!
+K1296|显示值已经存在！|The displayed value has already existed!
+K1297|显示字符输入异常!|Abnormal entry of displayed characters!
+K1298|灰度值输入异常!|Abnormal entry of gray value!
+K1299|是否修改当前选择规则？|Modify the current rule?
+K1300|请选择需要修改的规则!|Please select the rule for modification!
+K1301|添加数据失败!|Failed to add data!
+K1302|当前规则符号已经存在!|The current rule symbol has already existed!
+K1303|当前规则灰度值已经存在!|The current rule gray value has already existed!
+K1304|检索样本数据失败!|Failed to retrieve the sample data!
+K1305|概述操作，只能选择一个项目,当前选择的项目有：|In overview operation, you can only select one item with the current selected items as follows:
+K1306|请选择检测结果!|Please select a test result!
+K1307|排版要求，选择数量不要超出27！当前已选择：|As per typesetting requirements, the selected number should not exceed 27! Currently selected items:
+K1308|手动上传设置成功|Settings are manually uploaded successfully
+K1309|手动上传设置失败|Failed to manually upload settings
+K1310|请启动LIS工具|Please start the LIS tool
+K1311|已经到最后一页|Already to the last page
+K1312|每页数量输入异常。|Abnormal entry of number per page
+K1313|输入异常|Abnormal entry
+K1314|请输入数字|Please enter a number
+K1315|请输入跳转页面|Please enter a number to jump to another page
+K1316|目标页超总页数，请重新输入！|The target page exceeds the total number of pages, please re-enter!
+K1317|设置成功|Setting succeeded
+K1318|用户名长度不能大于16个字符|The length of user name cannot exceed 16 characters
+K1319|密码不能大于9个字符|The length of password cannot be exceed 9 characters
+K1320|确认关机？|Confirm shutdown?
+K1321|当前状态不允许运行设备，请先进行初始化操作|The current status does not allow the device to run, please initialize first.
+K1322|开始周维护<br>请先将泵管头放到足量的系统液中，再点击【确认】按钮进行下一步！|Start weekly maintenance<br> Please put the pump nozzle into sufficient system liquid first, and then click the [OK] button to proceed to the next step!
+K1323|开始月维护<br>请先将泵管头放到足量的系统液中，再点击【确认】按钮进行下一步！|Start monthly maintenance<br>Please put the pump nozzle into sufficient system liquid first, and then click the [OK] button to proceed to the next step!
+K1324|通讯异常|Abnormal communication
+K1325|自检进行中......|Initializing...
+K1326|注销|Logout
+K1327|确认注销|Confirm to log off
+K1328|关机|Shutdown
+K1329|确定，执行关机维护。<br>取消，直接退出软件。|OK, perform shutdown for maintenance.<br>Cancel, exit the software directly.
+K1330|<br>关机流程执行失败，是否继续关机！！<br>|<br> Failed to execute the shutdown process. Do you want to continue the shutdown!!<br>
+K1331|软件退出提示|Software exit prompt
+K1332|关机维护|Shutdown for maintenance
+K1333|退出软件|Exit the software
+K1334|当前状态不允许初始化|The current status does not allow initialization
+K1335|是否要进行初始化操作|Do you want to perform the initialization
+K1336|确定返回主界面|Back to the main interface
+K1337|确定要停止运行|Confirm to stop running
+K1338|周维护未完成，不能关闭。|Weekly maintenance is not completed and you cannot shut down the device.
+K1339|月维护未完成，不能关闭。|Monthly maintenance is not completed and you cannot shut down the device.
+K1340|当前状态不允许进行维护！|The current status does not allow maintenance!
+K1341|忽略|Skip
+K1342|上盖打开报警|Alarm indicating an open cover
+K1343|设备开盖|Device cover is open
+K1344|系统液充灌失败|Failed to fill the system liquid
+K1345|请将泵管头放到足量的纯水中|Please put the pump nozzle into a sufficient amount of pure water
+K1346|清水充灌失败!!|Failed to fill with clear water!!
+K1347|蠕动泵校准失败!!|Failed to calibrate peristaltic pump!!
+K1348|请将泵管头放到洁净的空杯中|Please put the pump nozzle into a clean empty cup
+K1349|检索用户失败！|Failed to retrieve users!
+K1350|检索数据失败！|Failed to retrieve data!
+K1351|用户名不能为空或不能为空格！|User name cannot be null or blank!
+K1352|密码不能为空或不能为空格|Password cannot be null or blank
+K1353|用户名已经存在|The user name has already existed
+K1354|不能删除admin!|No authority to delete admin!
+K1355|样本编号长度不能大于20!|The length of sample number cannot exceed 20!
+K1356|样本编号不能有中文符号!|Sample number cannot contain any Chinese symbol!
+K1357|病人名字长度不能大于20!|The length of patient name cannot exceed 20!
+K1358|年龄不能小于0!|Age cannot be less than 0!
+K1359|年龄不能大于150!|Age cannot be more than 150!
+K1360|批号长度不能大于15!|The length of lot number cannot exceed 15!
+K1361|确定要取消项目选择？|Are you sure you want to cancel the selected items?
+K1362|复孔数量不能小于1|The number of multiple holes cannot be less than 1
+K1363|孵育时间输入异常|Abnormal entry of incubation time
+K1364|孵育时间超出范围|Incubation time out of range
+K1365|请输入孵育时间！|Please enter incubation time!
+K1366|手动孵育完成|Manual incubation completed
+K1367|托盘位置为必填不正确|Tray position is a mandatory item but is not correct
+K1368|托盘位置为必填项|Tray position is a mandatory item
+K1369|起始位置为必填项|Start position is a mandatory item
+K1370|当前位置非法<br>建议从不大于:【|Illegal current location<br> It is recommended to never be greater: start ordering strip from the [
+K1371|】位开始排膜条|] position
+K1372|扫码开始位置不能为空|The start position of code scanning cannot be null
+K1373|起始值不能大于结束值|Start value cannot be greater than end value
+K1374|输入值不能大于72|Input value cannot be greater than 72
+K1375|输入值不能小于1|Input value cannot be less than 1
+K1376|是否删除所有样本信息？|Delete all sample information?
+K1377|是否删除样本信息？|Delete the selected sample information?
+K1378|保存成功|Saved successfully
+K1379|获取项目信息失败|Failed to acquire item information.
+K1380|无样本数据，请设置样本相关信息|No sample data, please set sample related information
+K1381|样本缺少膜条信息，是否继续？|The sample has no strip information, are you sure to continue?
+K1382|样本位置: |Sample location:  
+K1383|膜条位置: |Location No.:   
+K1384|无测试膜条信息,请给样本选择相应的膜条|No test strip information, please select a corresponding strip for the sample
+K1385|当前测试数: |Current number of tests: 
+K1386|大于机器最大测试量: |Greater than the maximum test capacity of the device: 
+K1387|当前查找不到膜条信息，请重启软件或联系售后|Currently cannot find strip information, please restart the software or contact our after-sales service staff!
+K1388|请确认是否误选膜条或样本编号未填写。|Please confirm whether you select the wrong strip or fail to fill in the sample number.
+K1389|膜条位置设置错误，请重试！！|Incorrect strip location setting, please try again!!
+K1390|请选择你要设置的样本|Please select the sample you want to set
+K1391|请选择膜条类型|Please select strip type
+K1392|样本编号输入格式不正确|Incorrect input format of sample number
+K1393|样本编号长度不能大于20个字符。|The length of sample number cannot exceed 20 characters.
+K1394|开始样本位未输入或输入格式不正确。|Failed to enter the start sample location or the format is not correct.
+K1395|结束样本位未输入或输入格式不正确。|Failed to enter the end sample location or the format is not correct.
+K1396|开始样本位不能大于结束样本位。|Start sample location cannot be greater than end sample location.
+K1397|开始样本位输入超范围。|Start sample location entry out of range.
+K1398|结束样本位输入超范围。|End sample location entry out of range.
+K1399|数量输入格式不正确。|Incorrect entry of quantity format.
+K1400|复孔数量大于1，但未选择复孔，是否要选择复孔？<br>是，将按照复孔方式添加，并勾选复孔。<br>否，按照普通方式添加，并改变数量输入为1。|The number of multiple holes is greater than 1, but no multiple holes are selected. Do you want to select multiple holes?<br> Yes, add in the multi-hole mode and check the multi-hole.<br> No, add in the general mode and change the quantity to 1.
+K1401|合共样本位输入超72，已占用样本位：|Total entry of sample location exceeds 72, occupied sample locations:
+K1402|还可以输入样本位：|You can also enter sample locations:
+K1403|，请重新输入。|, please re-enter.
+K1404|样本编号区间已经存在，请修改后再添加|The sample number interval has already existed, please modify before adding it.
+K1405|单次样本输入超72，请重新输入|Single sample entry exceeds 72, please re-enter
+K1406|确定要删除所有数据吗？|Are you sure you want to delete all data?
+K1407|请选择要删除的行。|Please select a row to delete.
+K1408|保存编辑数据更新提示|Prompt of saving the edited data updates
+K1409|确定，将覆盖并删除前面已经添加样本信息。<br>取消，继续编辑样本信息。<br>|OK, overwrite and delete the previously added sample information.<br>; Cancel, continue to edit sample information.<br>;
+K1410|确认退出批量样本添加窗口？|Are you sure you want to exit the Batch Sample Add window?
+K1411|当前状态不允许运行，请先进行初始化操作|The current status does not allow operation, please initialize first.
+K1412|请选择要进行试剂准备的位置|Please select the location for reagent preparation
+K1413|请确保位置按钮处于选中状态，确保延时充灌可以正确进行。|Please make sure that the location button is selected to ensure the correct progress of delayed filling.
+K1414|请选择要进行延时充灌的位置！|Please select the location for delayed filling!
+K1415|获取试剂失败|Failed to obtain reagent
+K1416|当前不足以支撑本次测试，某些试剂不能分配到对应泵！|Not enough to support this test, some reagents cannot be dispensed to the corresponding pump!
+K1417|给未设置试剂位的试剂设置位置失败|Fail to set a position for the reagent that has not been assigned a reagent position
+K1418|获取试剂失败:膜条: |Failed to obtain reagent: Strip: 
+K1419|未添加关联试剂信息，请到试剂管理窗口添加！！ |Associated reagent information is not added, please add in the reagent management window!! 
+K1420|不同试剂使用相同泵号不能同时检测，请到试剂管理重新设置试剂对应泵号！请返回重新编辑检验列表。 |The same pump number used for different reagents cannot be tested at the same time, please reset the pump number corresponding to reagents in the reagent management window! Please turn back and re-edit the test list. 
+K1421|不同试剂使用相同泵号不能同时检测，请到试剂管理重新设置试剂对应泵号！ |The same pump number used for different reagents cannot be tested at the same time, please reset the pump number corresponding to reagents in the reagent management window! 
+K1422|请选择要进行试剂准备的位置！ |Please select the location for reagent preparation! 
+K1423|是否要取消本次测试？|Do you want to cancel this test?
+K1424|检验完成！|Test completed!
+K1425|异常退出！|Abnormal exit!
+K1426|运行错误！|Operation error!
+K1427|请查看报警信息，有未对反应槽加样异常，请手动加样完成后，点确定继续检测|Please check the alarm information. If there is any anomaly in the reaction tank, please click OK to continue the test after manual sample addition is completed.
+K1428|找不到对应的膜条|Corresponding strip not found
+K1429|生成指示图失败|Failed to generate indicator cart
+K1430|连接相机失败！|Failed to connect camera!
+K1431|拍照分析数据保存完成|Saved photo analysis data successfully
+K1432|确定要暂停运行|Confirm to pause operation
+K14321|确定要继续运行|Confirm to continue operation
+K1433|当前状态不允许启动测试|The current status does not allow the startup of test
+K1434|启动测试失败，请重试！|Failed to start test, please try again!
+K1435|坐标输入异常！|Abnormal entry of coordinates!
+K1436|曝光时间设置超范围！|Exposure time setting is out of range!
+K1437|设置相机参数曝光时间成功，请重新拍照显示！|Set the camera parameter (exposure time) successfully, please take a photo again for display!
+K1438|吸液量输入异常！|Abnormal entry of liquid absorption!
+K1439|探测次数输入异常！|Abnormal entry of detection times!
+K1440|是否进行开机初始化？|Do you want to perform boot initialization?
+K1441|是否进行关机流程？|Do you want to perform shutdown process?
+K1442|月维护失败!|Monthly maintenance failed!!
+K1443|清水充灌失败!|Failed to fill with clear water!!
+K1444|蠕动泵校准失败!|Failed to calibrate peristaltic pump!!
+K1445|请将泵管头放到洁净的空杯中|Please put the pump nozzle into a clean empty cup
+K1446|月维护完成!|Monthly maintenance completed!!
+K1447|请输入时间|Please enter time
+K1448|磨合时间输入异常！|Abnormal entry of running-in time!
+K1449|将泵管头放到正确的容器内！|Put the pump nozzle in the correct container!
+K1500|管路回流完成！|Pipeline backflow completed!
+K1501|将系统液管头放到足量的纯水中|Put the system liquid nozzle into a sufficient amount of pure water
+K1502|将系统液管头放到空杯中|Put the system liquid nozzle into an empty cup
+K1503|关机维护完成|Emptying completed before shutdown
+K1504|蠕动泵管路清洗完成|Peristaltic pump pipeline cleaning completed
+K1505|蠕动泵管路排空完成|Peristaltic pump pipeline emptying completed
+K1506|管路清洗完成|Pipeline cleaning completed
+K1507|请选择您要校准的泵|Please select the pump you want to calibrate
+K1508|目标设定值（|Target setting (
+K1509|）超出范围（30-130），校准停止|) out of range (30-130), calibration stops
+K1510|是否进行一下步校准？|Perform the next calibration step?
+K1511|未检测到液体！|No liquid detected!
+K1512|液位探测失败！|Failed to detect liquid level!
+K1513|自动校准泵操作完成！|Automatic pump calibration completed!
+K1514|泵号:|Pump No.:
+K1515|第一次下降步数:|First decrement of steps:
+K1516|第二次下降步数:|Second decrement of steps:
+K1517|两次下降步数差:|Difference of steps between two decrements:
+K1518|设置标准:|Setting criteria:
+K1519|手动校准泵操作完成|Manual pump calibration completed
+K1520|下限值或上限值输入异常|Abnormal entry of lower limit or upper limit
+K1521|系统液充灌进行中......|Filling system liquid...
+K1522|系统液充灌完成！|System liquid filling completed!
+K1523|周维护失败!|Weekly maintenance failed!!
+K1524|周维护完成!|Weekly maintenance completed!!
+K1525|请输入公司名称|Please enter company name
+K1526|追加膜条公司失败！|Failed to add a strip manufacturing company!
+K1527|检索试剂数据失败！|Failed to retrieve reagent data!
+K1528|请输入试剂名称！|Please enter reagent name!
+K1529|请选择关联膜条！|Please select associated strip!
+K1530|泵号输入不能为空！|Pump number cannot be null!
+K1531|泵号输入异常|Abnormal entry of pump number
+K1532|大充灌输入异常！|Abnormal entry of large filling volume!
+K1533|小充灌输入异常！|Abnormal entry of small filling volume!
+K1534|小充灌量不能大于大充灌！|Small filling volume cannot be greater than large filling volume!
+K1535|试剂名称已经存在，不允许操作！|The reagent name has already existed, operation not allowed!
+K1536|追加试剂数据失败！|Failed to reagent data!
+K1537|更新试剂数据失败！|Failed to update reagent data!
+K1538|请先选择试剂厂家!|Please select reagent manufacturer first!
+K1539|请先选择试剂!|Please select reagent first!
+K1540|是否删除选择试剂？|Delete the selected reagent?
+K1541|通用试剂不能删除!|General reagents cannot be deleted!
+K1542|删除试剂数据失败|Failed to delete reagent data
+K1543|检索样本管数据失败!|Failed to retrieve the sample tube data!
+K1544|请先选择样本管!|Please select a sample tube first!
+K1545|删除样本管数据失败|Failed to delete sample tube data
+K1546|导出试管文件成功！|Exported sample tube file successfully! 
+K1547|追加试管数据失败！|Failed to append sample tube data!
+K1548|更新试管数据失败|Failed to update sample tube data
+K1549|导入试管文件成功|Imported sample tube file successfully
+K1550|pos|pos
+K1551|测试次数|Number of tests
+K1552|复孔设置|Multiple hole settings
+K1553|编号|No.
+K1554|膜条类型|Strip type
+K1555|样本位置|Sample location
+K1556|膜条类型选择|Strip type selection
+K1557|开始样本编号|Start sample No.
+K1558|结束样本位置|End sample location
+K1559|是否复孔|Multiple holes or not
+K1560|数量|Quantity
+K1561|批量添加并保存|Add in batch and save
+K1562|样本列表|Sample list
+K1563|删除所有|Delete all
+K1564|完成|Complete
+K1565|自检结果显示|Self-checking result display
+K1566|关闭阀|Close valve
+K1567|关闭摇床加热|Turn off shaking table heating
+K1568|打开指示灯|Turn on indicator light
+K1569|关闭报警指示灯|Turn off alarm indicator
+K1570|关闭背光灯|Turn off backlight
+K1571|关闭蜂鸣器|   Turn off buzzer
+K1572|XYZ电机初始化|XYZ motor initializing
+K1573|柱塞泵电机初始化|Plunger pump motor initializing
+K1574|摇床电机初始化|Shaking table motor initializing
+K1575|扫码器自检|Code scanner self-checking
+K1576|扫码成功|Code scanned successfully
+K1577|相机自检成功|Camera self-checking succeeded
+K1578|软件退出提示.|Software exit prompt.
+K1579|取消操作|Cancel operation
+K1580|当前状态：暂停|Current status: Pause
+K1581|当前状态：运行中|Current status: Running
+K1582|当前进度:|Current progress:
+K1583|正在进行判读，请勿打开设备上盖。|Judgment is in progress, please do not open the device cover.
+K1584|测读|Test & read
+K1585|测试错误|Test error
+K1586|当前状态为|The current status is
+K1587|语言选择|Language selection
+K1588|未运行或未完成|Not running or not completed
+K1589|添加膜条厂家|Add strip manufacturer
+K1590|登录失败|Login failed
+K1591|用户名或密码错误！|Incorrect user name or password!
+K1592|数据上传LIS完成|Data successfully uploaded to LIS
+K1593|请输入项目数量！|Please enter the number of items!
+K1594|全部|All
+K1595|确定退出软件|Confirm to exit the software
+K1596|开始样本位置：|Start sample location:
+K1597|结束样本位置：|End sample location:
+K1598|开始样本编号：|Start sample No.:
+K1599|润湿|Wetting
+K1600|加样本|Sample addition
+K1601|清洗|Cleaning
+K1602|加酶|Enzyme addition
+K1603|二次清洗|Secondary cleaning
+K1604|加底物|Substrate addition
+K1605|加蒸馏水|Distilled water addition
+K1606|加终止液|Stop solution addition
+K1607|干燥|Drying
+K1608|拍照|Take photos
+K1609|标准杯|Standard flask
+K1610|采血管|Blood collection tube
+K1611|微量杯|Trace element flask
+K1612|男|Male
+K1613|女|Female
+K1614|请选择执行的步骤|Please select the execution sequence
+K1615|正在清洗,请稍候......|Cleaning, please wait...
+K1616|第一次清洗|First cleaning
+K1617|液位检测进行中......|Liquid level detection in progress...
+K1618|正在进行泵校准......|Pump calibration in progress...
+K1619|校准成功<br>泵号:|Calibration succeeded<br> Pump No.:
+K1620|,  50ul对应步数:|, the number of steps corresponding to 50ul:
+K1621|,  50ul步数由:|, change the number of steps corresponding to 50ul from:
+K1622|，改为:|, to:
+K1623|管路清洗进行中......|Cleaning pipeline...
+K1624|开始周维护<br>请先将泵管头放到足量的系统液中，再点击【确认】按钮，开始周维护！|Start weekly maintenance<br> Please put the pump nozzle into sufficient system liquid first, and then click the [OK] button to start weekly maintenance!
+K1625|开始月维护<br>请先将泵管头放到足量的系统液中，再点击【确认】按钮，开始月维护！|Start monthly maintenance<br> Please put the pump nozzle into sufficient system liquid first, and then click the [OK] button to start monthly maintenance!
+K1626|周维护进行中......|Weekly maintenance in progress...
+K1627|管路浸泡中......|Soaking pipeline...
+K1628|管路浸泡中,剩余秒数：|Soaking pipeline, remaining seconds:
+K1629|月维护进行中......|Monthly maintenance in progress...
+K1630|样本编号未填写|Sample number not filled in
+K1631|拍照完成，稍后请到“报告查询”查看结果。|The test is completed and please turn to Report->Report query to check the test results.
+K1632|结束|End
+K1633|吸液量异常|Abnormal liquid absorption
+K1634|异常退出。|Abnormal exit.
+K1635|摇床初始化|Shaking table initializing
+K1636|试剂准备中,请稍候......|Preparing reagent, please wait...
+K1637|取消全选|Uncheck all
+K1638|    关闭键盘|    Close the keyboard
+K1639|相机自检失败|Camera self-check failed
+K1640|扫码失败|Code scan failed.
+K1641|扫码成功|Code scanned successfully
+K1642|校准成功|Calibration successful
+K1643|校准失败|Calibration Failed
+K1644|请选择要删除公司名称|Please select a company name to delete
+K1645|关机维护进行中，蠕动泵纯水清洗.|Shutdown maintenance in progress, Peristaltic pump cleaning.
+K1646|关机维护进行中，蠕动泵管路排空.|Shutdown maintenance in progress, peristaltic pump pipeline emptying.
+K1647|关机维护进行中，系统液管路清洗.|Shutdown maintenance in progress, system liquid pipeline cleaning.
+K1648|关机维护进行中，系统液管路排空.|Shutdown maintenance in progress, system liquid pipeline emptying.
+K1649|打开批量样本添加界面，样本信息未保存将会清空，是否继续？|Opening the batch sample adding interface. If the sample information is not saved, it will be cleared. Do you want to continue?
+K1650|规则一|Rule 1
+K1651|规则二|Rule 2
+K1652|规则三|Rule 3
+K1653|规则四|Rule 4
+K1654|规则五|Rule 5
+K1655|规则六|Rule 6
+K1656|规则七|Rule 7
+K1657|规则八|Rule 8
+K16571|规则九|Rule 9
+K1658|判读规则模块|Judgment rule module
+K1659|试剂管理模块|Reagent management module
+K1660|添加模块|Adding module
+K1661|用户登录|User Login
+K1662|判读规制-删除模块|Judgment rule - delete module
+K1663|膜条编辑|Strip editing
+K1664|膜条管理模块|Strip Management Module
+K1665|膜条管理模块-删除厂家|Strip Management Module - Delete Manufacturer
+K1666|登录|Login
+K1667|添加|Add
+K1668|判读规制修改模块|Judgment rule modification module
+K1669|登录状态，未取得机器序号|Login status, device serial number not obtained
+K1670|主控板硬件版本号：|Main control board hardware version:
+K1671|主控板软件版本号：|Main control board software version:
+K1672|主控板硬件、软件版本号|Main control board hardware and software version:
+K1673|主控板版本号:|Main control board version:
+K1674|该厂家膜条未添加实验流程，请联系技术支持人员，请勿进行下一步操作。|The strip from this manufacturer has not added an experimental process. Please contact technical support. Do not proceed to the next step.
+K1675|测试结束，液位探测正常|End of test, liquid level detection normal
+K1676|测试结束，液位探测异常|End of test, liquid level detection abnormal
+K1677|第|,
+K1678|次，位置|time, position
+K1679|失败|Fail
+K1680|停止并完成检测！|Stop and complete the detection!
+K1681|显示校正图片|Dis_correction_Pic
+K1682|等待上传|Waiting for upload
+K1683|无阳性结果|No positive results
+K1684|上传中|Uploading
+K1685|已完成|Completed
+K1686|未知|Unknown
+K1687|功能线异常|Abnormal functional line
+K1688|Cutoff线异常|Cutoff value is abnormal
+K16881|检测线周围存在污渍|There are stains around the detection line
+K1689|未完成检测|Incomplete detection
+K1690|无结果|No results
+K1691|底物液|Substrate solution
+K1692|蒸馏水|Dstilled water
+K1693|稀释缓冲液|Dilution buffer
+K1694|终止液|Stop solution
+K1695|洗涤缓冲液|Washing buffer
+K1696|系统液|System fluid
+K1697|通用|Common use
+K1698|打开|Open
+K1699|关闭|Close
+K1700|是|Enable
+K1701|否|Disenable
+K1702|状态|Status
+K1703|检测到条带|Correct
+K1704|膜条详细信息|Paper information detail
+K1705|背景灰度值|Background gray value
+K1706|异常点占比|The proportion of outliers
+K1707|有效区间宽Min|The effective interval is wide for Min
+K1708|有效区间宽Max|The effective interval is wide for Max
+K1709|零值系数|Null coefficient
+K1710|差值|Difference value
+K1711|运行或维护中不能重启，请在动作完成后再重启。|Cannot restart during operation or maintenance. Please restart after the action is completed.
+K1712|扫码进行中……|Scanning……
+K1713|检测停止中……|Stoping……
+K1714|摇床工作中，无法暂停|The rocking bed is in running cannot be paused
+K1715|正在执行小充灌量|Executing small filling volume
+K1716|充灌已完成|Filling completed
+K1717|正在执行大充灌量|Executing big filling volume
+K1718|正在执行系统液充灌|Executing StstemLiquide filling
+K1712|打印|Print
+K1713|请确定是否删除？|Please confirm whether to delete it?
+K1714|规则9|Rule 9
+K1715|规则10|Rule 10
+K1716|规则11|Rule 11
+K1717|规则12|Rule 12
+K1718|规则13|Rule 13
+K1719|规则14|Rule 14
+K1720|规则15|Rule 15
+K1721|规则16|Rule 16
+K1722|规则17|Rule 17
+K1723|规则18|Rule 18
+K1724|规则19|Rule 19
+K1725|规则20|Rule 20
+K1727|规则21|Rule 21
+K1728|规则22|Rule 22
+K1729|规则23|Rule 23
+K1730|规则24|Rule 24
+K1731|规则25|Rule 25
+K1726|显示符号|Judge character
+K1732|保存并连接|Save and Connect
+K1733|发送|Send
+K1734|LIS连接成功|LIS connected
+K1735|LIS连接失败|LIS failure
+K1736|请连接LIS服务器|LIS failure
+K1737|比值|Value
+K1738|打印未完成，不能关闭|Can not close,It doing print.
+K1739|备份还原|Backup and Restore
+K1740|最新批次结果查询|Latest Batch Query
+K1741|图像矫偏阈值|Threshold for Image Correction
+K1742|医院名称|Hospital
+k1743|拍照功能|Camera function
+K1744|打印功能|Print function
+K1745|纸张规格|Paper size
+K1746|发送数据|Send data
+K1747|接收数据|Received data
+K1748|清空|Clear data
+K1749|测试结果|Test Result
+K1750|请求样本|Request Sample
+K1751|请进行手工加样|Please perform manual sample loading
+K1752|手工完成加样后请点击[确定]按钮完成后续流程|After manual sample loading, click the [Confirm] button to complete subsequent procedures
+K1753|确定要清除已设置的项目|Confirm to clear the set items
+K1754|选择项目信息|Select project information
+K1755|清空设置|Clear Settings
+K1756|存在加样失败,设备已暂停|Sample addition failed, the device has been paused
+K1757|请确认加样完成?|Please confirm that the sample addition is completed?
+K1758|关闭报警声|close alarm
+K1759|打印成功|Printing successful
+K1760|打印失败|Printing failed
+K9990|检测到多个条带|Multiple strips detected
+K9991|（检测到异常条带）|（Abnormal stripe detected）
+K9992|（检测到异常条带）|（Abnormal stripe detected）
+K9993|（检测到异常条带）|（Abnormal stripe detected）
+K9994|未检测到条带|No stripe detected
+K9995|（检测到异常条带）|（Abnormal stripe detected）
+K9996|（检测到异常条带）|（Abnormal stripe detected）
+K9997|（检测到异常条带）|（Abnormal stripe detected）
+K9998|（未检测到条带正常）|（No normal bands were detected）
+K9999|（未检测到条带正常）|（No normal bands were detected）
+K10000|背景色异常|Background color anomaly
+K10001|检测到异常条带|Abnormal stripe detected
+K10002|无条带|No stripe detected
+K10003|异常条带|No stripe detected
+L1000|泵号:|Pump No.:
+L1001|开始:|Start:
+L10011|开始|Start
+L1002|失败:|Failed:
+L1003|完成:|Completed:
+L10031|完成|Completed
+L1004|摇床工作失败！|Shaking table failed to work!
+L1005|风扇工作失败！|Fan failed to work!
+L1006|动作停止失败|Failed to stop running
+L1007|x轴电机初始化失败|Failed to initialize the X-axis motor
+L1008|样本臂移液|Sampling arm transfers liquid
+L1009|吸样位:|Sample suction position:
+L10091|吸样位|Sample suction position
+L1010|吐样位:|Sample discharge position:
+L10101|吐样位|Sample discharge position
+L1011|盘号:|Plate No.:
+L1012|位置:|Position:
+L1013|吸样下降步数:|Decrement of steps during sample suction:
+L1014|吸样|Sample suction
+L1015|加样|Sample addition
+L1016|清洗|Cleaning
+L1017|最后一次加样体积|Volume of last added sample
+L1018|第1次加样|First sample addition
+L1019|第2次加样|Second sample addition
+L1020|充灌|Filling
+L1021|获取试剂类型失败|Failed to obtain reagent type
+L1022|排废液失败|Failed to discharge waste liquid
+L1023|没有生成相关的实体|No related entities are generated
+L1024|排废液及蠕动泵加液失败|Failed to discharge waste liquid and use peristaltic pump to fill liquid
+L1025|杯高度|Cup height
+L1026|在相应的位置上没有找到样本|No sample found at the corresponding location
+L1027|没有设置样本位置与模条位置|Sample location and strip location are not set
+L1028|样本架扫码失败|Failed to scan the code of sample rack
+L1029|执行成功|Execution succeeded
+L1030|执行失败|Execution failed
+L1031|查询主控板硬件、软件版本号失败|Failed to query the hardware and software version numbers of the main control board
+L1032|机器设备号|Device No.
+L1033|主控板硬件版本号|Main control board hardware version number
+L1034|主控板软件版本号|Main control board software version number
+L1035|恢复电机维持电流失败|Failed to restore the motor holding current
+L1036|Z轴电机初始化失败|Failed to initialize the Z-axis motor
+L1037|Y轴电机初始化失败|Failed to initialize the Y-axis motor
+L1038|查询Y轴电机位置失败|Failed to query the Y-axis motor position
+L1039|Y轴电机运动至清洗位失败|Y-axis motor failed to move to the cleaning position
+L1040|X轴电机初始化失败|Failed to initialize the X-axis motor
+L1041|关闭阀|Close valve
+L1042|无此阀,阀号|No such valve, valve No.
+L1043|关闭阀失败,阀号:|Failed to close this valve, valve No.:
+L1044|关闭摇床加热|Turn off shaking table heating
+L1045|获取目录温度失败|Failed to obtain director temperature
+L1046|关闭摇床加热失败|Failed to turn off shaking table heating
+L1047|打开指示灯|Turn on indicator light
+L1048|无此指示灯,灯号:|No such indicator light, light No.:
+L1049|打开指示灯失败,灯号:|Failed to turn on the indicator light, light No.:
+L1050|关闭报警指示灯|Turn off alarm indicator
+L1051|关闭报警指示灯失败|Failed to turn off the alarm indicator
+L1052|关闭背光灯|Turn off backlight
+L1053|关闭背光灯失败|Failed to turn off backlight
+L1054|关闭蜂鸣器|Turn off buzzer
+L1055|关闭蜂鸣器失败|Failed to turn off buzzer
+L1056|XYZ电机初始化|XYZ motor initializing
+L1057|XYZ电机初始化失败|Failed to initialize XYZ motor
+L1058|柱塞泵电机初始化|Plunger pump motor initializing
+L1059|柱塞泵电机初始化失败|Failed to initialize plunger pump motor
+L1060|摇床电机初始化|Shaking table motor initializing
+L1061|摇床电机初始化失败|Failed to initialize shaking table motor
+L1062|扫码器自检|Code scanner self-checking
+L1063|扫码器自检失败|Failed to perform code scanner self-checking
+L1064|系统液充灌失败|Failed to fill the system liquid
+L1065|系统液清洗失败|Failed to clean the system liquid
+L1066|蠕动泵充灌失败|Failed to fill the peristaltic pump
+L1067|机械初始化失败|Failed to initialize the machine
+L1068|程序被迫停止|The program was forced to stop
+L1069|升降电机初始化失败|Failed to initialize lifting motor
+L1070|获取试剂盘混匀步数失败|Failed to obtain the number of blending steps of reagent tray
+L1071|关闭所有阀操作失败！|Failed to stop the operation of all valves!
+L1072|电机以0速度转动失败！|Failed to rotate the motor at 0 speed!
+L1073|恢复电机维持电流失败|Failed to restore the motor holding current
+L1074|保持力矩、刹车释放、温控失败|Failed to hold torque, release brake and control temperature
+L1075|蠕动泵校准失败|Failed to calibrate peristaltic pump
+L1076|扫码成功|Code scanned successfully
+L1077|没有此指示灯地址|No address of this indicator
+L1078|电机地址不对|Incorrect motor address
+L1079|阀地址不对|Incorrect valve address
+L1080|充灌类型错误|Incorrect filling type
+L1081|系统液充灌|System liquid filling
+L1082|系统液清洗|System liquid cleaning
+L1083|最后一次加样:|Last sample addition:
+L1084|润湿|Wetting
+L1085|加样本|Sample addition
+L1086|第一次清洗|First cleaning
+L1087|加酶|Enzyme addition
+L1088|第二次清洗|Second cleaning
+L1089|加底物|Substrate addition
+L1090|加蒸馏水|Distilled water addition
+L1091|加终止液|Stop solution addition
+L1092|干燥|Drying
+L1093|蠕动泵加液(洗涤缓冲液)|Use peristaltic pump to fill liquid (Washing buffer)
+L1094|摇床震荡孵育|Incubation by the shaking of shaking table
+L1095|排废液及蠕动泵加液(稀释缓冲液)|Discharge waste liquid and use peristaltic pump to fill liquid (Diluted buffer solution)
+L1096|回流(稀释缓冲液回流)|Backflow (Backflow of diluted buffer solution)
+L1098|第一次摇床电机初始化|First initialization of shaking table motor
+L1099|第一次排废液及蠕动泵加液(洗涤缓冲液)|First discharge of waste liquid and use peristaltic pump to fill liquid (Washing buffer solution)
+L1100|第一次摇床震荡孵育|First incubation by the shaking of shaking table
+L1101|第二次摇床电机初始化|Second initialization of shaking table motor
+L1102|第二次排废液及蠕动泵加液(洗涤缓冲液)|Second discharge of waste liquid and use peristaltic pump to fill liquid (Washing buffer solution)
+L1103|第二次摇床震荡孵育|Second incubation by the shaking of shaking table
+L1104|第三次摇床电机初始化|Third initialization of shaking table motor
+L1105|第三次排废液及蠕动泵加液(洗涤缓冲液)|Third discharge of waste liquid and use peristaltic pump to fill liquid (Washing buffer solution)
+L1106|第三次摇床震荡孵育|Third incubation by the shaking of shaking table
+L1107|排废液及蠕动泵加液(结合物)|Discharge waste liquid and use peristaltic pump to fill liquid (Conjugate)
+L1108|回流(结合物)|Backflow (Conjugate)
+L1109|第三次回流(洗涤缓冲液)|Third backflow (Washing buffer solution)
+L1110|排废液及蠕动泵加液(底物液)|Discharge waste liquid and use peristaltic pump to fill liquid (Substrate solution)
+L1111|回流(底物液)|Backflow (Substrate solution)
+L1112|排废液及加入蒸馏水|Discharge waste liquid and add distilled water
+L1113|排废液及加入终止液STOP|Discharge waste liquid and add stop solution
+L1114|回流(终止液)|Backflow (Stop solution)
+L1115|排废液|Discharge waste liquid
+L1116|打开加热|Turn on heating
+L1117|摇床震荡+风扇干燥|Shaking by the shaking table + drying by the fan
+L1118|关闭加热|Turn off heating
+L1119|蠕动泵加液(稀释液)|Use peristaltic pump to fill liquid (Diluted solution)
+L1120|排废液及蠕动泵加液(稀释液)|Discharge waste liquid and use peristaltic pump to fill liquid (Diluted solution)
+L1121|回流(稀释液)|Backflow (Diluted solution)
+L1122|第一次排废液及蠕动泵加液(清洗液)|First discharge of waste liquid and use peristaltic pump to fill liquid (Cleaning liquid)
+L1123|第二次排废液及蠕动泵加液(清洗液)|Second discharge of waste liquid and use peristaltic pump to fill liquid (Cleaning liquid)
+L1124|第三次排废液及蠕动泵加液(清洗液)|Third discharge of waste liquid and use peristaltic pump to fill liquid (Cleaning liquid)
+L1125|回流(清洗液)|Backflow (Cleaning liquid)
+L1126|摇床震荡及加热|Shaking and heating of shaking table
+L1127|摇床震荡及加热+风扇干燥|Shaking and heating by the shaking table + drying by the fan
+L1128|排废液及蠕动泵加液|Discharge waste liquid and use peristaltic pump to fill liquid
+L1129|摇床工作|The shaking table is running
+L1130|蠕动泵回流|Backflow of peristaltic pump
+L1131|加热|Heating
+L1132|第四次摇床电机初始化|Fourth initialization of shaking table motor
+L1133|第四次排废液及蠕动泵加液(洗涤缓冲液)|Fourth discharge of waste liquid and use peristaltic pump to fill liquid (Washing buffer solution)
+L1134|第四次摇床震荡孵育|Fourth incubation by the shaking of shaking table
+L1135|第五次摇床电机初始化|Fifth initialization of shaking table motor
+L1136|第五次排废液及蠕动泵加液(洗涤缓冲液)|Fifth discharge of waste liquid and use peristaltic pump to fill liquid (Washing buffer solution)
+L1137|第五次摇床震荡孵育|Fifth incubation by the shaking of shaking table
+L1138|回流(洗涤缓冲液)|Backflow (Washing buffer solution)
+L1139|第三次清洗|Third cleaning
+L1140|第四次清洗|Fourth cleaning
+L1141|加二抗|Secondary antibody addition
+L1142|排废液及蠕动泵加液(二抗)|Discharge waste liquid and use peristaltic pump to fill liquid (Secondary antibody)
+L1143|回流(抗体液)|Backflow (Secondary antibody)
+0x9000|样本臂吸样时Z轴电机运动至复位位置复位光耦无效|When the sampling arm sucks the sample, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9001|样本臂吸样时X轴电机运动至吸样位时编码器差值超48步以上|When the sampling arm sucks the sample and the X-axis motor moves to the sample suction position, the encoder difference exceeds 48 steps
+0x9002|样本臂吸样时X轴电机补偿运动后编码器差值超48步以上|When the sampling arm sucks the sample, the encoder difference exceeds 48 steps after the X-axis motor moves for compensation
+0x9003|样本臂吸样时Y轴电机运动至吸样位置时编码器差值超48步以上|When the sampling arm sucks the sample and the Y-axis motor moves to the sample suction position, the encoder difference exceeds 48 steps
+0x9004|样本臂吸样时Y轴电机补偿运动后编码器差值超48步以上|When the sampling arm sucks the sample, the encoder difference exceeds 48 steps after the Y-axis moves for compensation
+0x9005|样本臂吸样时样Z轴电机使能液位探测时右光电立即有效|When the sampling arm sucks the sample and the Z-axis motor enables the liquid level detection, the right photoelectric coupler is valid immediately
+0x9006|样本臂吸样时Z轴电机运动至吸液位置发生垂直碰撞|When the sampling arm sucks the sample, the Z-axis motor moves to the liquid suction position and vertical collision occurs
+0x9007|样本臂吸样时Z轴电机运动至吸液位置复位光耦有效|When the sampling arm sucks the sample, the Z-axis motor moves to the liquid suction position and the reset optical coupler is valid
+0x9008|样本臂吸样时样本针柱塞泵吸样复位光耦有效|When the sampling arm sucks the sample, the sample suction reset optical coupler of the needle plunger pump is valid
+0x9009|样本臂吸样时样本针柱塞泵吸样堵针|When the sampling arm sucks the sample, the needle of the needle plunger pump is blocked
+0x900D|样本臂吸样前样本针内压力值与设置的环境压力值相差大于100|The difference between the pressure value in the sampling needle before the sampling arm sucks the sample and the ambient pressure value is greater than 100
+0x900A|样本臂吸样时Z轴电机第二次运动至复位位置复位光耦无效|When the sampling arm sucks the sample, the Z-axis motor moves to the reset position for the second time and the reset optical coupler is invalid
+0x900B|样本臂吸样时Y轴电机运动至样本针清洗位置时编码器差值超48步以上|When the sampling arm sucks the sample and the Y-axis motor moves to the sampling needle cleaning position, the encoder difference exceeds 48 steps
+0x900C|样本臂吸样时Y轴电机补偿运动后编码器差值超48步以上|When the sampling arm sucks the sample, the encoder difference exceeds 48 steps after the Y-axis moves for compensation
+0x9010|样本臂清洗时Z轴电机运动至复位位置复位光耦无效|When the sampling arm is cleaning, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9011|样本臂清洗时Y轴电机运动至清洗位置时编码器差值超48步以上|When the sampling arm is cleaning and the Y-axis motor moves to the cleaning position, the encoder difference exceeds 48 steps
+0x9012|样本臂清洗时Y轴电机补偿运动后编码器差值超48步以上|When the sampling arm is cleaning, the encoder difference exceeds 48 steps after the Y-axis moves for compensation
+0x9013|样本臂清洗时Z轴电机运动至清洗位置复位光耦有效|When the sampling arm is cleaning, the Z-axis motor moves to the cleaning position and the reset optical coupler is valid
+0x9014|样本臂清洗时样本针柱塞泵运动至复位位置复位光耦无效|When the sampling arm is cleaning, the sampling needle plunger pump moves to the reset position and the reset optical coupler is invalid
+0x9015|样本臂清洗时Z轴电机第二次运动至复位位置复位光耦无效|When the sampling arm is cleaning, the Z-axis motor moves to the reset position for the second time and the reset optical coupler is invalid
+0x9016|清洗针下降时垂直碰撞|Vertical collision occurs when the cleaning needle is falling
+0x9018|样本臂吐样时Z轴电机运动至复位位置复位光耦无效|When the sampling arm discharges the sample, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9019|样本臂吐样时X轴电机运动至吐样位时编码器差值超48步以上|When the sampling arm discharges the sample and the X-axis motor moves to the sample discharge position, the encoder difference exceeds 48 steps
+0x901A|样本臂吐样时X轴电机补偿运动后编码器差值超48步以上|When the sampling arm discharges the sample, the encoder difference exceeds 48 steps after the X-axis motor moves for compensation
+0x901B|样本臂吐样时摇床电机运动至吸液位置复位光耦有效|When the sampling arm discharges the sample, the shaking table motor moves to the liquid suction position and the reset optical coupler is valid
+0x901C|样本臂吐样时Y轴电机运动至吐样位置时编码器差值超48步以上|When the sampling arm discharges the sample and the Y-axis motor moves to the sample discharge position, the encoder difference exceeds 48 steps
+0x901D|样本臂吐样时Y轴电机补偿运动后编码器差值超48步以上|When the sampling arm discharges the sample, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x901E|样本臂吐样时Z轴电机使能液位探测时右光电立即有效|When the sampling arm discharges the sample and the Z-axis motor enables the liquid level detection, the right photoelectric coupler is valid immediately
+0x901F|样本臂吐样时Z轴电机运动至吐样位置发生垂直碰撞|When the sampling arm discharges the sample, the Z-axis motor moves to the sample discharge position and vertical collision occurs
+0x9020|样本臂吐样时Z轴电机第二次运动至复位位置复位光耦无效|When the sampling arm discharges the sample, the Z-axis motor moves to the reset position for the second time and the reset optical coupler is invalid
+0x9021|样本臂吐样时Y轴电机运动至样本针清洗位置时编码器差值超48步以上|When the sampling arm discharges the sample and the Y-axis motor moves to the sampling needle cleaning position, the encoder difference exceeds 48 steps
+0x9022|样本臂吐样时Y轴电机补偿运动后编码器差值超48步以上|When the sampling arm discharges the sample, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x9028|样本条码扫描时Z轴电机运动至复位位置复位光耦无效|When the sample barcode is scanned, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9029|样本条码扫描时Y轴电机运动至清洗位置时编码器差值超48步以上|When the sample barcode is scanned and the Y-axis motor moves to the cleaning position, the encoder difference exceeds 48 steps
+0x902A|样本条码扫描时Y轴电机补偿运动后编码器差值超48步以上|When the sample barcode is scanned, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x902B|样本条码扫描时X轴电机运动至扫描位时编码器差值超48步以上|When the sample barcode is scanned and the X-axis motor moves to the scan position, the encoder difference exceeds 48 steps
+0x902C|样本条码扫描时X轴电机补偿运动后编码器差值超48步以上|When the sample barcode is scanned, the encoder difference exceeds 48 steps after the X-axis motor moves for compensation
+0x9030|相机校准时Z轴电机运动至复位位置复位光耦无效|When the camera is calibrated, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9031|相机校准时Y轴电机运动至样本针清洗位置时编码器差值超48步以上|When the camera is calibrated and the Y-axis motor moves to the sampling needle cleaning position, the encoder difference exceeds 48 steps
+0x9032|相机校准时Y轴电机补偿运动后编码器差值超48步以上|When the camera is calibrated, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x9033|相机校准时X轴电机运动至相机校准位时编码器差值超48步以上|When the camera is calibrated and the X-axis motor moves to the camera calibration position, the encoder difference exceeds 48 steps
+0x9034|相机校准时X轴电机补偿运动后编码器差值超48步以上|When the camera is calibrated, the encoder difference exceeds 48 steps after the X-axis motor moves for compensation
+0x9038|排废液及蠕动泵加液时Z轴电机运动至复位位置复位光耦无效|When waste liquid is discharged and the peristaltic pump fills liquid, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9039|排废液及蠕动泵加液时Y轴电机运动至样本针清洗位置时编码器差值超48步以上|When waste liquid is discharged and the peristaltic pump fills liquid and the Y-axis motor moves to the sampling needle cleaning position, the encoder difference exceeds 48 steps
+0x903A|排废液及蠕动泵加液时Y轴电机补偿运动后编码器差值超48步以上|When waste liquid is discharged and the peristaltic pump fills liquid, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x903B|排废液及蠕动泵加液时摇床电机运动至吸液位置复位光耦有效|When waste liquid is discharged and the peristaltic pump fills liquid, the shaking table motor moves to the liquid suction position and the reset optical coupler is valid
+0x903C|排废液及蠕动泵加液时X轴电机运动至排液位时编码器差值超48步以上|When waste liquid is discharged and the peristaltic pump fills liquid and the X-axis motor moves to the liquid discharge position, the encoder difference exceeds 48 steps
+0x903D|排废液及蠕动泵加液时X轴电机补偿运动后编码器差值超48步以上|When waste liquid is discharged and the peristaltic pump fills liquid, the encoder difference exceeds 48 steps after the X-axis motor moves for compensation
+0x903E|排废液及蠕动泵加液时Y轴电机运动至废液槽触发抽废液位置时编码器差值超48步以上|When waste liquid is discharged and the peristaltic pump fills liquid and the Y-axis motor moves to the location of waste liquid tank and triggers the pumping of waste liquid, the encoder difference exceeds 48 steps
+0x903F|排废液及蠕动泵加液时Y轴电机补偿运动后编码器差值超48步以上|When waste liquid is discharged and the peristaltic pump fills liquid, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x9040|排废液及蠕动泵加液时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上|When waste liquid is discharged and the peristaltic pump fills liquid and the Y-axis motor moves to the sampling needle cleaning position for the second time, the encoder difference exceeds 48 steps
+0x9041|排废液及蠕动泵加液时Y轴电机补偿运动后编码器差值超48步以上|When waste liquid is discharged and the peristaltic pump fills liquid, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x9048|蠕动泵充灌时Z轴电机运动至复位位置复位光耦无效|When peristaltic pump fills liquid, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9049|蠕动泵充灌时Y轴电机运动至样本针清洗位置时编码器差值超48步以上|When peristaltic pump fills liquid and the Y-axis motor moves to the sampling needle cleaning position, the encoder difference exceeds 48 steps
+0x904A|蠕动泵充灌时Y轴电机补偿运动后编码器差值超48步以上|When peristaltic pump fills liquid, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x904B|蠕动泵充灌时X轴电机运动至复位位置复位光耦无效|When peristaltic pump fills liquid, the X-axis motor moves to the reset position and the reset optical coupler is invalid
+0x904C|蠕动泵充灌时Y轴电机运动至废液槽触发抽废液位置时编码器差值超48步以上|When peristaltic pump fills liquid and the Y-axis motor moves to the location of waste liquid tank and triggers the pumping of waste liquid, the encoder difference exceeds 48 steps
+0x904D|蠕动泵充灌时Y轴电机补偿运动后编码器差值超48步以上|When peristaltic pump fills liquid, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x904E|蠕动泵充灌时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上|When peristaltic pump fills liquid and the Y-axis motor moves to the sampling needle cleaning position for the second time, the encoder difference exceeds 48 steps
+0x904F|蠕动泵充灌时Y轴电机补偿运动后编码器差值超48步以上|When peristaltic pump fills liquid, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x9050|扫码器自检时Z轴电机运动至复位位置复位光耦无效|When the code scanner performs self-checking, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9051|扫码器自检时Y轴电机运动至清洗位置时编码器差值超48步以上|When the code scanner performs self-checking and the Y-axis motor moves to the cleaning position, the encoder difference exceeds 48 steps
+0x9052|扫码器自检时Y轴电机补偿运动后编码器差值超48步以上|When the code scanner performs self-checking, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x9053|扫码器自检时X轴电机运动至复位位置复位光耦无效|When the code scanner performs self-checking, the X-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9058|蠕动泵校准时Z轴电机运动至复位位置复位光耦无效|When peristaltic pump is calibrated, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9059|蠕动泵校准时X轴电机运动至复位位置复位光耦无效|When peristaltic pump is calibrated, the X-axis motor moves to the reset position and the reset optical coupler is invalid
+0x905A|蠕动泵校准时Y轴电机运动至复位位置复位光耦无效|When peristaltic pump is calibrated, the Y-axis motor moves to the reset position and the reset optical coupler is invalid
+0x905B|蠕动泵校准时Y轴电机运动至废液槽触发抽废液位置时编码器差值超48步以上|When peristaltic pump is calibrated and the Y-axis motor moves to the location of waste liquid tank and triggers the pumping of waste liquid, the encoder difference exceeds 48 steps
+0x905C|蠕动泵校准时Y轴电机补偿运动后编码器差值超48步以上|When peristaltic pump is calibrated, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x905D|蠕动泵校准时Y轴电机运动至样本针清洗位置时编码器差值超48步以上|When peristaltic pump is calibrated and the Y-axis motor moves to the sampling needle cleaning position, the encoder difference exceeds 48 steps
+0x905E|蠕动泵校准时Y轴电机运动至样本针清洗位置补偿运动后编码器差值超48步以上|When peristaltic pump is calibrated, the encoder difference exceeds 48 steps after the Y-axis motor moves to the sampling needle cleaning position for compensation
+0x905F|蠕动泵校准时Y轴电机第二次运动至复位位置复位光耦无效|When peristaltic pump is calibrated, the X-axis motor moves to the reset position for the second time and the reset optical coupler is invalid
+0x9060|蠕动泵校准时Z轴电机使能液位探测时右光电立即有效|When peristaltic pump is calibrated and the Z-axis motor enables the liquid level detection, the right photoelectric coupler is valid immediately
+0x9061|蠕动泵校准时Z轴电机运动至废液槽高度位置复位光耦有效|When peristaltic pump is calibrated, the Z-axis motor moves to the height position of waste liquid tank and the reset optical coupler is valid
+0x9062|蠕动泵校准时Z轴电机第二次运动至复位位置复位光耦无效|When peristaltic pump is calibrated, the Z-axis motor moves to the reset position for the second time and the reset optical coupler is invalid
+0x9063|蠕动泵校准时Z轴电机第二次使能液位探测时右光电立即有效|When peristaltic pump is calibrated and the Z-axis motor enables the liquid level detection for the second time, the right photoelectric coupler is valid immediately
+0x9064|蠕动泵校准时Z轴电机第二次运动至废液槽高度位置复位光耦有效|When peristaltic pump is calibrated, the Z-axis motor moves to the height position of waste liquid tank for the second time and the reset optical coupler is valid
+0x9065|蠕动泵校准时Z轴电机第三次运动至复位位置复位光耦无效|When peristaltic pump is calibrated, the Z-axis motor moves to the reset position for the third time and the reset optical coupler is invalid
+0x9066|蠕动泵校准时Y轴电机第二次运动至废液槽触发抽废液位置时编码器差值超48步以上|When peristaltic pump is calibrated and the Y-axis motor moves to the location of waste liquid tank and triggers the pumping of waste liquid for the second time, the encoder difference exceeds 48 steps
+0x9067|蠕动泵校准时Y轴电机第二次运动至废液槽触发抽废液位置补偿运动后编码器差值超48步以上|When peristaltic pump is calibrated, the encoder difference exceeds 48 steps after the Y-axis motor moves to the location of waste liquid tank and triggers the pumping of waste liquid for compensation 
+0x9068|蠕动泵校准时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上|When peristaltic pump is calibrated and the Y-axis motor moves to the sampling needle cleaning position for the second time, the encoder difference exceeds 48 steps
+0x9069|蠕动泵校准时Y轴电机第二次运动至样本针清洗位置补偿运动后编码器差值超48步以上|When peristaltic pump is calibrated, the encoder difference exceeds 48 steps after the Y-axis motor moves to the sampling needle cleaning position for the second time for compensation
+0x9070|膜条拍照时Z轴电机运动至复位位置复位光耦无效|When the strip is photographed, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9071|膜条拍照时Y轴电机运动至清洗位置时编码器差值超48步以上|When the strip is photographed and the Y-axis motor moves to the cleaning position, the encoder difference exceeds 48 steps
+0x9072|膜条拍照时Y轴电机补偿运动后编码器差值超48步以上|When the strip is photographed, the encoder difference exceeds 48 steps after the Y-axis motor moves for compensation
+0x9073|膜条拍照时X轴电机运动至膜条拍照位时编码器差值超48步以上|When the strip is photographed and the X-axis motor moves to the strip photographing position, the encoder difference exceeds 48 steps
+0x9074|膜条拍照时X轴电机补偿运动后编码器差值超48步以上|When the strip is photographed, the encoder difference exceeds 48 steps after the X-axis motor moves for compensation
+0x9075|膜条拍照时摇床电机运动至拍照位置复位光耦有效|When the strip is photographed, the shaking table motor moves to the photographing position and the reset optical coupler is valid
+0x9080|系统液充灌时Z轴电机运动至复位位置复位光耦无效|When the system liquid is filled, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9081|系统液充灌时Y轴电机运动至样本针清洗位置时编码器差值超48步以上|When the system liquid is filled and the Y-axis motor moves to the sampling needle cleaning position, the encoder difference exceeds 48 steps
+0x9082|系统液充灌时Y轴电机运动至样本针清洗位置补偿运动后编码器差值超48步以上|When the system liquid is filled, the encoder difference exceeds 48 steps after the Y-axis motor moves to the sampling needle cleaning position for compensation
+0x9083|系统液充灌时 样本针柱塞泵电机初始化复位光耦无效|When the system liquid is filled and the sampling needle plunger pump motor is initialized, the reset optical coupler is invalid
+0x9084|系统液充灌时Z轴电机运动至清洗位一半高度时复位光耦有效|When the system liquid is filled, the Z-axis motor moves to the half height of the cleaning position and the reset optical coupler is valid
+0x9088|系统液管路清洗时Z轴电机运动至复位位置复位光耦无效|When the system pipeline is cleaned, the Z-axis motor moves to the reset position and the reset optical coupler is invalid
+0x9089|系统液管路清洗时Y轴电机运动至样本针清洗位置时编码器差值超48步以上|When the system pipeline is cleaned and the Y-axis motor moves to the sampling needle cleaning position, the encoder difference exceeds 48 steps
+0x908A|系统液管路清洗时Y轴电机运动至样本针清洗位置补偿运动后编码器差值超48步以上|When the system pipeline is cleaned, the encoder difference exceeds 48 steps after the Y-axis motor moves to the sampling needle cleaning position for compensation
+0x908B|系统液管路清洗时 样本针柱塞泵电机初始化复位光耦无效|When the system pipeline is cleaned, the sampling needle plunger pump motor is initialized and the reset optical coupler is invalid
+0x908C|系统液管路清洗时Z轴电机运动至清洗位高度时复位光耦有效|When the system pipeline is cleaned, the Z-axis motor moves to the height of cleaning position and the reset optical coupler is valid
+0xA0xx|电机初始化时定速运动到复位位置时用时12s复位光耦无效|During initialization, it takes 12s for the motor to move to the reset position at a constant speed, and the reset optical coupler is invalid
+0xA1xx|电机初始化时退出复位位置设定的步数时复位光耦有效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA1xx|电机初始化时退出复位位置设定的步数时复位光耦有效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA1xx|电机初始化时退出复位位置设定的步数时复位光耦有效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA101|X轴电机初始化时退出复位位置设定的步数时复位光耦有效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA002|Y轴电机初始化时定速运动到复位位置时用时12s复位光耦无效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA102|Y轴电机初始化时退出复位位置设定的步数时复位光耦有效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA003|Z轴电机初始化时定速运动到复位位置时用时12s复位光耦无效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA103|Z轴电机初始化时退出复位位置设定的步数时复位光耦有效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA004|样本柱塞泵电机初始化时定速运动到复位位置时用时12s复位光耦无效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA104|样本柱塞泵电机初始化时退出复位位置设定的步数时复位光耦有效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA005|摇床电机初始化时定速运动到复位位置时用时12s复位光耦无效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0xA105|摇床电机初始化时退出复位位置设定的步数时复位光耦有效|When the motor exits the steps set by the reset position during initialization, the reset optical coupler is valid
+0x8f00|设备开盖|Device cover is open
+0x8f01|废液瓶满|The waste liquid bottle is full
+0x8f02|系统液空|The system liquid is empty
+0x8f03|设备未开盖|The device cover is not open
+0x8f04|废液瓶未满|The waste liquid bottle is not full
+0x8f05|系统液不空|The system liquid is not empty
+0x8f06|样本针全程未检测到液位|The sample probe did not detect liquid level throughout the entire process
+0x8f07|样本针探测到液位后到达最大距离|The sample probe reaches the maximum distance after detecting the liquid level
+0x8f08|样本针开启液位探测后异常|Abnormal liquid level detection after sample probe activation

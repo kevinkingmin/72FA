@@ -8,6 +8,7 @@
 #include "src/main/subDialog/ShowImageDialog.h"
 #include "../Include/TCPClient/TCPClient.h"
 #include "WorkerThread.h"
+#include "src/main/subDialog/AlarmDialog.h"
 
 class Camera;
 class ReagentWidget;
@@ -300,7 +301,7 @@ public:
     TcpClient *m_tcpClient;
     WorkerThread *m_workerThread;
     TestResultDataAll *_mTestResultDataAll;
-
+    AlarmDialog  *_alarmDialog;
 public:
 	void autoSelfCheck();
     void autoSelfCheckResult(QString code);

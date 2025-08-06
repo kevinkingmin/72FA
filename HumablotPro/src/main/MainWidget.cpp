@@ -52,8 +52,6 @@
 #include "../Include/BLL/baseSet/SystemSetBLL.h"
 #include "../Include/Model/baseSet/SystemSetModel.h"
 
-
-
 MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     :QWidget(parent)
     , _ui(new Ui::MainWidget)
@@ -86,11 +84,11 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     , _mManualIncubationWidgets(new ManualIncubationWidgets(this))
     , m_tcpClient(new TcpClient(this))
     , _mTestResultDataAll(new TestResultDataAll)
+    ,_alarmDialog(new AlarmDialog(this))
 {
     _ui->setupUi(this);
     _userFlage = iFlage;
     mUserName = userName;
-
     auto dao = AnalysisUIDao::instance();
     bool bResult;
     g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
@@ -148,9 +146,21 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     connect(_instr, &Instrument::sglPrintPDFState, this,[this](const int ret)
     {
         if(ret==0)
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("打印成功"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"),
+                                       GlobalData::LoadLanguageInfo("K1759"),
+                                      MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         else
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("打印失败"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"),
+                                      GlobalData::LoadLanguageInfo("K1760"), MyMessageBox::Ok,
+                                      GlobalData::LoadLanguageInfo("K1181"),"");
+    });
+    connect(_instr,&Instrument::sglAddSampleFailed,this,[this](const QString &errStr)
+    {
+        _alarmDialog->msgText(errStr,true);
+        _alarmDialog->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
+        _alarmDialog->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
+        _alarmDialog->exec();
+        _instr->testContinue();
     });
     auto ipPm{ SystemSetBLL().getRowById(9995) };
     QString ip = ipPm.isNull()?"": ipPm->getSaveDes();
