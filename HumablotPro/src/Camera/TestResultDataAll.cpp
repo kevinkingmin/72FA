@@ -2424,7 +2424,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 
                         if (strItemName != "FC" && strItemName != "Cut")
                         {
-                            if (testResult == "+" || testResult == "++" || testResult == "+++" || testResult == "" || testResult == "++++" || testResult == "+++++" || testResult == "++++++" || testResult == "+++++++")
+                            if (testResult != "-" && testResult != "--")
                             {
                                 strRel += strItemName;
                                 strRel += "(";
@@ -2455,7 +2455,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
                     {
                         if (strItemName != "FC" && strItemName != "Cut")
                         {
-                            if (testResult == "+" || testResult == "++" || testResult == "+++" || testResult == "" || testResult == "++++" || testResult == "+++++" || testResult == "++++++" || testResult == "+++++++")
+                            if (testResult != "-" && testResult != "--")
                             {
                                 strRel += strItemName;
                                 strRel += "(";
