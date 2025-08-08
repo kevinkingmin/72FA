@@ -84,7 +84,6 @@ LogInForm::LogInForm(QWidget *parent) :
 		ui->pushButton->setVisible(true);
 	}
 	SetControlText();
-
 	//ui->pushButton->setVisible(true);
 	ui->pushButton->setVisible(false);
 }

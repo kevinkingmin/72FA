@@ -129,7 +129,8 @@ public:
     int16_t getTemperatureCommand = 0x0101;//获取机器编号
     int16_t getLiquidStateCommand = 0x0102;//获取液位信息  系统液/废液 报警 取消报警
     int16_t frameResponeCommand = 0x0200;//消息收到响应
-    int16_t getPDFReportCommand= 0x0015;//打印PDF
+    int16_t getPDFReportCommand = 0x0015;//打印PDF
+    int16_t addSampleFailed = 0x0170;//加样失败
     int getUnitReagentVolumn(int companyId,int reagentId);
     //static void write_iccard_log(const std::string &text);
     //static InstrumentType get_instrument_type();
@@ -307,6 +308,7 @@ signals:
     void sglScanSampleCodeResult(QByteArray resultData);
 
     void sglPrintPDFState(const int result);
+    void sglAddSampleFailed(const QString &des);
 private:
     Components *_components;
     Functions *_functions;

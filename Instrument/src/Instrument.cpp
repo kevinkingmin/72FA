@@ -264,6 +264,20 @@ void Instrument::analysisFrame(){
         dLog("PDF print,result:{}",result.toStdString());
         emit sglPrintPDFState(result.toInt());
     }
+    else if(code==addSampleFailed)
+    {
+        auto arr=doc.array();
+        QString arrStr="以下位置加样异常:\r\n";
+        QString samplDsc="样本位置:";
+        QString posDsc="膜条位置:";
+        for(auto it:arr)
+        {
+            auto obj=it.toObject();
+            arrStr+=(samplDsc+obj.value("s").toString()+"\t");
+            arrStr+=(posDsc+obj.value("p").toString()+"\r\n");
+        }
+        emit sglAddSampleFailed(arrStr);
+    }
 }
 
 void Instrument::connected_SLOT()

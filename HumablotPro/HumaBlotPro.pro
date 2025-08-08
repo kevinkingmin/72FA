@@ -78,6 +78,7 @@ SOURCES += \
         src/main/UserManageWidget.cpp \
         src/main/firstwidgetbase.cpp \
         src/main/loginform.cpp \
+        src/main/subDialog/AlarmDialog.cpp \
         src/main/subDialog/MyMessageBox.cpp \
         src/main/main.cpp \
         src/main/mainwindow.cpp \
@@ -176,6 +177,7 @@ HEADERS += \
         src/main/UserManageWidget.h \
         src/main/firstwidgetbase.h \
         src/main/loginform.h \
+        src/main/subDialog/AlarmDialog.h \
         src/main/subDialog/MyMessageBox.h \
         src/main/mainwindow.h \
         src/main/subDialog/ProgressDialog.h \
@@ -282,6 +284,7 @@ FORMS += \
         src/utility/maintain/PumpAutoCheckWidgets.ui \
         src/utility/maintain/PumpManaCheckWidgets.ui \
         src/utility/maintain/WeekMaintenanceWidgets.ui \
+        ui/main/subDialog/AlarmDialog.ui \
         ui/sample/subDialog/FromLisByIntervalWidgets.ui \
         ui/sample/subDialog/ManualIncubationWidgets.ui \
         ui/sample/subDialog/PatientDialog.ui \
