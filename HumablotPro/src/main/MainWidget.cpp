@@ -146,16 +146,27 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     connect(_instr, &Instrument::sglPrintPDFState, this,[this](const int ret)
     {
         if(ret==0)
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("打印成功"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"),
+                                       GlobalData::LoadLanguageInfo("K1759"),
+                                      MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         else
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), tr("打印失败"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"),
+                                      GlobalData::LoadLanguageInfo("K1760"), MyMessageBox::Ok,
+                                      GlobalData::LoadLanguageInfo("K1181"),"");
     });
     connect(_instr,&Instrument::sglAddSampleFailed,this,[this](const QString &errStr)
     {
-        QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),tr("存在加样失败，设备已暂停！"),tr("关闭报警声"));
-        _instr->shutdownBee();
-        _alarmDialog->setFstBtnTest("加样完成");
-        _alarmDialog->msgText(errStr,false);
+        _alarmDialog->msgText(errStr,true);
+        _alarmDialog->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
+        _alarmDialog->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
+        _alarmDialog->exec();
+        _instr->testContinue();
+    });
+    connect(_instr,&Instrument::sglAddSampleFailed,this,[this](const QString &errStr)
+    {
+        _alarmDialog->msgText(errStr,true);
+        _alarmDialog->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
+        _alarmDialog->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
         _alarmDialog->exec();
         _instr->testContinue();
     });

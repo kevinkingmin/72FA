@@ -21,7 +21,7 @@
 #include "../model/GetLanguageCls.h"
 #include "src/main/subDialog/MyMessageBox.h"
 
-LogInForm::LogInForm(QWidget *parent) :
+LogInForm::LogInForm(QWidget *parent):
     QWidget(parent),
     ui(new Ui::LogInForm)
 {
@@ -85,7 +85,7 @@ LogInForm::LogInForm(QWidget *parent) :
 	}
 	SetControlText();
 	//ui->pushButton->setVisible(true);
-	ui->pushButton->setVisible(false);
+    ui->pushButton->setVisible(false);
 }
 
 void LogInForm::SetControlText()

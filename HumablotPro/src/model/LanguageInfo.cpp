@@ -1,11 +1,11 @@
-#include "LanguageInfo.h"
+﻿#include "LanguageInfo.h"
 #include <iostream>
 #include <list>
 
 
 
 LanguageInfo::LanguageInfo()
-{
+{ 
 }
 
 LanguageInfo::LanguageInfo(QString i, QString content1)

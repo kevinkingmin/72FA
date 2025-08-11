@@ -64,6 +64,9 @@
     <ClCompile Include="src\utility\AddTubeStep4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\subDialog\AlarmDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\main\AlarmInfoWidgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -131,6 +134,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\sample\IrrigationSystemLiquidWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sample\subDialog\ItemSetDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\model\LanguageInfo.cpp">
@@ -351,6 +357,9 @@
     <QtMoc Include="src\utility\AddTubeStep4.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="src\main\subDialog\AlarmDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <QtMoc Include="src\main\AlarmInfoWidgets.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -424,6 +433,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="src\sample\IrrigationSystemLiquidWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\sample\subDialog\ItemSetDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <ClInclude Include="src\model\LanguageInfo.h">
@@ -701,6 +713,8 @@
     
     
     
+    
+    
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -710,6 +724,8 @@
     <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    
+    
     
     
     
@@ -799,6 +815,9 @@
     <QtUic Include="src\utility\AddTubeStep4.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="ui\main\subDialog\AlarmDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtUic Include="src\main\AlarmInfoWidgets.ui">
       <Filter>Form Files</Filter>
     </QtUic>
@@ -821,6 +840,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui\sample\IrrigationSystemLiquidWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\sample\subDialog\ItemSetDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="src\utility\maintain\LiquidDetectionWidgets.ui">

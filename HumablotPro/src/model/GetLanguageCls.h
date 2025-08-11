@@ -1,8 +1,8 @@
-//#ifndef GETLANGUAGECLS
+ï»¿//#ifndef GETLANGUAGECLS
 //#define GETLANGUAGECLS
 #include <list>
 #include "LanguageInfo.h"
-#include <string>//ÕæÕýµÄC++Í·ÎÄ¼þ
+#include <string>//çœŸæ­£çš„C++å¤´æ–‡ä»¶
 #include <string.h>
 #include <iostream>
 using namespace std;
@@ -15,10 +15,10 @@ public:
 
 public:
 
-	list<LanguageInfo> g_languageInfo_list;      //´´½¨Á´±í¶ÔÏó
+	list<LanguageInfo> g_languageInfo_list;      //åˆ›å»ºé“¾è¡¨å¯¹è±¡
 public:
 	QString GetLanguagInfo(QString id);
-	///1ÎªººÓï£¬2ÎªÓ¢ÎÄ£¬3µÂÓï£¬4Îª·¨Óï£¬5ÎªÈÕÓï
+	///1ä¸ºæ±‰è¯­ï¼Œ2ä¸ºè‹±æ–‡ï¼Œ3å¾·è¯­ï¼Œ4ä¸ºæ³•è¯­ï¼Œ5ä¸ºæ—¥è¯­
 	void LoadLanguageInfoList(int language_type);
 private:
 

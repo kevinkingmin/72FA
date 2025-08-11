@@ -29,6 +29,7 @@
 #include "../Include/BLL/reagent/ReagentBLL.h"
 #include "../Include/Model/reagent/ReagentModel.h"
 #include "../Include/Utilities/async_task.h"
+#include "../Include/BLL/comm/GetLanguageClsBLL.h"
 #include <QCryptographicHash>
 #include <QThread>
 #include <QObject>
@@ -267,14 +268,19 @@ void Instrument::analysisFrame(){
     else if(code==addSampleFailed)
     {
         auto arr=doc.array();
-        QString arrStr="以下位置加样异常:\r\n";
-        QString samplDsc="样本位置:";
-        QString posDsc="膜条位置:";
+        QString arrStr=GetLanguageClsBLL::getlangValue("K1756")+"!\n\n";
+        QString samplDsc=GetLanguageClsBLL::getlangValue("K1382");
+        QString posDsc=GetLanguageClsBLL::getlangValue("K1383");
         for(auto it:arr)
         {
             auto obj=it.toObject();
-            arrStr+=(samplDsc+obj.value("s").toString()+"\t");
-            arrStr+=(posDsc+obj.value("p").toString()+"\r\n");
+            QString s=obj.value("s").toString();
+            s=(s.length()==2?s:"0"+s);
+            QString p=obj.value("p").toString();
+            p=(p.length()==2?p:"0"+p);
+
+            arrStr+=(samplDsc+s+"    ");
+            arrStr+=(posDsc+p+"\r\n");
         }
         emit sglAddSampleFailed(arrStr);
     }

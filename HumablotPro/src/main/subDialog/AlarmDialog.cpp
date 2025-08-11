@@ -2,6 +2,7 @@
 #include "ui_AlarmDialog.h"
 #include <QMessageBox>
 #include "src/comm/GlobalData.h"
+#include "../Include/Instrument/Instrument.h"
 
 AlarmDialog::AlarmDialog(QWidget *parent) :
     BaseDialog(parent),    
@@ -37,13 +38,19 @@ void AlarmDialog::on_pushButtonClose_clicked()
 void AlarmDialog::on_btnSave_clicked()
 {
     m_ret=0;
+    int ret=QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1260"),
+                                     GlobalData::LoadLanguageInfo("K1757"),
+                                     GlobalData::LoadLanguageInfo("K1181"),
+                                     GlobalData::LoadLanguageInfo("K1134"));
+    if(ret != 0)
+        return;
     this->hide();
 }
 
 void AlarmDialog::on_buttonCancel_clicked()
 {
     m_ret=1;
-    this->hide();
+    Instrument::instance()->shutdownBee();
 }
 
 void AlarmDialog::initUi()
@@ -51,6 +58,7 @@ void AlarmDialog::initUi()
     ui->label_2->setText(GlobalData::LoadLanguageInfo("K1180"));
     ui->btnSave->setText(GlobalData::LoadLanguageInfo("K1181"));
     ui->buttonCancel->setText(GlobalData::LoadLanguageInfo("K1134"));
+    ui->pushButtonClose->setVisible(false);
 }
 
 int AlarmDialog::getRet() const
