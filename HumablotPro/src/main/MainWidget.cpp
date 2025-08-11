@@ -164,10 +164,9 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     });
     connect(_instr,&Instrument::sglAddSampleFailed,this,[this](const QString &errStr)
     {
-        QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),tr("存在加样失败，设备已暂停！"),tr("关闭报警声"));
-        _instr->shutdownBee();
-        _alarmDialog->setFstBtnTest("加样完成");
-        _alarmDialog->msgText(errStr,false);
+        _alarmDialog->msgText(errStr,true);
+        _alarmDialog->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
+        _alarmDialog->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
         _alarmDialog->exec();
         _instr->testContinue();
     });
