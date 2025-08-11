@@ -162,6 +162,15 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
         _alarmDialog->exec();
         _instr->testContinue();
     });
+    connect(_instr,&Instrument::sglAddSampleFailed,this,[this](const QString &errStr)
+    {
+        QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),tr("存在加样失败，设备已暂停！"),tr("关闭报警声"));
+        _instr->shutdownBee();
+        _alarmDialog->setFstBtnTest("加样完成");
+        _alarmDialog->msgText(errStr,false);
+        _alarmDialog->exec();
+        _instr->testContinue();
+    });
     auto ipPm{ SystemSetBLL().getRowById(9995) };
     QString ip = ipPm.isNull()?"": ipPm->getSaveDes();
     auto portPm{ SystemSetBLL().getRowById(9996) };

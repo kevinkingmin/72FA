@@ -227,7 +227,7 @@ public:
         lblSpace->setText(QString());
         btnPre->setText(QApplication::translate("SampleWidget", "\344\270\212\344\270\200\346\255\245", nullptr));
         btnPre->setProperty("btnStyle", QVariant(QApplication::translate("SampleWidget", "normalBtnRed", nullptr)));
-        btnRequestLis->setText(QApplication::translate("SampleWidget", "      \351\241\271\347\233\256\350\256\276\347\275\256", nullptr));
+        btnRequestLis->setText(QApplication::translate("SampleWidget", "      LIS\350\216\267\345\217\226", nullptr));
         btnRequestLis->setProperty("btnStyle", QVariant(QApplication::translate("SampleWidget", "normalBtn_request_lis", nullptr)));
         btnIncubation->setText(QApplication::translate("SampleWidget", "\346\211\213\345\212\250\345\255\265\350\202\262", nullptr));
         btnIncubation->setProperty("btnStyle", QVariant(QApplication::translate("SampleWidget", "normalBtn", nullptr)));
