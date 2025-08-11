@@ -168,6 +168,7 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
         _alarmDialog->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
         _alarmDialog->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
         _alarmDialog->exec();
+        _instr->shutdownBee();
         _instr->testContinue();
     });
     auto ipPm{ SystemSetBLL().getRowById(9995) };
