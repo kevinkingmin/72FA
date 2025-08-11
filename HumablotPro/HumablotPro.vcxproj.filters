@@ -136,9 +136,6 @@
     <ClCompile Include="src\sample\IrrigationSystemLiquidWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\sample\subDialog\ItemSetDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\model\LanguageInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -435,9 +432,6 @@
     <QtMoc Include="src\sample\IrrigationSystemLiquidWidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="src\sample\subDialog\ItemSetDialog.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <ClInclude Include="src\model\LanguageInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -714,7 +708,6 @@
     
     
     
-    
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -724,7 +717,6 @@
     <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    
     
     
     
@@ -840,9 +832,6 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui\sample\IrrigationSystemLiquidWidget.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="ui\sample\subDialog\ItemSetDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="src\utility\maintain\LiquidDetectionWidgets.ui">
