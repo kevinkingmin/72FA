@@ -282,6 +282,7 @@ void Instrument::analysisFrame(){
             arrStr+=(samplDsc+s+"    ");
             arrStr+=(posDsc+p+"\r\n");
         }
+        dLog("AddSampleFailed");
         emit sglAddSampleFailed(arrStr);
     }
 }

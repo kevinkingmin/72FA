@@ -172,7 +172,6 @@
     <ClCompile Include="src\types\HumaClia2000Data.cpp" />
     <ClCompile Include="src\main\InitWidgets.cpp" />
     <ClCompile Include="src\sample\IrrigationSystemLiquidWidget.cpp" />
-    <ClCompile Include="src\sample\subDialog\ItemSetDialog.cpp" />
     <ClCompile Include="src\model\LanguageInfo.cpp" />
     <ClCompile Include="src\comm\LightButton.cpp" />
     <ClCompile Include="src\utility\maintain\LiquidDetectionWidgets.cpp" />
@@ -489,16 +488,6 @@
       
     </QtMoc>
     <QtMoc Include="src\sample\IrrigationSystemLiquidWidget.h">
-      
-      
-      
-      
-      
-      
-      
-      
-    </QtMoc>
-    <QtMoc Include="src\sample\subDialog\ItemSetDialog.h">
       
       
       
@@ -1263,7 +1252,6 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
     
     
     
-    
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
@@ -1286,7 +1274,6 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">precompile.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    
     
     
     
@@ -1530,17 +1517,6 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       
     </QtUic>
     <QtUic Include="ui\sample\IrrigationSystemLiquidWidget.ui">
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </QtUic>
-    <QtUic Include="ui\sample\subDialog\ItemSetDialog.ui">
       
       
       

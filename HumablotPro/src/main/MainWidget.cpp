@@ -154,20 +154,15 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
                                       GlobalData::LoadLanguageInfo("K1760"), MyMessageBox::Ok,
                                       GlobalData::LoadLanguageInfo("K1181"),"");
     });
+
     connect(_instr,&Instrument::sglAddSampleFailed,this,[this](const QString &errStr)
     {
         _alarmDialog->msgText(errStr,true);
         _alarmDialog->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
         _alarmDialog->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
         _alarmDialog->exec();
-        _instr->testContinue();
-    });
-    connect(_instr,&Instrument::sglAddSampleFailed,this,[this](const QString &errStr)
-    {
-        _alarmDialog->msgText(errStr,true);
-        _alarmDialog->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
-        _alarmDialog->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
-        _alarmDialog->exec();
+        _instr->shutdownBee();
+        dLog("shutdownBee");
         _instr->testContinue();
     });
     auto ipPm{ SystemSetBLL().getRowById(9995) };
