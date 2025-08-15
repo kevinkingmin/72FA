@@ -1,39 +1,32 @@
 ﻿#pragma once
 
-#include <QWidget>
+#include <QDialog>
 #include "ui_AddReagent.h"
 #include <QSqlQuery>
 
-class AddReagent : public QWidget
+class AddReagent : public QDialog
 {
 	Q_OBJECT
 
 public:
-	AddReagent(QWidget *parent = Q_NULLPTR);
+    AddReagent(QWidget *parent = Q_NULLPTR);
 	~AddReagent();
-
-	QString m_strCompany_ID;
-
-	bool m_bModify = false;
-
-	QString m_strReagent_ID;
-	QString m_language_code;
-	QString m_reagent_name1; //= "";
-
-	void Set_UI();
-
-private:
-	Ui::AddReagent ui;
-
-    QSqlQuery m_TestPaperQuery;
+private slots:
+    void on_pushButton_Save_clicked();
+    void on_pushButton_Cancel_clicked();
 
 public:
-	QString g_language_type = "";
+    void setCompanyName(const QString &companyName);
+    void Set_UI();
+public:
+    QString m_strCompany_ID;
+    bool m_bModify = false;
+    QString m_strReagent_ID;
+    QString m_language_code;
+    QString m_reagent_name1; //= "";
+private:
+    Ui::AddReagent ui;
+    QSqlQuery m_TestPaperQuery;
+    QString m_companyName;
 
-private slots:
-	void on_pushButton_Save_clicked();
-	void on_pushButton_Cancel_clicked();
-
-signals:
-	void SetRefresh(bool bFlag);
 };

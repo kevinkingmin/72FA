@@ -1,163 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>AddReagent</class>
- <widget class="QWidget" name="AddReagent">
+ <widget class="QDialog" name="AddReagent">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>588</width>
-    <height>557</height>
+    <height>581</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>588</width>
+    <height>581</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>588</width>
+    <height>581</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>AddReagent</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>51</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>试剂名称：</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>101</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>防挂滴：</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>151</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>试剂回流：</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>201</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>运行前灌装：</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>251</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>泵的分配：</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_Name">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>50</y>
-     <width>311</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_IsNoDrip">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>111</y>
-     <width>71</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_IsSkimp">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>161</y>
-     <width>71</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QCheckBox" name="checkBox_IsNeedPrepare">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>211</y>
-     <width>71</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_PumpNo">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>250</y>
-     <width>311</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_Save">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>490</y>
-     <width>75</width>
+     <x>306</x>
+     <y>510</y>
+     <width>101</width>
      <height>31</height>
     </rect>
    </property>
@@ -171,9 +44,9 @@
   <widget class="QPushButton" name="pushButton_Cancel">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>490</y>
-     <width>75</width>
+     <x>430</x>
+     <y>510</y>
+     <width>101</width>
      <height>31</height>
     </rect>
    </property>
@@ -184,83 +57,146 @@
     <string>normalBtnGray</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_6">
+  <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>310</y>
-     <width>121</width>
-     <height>31</height>
+     <x>29</x>
+     <y>9</y>
+     <width>511</width>
+     <height>471</height>
     </rect>
    </property>
-   <property name="text">
-    <string>关联膜条：</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox_TestPaper">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>310</y>
-     <width>311</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_7">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>370</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>大充灌量：</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_big_wash">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>370</y>
-     <width>311</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>430</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>小充灌量：</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit_small_wash">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>430</y>
-     <width>311</width>
-     <height>31</height>
-    </rect>
-   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>30</number>
+    </property>
+    <property name="rightMargin">
+     <number>55</number>
+    </property>
+    <property name="horizontalSpacing">
+     <number>35</number>
+    </property>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>大充灌量：</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>试剂回流：</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>防挂滴：</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="lineEdit_big_wash"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QCheckBox" name="checkBox_IsNeedPrepare">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>泵的分配：</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="lineEdit_Name"/>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="lineEdit_PumpNo"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>关联厂家：</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QCheckBox" name="checkBox_IsSkimp">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>试剂名称：</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="checkBox_IsNoDrip">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>运行前灌装：</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>小充灌量：</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLineEdit" name="lineEdit_small_wash"/>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="txtCompany">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

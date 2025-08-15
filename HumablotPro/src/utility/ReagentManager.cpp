@@ -12,21 +12,19 @@
 #include <QDebug>
 
 ReagentManager::ReagentManager(QWidget *parent): QWidget(parent)
+  ,m_companyName("")
 {
 	setAttribute(Qt::WA_ShowModal, true);
 	ui.setupUi(this);
-	auto dao = AnalysisUIDao::instance();
-	bool bResult;
-	g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
 	_instr = Instrument::instance();
     QString nMachineUID = "_instr->get_machine_no()";
 	m_strMachineUID = nMachineUID;//QString("%1").arg(nMachineUID, 2, 10, QChar('0'));//.Format("%08d", nMachineUID);
 	InitCompanyTableWidget();
 	InitReagentTableWidget();
-	ui.label->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1135"));
-	ui.Add_Button->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1108"));
-	ui.Modify_Button->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1109"));
-	ui.Delete_Button->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1140"));
+    ui.label->setText(GlobalData::LoadLanguageInfo("K1135"));
+    ui.Add_Button->setText(GlobalData::LoadLanguageInfo("K1108"));
+    ui.Modify_Button->setText(GlobalData::LoadLanguageInfo("K1109"));
+    ui.Delete_Button->setText(GlobalData::LoadLanguageInfo("K1140"));
 }
 
 ReagentManager::~ReagentManager()
@@ -50,12 +48,12 @@ void ReagentManager::InitReagentTableWidget()
 	//去掉网格线
 	ui.tableWidget_Reagent->setShowGrid(false);
 	QStringList headerString;
-	QString sz1 = GlobalData::LoadLanguageInfo(g_language_type, "K1136");
-	QString sz2 = GlobalData::LoadLanguageInfo(g_language_type, "K1100");
-	QString sz3 = GlobalData::LoadLanguageInfo(g_language_type, "K1137");
-	QString sz4 = GlobalData::LoadLanguageInfo(g_language_type, "K1138");
-	QString sz5 = GlobalData::LoadLanguageInfo(g_language_type, "K1139");
-	headerString <<  sz1 << sz2 <<"" << "" << "" << sz3 << sz4 << sz5;
+    QString sz1 = GlobalData::LoadLanguageInfo("K1136");
+    QString sz2 = GlobalData::LoadLanguageInfo("K1100");
+    QString sz3 = GlobalData::LoadLanguageInfo("K1137");
+    QString sz4 = GlobalData::LoadLanguageInfo("K1138");
+    QString sz5 = GlobalData::LoadLanguageInfo("K1139");
+    headerString <<  sz1 << sz2 <<"" << "" << "" << sz3 << sz4 << sz5;
 	ui.tableWidget_Reagent->setHorizontalHeaderLabels(headerString);
 	//ui.tableWidget_Reagent->setAlternatingRowColors(true);
 }
@@ -74,9 +72,8 @@ void ReagentManager::InitCompanyTableWidget()
 
 
 	QStringList headerString;
-	headerString << GlobalData::LoadLanguageInfo(g_language_type, "K1099");
+    headerString << GlobalData::LoadLanguageInfo("K1099");
 	ui.tableWidget_Company->setHorizontalHeaderLabels(headerString);
-
 
 	QString itemName;
 	bool bResult = true;
@@ -84,7 +81,7 @@ void ReagentManager::InitCompanyTableWidget()
 	//m_CompanyQuery = dao->SelectCompanys(&bResult);
 	QString  loginName = GlobalData::getLoginName1();
 	int company_id = Global::g_company_id;
-	int group_id = GlobalData::getGruopId();
+    uint group_id = GlobalData::getGruopId();
 	//不是管理员,
 	if (group_id == 3)
 	{
@@ -112,6 +109,7 @@ void ReagentManager::InitCompanyTableWidget()
 		/*设置让某个单元格或某行选中*/
 		//选中单元格 第一行：
 		ui.tableWidget_Company->setCurrentCell(0, 0, QItemSelectionModel::Select);
+        m_companyName=ui.tableWidget_Company->item(0,0)->text();
 	}
 
 	//隔行变色
@@ -123,11 +121,8 @@ void ReagentManager::InitCompanyTableWidget()
 
 void ReagentManager::addCompanyContent(int row, int column, QString content)
 {
-
 	QTableWidgetItem *item = new QTableWidgetItem(content);
-
 	ui.tableWidget_Company->setItem(row, column, item);
-
 }
 
 void ReagentManager::addReagentContent(int row, int column, QString content)
@@ -152,8 +147,6 @@ void ReagentManager::addReagentContent(int row, int column, QString content)
 		{
 			QTableWidgetItem *item = new QTableWidgetItem(content);
 			item->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-			//ui.tableWidget_Reagent->horizontalHeader().setSectionResizeMode(QHeaderView.Stretch);
-			//ui.tableWidget_Reagent->width = 200;
 			ui.tableWidget_Reagent->setItem(row, column, item);
 		}
 		else
@@ -163,11 +156,6 @@ void ReagentManager::addReagentContent(int row, int column, QString content)
 			item->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 		}
 		ui.tableWidget_Reagent->horizontalHeader()->setStretchLastSection(true); //这个是关键
-		//ui.tableWidget_Reagent->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-		//ui.tableWidget_Reagent->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
-		//ui.tableWidget_Reagent->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
-
 	}
 }
 
@@ -183,18 +171,18 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
 	int intRow = ui.tableWidget_Company->currentRow();//获取选中的行
     if (m_CompanyQuery.size() == 0)
 		return;
-
+    m_companyName=ui.tableWidget_Company->item(intRow,0)->text();
     m_CompanyQuery.seek(intRow);
     m_strCompany_ID = m_CompanyQuery.value("ID").toString();
     qDebug() << "m_strCompany_ID:"<<m_strCompany_ID;
 	QString strValue;
 	bool bResult = true;
     auto dao = AnalysisUIDao::instance();
+    //有问题需要更换接口
 	m_ReagentQuery = dao->SelectReagents(m_strCompany_ID, &bResult);
-
 	if (bResult == false)
 	{
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1263"), MyMessageBox::Ok,"OK","");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
 		return;
 	}
     if (m_ReagentQuery.size() == 0)
@@ -202,7 +190,7 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
 		return;
 	}
 	int row = 0;
-	QString sID = 0;
+    QString sID = "";
 	bool bNull = false;
 
     while (m_ReagentQuery.next())
@@ -212,49 +200,18 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
         strValue = m_ReagentQuery.value("reagentName").toString();
 
 		QString test_paper_id = m_ReagentQuery.value("TestPaperID").toString();
-
-		if (test_paper_id == "111")
-		{
-			addReagentContent(row, 0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), strValue));//strValue);
-		}
-		else
-		{
-			addReagentContent(row, 0, strValue);
-		}
-
-
-        bNull = m_ReagentQuery.value("TestPaperID").isNull();
-		if (bNull == true) 
-		{
-			addReagentContent(row, 1, "");
-		}
-		else 
-		{
-            strValue = m_ReagentQuery.value("TestPaperID").toString();
-			if (strValue.length() > 0)
-			{
-                auto TestPaperQuery = dao->SelectTestPaper(strValue, &bResult);
-                if (TestPaperQuery.next())
-				{
-                    strValue = TestPaperQuery.value("PaperName").toString();
-				}
-				else if (strValue == "111")
-				{
-					strValue = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1697");//"通用";
-				}
-			}
-			addReagentContent(row, 1, strValue);
-        }
+		addReagentContent(row, 0, GlobalData::LoadLanguageInfo(strValue));//strValue);
+        addReagentContent(row, 1, "");
         strValue = m_ReagentQuery.value("IsNoDrip").toString();
-		addReagentContent(row, 2, strValue);
+        addReagentContent(row, 2, strValue);
         strValue = m_ReagentQuery.value("IsSkimp").toString();
-		addReagentContent(row, 3, strValue);
+        addReagentContent(row, 3, strValue);
         strValue = m_ReagentQuery.value("IsNeedPrepare").toString();
-		addReagentContent(row, 4, strValue);
+        addReagentContent(row, 4, strValue);
         bNull = m_ReagentQuery.value("PumpNo").isNull();
 		if (bNull == true)
 		{
-			addReagentContent(row, 5, "");
+            addReagentContent(row, 5, "");
 		}
 		else 
 		{
@@ -262,48 +219,28 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
 			if (pump_no != -1)
 			{
 				strValue = QString("%1").arg(pump_no + 1);//m_ReagentQuery.value("PumpNo").toString();
-				addReagentContent(row, 5, strValue);
+                addReagentContent(row, 5, strValue);
 			}
 			else
 			{
 				strValue = QString("%1").arg(pump_no);//m_ReagentQuery.value("PumpNo").toString();
-				addReagentContent(row, 5, strValue);
+                addReagentContent(row, 5, strValue);
 			}
         }
 		QString big_wash = m_ReagentQuery.value("fluidMeasure").toString();
-		addReagentContent(row, 6, big_wash);
+        addReagentContent(row, 6, big_wash);
 		QString small_wash  = m_ReagentQuery.value("fluidMeasureSmall").toString();
-		addReagentContent(row, 7, small_wash);
+        addReagentContent(row, 7, small_wash);
 		row++;
 	}
-	if (row > 0)
-	{
-		/*设置让某个单元格或某行选中*/
-		//选中单元格 第一行：
-		//ui.tableWidget_Reagent->setCurrentCell(0, 0, QItemSelectionModel::Select);
-	}
-
-	// 假设tableWidget是你的QTableWidget对象
-
-// 自适应行高
-	//tableWidget->resizeRowsToContents();
-
-	// 自适应列宽
-	//ui.tableWidget_Reagent->resizeColumnsToContents();
-
-	ui.tableWidget_Reagent->hideColumn(2);
-	ui.tableWidget_Reagent->hideColumn(3);
-	ui.tableWidget_Reagent->hideColumn(4);
-
-	ui.tableWidget_Reagent->setColumnWidth(1, 220);
-	ui.tableWidget_Reagent->setColumnWidth(5, 150);
-	ui.tableWidget_Reagent->setColumnWidth(6, 150);
-
-
-	ui.tableWidget_Reagent->setColumnWidth(7, 100);
-	// 自适应表格大小
-	//ui.tableWidget_Reagent->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-	//ui.tableWidget_Reagent->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui.tableWidget_Reagent->hideColumn(1);
+    ui.tableWidget_Reagent->hideColumn(2);
+    ui.tableWidget_Reagent->hideColumn(3);
+    ui.tableWidget_Reagent->hideColumn(4);
+    ui.tableWidget_Reagent->setColumnWidth(0, 320);
+    ui.tableWidget_Reagent->setColumnWidth(5, 150);
+    ui.tableWidget_Reagent->setColumnWidth(6, 150);
+    ui.tableWidget_Reagent->setColumnWidth(7, 100);
 
 }
 
@@ -316,15 +253,6 @@ void ReagentManager::on_tableWidget_Reagent_cellClicked()
 
     m_ReagentQuery.seek(intRow);
     m_strReagent_ID = m_ReagentQuery.value("ID").toString();
-}
-
-void ReagentManager::getRefreshTableWidgetFlag(bool bFlag)
-{
-    if (bFlag == true)
-	{
-		on_tableWidget_Company_cellClicked();
-	}
-
 }
 
 void ReagentManager::getRefreshCompanyTableWidgetFlag(bool bFlag)
@@ -343,16 +271,14 @@ void ReagentManager::on_Add_Button_clicked()
 		return;
 	}
 
-	AddReagent *addReagent = new AddReagent();
-	connect(addReagent, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshTableWidgetFlag(bool)));
-
+    AddReagent *addReagent = new AddReagent(this);
 	addReagent->m_strCompany_ID = m_strCompany_ID;
 	addReagent->m_bModify = false;
+    addReagent->setCompanyName(m_companyName);
 	addReagent->Set_UI();
-	addReagent->show();
-
+    addReagent->exec();
+    on_tableWidget_Company_cellClicked();
 	m_strMachineUID = Global::g_machine_no;
-
 	bool bResult;
 	QString sql1_log = QString("insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('%1','%2','%3','%4')").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1659")).arg(m_strMachineUID).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1667")).arg(GlobalData::getLoginName1());
 	auto dao = AnalysisUIDao::instance();
@@ -374,32 +300,19 @@ void ReagentManager::on_Modify_Button_clicked()
 		return;
 	}
 
-	AddReagent *addReagent = new AddReagent();
-	connect(addReagent, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshTableWidgetFlag(bool)));
-
+    AddReagent *addReagent = new AddReagent(this);
 	addReagent->m_strCompany_ID = m_strCompany_ID;
 	addReagent->m_bModify = true;
 	addReagent->m_strReagent_ID = m_strReagent_ID;
-
+    addReagent->setCompanyName(m_companyName);
 	addReagent->Set_UI();
-	addReagent->show();
-
+    addReagent->exec();
+    on_tableWidget_Company_cellClicked();
 	m_strMachineUID = Global::g_machine_no;
 	bool bResult;
 	QString sql1_log = QString("insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('%1','%2','%3','%4')").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1659")).arg(m_strMachineUID).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1109")).arg(GlobalData::getLoginName1());
 	auto dao = AnalysisUIDao::instance();
 	dao->SelectRecord(&bResult, sql1_log);
-
-	//auto ret = QMessageBox::information(this, tr("成功"), tr("更新系统参数成功， 需重启软件后更改才生效。"), tr("是"), tr("否"));
-	//if (ret != 0)
-	//{
-
-	//}
-	//else
-	//{
-	//	qApp->quit();   // 或者   aApp->closeAllWindows();
-	//	QProcess::startDetached(qApp->applicationFilePath(), QStringList());
-	//}
 }
 
 void ReagentManager::on_Delete_Button_clicked()

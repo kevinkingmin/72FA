@@ -63,7 +63,7 @@ void TestPaperManage::InitTestPaperTableWidget()
 	//去掉网格线
 	ui.tableWidget_TestPaper->setShowGrid(false);
 	QStringList headerString;
-	QString sz1 = GlobalData::LoadLanguageInfo(g_language_type, "K1100");
+    QString sz1 = GlobalData::LoadLanguageInfo(g_language_type, "K1100");
 	QString sz2 = GlobalData::LoadLanguageInfo(g_language_type, "K1101");
 	QString sz3 = GlobalData::LoadLanguageInfo(g_language_type, "K1102");
 	QString sz4 = GlobalData::LoadLanguageInfo(g_language_type, "K1103");

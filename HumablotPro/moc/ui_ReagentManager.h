@@ -12,11 +12,13 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -24,33 +26,52 @@ QT_BEGIN_NAMESPACE
 class Ui_ReagentManager
 {
 public:
+    QWidget *widget;
+    QVBoxLayout *verticalLayout;
     QLabel *label;
+    QHBoxLayout *horizontalLayout;
     QTableWidget *tableWidget_Company;
     QTableWidget *tableWidget_Reagent;
-    QWidget *widget;
     QGridLayout *gridLayout;
     QPushButton *Delete_Button;
-    QPushButton *Add_Button;
     QSpacerItem *horizontalSpacer;
     QPushButton *Modify_Button;
+    QPushButton *Add_Button;
     QSpacerItem *horizontalSpacer_2;
+    QSpacerItem *horizontalSpacer_3;
 
     void setupUi(QWidget *ReagentManager)
     {
         if (ReagentManager->objectName().isEmpty())
             ReagentManager->setObjectName(QString::fromUtf8("ReagentManager"));
         ReagentManager->resize(1327, 741);
-        label = new QLabel(ReagentManager);
+        widget = new QWidget(ReagentManager);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(10, 20, 1301, 711));
+        verticalLayout = new QVBoxLayout(widget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(120, 0, 100, 0);
+        label = new QLabel(widget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(40, 20, 281, 41));
-        tableWidget_Company = new QTableWidget(ReagentManager);
+
+        verticalLayout->addWidget(label);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(55);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, -1, 0, -1);
+        tableWidget_Company = new QTableWidget(widget);
         if (tableWidget_Company->columnCount() < 1)
             tableWidget_Company->setColumnCount(1);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableWidget_Company->setHorizontalHeaderItem(0, __qtablewidgetitem);
         tableWidget_Company->setObjectName(QString::fromUtf8("tableWidget_Company"));
-        tableWidget_Company->setGeometry(QRect(40, 70, 231, 541));
-        tableWidget_Reagent = new QTableWidget(ReagentManager);
+
+        horizontalLayout->addWidget(tableWidget_Company);
+
+        tableWidget_Reagent = new QTableWidget(widget);
         if (tableWidget_Reagent->columnCount() < 8)
             tableWidget_Reagent->setColumnCount(8);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -70,37 +91,45 @@ public:
         QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
         tableWidget_Reagent->setHorizontalHeaderItem(7, __qtablewidgetitem8);
         tableWidget_Reagent->setObjectName(QString::fromUtf8("tableWidget_Reagent"));
-        tableWidget_Reagent->setGeometry(QRect(310, 70, 971, 541));
-        widget = new QWidget(ReagentManager);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(890, 620, 391, 51));
-        gridLayout = new QGridLayout(widget);
+
+        horizontalLayout->addWidget(tableWidget_Reagent);
+
+        horizontalLayout->setStretch(1, 1);
+
+        verticalLayout->addLayout(horizontalLayout);
+
+        gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
         Delete_Button = new QPushButton(widget);
         Delete_Button->setObjectName(QString::fromUtf8("Delete_Button"));
 
-        gridLayout->addWidget(Delete_Button, 0, 4, 1, 1);
-
-        Add_Button = new QPushButton(widget);
-        Add_Button->setObjectName(QString::fromUtf8("Add_Button"));
-
-        gridLayout->addWidget(Add_Button, 0, 0, 1, 1);
+        gridLayout->addWidget(Delete_Button, 0, 5, 1, 1);
 
         horizontalSpacer = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer, 0, 1, 1, 1);
+        gridLayout->addItem(horizontalSpacer, 0, 2, 1, 1);
 
         Modify_Button = new QPushButton(widget);
         Modify_Button->setObjectName(QString::fromUtf8("Modify_Button"));
 
-        gridLayout->addWidget(Modify_Button, 0, 2, 1, 1);
+        gridLayout->addWidget(Modify_Button, 0, 3, 1, 1);
+
+        Add_Button = new QPushButton(widget);
+        Add_Button->setObjectName(QString::fromUtf8("Add_Button"));
+
+        gridLayout->addWidget(Add_Button, 0, 1, 1, 1);
 
         horizontalSpacer_2 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer_2, 0, 3, 1, 1);
+        gridLayout->addItem(horizontalSpacer_2, 0, 4, 1, 1);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_3, 0, 0, 1, 1);
+
+
+        verticalLayout->addLayout(gridLayout);
 
 
         retranslateUi(ReagentManager);
@@ -132,10 +161,10 @@ public:
         ___qtablewidgetitem8->setText(QApplication::translate("ReagentManager", "\345\260\217\345\205\205\347\201\214\351\207\217", nullptr));
         Delete_Button->setText(QApplication::translate("ReagentManager", "\345\210\240\351\231\244", nullptr));
         Delete_Button->setProperty("btnStyle", QVariant(QApplication::translate("ReagentManager", "normalBtnpink", nullptr)));
-        Add_Button->setText(QApplication::translate("ReagentManager", "\350\277\275\345\212\240", nullptr));
-        Add_Button->setProperty("btnStyle", QVariant(QApplication::translate("ReagentManager", "normalBtnpink", nullptr)));
         Modify_Button->setText(QApplication::translate("ReagentManager", "\344\277\256\346\255\243", nullptr));
         Modify_Button->setProperty("btnStyle", QVariant(QApplication::translate("ReagentManager", "normalBtnpink", nullptr)));
+        Add_Button->setText(QApplication::translate("ReagentManager", "\350\277\275\345\212\240", nullptr));
+        Add_Button->setProperty("btnStyle", QVariant(QApplication::translate("ReagentManager", "normalBtnpink", nullptr)));
     } // retranslateUi
 
 };

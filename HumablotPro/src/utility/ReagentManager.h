@@ -9,20 +9,11 @@ class Instrument;
 class ReagentManager : public QWidget
 {
 	Q_OBJECT
-
 public:
 	ReagentManager(QWidget *parent = Q_NULLPTR);
 	~ReagentManager();
 
 private:
-	Ui::ReagentManager ui;
-
-	QString m_strCompany_ID;
-	QString m_strReagent_ID;
-    QSqlQuery m_CompanyQuery;
-    QSqlQuery m_ReagentQuery;
-	QString m_strMachineUID;
-	Instrument * _instr;
 	void InitCompanyTableWidget();
 	void InitReagentTableWidget();
 
@@ -37,11 +28,14 @@ private slots:
 	void on_Add_Button_clicked();
 	void on_Modify_Button_clicked();
 	void on_Delete_Button_clicked();
-
-	void getRefreshTableWidgetFlag(bool bFlag);
 	void getRefreshCompanyTableWidgetFlag(bool bFlag);
-
-public:
-	QString g_language_type = "";
-
+private:
+    Ui::ReagentManager ui;
+    QString m_strCompany_ID;
+    QString m_strReagent_ID;
+    QSqlQuery m_CompanyQuery;
+    QSqlQuery m_ReagentQuery;
+    QString m_strMachineUID;
+    Instrument * _instr;
+    QString m_companyName;
 };
