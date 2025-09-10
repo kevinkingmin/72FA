@@ -3,6 +3,7 @@
 #include <QWidget>
 #include "ui_TestPaperManage.h"
 #include <QSqlQuery>
+#include "TestPaper.h"
 
 class Instrument;
 
@@ -13,17 +14,7 @@ class TestPaperManage : public QWidget
 public:
 	TestPaperManage(QWidget *parent = Q_NULLPTR);
 	~TestPaperManage();
-public:
-	QString g_language_type = "";
-
 private:
-	Ui::TestPaperManage ui;
-	QString m_strCompany_ID;
-	QString m_strTestPaper_ID;
-    QSqlQuery m_CompanyQuery;
-    QSqlQuery m_TestPaperQuery;
-	Instrument * _instr;
-	QString m_strMachineUID;
 	void InitCompanyTableWidget();
 	void InitTestPaperTableWidget();
 	void addCompanyContent(int row, int column, QString content);
@@ -45,4 +36,12 @@ private slots:
 	
 	void getRefreshTableWidgetFlag(bool bFlag);
 	void getRefreshCompanyTableWidgetFlag(bool bFlag);
+private:
+    Ui::TestPaperManage ui;
+    QString m_strCompany_ID;
+    QString m_strTestPaper_ID;
+    QSqlQuery m_CompanyQuery;
+    QSqlQuery m_TestPaperQuery;
+    Instrument * _instr;
+    QString m_strMachineUID;
 };

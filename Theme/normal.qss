@@ -10,12 +10,17 @@
 QLabel{
     background:transparent;
 }
+#TestPaper QComboBox
+{
+   height: 24px;
+}
 
 QComboBox{
     border-style:none;
     background-color:transparent;
     border: 1px solid #D2D2D2;
-	    height: 38px;
+    height: 38px;
+    min-width:75px;
     border-radius: 4px;
 }
 QComboBox:hover {
@@ -26,7 +31,7 @@ QComboBox QAbstractItemView {
     border-radius: 4px;
     outline:none;
     color: #5A5A5A;
-    background-color:#FFFFFF; 
+    background-color:#FFFFFF;     
 } 
 QComboBox QAbstractItemView::item{
     border-bottom:1px solid #F3F3F3;
@@ -34,14 +39,15 @@ QComboBox QAbstractItemView::item{
     font-weight: 400;
     color: #5A5A5A;
     background-color:#FFFFFF;
+    min-height: 38px;
 }  
 QComboBox QAbstractItemView::item:selected{ 
     border-radius: 4px;
-    background-color: #AA0082F1;
+    background-color: rgb(192,192,192);
 }   
 QComboBox QAbstractItemView::item:hover{
     border-radius: 4px;    
-    background-color: #AA0082F1;
+    background-color:rgb(192,192,192);
 }
  
 QComboBox::down-arrow {
@@ -583,7 +589,11 @@ QCheckBox::indicator{
     width: 32px;
     height: 32px;
 }
-
+#TestPaper QCheckBox::indicator
+{
+    width: 24px;
+    height: 24px;
+}
 QCheckBox::indicator::unchecked
 {
     image: url(:/images/checkButton/CheckBox.png);
@@ -696,6 +706,10 @@ QScrollBar::add-page:horizontal{
 QScrollBar::sub-page:horizontal{
     background: rgb(255,255,255);
 }
+#TestPaper QLineEdit
+{
+    height: 24px;
+}
 
 QLineEdit{
     border: 1px solid rgb(16,16,16);
@@ -716,15 +730,15 @@ QLineEdit::disabled{
     background-color:rgb(190,190,190);
 		 	radius: 5px;
 }
-
-
+QLineEdit::placeholder { text-align: right; }
 
 QHeaderView{
 	color: #ffffff;
 	font: 10pt;
 	font:bold;
     font-family:微软雅黑;
-	border-image:url(:/images/buttonIcon/tableview_bg.png);
+        border-image:url(:/images/buttonIcon/tableview_bg.png);
+        /*background-color:rgb(226,41,41);*/
 }
 
 /*QTableView*/
@@ -733,12 +747,10 @@ QHeaderView::section{
 	background:transparent;
     padding-left: 0px;
     min-height: 42px;
-	radius: 25px;
+        radius: 25px;
 	/*background:rgb(240,24,24);*/
 	image: url(:/images/buttonIcon/tableview_bg.png);
 	color: url(:/images/buttonIcon/tableview_bg.png);
-	/*border-image: url(:/images/buttonIcon/tableview_bg.png);*/
-	/*:/images/buttonIcon/tableview_bg.png*/
 	border-left:0px solid transparent;
 	border-right:0px solid transparent;
 	border-top:0px solid transparent;
@@ -747,10 +759,10 @@ QHeaderView::section{
 
 QTableView{
     border: 1px solid rgb(224,224,224);
-	radius: 25px;
+        radius: 10px;
 	padding-left: 0px;
 	background:transparent;/*背景透明*/
-	border-radius:25px;
+        border-radius:10px;
 	selection-color: rgb(0,0,0);                             /*选中区域的文字颜色*/
 	selection-background-color: rgb(255, 255, 255);        /*选中区域的背景色*
 	color: rgb(255,255,255);                                       /*表格内文字颜色*/
@@ -820,7 +832,7 @@ QTableView::item:!alternate:selected{
 */
 
 QTableView:item{
-	border-radius:25px;
+        border-radius:25px;
 	background:transparent;
 	    background-color: url(:/images/buttonIcon/tableview_item_bg.png);
 }

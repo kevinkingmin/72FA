@@ -2,1226 +2,942 @@
 #include <QMessageBox>
 #include <QSqlQuery>
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
-#include "../Include/Instrument/Instrument.h"
 #include <QDesktopWidget>
 #include <QColorDialog>
-#include <QGraphicsDropShadowEffect>
-
 #include "../comm/GlobalData.h"
 #include "../comm/Global.h"
 #include <QProcess>
+#include <QListView>
+#include <QCloseEvent>
 #include "src/main/subDialog/MyMessageBox.h"
 #include "../Include/Instrument/Instrument.h"
 #include "../Include/Model/baseSet/InstrumentStateModel.h"
+#include "../Include/Utilities/log.h"
 
 TestPaper::TestPaper(QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
+    ,ui(new Ui::TestPaper)
+    ,m_gridItemCtl{}
+    ,m_itemDataMap{}
+    ,m_gridBlockCtl{}
+    ,m_blockAndItemDataMap{}
+    ,m_blockItemCtlMap{}
+    ,m_ruleCmbDatas{}
+    ,m_curveCmbDatas{}
+    ,_isNeedUpdate(false)
+    ,_paperId("")
+    ,m_bModify(false)
+    ,m_Company_ID("")
 {
-    ui.setupUi(this);
-
-    auto dao = AnalysisUIDao::instance();
-    bool bResult;
-    g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
+    ui->setupUi(this);
+    setWindowFlags((windowFlags() & ~(Qt::WindowContextHelpButtonHint/*|Qt::WindowCloseButtonHint*/)));
+    setFixedSize(width(), height());    
     setWindowIcon(QIcon(":/images/buttonIcon/icon.png"));
-    setAttribute(Qt::WA_ShowModal, true);
-    Set_Item_Control_Array();
-    QDesktopWidget *desktop = QApplication::desktop();
-    QRect screen = desktop->screenGeometry();
-    int screenWidth = screen.width();
-    int screenHeight = screen.height();
-    move((screenWidth-this->width()) / 2, ((screenHeight-this->height()) / 2)-10);
-    _instr = Instrument::instance();
-    ui.label_52->setVisible(false);
-    ui.label_53->setVisible(false);
-    ui.label_56->setVisible(false);
-    ui.label_57->setVisible(false);
-    ui.label_58->setVisible(false);
-    ui.lineEdit_height->setVisible(true);
-    ui.groupBox_2 -> setVisible(false);
-    ui.lineEdit_TestPaparLenght_2->setEnabled(false);
-    connect(ui.pushButton_PickColor, &QPushButton::clicked, this, &TestPaper::color_slots_func);
-    QRegularExpressionValidator* validator = new QRegularExpressionValidator(QRegularExpression("^[0-9]\\d*$"), ui.lineEdit_Item_Number);
-    ui.lineEdit_Item_Number->setValidator(validator);
-    QRegularExpressionValidator* validator1 = new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_TestPaparLenght);
-    ui.lineEdit_TestPaparLenght->setValidator(validator1);
-    ui.lineEdit_height_percentage->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9]{1,2}"), ui.lineEdit_height_percentage));
-    ui.lineEdit_paper_head_length->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-1]?[0-9]{1,2}|200"), ui.lineEdit_paper_head_length));
-    ui.lineEdit_paper_gray_value->setValidator(new QRegularExpressionValidator(QRegularExpression("^([0-4][0-9]|50)$"), ui.lineEdit_paper_gray_value));
-    ui.lineEdit_Left_Top_x->setValidator(new QRegularExpressionValidator(QRegularExpression("^(1[0-9]|[2-9][0-9]|1[0-4][0-9]|150)$"), ui.lineEdit_Left_Top_x));
-    ui.lineEdit_LeftTop_y->setValidator(new QRegularExpressionValidator(QRegularExpression("^[0-9]*\\.[0-9]{2}$"), ui.lineEdit_LeftTop_y));
-    ui.lineEdit_FuncPosition->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_FuncPosition));
-    ui.lineEdit_FuncPosition_2->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_FuncPosition_2));
-    ui.lineEdit_CutOff_Value->setValidator(new QRegularExpressionValidator(QRegularExpression("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"), ui.lineEdit_CutOff_Value));
-    ui.lineEdit_CutOff_Position->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_CutOff_Position));
-    ui.lineEdit_Position_1->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_1));
-    ui.lineEdit_Position_2->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_2));
-    ui.lineEdit_Position_3->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_3));
-    ui.lineEdit_Position_4->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_4));
-    ui.lineEdit_Position_5->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_5));
-    ui.lineEdit_Position_6->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_6));
-    ui.lineEdit_Position_7->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_7));
-    ui.lineEdit_Position_8->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_8));
-    ui.lineEdit_Position_9->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_9));
-    ui.lineEdit_Position_10->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_10));
-    ui.lineEdit_Position_11->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_11));
-    ui.lineEdit_Position_12->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_12));
-    ui.lineEdit_Position_13->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_13));
-    ui.lineEdit_Position_14->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_14));
-    ui.lineEdit_Position_15->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_15));
-    ui.lineEdit_Position_16->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_16));
-    ui.lineEdit_Position_17->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_17));
-    ui.lineEdit_Position_18->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_18));
-    ui.lineEdit_Position_19->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_19));
-    ui.lineEdit_Position_20->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_20));
-    ui.lineEdit_Position_21->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_21));
-    ui.lineEdit_Position_22->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_22));
-    ui.lineEdit_Position_23->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_23));
-    ui.lineEdit_Position_24->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_24));
-    ui.lineEdit_Position_25->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_25));
-    ui.lineEdit_Position_26->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_26));
-    ui.lineEdit_Position_27->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_27));
-    ui.lineEdit_Position_28->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_28));
-    ui.lineEdit_Position_29->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_29));
-    ui.lineEdit_Position_30->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9.]+"), ui.lineEdit_Position_30));
-
-    ui.label_68->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1112"));
-    this->setWindowTitle(GlobalData::LoadLanguageInfo(g_language_type, "K1112"));
-    ui.label_39->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1100"));//膜条名称：
-    ui.label_37->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1129"));//项目数量：
-    ui.label_46->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1101"));//货号
-    ui.label_40->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1128"));//膜条总长度：
-    ui.label_60->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1127"));//分析区百分比：
-    ui.label_63->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1126"));//膜条头：
-    ui.label_64->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1130"));//像素
-    ui.label->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1125"));//次数：
-
-    ui.label_75->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1705"));//次数：
-    ui.label_70->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1706"));//次数：
-    ui.label_71->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1707"));//次数：
-    ui.label_72->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1708"));//次数：
-    ui.label_73->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1709"));//次数：
-    ui.label_74->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1710"));//次数：
-
-
-    ui.label_51->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1124"));//阈值：
-    ui.label_54->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1123"));//(<150)、    计算区间：
-    ui.label_55->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1122"));//毫米对应像素：
-    ui.label_66->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1121"));//颜色值：
-    ui.checkBox_CutOff_2->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1120"));//是否有功能线：
-    ui.label_42->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1119"));//功能条位置：
-    ui.label_67->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1118"));//功能线阈值：
-    ui.checkBox_CutOff->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1117"));//是否有CutOff线：
-    ui.label_44->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1048"));//位置：
-    ui.label_50->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1116"));//CutOff线阈值
-    ui.pushButton_PickColor->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1114"));//选择：
-    ui.pushButton_Set->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1115"));//设置：
-
-
-    ui.label_31->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1131"));//项目名称：
-    ui.label_32->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1132"));//空白：
-    ui.label_38->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1115"));//位置：
-    ui.label_47->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1133"));//判读规制：
-
-
-    ui.label_34->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1131"));//项目名称：
-    ui.label_33->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1132"));//空白：
-    ui.label_61->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1115"));//位置：
-    ui.label_48->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1133"));//判读规制：
-
-    ui.label_36->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1131"));//项目名称：
-    ui.label_35->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1132"));//空白：
-    ui.label_62->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1115"));//位置：
-    ui.label_49->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1133"));//判读规制：
-
-    ui.pushButton_Save->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1038"));//判读规制：
-    ui.pushButton_Cancel->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1134"));//判读规制：
-
-    ui.label_55->setVisible(false);
-    ui.lineEdit_Weight->setVisible(false);
-    ui.label_41->setVisible(false);
-    //GlobalData::LoadLanguageInfo(g_language_type, "K1090")
-
+    this->setWindowTitle(GlobalData::LoadLanguageInfo("K1112"));
+    connect(ui->pushButton_PickColor, &QPushButton::clicked, this, &TestPaper::color_slots_func);
+    initUI();
 }
-//connect(ui->colordlg,8QPushButton::clicked,this,8MyDialog::color slots func)
+
 TestPaper::~TestPaper()
 {
+    delete ui;
+	ui = nullptr;
 }
 
-void TestPaper::Set_UI()
+void TestPaper::initUI()
 {
-    bool bResult;
-    int TotalNumber = 0;
-    if (m_bModify == false)
-        return;
+    ui->lineEdit_Item_Number->setValidator(new QRegExpValidator(QRegExp("^[0-9]|[1-2][0-9]|30$"), this));
+    auto doublReg{new QRegExpValidator(QRegExp("^(?:[1-9]\\d{0,3}|0)(?:\\.\\d{1,3})?$"), this)};
+    ui->lineEdit_TestPaparLenght->setValidator(doublReg);
+    ui->lineEdit_paper_head_length->setValidator(doublReg);
+    ui->txtItemSpace->setValidator(doublReg);
+    ui->txtItemWidth->setValidator(doublReg);
+    ui->lineEdit_FuncPosition->setValidator(doublReg);
+    auto intReg{new QIntValidator(0,9999,this)};
+    ui->txtFunThreshold->setValidator(intReg);
+    ui->txtFunWidth->setValidator(doublReg);
+    ui->txtBlackSpotThreshold->setValidator(intReg);
+    ui->lineEdit_CutOff_Position->setValidator(doublReg);
+    ui->txtCutOffThreshold->setValidator(intReg);
+    ui->txtCutOffValue->setValidator(intReg);
+    ui->txtThreshold->setValidator(intReg);
+    ui->txtBackGround->setValidator(intReg);
+    ui->txtItemSearchWidth->setValidator(doublReg);
+    ui->txtAnalyzeHeight->setValidator(doublReg);
+    ui->txtAnalyzeWidth->setValidator(doublReg);
+    ui->txtPixDistance->setValidator(doublReg);
+
+    ui->lblCompany->setText(GlobalData::LoadLanguageInfo("K1791"));
+    ui->cmbCompany->setView(new QListView(this));
+    ui->lblPaperType->setText(GlobalData::LoadLanguageInfo("K1554"));
+    ui->cmbPaperType->setView(new QListView(this));
+    ui->lblProcess->setText(GlobalData::LoadLanguageInfo("K1792"));
+    ui->cmbProcess->setView(new QListView(this));
+
+    ui->lblPaperName->setText(GlobalData::LoadLanguageInfo("K1100"));
+    ui->lblPaperLength->setText(GlobalData::LoadLanguageInfo("K1128"));
+    ui->lblHeadLength->setText(GlobalData::LoadLanguageInfo("K1126"));
+    ui->lblItemSpace->setText(GlobalData::LoadLanguageInfo("K1708"));
+    ui->lblItemWidth->setText(GlobalData::LoadLanguageInfo("K1707"));
+    ui->lblFunDirection->setText(GlobalData::LoadLanguageInfo("K1123"));
+    ui->cmbFunDirection->setView(new QListView(this));
+    ui->lblFunPostion->setText(GlobalData::LoadLanguageInfo("K1119"));
+    ui->lblFunThreshold->setText(GlobalData::LoadLanguageInfo("K1118"));
+    ui->lblFunWidth->setText(GlobalData::LoadLanguageInfo("K1709"));
+    ui->chkBlackSpot->setText(GlobalData::LoadLanguageInfo("K1710"));
+    ui->lblBlackSpotThreshold->setText(GlobalData::LoadLanguageInfo("K1741"));
+    ui->checkBox_CutOff->setText(GlobalData::LoadLanguageInfo("K1117"));
+    ui->lblCutOffPos->setText(GlobalData::LoadLanguageInfo("K1048"));
+    ui->lblCutOffThreshold->setText(GlobalData::LoadLanguageInfo("K1116"));
+    ui->lblCutOffValue->setText(GlobalData::LoadLanguageInfo("K1800"));
+    ui->lblRotate->setText(GlobalData::LoadLanguageInfo("K1802"));
+    ui->cmbRotate->setView(new QListView(this));
+    ui->lblThreshold->setText(GlobalData::LoadLanguageInfo("K1124"));
+    ui->lblBackGround->setText(GlobalData::LoadLanguageInfo("K1705"));
+    ui->lblItemSearchWidth->setText(GlobalData::LoadLanguageInfo("K1803"));
+    ui->lblAnalyzeHeight->setText(GlobalData::LoadLanguageInfo("K1804"));
+    ui->lblAnalyzeWidth->setText(GlobalData::LoadLanguageInfo("K1805"));
+    ui->lblPixDistance->setText(GlobalData::LoadLanguageInfo("K1806"));
+    ui->lblArticleNo->setText(GlobalData::LoadLanguageInfo("K1101"));
+    ui->lblColorValue->setText(GlobalData::LoadLanguageInfo("K1121"));
+    ui->pushButton_PickColor->setText(GlobalData::LoadLanguageInfo("K1114"));
+
+    ui->label_77->setText(GlobalData::LoadLanguageInfo("K1133"));
+    ui->rdRulesSingle->setText(GlobalData::LoadLanguageInfo("K1795"));
+    ui->rdRulesAllSet->setText(GlobalData::LoadLanguageInfo("K1796"));
+    ui->label_78->setText(GlobalData::LoadLanguageInfo("K1794"));
+    ui->rdCurveSingle->setText(GlobalData::LoadLanguageInfo("K1795"));
+    ui->rdCurveAllSet->setText(GlobalData::LoadLanguageInfo("K1796"));
+    ui->rdRulesAllSet->setChecked(true);
+    ui->rdCurveAllSet->setChecked(true);
+    ui->pushButton_Set->setText(GlobalData::LoadLanguageInfo("K1115"));
+
+    ui->lblG1ItemName->setText(GlobalData::LoadLanguageInfo("K1131"));
+    ui->lblG1IsEmpty->setText(GlobalData::LoadLanguageInfo("K1132"));
+    ui->lblG1Position->setText(GlobalData::LoadLanguageInfo("K1115"));
+    ui->lblG1Rules->setText(GlobalData::LoadLanguageInfo("K1133"));
+    ui->lblG1Curves->setText(GlobalData::LoadLanguageInfo("K1794"));
+
+    ui->lblG2ItemName->setText(GlobalData::LoadLanguageInfo("K1131"));
+    ui->lblG2IsEmpty->setText(GlobalData::LoadLanguageInfo("K1132"));
+    ui->lblG2Position->setText(GlobalData::LoadLanguageInfo("K1115"));
+    ui->lblG2Rules->setText(GlobalData::LoadLanguageInfo("K1133"));
+    ui->lblG2Curves->setText(GlobalData::LoadLanguageInfo("K1794"));
+
+    ui->lblG3IsEmpty->setText(GlobalData::LoadLanguageInfo("K1132"));
+    ui->lblG3ItemCount->setText(GlobalData::LoadLanguageInfo("K1797"));
+    ui->lblG3ItemStartPos->setText(GlobalData::LoadLanguageInfo("K1798"));
+    ui->lblG3ItemDistance->setText(GlobalData::LoadLanguageInfo("K1799"));
+
+    ui->lblG4IsEmpty->setText(GlobalData::LoadLanguageInfo("K1132"));
+    ui->lblG4ItemCount->setText(GlobalData::LoadLanguageInfo("K1797"));
+    ui->lblG4ItemStartPos->setText(GlobalData::LoadLanguageInfo("K1798"));
+    ui->lblG4ItemDistance->setText(GlobalData::LoadLanguageInfo("K1799"));
+    ui->pushButton_Save->setText(GlobalData::LoadLanguageInfo("K1038"));
+    ui->pushButton_Cancel->setText(GlobalData::LoadLanguageInfo("K1134"));
+
+    ui->tbSegment->verticalHeader()->setVisible(false);
+    QStringList headerString;
+    QString sz1 = GlobalData::LoadLanguageInfo("K1767");
+    QString sz2 = GlobalData::LoadLanguageInfo("K1811");
+    QString sz3 = GlobalData::LoadLanguageInfo("K1131");
+    QString sz4 = GlobalData::LoadLanguageInfo("K1812");
+    QString sz5 = GlobalData::LoadLanguageInfo("K1133");
+    QString sz6 = GlobalData::LoadLanguageInfo("K1794");
+    headerString<<sz1<<sz2<<sz3<<sz4<<sz5<<sz6;
+    ui->tbSegment->setHorizontalHeaderLabels(headerString);
+    ui->tbSegment->horizontalHeader()->setStretchLastSection(true);
+    ui->tbSegment->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tbSegment->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tbSegment->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //ui->tbSegment->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->tbSegment->setSortingEnabled(false);
+    ui->tbSegment->setAlternatingRowColors(true);
+    ui->tbSegment->setShowGrid(true);
+    ui->tbSegment->setColumnWidth(0,65);
+    ui->tbSegment->setColumnWidth(2,165);
+    //ui->lineEdit_Item_Number->setPlaceholderText("       测试");
+    bool bResult=true;
     auto dao = AnalysisUIDao::instance();
-    auto TestPaperQuery = dao->SelectTestPaper(m_strTestPaper_ID, &bResult);
-    if (bResult == false)
+    auto ruleQuery = dao->SelectRulues(&bResult);
+    while (ruleQuery.next())
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1263"), MyMessageBox::Ok,"OK","");
-        return;
+        ComboxData cmbData(GlobalData::LoadLanguageInfo(ruleQuery.value("RuleName").toString()),ruleQuery.value("pkid").toString());
+        m_ruleCmbDatas.push_back(cmbData);
     }
-    QString SelectedRuleName = "";
-    if (TestPaperQuery.next())
-    {
-        ui.lineEdit_TestPaparName->setText(TestPaperQuery.value("PaperName").toString());
-        m_strCompany_ID = TestPaperQuery.value("Company_ID").toString();
-        m_nTotalNumber = TestPaperQuery.value("TotalNumber").toInt();
-        m_nItem_Number = TestPaperQuery.value("Item_Number").toInt();
-        m_nNull_Number = TestPaperQuery.value("Null_Number").toInt();
-        ui.lineEdit_Item_Number->setText(TestPaperQuery.value("Item_Number").toString());
-        //        ui.lineEdit_Null_Number->setText(TestPaperQuery.value("Null_Number").toString());
-        ui.lineEdit_TestPaparLenght->setText(TestPaperQuery.value("TestPaparLenght").toString());
-        ui.lineEdit_FuncPosition->setText(TestPaperQuery.value("FuncPosition").toString());
-        //        ui.lineEdit_TestAeaLenght->setText(TestPaperQuery.value("TestAeaLenght").toString());
-        QString articleNo = TestPaperQuery.value("articleNo").toString();
-        double rect_Analysis_x = TestPaperQuery.value("rect_Analysis.x").toDouble();
-        double rect_Analysis_y = TestPaperQuery.value("rect_Analysis.y").toDouble();
-        double rect_Analysis_width = TestPaperQuery.value("rect_Analysis.width").toDouble();
-        double rect_Analysis_height = TestPaperQuery.value("rect_Analysis.height").toDouble();
-        double analysis_height_percentage = TestPaperQuery.value("analysis_height_percentage").toDouble();
-        double head_length = TestPaperQuery.value("head_length").toDouble();
-        double cutoff_position = TestPaperQuery.value("cutoffPosition").toDouble();
-        double cutoff_value = TestPaperQuery.value("cutoffValue").toDouble();
-        //灰度值 判断阈值
-        double fun_gray_value = TestPaperQuery.value("funGrayValue").toDouble();
-        int isCutOff = TestPaperQuery.value("isCutOff").toInt();
-        int left_judge_value = TestPaperQuery.value("left_judge_value").toInt();
-        int isFun = TestPaperQuery.value("isFun").toInt();
-        //int funGrayValue = TestPaperQuery.value("funGrayValue").toInt();
-        QString BGRGB = TestPaperQuery.value("BGRGB").toString();
-
-
-        int wave_pix_width = TestPaperQuery.value("wave_pix_width").toInt(); // INT DEFAULT 17;
-        int wave_pix_width_max = TestPaperQuery.value("wave_pix_width_max").toInt();// INT DEFAULT 24;
-        int wave_pix_width_min = TestPaperQuery.value("wave_pix_width_min").toInt();// INT DEFAULT 10;
-
-        int background_values = TestPaperQuery.value("background_values").toInt();// INT DEFAULT 100;
-        double zero_value_coefficient = TestPaperQuery.value("zero_value_coefficient").toDouble();// DOUBLE DEFAULT 0.3;
-        int bg_difference = TestPaperQuery.value("bg_difference").toInt();// INT DEFAULT 25;
-
-
-        ui.lineEdit_wave_pix_width->setText(QString::number(wave_pix_width));
-        ui.lineEdit_wave_pix_width_max->setText(QString::number(wave_pix_width_max));
-        ui.lineEdit_wave_pix_width_min->setText(QString::number(wave_pix_width_min));
-        ui.lineEdit_background_values->setText(QString::number(background_values));
-        ui.lineEdit_zero_value_coefficient->setText(QString::number(zero_value_coefficient));
-        ui.lineEdit_bg_difference->setText(QString::number(bg_difference));
-
-
-
-        ui.lineEdit_Left_Top_x->setText(QString::number(rect_Analysis_x));
-        ui.lineEdit_LeftTop_y->setText(QString::number(rect_Analysis_y));
-        ui.lineEdit_Weight->setText(QString::number(rect_Analysis_width));
-        ui.lineEdit_height->setText(QString::number(rect_Analysis_height));
-        ui.lineEdit_height_percentage->setText(QString::number(analysis_height_percentage));
-        ui.lineEdit_paper_head_length->setText(QString::number(head_length));
-        ui.lineEdit_Article_No->setText(articleNo);
-        ui.lineEdit_CutOff_Position->setText(QString::number(cutoff_position));
-        ui.lineEdit_CutOff_Value->setText(QString::number(cutoff_value));
-        ui.lineEdit_paper_gray_value->setText(QString::number(left_judge_value));
-        ui.lineEdit_FuncPosition_2->setText(QString::number(fun_gray_value));
-        ui.lineEdit_TestPaparLenght_2->setText(BGRGB);
-        if (isFun == 1)
-        {
-            ui.checkBox_CutOff_2->setChecked(true);
-            CutOffCheckBoxUpdateUi(2);
-        }
-        else
-        {
-            ui.checkBox_CutOff_2->setChecked(false);
-            CutOffCheckBoxUpdateUi(0);
-        }
-
-        if (isCutOff == 1)
-        {
-            ui.checkBox_CutOff->setChecked(true);
-            CutOffCheckBoxUpdateUi(2);
-        }
-        else
-        {
-            ui.checkBox_CutOff->setChecked(false);
-            CutOffCheckBoxUpdateUi(0);
-        }
-        //checkBox_CutOff
-        //ui.lineEdit_FuncPosition_Article..lineEdit_Article_No->setText()
-        //ui.lineEdit_Article_No->
-    }
-    on_pushButton_Set_clicked();
-    auto TestPaperItemQuery = dao->SelectTestPaperItems(m_strTestPaper_ID, &bResult);
-    if (bResult == false)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1263"), MyMessageBox::Ok,"OK","");
-        return;
-    }
-
-    int nPositionNo = 0;
-    TestPaper_Item testPaper_Item;
-    while (TestPaperItemQuery.next())
-    {
-        int rule_id = TestPaperItemQuery.value("RulesId").toInt();
-        testPaper_Item.isNullArea = TestPaperItemQuery.value("IsNull").toInt();
-        testPaper_Item.nPostionNo = TestPaperItemQuery.value("PositionNo").toInt();
-        testPaper_Item.strItemName = TestPaperItemQuery.value("itemName").toString();
-        testPaper_Item.judgerule = TestPaperItemQuery.value("RulesId").toInt();
-        testPaper_Item.position = TestPaperItemQuery.value("position").toDouble();
-        Set_Control_Value(testPaper_Item);
-    }
+    //m_curveCmbDatas //调用接口,曲线下拉框数据
+    getAllItemControl();
+    initComboBox();
 }
 
-void TestPaper::Set_Item_Control_Array()
+void TestPaper::Set_UI(const QString &paperId, const QString &companyId)
 {
-    for (int i = 1; i <= 30; i++)
+    if (paperId.isEmpty())
+        return;
+    m_bModify=true;
+    _paperId=paperId;
+    m_Company_ID=companyId;
+    bool bResult;
+    auto dao = AnalysisUIDao::instance();
+    auto paperQuery = dao->SelectTestPaper(paperId, &bResult);//接口调用,获取膜条数据
+    if (bResult == false)
     {
-        switch (i)
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
+        return;
+    }
+    bool isSegmentPaper(false);
+    if (paperQuery.next())
+    {
+        ui->cmbCompany->setCurrentIndex(ui->cmbCompany->findData(m_Company_ID));//公司
+        auto segmentTag=paperQuery.value("").toString();//调用接口,是否分段标识
+        if(segmentTag=="2")
+            isSegmentPaper=true;
+        ui->cmbPaperType->setCurrentIndex(ui->cmbPaperType->findData(segmentTag));
+        auto process=paperQuery.value("").toString();//调用接口,实验流程
+        ui->cmbProcess->setCurrentIndex(ui->cmbProcess->findData(process));
+        ui->lineEdit_Item_Number->setText(paperQuery.value("TotalNumber").toString());
+        ui->lineEdit_TestPaparName->setText(paperQuery.value("PaperName").toString());
+        ui->lineEdit_TestPaparLenght->setText(paperQuery.value("TestPaparLenght").toString());
+        ui->lineEdit_paper_head_length->setText(paperQuery.value("head_length").toString());
+        ui->txtItemSpace->setText(paperQuery.value("").toString());//调用接口
+        ui->txtItemWidth->setText(paperQuery.value("").toString());//调用接口
+        auto funDirection=paperQuery.value("").toString();//调用接口
+        ui->cmbFunDirection->setCurrentIndex(ui->cmbFunDirection->findData(funDirection));
+        ui->lineEdit_FuncPosition->setText(paperQuery.value("FuncPosition").toString());
+        ui->txtFunThreshold->setText(paperQuery.value("funGrayValue").toString());
+        ui->txtFunWidth->setText(paperQuery.value("").toString());//调用接口,功能线宽度
+        bool isCheckBlackSpot=paperQuery.value("").toBool();//调用接口,是否开启黑点检测
+        ui->chkBlackSpot->setChecked(isCheckBlackSpot);
+        ui->txtBlackSpotThreshold->setText(paperQuery.value("").toString());//调用接口,黑点检测阙值
+        bool isExistCuttoff{paperQuery.value("isCutOff").toBool()};
+        ui->checkBox_CutOff->setChecked(isExistCuttoff);
+        ui->lineEdit_CutOff_Position->setText(paperQuery.value("cutoffPosition").toString());
+        ui->lblCutOffThreshold->setText(paperQuery.value("").toString());//调用接口,CutOff线阈值
+        ui->txtCutOffValue->setText(paperQuery.value("cutoffValue").toString());
+        auto angle=paperQuery.value("").toString();//调用接口,膜条展示旋转
+        ui->cmbRotate->setCurrentIndex(ui->cmbRotate->findData(angle));
+        ui->txtThreshold->setText(paperQuery.value("threshold_value").toString());
+        ui->txtBackGround->setText(paperQuery.value("background_values").toString());
+        ui->txtItemSearchWidth->setText(paperQuery.value("").toString());//调用接口,指标查找宽度
+        ui->txtAnalyzeHeight->setText(paperQuery.value("analysis_height_percentage").toString());
+        ui->txtAnalyzeWidth->setText(paperQuery.value("").toString());//调用接口,分析宽度区间比
+        ui->txtPixDistance->setText(paperQuery.value("").toString());//调用接口,像素距离百分比
+        ui->txtArticleNo->setText(paperQuery.value("articleNo").toString());
+        ui->txtColorValue->setText(paperQuery.value("BGRGB").toString());
+    }
+    uiCtlSet(ui->lineEdit_Item_Number->text().toInt());
+    auto TestPaperItemQuery = dao->SelectTestPaperItems(paperId, &bResult);
+    //调用接口,加载所有项目
+    if (bResult == false)
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
+        return;
+    }
+
+    if(!isSegmentPaper)
+    {
+        int i=1;
+        while (TestPaperItemQuery.next())
         {
-        case 1:
-            m_Item_Control_Array[i].label = ui.label_1;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_1;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_1;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_1;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_1;
-            //comboBoxRulesName_1
-            break;
-        case 2:
-            m_Item_Control_Array[i].label = ui.label_2;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_2;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_2;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_2;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_2;
-            break;
-        case 3:
-            m_Item_Control_Array[i].label = ui.label_3;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_3;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_3;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_3;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_3;
-            break;
-        case 4:
-            m_Item_Control_Array[i].label = ui.label_4;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_4;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_4;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_4;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_4;
-            break;
-        case 5:
-            m_Item_Control_Array[i].label = ui.label_5;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_5;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_5;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_5;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_5;
-            break;
-        case 6:
-            m_Item_Control_Array[i].label = ui.label_6;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_6;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_6;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_6;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_6;
-            break;
-        case 7:
-            m_Item_Control_Array[i].label = ui.label_7;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_7;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_7;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_7;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_7;
-            break;
-        case 8:
-            m_Item_Control_Array[i].label = ui.label_8;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_8;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_8;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_8;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_8;
-            break;
-        case 9:
-            m_Item_Control_Array[i].label = ui.label_9;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_9;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_9;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_9;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_9;
-            break;
-        case 10:
-            m_Item_Control_Array[i].label = ui.label_10;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_10;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_10;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_10;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_10;
-            break;
-        case 11:
-            m_Item_Control_Array[i].label = ui.label_11;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_11;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_11;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_11;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_11;
-            break;
-        case 12:
-            m_Item_Control_Array[i].label = ui.label_12;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_12;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_12;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_12;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_12;
-            break;
-        case 13:
-            m_Item_Control_Array[i].label = ui.label_13;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_13;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_13;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_13;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_13;
-            break;
-        case 14:
-            m_Item_Control_Array[i].label = ui.label_14;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_14;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_14;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_14;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_14;
-            break;
-        case 15:
-            m_Item_Control_Array[i].label = ui.label_15;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_15;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_15;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_15;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_15;
-            break;
-        case 16:
-            m_Item_Control_Array[i].label = ui.label_16;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_16;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_16;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_16;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_16;
-            break;
-        case 17:
-            m_Item_Control_Array[i].label = ui.label_17;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_17;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_17;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_17;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_17;
-            break;
-        case 18:
-            m_Item_Control_Array[i].label = ui.label_18;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_18;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_18;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_18;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_18;
-            break;
-        case 19:
-            m_Item_Control_Array[i].label = ui.label_19;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_19;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_19;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_19;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_19;
-            break;
-        case 20:
-            m_Item_Control_Array[i].label = ui.label_20;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_20;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_20;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_20;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_20;
-            break;
-        case 21:
-            m_Item_Control_Array[i].label = ui.label_21;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_21;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_21;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_21;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_21;
-            break;
-        case 22:
-            m_Item_Control_Array[i].label = ui.label_22;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_22;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_22;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_22;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_22;
-            break;
-        case 23:
-            m_Item_Control_Array[i].label = ui.label_23;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_23;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_23;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_23;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_23;
-            break;
-        case 24:
-            m_Item_Control_Array[i].label = ui.label_24;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_24;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_24;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_24;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_24;
-            break;
-        case 25:
-            m_Item_Control_Array[i].label = ui.label_25;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_25;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_25;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_25;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_25;
-            break;
-        case 26:
-            m_Item_Control_Array[i].label = ui.label_26;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_26;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_26;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_26;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_26;
-            break;
-        case 27:
-            m_Item_Control_Array[i].label = ui.label_27;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_27;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_27;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_27;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_27;
-            break;
-        case 28:
-            m_Item_Control_Array[i].label = ui.label_28;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_28;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_28;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_28;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_28;
-            break;
-        case 29:
-            m_Item_Control_Array[i].label = ui.label_29;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_29;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_29;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_29;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_29;
-            break;
-        case 30:
-            m_Item_Control_Array[i].label = ui.label_30;
-            m_Item_Control_Array[i].checkBox = ui.checkBox_30;
-            m_Item_Control_Array[i].lineEdit_Name = ui.lineEdit_Name_30;
-            m_Item_Control_Array[i].combo_box_rule = ui.comboBoxRulesName_30;
-            m_Item_Control_Array[i].lineEdit_Position = ui.lineEdit_Position_30;
-            break;
-        default:
-            break;
+            if(i>m_gridItemCtl.itemCtlMap.count())
+            {
+                eLog("TestPaperItemQuery error");
+                break;
+            }
+            Item_Control &ctl=m_gridItemCtl.itemCtlMap[i];
+            ctl.lineEdit_Name->setText(TestPaperItemQuery.value("itemName").toString());
+            ctl.checkBox->setChecked(TestPaperItemQuery.value("IsNull").toInt()>0);
+            ctl.lineEdit_Position->setText(TestPaperItemQuery.value("position").toString());
+            ctl.combo_box_rule->setCurrentIndex(ctl.combo_box_rule->findData(TestPaperItemQuery.value("RulesId").toString()));
+            //调用接口 ,定标曲线
+            ctl.cmbCurve->setCurrentText(TestPaperItemQuery.value("").toString());
+            i++;
+        }
+        return;
+    }
+
+    QVector<BlockData>blockVect;//调用接口,分段膜条所有的块数据
+    if(blockVect.count()>30)
+    {
+        eLog("vect count over limit");
+        return;
+    }
+    for(int i=1;i<=blockVect.count();i++)
+    {
+        auto it = m_gridBlockCtl.blockCtlMap.find(i);
+        if(it==m_gridBlockCtl.blockCtlMap.end())
+        {
+            eLog("sgItemCtlMap data error,key:{}",i);
+            continue;
+        }
+        auto &b=blockVect.at(i-1);
+        auto ctl=it.value();
+        ctl.label->setText(QString::number(i));
+        if(i!=b.serialNo)
+            eLog("error,i:{},serialNo:{}",i,b.serialNo);
+        ctl.checkBox->setChecked(b.isNullArea);
+        ctl.distanceLineEdit->setText(QString::number(b.distance));
+        ctl.startPosLineEdit->setText(QString::number(b.startPos));
+        QVector<BlockItemData> itemDataVect;//调用接口,块对应的项目数据
+        auto count=itemDataVect.count();
+        ctl.cmbItemCount->setCurrentText(QString::number(count));
+        auto itemCtlIt=m_blockItemCtlMap.find(i);
+        if(itemCtlIt==m_blockItemCtlMap.end())
+        {
+            eLog("data error,key:{}",i);
+            continue;
+        }
+        int j=0;
+        auto &itemCtlVect=itemCtlIt.value();
+        for(auto &detailCtl:itemCtlVect)
+        {
+
+            if(j>=count)
+            {
+                eLog("itemDetailVect count error");
+                break;
+            }
+            auto &item=itemDataVect.at(j);
+            detailCtl.blockNo=i;
+            detailCtl.cmbRuleBox->setCurrentIndex(detailCtl.cmbRuleBox->findData(item.judgerule));
+            detailCtl.cmbCurveBox->setCurrentIndex(detailCtl.cmbCurveBox->findData(item.curve));
+            detailCtl.cmbItemType->setCurrentIndex(detailCtl.cmbItemType->findData(item.itemType));
+            detailCtl.itemNameEdit->setText(item.strItemName);
+            j++;
         }
     }
 }
+
+//void TestPaper::closeEvent(QCloseEvent *event)
+//{
+//    event->ignore();
+//    this->hide();
+//}
 
 void TestPaper::on_pushButton_Set_clicked()
 {
-    m_nNull_Number = 0;// = ui.lineEdit_Null_Number->text().toInt();
-    m_nItem_Number = ui.lineEdit_Item_Number->text().toInt();
-    m_nTotalNumber = m_nNull_Number + m_nItem_Number;
-
-    QString strItem_Number = QString::number(m_nItem_Number);
-    if (m_nItem_Number == 0)
+    auto itemCount = ui->lineEdit_Item_Number->text().toInt();
+    if (itemCount == 0)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1593"), MyMessageBox::Ok, "OK", "");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1593"), MyMessageBox::Ok, "OK", "");
         return ;
     }
-
-    Set_Controls_visible();
-}
-
-bool TestPaper::CheckInput()
-{
-    QString strName = ui.lineEdit_TestPaparName->text();
-    if (strName.length() == 0)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1282"), MyMessageBox::Ok,"OK","");
-        return false;
-    }
-    QString strTotalNumber = QString::number(m_nTotalNumber);
-    QString strNull_Number = QString::number(m_nNull_Number);
-    QString strItem_Number = QString::number(m_nItem_Number);
-    if (m_nItem_Number == 0)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1593"), MyMessageBox::Ok,"OK","");
-        return false;
-    }
-    QString strTestPaparLenght = ui.lineEdit_TestPaparLenght->text();
-    if (strTestPaparLenght.length() == 0)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1281"), MyMessageBox::Ok,"OK","");
-        return false;
-    }
-
-    QString strFuncPosition = ui.lineEdit_FuncPosition->text();
-    if (strFuncPosition.length() == 0)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1280"), MyMessageBox::Ok,"OK","");
-        return false;
-    }
-
-    //QString strTestAeaLenght = ui.lineEdit_TestAeaLenght->text();
-    //if (strTestAeaLenght.length() == 0)
-    //{
-    //	QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "请输入功能条至最末项目的长度！", QMessageBox::Ok);
-    //	return false;
-    //}
-
-    QString strIsNull;
-    QString strPositionNo;
-    TestPaper_Item testPaper_Item_Array[31];
-
-    int nNullAreaCount = 0;
-
-    for (int i = 1; i <= m_nTotalNumber; i++)
-    {
-        Set_TestPaper_Item(testPaper_Item_Array[i], i, m_Item_Control_Array[i].checkBox, m_Item_Control_Array[i].lineEdit_Name, m_Item_Control_Array[i].combo_box_rule, m_Item_Control_Array[i].lineEdit_Position);
-        strName = testPaper_Item_Array[i].strItemName;
-        strName = strName.remove("\n");
-        strIsNull = QString::number(testPaper_Item_Array[i].isNullArea);
-        if (testPaper_Item_Array[i].isNullArea == true)
-        {
-            nNullAreaCount++;
-        }
-        if (testPaper_Item_Array[i].isNullArea == false)
-        {
-            if (strName.length() == 0)
-            {
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1279"), MyMessageBox::Ok,"OK","");
-                return false;
-            }
-        }
-    }
-    //if (nNullAreaCount != m_nNull_Number)
-    //{
-    //	QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "输入的空白数量与设置的空白数量不符！", QMessageBox::Ok);
-    //	return false;
-    //}
-    return true;
+    uiCtlSet(itemCount);
 }
 
 void TestPaper::color_slots_func()
 {
-    bool ok;
     QColorDialog ColorDlg(Qt::red, this); // 创建对象
     ColorDlg.setOption(QColorDialog::ShowAlphaChannel); //设置ALPHA选项
-    ColorDlg.setWindowTitle("选择实验膜条显示颜色");
+    ColorDlg.setWindowTitle(GlobalData::LoadLanguageInfo("K1815"));
     ColorDlg.exec();
     QColor color = ColorDlg.currentColor();
-    //QString sz = QString("#%1%2%3").arg(QString::number(color.red(),16)).arg(QString::number(color.green(),16)).arg(QString::number(color.blue(),16));
     QString sz = QString("%1").arg(color.name());
-    ui.lineEdit_TestPaparLenght_2->setText(sz);
+    ui->txtColorValue->setText(sz);
+}
+
+void TestPaper::slotCmbRuleDataSet(int index)
+{
+	if (!ui->rdRulesAllSet->isChecked())
+		return;
+    for(auto &ctl:m_gridItemCtl.itemCtlMap)
+        ctl.combo_box_rule->blockSignals(true);
+
+    for(auto &ctl:m_gridItemCtl.itemCtlMap)
+        ctl.combo_box_rule->setCurrentIndex(index);
+
+    for(auto &ctl:m_gridItemCtl.itemCtlMap)
+        ctl.combo_box_rule->blockSignals(false);
+}
+
+void TestPaper::slotCmbCurveDataSet(int index)
+{
+    if (!ui->rdCurveAllSet->isChecked())
+        return;
+
+    for(auto &ctl:m_gridItemCtl.itemCtlMap)
+        ctl.cmbCurve->blockSignals(true);
+
+    for(auto &ctl:m_gridItemCtl.itemCtlMap)
+        ctl.cmbCurve->setCurrentIndex(index);
+
+    for(auto &ctl:m_gridItemCtl.itemCtlMap)
+        ctl.cmbCurve->blockSignals(false);
+}
+
+void TestPaper::slotRightCmbRuleDataSet(int index)
+{
+    if (!ui->rdRulesAllSet->isChecked())
+        return;
+    for(auto &vect:m_blockItemCtlMap)
+    {
+        for(auto &ctl:vect)
+            ctl.cmbRuleBox->blockSignals(true);
+    }
+
+    for(auto &vect:m_blockItemCtlMap)
+    {
+        for(auto &ctl:vect)
+            ctl.cmbRuleBox->setCurrentIndex(index);
+    }
+
+    for(auto &vect:m_blockItemCtlMap)
+    {
+        for(auto &ctl:vect)
+            ctl.cmbRuleBox->blockSignals(false);
+    }
+}
+
+void TestPaper::slotRightCurveDataSet(int index)
+{
+    if (!ui->rdCurveAllSet->isChecked())
+        return;
+    for(auto &vect:m_blockItemCtlMap)
+    {
+        for(auto &ctl:vect)
+            ctl.cmbCurveBox->blockSignals(true);
+    }
+    for(auto &vect:m_blockItemCtlMap)
+    {
+        for(auto &ctl:vect)
+            ctl.cmbCurveBox->setCurrentIndex(index);
+    }
+    for(auto &vect:m_blockItemCtlMap)
+    {
+        for(auto &ctl:vect)
+            ctl.cmbCurveBox->blockSignals(false);
+    }
+}
+
+void TestPaper::slotCreatDetailRows(const QString &data)
+{  
+    int row=data.toInt();
+    QVector<BlockItemCtl>detailVect{};
+    QVector<BlockItemCtl> oldCtlVect{};
+	auto seqNo = sender()->objectName().toInt();
+    auto it=m_blockItemCtlMap.find(seqNo);
+    if (it != m_blockItemCtlMap.end())
+    {
+		oldCtlVect = it.value();
+        m_blockItemCtlMap.remove(seqNo);
+    }
+    QVector<ComboxData>ItemTypes{};
+    ItemTypes.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1807"),"1"));
+    ItemTypes.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1808"),"2"));
+    auto oldCount = oldCtlVect.count();
+    for (int i = 0; i < row; i++)
+	{
+        if (oldCount > i)
+		{
+            detailVect.push_back(oldCtlVect.at(i));
+            continue;
+		}
+
+        BlockItemCtl ctl;
+        ctl.blockNo = seqNo;
+        detailVect.push_back(ctl);
+	}
+    if(detailVect.count()>0)
+        m_blockItemCtlMap.insert(seqNo, detailVect);
+    int oldRow=0;
+    for(auto it=m_blockItemCtlMap.begin();it!=m_blockItemCtlMap.end();it++)
+    {
+        for(auto &ctl:it.value())
+        {
+            if(it.key()<=seqNo && !ctl.isNew)
+            {
+                oldRow++;
+                continue;
+            }
+            int typeIndex=-1;
+            int ruleIndex= -1;
+            int curveIndex= -1;
+            QString itemName="";
+			if (ctl.cmbItemType != nullptr)
+			{
+				typeIndex = ctl.cmbItemType->currentIndex();
+				ruleIndex = ctl.cmbRuleBox->currentIndex();
+				curveIndex = ctl.cmbCurveBox->currentIndex();
+                itemName=ctl.itemNameEdit->text().simplified();
+			}
+            ctl.isNew=true;
+            ctl.itemNameEdit=new QLineEdit(this);
+            ctl.itemNameEdit->setText(itemName);
+
+            ctl.cmbItemType = new QComboBox(this);
+            ctl.cmbItemType->setView(new QListView(ctl.cmbItemType));
+            setComBoBoxData(ctl.cmbItemType, ItemTypes);
+            ctl.cmbItemType->setCurrentIndex(typeIndex);
+
+            ctl.cmbRuleBox = new QComboBox(this);
+            ctl.cmbRuleBox->setView(new QListView(ctl.cmbRuleBox));
+            setComBoBoxData(ctl.cmbRuleBox, m_ruleCmbDatas);
+            ctl.cmbRuleBox->setCurrentIndex(ruleIndex);
+            connect(ctl.cmbRuleBox,SIGNAL(currentIndexChanged(int)),this,SLOT(slotRightCmbRuleDataSet(int)),Qt::UniqueConnection);
+
+            ctl.cmbCurveBox = new QComboBox(this);
+            ctl.cmbCurveBox->setView(new QListView(ctl.cmbCurveBox));
+            setComBoBoxData(ctl.cmbCurveBox, m_curveCmbDatas);
+            ctl.cmbCurveBox->setCurrentIndex(curveIndex);
+            connect(ctl.cmbCurveBox,SIGNAL(currentIndexChanged(int)),this,SLOT(slotRightCurveDataSet(int)),Qt::UniqueConnection);
+        }
+    }
+    tbSegmentAddData(oldRow);
 }
 
 void TestPaper::on_pushButton_Save_clicked()
 {
-    on_pushButton_Set_clicked();
-    if (CheckInput() == false)
-        return;
-
     if(Save_TestPaper_Parameters() == false)
         return;
-
     if (Save_TestPaper_Items() == false)
         return;
 
-    emit SetRefresh(true);
-    this->close();
-
     m_strMachineUID = Global::g_machine_no;
-
     bool bResult;
-    QString sql1_log = QString("insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('%1','%2','%3','%4')").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1663")).arg(m_strMachineUID).arg("保存").arg(GlobalData::getLoginName1());
+    QString sql1_log = QString("insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('%1','%2','%3','%4')").arg(GlobalData::LoadLanguageInfo("K1663")).arg(m_strMachineUID).arg("保存").arg(GlobalData::getLoginName1());
     auto dao = AnalysisUIDao::instance();
     dao->SelectRecord(&bResult, sql1_log);
-
-
-
-
-
-    //QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "操作完成！", QMessageBox::Ok);
-    auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1259"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1278"), MyMessageBox::Ok| MyMessageBox::No,tr("YES"), tr("NO"));
+    auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1259"), GlobalData::LoadLanguageInfo("K1278"), MyMessageBox::Ok| MyMessageBox::No,tr("YES"), tr("NO"));
     if (ret == MyMessageBox::No)
     {
+        this->close();
+        return;
     }
-    else
+
+    InstrumentStateModel *_InstrumentState(InstrumentStateModel::instance());
+    auto state = _InstrumentState->getMachineState().state;
+    if (state == _InstrumentState->enumRuning
+            || state == _InstrumentState->enumMaintain
+            || state==_InstrumentState->enumPause)
     {
-
-        InstrumentStateModel *_InstrumentState(InstrumentStateModel::instance());
-        auto state = _InstrumentState->getMachineState();
-        if ((state.state == _InstrumentState->enumRuning) || (state.state == _InstrumentState->enumMaintain))
-        {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1711"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
-            return;
-        }
-
-        // 或者   aApp->closeAllWindows();
-        Instrument::instance()->closeSocket();
-        QString program = QCoreApplication::applicationFilePath();
-        QStringList arguments = QCoreApplication::arguments();
-        QProcess::startDetached(program, arguments);
-        QCoreApplication::instance()->quit();
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1711"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
+        this->close();
+        return;
     }
+
+    // 或者   aApp->closeAllWindows();
+    Instrument::instance()->closeSocket();
+    QString program = QCoreApplication::applicationFilePath();
+    QStringList arguments = QCoreApplication::arguments();
+    QProcess::startDetached(program, arguments);
+    QCoreApplication::instance()->quit();
 }
 
+//调用接口,保存膜条参数
 bool TestPaper::Save_TestPaper_Parameters()
 {
-    QString strName = ui.lineEdit_TestPaparName->text();
-    QString strTotalNumber = QString::number(m_nTotalNumber);
-    //QString strNull_Number = QString::number(m_nNull_Number);
-    QString strItem_Number = QString::number(m_nItem_Number);
-    QString strTestPaparLenght = ui.lineEdit_TestPaparLenght->text();
-    QString strFuncPosition = ui.lineEdit_FuncPosition->text();
-    //	QString strTestAeaLenght = ui.lineEdit_TestAeaLenght->text();
-    QString strArticleNo = ui.lineEdit_Article_No->text();
-    QString rect_Analysis_x = ui.lineEdit_Left_Top_x->text(); //->setText(QString::number(rect_Analysis_x));
-    QString rect_Analysis_y = ui.lineEdit_LeftTop_y->text(); //->setText(QString::number(rect_Analysis_y));
-    QString rect_Analysis_width = ui.lineEdit_Weight->text(); //->setText(QString::number(rect_Analysis_width));
-    QString rect_Analysis_height = ui.lineEdit_height->text(); //->setText(QString::number(rect_Analysis_height));
-    QString analysis_height_percentage = ui.lineEdit_height_percentage->text();//->setText(QString::number(analysis_height_percentage));
-    QString head_length = ui.lineEdit_paper_head_length->text(); //->setText(QString::number(head_length));
-    QString cut_off_position = ui.lineEdit_CutOff_Position->text();
-    QString cut_off_value = ui.lineEdit_CutOff_Value->text();
-    QString BGRGB = ui.lineEdit_TestPaparLenght_2->text();
+    //ui->cmbCompany->currentData().toString();//厂家
+    //ui->cmbPaperType->currentData().toString();//膜条类型
+    //ui->cmbProcess->currentData().toString();//实验流程
+    //lineEdit_Item_Number;//项目数量
+    //lineEdit_TestPaparName;//膜条名称
+    //lineEdit_TestPaparLenght;//膜条长度
+    //lineEdit_paper_head_length;//膜条头长度
+    //txtItemSpace;//项目块间距
+    //txtItemWidth;//项目块宽度
+    //ui->cmbFunDirection->currentData().toString();//功能线查找方向
+    //lineEdit_FuncPosition;//功能条位置
+    //txtFunThreshold;//功能线阈值
+    //txtFunWidth;//功能线查找宽度
+    //ui->chkBlackSpot->isChecked();//是否开启黑点检测
+    //txtBlackSpotThreshold;//黑点检测阙值
+    //ui->checkBox_CutOff->isChecked();// 是否有CufOff线
+    //lineEdit_CutOff_Position;//CutOff位置
+    //txtCutOffThreshold;//CutOff线阈值
+    //txtCutOffValue;//CutOff灰度值;
+    //ui->cmbRotate->currentData().toString();//膜条展示旋转
+    //txtThreshold;//二值化阈值
+    //txtBackGround;//背景值
+    //txtItemSearchWidth;//指标查找宽度
+    //txtAnalyzeHeight;//分析高度区间比
+    //txtAnalyzeWidth;//分析宽度区间比
+    //txtPixDistance;//像素距离百分比
+    //txtArticleNo;//货号
+    //txtColorValue;//颜色值:
 
-    bool ok;
-    int value = analysis_height_percentage.toInt(&ok);
-    if (ok)
+    if(m_bModify)
     {
-        if (value > 0)
-        {
-        }else
-        {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1127") + GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1313"), MyMessageBox::Ok, "OK", "");
-            return false;
-        }
-    }
-
-    QString wave_pix_width = ui.lineEdit_wave_pix_width->text();
-    QString wave_pix_width_max = ui.lineEdit_wave_pix_width_max->text();
-    QString wave_pix_width_min = ui.lineEdit_wave_pix_width_min->text();
-    QString background_values = ui.lineEdit_background_values->text();
-    QString zero_value_coefficient = ui.lineEdit_zero_value_coefficient->text();
-    QString bg_difference = ui.lineEdit_bg_difference->text();
-
-    if (rect_Analysis_y.toDouble() > 3.0)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1277"), MyMessageBox::Ok,"OK","");
-        return false;
-    }
-
-    QString funGrayValue = ui.lineEdit_FuncPosition_2->text();
-
-    if (cut_off_value.size() == 0)
-    {
-        cut_off_value = "0";
-    }
-    int left_judge_value = ui.lineEdit_paper_gray_value->text().toInt();
-
-    int isCutOff = ui.checkBox_CutOff->checkState();
-    int isFun = ui.checkBox_CutOff_2->checkState();
-
-    if (isFun == 2)
-    {
-        isFun = 1;
+        //调用接口,修改
     }
     else
     {
-        isFun = 0;
-    }
-
-    if (isCutOff == 2)
-    {
-        isCutOff = 1;
-    }
-    else
-    {
-        isCutOff = 0;
-    }
-
-    auto dao = AnalysisUIDao::instance();
-    bool bResult;
-    QString strTestPaper_ID = dao->GetTestPaper_ID(m_strCompany_ID, strName, &bResult);
-    QString max_sort_id = dao->GetTestPaper_sort_max(m_strCompany_ID, strName, &bResult);
-    int sort_id = 0;
-    sort_id = max_sort_id.toInt();
-    sort_id += 1;
-    if (bResult == false)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1272"), MyMessageBox::Ok,"OK","");
-        return false;
-    }
-
-    if (strTestPaper_ID != "")
-    {
-        if (strTestPaper_ID != m_strTestPaper_ID)
-        {
-            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1276"), MyMessageBox::Ok,"OK","");
-            return false;
-        }
-    }
-
-    if (m_bModify == false)
-    {
-        bResult = dao->InsertTestPaper(strName, m_strCompany_ID, strTotalNumber, strItem_Number, strTestPaparLenght, strFuncPosition, strArticleNo,
-                                       rect_Analysis_x, rect_Analysis_y, rect_Analysis_width, rect_Analysis_height, analysis_height_percentage,
-                                       head_length, isCutOff, cut_off_position, cut_off_value, left_judge_value, sort_id, BGRGB, funGrayValue.toInt(),isFun, wave_pix_width, wave_pix_width_max, wave_pix_width_min
-                                       ,background_values, zero_value_coefficient, bg_difference);
-
-        if (bResult == false)
-        {
-            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1267"), MyMessageBox::Ok,"OK","");
-            return false;
-        }
-    }
-    else
-    {
-        bResult = dao->UpdateTestPaper(m_strTestPaper_ID, strName, m_strCompany_ID, strTotalNumber, strItem_Number,
-                                       strTestPaparLenght, strFuncPosition, strArticleNo, rect_Analysis_x, rect_Analysis_y, rect_Analysis_width, rect_Analysis_height,
-                                       analysis_height_percentage, head_length, isCutOff, cut_off_position,
-                                       cut_off_value, left_judge_value, sort_id, BGRGB, funGrayValue.toInt(),isFun, wave_pix_width, wave_pix_width_max, wave_pix_width_min, background_values, zero_value_coefficient, bg_difference);
-
-
-        if (bResult == false)
-        {
-            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1269"), MyMessageBox::Ok,"OK","");
-            return false;
-        }
+        //调用接口,新增
     }
     return true;
 }
 
+//调用接口,保存膜条项目
 bool TestPaper::Save_TestPaper_Items()
 {
-    TestPaper_Item testPaper_Item_Array[31];
-    auto dao = AnalysisUIDao::instance();
-    bool bResult;
-    if (m_bModify == true)
+    if(ui->cmbPaperType->currentData().toInt()==2)//分段
     {
-        bResult = dao->DeleteTestPaperItems(m_strTestPaper_ID);
-        if (bResult == false)
+        getUIBlockAndItemData();
+        auto count=ui->lineEdit_Item_Number->text().simplified().toInt();
+        if(m_blockAndItemDataMap.count()!=count)
         {
-            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1268"), MyMessageBox::Ok,"OK","");
+            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
             return false;
         }
-    }
-    QString strID;
-    QString strIsNull;
-    QString strName;
-    QString strTestPaper_ID;
-    QString strPositionNo;
-    if (m_bModify == true)
-    {
-        strTestPaper_ID = m_strTestPaper_ID;
+
+        //m_blockAndItemDataMap; //调用接口，保存此变量中的数据，块--项目
+        if(m_bModify)//修改
+        {
+
+        }
+        else
+        {//新增
+
+        }
     }
     else
     {
-        strTestPaper_ID = dao->GetTestPaper_ID(m_strCompany_ID,ui.lineEdit_TestPaparName->text(), &bResult);
-    }
-    int RulesId = 1;
-    //QString rule_name = ui.comboBoxRulesName->currentText();
-    //QMap<QString, int>::iterator iter = m_RulesName.begin();
-    //while (iter != m_RulesName.end())
-    //{
-    //	if (iter.key() == rule_name)
-    //	{
-    //		RulesId = iter.value();
-    //	}
-    //	iter++;
-    //}
+        getUIItemData();
+        auto count=ui->lineEdit_Item_Number->text().simplified().toInt();
+        if(m_itemDataMap.count()!=count)
+        {
+            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+            return false;
+        }
 
-    for (int i = 1; i <= m_nTotalNumber; i++)
-    {
-        Set_TestPaper_Item(testPaper_Item_Array[i], i, m_Item_Control_Array[i].checkBox, m_Item_Control_Array[i].lineEdit_Name, m_Item_Control_Array[i].combo_box_rule, m_Item_Control_Array[i].lineEdit_Position);
-        strPositionNo = QString::number(testPaper_Item_Array[i].nPostionNo);
-        strName = testPaper_Item_Array[i].strItemName;
-        strName = strName.remove('\n');
-        strIsNull = QString::number(testPaper_Item_Array[i].isNullArea);
-        if (strTestPaper_ID.length() == 1)
+        //m_itemDataMap;  //调用接口,保存此变量中的数据
+        if(m_bModify)//修改
         {
-            strID = "00" + strTestPaper_ID;
-        }
-        if (strTestPaper_ID.length() == 2)
-        {
-            strID = "0" + strTestPaper_ID;
-        }
-        if (strPositionNo.length() == 2)
-        {
-            strID += strPositionNo;
+
         }
         else
-        {
-            strID += ("0" + strPositionNo);
-        }
-        QString rule_name = m_Item_Control_Array[i].combo_box_rule->currentText();
-        QMap<QString, int>::iterator iter = m_RulesName.begin();
-        while (iter != m_RulesName.end())
-        {
-            if (iter.key() == rule_name)
-            {
-                RulesId = iter.value();
-            }
-            iter++;
-        }
+        {//新增
 
-        QString position = m_Item_Control_Array[i].lineEdit_Position->text();
-        if (position != "")
-        {
-            bResult = dao->InsertTestPaperItem(RulesId, strID, strIsNull, strName, strTestPaper_ID, position, strPositionNo);
-            if (bResult == false)
-            {
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1267"), MyMessageBox::Ok, "OK", "");
-                return false;
-            }
         }
-
     }
     return true;
 }
 
-void TestPaper::Set_Controls_visible()
+void TestPaper::getAllItemControl()
 {
-    auto dao = AnalysisUIDao::instance();
-    bool bResult = true;
+    if(!m_gridItemCtl.itemCtlMap.isEmpty() || !m_gridBlockCtl.blockCtlMap.isEmpty())
+        return;
 
-    if (m_nTotalNumber >= 1)
+    m_gridItemCtl.table=ui->tbSegment;
+    m_gridBlockCtl.table=ui->tbSegment;
+    auto fun=[this](const QGridLayout * glay,QVector<QLabel *>&headVect)
     {
-        ui.label_31->setVisible(true);
-        ui.label_32->setVisible(true);
-    }
-    else
-    {
-        ui.label_31->setVisible(false);
-        ui.label_32->setVisible(false);
-    }
-
-    if (m_nTotalNumber >= 11)
-    {
-        ui.label_33->setVisible(true);
-        ui.label_34->setVisible(true);
-        ui.label_48->setVisible(true);
-        ui.label_61->setVisible(true);
-    }
-    else
-    {
-        ui.label_33->setVisible(false);
-        ui.label_34->setVisible(false);
-        ui.label_48->setVisible(false);
-        ui.label_61->setVisible(false);
-    }
-
-    if (m_nTotalNumber >= 21)
-    {
-        ui.label_35->setVisible(true);
-        ui.label_36->setVisible(true);
-        ui.label_49->setVisible(true);
-        ui.label_62->setVisible(true);
-    }
-    else
-    {
-        ui.label_35->setVisible(false);
-        ui.label_36->setVisible(false);
-        ui.label_49->setVisible(false);
-        ui.label_62->setVisible(false);
-    }
-    for (int i = 1; i <= 30; i++)
-    {
-        if (m_nTotalNumber >= i)
-        {
-            m_Item_Control_Array[i].label->setVisible(true);
-            m_Item_Control_Array[i].checkBox->setVisible(true);
-            m_Item_Control_Array[i].lineEdit_Name->setVisible(true);
-            m_Item_Control_Array[i].combo_box_rule->setVisible(true);
-            m_Item_Control_Array[i].lineEdit_Position->setVisible(true);
-            //添加下拉框内容
-            auto m_RuleNameQuery = dao->SelectRulues(&bResult);
-            if (bResult == false)
-            {
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1275"), MyMessageBox::Ok,"OK","");
-                return;
-            }
-            int row = 0;
-            while (m_RuleNameQuery.next())
-            {
-                QString itemName = m_RuleNameQuery.value("RuleName").toString();
-                int ruleId = m_RuleNameQuery.value("pkid").toInt();
-                //m_RulesName.insert(itemName, ruleId);
-                m_RulesName.insert(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), itemName), ruleId);
-                m_Item_Control_Array[i].combo_box_rule->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), itemName));//itemName);
-                row++;
-            }
-        }
-        else
-        {
-            m_Item_Control_Array[i].label->setVisible(false);
-            m_Item_Control_Array[i].checkBox->setVisible(false);
-            m_Item_Control_Array[i].lineEdit_Name->setVisible(false);
-            m_Item_Control_Array[i].combo_box_rule->setVisible(false);
-            m_Item_Control_Array[i].lineEdit_Position->setVisible(false);
-        }
-    }
-}
-
-void TestPaper::on_checkBox_1_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[1].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_2_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[2].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_3_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[3].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_4_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[4].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_5_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[5].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_6_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[6].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_7_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[7].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_8_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[8].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_9_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[9].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_10_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[10].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_11_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[11].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_12_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[12].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_13_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[13].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_14_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[14].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_15_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[15].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_16_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[16].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_17_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[17].lineEdit_Name);
-}
-
-
-void TestPaper::on_checkBox_18_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[18].lineEdit_Name);
-
-}
-
-void TestPaper::on_checkBox_19_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[19].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_20_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[20].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_21_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[21].lineEdit_Name);
-
-}
-
-void TestPaper::on_checkBox_22_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[22].lineEdit_Name);
-
-}
-
-void TestPaper::on_checkBox_23_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[23].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_24_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[24].lineEdit_Name);
-
-}
-
-void TestPaper::on_checkBox_25_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[25].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_26_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[26].lineEdit_Name);
-}
-
-
-void TestPaper::on_checkBox_27_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[27].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_28_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[28].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_29_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[29].lineEdit_Name);
-}
-
-void TestPaper::on_checkBox_30_stateChanged(int state)
-{
-    Set_checkBox_stateChanged(state, m_Item_Control_Array[1].lineEdit_Name);
-}
-
-void TestPaper::CutOffCheckBoxUpdateUi(int state) {
-    //if (state == 2)
-    //{
-    //	//ui.checkBox_CutOff->setVisible(true);
-    //	ui.label_50->setVisible(false);
-    //	ui.lineEdit_CutOff_Value->setVisible(false);
-    //	ui.label_44->setVisible(true);
-    //	ui.lineEdit_CutOff_Position->setVisible(true);
-    //	ui.label_45->setVisible(true);
-    //}
-
-    //if (state == 0)
-    //{
-    //	//ui.checkBox_CutOff->setVisible(true);
-    //	ui.label_50->setVisible(true);
-    //	ui.lineEdit_CutOff_Value->setVisible(true);
-    //	ui.label_44->setVisible(false);
-    //	ui.lineEdit_CutOff_Position->setVisible(false);
-    //	ui.label_45->setVisible(false);
-    //}
-}
-
-void TestPaper::on_checkBox_CutOff_stateChanged(int state)
-{
-    //Set_checkBox_stateChanged(state, m_Item_Control_Array[30].lineEdit_Name);
-    //勾选上
-    CutOffCheckBoxUpdateUi(state);
-}
-
-void TestPaper::Set_checkBox_stateChanged(int state, QLineEdit * lineEdit_Name)
-{
-    if (state == Qt::Checked) // "选中"
-    {
-        lineEdit_Name->setText("");
-        lineEdit_Name->setEnabled(false);
-    }
-    else
-    {
-        lineEdit_Name->setEnabled(true);
-    }
-}
-
-void TestPaper::Set_Control_Value(TestPaper_Item testPaper_Item) 
-{
-    if (testPaper_Item.isNullArea == false)
-    {
-        m_Item_Control_Array[testPaper_Item.nPostionNo].checkBox->setChecked(false);
-        m_Item_Control_Array[testPaper_Item.nPostionNo].lineEdit_Name->setText(testPaper_Item.strItemName);
-        bool bResult = true;
-        auto dao = AnalysisUIDao::instance();
-        //填充规制下拉框
-        QString itemName;
-        int ruleId;
-        //DB中取Testitems表数据
-        //auto dao = AnalysisUIDao::instance();
-        auto m_RuleNameQuery = dao->SelectRulues(&bResult);
-        if (bResult == false)
-        {
-            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1275"), MyMessageBox::Ok,"OK","");
+        if(glay==nullptr)
             return;
-        }
-        //int row = 0;
-        //while (m_RuleNameQuery.next())
-        //{
-        //	itemName = m_RuleNameQuery.value("RuleName").toString();
-        //	ruleId = m_RuleNameQuery.value("pkid").toInt();
-        //	m_RulesName.insert(itemName, ruleId);
-        //	m_Item_Control_Array[testPaper_Item.nPostionNo].combo_box_rule->addItem(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), itemName));//itemName); //
-        //	//ui.comboBoxRulesName->addItem(itemName); //
-        //	//ui.tableWidget_Rule->insertRow(row);
-        //	//addRuleContent(row, 0, itemName);
-        //	row++;
-        //}
-        QString SelectedRuleName = "";
-        QMap<QString, int>::iterator iter = m_RulesName.begin();
-        while (iter != m_RulesName.end())
+        headVect.clear();
+        for (int row = 0; row < glay->rowCount(); ++row)
         {
-            if (iter.value() == testPaper_Item.judgerule)
+            Item_Control ctr;    
+			int k = 0;
+            for (int col = 0; col < glay->columnCount(); ++col)
             {
-                SelectedRuleName = iter.key();
+                QLayoutItem *item =  glay->itemAtPosition(row, col);
+				if (item == nullptr)
+					continue;
+                QWidget *widget = item->widget();
+				if (!widget)
+					continue;
+
+                if(row==0)
+                {
+                    headVect.push_back(static_cast<QLabel *>(widget));
+                    continue;
+                }              
+
+                if(col==0)
+                {
+                    ctr.label=static_cast<QLabel *>(widget);
+                    if(ctr.label->text().simplified().toInt()>0)
+                        k=ctr.label->text().simplified().toInt();
+                }
+                else if(col==1)
+                {
+                    ctr.lineEdit_Name=static_cast<QLineEdit *>(widget);
+                    ui->lineEdit_Position_1->setValidator(new QRegExpValidator(QRegExp("[0-9.]+"), this));
+                }
+                else if(col==2)
+                {
+                    ctr.checkBox=static_cast<QCheckBox *>(widget);
+                    connect(ctr.checkBox,&QCheckBox::clicked,this,[ctr](bool checked)
+                    {
+                        if (checked)
+                        {
+                            ctr.lineEdit_Name->setText("");
+                            ctr.lineEdit_Name->setEnabled(false);
+                        }
+                        else
+                        {
+                            ctr.lineEdit_Name->setEnabled(true);
+                        }
+                    });
+                }
+                else if(col==3)
+                    ctr.lineEdit_Position=static_cast<QLineEdit *>(widget);
+                else if(col==4)
+                {
+                    ctr.combo_box_rule=static_cast<QComboBox *>(widget);
+                    ctr.combo_box_rule->setView(new QListView(widget));
+                    setComBoBoxData(ctr.combo_box_rule,m_ruleCmbDatas);
+                    connect(ctr.cmbCurve,SIGNAL(currentIndexChanged(int)),this,SLOT(slotCmbCurveDataSet(int)),Qt::UniqueConnection);
+                }
+                else if(col==5)
+                {
+                    ctr.cmbCurve=static_cast<QComboBox *>(widget);
+                    ctr.cmbCurve->setView(new QListView(widget));
+                    setComBoBoxData(ctr.cmbCurve,m_curveCmbDatas);
+                    connect(ctr.combo_box_rule,SIGNAL(currentIndexChanged(int)),this,SLOT(slotCmbRuleDataSet(int)),Qt::UniqueConnection);
+                }
             }
-            iter++;
+            if(k>0)
+                m_gridItemCtl.itemCtlMap.insert(k,ctr);
         }
-        m_Item_Control_Array[testPaper_Item.nPostionNo].combo_box_rule->setCurrentText(SelectedRuleName);
+    };
 
-        m_Item_Control_Array[testPaper_Item.nPostionNo].lineEdit_Position->setText(QString::number(testPaper_Item.position));
-
-    }
-    else
+    fun(ui->gridLayout_3,m_gridItemCtl.gridHead1);
+    fun(ui->gridLayout_2,m_gridItemCtl.gridHead2);
+    QVector<ComboxData> boxDatas{};
+    for(int i=1;i<=10;i++)
+        boxDatas.push_back(ComboxData(QString::number(i),QString::number(i)));
+    auto sgfun=[this,&boxDatas](const QGridLayout * glay,QVector<QLabel *>&headVect)
     {
-        m_Item_Control_Array[testPaper_Item.nPostionNo].checkBox->setChecked(true);
-        m_Item_Control_Array[testPaper_Item.nPostionNo].lineEdit_Name->setText("");
-    }
+        if(glay==nullptr)
+            return;
+        headVect.clear();
+        for (int row = 0; row < glay->rowCount(); ++row)
+        {
+            BlockControl block;
+            int k = 0;
+            for (int col = 0; col < glay->columnCount(); ++col)
+            {
+                QLayoutItem *item =  glay->itemAtPosition(row, col);
+                if (item == nullptr)
+                    continue;
+                QWidget *widget = item->widget();
+                if (!widget)
+                    continue;
+
+                if(row==0)
+                {
+                    headVect.push_back(static_cast<QLabel *>(widget));
+                    continue;
+                }
+
+                if(col==0)
+                {
+                    block.label=static_cast<QLabel *>(widget);
+                    if(block.label->text().simplified().toInt()>0)
+                        k=block.label->text().simplified().toInt();
+                }
+                else if(col==1)
+                    block.checkBox=static_cast<QCheckBox *>(widget);
+                else if(col==2)
+                {
+                    block.cmbItemCount=static_cast<QComboBox *>(widget);
+                    block.cmbItemCount->setObjectName(QString::number(k));
+                    block.cmbItemCount->setView(new QListView(widget));
+                    setComBoBoxData(block.cmbItemCount,boxDatas);
+                    connect(block.cmbItemCount,SIGNAL(currentTextChanged(const QString &)),this,SLOT(slotCreatDetailRows(const QString &)),Qt::UniqueConnection);
+                }
+                else if(col==3)
+                {
+                    block.startPosLineEdit=static_cast<QLineEdit *>(widget);
+                }
+                else if(col==4)
+                {
+                    block.distanceLineEdit=static_cast<QLineEdit *>(widget);
+                }
+            }
+            if(k>0)
+                m_gridBlockCtl.blockCtlMap.insert(k,block);
+        }
+    };
+    sgfun(ui->gridLayout,m_gridBlockCtl.gridHead1);
+    sgfun(ui->gridLayout_6,m_gridBlockCtl.gridHead2);
 }
 
-void TestPaper::Set_TestPaper_Item(TestPaper_Item& testPaper_Item,int nPostionNo,QCheckBox *checkBox,QLineEdit *lineEdit_Name, QComboBox * combo_box_rule,QLineEdit *lineEdit_Position)
+void TestPaper::getUIItemData()
 {
-    if (checkBox->isChecked())
+    m_itemDataMap.clear();
+	int i = 1;
+    for(auto it:m_gridItemCtl.itemCtlMap)
     {
-        testPaper_Item.isNullArea = true;
-        testPaper_Item.nPostionNo = nPostionNo;
-        testPaper_Item.strItemName = "";
-        testPaper_Item.position = 0;
-    }
-    else
-    {
-        testPaper_Item.isNullArea = false;
-        testPaper_Item.nPostionNo = nPostionNo;
-        testPaper_Item.strItemName = lineEdit_Name->text();
-        testPaper_Item.position = lineEdit_Position->text().toDouble();
+        if(!it.lineEdit_Name->isVisible())
+            return;
+
+        if(it.lineEdit_Name->text().simplified().isEmpty() && !it.checkBox->isChecked())
+            continue;
+
+        TestPaper_Item itemData;
+		itemData.serialNo = it.label->text().simplified().toInt();
+        itemData.curve=it.cmbCurve->currentText().simplified();
+        itemData.position=it.lineEdit_Position->text().simplified().toDouble();
+		itemData.isNullArea = it.checkBox->isChecked();
+		itemData.judgerule = it.combo_box_rule->currentData().toInt();
+		itemData.strItemName = it.lineEdit_Name->text().simplified();
+        if(itemData.isNullArea)
+        {
+            itemData.strItemName = "";
+            itemData.position = 0;
+        }
+        m_itemDataMap.insert(i,itemData);
+		i++;
     }
 }
 
+void TestPaper::getUIBlockAndItemData()
+{
+    m_blockAndItemDataMap.clear();
+    auto &map=m_gridBlockCtl.blockCtlMap;
+    for(auto &blockCtl:map)
+    {
+        if(!blockCtl.checkBox->isVisible())
+            return;
+        if(!blockCtl.checkBox->isChecked() && blockCtl.cmbItemCount->currentText().toInt()<=0)
+            continue;
+
+        BlockAndItemData blockItemData;
+        BlockData bData;
+        QVector<BlockItemData> bItemDatas{};
+        bData.serialNo=blockCtl.label->text().toInt();
+        bData.isNullArea=blockCtl.checkBox->isChecked();
+        bData.itemCount=blockCtl.cmbItemCount->currentText().toInt();
+        bData.startPos=blockCtl.distanceLineEdit->text().simplified().toDouble();
+        bData.distance=blockCtl.distanceLineEdit->text().simplified().toDouble();
+        blockItemData.blockData=bData;
+        auto itemIt=m_blockItemCtlMap.find(bData.serialNo);
+        if(itemIt==m_blockItemCtlMap.end())
+        {
+            blockItemData.itemDatas=bItemDatas;
+            m_blockAndItemDataMap.insert(bData.serialNo,blockItemData);
+            continue;
+        }
+        auto &vect=itemIt.value();
+        for(auto &itemCtl:vect)
+        {
+            BlockItemData itemData;
+            itemData.serialNo=itemCtl.serialNo;
+            itemData.curve=itemCtl.cmbCurveBox->currentData().toString();
+            itemData.blockNo=itemCtl.blockNo;
+            itemData.itemType=itemCtl.cmbItemType->currentData().toString();
+            itemData.judgerule=itemCtl.cmbCurveBox->currentData().toInt();
+            itemData.strItemName=itemCtl.itemNameEdit->text().simplified();
+            bItemDatas.push_back(itemData);
+        }
+        blockItemData.itemDatas=bItemDatas;
+        m_blockAndItemDataMap.insert(bData.serialNo,blockItemData);
+    }
+}
+
+void TestPaper::initComboBox()
+{    
+    QVector<ComboxData>boxDatas;
+    //boxDatas= //调用接口,选择厂家
+    setComBoBoxData(ui->cmbCompany,boxDatas);
+    connect(ui->cmbCompany,&QComboBox::currentTextChanged,this,&TestPaper::slotCmbCompanyTextChanged);
+
+    boxDatas.clear();
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1809"),"1"));
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1810"),"2"));
+    setComBoBoxData(ui->cmbPaperType,boxDatas);
+    ui->cmbPaperType->setCurrentText(GlobalData::LoadLanguageInfo("K1809"));
+
+    boxDatas.clear();
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1813"),"1"));
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1814"),"2"));
+    setComBoBoxData(ui->cmbFunDirection,boxDatas);
+    ui->cmbFunDirection->setCurrentText(GlobalData::LoadLanguageInfo("K1813"));
+
+    boxDatas.clear();
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("0°"),"0"));
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("180°"),"180"));
+    setComBoBoxData(ui->cmbRotate,boxDatas);
+    ui->cmbRotate->setCurrentText(GlobalData::LoadLanguageInfo("0°"));
+}
+
+void TestPaper::setComBoBoxData(QComboBox *cmb, const QVector<ComboxData> &datas)
+{
+    if(cmb==nullptr)
+        return;
+    cmb->clear();
+    cmb->addItem("","");
+    for(auto data:datas)
+        cmb->addItem(data.cmbText,data.cmbData);
+}
+
+void TestPaper::uiCtlSet(const int itemCount)
+{
+    int data{ui->cmbPaperType->currentData().toInt()};
+    if(data==2)
+    {
+        ui->gridLayout_3->setContentsMargins(0,0,0,0);
+        ui->lblItemNum->setText(GlobalData::LoadLanguageInfo("K1127"));
+        m_gridItemCtl.hiddeAll();
+        if(itemCount<0)
+            m_gridBlockCtl.showAllCtl();
+        else
+            m_gridBlockCtl.showCtlByCount(itemCount);
+    }
+    else
+    {
+        ui->gridLayout_3->setContentsMargins(40,0,0,0);
+        ui->lblItemNum->setText(GlobalData::LoadLanguageInfo("K1129"));
+        m_gridBlockCtl.hiddeAll();
+        if(itemCount<0)
+            m_gridItemCtl.showAllCtl();
+        else
+            m_gridItemCtl.showCtlByCount(itemCount);
+    }
+}
+
+void TestPaper::tbSegmentAddData(const int oldRow)
+{
+    if(ui->tbSegment->isHidden())
+        return;
+
+    while (oldRow<ui->tbSegment->rowCount())
+        ui->tbSegment->removeRow(oldRow);
+
+    int count=ui->tbSegment->rowCount();
+    for(auto &vect:m_blockItemCtlMap)
+    {
+        for(auto &ctl:vect)
+        {
+            if(!ctl.isNew)
+                continue;
+            ui->tbSegment->insertRow(count);
+            ctl.serialNo=count+1;
+            ui->tbSegment->setItem(count,0,new QTableWidgetItem(QString::number(count+1)));
+            ui->tbSegment->setCellWidget(count,1,ctl.cmbItemType);
+            ui->tbSegment->setCellWidget(count,2,ctl.itemNameEdit);
+            ui->tbSegment->setItem(count,3,new QTableWidgetItem(QString::number(ctl.blockNo)));
+            ui->tbSegment->setCellWidget(count,4,ctl.cmbRuleBox);
+            ui->tbSegment->setCellWidget(count,5,ctl.cmbCurveBox);
+            ctl.isNew=false;
+            count++;
+        }
+    }
+}
 
 void TestPaper::on_pushButton_Cancel_clicked() 
 {
     this->close();
 }
 
+void TestPaper::on_cmbPaperType_currentIndexChanged(int index)
+{
+    Q_UNUSED(index)
+    bool b=true;
+    int count=ui->lineEdit_Item_Number->text().simplified().toInt(&b);
+    if(!b)
+        count=-1;
+    uiCtlSet(count);
+}
 
-
-
-
-
-
-
-
-
-
-
+void TestPaper::slotCmbCompanyTextChanged(const QString &text)
+{
+    Q_UNUSED(text)
+    //text 为厂家名称，根据厂家名称获取实验流程接口
+    //QString currentData=ui->cmbCompany->currentData().toString();//厂家ID
+    QVector<ComboxData>boxDatas;
+    //boxDatas= //调用接口,实验流程
+    setComBoBoxData(ui->cmbProcess,boxDatas);
+}

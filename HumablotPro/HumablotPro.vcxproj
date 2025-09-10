@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="src\utility\AboutUsWidgets.cpp" />
     <ClCompile Include="src\utility\AddCompany.cpp" />
+    <ClCompile Include="src\utility\AddProcess.cpp" />
     <ClCompile Include="src\utility\AddReagent.cpp" />
     <ClCompile Include="src\sample\model\AddSampleVModel.cpp" />
     <ClCompile Include="src\sample\AddSampleWidget.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="src\main\CreateDump.cpp" />
     <ClCompile Include="src\comm\CustClickWidget.cpp" />
     <ClCompile Include="src\comm\CustomButton.cpp" />
+    <ClCompile Include="src\comm\CustomHeaderView.cpp" />
     <ClCompile Include="src\comm\CustomLabel.cpp" />
     <ClCompile Include="src\comm\CustomLabel1.cpp" />
     <ClCompile Include="src\comm\CustomerPumpStateLable.cpp" />
@@ -188,6 +190,8 @@
     <ClCompile Include="src\utility\maintain\PipeWashWidgets.cpp" />
     <ClCompile Include="src\sample\subDialog\PrepareReagentDialog.cpp" />
     <ClCompile Include="src\sample\PrepareReagentWidget.cpp" />
+    <ClCompile Include="src\utility\ProcessData.cpp" />
+    <ClCompile Include="src\utility\ProcessDataList.cpp" />
     <ClCompile Include="src\utility\ProcessParaWidgets.cpp" />
     <ClCompile Include="src\main\subDialog\ProgressDialog.cpp" />
     <ClCompile Include="src\utility\maintain\PumpAutoCheckWidgets.cpp" />
@@ -248,6 +252,16 @@
       
     </QtMoc>
     <QtMoc Include="src\utility\AddCompany.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\AddProcess.h">
       
       
       
@@ -429,6 +443,7 @@
       
     </QtMoc>
     <ClInclude Include="src\comm\CustomButton.h" />
+    <ClInclude Include="src\comm\CustomHeaderView.h" />
     <QtMoc Include="src\comm\CustomLabel.h">
       
       
@@ -640,6 +655,26 @@
       
     </QtMoc>
     <QtMoc Include="src\sample\PrepareReagentWidget.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\ProcessData.h">
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtMoc>
+    <QtMoc Include="src\utility\ProcessDataList.h">
       
       
       
@@ -1252,6 +1287,9 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
     
     
     
+    
+    
+    
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
@@ -1338,6 +1376,9 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
     
     
     
+    
+    
+    
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="src\utility\AboutUsWidgets.ui">
@@ -1352,6 +1393,17 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       
     </QtUic>
     <QtUic Include="src\utility\AddCompany.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\utility\AddProcess.ui">
       
       
       
@@ -1660,6 +1712,28 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       
     </QtUic>
     <QtUic Include="ui\sample\PrepareReagentWidget.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\utility\ProcessData.ui">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </QtUic>
+    <QtUic Include="ui\utility\ProcessDataList.ui">
       
       
       

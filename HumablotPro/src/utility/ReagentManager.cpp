@@ -179,7 +179,7 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
 	bool bResult = true;
     auto dao = AnalysisUIDao::instance();
     //有问题需要更换接口
-	m_ReagentQuery = dao->SelectReagents(m_strCompany_ID, &bResult);
+	m_ReagentQuery = dao->SelectReagents(m_strCompany_ID, &bResult);//调用接口
 	if (bResult == false)
 	{
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");

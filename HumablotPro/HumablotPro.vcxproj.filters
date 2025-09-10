@@ -43,6 +43,9 @@
     <ClCompile Include="src\utility\AddCompany.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\utility\AddProcess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\utility\AddReagent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -98,6 +101,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\comm\CustomButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\comm\CustomHeaderView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\comm\CustomLabel.cpp">
@@ -182,6 +188,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\sample\PrepareReagentWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\ProcessData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utility\ProcessDataList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\utility\ProcessParaWidgets.cpp">
@@ -333,6 +345,9 @@
     <QtMoc Include="src\utility\AddCompany.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="src\utility\AddProcess.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <QtMoc Include="src\utility\AddReagent.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -388,6 +403,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <ClInclude Include="src\comm\CustomButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\comm\CustomHeaderView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <QtMoc Include="src\comm\CustomLabel.h">
@@ -481,6 +499,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="src\sample\PrepareReagentWidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\ProcessData.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="src\utility\ProcessDataList.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="src\utility\ProcessParaWidgets.h">
@@ -708,6 +732,9 @@
     
     
     
+    
+    
+    
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -781,12 +808,18 @@
     
     
     
+    
+    
+    
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="src\utility\AboutUsWidgets.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="src\utility\AddCompany.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\utility\AddProcess.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="src\utility\AddReagent.ui">
@@ -871,6 +904,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui\sample\PrepareReagentWidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\utility\ProcessData.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ui\utility\ProcessDataList.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="src\utility\ProcessParaWidgets.ui">

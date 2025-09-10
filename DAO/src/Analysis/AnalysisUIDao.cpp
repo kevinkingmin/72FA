@@ -1703,11 +1703,6 @@ bool AnalysisUIDao::InsertTestPaperItem(
     QString strSql;
     strSql =
         "insert into titem (IsNull,itemName,TestPaperID,RulesId,position,PositionNo) values (";
-    //"insert into titem (ID,IsNull,itemName,TestPaperID,RulesId,position,PositionNo) values ('";
-
-    //strSql += strID;
-    //strSql += ",";
-
     strSql += strIsNull;
     strSql += ",'";
 

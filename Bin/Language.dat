@@ -104,8 +104,8 @@ K1096|显示  |Display
 K1097|步骤  |Step  
 K1098|膜条厂家选择  |Select strip manufacturers  
 K1099|公司名称  |Company name  
-K1100|膜条名称：|Strip name  
-K1101|货号：|Item No. 
+K1100|膜条名称|Strip name  
+K1101|货号|Item No. 
 K1102|排序|Ranking
 K1103|是否启用|Enable or not
 K1104|启用|Enable
@@ -122,22 +122,18 @@ K1114|选择|Select
 K1115|设置|Settings
 K1116|CutOff线阈值|Cutoff line threshold
 K1117|是否有CutOff线|Cutoff line available?
-K1118|功能线阈值：|Function line threshold:
-K1119|功能条位置：|Function bar location:
+K1118|功能线阈值|Function line threshold:
+K1119|功能条位置|Function bar location:
 K1120|是否有功能线|Function line available?
-K1121|颜色值：|Color value
-K1122|毫米对应像素：|Corresponding millimeter pixel
-K1123|计算区间：|calculation interval
-K1124|降噪阈值：|Threshold
-K1125|次数：|Time(s)
-K1126|膜条头：|Strip head
-K1127|分析区百分比：|Percentage of analysis area
-K1128|膜条总长度：|Total strip length
-K1129|项目数量：|Number of items：
+K1121|颜色值|Color value
+K1122|毫米对应像素|Corresponding millimeter pixel
+K1125|次数|Time(s)
+K1128|膜条总长度|Total strip length
+K1129|项目数量|Number of items：
 K1130|像素|Pixel
-K1131|项目名称：|Item name
+K1131|项目名称|Item name
 K1132|空白|Blank
-K1133|判读规制|Judgment rules
+K1133|判读规则|Judgment rules
 K1134|取消|Cancel
 K1135|试剂厂家选择|Select reagent manufacturers
 K1136|试剂名称|Reagent name
@@ -664,10 +660,6 @@ K1703|检测到条带|Correct
 K1704|膜条详细信息|Paper information detail
 K1705|背景灰度值|Background gray value
 K1706|异常点占比|The proportion of outliers
-K1707|有效区间宽Min|The effective interval is wide for Min
-K1708|有效区间宽Max|The effective interval is wide for Max
-K1709|零值系数|Null coefficient
-K1710|差值|Difference value
 K1711|运行或维护中不能重启，请在动作完成后再重启。|Cannot restart during operation or maintenance. Please restart after the action is completed.
 K1712|扫码进行中……|Scanning……
 K1713|检测停止中……|Stoping……
@@ -677,7 +669,6 @@ K1716|充灌已完成|Filling completed
 K1717|正在执行大充灌量|Executing big filling volume
 K1718|正在执行系统液充灌|Executing StstemLiquide filling
 K1712|打印|Print
-K1713|请确定是否删除？|Please confirm whether to delete it?
 K1714|规则9|Rule 9
 K1715|规则10|Rule 10
 K1716|规则11|Rule 11
@@ -705,7 +696,6 @@ K1737|比值|Value
 K1738|打印未完成，不能关闭|Can not close,It doing print.
 K1739|备份还原|Backup and Restore
 K1740|最新批次结果查询|Latest Batch Query
-K1741|图像矫偏阈值|Threshold for Image Correction
 K1742|医院名称|Hospital
 k1743|拍照功能|Camera function
 K1744|打印功能|Print function
@@ -725,7 +715,81 @@ K1757|请确认加样完成?|Please confirm that the sample addition is completed?
 K1758|关闭报警声|close alarm
 K1759|打印成功|Printing successful
 K1760|打印失败|Printing failed
-K1761|关联厂家|MFG/MFR  
+K1761|关联厂家|MFG/MFR
+K1762|流程设置|Editing Process
+K1763|当前选择厂家|MFG/MFR
+K1764|新增步骤|Add Steps
+K1765|修改步骤|Edit Steps
+K1766|删除步骤|Delete Steps
+K1767|序号|Serial number
+K1768|步骤参数|Steps parameter
+K1769|流程名称|process name
+K1770|孵育|Incubation
+K1771|加试剂|Reagent addition
+K1772|选择试剂|Select reagent
+K1773|试剂量|Reagent dosage
+K1774|时间|duration
+K1775|是否排废液|Discharge liquid
+K1776|样本量|sample dosage
+K1123|功能线查找方向|
+K1124|二值化阈值|
+K1126|膜条头长度|
+K1127|项目块数量|
+K1707|项目块宽度|
+K1708|项目块间距|
+K1709|功能线查找宽度|
+K1710|是否开启黑点检测|
+K1741|黑点检测阈值|
+K1777|摇床速度|
+K1778|摇床温度|
+K1779|清洗次数|
+K1780|单次清洗时间|
+K1781|干燥总时间|
+K1782|风扇|
+K1783|速度|
+K1784|风干时间|
+K1785|温度|
+K1786|振荡时间|
+K1787|请选择要修改的数据|
+K1788|请选择要增加步骤的流程|
+K1789|没有这个动作|
+K1790|数据错误|
+K1791|选择厂家|
+K1792|实验流程|
+K1793|项目数量与实际不符|
+K1794|定标曲线|
+K1795|单独设置|
+K1796|统一设置|
+K1797|指标数量|
+K1798|指标起始位置|
+K1799|指标间距|
+K1800|CutOff灰度值|
+K1801|请确定是否删除所选择的数据？删除后不可恢复！|
+K1802|膜条展示旋转|
+K1803|指标查找宽度|
+K1804|分析高度区间比|
+K1805|分析宽度区间比|
+K1806|像素距离百分比|
+K1807|功能线|
+K1808|指标|
+K1809|连续膜条|
+K1810|分段膜条|
+K1811|类型|
+K1812|所属分段|
+K1813|膜条头|
+K1814|膜条尾|
+K1815|膜条颜色|
+K1816|线性拟合|
+K1817|四参数拟合|
+K1818|拟合方式|
+K1819|新增|
+K1820|新增规则|
+K1821|标准曲线|
+K1822|删除规则|
+K1823|规则|Rule
+K1824|曲线|
+K1825|请选择对应的规则!|
+
 K9990|检测到多个条带|Multiple strips detected
 K9991|（检测到异常条带）|（Abnormal stripe detected）
 K9992|（检测到异常条带）|（Abnormal stripe detected）

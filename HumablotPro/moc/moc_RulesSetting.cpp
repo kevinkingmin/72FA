@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_RulesSetting_t {
-    QByteArrayData data[7];
-    char stringdata0[151];
+    QByteArrayData data[17];
+    char stringdata0[293];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,18 +32,31 @@ struct qt_meta_stringdata_RulesSetting_t {
 static const qt_meta_stringdata_RulesSetting_t qt_meta_stringdata_RulesSetting = {
     {
 QT_MOC_LITERAL(0, 0, 12), // "RulesSetting"
-QT_MOC_LITERAL(1, 13, 31), // "on_tableWidget_Rule_cellClicked"
-QT_MOC_LITERAL(2, 45, 0), // ""
-QT_MOC_LITERAL(3, 46, 32), // "on_tableWidget_Rules_cellClicked"
-QT_MOC_LITERAL(4, 79, 21), // "on_Add_Button_clicked"
-QT_MOC_LITERAL(5, 101, 24), // "on_Modify_Button_clicked"
-QT_MOC_LITERAL(6, 126, 24) // "on_Delete_Button_clicked"
+QT_MOC_LITERAL(1, 13, 18), // "on_btnRule_clicked"
+QT_MOC_LITERAL(2, 32, 0), // ""
+QT_MOC_LITERAL(3, 33, 19), // "on_btnCurve_clicked"
+QT_MOC_LITERAL(4, 53, 21), // "on_btnAddRule_clicked"
+QT_MOC_LITERAL(5, 75, 17), // "on_tbRule_clicked"
+QT_MOC_LITERAL(6, 93, 11), // "QModelIndex"
+QT_MOC_LITERAL(7, 105, 5), // "index"
+QT_MOC_LITERAL(8, 111, 24), // "on_btnDeleteRule_clicked"
+QT_MOC_LITERAL(9, 136, 21), // "on_btnAddItem_clicked"
+QT_MOC_LITERAL(10, 158, 22), // "on_btnSaveItem_clicked"
+QT_MOC_LITERAL(11, 181, 20), // "on_btnDelete_clicked"
+QT_MOC_LITERAL(12, 202, 19), // "slotFitCurveChanged"
+QT_MOC_LITERAL(13, 222, 25), // "on_tbRuleItem_itemChanged"
+QT_MOC_LITERAL(14, 248, 17), // "QTableWidgetItem*"
+QT_MOC_LITERAL(15, 266, 4), // "item"
+QT_MOC_LITERAL(16, 271, 21) // "on_tbRule_itemChanged"
 
     },
-    "RulesSetting\0on_tableWidget_Rule_cellClicked\0"
-    "\0on_tableWidget_Rules_cellClicked\0"
-    "on_Add_Button_clicked\0on_Modify_Button_clicked\0"
-    "on_Delete_Button_clicked"
+    "RulesSetting\0on_btnRule_clicked\0\0"
+    "on_btnCurve_clicked\0on_btnAddRule_clicked\0"
+    "on_tbRule_clicked\0QModelIndex\0index\0"
+    "on_btnDeleteRule_clicked\0on_btnAddItem_clicked\0"
+    "on_btnSaveItem_clicked\0on_btnDelete_clicked\0"
+    "slotFitCurveChanged\0on_tbRuleItem_itemChanged\0"
+    "QTableWidgetItem*\0item\0on_tbRule_itemChanged"
 };
 #undef QT_MOC_LITERAL
 
@@ -53,7 +66,7 @@ static const uint qt_meta_data_RulesSetting[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -61,18 +74,30 @@ static const uint qt_meta_data_RulesSetting[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   39,    2, 0x08 /* Private */,
-       3,    0,   40,    2, 0x08 /* Private */,
-       4,    0,   41,    2, 0x08 /* Private */,
-       5,    0,   42,    2, 0x08 /* Private */,
-       6,    0,   43,    2, 0x08 /* Private */,
+       1,    0,   69,    2, 0x08 /* Private */,
+       3,    0,   70,    2, 0x08 /* Private */,
+       4,    0,   71,    2, 0x08 /* Private */,
+       5,    1,   72,    2, 0x08 /* Private */,
+       8,    0,   75,    2, 0x08 /* Private */,
+       9,    0,   76,    2, 0x08 /* Private */,
+      10,    0,   77,    2, 0x08 /* Private */,
+      11,    0,   78,    2, 0x08 /* Private */,
+      12,    1,   79,    2, 0x08 /* Private */,
+      13,    1,   82,    2, 0x08 /* Private */,
+      16,    1,   85,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 6,    7,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void, 0x80000000 | 14,   15,
+    QMetaType::Void, 0x80000000 | 14,   15,
 
        0        // eod
 };
@@ -83,15 +108,20 @@ void RulesSetting::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         auto *_t = static_cast<RulesSetting *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_tableWidget_Rule_cellClicked(); break;
-        case 1: _t->on_tableWidget_Rules_cellClicked(); break;
-        case 2: _t->on_Add_Button_clicked(); break;
-        case 3: _t->on_Modify_Button_clicked(); break;
-        case 4: _t->on_Delete_Button_clicked(); break;
+        case 0: _t->on_btnRule_clicked(); break;
+        case 1: _t->on_btnCurve_clicked(); break;
+        case 2: _t->on_btnAddRule_clicked(); break;
+        case 3: _t->on_tbRule_clicked((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 4: _t->on_btnDeleteRule_clicked(); break;
+        case 5: _t->on_btnAddItem_clicked(); break;
+        case 6: _t->on_btnSaveItem_clicked(); break;
+        case 7: _t->on_btnDelete_clicked(); break;
+        case 8: _t->slotFitCurveChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->on_tbRuleItem_itemChanged((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
+        case 10: _t->on_tbRule_itemChanged((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject RulesSetting::staticMetaObject = { {
@@ -123,13 +153,13 @@ int RulesSetting::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 11;
     }
     return _id;
 }

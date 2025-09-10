@@ -8,7 +8,6 @@
 #include "src/utility/TestPaperManage.h"
 #include "src/utility/ReagentManager.h"
 #include "src/utility/TubeManage.h"
-#include "src/utility/SystemSet.h"
 #include "src/sample/SampleWidget.h"
 #include "../Include/Instrument/Instrument.h"
 #include "src/utility/ResultManage.h"
@@ -85,6 +84,8 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     , m_tcpClient(new TcpClient(this))
     , _mTestResultDataAll(new TestResultDataAll)
     ,_alarmDialog(new AlarmDialog(this))
+    ,_systemSet(new SystemSet)
+    ,_processDataList(new ProcessDataList)
 {
     _ui->setupUi(this);
     _userFlage = iFlage;
@@ -164,6 +165,10 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
         _instr->shutdownBee();
         dLog("shutdownBee");
         _instr->testContinue();
+    });
+    connect(_systemSet,&SystemSet::sglProcessAction,this,&MainWidget::OnAction_Process,Qt::UniqueConnection);
+    connect(_processDataList,&ProcessDataList::sglBackSystemSet,this,[this]{
+        actionClick(MENU_ID_SYSTEMSET, GlobalData::LoadLanguageInfo("K1020"), _systemSet);
     });
     auto ipPm{ SystemSetBLL().getRowById(9995) };
     QString ip = ipPm.isNull()?"": ipPm->getSaveDes();
@@ -303,6 +308,10 @@ MainWidget::~MainWidget()
     _mSystemLiquidPipeWashWidgets = nullptr;
     delete _mTestResultDataAll;
     _mTestResultDataAll = nullptr;
+    delete _systemSet;
+    _systemSet=nullptr;
+    delete _processDataList;
+    _processDataList=nullptr;
     killTimer(_timerId);
 }
 
@@ -1062,6 +1071,14 @@ void MainWidget::slotGetSampleBarCode(QString barCode)
     }
 }
 
+void MainWidget::OnAction_Process(const QString &companyName, const QString &companyId)
+{
+    if(_processDataList==nullptr)
+        return;
+    _processDataList->setCurrentCompany(companyName,companyId);
+    actionClick(MENU_ID_PROCESS, GlobalData::LoadLanguageInfo("K1762"), _processDataList);
+}
+
 void MainWidget::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == _timerId)
@@ -1633,7 +1650,7 @@ void MainWidget::removeSubTab(int index)
 void MainWidget::OnAction_SystemSet()
 {
     //actionClick(MENU_ID_SYSTEMSET,STR_MENU_SYSTEMSET,new SystemSet(this));
-    actionClick(MENU_ID_SYSTEMSET, GlobalData::LoadLanguageInfo("K1020"), new SystemSet(this));
+    actionClick(MENU_ID_SYSTEMSET, GlobalData::LoadLanguageInfo("K1020"), _systemSet);
 }
 
 void MainWidget::OnAction_MagicManage()

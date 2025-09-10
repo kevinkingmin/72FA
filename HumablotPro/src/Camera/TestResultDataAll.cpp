@@ -2673,7 +2673,7 @@ void TestResultDataAll::on_btnSampleInfo_clicked()
 }
 void TestResultDataAll::on_btnDelete_clicked()
 {
-    int ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1713"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
+    int ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1801"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if (ret != 16384)
         return;
     QString test_id = "";

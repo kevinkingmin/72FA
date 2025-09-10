@@ -1,2243 +1,2678 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>TestPaper</class>
- <widget class="QWidget" name="TestPaper">
+ <widget class="QDialog" name="TestPaper">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1534</width>
-    <height>900</height>
+    <width>1731</width>
+    <height>870</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>膜条参数设置</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>29</x>
+     <x>10</x>
      <y>0</y>
-     <width>1471</width>
-     <height>311</height>
+     <width>1711</width>
+     <height>851</height>
     </rect>
    </property>
-   <property name="title">
-    <string/>
-   </property>
-   <widget class="QPushButton" name="pushButton_Set">
-    <property name="geometry">
-     <rect>
-      <x>1340</x>
-      <y>260</y>
-      <width>75</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>设置</string>
-    </property>
-    <property name="btnStyle" stdset="0">
-     <string>normalBtnRed</string>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_2">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>10</y>
-      <width>71</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>GroupBox</string>
-    </property>
-    <widget class="QLabel" name="label_53">
-     <property name="geometry">
-      <rect>
-       <x>408</x>
-       <y>50</y>
-       <width>36</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>像素、</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_56">
-     <property name="geometry">
-      <rect>
-       <x>626</x>
-       <y>50</y>
-       <width>78</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>像素(&lt;2300)、</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_57">
-     <property name="geometry">
-      <rect>
-       <x>709</x>
-       <y>50</y>
-       <width>48</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>截图高：</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_58">
-     <property name="geometry">
-      <rect>
-       <x>886</x>
-       <y>50</y>
-       <width>72</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>像素（&lt;320）</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_52">
-     <property name="geometry">
-      <rect>
-       <x>183</x>
-       <y>50</y>
-       <width>36</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>像素、</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QLabel" name="label_68">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>26</y>
-      <width>241</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>膜条参数</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_69">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>50</y>
-      <width>1471</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_39">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>100</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>膜条名称：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_TestPaparName">
-    <property name="geometry">
-     <rect>
-      <x>155</x>
-      <y>100</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="btnStyle" stdset="0">
-     <string>lineEditUserName</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_37">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>70</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="text">
-     <string>项目数量：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_Item_Number">
-    <property name="geometry">
-     <rect>
-      <x>155</x>
-      <y>70</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="btnStyle" stdset="0">
-     <string>lineEditUserName</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_46">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>250</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="text">
-     <string>货号：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_Article_No">
-    <property name="geometry">
-     <rect>
-      <x>155</x>
-      <y>250</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="btnStyle" stdset="0">
-     <string>lineEditUserName</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_40">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>160</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="text">
-     <string>膜条总长度：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_TestPaparLenght">
-    <property name="geometry">
-     <rect>
-      <x>155</x>
-      <y>160</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_41">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>20</y>
-      <width>66</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>mm</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_height_percentage">
-    <property name="geometry">
-     <rect>
-      <x>155</x>
-      <y>130</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>50</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_60">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>130</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>分析区百分比：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_59">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>130</y>
-      <width>66</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>（0-100）  </string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_paper_head_length">
-    <property name="geometry">
-     <rect>
-      <x>155</x>
-      <y>220</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="inputMask">
-     <string/>
-    </property>
-    <property name="text">
-     <string>0</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_63">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>220</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>膜条头：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_64">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>220</y>
-      <width>66</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>像素 </string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_paper_gray_value">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>70</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="inputMask">
-     <string/>
-    </property>
-    <property name="text">
-     <string>15</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>70</y>
-      <width>140</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="text">
-     <string>霍夫直线次数：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_Left_Top_x">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>100</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>0</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_51">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>100</y>
-      <width>140</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>二值化阈值：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_54">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>190</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string> 计算区间：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_LeftTop_y">
-    <property name="geometry">
-     <rect>
-      <x>155</x>
-      <y>190</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>0</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_65">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>190</y>
-      <width>66</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>(&lt;3.0)</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_66">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>280</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>颜色值：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_Weight">
-    <property name="geometry">
-     <rect>
-      <x>295</x>
-      <y>20</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>2300</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_55">
-    <property name="geometry">
-     <rect>
-      <x>165</x>
-      <y>20</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>毫米对应像素：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_TestPaparLenght_2">
-    <property name="geometry">
-     <rect>
-      <x>155</x>
-      <y>280</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_PickColor">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>278</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>选择</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_CutOff_2">
-    <property name="geometry">
-     <rect>
-      <x>870</x>
-      <y>70</y>
-      <width>160</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="text">
-     <string> 是否有功能线</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_42">
-    <property name="geometry">
-     <rect>
-      <x>850</x>
-      <y>100</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>功能条位置：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_FuncPosition">
-    <property name="geometry">
-     <rect>
-      <x>980</x>
-      <y>100</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_FuncPosition_2">
-    <property name="geometry">
-     <rect>
-      <x>1290</x>
-      <y>100</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_67">
-    <property name="geometry">
-     <rect>
-      <x>1160</x>
-      <y>100</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="text">
-     <string>CutOff线阈值：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_43">
-    <property name="geometry">
-     <rect>
-      <x>1120</x>
-      <y>100</y>
-      <width>31</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>mm  </string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_44">
-    <property name="geometry">
-     <rect>
-      <x>850</x>
-      <y>160</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>CutOff位置：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_CutOff">
-    <property name="geometry">
-     <rect>
-      <x>870</x>
-      <y>130</y>
-      <width>160</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="text">
-     <string> 是否有CufOff线</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_CutOff_Position">
-    <property name="geometry">
-     <rect>
-      <x>980</x>
-      <y>160</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_45">
-    <property name="geometry">
-     <rect>
-      <x>1120</x>
-      <y>160</y>
-      <width>31</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>mm</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_50">
-    <property name="geometry">
-     <rect>
-      <x>1160</x>
-      <y>160</y>
-      <width>120</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="text">
-     <string>CutOff线阈值：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_CutOff_Value">
-    <property name="geometry">
-     <rect>
-      <x>1290</x>
-      <y>160</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_70">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>160</y>
-      <width>140</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>异常点占比：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_wave_pix_width">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>160</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_wave_pix_width_min">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>190</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_71">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>190</y>
-      <width>140</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>有效区间宽Min：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_wave_pix_width_max">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>220</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_72">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>220</y>
-      <width>140</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>有效区间宽Max：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_zero_value_coefficient">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>250</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_73">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>250</y>
-      <width>140</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>零值系数：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_bg_difference">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>280</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_74">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>280</y>
-      <width>140</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>差值：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_75">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>130</y>
-      <width>140</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>背景灰度值：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_background_values">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>130</y>
-      <width>133</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_height">
-    <property name="geometry">
-     <rect>
-      <x>980</x>
-      <y>200</y>
-      <width>113</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_76">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>200</y>
-      <width>140</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>图像矫偏阈值：</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QPushButton" name="pushButton_Save">
-   <property name="geometry">
-    <rect>
-     <x>1400</x>
-     <y>845</y>
-     <width>75</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>保存</string>
-   </property>
-   <property name="btnStyle" stdset="0">
-    <string>normalBtnRed</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_Cancel">
-   <property name="geometry">
-    <rect>
-     <x>1290</x>
-     <y>845</y>
-     <width>75</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>取消</string>
-   </property>
-   <property name="btnStyle" stdset="0">
-    <string>normalBtnGray</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>1080</x>
-     <y>320</y>
-     <width>424</width>
-     <height>511</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <spacer name="horizontalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>13</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_36">
-      <property name="text">
-       <string>项目名称</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_35">
-      <property name="text">
-       <string>空白</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="label_62">
-      <property name="text">
-       <string>位置</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
-     <widget class="QLabel" name="label_49">
-      <property name="text">
-       <string>判读规制</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="5">
-     <spacer name="verticalSpacer_23">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_21">
-      <property name="text">
-       <string>21</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_21"/>
-    </item>
-    <item row="1" column="2">
-     <widget class="QCheckBox" name="checkBox_21">
-      <property name="text">
+   <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,1,0">
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
        <string/>
       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>3</number>
+       </property>
+       <property name="topMargin">
+        <number>3</number>
+       </property>
+       <property name="rightMargin">
+        <number>3</number>
+       </property>
+       <property name="bottomMargin">
+        <number>3</number>
+       </property>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <property name="leftMargin">
+            <number>65</number>
+           </property>
+           <property name="topMargin">
+            <number>3</number>
+           </property>
+           <property name="rightMargin">
+            <number>10</number>
+           </property>
+           <property name="bottomMargin">
+            <number>3</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="lblCompany">
+             <property name="text">
+              <string>选择厂家</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="cmbCompany"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="labela_2">
+             <property name="minimumSize">
+              <size>
+               <width>55</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>55</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblPaperType">
+             <property name="text">
+              <string>膜条类型</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="cmbPaperType"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="labela_3">
+             <property name="minimumSize">
+              <size>
+               <width>55</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>55</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblProcess">
+             <property name="text">
+              <string>实验流程</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="cmbProcess"/>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <property name="leftMargin">
+            <number>10</number>
+           </property>
+           <property name="topMargin">
+            <number>5</number>
+           </property>
+           <property name="rightMargin">
+            <number>10</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <property name="verticalSpacing">
+            <number>5</number>
+           </property>
+           <item row="1" column="10">
+            <widget class="QLabel" name="lblItemSearchWidth">
+             <property name="text">
+              <string>指标查找宽度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="8">
+            <widget class="QLineEdit" name="txtCutOffValue"/>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLineEdit" name="lineEdit_Item_Number"/>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="lblItemSpace">
+             <property name="text">
+              <string>项目块间距:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="8">
+            <widget class="QComboBox" name="cmbRotate"/>
+           </item>
+           <item row="5" column="2">
+            <widget class="QLineEdit" name="txtItemWidth">
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="10">
+            <widget class="QLabel" name="lblPixDistance">
+             <property name="text">
+              <string>像素距离百分比:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="lblHeadLength">
+             <property name="text">
+              <string>膜条头长度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="3">
+            <widget class="QLabel" name="label_70">
+             <property name="text">
+              <string>mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="11">
+            <widget class="QLineEdit" name="txtBackGround"/>
+           </item>
+           <item row="2" column="11">
+            <widget class="QLineEdit" name="txtAnalyzeHeight"/>
+           </item>
+           <item row="1" column="7">
+            <widget class="QLabel" name="lblCutOffPos">
+             <property name="text">
+              <string>CutOff位置:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLineEdit" name="lineEdit_TestPaparLenght"/>
+           </item>
+           <item row="1" column="14">
+            <widget class="QLineEdit" name="txtColorValue"/>
+           </item>
+           <item row="1" column="12">
+            <widget class="QLabel" name="label_59">
+             <property name="minimumSize">
+              <size>
+               <width>85</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>mm</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="5">
+            <widget class="QLineEdit" name="txtFunWidth"/>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLabel" name="lblFunPostion">
+             <property name="text">
+              <string>功能条位置:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="7">
+            <widget class="QLabel" name="lblCutOffValue">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>CutOff灰度值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="5">
+            <widget class="QLineEdit" name="txtBlackSpotThreshold"/>
+           </item>
+           <item row="2" column="5">
+            <widget class="QLineEdit" name="txtFunThreshold"/>
+           </item>
+           <item row="2" column="7">
+            <widget class="QLabel" name="lblCutOffThreshold">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>CutOff线阈值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLineEdit" name="txtItemSpace">
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="10">
+            <widget class="QLabel" name="lblAnalyzeWidth">
+             <property name="text">
+              <string>分析宽度区间比:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="7">
+            <widget class="QLabel" name="lblRotate">
+             <property name="text">
+              <string>膜条展示旋转:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLabel" name="label_64">
+             <property name="minimumSize">
+              <size>
+               <width>85</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="11">
+            <widget class="QLineEdit" name="txtPixDistance"/>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLabel" name="lblFunWidth">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>功能线查找宽度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QLabel" name="lblFunThreshold">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>功能线阈值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="7" colspan="2">
+            <widget class="QCheckBox" name="checkBox_CutOff">
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="text">
+              <string> 是否有CufOff线</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="lblPaperLength">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>膜条长度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="5">
+            <widget class="QLineEdit" name="lineEdit_FuncPosition"/>
+           </item>
+           <item row="3" column="0">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="16">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="lblItemWidth">
+             <property name="text">
+              <string>项目块宽度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="3">
+            <widget class="QLabel" name="label_68">
+             <property name="text">
+              <string>mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="14">
+            <widget class="QLineEdit" name="txtArticleNo">
+             <property name="btnStyle" stdset="0">
+              <string>lineEditUserName</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="lblItemNum">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>项目数量:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="11">
+            <widget class="QLineEdit" name="txtItemSearchWidth"/>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLineEdit" name="lineEdit_TestPaparName"/>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="lblFunDirection">
+             <property name="text">
+              <string>功能线查找方向:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="6">
+            <widget class="QLabel" name="label_43">
+             <property name="minimumSize">
+              <size>
+               <width>85</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>mm  </string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="9">
+            <widget class="QLabel" name="label_45">
+             <property name="minimumSize">
+              <size>
+               <width>85</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>mm</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLineEdit" name="lineEdit_paper_head_length">
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="8">
+            <widget class="QLineEdit" name="txtThreshold">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="lblPaperName">
+             <property name="text">
+              <string>膜条名称:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="13">
+            <widget class="QLabel" name="lblArticleNo">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>货号:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="8">
+            <widget class="QLineEdit" name="txtCutOffThreshold"/>
+           </item>
+           <item row="3" column="11">
+            <widget class="QLineEdit" name="txtAnalyzeWidth"/>
+           </item>
+           <item row="1" column="13">
+            <widget class="QLabel" name="lblColorValue">
+             <property name="text">
+              <string>颜色值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QComboBox" name="cmbFunDirection"/>
+           </item>
+           <item row="5" column="7">
+            <widget class="QLabel" name="lblThreshold">
+             <property name="text">
+              <string>二值化阈值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="10">
+            <widget class="QLabel" name="lblAnalyzeHeight">
+             <property name="text">
+              <string>分析高度区间比:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="10">
+            <widget class="QLabel" name="lblBackGround">
+             <property name="text">
+              <string>背景值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="8">
+            <widget class="QLineEdit" name="lineEdit_CutOff_Position"/>
+           </item>
+           <item row="4" column="4" colspan="2">
+            <widget class="QCheckBox" name="chkBlackSpot">
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="text">
+              <string>是否开启黑点检测</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="4">
+            <widget class="QLabel" name="lblBlackSpotThreshold">
+             <property name="text">
+              <string>黑点检测阙值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="15">
+            <widget class="QPushButton" name="pushButton_PickColor">
+             <property name="text">
+              <string>选择</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="15" rowspan="2">
+            <widget class="QPushButton" name="pushButton_Set">
+             <property name="text">
+              <string>设置</string>
+             </property>
+             <property name="btnStyle" stdset="0">
+              <string>normalBtnRed</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="13" colspan="3">
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_78">
+               <property name="text">
+                <string>定标曲线:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="rdCurveSingle">
+               <property name="text">
+                <string>单独设置</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">buttonGroup_2</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="rdCurveAllSet">
+               <property name="text">
+                <string>统一设置</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">buttonGroup_2</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="13" colspan="3">
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_77">
+               <property name="text">
+                <string>判读规则:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="rdRulesSingle">
+               <property name="text">
+                <string>单独设置</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">buttonGroup</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="rdRulesAllSet">
+               <property name="text">
+                <string>统一设置</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">buttonGroup</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
     </item>
-    <item row="1" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_21"/>
-    </item>
-    <item row="1" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_21"/>
-    </item>
-    <item row="1" column="5">
-     <spacer name="verticalSpacer_24">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,0">
+      <property name="topMargin">
+       <number>0</number>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
+      <property name="rightMargin">
+       <number>0</number>
       </property>
-     </spacer>
+      <item>
+       <widget class="QScrollArea" name="scrollArea">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_2">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1254</width>
+           <height>594</height>
+          </rect>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>25</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>6</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>5</number>
+            </property>
+            <item row="10" column="5">
+             <widget class="QComboBox" name="cmbCurveName_10"/>
+            </item>
+            <item row="6" column="2">
+             <widget class="QCheckBox" name="checkBox_6">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_10"/>
+            </item>
+            <item row="8" column="5">
+             <widget class="QComboBox" name="cmbCurveName_8"/>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_2"/>
+            </item>
+            <item row="3" column="2">
+             <widget class="QCheckBox" name="checkBox_3">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_1">
+              <property name="btnStyle" stdset="0">
+               <string>lineEditUserName</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_6"/>
+            </item>
+            <item row="12" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_12"/>
+            </item>
+            <item row="5" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_5"/>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>5</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="2">
+             <widget class="QCheckBox" name="checkBox_14">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="2">
+             <widget class="QCheckBox" name="checkBox_10">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_3"/>
+            </item>
+            <item row="15" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_15"/>
+            </item>
+            <item row="13" column="5">
+             <widget class="QComboBox" name="cmbCurveName_13"/>
+            </item>
+            <item row="13" column="0">
+             <widget class="QLabel" name="label_13">
+              <property name="text">
+               <string>13</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_8"/>
+            </item>
+            <item row="4" column="5">
+             <widget class="QComboBox" name="cmbCurveName_4"/>
+            </item>
+            <item row="16" column="1">
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="6" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_6"/>
+            </item>
+            <item row="10" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_10"/>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>10</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="5">
+             <widget class="QComboBox" name="cmbCurveName_9"/>
+            </item>
+            <item row="3" column="5">
+             <widget class="QComboBox" name="cmbCurveName_3"/>
+            </item>
+            <item row="6" column="5">
+             <widget class="QComboBox" name="cmbCurveName_6"/>
+            </item>
+            <item row="7" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_7"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="5">
+             <widget class="QComboBox" name="cmbCurveName_11"/>
+            </item>
+            <item row="2" column="5">
+             <widget class="QComboBox" name="cmbCurveName_2"/>
+            </item>
+            <item row="12" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_12"/>
+            </item>
+            <item row="11" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_11"/>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>3</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_13"/>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="lblG1Rules">
+              <property name="text">
+               <string>判读规制</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="2">
+             <widget class="QCheckBox" name="checkBox_15">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>9</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_3"/>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_5"/>
+            </item>
+            <item row="7" column="2">
+             <widget class="QCheckBox" name="checkBox_7">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="5">
+             <widget class="QComboBox" name="cmbCurveName_12"/>
+            </item>
+            <item row="5" column="5">
+             <widget class="QComboBox" name="cmbCurveName_5"/>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_7"/>
+            </item>
+            <item row="14" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_14"/>
+            </item>
+            <item row="13" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_13"/>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_1"/>
+            </item>
+            <item row="11" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_11"/>
+            </item>
+            <item row="15" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_15"/>
+            </item>
+            <item row="5" column="2">
+             <widget class="QCheckBox" name="checkBox_5">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2">
+             <widget class="QCheckBox" name="checkBox_4">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>11</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_6"/>
+            </item>
+            <item row="1" column="5">
+             <widget class="QComboBox" name="cmbCurveName_1"/>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>7</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_12">
+              <property name="text">
+               <string>12</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="lblG1Position">
+              <property name="text">
+               <string>位置</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="5">
+             <widget class="QComboBox" name="cmbCurveName_7"/>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>6</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_5"/>
+            </item>
+            <item row="9" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_9"/>
+            </item>
+            <item row="8" column="2">
+             <widget class="QCheckBox" name="checkBox_8">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_4"/>
+            </item>
+            <item row="15" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_15"/>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_2"/>
+            </item>
+            <item row="9" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_9"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lblG1ItemName">
+              <property name="text">
+               <string>项目名称</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_8"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_1">
+              <property name="text">
+               <string>1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_1"/>
+            </item>
+            <item row="2" column="2">
+             <widget class="QCheckBox" name="checkBox_2">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_14">
+              <property name="text">
+               <string>14</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_4"/>
+            </item>
+            <item row="12" column="2">
+             <widget class="QCheckBox" name="checkBox_12">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_12"/>
+            </item>
+            <item row="10" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_10"/>
+            </item>
+            <item row="14" column="5">
+             <widget class="QComboBox" name="cmbCurveName_14"/>
+            </item>
+            <item row="4" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_4"/>
+            </item>
+            <item row="11" column="2">
+             <widget class="QCheckBox" name="checkBox_11">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_11"/>
+            </item>
+            <item row="8" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_8"/>
+            </item>
+            <item row="2" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_2"/>
+            </item>
+            <item row="1" column="2">
+             <widget class="QCheckBox" name="checkBox_1">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_7"/>
+            </item>
+            <item row="14" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_14"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="lblG1IsEmpty">
+              <property name="text">
+               <string>空白</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QLabel" name="lblG1Curves">
+              <property name="text">
+               <string>定标曲线</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_3"/>
+            </item>
+            <item row="9" column="2">
+             <widget class="QCheckBox" name="checkBox_9">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>8</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_14"/>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="2">
+             <widget class="QCheckBox" name="checkBox_13">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="5">
+             <widget class="QComboBox" name="cmbCurveName_15"/>
+            </item>
+            <item row="9" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_9"/>
+            </item>
+            <item row="15" column="0">
+             <widget class="QLabel" name="label_15">
+              <property name="text">
+               <string>15</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_13"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_2">
+            <property name="horizontalSpacing">
+             <number>6</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>5</number>
+            </property>
+            <item row="14" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_24"/>
+            </item>
+            <item row="11" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_21"/>
+            </item>
+            <item row="11" column="2">
+             <widget class="QCheckBox" name="checkBox_21">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_19"/>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_22">
+              <property name="text">
+               <string>22</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_22"/>
+            </item>
+            <item row="17" column="2">
+             <widget class="QCheckBox" name="checkBox_27">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="5">
+             <widget class="QComboBox" name="cmbCurveName_25"/>
+            </item>
+            <item row="19" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_29"/>
+            </item>
+            <item row="14" column="2">
+             <widget class="QCheckBox" name="checkBox_24">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_18">
+              <property name="text">
+               <string>18</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_23"/>
+            </item>
+            <item row="20" column="5">
+             <widget class="QComboBox" name="cmbCurveName_30"/>
+            </item>
+            <item row="7" column="5">
+             <widget class="QComboBox" name="cmbCurveName_17"/>
+            </item>
+            <item row="9" column="5">
+             <widget class="QComboBox" name="cmbCurveName_19"/>
+            </item>
+            <item row="20" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_30"/>
+            </item>
+            <item row="8" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_18"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="lblG2IsEmpty">
+              <property name="text">
+               <string>空白</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_26"/>
+            </item>
+            <item row="12" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_22"/>
+            </item>
+            <item row="18" column="2">
+             <widget class="QCheckBox" name="checkBox_28">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_24"/>
+            </item>
+            <item row="20" column="0">
+             <widget class="QLabel" name="label_30">
+              <property name="text">
+               <string>30</string>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_30"/>
+            </item>
+            <item row="12" column="5">
+             <widget class="QComboBox" name="cmbCurveName_22"/>
+            </item>
+            <item row="8" column="2">
+             <widget class="QCheckBox" name="checkBox_18">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_19"/>
+            </item>
+            <item row="10" column="2">
+             <widget class="QCheckBox" name="checkBox_20">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_16"/>
+            </item>
+            <item row="10" column="5">
+             <widget class="QComboBox" name="cmbCurveName_20"/>
+            </item>
+            <item row="16" column="2">
+             <widget class="QCheckBox" name="checkBox_26">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="5">
+             <widget class="QComboBox" name="cmbCurveName_23"/>
+            </item>
+            <item row="7" column="2">
+             <widget class="QCheckBox" name="checkBox_17">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_28"/>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="lblG2Rules">
+              <property name="text">
+               <string>判读规制</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_30"/>
+            </item>
+            <item row="11" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_21"/>
+            </item>
+            <item row="8" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_18"/>
+            </item>
+            <item row="7" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_17"/>
+            </item>
+            <item row="11" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_21"/>
+            </item>
+            <item row="17" column="5">
+             <widget class="QComboBox" name="cmbCurveName_27"/>
+            </item>
+            <item row="17" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_27"/>
+            </item>
+            <item row="19" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_29"/>
+            </item>
+            <item row="15" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_25"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lblG2ItemName">
+              <property name="text">
+               <string>项目名称</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_23"/>
+            </item>
+            <item row="10" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_20"/>
+            </item>
+            <item row="16" column="0">
+             <widget class="QLabel" name="label_26">
+              <property name="text">
+               <string>26</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_20"/>
+            </item>
+            <item row="15" column="2">
+             <widget class="QCheckBox" name="checkBox_25">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_29"/>
+            </item>
+            <item row="11" column="5">
+             <widget class="QComboBox" name="cmbCurveName_21"/>
+            </item>
+            <item row="16" column="5">
+             <widget class="QComboBox" name="cmbCurveName_26"/>
+            </item>
+            <item row="15" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_25"/>
+            </item>
+            <item row="13" column="2">
+             <widget class="QCheckBox" name="checkBox_23">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_17">
+              <property name="text">
+               <string>17</string>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="0">
+             <widget class="QLabel" name="label_28">
+              <property name="text">
+               <string>28</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QCheckBox" name="checkBox_16">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_17"/>
+            </item>
+            <item row="9" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_19"/>
+            </item>
+            <item row="12" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_22"/>
+            </item>
+            <item row="21" column="1">
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="14" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_24"/>
+            </item>
+            <item row="1" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_16"/>
+            </item>
+            <item row="18" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_28"/>
+            </item>
+            <item row="19" column="0">
+             <widget class="QLabel" name="label_29">
+              <property name="text">
+               <string>29</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_27"/>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_24">
+              <property name="text">
+               <string>24</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="0">
+             <widget class="QLabel" name="label_23">
+              <property name="text">
+               <string>23</string>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="2">
+             <widget class="QCheckBox" name="checkBox_30">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_19">
+              <property name="text">
+               <string>19</string>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_28"/>
+            </item>
+            <item row="13" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_23"/>
+            </item>
+            <item row="1" column="5">
+             <widget class="QComboBox" name="cmbCurveName_16"/>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="lblG2Position">
+              <property name="text">
+               <string>位置</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="5">
+             <widget class="QComboBox" name="cmbCurveName_24"/>
+            </item>
+            <item row="9" column="2">
+             <widget class="QCheckBox" name="checkBox_19">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_16"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_16">
+              <property name="text">
+               <string>16</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_18"/>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_21">
+              <property name="text">
+               <string>21</string>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="2">
+             <widget class="QCheckBox" name="checkBox_29">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="3">
+             <widget class="QLineEdit" name="lineEdit_Position_17"/>
+            </item>
+            <item row="19" column="5">
+             <widget class="QComboBox" name="cmbCurveName_29"/>
+            </item>
+            <item row="16" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_26"/>
+            </item>
+            <item row="10" column="4">
+             <widget class="QComboBox" name="comboBoxRulesName_20"/>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_20">
+              <property name="text">
+               <string>20</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QLabel" name="lblG2Curves">
+              <property name="text">
+               <string>定标曲线</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="0">
+             <widget class="QLabel" name="label_25">
+              <property name="text">
+               <string>25</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_27"/>
+            </item>
+            <item row="8" column="5">
+             <widget class="QComboBox" name="cmbCurveName_18"/>
+            </item>
+            <item row="12" column="2">
+             <widget class="QCheckBox" name="checkBox_22">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_25"/>
+            </item>
+            <item row="18" column="5">
+             <widget class="QComboBox" name="cmbCurveName_28"/>
+            </item>
+            <item row="16" column="1">
+             <widget class="QLineEdit" name="lineEdit_Name_26"/>
+            </item>
+            <item row="17" column="0">
+             <widget class="QLabel" name="label_27">
+              <property name="text">
+               <string>27</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>5</number>
+            </property>
+            <item row="13" column="3">
+             <widget class="QLineEdit" name="lineEdit_12"/>
+            </item>
+            <item row="15" column="2">
+             <widget class="QComboBox" name="cmbCount_29"/>
+            </item>
+            <item row="6" column="1">
+             <widget class="QCheckBox" name="checkBox_37">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="lblG3ItemStartPos">
+              <property name="text">
+               <string>起始位置(mm)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_67">
+              <property name="text">
+               <string>11</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QCheckBox" name="checkBox_35">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="2">
+             <widget class="QComboBox" name="cmbCount_17"/>
+            </item>
+            <item row="9" column="2">
+             <widget class="QComboBox" name="cmbCount_23"/>
+            </item>
+            <item row="15" column="3">
+             <widget class="QLineEdit" name="lineEdit_14"/>
+            </item>
+            <item row="4" column="1">
+             <widget class="QCheckBox" name="checkBox_39">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="3">
+             <widget class="QLineEdit" name="lineEdit_5"/>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_55">
+              <property name="text">
+               <string>5</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_60">
+              <property name="text">
+               <string>7</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="3">
+             <widget class="QLineEdit" name="lineEdit_15"/>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_71">
+              <property name="text">
+               <string>13</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_63">
+              <property name="text">
+               <string>9</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="3">
+             <widget class="QLineEdit" name="lineEdit_7"/>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="lblG3ItemDistance">
+              <property name="text">
+               <string>指标间距(mm)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_37">
+              <property name="text">
+               <string>1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_62">
+              <property name="text">
+               <string>8</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="2">
+             <widget class="QComboBox" name="cmbCount_24"/>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_56">
+              <property name="text">
+               <string>6</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="2">
+             <widget class="QComboBox" name="cmbCount_22"/>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_65">
+              <property name="text">
+               <string>10</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="3">
+             <widget class="QLineEdit" name="lineEdit_6"/>
+            </item>
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="checkBox_38">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="3">
+             <widget class="QLineEdit" name="lineEdit_13"/>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="checkBox_41">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="1">
+             <widget class="QCheckBox" name="checkBox_44">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="2">
+             <widget class="QComboBox" name="cmbCount_20"/>
+            </item>
+            <item row="9" column="1">
+             <widget class="QCheckBox" name="checkBox_34">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="3">
+             <widget class="QLineEdit" name="lineEdit_11"/>
+            </item>
+            <item row="16" column="2">
+             <widget class="QComboBox" name="cmbCount_30"/>
+            </item>
+            <item row="9" column="3">
+             <widget class="QLineEdit" name="lineEdit_8"/>
+            </item>
+            <item row="3" column="1">
+             <widget class="QCheckBox" name="checkBox_40">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1">
+             <widget class="QCheckBox" name="checkBox_32">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="0">
+             <widget class="QLabel" name="label_73">
+              <property name="text">
+               <string>15</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="2">
+             <widget class="QComboBox" name="cmbCount_21"/>
+            </item>
+            <item row="15" column="0">
+             <widget class="QLabel" name="label_72">
+              <property name="text">
+               <string>14</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1">
+             <widget class="QCheckBox" name="checkBox_33">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lblG3IsEmpty">
+              <property name="text">
+               <string>空白</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_52">
+              <property name="text">
+               <string>2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="2">
+             <widget class="QComboBox" name="cmbCount_25"/>
+            </item>
+            <item row="7" column="1">
+             <widget class="QCheckBox" name="checkBox_36">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLineEdit" name="lineEdit_2"/>
+            </item>
+            <item row="14" column="1">
+             <widget class="QCheckBox" name="checkBox_43">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="0">
+             <widget class="QLabel" name="label_69">
+              <property name="text">
+               <string>12</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_54">
+              <property name="text">
+               <string>4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="2">
+             <widget class="QComboBox" name="cmbCount_19"/>
+            </item>
+            <item row="12" column="1">
+             <widget class="QCheckBox" name="checkBox_31">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="2">
+             <widget class="QComboBox" name="cmbCount_27"/>
+            </item>
+            <item row="14" column="2">
+             <widget class="QComboBox" name="cmbCount_28"/>
+            </item>
+            <item row="2" column="2">
+             <widget class="QComboBox" name="cmbCount_16"/>
+            </item>
+            <item row="16" column="1">
+             <widget class="QCheckBox" name="checkBox_45">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="2">
+             <widget class="QComboBox" name="cmbCount_26"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="lblG3ItemCount">
+              <property name="text">
+               <string>指标数量</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="3">
+             <widget class="QLineEdit" name="lineEdit_10"/>
+            </item>
+            <item row="4" column="2">
+             <widget class="QComboBox" name="cmbCount_18"/>
+            </item>
+            <item row="13" column="1">
+             <widget class="QCheckBox" name="checkBox_42">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="3">
+             <widget class="QLineEdit" name="lineEdit_9"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_53">
+              <property name="text">
+               <string>3</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="2">
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLineEdit" name="lineEdit_16"/>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLineEdit" name="lineEdit_17"/>
+            </item>
+            <item row="4" column="4">
+             <widget class="QLineEdit" name="lineEdit_18"/>
+            </item>
+            <item row="5" column="4">
+             <widget class="QLineEdit" name="lineEdit_19"/>
+            </item>
+            <item row="6" column="4">
+             <widget class="QLineEdit" name="lineEdit_20"/>
+            </item>
+            <item row="7" column="4">
+             <widget class="QLineEdit" name="lineEdit_21"/>
+            </item>
+            <item row="8" column="4">
+             <widget class="QLineEdit" name="lineEdit_22"/>
+            </item>
+            <item row="9" column="4">
+             <widget class="QLineEdit" name="lineEdit_23"/>
+            </item>
+            <item row="10" column="4">
+             <widget class="QLineEdit" name="lineEdit_24"/>
+            </item>
+            <item row="11" column="4">
+             <widget class="QLineEdit" name="lineEdit_25"/>
+            </item>
+            <item row="12" column="4">
+             <widget class="QLineEdit" name="lineEdit_26"/>
+            </item>
+            <item row="13" column="4">
+             <widget class="QLineEdit" name="lineEdit_27"/>
+            </item>
+            <item row="14" column="4">
+             <widget class="QLineEdit" name="lineEdit_28"/>
+            </item>
+            <item row="15" column="4">
+             <widget class="QLineEdit" name="lineEdit_29"/>
+            </item>
+            <item row="16" column="4">
+             <widget class="QLineEdit" name="lineEdit_30"/>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLineEdit" name="lineEdit_61"/>
+            </item>
+            <item row="4" column="3">
+             <widget class="QLineEdit" name="lineEdit_62"/>
+            </item>
+            <item row="5" column="3">
+             <widget class="QLineEdit" name="lineEdit_63"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_6">
+            <property name="leftMargin">
+             <number>10</number>
+            </property>
+            <property name="rightMargin">
+             <number>10</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>5</number>
+            </property>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_83">
+              <property name="text">
+               <string>19</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_93">
+              <property name="text">
+               <string>29</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="0">
+             <widget class="QLabel" name="label_92">
+              <property name="text">
+               <string>28</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_40">
+              <property name="text">
+               <string>16</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_86">
+              <property name="text">
+               <string>22</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="2">
+             <spacer name="verticalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_74">
+              <property name="text">
+               <string>17</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_76">
+              <property name="text">
+               <string>18</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_84">
+              <property name="text">
+               <string>20</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="lblG4ItemCount">
+              <property name="text">
+               <string>指标数量</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_90">
+              <property name="text">
+               <string>26</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="lblG4ItemDistance">
+              <property name="text">
+               <string>指标间距(mm)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_89">
+              <property name="text">
+               <string>25</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="checkBox_46">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="lblG4ItemStartPos">
+              <property name="text">
+               <string>起始位置(mm)</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_85">
+              <property name="text">
+               <string>21</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_91">
+              <property name="text">
+               <string>27</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QCheckBox" name="checkBox_65">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lblG4IsEmpty">
+              <property name="text">
+               <string>空白</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QCheckBox" name="checkBox_47">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_87">
+              <property name="text">
+               <string>23</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_88">
+              <property name="text">
+               <string>24</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="0">
+             <widget class="QLabel" name="label_94">
+              <property name="text">
+               <string>30</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QCheckBox" name="checkBox_66">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QCheckBox" name="checkBox_67">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="1">
+             <widget class="QCheckBox" name="checkBox_68">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QCheckBox" name="checkBox_69">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QCheckBox" name="checkBox_70">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="QCheckBox" name="checkBox_71">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1">
+             <widget class="QCheckBox" name="checkBox_72">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1">
+             <widget class="QCheckBox" name="checkBox_73">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="1">
+             <widget class="QCheckBox" name="checkBox_74">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="1">
+             <widget class="QCheckBox" name="checkBox_75">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="1">
+             <widget class="QCheckBox" name="checkBox_76">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="1">
+             <widget class="QCheckBox" name="checkBox_77">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLineEdit" name="lineEdit_31"/>
+            </item>
+            <item row="1" column="2">
+             <widget class="QComboBox" name="cmbCount_31"/>
+            </item>
+            <item row="2" column="2">
+             <widget class="QComboBox" name="cmbCount_32"/>
+            </item>
+            <item row="3" column="2">
+             <widget class="QComboBox" name="cmbCount_33"/>
+            </item>
+            <item row="4" column="2">
+             <widget class="QComboBox" name="cmbCount_34"/>
+            </item>
+            <item row="5" column="2">
+             <widget class="QComboBox" name="cmbCount_35"/>
+            </item>
+            <item row="6" column="2">
+             <widget class="QComboBox" name="cmbCount_36"/>
+            </item>
+            <item row="7" column="2">
+             <widget class="QComboBox" name="cmbCount_37"/>
+            </item>
+            <item row="8" column="2">
+             <widget class="QComboBox" name="cmbCount_38"/>
+            </item>
+            <item row="9" column="2">
+             <widget class="QComboBox" name="cmbCount_39"/>
+            </item>
+            <item row="10" column="2">
+             <widget class="QComboBox" name="cmbCount_40"/>
+            </item>
+            <item row="11" column="2">
+             <widget class="QComboBox" name="cmbCount_41"/>
+            </item>
+            <item row="12" column="2">
+             <widget class="QComboBox" name="cmbCount_42"/>
+            </item>
+            <item row="13" column="2">
+             <widget class="QComboBox" name="cmbCount_43"/>
+            </item>
+            <item row="14" column="2">
+             <widget class="QComboBox" name="cmbCount_44"/>
+            </item>
+            <item row="15" column="2">
+             <widget class="QComboBox" name="cmbCount_45"/>
+            </item>
+            <item row="2" column="3">
+             <widget class="QLineEdit" name="lineEdit_32"/>
+            </item>
+            <item row="3" column="3">
+             <widget class="QLineEdit" name="lineEdit_33"/>
+            </item>
+            <item row="4" column="3">
+             <widget class="QLineEdit" name="lineEdit_34"/>
+            </item>
+            <item row="5" column="3">
+             <widget class="QLineEdit" name="lineEdit_35"/>
+            </item>
+            <item row="6" column="3">
+             <widget class="QLineEdit" name="lineEdit_36"/>
+            </item>
+            <item row="7" column="3">
+             <widget class="QLineEdit" name="lineEdit_37"/>
+            </item>
+            <item row="8" column="3">
+             <widget class="QLineEdit" name="lineEdit_38"/>
+            </item>
+            <item row="9" column="3">
+             <widget class="QLineEdit" name="lineEdit_39"/>
+            </item>
+            <item row="10" column="3">
+             <widget class="QLineEdit" name="lineEdit_40"/>
+            </item>
+            <item row="11" column="3">
+             <widget class="QLineEdit" name="lineEdit_41"/>
+            </item>
+            <item row="12" column="3">
+             <widget class="QLineEdit" name="lineEdit_42"/>
+            </item>
+            <item row="13" column="3">
+             <widget class="QLineEdit" name="lineEdit_43"/>
+            </item>
+            <item row="14" column="3">
+             <widget class="QLineEdit" name="lineEdit_44"/>
+            </item>
+            <item row="15" column="3">
+             <widget class="QLineEdit" name="lineEdit_45"/>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLineEdit" name="lineEdit_46"/>
+            </item>
+            <item row="2" column="4">
+             <widget class="QLineEdit" name="lineEdit_47"/>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLineEdit" name="lineEdit_48"/>
+            </item>
+            <item row="4" column="4">
+             <widget class="QLineEdit" name="lineEdit_49"/>
+            </item>
+            <item row="5" column="4">
+             <widget class="QLineEdit" name="lineEdit_50"/>
+            </item>
+            <item row="6" column="4">
+             <widget class="QLineEdit" name="lineEdit_51"/>
+            </item>
+            <item row="7" column="4">
+             <widget class="QLineEdit" name="lineEdit_52"/>
+            </item>
+            <item row="8" column="4">
+             <widget class="QLineEdit" name="lineEdit_53"/>
+            </item>
+            <item row="9" column="4">
+             <widget class="QLineEdit" name="lineEdit_54"/>
+            </item>
+            <item row="10" column="4">
+             <widget class="QLineEdit" name="lineEdit_55"/>
+            </item>
+            <item row="11" column="4">
+             <widget class="QLineEdit" name="lineEdit_56"/>
+            </item>
+            <item row="12" column="4">
+             <widget class="QLineEdit" name="lineEdit_57"/>
+            </item>
+            <item row="13" column="4">
+             <widget class="QLineEdit" name="lineEdit_58"/>
+            </item>
+            <item row="14" column="4">
+             <widget class="QLineEdit" name="lineEdit_59"/>
+            </item>
+            <item row="15" column="4">
+             <widget class="QLineEdit" name="lineEdit_60"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="tbSegment">
+        <property name="minimumSize">
+         <size>
+          <width>720</width>
+          <height>0</height>
+         </size>
+        </property>
+        <column>
+         <property name="text">
+          <string>序号</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>类型</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>指标名称</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>所属分段</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>规则</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>曲线</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_22">
-      <property name="text">
-       <string>22</string>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="rightMargin">
+       <number>105</number>
       </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_22"/>
-    </item>
-    <item row="2" column="2">
-     <widget class="QCheckBox" name="checkBox_22">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_22"/>
-    </item>
-    <item row="2" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_22"/>
-    </item>
-    <item row="2" column="5">
-     <spacer name="verticalSpacer_25">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_23">
-      <property name="text">
-       <string>23</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_23"/>
-    </item>
-    <item row="3" column="2">
-     <widget class="QCheckBox" name="checkBox_23">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_23"/>
-    </item>
-    <item row="3" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_23"/>
-    </item>
-    <item row="3" column="5">
-     <spacer name="verticalSpacer_26">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_24">
-      <property name="text">
-       <string>24</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_24"/>
-    </item>
-    <item row="4" column="2">
-     <widget class="QCheckBox" name="checkBox_24">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_24"/>
-    </item>
-    <item row="4" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_24"/>
-    </item>
-    <item row="4" column="5">
-     <spacer name="verticalSpacer_27">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_25">
-      <property name="text">
-       <string>25</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_25"/>
-    </item>
-    <item row="5" column="2">
-     <widget class="QCheckBox" name="checkBox_25">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_25"/>
-    </item>
-    <item row="5" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_25"/>
-    </item>
-    <item row="5" column="5">
-     <spacer name="verticalSpacer_28">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="label_26">
-      <property name="text">
-       <string>26</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_26"/>
-    </item>
-    <item row="6" column="2">
-     <widget class="QCheckBox" name="checkBox_26">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_26"/>
-    </item>
-    <item row="6" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_26"/>
-    </item>
-    <item row="6" column="5">
-     <spacer name="verticalSpacer_29">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="label_27">
-      <property name="text">
-       <string>27</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_27"/>
-    </item>
-    <item row="7" column="2">
-     <widget class="QCheckBox" name="checkBox_27">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_27"/>
-    </item>
-    <item row="7" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_27"/>
-    </item>
-    <item row="7" column="5">
-     <spacer name="verticalSpacer_30">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="8" column="0">
-     <widget class="QLabel" name="label_28">
-      <property name="text">
-       <string>28</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_28"/>
-    </item>
-    <item row="8" column="2">
-     <widget class="QCheckBox" name="checkBox_28">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_28"/>
-    </item>
-    <item row="8" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_28"/>
-    </item>
-    <item row="8" column="5">
-     <spacer name="verticalSpacer_31">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="9" column="0">
-     <widget class="QLabel" name="label_29">
-      <property name="text">
-       <string>29</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_29"/>
-    </item>
-    <item row="9" column="2">
-     <widget class="QCheckBox" name="checkBox_29">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_29"/>
-    </item>
-    <item row="9" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_29"/>
-    </item>
-    <item row="9" column="5">
-     <spacer name="verticalSpacer_32">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="10" column="0">
-     <widget class="QLabel" name="label_30">
-      <property name="text">
-       <string>30</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_30"/>
-    </item>
-    <item row="10" column="2">
-     <widget class="QCheckBox" name="checkBox_30">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_30"/>
-    </item>
-    <item row="10" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_30"/>
-    </item>
-    <item row="10" column="5">
-     <spacer name="verticalSpacer_33">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_Cancel">
+        <property name="text">
+         <string>取消</string>
+        </property>
+        <property name="btnStyle" stdset="0">
+         <string>normalBtnGray</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_Save">
+        <property name="text">
+         <string>保存</string>
+        </property>
+        <property name="btnStyle" stdset="0">
+         <string>normalBtnRed</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>319</y>
-     <width>424</width>
-     <height>511</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>13</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_34">
-      <property name="text">
-       <string>项目名称</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_33">
-      <property name="text">
-       <string>空白</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="label_61">
-      <property name="text">
-       <string>位置</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
-     <widget class="QLabel" name="label_48">
-      <property name="text">
-       <string>判读规制</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="5">
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_11">
-      <property name="text">
-       <string>11</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_11"/>
-    </item>
-    <item row="1" column="2">
-     <widget class="QCheckBox" name="checkBox_11">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_11"/>
-    </item>
-    <item row="1" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_11"/>
-    </item>
-    <item row="1" column="5">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_12">
-      <property name="text">
-       <string>12</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_12"/>
-    </item>
-    <item row="2" column="2">
-     <widget class="QCheckBox" name="checkBox_12">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_12"/>
-    </item>
-    <item row="2" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_12"/>
-    </item>
-    <item row="2" column="5">
-     <spacer name="verticalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_13">
-      <property name="text">
-       <string>13</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_13"/>
-    </item>
-    <item row="3" column="2">
-     <widget class="QCheckBox" name="checkBox_13">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_13"/>
-    </item>
-    <item row="3" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_13"/>
-    </item>
-    <item row="3" column="5">
-     <spacer name="verticalSpacer_4">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_14">
-      <property name="text">
-       <string>14</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_14"/>
-    </item>
-    <item row="4" column="2">
-     <widget class="QCheckBox" name="checkBox_14">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_14"/>
-    </item>
-    <item row="4" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_14"/>
-    </item>
-    <item row="4" column="5">
-     <spacer name="verticalSpacer_5">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_15">
-      <property name="text">
-       <string>15</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_15"/>
-    </item>
-    <item row="5" column="2">
-     <widget class="QCheckBox" name="checkBox_15">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_15"/>
-    </item>
-    <item row="5" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_15"/>
-    </item>
-    <item row="5" column="5">
-     <spacer name="verticalSpacer_6">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="label_16">
-      <property name="text">
-       <string>16</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_16"/>
-    </item>
-    <item row="6" column="2">
-     <widget class="QCheckBox" name="checkBox_16">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_16"/>
-    </item>
-    <item row="6" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_16"/>
-    </item>
-    <item row="6" column="5">
-     <spacer name="verticalSpacer_7">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="label_17">
-      <property name="text">
-       <string>17</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_17"/>
-    </item>
-    <item row="7" column="2">
-     <widget class="QCheckBox" name="checkBox_17">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_17"/>
-    </item>
-    <item row="7" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_17"/>
-    </item>
-    <item row="7" column="5">
-     <spacer name="verticalSpacer_8">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="8" column="0">
-     <widget class="QLabel" name="label_18">
-      <property name="text">
-       <string>18</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_18"/>
-    </item>
-    <item row="8" column="2">
-     <widget class="QCheckBox" name="checkBox_18">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_18"/>
-    </item>
-    <item row="8" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_18"/>
-    </item>
-    <item row="8" column="5">
-     <spacer name="verticalSpacer_9">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="9" column="0">
-     <widget class="QLabel" name="label_19">
-      <property name="text">
-       <string>19</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_19"/>
-    </item>
-    <item row="9" column="2">
-     <widget class="QCheckBox" name="checkBox_19">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_19"/>
-    </item>
-    <item row="9" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_19"/>
-    </item>
-    <item row="9" column="5">
-     <spacer name="verticalSpacer_10">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="10" column="0">
-     <widget class="QLabel" name="label_20">
-      <property name="text">
-       <string>20</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_20"/>
-    </item>
-    <item row="10" column="2">
-     <widget class="QCheckBox" name="checkBox_20">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_20"/>
-    </item>
-    <item row="10" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_20"/>
-    </item>
-    <item row="10" column="5">
-     <spacer name="verticalSpacer_11">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>320</y>
-     <width>441</width>
-     <height>511</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>13</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_31">
-      <property name="text">
-       <string>项目名称</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2">
-     <widget class="QLabel" name="label_32">
-      <property name="text">
-       <string>空白</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="3">
-     <widget class="QLabel" name="label_38">
-      <property name="text">
-       <string>位置</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
-     <widget class="QLabel" name="label_47">
-      <property name="text">
-       <string>判读规制</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="5">
-     <spacer name="verticalSpacer_12">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_1">
-      <property name="text">
-       <string>1</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_1">
-      <property name="btnStyle" stdset="0">
-       <string>lineEditUserName</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QCheckBox" name="checkBox_1">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_1"/>
-    </item>
-    <item row="1" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_1"/>
-    </item>
-    <item row="1" column="5">
-     <spacer name="verticalSpacer_13">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>2</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_2"/>
-    </item>
-    <item row="2" column="2">
-     <widget class="QCheckBox" name="checkBox_2">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_2"/>
-    </item>
-    <item row="2" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_2"/>
-    </item>
-    <item row="2" column="5">
-     <spacer name="verticalSpacer_14">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>3</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_3"/>
-    </item>
-    <item row="3" column="2">
-     <widget class="QCheckBox" name="checkBox_3">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_3"/>
-    </item>
-    <item row="3" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_3"/>
-    </item>
-    <item row="3" column="5">
-     <spacer name="verticalSpacer_15">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string>4</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_4"/>
-    </item>
-    <item row="4" column="2">
-     <widget class="QCheckBox" name="checkBox_4">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_4"/>
-    </item>
-    <item row="4" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_4"/>
-    </item>
-    <item row="4" column="5">
-     <spacer name="verticalSpacer_16">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_5">
-      <property name="text">
-       <string>5</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_5"/>
-    </item>
-    <item row="5" column="2">
-     <widget class="QCheckBox" name="checkBox_5">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_5"/>
-    </item>
-    <item row="5" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_5"/>
-    </item>
-    <item row="5" column="5">
-     <spacer name="verticalSpacer_17">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="6" column="0">
-     <widget class="QLabel" name="label_6">
-      <property name="text">
-       <string>6</string>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_6"/>
-    </item>
-    <item row="6" column="2">
-     <widget class="QCheckBox" name="checkBox_6">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_6"/>
-    </item>
-    <item row="6" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_6"/>
-    </item>
-    <item row="6" column="5">
-     <spacer name="verticalSpacer_18">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="7" column="0">
-     <widget class="QLabel" name="label_7">
-      <property name="text">
-       <string>7</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_7"/>
-    </item>
-    <item row="7" column="2">
-     <widget class="QCheckBox" name="checkBox_7">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_7"/>
-    </item>
-    <item row="7" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_7"/>
-    </item>
-    <item row="7" column="5">
-     <spacer name="verticalSpacer_19">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="8" column="0">
-     <widget class="QLabel" name="label_8">
-      <property name="text">
-       <string>8</string>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_8"/>
-    </item>
-    <item row="8" column="2">
-     <widget class="QCheckBox" name="checkBox_8">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="8" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_8"/>
-    </item>
-    <item row="8" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_8"/>
-    </item>
-    <item row="8" column="5">
-     <spacer name="verticalSpacer_20">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="9" column="0">
-     <widget class="QLabel" name="label_9">
-      <property name="text">
-       <string>9</string>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_9"/>
-    </item>
-    <item row="9" column="2">
-     <widget class="QCheckBox" name="checkBox_9">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="9" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_9"/>
-    </item>
-    <item row="9" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_9"/>
-    </item>
-    <item row="9" column="5">
-     <spacer name="verticalSpacer_21">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="10" column="0">
-     <widget class="QLabel" name="label_10">
-      <property name="text">
-       <string>10</string>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="1">
-     <widget class="QLineEdit" name="lineEdit_Name_10"/>
-    </item>
-    <item row="10" column="2">
-     <widget class="QCheckBox" name="checkBox_10">
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item row="10" column="3">
-     <widget class="QLineEdit" name="lineEdit_Position_10"/>
-    </item>
-    <item row="10" column="4">
-     <widget class="QComboBox" name="comboBoxRulesName_10"/>
-    </item>
-    <item row="10" column="5">
-     <spacer name="verticalSpacer_22">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>17</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-   </layout>
-  </widget>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>groupBox</zorder>
-  <zorder>pushButton_Save</zorder>
-  <zorder>pushButton_Cancel</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>

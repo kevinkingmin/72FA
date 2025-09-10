@@ -11,13 +11,16 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,101 +28,182 @@ QT_BEGIN_NAMESPACE
 class Ui_RulesSetting
 {
 public:
-    QGroupBox *groupBox;
-    QTableWidget *tableWidget_Rule;
     QWidget *layoutWidget;
-    QGridLayout *gridLayout;
-    QPushButton *Modify_Button;
-    QPushButton *Add_Button;
-    QLabel *label_2;
-    QTableWidget *tableWidget_Rules;
-    QLineEdit *lineEditGrayValue;
-    QLabel *label_3;
-    QLineEdit *lineEditGrayWord;
-    QPushButton *Delete_Button;
+    QHBoxLayout *horizontalLayout_5;
+    QVBoxLayout *verticalLayout;
+    QPushButton *btnRule;
+    QPushButton *btnCurve;
+    QSpacerItem *verticalSpacer;
+    QGroupBox *groupBox;
+    QVBoxLayout *verticalLayout_4;
     QLabel *label;
-    QLabel *label_4;
+    QFrame *line;
+    QHBoxLayout *horizontalLayout_4;
+    QVBoxLayout *verticalLayout_2;
+    QTableWidget *tbRule;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *btnAddRule;
+    QPushButton *btnDeleteRule;
+    QVBoxLayout *verticalLayout_3;
+    QTableWidget *tbRuleItem;
+    QHBoxLayout *horizontalLayout_3;
+    QPushButton *btnAddItem;
+    QPushButton *btnSaveItem;
+    QPushButton *btnDelete;
+    QGridLayout *gridLayout;
 
     void setupUi(QWidget *RulesSetting)
     {
         if (RulesSetting->objectName().isEmpty())
             RulesSetting->setObjectName(QString::fromUtf8("RulesSetting"));
         RulesSetting->resize(1454, 798);
-        groupBox = new QGroupBox(RulesSetting);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(570, 60, 681, 661));
-        tableWidget_Rule = new QTableWidget(groupBox);
-        if (tableWidget_Rule->columnCount() < 1)
-            tableWidget_Rule->setColumnCount(1);
-        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
-        tableWidget_Rule->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        tableWidget_Rule->setObjectName(QString::fromUtf8("tableWidget_Rule"));
-        tableWidget_Rule->setGeometry(QRect(10, 100, 256, 541));
-        layoutWidget = new QWidget(groupBox);
+        layoutWidget = new QWidget(RulesSetting);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(292, 102, 373, 541));
-        gridLayout = new QGridLayout(layoutWidget);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        Modify_Button = new QPushButton(layoutWidget);
-        Modify_Button->setObjectName(QString::fromUtf8("Modify_Button"));
+        layoutWidget->setGeometry(QRect(460, 10, 821, 761));
+        horizontalLayout_5 = new QHBoxLayout(layoutWidget);
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(5, 5, 5, 5);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(-1, 25, 15, -1);
+        btnRule = new QPushButton(layoutWidget);
+        btnRule->setObjectName(QString::fromUtf8("btnRule"));
+        btnRule->setCheckable(false);
+        btnRule->setAutoExclusive(false);
 
-        gridLayout->addWidget(Modify_Button, 3, 1, 1, 1);
+        verticalLayout->addWidget(btnRule);
 
-        Add_Button = new QPushButton(layoutWidget);
-        Add_Button->setObjectName(QString::fromUtf8("Add_Button"));
+        btnCurve = new QPushButton(layoutWidget);
+        btnCurve->setObjectName(QString::fromUtf8("btnCurve"));
+        btnCurve->setCheckable(false);
+        btnCurve->setAutoExclusive(false);
 
-        gridLayout->addWidget(Add_Button, 3, 0, 1, 1);
+        verticalLayout->addWidget(btnCurve);
 
-        label_2 = new QLabel(layoutWidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
+        verticalLayout->addItem(verticalSpacer);
 
-        tableWidget_Rules = new QTableWidget(layoutWidget);
-        if (tableWidget_Rules->columnCount() < 3)
-            tableWidget_Rules->setColumnCount(3);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        tableWidget_Rules->setHorizontalHeaderItem(0, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        tableWidget_Rules->setHorizontalHeaderItem(1, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        tableWidget_Rules->setHorizontalHeaderItem(2, __qtablewidgetitem3);
-        tableWidget_Rules->setObjectName(QString::fromUtf8("tableWidget_Rules"));
 
-        gridLayout->addWidget(tableWidget_Rules, 0, 0, 1, 3);
+        horizontalLayout_5->addLayout(verticalLayout);
 
-        lineEditGrayValue = new QLineEdit(layoutWidget);
-        lineEditGrayValue->setObjectName(QString::fromUtf8("lineEditGrayValue"));
-
-        gridLayout->addWidget(lineEditGrayValue, 1, 1, 1, 1);
-
-        label_3 = new QLabel(layoutWidget);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout->addWidget(label_3, 2, 0, 1, 1);
-
-        lineEditGrayWord = new QLineEdit(layoutWidget);
-        lineEditGrayWord->setObjectName(QString::fromUtf8("lineEditGrayWord"));
-
-        gridLayout->addWidget(lineEditGrayWord, 2, 1, 1, 1);
-
-        Delete_Button = new QPushButton(layoutWidget);
-        Delete_Button->setObjectName(QString::fromUtf8("Delete_Button"));
-
-        gridLayout->addWidget(Delete_Button, 3, 2, 1, 1);
-
+        groupBox = new QGroupBox(layoutWidget);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        verticalLayout_4 = new QVBoxLayout(groupBox);
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         label = new QLabel(groupBox);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(260, 20, 201, 31));
         label->setAlignment(Qt::AlignCenter);
-        label_4 = new QLabel(groupBox);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setGeometry(QRect(0, 50, 681, 16));
+
+        verticalLayout_4->addWidget(label);
+
+        line = new QFrame(groupBox);
+        line->setObjectName(QString::fromUtf8("line"));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout_4->addWidget(line);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(-1, -1, -1, 10);
+        tbRule = new QTableWidget(groupBox);
+        if (tbRule->columnCount() < 2)
+            tbRule->setColumnCount(2);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        tbRule->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        tbRule->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        tbRule->setObjectName(QString::fromUtf8("tbRule"));
+
+        verticalLayout_2->addWidget(tbRule);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(15, 10, 15, -1);
+        btnAddRule = new QPushButton(groupBox);
+        btnAddRule->setObjectName(QString::fromUtf8("btnAddRule"));
+
+        horizontalLayout_2->addWidget(btnAddRule);
+
+        btnDeleteRule = new QPushButton(groupBox);
+        btnDeleteRule->setObjectName(QString::fromUtf8("btnDeleteRule"));
+
+        horizontalLayout_2->addWidget(btnDeleteRule);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
+
+
+        horizontalLayout_4->addLayout(verticalLayout_2);
+
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(-1, -1, -1, 10);
+        tbRuleItem = new QTableWidget(groupBox);
+        if (tbRuleItem->columnCount() < 4)
+            tbRuleItem->setColumnCount(4);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        tbRuleItem->setHorizontalHeaderItem(0, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        tbRuleItem->setHorizontalHeaderItem(1, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        tbRuleItem->setHorizontalHeaderItem(2, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        tbRuleItem->setHorizontalHeaderItem(3, __qtablewidgetitem5);
+        tbRuleItem->setObjectName(QString::fromUtf8("tbRuleItem"));
+
+        verticalLayout_3->addWidget(tbRuleItem);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(25, 10, 25, -1);
+        btnAddItem = new QPushButton(groupBox);
+        btnAddItem->setObjectName(QString::fromUtf8("btnAddItem"));
+
+        horizontalLayout_3->addWidget(btnAddItem);
+
+        btnSaveItem = new QPushButton(groupBox);
+        btnSaveItem->setObjectName(QString::fromUtf8("btnSaveItem"));
+
+        horizontalLayout_3->addWidget(btnSaveItem);
+
+        btnDelete = new QPushButton(groupBox);
+        btnDelete->setObjectName(QString::fromUtf8("btnDelete"));
+
+        horizontalLayout_3->addWidget(btnDelete);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_3);
+
+
+        horizontalLayout_4->addLayout(verticalLayout_3);
+
+        horizontalLayout_4->setStretch(1, 1);
+
+        verticalLayout_4->addLayout(horizontalLayout_4);
+
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+
+        verticalLayout_4->addLayout(gridLayout);
+
+
+        horizontalLayout_5->addWidget(groupBox);
+
 
         retranslateUi(RulesSetting);
 
@@ -129,25 +213,34 @@ public:
     void retranslateUi(QWidget *RulesSetting)
     {
         RulesSetting->setWindowTitle(QApplication::translate("RulesSetting", "RulesSetting", nullptr));
+        btnRule->setText(QApplication::translate("RulesSetting", "\345\210\244\350\257\273\350\247\204\345\210\231", nullptr));
+        btnRule->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
+        btnCurve->setText(QApplication::translate("RulesSetting", "\346\240\207\345\207\206\346\233\262\347\272\277", nullptr));
+        btnCurve->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
         groupBox->setTitle(QString());
-        QTableWidgetItem *___qtablewidgetitem = tableWidget_Rule->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("RulesSetting", "\345\220\215\347\247\260", nullptr));
-        Modify_Button->setText(QApplication::translate("RulesSetting", "\344\277\256\346\224\271", nullptr));
-        Modify_Button->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
-        Add_Button->setText(QApplication::translate("RulesSetting", "\350\277\275\345\212\240", nullptr));
-        Add_Button->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
-        label_2->setText(QApplication::translate("RulesSetting", "\347\201\260\345\272\246\345\200\274", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = tableWidget_Rules->horizontalHeaderItem(0);
-        ___qtablewidgetitem1->setText(QApplication::translate("RulesSetting", "No", nullptr));
-        QTableWidgetItem *___qtablewidgetitem2 = tableWidget_Rules->horizontalHeaderItem(1);
-        ___qtablewidgetitem2->setText(QApplication::translate("RulesSetting", "\347\201\260\345\272\246\345\200\274", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = tableWidget_Rules->horizontalHeaderItem(2);
-        ___qtablewidgetitem3->setText(QApplication::translate("RulesSetting", "\346\230\276\347\244\272\347\254\246\345\217\267", nullptr));
-        label_3->setText(QApplication::translate("RulesSetting", "\346\230\276\347\244\272\345\255\227\347\254\246", nullptr));
-        Delete_Button->setText(QApplication::translate("RulesSetting", "\345\210\240\351\231\244", nullptr));
-        Delete_Button->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
         label->setText(QApplication::translate("RulesSetting", "\350\247\204\345\210\231\350\256\276\347\275\256", nullptr));
-        label_4->setText(QApplication::translate("RulesSetting", "\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = tbRule->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QApplication::translate("RulesSetting", "\345\220\215\347\247\260", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = tbRule->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QApplication::translate("RulesSetting", "id", nullptr));
+        btnAddRule->setText(QApplication::translate("RulesSetting", "\346\226\260\345\242\236\350\247\204\345\210\231", nullptr));
+        btnAddRule->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
+        btnDeleteRule->setText(QApplication::translate("RulesSetting", "\345\210\240\351\231\244\350\247\204\345\210\231", nullptr));
+        btnDeleteRule->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
+        QTableWidgetItem *___qtablewidgetitem2 = tbRuleItem->horizontalHeaderItem(0);
+        ___qtablewidgetitem2->setText(QApplication::translate("RulesSetting", "No", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = tbRuleItem->horizontalHeaderItem(1);
+        ___qtablewidgetitem3->setText(QApplication::translate("RulesSetting", "\347\201\260\345\272\246\345\200\274", nullptr));
+        QTableWidgetItem *___qtablewidgetitem4 = tbRuleItem->horizontalHeaderItem(2);
+        ___qtablewidgetitem4->setText(QApplication::translate("RulesSetting", "\346\230\276\347\244\272\347\254\246\345\217\267", nullptr));
+        QTableWidgetItem *___qtablewidgetitem5 = tbRuleItem->horizontalHeaderItem(3);
+        ___qtablewidgetitem5->setText(QApplication::translate("RulesSetting", "id", nullptr));
+        btnAddItem->setText(QApplication::translate("RulesSetting", "\346\226\260\345\242\236", nullptr));
+        btnAddItem->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
+        btnSaveItem->setText(QApplication::translate("RulesSetting", "\344\277\235\345\255\230", nullptr));
+        btnSaveItem->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
+        btnDelete->setText(QApplication::translate("RulesSetting", "\345\210\240\351\231\244", nullptr));
+        btnDelete->setProperty("btnStyle", QVariant(QApplication::translate("RulesSetting", "normalBtnpink", nullptr)));
     } // retranslateUi
 
 };

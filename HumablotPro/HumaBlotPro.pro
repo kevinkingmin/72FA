@@ -56,6 +56,7 @@ SOURCES += \
         src/Camera/TestResultDataAll.cpp \
         src/Camera/TestResultDataManage.cpp \
         src/Camera/TestResultDataOneType.cpp \
+        src/comm/CustomHeaderView.cpp \
         src/comm/CustomLabel1.cpp \
         src/comm/BaseDialog.cpp \
         src/comm/CustClickWidget.cpp \
@@ -108,11 +109,14 @@ SOURCES += \
         src/types/HumaClia2000Data.cpp \
         src/utility/AboutUsWidgets.cpp \
         src/utility/AddCompany.cpp \
+        src/utility/AddProcess.cpp \
         src/utility/AddReagent.cpp \
         src/utility/AddTubeStep1.cpp \
         src/utility/AddTubeStep2.cpp \
         src/utility/AddTubeStep3.cpp \
         src/utility/AddTubeStep4.cpp \
+        src/utility/ProcessData.cpp \
+        src/utility/ProcessDataList.cpp \
         src/utility/QtWidgetstOperateLog.cpp \
         src/utility/ReagentManager.cpp \
         src/utility/ResultDetail.cpp \
@@ -153,6 +157,7 @@ HEADERS += \
         src/Camera/TestResultDataAll.h \
         src/Camera/TestResultDataManage.h \
         src/Camera/TestResultDataOneType.h \
+        src/comm/CustomHeaderView.h \
         src/comm/CustomLabel1.h \
         src/comm/BaseDialog.h \
         src/comm/CustClickWidget.h \
@@ -205,6 +210,9 @@ HEADERS += \
         src/sample/subDialog/SetFirstPaperPosDialog.h \
         src/types/HumaClia2000.h \
         src/types/HumaClia2000Data.h \
+        src/utility/AddProcess.h \
+        src/utility/ProcessData.h \
+        src/utility/ProcessDataList.h \
         src/utility/WelcomWidgets.h \
         src/utility/AboutUsWidgets.h \
         src/utility/AddCompany.h \
@@ -288,6 +296,9 @@ FORMS += \
         ui/sample/subDialog/FromLisByIntervalWidgets.ui \
         ui/sample/subDialog/ManualIncubationWidgets.ui \
         ui/sample/subDialog/PatientDialog.ui \
+        ui/utility/AddProcess.ui \
+        ui/utility/ProcessData.ui \
+        ui/utility/ProcessDataList.ui \
         ui/utility/maintain/PumpCalibrateWidget.ui \
         ui/main/subDialog/ProgressDialog.ui \
         ui/sample/PrepareReagentWidget.ui \

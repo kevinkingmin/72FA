@@ -15,7 +15,8 @@ AddReagent::AddReagent(QWidget *parent)
     ,m_companyName("")
 {
 	ui.setupUi(this);
-	setAttribute(Qt::WA_ShowModal, true);
+    setWindowFlags((windowFlags() & ~(Qt::WindowContextHelpButtonHint)));
+    setFixedSize(width(), height());
 	QDoubleValidator* validator6 = new QDoubleValidator(0.0, 0.0, 2, ui.lineEdit_big_wash);
 	ui.lineEdit_big_wash->setValidator(validator6);
 	//QRegExpValidator* validator7 = new QRegExpValidator(QRegExp("^\\d*$"), ui.lineEdit_small_wash);

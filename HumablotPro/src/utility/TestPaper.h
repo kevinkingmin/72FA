@@ -1,126 +1,327 @@
 ﻿#pragma once
 
-#include <QWidget>
+#include <QDialog>
 #include "ui_TestPaper.h"
 #include <QMap>
 
-
-typedef struct {
-	QLabel	  *label;
-	QCheckBox *checkBox;
-	QLineEdit *lineEdit_Name;
-	QComboBox * combo_box_rule;
-	QLineEdit *lineEdit_Position;
-
-}Item_Control, *LPItem_Control;
-
-typedef struct {
-	bool	isNullArea;			//是否为空白区域 
-	int     nPostionNo;			//项目所在位置序号(包含空白区域) 
-	QString	strItemName;		//项目名称
-	int     judgerule;          //判读规则
-	double position;            //距离识别点位置
-
-}TestPaper_Item, *LPTestPaper_Item;
-
-class Instrument;
-
-
-class TestPaper : public QWidget
+class TestPaper : public QDialog
 {
-	Q_OBJECT
+    struct Item_Control
+    {
+        QLabel	  *label;
+        QLineEdit *lineEdit_Name;
+        QCheckBox *checkBox;
+        QLineEdit *lineEdit_Position;
+        QComboBox *combo_box_rule;
+        QComboBox *cmbCurve;
+        Item_Control()
+            :label(nullptr)
+            ,lineEdit_Name(nullptr)
+            ,checkBox(nullptr)
+            ,lineEdit_Position(nullptr)
+            ,combo_box_rule(nullptr)
+            ,cmbCurve(nullptr)
+        {}
 
+        void setCtlVisible(const bool visible)
+        {
+            label->setVisible(visible);
+            lineEdit_Name->setVisible(visible);
+            checkBox->setVisible(visible);
+            lineEdit_Position->setVisible(visible);
+            combo_box_rule->setVisible(visible);
+            cmbCurve->setVisible(visible);
+        }
+    };
+
+    struct BlockControl
+    {
+        QLabel	  *label;
+        QCheckBox *checkBox;
+        QComboBox *cmbItemCount;
+        QLineEdit *startPosLineEdit;
+        QLineEdit *distanceLineEdit;
+        BlockControl()
+            :label(nullptr)
+            ,checkBox(nullptr)
+            ,cmbItemCount(nullptr)
+            ,startPosLineEdit(nullptr)
+            ,distanceLineEdit(nullptr)
+        {}
+        void setCtlVisible(const bool visible)
+        {
+            label->setVisible(visible);
+            checkBox->setVisible(visible);
+            cmbItemCount->setVisible(visible);
+            startPosLineEdit->setVisible(visible);
+            distanceLineEdit->setVisible(visible);
+        }
+    };
+
+    struct BlockItemCtl
+    {        
+        QComboBox *cmbItemType;
+        QLineEdit *itemNameEdit;
+        int       blockNo;
+        QComboBox *cmbRuleBox;
+        QComboBox *cmbCurveBox;
+        bool      isNew;
+        int       serialNo;
+        BlockItemCtl()
+            :cmbItemType(nullptr)
+            ,itemNameEdit(nullptr)
+            ,blockNo(0)
+            ,cmbRuleBox(nullptr)
+            ,cmbCurveBox(nullptr)
+            ,isNew(true)
+            ,serialNo(0)
+        {}
+    };
+
+    struct BaseGridItemCtl
+    {
+        QVector<QLabel*>gridHead1;
+        QVector<QLabel*>gridHead2;
+        QTableWidget  *table;
+        BaseGridItemCtl():
+            gridHead1{}
+            ,gridHead2{}
+            ,table(nullptr)
+        {}
+        virtual ~BaseGridItemCtl(){}
+        void setHeadShow(const bool isShowTable)
+        {
+            if(table!=nullptr)
+            {
+                if(isShowTable)
+                    table->setVisible(true);
+                else
+                    table->setVisible(false);
+            }
+
+            for (int i = 0; i < gridHead1.count(); i++)
+            {
+                gridHead1.at(i)->setVisible(true);
+                gridHead2.at(i)->setVisible(true);
+            }
+        }
+
+        void setHeadHide()
+        {
+            for (int i = 0; i < gridHead1.count(); i++)
+            {
+                gridHead1.at(i)->setVisible(false);
+                gridHead2.at(i)->setVisible(false);
+            }
+        }
+        virtual void showAllCtl(){}
+        virtual void showCtlByCount(const int count){Q_UNUSED(count)}
+    };
+
+    struct GridLayItemCtl:public BaseGridItemCtl
+    {
+        QMap<int,Item_Control> itemCtlMap;
+        GridLayItemCtl()
+            :itemCtlMap{}
+        {}
+
+        void showAllCtl()
+        {
+            setHeadShow(false);
+            for (auto &ctl : itemCtlMap)
+            {
+                if (ctl.label == nullptr)
+                    continue;
+                ctl.setCtlVisible(true);
+            }
+        }
+
+        void showCtlByCount(const int count)
+        {
+            int i=0;
+            for(auto ctl:itemCtlMap)
+            {
+                i++;
+                if(count>=i)
+                    ctl.setCtlVisible(true);
+                else
+                    ctl.setCtlVisible(false);
+            }
+            setHeadShow(false);
+            if(count<=15)
+            {
+                for(auto &lbl:gridHead2)
+                    lbl->setVisible(false);
+            }
+        }
+        void hiddeAll()
+        {
+            setHeadHide();
+            for(auto ctl:itemCtlMap)
+                ctl.setCtlVisible(false);
+        }
+    };
+
+    struct GridLayBlockCtl:public BaseGridItemCtl
+    {
+        QMap<int,BlockControl> blockCtlMap;
+        GridLayBlockCtl()
+            :blockCtlMap{}
+        {}
+        void showAllCtl()
+        {
+            setHeadShow(true);
+            for (auto &ctl : blockCtlMap)
+            {
+                if (ctl.label == nullptr)
+                    continue;
+                ctl.setCtlVisible(true);
+            }
+        }
+
+        void showCtlByCount(const int count)
+        {
+            int i=0;
+            for(auto ctl:blockCtlMap)
+            {
+                i++;
+                if(count>=i)
+                    ctl.setCtlVisible(true);
+                else
+                    ctl.setCtlVisible(false);
+            }
+            setHeadShow(true);
+            if(count<=15)
+            {
+                for(auto &lbl:gridHead2)
+                    lbl->setVisible(false);
+            }
+        }
+
+        void hiddeAll()
+        {
+            setHeadHide();
+            for(auto ctl:blockCtlMap)
+                ctl.setCtlVisible(false);
+        }
+    };
+
+    struct TestPaper_Item
+    {
+        bool	isNullArea;
+        int     serialNo;
+        QString	strItemName;
+        int     judgerule;
+        double  position;
+        QString curve;
+        TestPaper_Item()
+            :isNullArea(false)
+            ,serialNo(0)
+            ,strItemName("")
+            ,judgerule(0)
+            ,position(0)
+            ,curve("")
+        {}
+    };
+
+    struct BlockData
+    {
+        int     serialNo;
+        bool	isNullArea;
+        int     itemCount;
+        double  startPos;
+        double  distance;
+        BlockData()
+            :serialNo(0)
+            ,isNullArea(false)
+            ,itemCount(0)
+            ,startPos(0)
+            ,distance(0)
+        {}
+    };
+
+    struct BlockItemData
+    {
+        int     serialNo;
+        QString itemType;
+        QString	strItemName;
+        int     blockNo;
+        int     judgerule;
+        QString curve;
+        BlockItemData()
+            :itemType("")
+            ,strItemName("")
+            ,blockNo(0)
+            ,judgerule(0)
+            ,curve("")
+        {}
+    };
+
+    struct BlockAndItemData
+    {
+        BlockData blockData;
+        QVector<BlockItemData> itemDatas;
+        BlockAndItemData()
+            :blockData()
+            ,itemDatas{}
+        {}
+    };
+
+    struct ComboxData
+    {
+        QString  cmbText;
+        QString  cmbData;
+        ComboxData()
+            :cmbText("")
+            ,cmbData("")
+        {}
+        ComboxData(const QString &text,const QString &data)
+            :cmbText(text)
+            ,cmbData(data)
+        {}
+    };
+    Q_OBJECT
 public:
-	TestPaper(QWidget *parent = Q_NULLPTR);
-	~TestPaper();
-
-	QString m_strCompany_ID;
-
-	bool m_bModify = false;
-
-	QString m_strTestPaper_ID;
-
-	QMap<QString, int> m_RulesName;
-
-	void Set_UI();
-
+    TestPaper(QWidget *parent = Q_NULLPTR);
+    virtual~TestPaper()override;    
+    void Set_UI(const QString &paperId,const QString &companyId);
+protected:
+//    void closeEvent(QCloseEvent *event) override;
 private:
-	Ui::TestPaper ui;
-
-	int m_nTotalNumber = 0;
-	int m_nNull_Number = 0;
-	int m_nItem_Number = 0;
-
-	Item_Control m_Item_Control_Array[31];
-
-	Instrument * _instr;
-	QString m_strMachineUID;
-
-
-	void TestPaper::Set_checkBox_stateChanged(int state, QLineEdit * lineEdit_Name);
-
-	void Set_Item_Control_Array();
-
-	void Set_Controls_visible();
-
-	bool Save_TestPaper_Items();
-
-	void Set_TestPaper_Item(TestPaper_Item& testPaper_Item,int nPostionNo,QCheckBox *checkBox,QLineEdit *lineEdit_Name, QComboBox * combo_box_rule,QLineEdit *lineEdit_Position);
-
-	void Set_Control_Value(
-						TestPaper_Item testPaper_Item);
-
-	bool Save_TestPaper_Parameters();
-
-	bool CheckInput();
-
-	void CutOffCheckBoxUpdateUi(int state);
-
-
-public:
-	QString g_language_type = "";
-
+    void initUI();
+    bool Save_TestPaper_Items();
+    bool Save_TestPaper_Parameters();
+    void getAllItemControl();
+    void getUIItemData();
+    void getUIBlockAndItemData();
+    void initComboBox();
+    inline void setComBoBoxData(QComboBox *cmb,const QVector<ComboxData> &datas);
+    void uiCtlSet(const int itemCount=-1);
+    inline void tbSegmentAddData(const int oldRow);
 private slots:
-
-	void on_pushButton_Set_clicked();
-	void on_pushButton_Save_clicked();
-	void on_pushButton_Cancel_clicked();
-
-	void on_checkBox_1_stateChanged(int state);
-	void on_checkBox_2_stateChanged(int state);
-	void on_checkBox_3_stateChanged(int state);
-	void on_checkBox_4_stateChanged(int state);
-	void on_checkBox_5_stateChanged(int state);
-	void on_checkBox_6_stateChanged(int state);
-	void on_checkBox_7_stateChanged(int state);
-	void on_checkBox_8_stateChanged(int state);
-	void on_checkBox_9_stateChanged(int state);
-	void on_checkBox_10_stateChanged(int state);
-	void on_checkBox_11_stateChanged(int state);
-	void on_checkBox_12_stateChanged(int state);
-	void on_checkBox_13_stateChanged(int state);
-	void on_checkBox_14_stateChanged(int state);
-	void on_checkBox_15_stateChanged(int state);
-	void on_checkBox_16_stateChanged(int state);
-	void on_checkBox_17_stateChanged(int state);
-	void on_checkBox_18_stateChanged(int state);
-	void on_checkBox_19_stateChanged(int state);
-	void on_checkBox_20_stateChanged(int state);
-	void on_checkBox_21_stateChanged(int state);
-	void on_checkBox_22_stateChanged(int state);
-	void on_checkBox_23_stateChanged(int state);
-	void on_checkBox_24_stateChanged(int state);
-	void on_checkBox_25_stateChanged(int state);
-	void on_checkBox_26_stateChanged(int state);
-	void on_checkBox_27_stateChanged(int state);
-	void on_checkBox_28_stateChanged(int state);
-	void on_checkBox_29_stateChanged(int state);
-	void on_checkBox_30_stateChanged(int state);
-	void on_checkBox_CutOff_stateChanged(int state);
-
-	//void on_pushButton_PickColor_clicked();
-	void color_slots_func();
-
-signals:
-	void SetRefresh(bool bFlag);
+    void on_pushButton_Set_clicked();
+    void on_pushButton_Save_clicked();
+    void on_pushButton_Cancel_clicked();
+    void on_cmbPaperType_currentIndexChanged(int index);
+    void color_slots_func();
+    void slotCmbRuleDataSet(int index);
+    void slotCmbCurveDataSet(int index);
+    void slotRightCmbRuleDataSet(int index);
+    void slotRightCurveDataSet(int index);
+    void slotCreatDetailRows(const QString &data);
+    void slotCmbCompanyTextChanged(const QString &text);
+private:
+    Ui::TestPaper                   *ui;
+    QString                         m_strMachineUID;
+    GridLayItemCtl                  m_gridItemCtl;
+    QMap<int,TestPaper_Item>        m_itemDataMap;
+    GridLayBlockCtl                 m_gridBlockCtl;
+    QMap<int,BlockAndItemData>      m_blockAndItemDataMap;
+    QMap<int,QVector<BlockItemCtl>> m_blockItemCtlMap;
+    QVector<ComboxData>             m_ruleCmbDatas;//规则下拉框数据
+    QVector<ComboxData>             m_curveCmbDatas;//曲线下拉框数据
+    bool                            _isNeedUpdate;
+    QString                         _paperId;
+    bool                            m_bModify;
+    QString                         m_Company_ID;
 };

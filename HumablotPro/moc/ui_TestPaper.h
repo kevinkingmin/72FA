@@ -11,14 +11,23 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -26,1635 +35,3043 @@ QT_BEGIN_NAMESPACE
 class Ui_TestPaper
 {
 public:
-    QGroupBox *groupBox;
-    QPushButton *pushButton_Set;
-    QGroupBox *groupBox_2;
-    QLabel *label_53;
-    QLabel *label_56;
-    QLabel *label_57;
-    QLabel *label_58;
-    QLabel *label_52;
-    QLabel *label_68;
-    QLabel *label_69;
-    QLabel *label_39;
-    QLineEdit *lineEdit_TestPaparName;
-    QLabel *label_37;
-    QLineEdit *lineEdit_Item_Number;
-    QLabel *label_46;
-    QLineEdit *lineEdit_Article_No;
-    QLabel *label_40;
-    QLineEdit *lineEdit_TestPaparLenght;
-    QLabel *label_41;
-    QLineEdit *lineEdit_height_percentage;
-    QLabel *label_60;
-    QLabel *label_59;
-    QLineEdit *lineEdit_paper_head_length;
-    QLabel *label_63;
-    QLabel *label_64;
-    QLineEdit *lineEdit_paper_gray_value;
-    QLabel *label;
-    QLineEdit *lineEdit_Left_Top_x;
-    QLabel *label_51;
-    QLabel *label_54;
-    QLineEdit *lineEdit_LeftTop_y;
-    QLabel *label_65;
-    QLabel *label_66;
-    QLineEdit *lineEdit_Weight;
-    QLabel *label_55;
-    QLineEdit *lineEdit_TestPaparLenght_2;
-    QPushButton *pushButton_PickColor;
-    QCheckBox *checkBox_CutOff_2;
-    QLabel *label_42;
-    QLineEdit *lineEdit_FuncPosition;
-    QLineEdit *lineEdit_FuncPosition_2;
-    QLabel *label_67;
-    QLabel *label_43;
-    QLabel *label_44;
-    QCheckBox *checkBox_CutOff;
-    QLineEdit *lineEdit_CutOff_Position;
-    QLabel *label_45;
-    QLabel *label_50;
-    QLineEdit *lineEdit_CutOff_Value;
-    QLabel *label_70;
-    QLineEdit *lineEdit_wave_pix_width;
-    QLineEdit *lineEdit_wave_pix_width_min;
-    QLabel *label_71;
-    QLineEdit *lineEdit_wave_pix_width_max;
-    QLabel *label_72;
-    QLineEdit *lineEdit_zero_value_coefficient;
-    QLabel *label_73;
-    QLineEdit *lineEdit_bg_difference;
-    QLabel *label_74;
-    QLabel *label_75;
-    QLineEdit *lineEdit_background_values;
-    QLineEdit *lineEdit_height;
-    QLabel *label_76;
-    QPushButton *pushButton_Save;
-    QPushButton *pushButton_Cancel;
     QWidget *layoutWidget;
-    QGridLayout *gridLayout;
-    QSpacerItem *horizontalSpacer_3;
-    QLabel *label_36;
-    QLabel *label_35;
-    QLabel *label_62;
-    QLabel *label_49;
-    QSpacerItem *verticalSpacer_23;
-    QLabel *label_21;
-    QLineEdit *lineEdit_Name_21;
-    QCheckBox *checkBox_21;
-    QLineEdit *lineEdit_Position_21;
-    QComboBox *comboBoxRulesName_21;
-    QSpacerItem *verticalSpacer_24;
-    QLabel *label_22;
-    QLineEdit *lineEdit_Name_22;
-    QCheckBox *checkBox_22;
-    QLineEdit *lineEdit_Position_22;
-    QComboBox *comboBoxRulesName_22;
-    QSpacerItem *verticalSpacer_25;
-    QLabel *label_23;
-    QLineEdit *lineEdit_Name_23;
-    QCheckBox *checkBox_23;
-    QLineEdit *lineEdit_Position_23;
-    QComboBox *comboBoxRulesName_23;
-    QSpacerItem *verticalSpacer_26;
-    QLabel *label_24;
-    QLineEdit *lineEdit_Name_24;
-    QCheckBox *checkBox_24;
-    QLineEdit *lineEdit_Position_24;
-    QComboBox *comboBoxRulesName_24;
-    QSpacerItem *verticalSpacer_27;
-    QLabel *label_25;
-    QLineEdit *lineEdit_Name_25;
-    QCheckBox *checkBox_25;
-    QLineEdit *lineEdit_Position_25;
-    QComboBox *comboBoxRulesName_25;
-    QSpacerItem *verticalSpacer_28;
-    QLabel *label_26;
-    QLineEdit *lineEdit_Name_26;
-    QCheckBox *checkBox_26;
-    QLineEdit *lineEdit_Position_26;
-    QComboBox *comboBoxRulesName_26;
-    QSpacerItem *verticalSpacer_29;
-    QLabel *label_27;
-    QLineEdit *lineEdit_Name_27;
-    QCheckBox *checkBox_27;
-    QLineEdit *lineEdit_Position_27;
-    QComboBox *comboBoxRulesName_27;
-    QSpacerItem *verticalSpacer_30;
-    QLabel *label_28;
-    QLineEdit *lineEdit_Name_28;
-    QCheckBox *checkBox_28;
-    QLineEdit *lineEdit_Position_28;
-    QComboBox *comboBoxRulesName_28;
-    QSpacerItem *verticalSpacer_31;
-    QLabel *label_29;
-    QLineEdit *lineEdit_Name_29;
-    QCheckBox *checkBox_29;
-    QLineEdit *lineEdit_Position_29;
-    QComboBox *comboBoxRulesName_29;
-    QSpacerItem *verticalSpacer_32;
-    QLabel *label_30;
-    QLineEdit *lineEdit_Name_30;
-    QCheckBox *checkBox_30;
-    QLineEdit *lineEdit_Position_30;
-    QComboBox *comboBoxRulesName_30;
-    QSpacerItem *verticalSpacer_33;
-    QWidget *layoutWidget1;
-    QGridLayout *gridLayout_2;
+    QVBoxLayout *verticalLayout_3;
+    QGroupBox *groupBox;
+    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
+    QLabel *lblCompany;
+    QComboBox *cmbCompany;
+    QLabel *labela_2;
+    QLabel *lblPaperType;
+    QComboBox *cmbPaperType;
+    QLabel *labela_3;
+    QLabel *lblProcess;
+    QComboBox *cmbProcess;
+    QSpacerItem *horizontalSpacer_4;
+    QFrame *line;
+    QGridLayout *gridLayout_4;
+    QLabel *lblItemSearchWidth;
+    QLineEdit *txtCutOffValue;
+    QLineEdit *lineEdit_Item_Number;
+    QLabel *lblItemSpace;
+    QComboBox *cmbRotate;
+    QLineEdit *txtItemWidth;
+    QLabel *lblPixDistance;
+    QLabel *lblHeadLength;
+    QLabel *label_70;
+    QLineEdit *txtBackGround;
+    QLineEdit *txtAnalyzeHeight;
+    QLabel *lblCutOffPos;
+    QLineEdit *lineEdit_TestPaparLenght;
+    QLineEdit *txtColorValue;
+    QLabel *label_59;
+    QLineEdit *txtFunWidth;
+    QLabel *lblFunPostion;
+    QLabel *lblCutOffValue;
+    QLineEdit *txtBlackSpotThreshold;
+    QLineEdit *txtFunThreshold;
+    QLabel *lblCutOffThreshold;
+    QLineEdit *txtItemSpace;
+    QLabel *lblAnalyzeWidth;
+    QLabel *lblRotate;
+    QLabel *label_64;
+    QLineEdit *txtPixDistance;
+    QLabel *lblFunWidth;
+    QLabel *lblFunThreshold;
+    QCheckBox *checkBox_CutOff;
+    QLabel *lblPaperLength;
+    QLineEdit *lineEdit_FuncPosition;
     QSpacerItem *horizontalSpacer;
-    QLabel *label_34;
-    QLabel *label_33;
-    QLabel *label_61;
-    QLabel *label_48;
-    QSpacerItem *verticalSpacer_2;
-    QLabel *label_11;
+    QSpacerItem *horizontalSpacer_2;
+    QLabel *lblItemWidth;
+    QLabel *label_68;
+    QLineEdit *txtArticleNo;
+    QLabel *lblItemNum;
+    QLineEdit *txtItemSearchWidth;
+    QLineEdit *lineEdit_TestPaparName;
+    QLabel *lblFunDirection;
+    QLabel *label_43;
+    QLabel *label_45;
+    QLineEdit *lineEdit_paper_head_length;
+    QLineEdit *txtThreshold;
+    QLabel *lblPaperName;
+    QLabel *lblArticleNo;
+    QLineEdit *txtCutOffThreshold;
+    QLineEdit *txtAnalyzeWidth;
+    QLabel *lblColorValue;
+    QComboBox *cmbFunDirection;
+    QLabel *lblThreshold;
+    QLabel *lblAnalyzeHeight;
+    QLabel *lblBackGround;
+    QLineEdit *lineEdit_CutOff_Position;
+    QCheckBox *chkBlackSpot;
+    QLabel *lblBlackSpotThreshold;
+    QPushButton *pushButton_PickColor;
+    QPushButton *pushButton_Set;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *label_78;
+    QRadioButton *rdCurveSingle;
+    QRadioButton *rdCurveAllSet;
+    QSpacerItem *horizontalSpacer_6;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *label_77;
+    QRadioButton *rdRulesSingle;
+    QRadioButton *rdRulesAllSet;
+    QSpacerItem *horizontalSpacer_7;
+    QHBoxLayout *horizontalLayout_6;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents_2;
+    QHBoxLayout *horizontalLayout_2;
+    QGridLayout *gridLayout_3;
+    QComboBox *cmbCurveName_10;
+    QCheckBox *checkBox_6;
+    QComboBox *comboBoxRulesName_10;
+    QComboBox *cmbCurveName_8;
+    QLineEdit *lineEdit_Position_2;
+    QCheckBox *checkBox_3;
+    QLineEdit *lineEdit_Name_1;
+    QLineEdit *lineEdit_Name_6;
+    QLineEdit *lineEdit_Position_12;
+    QComboBox *comboBoxRulesName_5;
+    QLabel *label_5;
+    QCheckBox *checkBox_14;
+    QCheckBox *checkBox_10;
+    QLineEdit *lineEdit_Position_3;
+    QLineEdit *lineEdit_Name_15;
+    QComboBox *cmbCurveName_13;
+    QLabel *label_13;
+    QLineEdit *lineEdit_Name_8;
+    QComboBox *cmbCurveName_4;
+    QSpacerItem *verticalSpacer;
+    QLineEdit *lineEdit_Position_6;
+    QLineEdit *lineEdit_Name_10;
+    QLabel *label_10;
+    QComboBox *cmbCurveName_9;
+    QComboBox *cmbCurveName_3;
+    QComboBox *cmbCurveName_6;
+    QComboBox *comboBoxRulesName_7;
+    QLabel *label_4;
+    QComboBox *cmbCurveName_11;
+    QComboBox *cmbCurveName_2;
+    QComboBox *comboBoxRulesName_12;
     QLineEdit *lineEdit_Name_11;
+    QLabel *label_3;
+    QComboBox *comboBoxRulesName_13;
+    QLabel *lblG1Rules;
+    QCheckBox *checkBox_15;
+    QLabel *label_9;
+    QComboBox *comboBoxRulesName_3;
+    QLineEdit *lineEdit_Name_5;
+    QCheckBox *checkBox_7;
+    QComboBox *cmbCurveName_12;
+    QComboBox *cmbCurveName_5;
+    QLineEdit *lineEdit_Name_7;
+    QLineEdit *lineEdit_Name_14;
+    QLineEdit *lineEdit_Position_13;
+    QLineEdit *lineEdit_Position_1;
+    QComboBox *comboBoxRulesName_11;
+    QLineEdit *lineEdit_Position_15;
+    QCheckBox *checkBox_5;
+    QCheckBox *checkBox_4;
+    QLabel *label_11;
+    QComboBox *comboBoxRulesName_6;
+    QComboBox *cmbCurveName_1;
+    QLabel *label_7;
+    QLabel *label_12;
+    QLabel *lblG1Position;
+    QComboBox *cmbCurveName_7;
+    QLabel *label_6;
+    QLineEdit *lineEdit_Position_5;
+    QLineEdit *lineEdit_Name_9;
+    QCheckBox *checkBox_8;
+    QLineEdit *lineEdit_Name_4;
+    QComboBox *comboBoxRulesName_15;
+    QLineEdit *lineEdit_Name_2;
+    QLineEdit *lineEdit_Position_9;
+    QLabel *lblG1ItemName;
+    QComboBox *comboBoxRulesName_8;
+    QLabel *label_1;
+    QComboBox *comboBoxRulesName_1;
+    QCheckBox *checkBox_2;
+    QLabel *label_14;
+    QLineEdit *lineEdit_Position_4;
+    QCheckBox *checkBox_12;
+    QLineEdit *lineEdit_Name_12;
+    QLineEdit *lineEdit_Position_10;
+    QComboBox *cmbCurveName_14;
+    QComboBox *comboBoxRulesName_4;
     QCheckBox *checkBox_11;
     QLineEdit *lineEdit_Position_11;
-    QComboBox *comboBoxRulesName_11;
-    QSpacerItem *verticalSpacer;
-    QLabel *label_12;
-    QLineEdit *lineEdit_Name_12;
-    QCheckBox *checkBox_12;
-    QLineEdit *lineEdit_Position_12;
-    QComboBox *comboBoxRulesName_12;
-    QSpacerItem *verticalSpacer_3;
-    QLabel *label_13;
-    QLineEdit *lineEdit_Name_13;
-    QCheckBox *checkBox_13;
-    QLineEdit *lineEdit_Position_13;
-    QComboBox *comboBoxRulesName_13;
-    QSpacerItem *verticalSpacer_4;
-    QLabel *label_14;
-    QLineEdit *lineEdit_Name_14;
-    QCheckBox *checkBox_14;
-    QLineEdit *lineEdit_Position_14;
-    QComboBox *comboBoxRulesName_14;
-    QSpacerItem *verticalSpacer_5;
-    QLabel *label_15;
-    QLineEdit *lineEdit_Name_15;
-    QCheckBox *checkBox_15;
-    QLineEdit *lineEdit_Position_15;
-    QComboBox *comboBoxRulesName_15;
-    QSpacerItem *verticalSpacer_6;
-    QLabel *label_16;
-    QLineEdit *lineEdit_Name_16;
-    QCheckBox *checkBox_16;
-    QLineEdit *lineEdit_Position_16;
-    QComboBox *comboBoxRulesName_16;
-    QSpacerItem *verticalSpacer_7;
-    QLabel *label_17;
-    QLineEdit *lineEdit_Name_17;
-    QCheckBox *checkBox_17;
-    QLineEdit *lineEdit_Position_17;
-    QComboBox *comboBoxRulesName_17;
-    QSpacerItem *verticalSpacer_8;
-    QLabel *label_18;
-    QLineEdit *lineEdit_Name_18;
-    QCheckBox *checkBox_18;
-    QLineEdit *lineEdit_Position_18;
-    QComboBox *comboBoxRulesName_18;
-    QSpacerItem *verticalSpacer_9;
-    QLabel *label_19;
-    QLineEdit *lineEdit_Name_19;
-    QCheckBox *checkBox_19;
-    QLineEdit *lineEdit_Position_19;
-    QComboBox *comboBoxRulesName_19;
-    QSpacerItem *verticalSpacer_10;
-    QLabel *label_20;
-    QLineEdit *lineEdit_Name_20;
-    QCheckBox *checkBox_20;
-    QLineEdit *lineEdit_Position_20;
-    QComboBox *comboBoxRulesName_20;
-    QSpacerItem *verticalSpacer_11;
-    QWidget *layoutWidget2;
-    QGridLayout *gridLayout_3;
-    QSpacerItem *horizontalSpacer_2;
-    QLabel *label_31;
-    QLabel *label_32;
-    QLabel *label_38;
-    QLabel *label_47;
-    QSpacerItem *verticalSpacer_12;
-    QLabel *label_1;
-    QLineEdit *lineEdit_Name_1;
-    QCheckBox *checkBox_1;
-    QLineEdit *lineEdit_Position_1;
-    QComboBox *comboBoxRulesName_1;
-    QSpacerItem *verticalSpacer_13;
-    QLabel *label_2;
-    QLineEdit *lineEdit_Name_2;
-    QCheckBox *checkBox_2;
-    QLineEdit *lineEdit_Position_2;
-    QComboBox *comboBoxRulesName_2;
-    QSpacerItem *verticalSpacer_14;
-    QLabel *label_3;
-    QLineEdit *lineEdit_Name_3;
-    QCheckBox *checkBox_3;
-    QLineEdit *lineEdit_Position_3;
-    QComboBox *comboBoxRulesName_3;
-    QSpacerItem *verticalSpacer_15;
-    QLabel *label_4;
-    QLineEdit *lineEdit_Name_4;
-    QCheckBox *checkBox_4;
-    QLineEdit *lineEdit_Position_4;
-    QComboBox *comboBoxRulesName_4;
-    QSpacerItem *verticalSpacer_16;
-    QLabel *label_5;
-    QLineEdit *lineEdit_Name_5;
-    QCheckBox *checkBox_5;
-    QLineEdit *lineEdit_Position_5;
-    QComboBox *comboBoxRulesName_5;
-    QSpacerItem *verticalSpacer_17;
-    QLabel *label_6;
-    QLineEdit *lineEdit_Name_6;
-    QCheckBox *checkBox_6;
-    QLineEdit *lineEdit_Position_6;
-    QComboBox *comboBoxRulesName_6;
-    QSpacerItem *verticalSpacer_18;
-    QLabel *label_7;
-    QLineEdit *lineEdit_Name_7;
-    QCheckBox *checkBox_7;
-    QLineEdit *lineEdit_Position_7;
-    QComboBox *comboBoxRulesName_7;
-    QSpacerItem *verticalSpacer_19;
-    QLabel *label_8;
-    QLineEdit *lineEdit_Name_8;
-    QCheckBox *checkBox_8;
     QLineEdit *lineEdit_Position_8;
-    QComboBox *comboBoxRulesName_8;
-    QSpacerItem *verticalSpacer_20;
-    QLabel *label_9;
-    QLineEdit *lineEdit_Name_9;
+    QComboBox *comboBoxRulesName_2;
+    QCheckBox *checkBox_1;
+    QLineEdit *lineEdit_Position_7;
+    QComboBox *comboBoxRulesName_14;
+    QLabel *lblG1IsEmpty;
+    QLabel *lblG1Curves;
+    QLineEdit *lineEdit_Name_3;
     QCheckBox *checkBox_9;
-    QLineEdit *lineEdit_Position_9;
+    QLabel *label_8;
+    QLineEdit *lineEdit_Position_14;
+    QLabel *label_2;
+    QCheckBox *checkBox_13;
+    QComboBox *cmbCurveName_15;
     QComboBox *comboBoxRulesName_9;
-    QSpacerItem *verticalSpacer_21;
-    QLabel *label_10;
-    QLineEdit *lineEdit_Name_10;
-    QCheckBox *checkBox_10;
-    QLineEdit *lineEdit_Position_10;
-    QComboBox *comboBoxRulesName_10;
-    QSpacerItem *verticalSpacer_22;
+    QLabel *label_15;
+    QLineEdit *lineEdit_Name_13;
+    QGridLayout *gridLayout_2;
+    QComboBox *comboBoxRulesName_24;
+    QLineEdit *lineEdit_Name_21;
+    QCheckBox *checkBox_21;
+    QLineEdit *lineEdit_Name_19;
+    QLabel *label_22;
+    QComboBox *comboBoxRulesName_22;
+    QCheckBox *checkBox_27;
+    QComboBox *cmbCurveName_25;
+    QLineEdit *lineEdit_Position_29;
+    QCheckBox *checkBox_24;
+    QLabel *label_18;
+    QComboBox *comboBoxRulesName_23;
+    QComboBox *cmbCurveName_30;
+    QComboBox *cmbCurveName_17;
+    QComboBox *cmbCurveName_19;
+    QComboBox *comboBoxRulesName_30;
+    QLineEdit *lineEdit_Position_18;
+    QLabel *lblG2IsEmpty;
+    QLineEdit *lineEdit_Position_26;
+    QLineEdit *lineEdit_Name_22;
+    QCheckBox *checkBox_28;
+    QLineEdit *lineEdit_Position_24;
+    QLabel *label_30;
+    QLineEdit *lineEdit_Name_30;
+    QComboBox *cmbCurveName_22;
+    QCheckBox *checkBox_18;
+    QLineEdit *lineEdit_Position_19;
+    QCheckBox *checkBox_20;
+    QLineEdit *lineEdit_Name_16;
+    QComboBox *cmbCurveName_20;
+    QCheckBox *checkBox_26;
+    QComboBox *cmbCurveName_23;
+    QCheckBox *checkBox_17;
+    QLineEdit *lineEdit_Position_28;
+    QLabel *lblG2Rules;
+    QLineEdit *lineEdit_Position_30;
+    QComboBox *comboBoxRulesName_21;
+    QLineEdit *lineEdit_Name_18;
+    QComboBox *comboBoxRulesName_17;
+    QLineEdit *lineEdit_Position_21;
+    QComboBox *cmbCurveName_27;
+    QComboBox *comboBoxRulesName_27;
+    QLineEdit *lineEdit_Name_29;
+    QLineEdit *lineEdit_Position_25;
+    QLabel *lblG2ItemName;
+    QLineEdit *lineEdit_Position_23;
+    QLineEdit *lineEdit_Position_20;
+    QLabel *label_26;
+    QLineEdit *lineEdit_Name_20;
+    QCheckBox *checkBox_25;
+    QComboBox *comboBoxRulesName_29;
+    QComboBox *cmbCurveName_21;
+    QComboBox *cmbCurveName_26;
+    QComboBox *comboBoxRulesName_25;
+    QCheckBox *checkBox_23;
+    QLabel *label_17;
+    QLabel *label_28;
+    QCheckBox *checkBox_16;
+    QLineEdit *lineEdit_Name_17;
+    QComboBox *comboBoxRulesName_19;
+    QLineEdit *lineEdit_Position_22;
+    QSpacerItem *verticalSpacer_2;
+    QLineEdit *lineEdit_Name_24;
+    QComboBox *comboBoxRulesName_16;
+    QLineEdit *lineEdit_Name_28;
+    QLabel *label_29;
+    QLineEdit *lineEdit_Position_27;
+    QLabel *label_24;
+    QLabel *label_23;
+    QCheckBox *checkBox_30;
+    QLabel *label_19;
+    QComboBox *comboBoxRulesName_28;
+    QLineEdit *lineEdit_Name_23;
+    QComboBox *cmbCurveName_16;
+    QLabel *lblG2Position;
+    QComboBox *cmbCurveName_24;
+    QCheckBox *checkBox_19;
+    QLineEdit *lineEdit_Position_16;
+    QLabel *label_16;
+    QComboBox *comboBoxRulesName_18;
+    QLabel *label_21;
+    QCheckBox *checkBox_29;
+    QLineEdit *lineEdit_Position_17;
+    QComboBox *cmbCurveName_29;
+    QComboBox *comboBoxRulesName_26;
+    QComboBox *comboBoxRulesName_20;
+    QLabel *label_20;
+    QLabel *lblG2Curves;
+    QLabel *label_25;
+    QLineEdit *lineEdit_Name_27;
+    QComboBox *cmbCurveName_18;
+    QCheckBox *checkBox_22;
+    QLineEdit *lineEdit_Name_25;
+    QComboBox *cmbCurveName_28;
+    QLineEdit *lineEdit_Name_26;
+    QLabel *label_27;
+    QGridLayout *gridLayout;
+    QLineEdit *lineEdit_12;
+    QComboBox *cmbCount_29;
+    QCheckBox *checkBox_37;
+    QLabel *lblG3ItemStartPos;
+    QLabel *label_67;
+    QCheckBox *checkBox_35;
+    QComboBox *cmbCount_17;
+    QComboBox *cmbCount_23;
+    QLineEdit *lineEdit_14;
+    QCheckBox *checkBox_39;
+    QLineEdit *lineEdit_5;
+    QLabel *label_55;
+    QLabel *label_60;
+    QLineEdit *lineEdit_15;
+    QLabel *label_71;
+    QLabel *label_63;
+    QLineEdit *lineEdit_7;
+    QLabel *lblG3ItemDistance;
+    QLabel *label_37;
+    QLabel *label_62;
+    QComboBox *cmbCount_24;
+    QLabel *label_56;
+    QComboBox *cmbCount_22;
+    QLabel *label_65;
+    QLineEdit *lineEdit_6;
+    QCheckBox *checkBox_38;
+    QLineEdit *lineEdit_13;
+    QCheckBox *checkBox_41;
+    QCheckBox *checkBox_44;
+    QComboBox *cmbCount_20;
+    QCheckBox *checkBox_34;
+    QLineEdit *lineEdit_11;
+    QComboBox *cmbCount_30;
+    QLineEdit *lineEdit_8;
+    QCheckBox *checkBox_40;
+    QCheckBox *checkBox_32;
+    QLabel *label_73;
+    QComboBox *cmbCount_21;
+    QLabel *label_72;
+    QCheckBox *checkBox_33;
+    QLabel *lblG3IsEmpty;
+    QLabel *label_52;
+    QComboBox *cmbCount_25;
+    QCheckBox *checkBox_36;
+    QLineEdit *lineEdit_2;
+    QCheckBox *checkBox_43;
+    QLabel *label_69;
+    QLabel *label_54;
+    QComboBox *cmbCount_19;
+    QCheckBox *checkBox_31;
+    QComboBox *cmbCount_27;
+    QComboBox *cmbCount_28;
+    QComboBox *cmbCount_16;
+    QCheckBox *checkBox_45;
+    QComboBox *cmbCount_26;
+    QLabel *lblG3ItemCount;
+    QLineEdit *lineEdit_10;
+    QComboBox *cmbCount_18;
+    QCheckBox *checkBox_42;
+    QLineEdit *lineEdit_9;
+    QLabel *label_53;
+    QSpacerItem *verticalSpacer_3;
+    QLineEdit *lineEdit_16;
+    QLineEdit *lineEdit_17;
+    QLineEdit *lineEdit_18;
+    QLineEdit *lineEdit_19;
+    QLineEdit *lineEdit_20;
+    QLineEdit *lineEdit_21;
+    QLineEdit *lineEdit_22;
+    QLineEdit *lineEdit_23;
+    QLineEdit *lineEdit_24;
+    QLineEdit *lineEdit_25;
+    QLineEdit *lineEdit_26;
+    QLineEdit *lineEdit_27;
+    QLineEdit *lineEdit_28;
+    QLineEdit *lineEdit_29;
+    QLineEdit *lineEdit_30;
+    QLineEdit *lineEdit_61;
+    QLineEdit *lineEdit_62;
+    QLineEdit *lineEdit_63;
+    QGridLayout *gridLayout_6;
+    QLabel *label_83;
+    QLabel *label_93;
+    QLabel *label_92;
+    QLabel *label_40;
+    QLabel *label_86;
+    QSpacerItem *verticalSpacer_5;
+    QLabel *label_74;
+    QLabel *label_76;
+    QLabel *label_84;
+    QLabel *lblG4ItemCount;
+    QLabel *label_90;
+    QLabel *lblG4ItemDistance;
+    QLabel *label_89;
+    QCheckBox *checkBox_46;
+    QLabel *lblG4ItemStartPos;
+    QLabel *label_85;
+    QLabel *label_91;
+    QCheckBox *checkBox_65;
+    QLabel *lblG4IsEmpty;
+    QCheckBox *checkBox_47;
+    QLabel *label_87;
+    QLabel *label_88;
+    QLabel *label_94;
+    QCheckBox *checkBox_66;
+    QCheckBox *checkBox_67;
+    QCheckBox *checkBox_68;
+    QCheckBox *checkBox_69;
+    QCheckBox *checkBox_70;
+    QCheckBox *checkBox_71;
+    QCheckBox *checkBox_72;
+    QCheckBox *checkBox_73;
+    QCheckBox *checkBox_74;
+    QCheckBox *checkBox_75;
+    QCheckBox *checkBox_76;
+    QCheckBox *checkBox_77;
+    QLineEdit *lineEdit_31;
+    QComboBox *cmbCount_31;
+    QComboBox *cmbCount_32;
+    QComboBox *cmbCount_33;
+    QComboBox *cmbCount_34;
+    QComboBox *cmbCount_35;
+    QComboBox *cmbCount_36;
+    QComboBox *cmbCount_37;
+    QComboBox *cmbCount_38;
+    QComboBox *cmbCount_39;
+    QComboBox *cmbCount_40;
+    QComboBox *cmbCount_41;
+    QComboBox *cmbCount_42;
+    QComboBox *cmbCount_43;
+    QComboBox *cmbCount_44;
+    QComboBox *cmbCount_45;
+    QLineEdit *lineEdit_32;
+    QLineEdit *lineEdit_33;
+    QLineEdit *lineEdit_34;
+    QLineEdit *lineEdit_35;
+    QLineEdit *lineEdit_36;
+    QLineEdit *lineEdit_37;
+    QLineEdit *lineEdit_38;
+    QLineEdit *lineEdit_39;
+    QLineEdit *lineEdit_40;
+    QLineEdit *lineEdit_41;
+    QLineEdit *lineEdit_42;
+    QLineEdit *lineEdit_43;
+    QLineEdit *lineEdit_44;
+    QLineEdit *lineEdit_45;
+    QLineEdit *lineEdit_46;
+    QLineEdit *lineEdit_47;
+    QLineEdit *lineEdit_48;
+    QLineEdit *lineEdit_49;
+    QLineEdit *lineEdit_50;
+    QLineEdit *lineEdit_51;
+    QLineEdit *lineEdit_52;
+    QLineEdit *lineEdit_53;
+    QLineEdit *lineEdit_54;
+    QLineEdit *lineEdit_55;
+    QLineEdit *lineEdit_56;
+    QLineEdit *lineEdit_57;
+    QLineEdit *lineEdit_58;
+    QLineEdit *lineEdit_59;
+    QLineEdit *lineEdit_60;
+    QSpacerItem *horizontalSpacer_5;
+    QTableWidget *tbSegment;
+    QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *pushButton_Cancel;
+    QPushButton *pushButton_Save;
+    QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup;
 
-    void setupUi(QWidget *TestPaper)
+    void setupUi(QDialog *TestPaper)
     {
         if (TestPaper->objectName().isEmpty())
             TestPaper->setObjectName(QString::fromUtf8("TestPaper"));
-        TestPaper->resize(1534, 900);
-        groupBox = new QGroupBox(TestPaper);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(29, 0, 1471, 311));
-        pushButton_Set = new QPushButton(groupBox);
-        pushButton_Set->setObjectName(QString::fromUtf8("pushButton_Set"));
-        pushButton_Set->setGeometry(QRect(1340, 260, 75, 31));
-        groupBox_2 = new QGroupBox(groupBox);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(50, 10, 71, 31));
-        label_53 = new QLabel(groupBox_2);
-        label_53->setObjectName(QString::fromUtf8("label_53"));
-        label_53->setGeometry(QRect(408, 50, 36, 16));
-        label_56 = new QLabel(groupBox_2);
-        label_56->setObjectName(QString::fromUtf8("label_56"));
-        label_56->setGeometry(QRect(626, 50, 78, 16));
-        label_57 = new QLabel(groupBox_2);
-        label_57->setObjectName(QString::fromUtf8("label_57"));
-        label_57->setGeometry(QRect(709, 50, 48, 16));
-        label_58 = new QLabel(groupBox_2);
-        label_58->setObjectName(QString::fromUtf8("label_58"));
-        label_58->setGeometry(QRect(886, 50, 72, 16));
-        label_52 = new QLabel(groupBox_2);
-        label_52->setObjectName(QString::fromUtf8("label_52"));
-        label_52->setGeometry(QRect(183, 50, 36, 16));
-        label_68 = new QLabel(groupBox);
-        label_68->setObjectName(QString::fromUtf8("label_68"));
-        label_68->setGeometry(QRect(570, 26, 241, 31));
-        label_68->setAlignment(Qt::AlignCenter);
-        label_69 = new QLabel(groupBox);
-        label_69->setObjectName(QString::fromUtf8("label_69"));
-        label_69->setGeometry(QRect(0, 50, 1471, 16));
-        label_39 = new QLabel(groupBox);
-        label_39->setObjectName(QString::fromUtf8("label_39"));
-        label_39->setGeometry(QRect(25, 100, 120, 18));
-        label_39->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_TestPaparName = new QLineEdit(groupBox);
-        lineEdit_TestPaparName->setObjectName(QString::fromUtf8("lineEdit_TestPaparName"));
-        lineEdit_TestPaparName->setGeometry(QRect(155, 100, 133, 20));
-        label_37 = new QLabel(groupBox);
-        label_37->setObjectName(QString::fromUtf8("label_37"));
-        label_37->setGeometry(QRect(25, 70, 120, 18));
-        label_37->setLayoutDirection(Qt::RightToLeft);
-        label_37->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_Item_Number = new QLineEdit(groupBox);
-        lineEdit_Item_Number->setObjectName(QString::fromUtf8("lineEdit_Item_Number"));
-        lineEdit_Item_Number->setGeometry(QRect(155, 70, 133, 20));
-        label_46 = new QLabel(groupBox);
-        label_46->setObjectName(QString::fromUtf8("label_46"));
-        label_46->setGeometry(QRect(25, 250, 120, 18));
-        label_46->setLayoutDirection(Qt::RightToLeft);
-        label_46->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_Article_No = new QLineEdit(groupBox);
-        lineEdit_Article_No->setObjectName(QString::fromUtf8("lineEdit_Article_No"));
-        lineEdit_Article_No->setGeometry(QRect(155, 250, 133, 20));
-        label_40 = new QLabel(groupBox);
-        label_40->setObjectName(QString::fromUtf8("label_40"));
-        label_40->setGeometry(QRect(25, 160, 120, 18));
-        label_40->setLayoutDirection(Qt::RightToLeft);
-        label_40->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_TestPaparLenght = new QLineEdit(groupBox);
-        lineEdit_TestPaparLenght->setObjectName(QString::fromUtf8("lineEdit_TestPaparLenght"));
-        lineEdit_TestPaparLenght->setGeometry(QRect(155, 160, 133, 20));
-        label_41 = new QLabel(groupBox);
-        label_41->setObjectName(QString::fromUtf8("label_41"));
-        label_41->setGeometry(QRect(440, 20, 66, 16));
-        label_41->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-        lineEdit_height_percentage = new QLineEdit(groupBox);
-        lineEdit_height_percentage->setObjectName(QString::fromUtf8("lineEdit_height_percentage"));
-        lineEdit_height_percentage->setGeometry(QRect(155, 130, 133, 20));
-        label_60 = new QLabel(groupBox);
-        label_60->setObjectName(QString::fromUtf8("label_60"));
-        label_60->setGeometry(QRect(25, 130, 120, 18));
-        label_60->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        label_59 = new QLabel(groupBox);
-        label_59->setObjectName(QString::fromUtf8("label_59"));
-        label_59->setGeometry(QRect(300, 130, 66, 16));
-        label_59->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-        lineEdit_paper_head_length = new QLineEdit(groupBox);
-        lineEdit_paper_head_length->setObjectName(QString::fromUtf8("lineEdit_paper_head_length"));
-        lineEdit_paper_head_length->setGeometry(QRect(155, 220, 133, 20));
-        label_63 = new QLabel(groupBox);
-        label_63->setObjectName(QString::fromUtf8("label_63"));
-        label_63->setGeometry(QRect(25, 220, 120, 18));
-        label_63->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        label_64 = new QLabel(groupBox);
-        label_64->setObjectName(QString::fromUtf8("label_64"));
-        label_64->setGeometry(QRect(300, 220, 66, 16));
-        label_64->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-        lineEdit_paper_gray_value = new QLineEdit(groupBox);
-        lineEdit_paper_gray_value->setObjectName(QString::fromUtf8("lineEdit_paper_gray_value"));
-        lineEdit_paper_gray_value->setGeometry(QRect(600, 70, 133, 20));
-        label = new QLabel(groupBox);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(460, 70, 140, 18));
-        label->setLayoutDirection(Qt::LeftToRight);
-        label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_Left_Top_x = new QLineEdit(groupBox);
-        lineEdit_Left_Top_x->setObjectName(QString::fromUtf8("lineEdit_Left_Top_x"));
-        lineEdit_Left_Top_x->setGeometry(QRect(600, 100, 133, 20));
-        label_51 = new QLabel(groupBox);
-        label_51->setObjectName(QString::fromUtf8("label_51"));
-        label_51->setGeometry(QRect(460, 100, 140, 18));
-        label_51->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        label_54 = new QLabel(groupBox);
-        label_54->setObjectName(QString::fromUtf8("label_54"));
-        label_54->setGeometry(QRect(25, 190, 120, 18));
-        label_54->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_LeftTop_y = new QLineEdit(groupBox);
-        lineEdit_LeftTop_y->setObjectName(QString::fromUtf8("lineEdit_LeftTop_y"));
-        lineEdit_LeftTop_y->setGeometry(QRect(155, 190, 133, 20));
-        label_65 = new QLabel(groupBox);
-        label_65->setObjectName(QString::fromUtf8("label_65"));
-        label_65->setGeometry(QRect(300, 190, 66, 16));
-        label_65->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-        label_66 = new QLabel(groupBox);
-        label_66->setObjectName(QString::fromUtf8("label_66"));
-        label_66->setGeometry(QRect(25, 280, 120, 18));
-        label_66->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_Weight = new QLineEdit(groupBox);
-        lineEdit_Weight->setObjectName(QString::fromUtf8("lineEdit_Weight"));
-        lineEdit_Weight->setGeometry(QRect(295, 20, 133, 20));
-        label_55 = new QLabel(groupBox);
-        label_55->setObjectName(QString::fromUtf8("label_55"));
-        label_55->setGeometry(QRect(165, 20, 120, 18));
-        label_55->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_TestPaparLenght_2 = new QLineEdit(groupBox);
-        lineEdit_TestPaparLenght_2->setObjectName(QString::fromUtf8("lineEdit_TestPaparLenght_2"));
-        lineEdit_TestPaparLenght_2->setGeometry(QRect(155, 280, 133, 20));
-        pushButton_PickColor = new QPushButton(groupBox);
-        pushButton_PickColor->setObjectName(QString::fromUtf8("pushButton_PickColor"));
-        pushButton_PickColor->setGeometry(QRect(300, 278, 75, 23));
-        checkBox_CutOff_2 = new QCheckBox(groupBox);
-        checkBox_CutOff_2->setObjectName(QString::fromUtf8("checkBox_CutOff_2"));
-        checkBox_CutOff_2->setGeometry(QRect(870, 70, 160, 18));
-        checkBox_CutOff_2->setLayoutDirection(Qt::LeftToRight);
-        label_42 = new QLabel(groupBox);
-        label_42->setObjectName(QString::fromUtf8("label_42"));
-        label_42->setGeometry(QRect(850, 100, 120, 18));
-        label_42->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_FuncPosition = new QLineEdit(groupBox);
-        lineEdit_FuncPosition->setObjectName(QString::fromUtf8("lineEdit_FuncPosition"));
-        lineEdit_FuncPosition->setGeometry(QRect(980, 100, 133, 20));
-        lineEdit_FuncPosition_2 = new QLineEdit(groupBox);
-        lineEdit_FuncPosition_2->setObjectName(QString::fromUtf8("lineEdit_FuncPosition_2"));
-        lineEdit_FuncPosition_2->setGeometry(QRect(1290, 100, 133, 20));
-        label_67 = new QLabel(groupBox);
-        label_67->setObjectName(QString::fromUtf8("label_67"));
-        label_67->setGeometry(QRect(1160, 100, 120, 18));
-        label_67->setLayoutDirection(Qt::RightToLeft);
-        label_67->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        label_43 = new QLabel(groupBox);
-        label_43->setObjectName(QString::fromUtf8("label_43"));
-        label_43->setGeometry(QRect(1120, 100, 31, 16));
-        label_44 = new QLabel(groupBox);
-        label_44->setObjectName(QString::fromUtf8("label_44"));
-        label_44->setGeometry(QRect(850, 160, 120, 18));
-        label_44->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        checkBox_CutOff = new QCheckBox(groupBox);
-        checkBox_CutOff->setObjectName(QString::fromUtf8("checkBox_CutOff"));
-        checkBox_CutOff->setGeometry(QRect(870, 130, 160, 18));
-        checkBox_CutOff->setLayoutDirection(Qt::LeftToRight);
-        lineEdit_CutOff_Position = new QLineEdit(groupBox);
-        lineEdit_CutOff_Position->setObjectName(QString::fromUtf8("lineEdit_CutOff_Position"));
-        lineEdit_CutOff_Position->setGeometry(QRect(980, 160, 133, 20));
-        label_45 = new QLabel(groupBox);
-        label_45->setObjectName(QString::fromUtf8("label_45"));
-        label_45->setGeometry(QRect(1120, 160, 31, 16));
-        label_50 = new QLabel(groupBox);
-        label_50->setObjectName(QString::fromUtf8("label_50"));
-        label_50->setGeometry(QRect(1160, 160, 120, 18));
-        label_50->setLayoutDirection(Qt::RightToLeft);
-        label_50->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_CutOff_Value = new QLineEdit(groupBox);
-        lineEdit_CutOff_Value->setObjectName(QString::fromUtf8("lineEdit_CutOff_Value"));
-        lineEdit_CutOff_Value->setGeometry(QRect(1290, 160, 133, 20));
-        label_70 = new QLabel(groupBox);
-        label_70->setObjectName(QString::fromUtf8("label_70"));
-        label_70->setGeometry(QRect(460, 160, 140, 18));
-        label_70->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_wave_pix_width = new QLineEdit(groupBox);
-        lineEdit_wave_pix_width->setObjectName(QString::fromUtf8("lineEdit_wave_pix_width"));
-        lineEdit_wave_pix_width->setGeometry(QRect(600, 160, 133, 20));
-        lineEdit_wave_pix_width_min = new QLineEdit(groupBox);
-        lineEdit_wave_pix_width_min->setObjectName(QString::fromUtf8("lineEdit_wave_pix_width_min"));
-        lineEdit_wave_pix_width_min->setGeometry(QRect(600, 190, 133, 20));
-        label_71 = new QLabel(groupBox);
-        label_71->setObjectName(QString::fromUtf8("label_71"));
-        label_71->setGeometry(QRect(460, 190, 140, 18));
-        label_71->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_wave_pix_width_max = new QLineEdit(groupBox);
-        lineEdit_wave_pix_width_max->setObjectName(QString::fromUtf8("lineEdit_wave_pix_width_max"));
-        lineEdit_wave_pix_width_max->setGeometry(QRect(600, 220, 133, 20));
-        label_72 = new QLabel(groupBox);
-        label_72->setObjectName(QString::fromUtf8("label_72"));
-        label_72->setGeometry(QRect(460, 220, 140, 18));
-        label_72->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_zero_value_coefficient = new QLineEdit(groupBox);
-        lineEdit_zero_value_coefficient->setObjectName(QString::fromUtf8("lineEdit_zero_value_coefficient"));
-        lineEdit_zero_value_coefficient->setGeometry(QRect(600, 250, 133, 20));
-        label_73 = new QLabel(groupBox);
-        label_73->setObjectName(QString::fromUtf8("label_73"));
-        label_73->setGeometry(QRect(460, 250, 140, 18));
-        label_73->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_bg_difference = new QLineEdit(groupBox);
-        lineEdit_bg_difference->setObjectName(QString::fromUtf8("lineEdit_bg_difference"));
-        lineEdit_bg_difference->setGeometry(QRect(600, 280, 133, 20));
-        label_74 = new QLabel(groupBox);
-        label_74->setObjectName(QString::fromUtf8("label_74"));
-        label_74->setGeometry(QRect(460, 280, 140, 18));
-        label_74->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        label_75 = new QLabel(groupBox);
-        label_75->setObjectName(QString::fromUtf8("label_75"));
-        label_75->setGeometry(QRect(460, 130, 140, 18));
-        label_75->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        lineEdit_background_values = new QLineEdit(groupBox);
-        lineEdit_background_values->setObjectName(QString::fromUtf8("lineEdit_background_values"));
-        lineEdit_background_values->setGeometry(QRect(600, 130, 133, 20));
-        lineEdit_height = new QLineEdit(groupBox);
-        lineEdit_height->setObjectName(QString::fromUtf8("lineEdit_height"));
-        lineEdit_height->setGeometry(QRect(980, 200, 113, 20));
-        label_76 = new QLabel(groupBox);
-        label_76->setObjectName(QString::fromUtf8("label_76"));
-        label_76->setGeometry(QRect(830, 200, 140, 18));
-        label_76->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        pushButton_Save = new QPushButton(TestPaper);
-        pushButton_Save->setObjectName(QString::fromUtf8("pushButton_Save"));
-        pushButton_Save->setGeometry(QRect(1400, 845, 75, 31));
-        pushButton_Cancel = new QPushButton(TestPaper);
-        pushButton_Cancel->setObjectName(QString::fromUtf8("pushButton_Cancel"));
-        pushButton_Cancel->setGeometry(QRect(1290, 845, 75, 31));
+        TestPaper->resize(1731, 870);
         layoutWidget = new QWidget(TestPaper);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(1080, 320, 424, 511));
-        gridLayout = new QGridLayout(layoutWidget);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        horizontalSpacer_3 = new QSpacerItem(13, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        layoutWidget->setGeometry(QRect(10, 0, 1711, 851));
+        verticalLayout_3 = new QVBoxLayout(layoutWidget);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
+        groupBox = new QGroupBox(layoutWidget);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        verticalLayout_2 = new QVBoxLayout(groupBox);
+        verticalLayout_2->setSpacing(0);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(3, 3, 3, 3);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(0);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(65, 3, 10, 3);
+        lblCompany = new QLabel(groupBox);
+        lblCompany->setObjectName(QString::fromUtf8("lblCompany"));
 
-        gridLayout->addItem(horizontalSpacer_3, 0, 0, 1, 1);
+        horizontalLayout->addWidget(lblCompany);
 
-        label_36 = new QLabel(layoutWidget);
-        label_36->setObjectName(QString::fromUtf8("label_36"));
+        cmbCompany = new QComboBox(groupBox);
+        cmbCompany->setObjectName(QString::fromUtf8("cmbCompany"));
 
-        gridLayout->addWidget(label_36, 0, 1, 1, 1);
+        horizontalLayout->addWidget(cmbCompany);
 
-        label_35 = new QLabel(layoutWidget);
-        label_35->setObjectName(QString::fromUtf8("label_35"));
+        labela_2 = new QLabel(groupBox);
+        labela_2->setObjectName(QString::fromUtf8("labela_2"));
+        labela_2->setMinimumSize(QSize(55, 0));
+        labela_2->setMaximumSize(QSize(55, 16777215));
 
-        gridLayout->addWidget(label_35, 0, 2, 1, 1);
+        horizontalLayout->addWidget(labela_2);
 
-        label_62 = new QLabel(layoutWidget);
-        label_62->setObjectName(QString::fromUtf8("label_62"));
+        lblPaperType = new QLabel(groupBox);
+        lblPaperType->setObjectName(QString::fromUtf8("lblPaperType"));
 
-        gridLayout->addWidget(label_62, 0, 3, 1, 1);
+        horizontalLayout->addWidget(lblPaperType);
 
-        label_49 = new QLabel(layoutWidget);
-        label_49->setObjectName(QString::fromUtf8("label_49"));
+        cmbPaperType = new QComboBox(groupBox);
+        cmbPaperType->setObjectName(QString::fromUtf8("cmbPaperType"));
 
-        gridLayout->addWidget(label_49, 0, 4, 1, 1);
+        horizontalLayout->addWidget(cmbPaperType);
 
-        verticalSpacer_23 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        labela_3 = new QLabel(groupBox);
+        labela_3->setObjectName(QString::fromUtf8("labela_3"));
+        labela_3->setMinimumSize(QSize(55, 0));
+        labela_3->setMaximumSize(QSize(55, 16777215));
 
-        gridLayout->addItem(verticalSpacer_23, 0, 5, 1, 1);
+        horizontalLayout->addWidget(labela_3);
 
-        label_21 = new QLabel(layoutWidget);
-        label_21->setObjectName(QString::fromUtf8("label_21"));
+        lblProcess = new QLabel(groupBox);
+        lblProcess->setObjectName(QString::fromUtf8("lblProcess"));
 
-        gridLayout->addWidget(label_21, 1, 0, 1, 1);
+        horizontalLayout->addWidget(lblProcess);
 
-        lineEdit_Name_21 = new QLineEdit(layoutWidget);
-        lineEdit_Name_21->setObjectName(QString::fromUtf8("lineEdit_Name_21"));
+        cmbProcess = new QComboBox(groupBox);
+        cmbProcess->setObjectName(QString::fromUtf8("cmbProcess"));
 
-        gridLayout->addWidget(lineEdit_Name_21, 1, 1, 1, 1);
+        horizontalLayout->addWidget(cmbProcess);
 
-        checkBox_21 = new QCheckBox(layoutWidget);
-        checkBox_21->setObjectName(QString::fromUtf8("checkBox_21"));
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addWidget(checkBox_21, 1, 2, 1, 1);
+        horizontalLayout->addItem(horizontalSpacer_4);
 
-        lineEdit_Position_21 = new QLineEdit(layoutWidget);
-        lineEdit_Position_21->setObjectName(QString::fromUtf8("lineEdit_Position_21"));
 
-        gridLayout->addWidget(lineEdit_Position_21, 1, 3, 1, 1);
+        verticalLayout->addLayout(horizontalLayout);
 
-        comboBoxRulesName_21 = new QComboBox(layoutWidget);
-        comboBoxRulesName_21->setObjectName(QString::fromUtf8("comboBoxRulesName_21"));
+        line = new QFrame(groupBox);
+        line->setObjectName(QString::fromUtf8("line"));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
 
-        gridLayout->addWidget(comboBoxRulesName_21, 1, 4, 1, 1);
+        verticalLayout->addWidget(line);
 
-        verticalSpacer_24 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        gridLayout_4 = new QGridLayout();
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
+        gridLayout_4->setVerticalSpacing(5);
+        gridLayout_4->setContentsMargins(10, 5, 10, 0);
+        lblItemSearchWidth = new QLabel(groupBox);
+        lblItemSearchWidth->setObjectName(QString::fromUtf8("lblItemSearchWidth"));
+        lblItemSearchWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addItem(verticalSpacer_24, 1, 5, 1, 1);
+        gridLayout_4->addWidget(lblItemSearchWidth, 1, 10, 1, 1);
 
-        label_22 = new QLabel(layoutWidget);
-        label_22->setObjectName(QString::fromUtf8("label_22"));
+        txtCutOffValue = new QLineEdit(groupBox);
+        txtCutOffValue->setObjectName(QString::fromUtf8("txtCutOffValue"));
 
-        gridLayout->addWidget(label_22, 2, 0, 1, 1);
+        gridLayout_4->addWidget(txtCutOffValue, 3, 8, 1, 1);
 
-        lineEdit_Name_22 = new QLineEdit(layoutWidget);
-        lineEdit_Name_22->setObjectName(QString::fromUtf8("lineEdit_Name_22"));
+        lineEdit_Item_Number = new QLineEdit(groupBox);
+        lineEdit_Item_Number->setObjectName(QString::fromUtf8("lineEdit_Item_Number"));
 
-        gridLayout->addWidget(lineEdit_Name_22, 2, 1, 1, 1);
+        gridLayout_4->addWidget(lineEdit_Item_Number, 0, 2, 1, 1);
 
-        checkBox_22 = new QCheckBox(layoutWidget);
-        checkBox_22->setObjectName(QString::fromUtf8("checkBox_22"));
+        lblItemSpace = new QLabel(groupBox);
+        lblItemSpace->setObjectName(QString::fromUtf8("lblItemSpace"));
+        lblItemSpace->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(checkBox_22, 2, 2, 1, 1);
+        gridLayout_4->addWidget(lblItemSpace, 4, 1, 1, 1);
 
-        lineEdit_Position_22 = new QLineEdit(layoutWidget);
-        lineEdit_Position_22->setObjectName(QString::fromUtf8("lineEdit_Position_22"));
+        cmbRotate = new QComboBox(groupBox);
+        cmbRotate->setObjectName(QString::fromUtf8("cmbRotate"));
 
-        gridLayout->addWidget(lineEdit_Position_22, 2, 3, 1, 1);
+        gridLayout_4->addWidget(cmbRotate, 4, 8, 1, 1);
 
-        comboBoxRulesName_22 = new QComboBox(layoutWidget);
-        comboBoxRulesName_22->setObjectName(QString::fromUtf8("comboBoxRulesName_22"));
+        txtItemWidth = new QLineEdit(groupBox);
+        txtItemWidth->setObjectName(QString::fromUtf8("txtItemWidth"));
 
-        gridLayout->addWidget(comboBoxRulesName_22, 2, 4, 1, 1);
+        gridLayout_4->addWidget(txtItemWidth, 5, 2, 1, 1);
 
-        verticalSpacer_25 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        lblPixDistance = new QLabel(groupBox);
+        lblPixDistance->setObjectName(QString::fromUtf8("lblPixDistance"));
+        lblPixDistance->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addItem(verticalSpacer_25, 2, 5, 1, 1);
+        gridLayout_4->addWidget(lblPixDistance, 4, 10, 1, 1);
 
-        label_23 = new QLabel(layoutWidget);
-        label_23->setObjectName(QString::fromUtf8("label_23"));
+        lblHeadLength = new QLabel(groupBox);
+        lblHeadLength->setObjectName(QString::fromUtf8("lblHeadLength"));
+        lblHeadLength->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(label_23, 3, 0, 1, 1);
+        gridLayout_4->addWidget(lblHeadLength, 3, 1, 1, 1);
 
-        lineEdit_Name_23 = new QLineEdit(layoutWidget);
-        lineEdit_Name_23->setObjectName(QString::fromUtf8("lineEdit_Name_23"));
+        label_70 = new QLabel(groupBox);
+        label_70->setObjectName(QString::fromUtf8("label_70"));
+        label_70->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_Name_23, 3, 1, 1, 1);
+        gridLayout_4->addWidget(label_70, 5, 3, 1, 1);
 
-        checkBox_23 = new QCheckBox(layoutWidget);
-        checkBox_23->setObjectName(QString::fromUtf8("checkBox_23"));
+        txtBackGround = new QLineEdit(groupBox);
+        txtBackGround->setObjectName(QString::fromUtf8("txtBackGround"));
 
-        gridLayout->addWidget(checkBox_23, 3, 2, 1, 1);
+        gridLayout_4->addWidget(txtBackGround, 0, 11, 1, 1);
 
-        lineEdit_Position_23 = new QLineEdit(layoutWidget);
-        lineEdit_Position_23->setObjectName(QString::fromUtf8("lineEdit_Position_23"));
+        txtAnalyzeHeight = new QLineEdit(groupBox);
+        txtAnalyzeHeight->setObjectName(QString::fromUtf8("txtAnalyzeHeight"));
 
-        gridLayout->addWidget(lineEdit_Position_23, 3, 3, 1, 1);
+        gridLayout_4->addWidget(txtAnalyzeHeight, 2, 11, 1, 1);
 
-        comboBoxRulesName_23 = new QComboBox(layoutWidget);
-        comboBoxRulesName_23->setObjectName(QString::fromUtf8("comboBoxRulesName_23"));
+        lblCutOffPos = new QLabel(groupBox);
+        lblCutOffPos->setObjectName(QString::fromUtf8("lblCutOffPos"));
+        lblCutOffPos->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(comboBoxRulesName_23, 3, 4, 1, 1);
+        gridLayout_4->addWidget(lblCutOffPos, 1, 7, 1, 1);
 
-        verticalSpacer_26 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        lineEdit_TestPaparLenght = new QLineEdit(groupBox);
+        lineEdit_TestPaparLenght->setObjectName(QString::fromUtf8("lineEdit_TestPaparLenght"));
 
-        gridLayout->addItem(verticalSpacer_26, 3, 5, 1, 1);
+        gridLayout_4->addWidget(lineEdit_TestPaparLenght, 2, 2, 1, 1);
 
-        label_24 = new QLabel(layoutWidget);
-        label_24->setObjectName(QString::fromUtf8("label_24"));
+        txtColorValue = new QLineEdit(groupBox);
+        txtColorValue->setObjectName(QString::fromUtf8("txtColorValue"));
 
-        gridLayout->addWidget(label_24, 4, 0, 1, 1);
+        gridLayout_4->addWidget(txtColorValue, 1, 14, 1, 1);
 
-        lineEdit_Name_24 = new QLineEdit(layoutWidget);
-        lineEdit_Name_24->setObjectName(QString::fromUtf8("lineEdit_Name_24"));
+        label_59 = new QLabel(groupBox);
+        label_59->setObjectName(QString::fromUtf8("label_59"));
+        label_59->setMinimumSize(QSize(85, 0));
 
-        gridLayout->addWidget(lineEdit_Name_24, 4, 1, 1, 1);
+        gridLayout_4->addWidget(label_59, 1, 12, 1, 1);
 
-        checkBox_24 = new QCheckBox(layoutWidget);
-        checkBox_24->setObjectName(QString::fromUtf8("checkBox_24"));
+        txtFunWidth = new QLineEdit(groupBox);
+        txtFunWidth->setObjectName(QString::fromUtf8("txtFunWidth"));
 
-        gridLayout->addWidget(checkBox_24, 4, 2, 1, 1);
+        gridLayout_4->addWidget(txtFunWidth, 3, 5, 1, 1);
 
-        lineEdit_Position_24 = new QLineEdit(layoutWidget);
-        lineEdit_Position_24->setObjectName(QString::fromUtf8("lineEdit_Position_24"));
+        lblFunPostion = new QLabel(groupBox);
+        lblFunPostion->setObjectName(QString::fromUtf8("lblFunPostion"));
+        lblFunPostion->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_Position_24, 4, 3, 1, 1);
+        gridLayout_4->addWidget(lblFunPostion, 1, 4, 1, 1);
 
-        comboBoxRulesName_24 = new QComboBox(layoutWidget);
-        comboBoxRulesName_24->setObjectName(QString::fromUtf8("comboBoxRulesName_24"));
+        lblCutOffValue = new QLabel(groupBox);
+        lblCutOffValue->setObjectName(QString::fromUtf8("lblCutOffValue"));
+        lblCutOffValue->setLayoutDirection(Qt::RightToLeft);
+        lblCutOffValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(comboBoxRulesName_24, 4, 4, 1, 1);
+        gridLayout_4->addWidget(lblCutOffValue, 3, 7, 1, 1);
 
-        verticalSpacer_27 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        txtBlackSpotThreshold = new QLineEdit(groupBox);
+        txtBlackSpotThreshold->setObjectName(QString::fromUtf8("txtBlackSpotThreshold"));
 
-        gridLayout->addItem(verticalSpacer_27, 4, 5, 1, 1);
+        gridLayout_4->addWidget(txtBlackSpotThreshold, 5, 5, 1, 1);
 
-        label_25 = new QLabel(layoutWidget);
-        label_25->setObjectName(QString::fromUtf8("label_25"));
+        txtFunThreshold = new QLineEdit(groupBox);
+        txtFunThreshold->setObjectName(QString::fromUtf8("txtFunThreshold"));
 
-        gridLayout->addWidget(label_25, 5, 0, 1, 1);
+        gridLayout_4->addWidget(txtFunThreshold, 2, 5, 1, 1);
 
-        lineEdit_Name_25 = new QLineEdit(layoutWidget);
-        lineEdit_Name_25->setObjectName(QString::fromUtf8("lineEdit_Name_25"));
+        lblCutOffThreshold = new QLabel(groupBox);
+        lblCutOffThreshold->setObjectName(QString::fromUtf8("lblCutOffThreshold"));
+        lblCutOffThreshold->setLayoutDirection(Qt::RightToLeft);
+        lblCutOffThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_Name_25, 5, 1, 1, 1);
+        gridLayout_4->addWidget(lblCutOffThreshold, 2, 7, 1, 1);
 
-        checkBox_25 = new QCheckBox(layoutWidget);
-        checkBox_25->setObjectName(QString::fromUtf8("checkBox_25"));
+        txtItemSpace = new QLineEdit(groupBox);
+        txtItemSpace->setObjectName(QString::fromUtf8("txtItemSpace"));
 
-        gridLayout->addWidget(checkBox_25, 5, 2, 1, 1);
+        gridLayout_4->addWidget(txtItemSpace, 4, 2, 1, 1);
 
-        lineEdit_Position_25 = new QLineEdit(layoutWidget);
-        lineEdit_Position_25->setObjectName(QString::fromUtf8("lineEdit_Position_25"));
+        lblAnalyzeWidth = new QLabel(groupBox);
+        lblAnalyzeWidth->setObjectName(QString::fromUtf8("lblAnalyzeWidth"));
+        lblAnalyzeWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_Position_25, 5, 3, 1, 1);
+        gridLayout_4->addWidget(lblAnalyzeWidth, 3, 10, 1, 1);
 
-        comboBoxRulesName_25 = new QComboBox(layoutWidget);
-        comboBoxRulesName_25->setObjectName(QString::fromUtf8("comboBoxRulesName_25"));
+        lblRotate = new QLabel(groupBox);
+        lblRotate->setObjectName(QString::fromUtf8("lblRotate"));
+        lblRotate->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(comboBoxRulesName_25, 5, 4, 1, 1);
+        gridLayout_4->addWidget(lblRotate, 4, 7, 1, 1);
 
-        verticalSpacer_28 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        label_64 = new QLabel(groupBox);
+        label_64->setObjectName(QString::fromUtf8("label_64"));
+        label_64->setMinimumSize(QSize(85, 0));
+        label_64->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout->addItem(verticalSpacer_28, 5, 5, 1, 1);
+        gridLayout_4->addWidget(label_64, 3, 3, 1, 1);
 
-        label_26 = new QLabel(layoutWidget);
-        label_26->setObjectName(QString::fromUtf8("label_26"));
+        txtPixDistance = new QLineEdit(groupBox);
+        txtPixDistance->setObjectName(QString::fromUtf8("txtPixDistance"));
 
-        gridLayout->addWidget(label_26, 6, 0, 1, 1);
+        gridLayout_4->addWidget(txtPixDistance, 4, 11, 1, 1);
 
-        lineEdit_Name_26 = new QLineEdit(layoutWidget);
-        lineEdit_Name_26->setObjectName(QString::fromUtf8("lineEdit_Name_26"));
+        lblFunWidth = new QLabel(groupBox);
+        lblFunWidth->setObjectName(QString::fromUtf8("lblFunWidth"));
+        lblFunWidth->setLayoutDirection(Qt::RightToLeft);
+        lblFunWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_Name_26, 6, 1, 1, 1);
+        gridLayout_4->addWidget(lblFunWidth, 3, 4, 1, 1);
 
-        checkBox_26 = new QCheckBox(layoutWidget);
-        checkBox_26->setObjectName(QString::fromUtf8("checkBox_26"));
+        lblFunThreshold = new QLabel(groupBox);
+        lblFunThreshold->setObjectName(QString::fromUtf8("lblFunThreshold"));
+        lblFunThreshold->setLayoutDirection(Qt::RightToLeft);
+        lblFunThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(checkBox_26, 6, 2, 1, 1);
+        gridLayout_4->addWidget(lblFunThreshold, 2, 4, 1, 1);
 
-        lineEdit_Position_26 = new QLineEdit(layoutWidget);
-        lineEdit_Position_26->setObjectName(QString::fromUtf8("lineEdit_Position_26"));
+        checkBox_CutOff = new QCheckBox(groupBox);
+        checkBox_CutOff->setObjectName(QString::fromUtf8("checkBox_CutOff"));
+        checkBox_CutOff->setLayoutDirection(Qt::LeftToRight);
 
-        gridLayout->addWidget(lineEdit_Position_26, 6, 3, 1, 1);
+        gridLayout_4->addWidget(checkBox_CutOff, 0, 7, 1, 2);
 
-        comboBoxRulesName_26 = new QComboBox(layoutWidget);
-        comboBoxRulesName_26->setObjectName(QString::fromUtf8("comboBoxRulesName_26"));
+        lblPaperLength = new QLabel(groupBox);
+        lblPaperLength->setObjectName(QString::fromUtf8("lblPaperLength"));
+        lblPaperLength->setLayoutDirection(Qt::RightToLeft);
+        lblPaperLength->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(comboBoxRulesName_26, 6, 4, 1, 1);
+        gridLayout_4->addWidget(lblPaperLength, 2, 1, 1, 1);
 
-        verticalSpacer_29 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        lineEdit_FuncPosition = new QLineEdit(groupBox);
+        lineEdit_FuncPosition->setObjectName(QString::fromUtf8("lineEdit_FuncPosition"));
 
-        gridLayout->addItem(verticalSpacer_29, 6, 5, 1, 1);
+        gridLayout_4->addWidget(lineEdit_FuncPosition, 1, 5, 1, 1);
 
-        label_27 = new QLabel(layoutWidget);
-        label_27->setObjectName(QString::fromUtf8("label_27"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addWidget(label_27, 7, 0, 1, 1);
+        gridLayout_4->addItem(horizontalSpacer, 3, 0, 1, 1);
 
-        lineEdit_Name_27 = new QLineEdit(layoutWidget);
-        lineEdit_Name_27->setObjectName(QString::fromUtf8("lineEdit_Name_27"));
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addWidget(lineEdit_Name_27, 7, 1, 1, 1);
+        gridLayout_4->addItem(horizontalSpacer_2, 0, 16, 1, 1);
 
-        checkBox_27 = new QCheckBox(layoutWidget);
-        checkBox_27->setObjectName(QString::fromUtf8("checkBox_27"));
+        lblItemWidth = new QLabel(groupBox);
+        lblItemWidth->setObjectName(QString::fromUtf8("lblItemWidth"));
+        lblItemWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(checkBox_27, 7, 2, 1, 1);
+        gridLayout_4->addWidget(lblItemWidth, 5, 1, 1, 1);
 
-        lineEdit_Position_27 = new QLineEdit(layoutWidget);
-        lineEdit_Position_27->setObjectName(QString::fromUtf8("lineEdit_Position_27"));
+        label_68 = new QLabel(groupBox);
+        label_68->setObjectName(QString::fromUtf8("label_68"));
+        label_68->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_Position_27, 7, 3, 1, 1);
+        gridLayout_4->addWidget(label_68, 4, 3, 1, 1);
 
-        comboBoxRulesName_27 = new QComboBox(layoutWidget);
-        comboBoxRulesName_27->setObjectName(QString::fromUtf8("comboBoxRulesName_27"));
+        txtArticleNo = new QLineEdit(groupBox);
+        txtArticleNo->setObjectName(QString::fromUtf8("txtArticleNo"));
 
-        gridLayout->addWidget(comboBoxRulesName_27, 7, 4, 1, 1);
+        gridLayout_4->addWidget(txtArticleNo, 0, 14, 1, 1);
 
-        verticalSpacer_30 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        lblItemNum = new QLabel(groupBox);
+        lblItemNum->setObjectName(QString::fromUtf8("lblItemNum"));
+        lblItemNum->setLayoutDirection(Qt::RightToLeft);
+        lblItemNum->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addItem(verticalSpacer_30, 7, 5, 1, 1);
+        gridLayout_4->addWidget(lblItemNum, 0, 1, 1, 1);
 
-        label_28 = new QLabel(layoutWidget);
-        label_28->setObjectName(QString::fromUtf8("label_28"));
+        txtItemSearchWidth = new QLineEdit(groupBox);
+        txtItemSearchWidth->setObjectName(QString::fromUtf8("txtItemSearchWidth"));
 
-        gridLayout->addWidget(label_28, 8, 0, 1, 1);
+        gridLayout_4->addWidget(txtItemSearchWidth, 1, 11, 1, 1);
 
-        lineEdit_Name_28 = new QLineEdit(layoutWidget);
-        lineEdit_Name_28->setObjectName(QString::fromUtf8("lineEdit_Name_28"));
+        lineEdit_TestPaparName = new QLineEdit(groupBox);
+        lineEdit_TestPaparName->setObjectName(QString::fromUtf8("lineEdit_TestPaparName"));
 
-        gridLayout->addWidget(lineEdit_Name_28, 8, 1, 1, 1);
+        gridLayout_4->addWidget(lineEdit_TestPaparName, 1, 2, 1, 1);
 
-        checkBox_28 = new QCheckBox(layoutWidget);
-        checkBox_28->setObjectName(QString::fromUtf8("checkBox_28"));
+        lblFunDirection = new QLabel(groupBox);
+        lblFunDirection->setObjectName(QString::fromUtf8("lblFunDirection"));
+        lblFunDirection->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(checkBox_28, 8, 2, 1, 1);
+        gridLayout_4->addWidget(lblFunDirection, 0, 4, 1, 1);
 
-        lineEdit_Position_28 = new QLineEdit(layoutWidget);
-        lineEdit_Position_28->setObjectName(QString::fromUtf8("lineEdit_Position_28"));
+        label_43 = new QLabel(groupBox);
+        label_43->setObjectName(QString::fromUtf8("label_43"));
+        label_43->setMinimumSize(QSize(85, 0));
 
-        gridLayout->addWidget(lineEdit_Position_28, 8, 3, 1, 1);
+        gridLayout_4->addWidget(label_43, 1, 6, 1, 1);
 
-        comboBoxRulesName_28 = new QComboBox(layoutWidget);
-        comboBoxRulesName_28->setObjectName(QString::fromUtf8("comboBoxRulesName_28"));
+        label_45 = new QLabel(groupBox);
+        label_45->setObjectName(QString::fromUtf8("label_45"));
+        label_45->setMinimumSize(QSize(85, 0));
 
-        gridLayout->addWidget(comboBoxRulesName_28, 8, 4, 1, 1);
+        gridLayout_4->addWidget(label_45, 1, 9, 1, 1);
 
-        verticalSpacer_31 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        lineEdit_paper_head_length = new QLineEdit(groupBox);
+        lineEdit_paper_head_length->setObjectName(QString::fromUtf8("lineEdit_paper_head_length"));
 
-        gridLayout->addItem(verticalSpacer_31, 8, 5, 1, 1);
+        gridLayout_4->addWidget(lineEdit_paper_head_length, 3, 2, 1, 1);
 
-        label_29 = new QLabel(layoutWidget);
-        label_29->setObjectName(QString::fromUtf8("label_29"));
+        txtThreshold = new QLineEdit(groupBox);
+        txtThreshold->setObjectName(QString::fromUtf8("txtThreshold"));
 
-        gridLayout->addWidget(label_29, 9, 0, 1, 1);
+        gridLayout_4->addWidget(txtThreshold, 5, 8, 1, 1);
 
-        lineEdit_Name_29 = new QLineEdit(layoutWidget);
-        lineEdit_Name_29->setObjectName(QString::fromUtf8("lineEdit_Name_29"));
+        lblPaperName = new QLabel(groupBox);
+        lblPaperName->setObjectName(QString::fromUtf8("lblPaperName"));
+        lblPaperName->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_Name_29, 9, 1, 1, 1);
+        gridLayout_4->addWidget(lblPaperName, 1, 1, 1, 1);
 
-        checkBox_29 = new QCheckBox(layoutWidget);
-        checkBox_29->setObjectName(QString::fromUtf8("checkBox_29"));
+        lblArticleNo = new QLabel(groupBox);
+        lblArticleNo->setObjectName(QString::fromUtf8("lblArticleNo"));
+        lblArticleNo->setLayoutDirection(Qt::RightToLeft);
+        lblArticleNo->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(checkBox_29, 9, 2, 1, 1);
+        gridLayout_4->addWidget(lblArticleNo, 0, 13, 1, 1);
 
-        lineEdit_Position_29 = new QLineEdit(layoutWidget);
-        lineEdit_Position_29->setObjectName(QString::fromUtf8("lineEdit_Position_29"));
+        txtCutOffThreshold = new QLineEdit(groupBox);
+        txtCutOffThreshold->setObjectName(QString::fromUtf8("txtCutOffThreshold"));
 
-        gridLayout->addWidget(lineEdit_Position_29, 9, 3, 1, 1);
+        gridLayout_4->addWidget(txtCutOffThreshold, 2, 8, 1, 1);
 
-        comboBoxRulesName_29 = new QComboBox(layoutWidget);
-        comboBoxRulesName_29->setObjectName(QString::fromUtf8("comboBoxRulesName_29"));
+        txtAnalyzeWidth = new QLineEdit(groupBox);
+        txtAnalyzeWidth->setObjectName(QString::fromUtf8("txtAnalyzeWidth"));
 
-        gridLayout->addWidget(comboBoxRulesName_29, 9, 4, 1, 1);
+        gridLayout_4->addWidget(txtAnalyzeWidth, 3, 11, 1, 1);
 
-        verticalSpacer_32 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        lblColorValue = new QLabel(groupBox);
+        lblColorValue->setObjectName(QString::fromUtf8("lblColorValue"));
+        lblColorValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addItem(verticalSpacer_32, 9, 5, 1, 1);
+        gridLayout_4->addWidget(lblColorValue, 1, 13, 1, 1);
 
-        label_30 = new QLabel(layoutWidget);
-        label_30->setObjectName(QString::fromUtf8("label_30"));
+        cmbFunDirection = new QComboBox(groupBox);
+        cmbFunDirection->setObjectName(QString::fromUtf8("cmbFunDirection"));
 
-        gridLayout->addWidget(label_30, 10, 0, 1, 1);
+        gridLayout_4->addWidget(cmbFunDirection, 0, 5, 1, 1);
 
-        lineEdit_Name_30 = new QLineEdit(layoutWidget);
-        lineEdit_Name_30->setObjectName(QString::fromUtf8("lineEdit_Name_30"));
+        lblThreshold = new QLabel(groupBox);
+        lblThreshold->setObjectName(QString::fromUtf8("lblThreshold"));
+        lblThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_Name_30, 10, 1, 1, 1);
+        gridLayout_4->addWidget(lblThreshold, 5, 7, 1, 1);
 
-        checkBox_30 = new QCheckBox(layoutWidget);
-        checkBox_30->setObjectName(QString::fromUtf8("checkBox_30"));
+        lblAnalyzeHeight = new QLabel(groupBox);
+        lblAnalyzeHeight->setObjectName(QString::fromUtf8("lblAnalyzeHeight"));
+        lblAnalyzeHeight->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(checkBox_30, 10, 2, 1, 1);
+        gridLayout_4->addWidget(lblAnalyzeHeight, 2, 10, 1, 1);
 
-        lineEdit_Position_30 = new QLineEdit(layoutWidget);
-        lineEdit_Position_30->setObjectName(QString::fromUtf8("lineEdit_Position_30"));
+        lblBackGround = new QLabel(groupBox);
+        lblBackGround->setObjectName(QString::fromUtf8("lblBackGround"));
+        lblBackGround->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_Position_30, 10, 3, 1, 1);
+        gridLayout_4->addWidget(lblBackGround, 0, 10, 1, 1);
 
-        comboBoxRulesName_30 = new QComboBox(layoutWidget);
-        comboBoxRulesName_30->setObjectName(QString::fromUtf8("comboBoxRulesName_30"));
+        lineEdit_CutOff_Position = new QLineEdit(groupBox);
+        lineEdit_CutOff_Position->setObjectName(QString::fromUtf8("lineEdit_CutOff_Position"));
 
-        gridLayout->addWidget(comboBoxRulesName_30, 10, 4, 1, 1);
+        gridLayout_4->addWidget(lineEdit_CutOff_Position, 1, 8, 1, 1);
 
-        verticalSpacer_33 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        chkBlackSpot = new QCheckBox(groupBox);
+        chkBlackSpot->setObjectName(QString::fromUtf8("chkBlackSpot"));
+        chkBlackSpot->setLayoutDirection(Qt::LeftToRight);
 
-        gridLayout->addItem(verticalSpacer_33, 10, 5, 1, 1);
+        gridLayout_4->addWidget(chkBlackSpot, 4, 4, 1, 2);
 
-        layoutWidget1 = new QWidget(TestPaper);
-        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(560, 319, 424, 511));
-        gridLayout_2 = new QGridLayout(layoutWidget1);
-        gridLayout_2->setSpacing(6);
-        gridLayout_2->setContentsMargins(11, 11, 11, 11);
-        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        horizontalSpacer = new QSpacerItem(13, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        lblBlackSpotThreshold = new QLabel(groupBox);
+        lblBlackSpotThreshold->setObjectName(QString::fromUtf8("lblBlackSpotThreshold"));
+        lblBlackSpotThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_2->addItem(horizontalSpacer, 0, 0, 1, 1);
+        gridLayout_4->addWidget(lblBlackSpotThreshold, 5, 4, 1, 1);
 
-        label_34 = new QLabel(layoutWidget1);
-        label_34->setObjectName(QString::fromUtf8("label_34"));
+        pushButton_PickColor = new QPushButton(groupBox);
+        pushButton_PickColor->setObjectName(QString::fromUtf8("pushButton_PickColor"));
 
-        gridLayout_2->addWidget(label_34, 0, 1, 1, 1);
+        gridLayout_4->addWidget(pushButton_PickColor, 1, 15, 1, 1);
 
-        label_33 = new QLabel(layoutWidget1);
-        label_33->setObjectName(QString::fromUtf8("label_33"));
+        pushButton_Set = new QPushButton(groupBox);
+        pushButton_Set->setObjectName(QString::fromUtf8("pushButton_Set"));
 
-        gridLayout_2->addWidget(label_33, 0, 2, 1, 1);
+        gridLayout_4->addWidget(pushButton_Set, 4, 15, 2, 1);
 
-        label_61 = new QLabel(layoutWidget1);
-        label_61->setObjectName(QString::fromUtf8("label_61"));
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(10);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        label_78 = new QLabel(groupBox);
+        label_78->setObjectName(QString::fromUtf8("label_78"));
+        label_78->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_2->addWidget(label_61, 0, 3, 1, 1);
+        horizontalLayout_4->addWidget(label_78);
 
-        label_48 = new QLabel(layoutWidget1);
-        label_48->setObjectName(QString::fromUtf8("label_48"));
+        rdCurveSingle = new QRadioButton(groupBox);
+        buttonGroup_2 = new QButtonGroup(TestPaper);
+        buttonGroup_2->setObjectName(QString::fromUtf8("buttonGroup_2"));
+        buttonGroup_2->addButton(rdCurveSingle);
+        rdCurveSingle->setObjectName(QString::fromUtf8("rdCurveSingle"));
 
-        gridLayout_2->addWidget(label_48, 0, 4, 1, 1);
+        horizontalLayout_4->addWidget(rdCurveSingle);
 
-        verticalSpacer_2 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        rdCurveAllSet = new QRadioButton(groupBox);
+        buttonGroup_2->addButton(rdCurveAllSet);
+        rdCurveAllSet->setObjectName(QString::fromUtf8("rdCurveAllSet"));
 
-        gridLayout_2->addItem(verticalSpacer_2, 0, 5, 1, 1);
+        horizontalLayout_4->addWidget(rdCurveAllSet);
 
-        label_11 = new QLabel(layoutWidget1);
-        label_11->setObjectName(QString::fromUtf8("label_11"));
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_2->addWidget(label_11, 1, 0, 1, 1);
+        horizontalLayout_4->addItem(horizontalSpacer_6);
 
-        lineEdit_Name_11 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_11->setObjectName(QString::fromUtf8("lineEdit_Name_11"));
 
-        gridLayout_2->addWidget(lineEdit_Name_11, 1, 1, 1, 1);
+        gridLayout_4->addLayout(horizontalLayout_4, 3, 13, 1, 3);
 
-        checkBox_11 = new QCheckBox(layoutWidget1);
-        checkBox_11->setObjectName(QString::fromUtf8("checkBox_11"));
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(10);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        label_77 = new QLabel(groupBox);
+        label_77->setObjectName(QString::fromUtf8("label_77"));
+        label_77->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_2->addWidget(checkBox_11, 1, 2, 1, 1);
+        horizontalLayout_5->addWidget(label_77);
 
-        lineEdit_Position_11 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_11->setObjectName(QString::fromUtf8("lineEdit_Position_11"));
+        rdRulesSingle = new QRadioButton(groupBox);
+        buttonGroup = new QButtonGroup(TestPaper);
+        buttonGroup->setObjectName(QString::fromUtf8("buttonGroup"));
+        buttonGroup->addButton(rdRulesSingle);
+        rdRulesSingle->setObjectName(QString::fromUtf8("rdRulesSingle"));
 
-        gridLayout_2->addWidget(lineEdit_Position_11, 1, 3, 1, 1);
+        horizontalLayout_5->addWidget(rdRulesSingle);
 
-        comboBoxRulesName_11 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_11->setObjectName(QString::fromUtf8("comboBoxRulesName_11"));
+        rdRulesAllSet = new QRadioButton(groupBox);
+        buttonGroup->addButton(rdRulesAllSet);
+        rdRulesAllSet->setObjectName(QString::fromUtf8("rdRulesAllSet"));
 
-        gridLayout_2->addWidget(comboBoxRulesName_11, 1, 4, 1, 1);
+        horizontalLayout_5->addWidget(rdRulesAllSet);
 
-        verticalSpacer = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_2->addItem(verticalSpacer, 1, 5, 1, 1);
+        horizontalLayout_5->addItem(horizontalSpacer_7);
 
-        label_12 = new QLabel(layoutWidget1);
-        label_12->setObjectName(QString::fromUtf8("label_12"));
 
-        gridLayout_2->addWidget(label_12, 2, 0, 1, 1);
+        gridLayout_4->addLayout(horizontalLayout_5, 2, 13, 1, 3);
 
-        lineEdit_Name_12 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_12->setObjectName(QString::fromUtf8("lineEdit_Name_12"));
 
-        gridLayout_2->addWidget(lineEdit_Name_12, 2, 1, 1, 1);
+        verticalLayout->addLayout(gridLayout_4);
 
-        checkBox_12 = new QCheckBox(layoutWidget1);
-        checkBox_12->setObjectName(QString::fromUtf8("checkBox_12"));
+        verticalLayout->setStretch(2, 1);
 
-        gridLayout_2->addWidget(checkBox_12, 2, 2, 1, 1);
+        verticalLayout_2->addLayout(verticalLayout);
 
-        lineEdit_Position_12 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_12->setObjectName(QString::fromUtf8("lineEdit_Position_12"));
 
-        gridLayout_2->addWidget(lineEdit_Position_12, 2, 3, 1, 1);
+        verticalLayout_3->addWidget(groupBox);
 
-        comboBoxRulesName_12 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_12->setObjectName(QString::fromUtf8("comboBoxRulesName_12"));
-
-        gridLayout_2->addWidget(comboBoxRulesName_12, 2, 4, 1, 1);
-
-        verticalSpacer_3 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_3, 2, 5, 1, 1);
-
-        label_13 = new QLabel(layoutWidget1);
-        label_13->setObjectName(QString::fromUtf8("label_13"));
-
-        gridLayout_2->addWidget(label_13, 3, 0, 1, 1);
-
-        lineEdit_Name_13 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_13->setObjectName(QString::fromUtf8("lineEdit_Name_13"));
-
-        gridLayout_2->addWidget(lineEdit_Name_13, 3, 1, 1, 1);
-
-        checkBox_13 = new QCheckBox(layoutWidget1);
-        checkBox_13->setObjectName(QString::fromUtf8("checkBox_13"));
-
-        gridLayout_2->addWidget(checkBox_13, 3, 2, 1, 1);
-
-        lineEdit_Position_13 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_13->setObjectName(QString::fromUtf8("lineEdit_Position_13"));
-
-        gridLayout_2->addWidget(lineEdit_Position_13, 3, 3, 1, 1);
-
-        comboBoxRulesName_13 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_13->setObjectName(QString::fromUtf8("comboBoxRulesName_13"));
-
-        gridLayout_2->addWidget(comboBoxRulesName_13, 3, 4, 1, 1);
-
-        verticalSpacer_4 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_4, 3, 5, 1, 1);
-
-        label_14 = new QLabel(layoutWidget1);
-        label_14->setObjectName(QString::fromUtf8("label_14"));
-
-        gridLayout_2->addWidget(label_14, 4, 0, 1, 1);
-
-        lineEdit_Name_14 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_14->setObjectName(QString::fromUtf8("lineEdit_Name_14"));
-
-        gridLayout_2->addWidget(lineEdit_Name_14, 4, 1, 1, 1);
-
-        checkBox_14 = new QCheckBox(layoutWidget1);
-        checkBox_14->setObjectName(QString::fromUtf8("checkBox_14"));
-
-        gridLayout_2->addWidget(checkBox_14, 4, 2, 1, 1);
-
-        lineEdit_Position_14 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_14->setObjectName(QString::fromUtf8("lineEdit_Position_14"));
-
-        gridLayout_2->addWidget(lineEdit_Position_14, 4, 3, 1, 1);
-
-        comboBoxRulesName_14 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_14->setObjectName(QString::fromUtf8("comboBoxRulesName_14"));
-
-        gridLayout_2->addWidget(comboBoxRulesName_14, 4, 4, 1, 1);
-
-        verticalSpacer_5 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_5, 4, 5, 1, 1);
-
-        label_15 = new QLabel(layoutWidget1);
-        label_15->setObjectName(QString::fromUtf8("label_15"));
-
-        gridLayout_2->addWidget(label_15, 5, 0, 1, 1);
-
-        lineEdit_Name_15 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_15->setObjectName(QString::fromUtf8("lineEdit_Name_15"));
-
-        gridLayout_2->addWidget(lineEdit_Name_15, 5, 1, 1, 1);
-
-        checkBox_15 = new QCheckBox(layoutWidget1);
-        checkBox_15->setObjectName(QString::fromUtf8("checkBox_15"));
-
-        gridLayout_2->addWidget(checkBox_15, 5, 2, 1, 1);
-
-        lineEdit_Position_15 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_15->setObjectName(QString::fromUtf8("lineEdit_Position_15"));
-
-        gridLayout_2->addWidget(lineEdit_Position_15, 5, 3, 1, 1);
-
-        comboBoxRulesName_15 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_15->setObjectName(QString::fromUtf8("comboBoxRulesName_15"));
-
-        gridLayout_2->addWidget(comboBoxRulesName_15, 5, 4, 1, 1);
-
-        verticalSpacer_6 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_6, 5, 5, 1, 1);
-
-        label_16 = new QLabel(layoutWidget1);
-        label_16->setObjectName(QString::fromUtf8("label_16"));
-
-        gridLayout_2->addWidget(label_16, 6, 0, 1, 1);
-
-        lineEdit_Name_16 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_16->setObjectName(QString::fromUtf8("lineEdit_Name_16"));
-
-        gridLayout_2->addWidget(lineEdit_Name_16, 6, 1, 1, 1);
-
-        checkBox_16 = new QCheckBox(layoutWidget1);
-        checkBox_16->setObjectName(QString::fromUtf8("checkBox_16"));
-
-        gridLayout_2->addWidget(checkBox_16, 6, 2, 1, 1);
-
-        lineEdit_Position_16 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_16->setObjectName(QString::fromUtf8("lineEdit_Position_16"));
-
-        gridLayout_2->addWidget(lineEdit_Position_16, 6, 3, 1, 1);
-
-        comboBoxRulesName_16 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_16->setObjectName(QString::fromUtf8("comboBoxRulesName_16"));
-
-        gridLayout_2->addWidget(comboBoxRulesName_16, 6, 4, 1, 1);
-
-        verticalSpacer_7 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_7, 6, 5, 1, 1);
-
-        label_17 = new QLabel(layoutWidget1);
-        label_17->setObjectName(QString::fromUtf8("label_17"));
-
-        gridLayout_2->addWidget(label_17, 7, 0, 1, 1);
-
-        lineEdit_Name_17 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_17->setObjectName(QString::fromUtf8("lineEdit_Name_17"));
-
-        gridLayout_2->addWidget(lineEdit_Name_17, 7, 1, 1, 1);
-
-        checkBox_17 = new QCheckBox(layoutWidget1);
-        checkBox_17->setObjectName(QString::fromUtf8("checkBox_17"));
-
-        gridLayout_2->addWidget(checkBox_17, 7, 2, 1, 1);
-
-        lineEdit_Position_17 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_17->setObjectName(QString::fromUtf8("lineEdit_Position_17"));
-
-        gridLayout_2->addWidget(lineEdit_Position_17, 7, 3, 1, 1);
-
-        comboBoxRulesName_17 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_17->setObjectName(QString::fromUtf8("comboBoxRulesName_17"));
-
-        gridLayout_2->addWidget(comboBoxRulesName_17, 7, 4, 1, 1);
-
-        verticalSpacer_8 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_8, 7, 5, 1, 1);
-
-        label_18 = new QLabel(layoutWidget1);
-        label_18->setObjectName(QString::fromUtf8("label_18"));
-
-        gridLayout_2->addWidget(label_18, 8, 0, 1, 1);
-
-        lineEdit_Name_18 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_18->setObjectName(QString::fromUtf8("lineEdit_Name_18"));
-
-        gridLayout_2->addWidget(lineEdit_Name_18, 8, 1, 1, 1);
-
-        checkBox_18 = new QCheckBox(layoutWidget1);
-        checkBox_18->setObjectName(QString::fromUtf8("checkBox_18"));
-
-        gridLayout_2->addWidget(checkBox_18, 8, 2, 1, 1);
-
-        lineEdit_Position_18 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_18->setObjectName(QString::fromUtf8("lineEdit_Position_18"));
-
-        gridLayout_2->addWidget(lineEdit_Position_18, 8, 3, 1, 1);
-
-        comboBoxRulesName_18 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_18->setObjectName(QString::fromUtf8("comboBoxRulesName_18"));
-
-        gridLayout_2->addWidget(comboBoxRulesName_18, 8, 4, 1, 1);
-
-        verticalSpacer_9 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_9, 8, 5, 1, 1);
-
-        label_19 = new QLabel(layoutWidget1);
-        label_19->setObjectName(QString::fromUtf8("label_19"));
-
-        gridLayout_2->addWidget(label_19, 9, 0, 1, 1);
-
-        lineEdit_Name_19 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_19->setObjectName(QString::fromUtf8("lineEdit_Name_19"));
-
-        gridLayout_2->addWidget(lineEdit_Name_19, 9, 1, 1, 1);
-
-        checkBox_19 = new QCheckBox(layoutWidget1);
-        checkBox_19->setObjectName(QString::fromUtf8("checkBox_19"));
-
-        gridLayout_2->addWidget(checkBox_19, 9, 2, 1, 1);
-
-        lineEdit_Position_19 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_19->setObjectName(QString::fromUtf8("lineEdit_Position_19"));
-
-        gridLayout_2->addWidget(lineEdit_Position_19, 9, 3, 1, 1);
-
-        comboBoxRulesName_19 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_19->setObjectName(QString::fromUtf8("comboBoxRulesName_19"));
-
-        gridLayout_2->addWidget(comboBoxRulesName_19, 9, 4, 1, 1);
-
-        verticalSpacer_10 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_10, 9, 5, 1, 1);
-
-        label_20 = new QLabel(layoutWidget1);
-        label_20->setObjectName(QString::fromUtf8("label_20"));
-
-        gridLayout_2->addWidget(label_20, 10, 0, 1, 1);
-
-        lineEdit_Name_20 = new QLineEdit(layoutWidget1);
-        lineEdit_Name_20->setObjectName(QString::fromUtf8("lineEdit_Name_20"));
-
-        gridLayout_2->addWidget(lineEdit_Name_20, 10, 1, 1, 1);
-
-        checkBox_20 = new QCheckBox(layoutWidget1);
-        checkBox_20->setObjectName(QString::fromUtf8("checkBox_20"));
-
-        gridLayout_2->addWidget(checkBox_20, 10, 2, 1, 1);
-
-        lineEdit_Position_20 = new QLineEdit(layoutWidget1);
-        lineEdit_Position_20->setObjectName(QString::fromUtf8("lineEdit_Position_20"));
-
-        gridLayout_2->addWidget(lineEdit_Position_20, 10, 3, 1, 1);
-
-        comboBoxRulesName_20 = new QComboBox(layoutWidget1);
-        comboBoxRulesName_20->setObjectName(QString::fromUtf8("comboBoxRulesName_20"));
-
-        gridLayout_2->addWidget(comboBoxRulesName_20, 10, 4, 1, 1);
-
-        verticalSpacer_11 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_2->addItem(verticalSpacer_11, 10, 5, 1, 1);
-
-        layoutWidget2 = new QWidget(TestPaper);
-        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(30, 320, 441, 511));
-        gridLayout_3 = new QGridLayout(layoutWidget2);
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
+        horizontalLayout_6->setContentsMargins(-1, 0, 0, -1);
+        scrollArea = new QScrollArea(layoutWidget);
+        scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
+        scrollArea->setStyleSheet(QString::fromUtf8(""));
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents_2 = new QWidget();
+        scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 1254, 594));
+        scrollAreaWidgetContents_2->setBaseSize(QSize(20, 20));
+        scrollAreaWidgetContents_2->setStyleSheet(QString::fromUtf8(""));
+        horizontalLayout_2 = new QHBoxLayout(scrollAreaWidgetContents_2);
+        horizontalLayout_2->setSpacing(25);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 6, 0, 6);
+        gridLayout_3 = new QGridLayout();
         gridLayout_3->setSpacing(6);
-        gridLayout_3->setContentsMargins(11, 11, 11, 11);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        gridLayout_3->setContentsMargins(0, 0, 0, 0);
-        horizontalSpacer_2 = new QSpacerItem(13, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        gridLayout_3->setVerticalSpacing(5);
+        gridLayout_3->setContentsMargins(0, -1, -1, -1);
+        cmbCurveName_10 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_10->setObjectName(QString::fromUtf8("cmbCurveName_10"));
 
-        gridLayout_3->addItem(horizontalSpacer_2, 0, 0, 1, 1);
+        gridLayout_3->addWidget(cmbCurveName_10, 10, 5, 1, 1);
 
-        label_31 = new QLabel(layoutWidget2);
-        label_31->setObjectName(QString::fromUtf8("label_31"));
-
-        gridLayout_3->addWidget(label_31, 0, 1, 1, 1);
-
-        label_32 = new QLabel(layoutWidget2);
-        label_32->setObjectName(QString::fromUtf8("label_32"));
-
-        gridLayout_3->addWidget(label_32, 0, 2, 1, 1);
-
-        label_38 = new QLabel(layoutWidget2);
-        label_38->setObjectName(QString::fromUtf8("label_38"));
-
-        gridLayout_3->addWidget(label_38, 0, 3, 1, 1);
-
-        label_47 = new QLabel(layoutWidget2);
-        label_47->setObjectName(QString::fromUtf8("label_47"));
-
-        gridLayout_3->addWidget(label_47, 0, 4, 1, 1);
-
-        verticalSpacer_12 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_12, 0, 5, 1, 1);
-
-        label_1 = new QLabel(layoutWidget2);
-        label_1->setObjectName(QString::fromUtf8("label_1"));
-
-        gridLayout_3->addWidget(label_1, 1, 0, 1, 1);
-
-        lineEdit_Name_1 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_1->setObjectName(QString::fromUtf8("lineEdit_Name_1"));
-
-        gridLayout_3->addWidget(lineEdit_Name_1, 1, 1, 1, 1);
-
-        checkBox_1 = new QCheckBox(layoutWidget2);
-        checkBox_1->setObjectName(QString::fromUtf8("checkBox_1"));
-
-        gridLayout_3->addWidget(checkBox_1, 1, 2, 1, 1);
-
-        lineEdit_Position_1 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_1->setObjectName(QString::fromUtf8("lineEdit_Position_1"));
-
-        gridLayout_3->addWidget(lineEdit_Position_1, 1, 3, 1, 1);
-
-        comboBoxRulesName_1 = new QComboBox(layoutWidget2);
-        comboBoxRulesName_1->setObjectName(QString::fromUtf8("comboBoxRulesName_1"));
-
-        gridLayout_3->addWidget(comboBoxRulesName_1, 1, 4, 1, 1);
-
-        verticalSpacer_13 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_13, 1, 5, 1, 1);
-
-        label_2 = new QLabel(layoutWidget2);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        gridLayout_3->addWidget(label_2, 2, 0, 1, 1);
-
-        lineEdit_Name_2 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_2->setObjectName(QString::fromUtf8("lineEdit_Name_2"));
-
-        gridLayout_3->addWidget(lineEdit_Name_2, 2, 1, 1, 1);
-
-        checkBox_2 = new QCheckBox(layoutWidget2);
-        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
-
-        gridLayout_3->addWidget(checkBox_2, 2, 2, 1, 1);
-
-        lineEdit_Position_2 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_2->setObjectName(QString::fromUtf8("lineEdit_Position_2"));
-
-        gridLayout_3->addWidget(lineEdit_Position_2, 2, 3, 1, 1);
-
-        comboBoxRulesName_2 = new QComboBox(layoutWidget2);
-        comboBoxRulesName_2->setObjectName(QString::fromUtf8("comboBoxRulesName_2"));
-
-        gridLayout_3->addWidget(comboBoxRulesName_2, 2, 4, 1, 1);
-
-        verticalSpacer_14 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_14, 2, 5, 1, 1);
-
-        label_3 = new QLabel(layoutWidget2);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-
-        gridLayout_3->addWidget(label_3, 3, 0, 1, 1);
-
-        lineEdit_Name_3 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_3->setObjectName(QString::fromUtf8("lineEdit_Name_3"));
-
-        gridLayout_3->addWidget(lineEdit_Name_3, 3, 1, 1, 1);
-
-        checkBox_3 = new QCheckBox(layoutWidget2);
-        checkBox_3->setObjectName(QString::fromUtf8("checkBox_3"));
-
-        gridLayout_3->addWidget(checkBox_3, 3, 2, 1, 1);
-
-        lineEdit_Position_3 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_3->setObjectName(QString::fromUtf8("lineEdit_Position_3"));
-
-        gridLayout_3->addWidget(lineEdit_Position_3, 3, 3, 1, 1);
-
-        comboBoxRulesName_3 = new QComboBox(layoutWidget2);
-        comboBoxRulesName_3->setObjectName(QString::fromUtf8("comboBoxRulesName_3"));
-
-        gridLayout_3->addWidget(comboBoxRulesName_3, 3, 4, 1, 1);
-
-        verticalSpacer_15 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_15, 3, 5, 1, 1);
-
-        label_4 = new QLabel(layoutWidget2);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-
-        gridLayout_3->addWidget(label_4, 4, 0, 1, 1);
-
-        lineEdit_Name_4 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_4->setObjectName(QString::fromUtf8("lineEdit_Name_4"));
-
-        gridLayout_3->addWidget(lineEdit_Name_4, 4, 1, 1, 1);
-
-        checkBox_4 = new QCheckBox(layoutWidget2);
-        checkBox_4->setObjectName(QString::fromUtf8("checkBox_4"));
-
-        gridLayout_3->addWidget(checkBox_4, 4, 2, 1, 1);
-
-        lineEdit_Position_4 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_4->setObjectName(QString::fromUtf8("lineEdit_Position_4"));
-
-        gridLayout_3->addWidget(lineEdit_Position_4, 4, 3, 1, 1);
-
-        comboBoxRulesName_4 = new QComboBox(layoutWidget2);
-        comboBoxRulesName_4->setObjectName(QString::fromUtf8("comboBoxRulesName_4"));
-
-        gridLayout_3->addWidget(comboBoxRulesName_4, 4, 4, 1, 1);
-
-        verticalSpacer_16 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_16, 4, 5, 1, 1);
-
-        label_5 = new QLabel(layoutWidget2);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-
-        gridLayout_3->addWidget(label_5, 5, 0, 1, 1);
-
-        lineEdit_Name_5 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_5->setObjectName(QString::fromUtf8("lineEdit_Name_5"));
-
-        gridLayout_3->addWidget(lineEdit_Name_5, 5, 1, 1, 1);
-
-        checkBox_5 = new QCheckBox(layoutWidget2);
-        checkBox_5->setObjectName(QString::fromUtf8("checkBox_5"));
-
-        gridLayout_3->addWidget(checkBox_5, 5, 2, 1, 1);
-
-        lineEdit_Position_5 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_5->setObjectName(QString::fromUtf8("lineEdit_Position_5"));
-
-        gridLayout_3->addWidget(lineEdit_Position_5, 5, 3, 1, 1);
-
-        comboBoxRulesName_5 = new QComboBox(layoutWidget2);
-        comboBoxRulesName_5->setObjectName(QString::fromUtf8("comboBoxRulesName_5"));
-
-        gridLayout_3->addWidget(comboBoxRulesName_5, 5, 4, 1, 1);
-
-        verticalSpacer_17 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_17, 5, 5, 1, 1);
-
-        label_6 = new QLabel(layoutWidget2);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-
-        gridLayout_3->addWidget(label_6, 6, 0, 1, 1);
-
-        lineEdit_Name_6 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_6->setObjectName(QString::fromUtf8("lineEdit_Name_6"));
-
-        gridLayout_3->addWidget(lineEdit_Name_6, 6, 1, 1, 1);
-
-        checkBox_6 = new QCheckBox(layoutWidget2);
+        checkBox_6 = new QCheckBox(scrollAreaWidgetContents_2);
         checkBox_6->setObjectName(QString::fromUtf8("checkBox_6"));
 
         gridLayout_3->addWidget(checkBox_6, 6, 2, 1, 1);
 
-        lineEdit_Position_6 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_6->setObjectName(QString::fromUtf8("lineEdit_Position_6"));
-
-        gridLayout_3->addWidget(lineEdit_Position_6, 6, 3, 1, 1);
-
-        comboBoxRulesName_6 = new QComboBox(layoutWidget2);
-        comboBoxRulesName_6->setObjectName(QString::fromUtf8("comboBoxRulesName_6"));
-
-        gridLayout_3->addWidget(comboBoxRulesName_6, 6, 4, 1, 1);
-
-        verticalSpacer_18 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_18, 6, 5, 1, 1);
-
-        label_7 = new QLabel(layoutWidget2);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-
-        gridLayout_3->addWidget(label_7, 7, 0, 1, 1);
-
-        lineEdit_Name_7 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_7->setObjectName(QString::fromUtf8("lineEdit_Name_7"));
-
-        gridLayout_3->addWidget(lineEdit_Name_7, 7, 1, 1, 1);
-
-        checkBox_7 = new QCheckBox(layoutWidget2);
-        checkBox_7->setObjectName(QString::fromUtf8("checkBox_7"));
-
-        gridLayout_3->addWidget(checkBox_7, 7, 2, 1, 1);
-
-        lineEdit_Position_7 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_7->setObjectName(QString::fromUtf8("lineEdit_Position_7"));
-
-        gridLayout_3->addWidget(lineEdit_Position_7, 7, 3, 1, 1);
-
-        comboBoxRulesName_7 = new QComboBox(layoutWidget2);
-        comboBoxRulesName_7->setObjectName(QString::fromUtf8("comboBoxRulesName_7"));
-
-        gridLayout_3->addWidget(comboBoxRulesName_7, 7, 4, 1, 1);
-
-        verticalSpacer_19 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_19, 7, 5, 1, 1);
-
-        label_8 = new QLabel(layoutWidget2);
-        label_8->setObjectName(QString::fromUtf8("label_8"));
-
-        gridLayout_3->addWidget(label_8, 8, 0, 1, 1);
-
-        lineEdit_Name_8 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_8->setObjectName(QString::fromUtf8("lineEdit_Name_8"));
-
-        gridLayout_3->addWidget(lineEdit_Name_8, 8, 1, 1, 1);
-
-        checkBox_8 = new QCheckBox(layoutWidget2);
-        checkBox_8->setObjectName(QString::fromUtf8("checkBox_8"));
-
-        gridLayout_3->addWidget(checkBox_8, 8, 2, 1, 1);
-
-        lineEdit_Position_8 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_8->setObjectName(QString::fromUtf8("lineEdit_Position_8"));
-
-        gridLayout_3->addWidget(lineEdit_Position_8, 8, 3, 1, 1);
-
-        comboBoxRulesName_8 = new QComboBox(layoutWidget2);
-        comboBoxRulesName_8->setObjectName(QString::fromUtf8("comboBoxRulesName_8"));
-
-        gridLayout_3->addWidget(comboBoxRulesName_8, 8, 4, 1, 1);
-
-        verticalSpacer_20 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_20, 8, 5, 1, 1);
-
-        label_9 = new QLabel(layoutWidget2);
-        label_9->setObjectName(QString::fromUtf8("label_9"));
-
-        gridLayout_3->addWidget(label_9, 9, 0, 1, 1);
-
-        lineEdit_Name_9 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_9->setObjectName(QString::fromUtf8("lineEdit_Name_9"));
-
-        gridLayout_3->addWidget(lineEdit_Name_9, 9, 1, 1, 1);
-
-        checkBox_9 = new QCheckBox(layoutWidget2);
-        checkBox_9->setObjectName(QString::fromUtf8("checkBox_9"));
-
-        gridLayout_3->addWidget(checkBox_9, 9, 2, 1, 1);
-
-        lineEdit_Position_9 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_9->setObjectName(QString::fromUtf8("lineEdit_Position_9"));
-
-        gridLayout_3->addWidget(lineEdit_Position_9, 9, 3, 1, 1);
-
-        comboBoxRulesName_9 = new QComboBox(layoutWidget2);
-        comboBoxRulesName_9->setObjectName(QString::fromUtf8("comboBoxRulesName_9"));
-
-        gridLayout_3->addWidget(comboBoxRulesName_9, 9, 4, 1, 1);
-
-        verticalSpacer_21 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_21, 9, 5, 1, 1);
-
-        label_10 = new QLabel(layoutWidget2);
-        label_10->setObjectName(QString::fromUtf8("label_10"));
-
-        gridLayout_3->addWidget(label_10, 10, 0, 1, 1);
-
-        lineEdit_Name_10 = new QLineEdit(layoutWidget2);
-        lineEdit_Name_10->setObjectName(QString::fromUtf8("lineEdit_Name_10"));
-
-        gridLayout_3->addWidget(lineEdit_Name_10, 10, 1, 1, 1);
-
-        checkBox_10 = new QCheckBox(layoutWidget2);
-        checkBox_10->setObjectName(QString::fromUtf8("checkBox_10"));
-
-        gridLayout_3->addWidget(checkBox_10, 10, 2, 1, 1);
-
-        lineEdit_Position_10 = new QLineEdit(layoutWidget2);
-        lineEdit_Position_10->setObjectName(QString::fromUtf8("lineEdit_Position_10"));
-
-        gridLayout_3->addWidget(lineEdit_Position_10, 10, 3, 1, 1);
-
-        comboBoxRulesName_10 = new QComboBox(layoutWidget2);
+        comboBoxRulesName_10 = new QComboBox(scrollAreaWidgetContents_2);
         comboBoxRulesName_10->setObjectName(QString::fromUtf8("comboBoxRulesName_10"));
 
         gridLayout_3->addWidget(comboBoxRulesName_10, 10, 4, 1, 1);
 
-        verticalSpacer_22 = new QSpacerItem(20, 17, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        cmbCurveName_8 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_8->setObjectName(QString::fromUtf8("cmbCurveName_8"));
 
-        gridLayout_3->addItem(verticalSpacer_22, 10, 5, 1, 1);
+        gridLayout_3->addWidget(cmbCurveName_8, 8, 5, 1, 1);
 
-        layoutWidget->raise();
-        layoutWidget->raise();
-        layoutWidget->raise();
-        groupBox->raise();
-        pushButton_Save->raise();
-        pushButton_Cancel->raise();
+        lineEdit_Position_2 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_2->setObjectName(QString::fromUtf8("lineEdit_Position_2"));
+
+        gridLayout_3->addWidget(lineEdit_Position_2, 2, 3, 1, 1);
+
+        checkBox_3 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_3->setObjectName(QString::fromUtf8("checkBox_3"));
+
+        gridLayout_3->addWidget(checkBox_3, 3, 2, 1, 1);
+
+        lineEdit_Name_1 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_1->setObjectName(QString::fromUtf8("lineEdit_Name_1"));
+
+        gridLayout_3->addWidget(lineEdit_Name_1, 1, 1, 1, 1);
+
+        lineEdit_Name_6 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_6->setObjectName(QString::fromUtf8("lineEdit_Name_6"));
+
+        gridLayout_3->addWidget(lineEdit_Name_6, 6, 1, 1, 1);
+
+        lineEdit_Position_12 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_12->setObjectName(QString::fromUtf8("lineEdit_Position_12"));
+
+        gridLayout_3->addWidget(lineEdit_Position_12, 12, 3, 1, 1);
+
+        comboBoxRulesName_5 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_5->setObjectName(QString::fromUtf8("comboBoxRulesName_5"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_5, 5, 4, 1, 1);
+
+        label_5 = new QLabel(scrollAreaWidgetContents_2);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+
+        gridLayout_3->addWidget(label_5, 5, 0, 1, 1);
+
+        checkBox_14 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_14->setObjectName(QString::fromUtf8("checkBox_14"));
+
+        gridLayout_3->addWidget(checkBox_14, 14, 2, 1, 1);
+
+        checkBox_10 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_10->setObjectName(QString::fromUtf8("checkBox_10"));
+
+        gridLayout_3->addWidget(checkBox_10, 10, 2, 1, 1);
+
+        lineEdit_Position_3 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_3->setObjectName(QString::fromUtf8("lineEdit_Position_3"));
+
+        gridLayout_3->addWidget(lineEdit_Position_3, 3, 3, 1, 1);
+
+        lineEdit_Name_15 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_15->setObjectName(QString::fromUtf8("lineEdit_Name_15"));
+
+        gridLayout_3->addWidget(lineEdit_Name_15, 15, 1, 1, 1);
+
+        cmbCurveName_13 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_13->setObjectName(QString::fromUtf8("cmbCurveName_13"));
+
+        gridLayout_3->addWidget(cmbCurveName_13, 13, 5, 1, 1);
+
+        label_13 = new QLabel(scrollAreaWidgetContents_2);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+
+        gridLayout_3->addWidget(label_13, 13, 0, 1, 1);
+
+        lineEdit_Name_8 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_8->setObjectName(QString::fromUtf8("lineEdit_Name_8"));
+
+        gridLayout_3->addWidget(lineEdit_Name_8, 8, 1, 1, 1);
+
+        cmbCurveName_4 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_4->setObjectName(QString::fromUtf8("cmbCurveName_4"));
+
+        gridLayout_3->addWidget(cmbCurveName_4, 4, 5, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_3->addItem(verticalSpacer, 16, 1, 1, 1);
+
+        lineEdit_Position_6 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_6->setObjectName(QString::fromUtf8("lineEdit_Position_6"));
+
+        gridLayout_3->addWidget(lineEdit_Position_6, 6, 3, 1, 1);
+
+        lineEdit_Name_10 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_10->setObjectName(QString::fromUtf8("lineEdit_Name_10"));
+
+        gridLayout_3->addWidget(lineEdit_Name_10, 10, 1, 1, 1);
+
+        label_10 = new QLabel(scrollAreaWidgetContents_2);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+
+        gridLayout_3->addWidget(label_10, 10, 0, 1, 1);
+
+        cmbCurveName_9 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_9->setObjectName(QString::fromUtf8("cmbCurveName_9"));
+
+        gridLayout_3->addWidget(cmbCurveName_9, 9, 5, 1, 1);
+
+        cmbCurveName_3 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_3->setObjectName(QString::fromUtf8("cmbCurveName_3"));
+
+        gridLayout_3->addWidget(cmbCurveName_3, 3, 5, 1, 1);
+
+        cmbCurveName_6 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_6->setObjectName(QString::fromUtf8("cmbCurveName_6"));
+
+        gridLayout_3->addWidget(cmbCurveName_6, 6, 5, 1, 1);
+
+        comboBoxRulesName_7 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_7->setObjectName(QString::fromUtf8("comboBoxRulesName_7"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_7, 7, 4, 1, 1);
+
+        label_4 = new QLabel(scrollAreaWidgetContents_2);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        gridLayout_3->addWidget(label_4, 4, 0, 1, 1);
+
+        cmbCurveName_11 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_11->setObjectName(QString::fromUtf8("cmbCurveName_11"));
+
+        gridLayout_3->addWidget(cmbCurveName_11, 11, 5, 1, 1);
+
+        cmbCurveName_2 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_2->setObjectName(QString::fromUtf8("cmbCurveName_2"));
+
+        gridLayout_3->addWidget(cmbCurveName_2, 2, 5, 1, 1);
+
+        comboBoxRulesName_12 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_12->setObjectName(QString::fromUtf8("comboBoxRulesName_12"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_12, 12, 4, 1, 1);
+
+        lineEdit_Name_11 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_11->setObjectName(QString::fromUtf8("lineEdit_Name_11"));
+
+        gridLayout_3->addWidget(lineEdit_Name_11, 11, 1, 1, 1);
+
+        label_3 = new QLabel(scrollAreaWidgetContents_2);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+
+        gridLayout_3->addWidget(label_3, 3, 0, 1, 1);
+
+        comboBoxRulesName_13 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_13->setObjectName(QString::fromUtf8("comboBoxRulesName_13"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_13, 13, 4, 1, 1);
+
+        lblG1Rules = new QLabel(scrollAreaWidgetContents_2);
+        lblG1Rules->setObjectName(QString::fromUtf8("lblG1Rules"));
+        lblG1Rules->setAlignment(Qt::AlignCenter);
+
+        gridLayout_3->addWidget(lblG1Rules, 0, 4, 1, 1);
+
+        checkBox_15 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_15->setObjectName(QString::fromUtf8("checkBox_15"));
+
+        gridLayout_3->addWidget(checkBox_15, 15, 2, 1, 1);
+
+        label_9 = new QLabel(scrollAreaWidgetContents_2);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+
+        gridLayout_3->addWidget(label_9, 9, 0, 1, 1);
+
+        comboBoxRulesName_3 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_3->setObjectName(QString::fromUtf8("comboBoxRulesName_3"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_3, 3, 4, 1, 1);
+
+        lineEdit_Name_5 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_5->setObjectName(QString::fromUtf8("lineEdit_Name_5"));
+
+        gridLayout_3->addWidget(lineEdit_Name_5, 5, 1, 1, 1);
+
+        checkBox_7 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_7->setObjectName(QString::fromUtf8("checkBox_7"));
+
+        gridLayout_3->addWidget(checkBox_7, 7, 2, 1, 1);
+
+        cmbCurveName_12 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_12->setObjectName(QString::fromUtf8("cmbCurveName_12"));
+
+        gridLayout_3->addWidget(cmbCurveName_12, 12, 5, 1, 1);
+
+        cmbCurveName_5 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_5->setObjectName(QString::fromUtf8("cmbCurveName_5"));
+
+        gridLayout_3->addWidget(cmbCurveName_5, 5, 5, 1, 1);
+
+        lineEdit_Name_7 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_7->setObjectName(QString::fromUtf8("lineEdit_Name_7"));
+
+        gridLayout_3->addWidget(lineEdit_Name_7, 7, 1, 1, 1);
+
+        lineEdit_Name_14 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_14->setObjectName(QString::fromUtf8("lineEdit_Name_14"));
+
+        gridLayout_3->addWidget(lineEdit_Name_14, 14, 1, 1, 1);
+
+        lineEdit_Position_13 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_13->setObjectName(QString::fromUtf8("lineEdit_Position_13"));
+
+        gridLayout_3->addWidget(lineEdit_Position_13, 13, 3, 1, 1);
+
+        lineEdit_Position_1 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_1->setObjectName(QString::fromUtf8("lineEdit_Position_1"));
+
+        gridLayout_3->addWidget(lineEdit_Position_1, 1, 3, 1, 1);
+
+        comboBoxRulesName_11 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_11->setObjectName(QString::fromUtf8("comboBoxRulesName_11"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_11, 11, 4, 1, 1);
+
+        lineEdit_Position_15 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_15->setObjectName(QString::fromUtf8("lineEdit_Position_15"));
+
+        gridLayout_3->addWidget(lineEdit_Position_15, 15, 3, 1, 1);
+
+        checkBox_5 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_5->setObjectName(QString::fromUtf8("checkBox_5"));
+
+        gridLayout_3->addWidget(checkBox_5, 5, 2, 1, 1);
+
+        checkBox_4 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_4->setObjectName(QString::fromUtf8("checkBox_4"));
+
+        gridLayout_3->addWidget(checkBox_4, 4, 2, 1, 1);
+
+        label_11 = new QLabel(scrollAreaWidgetContents_2);
+        label_11->setObjectName(QString::fromUtf8("label_11"));
+
+        gridLayout_3->addWidget(label_11, 11, 0, 1, 1);
+
+        comboBoxRulesName_6 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_6->setObjectName(QString::fromUtf8("comboBoxRulesName_6"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_6, 6, 4, 1, 1);
+
+        cmbCurveName_1 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_1->setObjectName(QString::fromUtf8("cmbCurveName_1"));
+
+        gridLayout_3->addWidget(cmbCurveName_1, 1, 5, 1, 1);
+
+        label_7 = new QLabel(scrollAreaWidgetContents_2);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        gridLayout_3->addWidget(label_7, 7, 0, 1, 1);
+
+        label_12 = new QLabel(scrollAreaWidgetContents_2);
+        label_12->setObjectName(QString::fromUtf8("label_12"));
+
+        gridLayout_3->addWidget(label_12, 12, 0, 1, 1);
+
+        lblG1Position = new QLabel(scrollAreaWidgetContents_2);
+        lblG1Position->setObjectName(QString::fromUtf8("lblG1Position"));
+        lblG1Position->setAlignment(Qt::AlignCenter);
+
+        gridLayout_3->addWidget(lblG1Position, 0, 3, 1, 1);
+
+        cmbCurveName_7 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_7->setObjectName(QString::fromUtf8("cmbCurveName_7"));
+
+        gridLayout_3->addWidget(cmbCurveName_7, 7, 5, 1, 1);
+
+        label_6 = new QLabel(scrollAreaWidgetContents_2);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+
+        gridLayout_3->addWidget(label_6, 6, 0, 1, 1);
+
+        lineEdit_Position_5 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_5->setObjectName(QString::fromUtf8("lineEdit_Position_5"));
+
+        gridLayout_3->addWidget(lineEdit_Position_5, 5, 3, 1, 1);
+
+        lineEdit_Name_9 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_9->setObjectName(QString::fromUtf8("lineEdit_Name_9"));
+
+        gridLayout_3->addWidget(lineEdit_Name_9, 9, 1, 1, 1);
+
+        checkBox_8 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_8->setObjectName(QString::fromUtf8("checkBox_8"));
+
+        gridLayout_3->addWidget(checkBox_8, 8, 2, 1, 1);
+
+        lineEdit_Name_4 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_4->setObjectName(QString::fromUtf8("lineEdit_Name_4"));
+
+        gridLayout_3->addWidget(lineEdit_Name_4, 4, 1, 1, 1);
+
+        comboBoxRulesName_15 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_15->setObjectName(QString::fromUtf8("comboBoxRulesName_15"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_15, 15, 4, 1, 1);
+
+        lineEdit_Name_2 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_2->setObjectName(QString::fromUtf8("lineEdit_Name_2"));
+
+        gridLayout_3->addWidget(lineEdit_Name_2, 2, 1, 1, 1);
+
+        lineEdit_Position_9 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_9->setObjectName(QString::fromUtf8("lineEdit_Position_9"));
+
+        gridLayout_3->addWidget(lineEdit_Position_9, 9, 3, 1, 1);
+
+        lblG1ItemName = new QLabel(scrollAreaWidgetContents_2);
+        lblG1ItemName->setObjectName(QString::fromUtf8("lblG1ItemName"));
+        lblG1ItemName->setAlignment(Qt::AlignCenter);
+
+        gridLayout_3->addWidget(lblG1ItemName, 0, 1, 1, 1);
+
+        comboBoxRulesName_8 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_8->setObjectName(QString::fromUtf8("comboBoxRulesName_8"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_8, 8, 4, 1, 1);
+
+        label_1 = new QLabel(scrollAreaWidgetContents_2);
+        label_1->setObjectName(QString::fromUtf8("label_1"));
+
+        gridLayout_3->addWidget(label_1, 1, 0, 1, 1);
+
+        comboBoxRulesName_1 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_1->setObjectName(QString::fromUtf8("comboBoxRulesName_1"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_1, 1, 4, 1, 1);
+
+        checkBox_2 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
+
+        gridLayout_3->addWidget(checkBox_2, 2, 2, 1, 1);
+
+        label_14 = new QLabel(scrollAreaWidgetContents_2);
+        label_14->setObjectName(QString::fromUtf8("label_14"));
+
+        gridLayout_3->addWidget(label_14, 14, 0, 1, 1);
+
+        lineEdit_Position_4 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_4->setObjectName(QString::fromUtf8("lineEdit_Position_4"));
+
+        gridLayout_3->addWidget(lineEdit_Position_4, 4, 3, 1, 1);
+
+        checkBox_12 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_12->setObjectName(QString::fromUtf8("checkBox_12"));
+
+        gridLayout_3->addWidget(checkBox_12, 12, 2, 1, 1);
+
+        lineEdit_Name_12 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_12->setObjectName(QString::fromUtf8("lineEdit_Name_12"));
+
+        gridLayout_3->addWidget(lineEdit_Name_12, 12, 1, 1, 1);
+
+        lineEdit_Position_10 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_10->setObjectName(QString::fromUtf8("lineEdit_Position_10"));
+
+        gridLayout_3->addWidget(lineEdit_Position_10, 10, 3, 1, 1);
+
+        cmbCurveName_14 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_14->setObjectName(QString::fromUtf8("cmbCurveName_14"));
+
+        gridLayout_3->addWidget(cmbCurveName_14, 14, 5, 1, 1);
+
+        comboBoxRulesName_4 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_4->setObjectName(QString::fromUtf8("comboBoxRulesName_4"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_4, 4, 4, 1, 1);
+
+        checkBox_11 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_11->setObjectName(QString::fromUtf8("checkBox_11"));
+
+        gridLayout_3->addWidget(checkBox_11, 11, 2, 1, 1);
+
+        lineEdit_Position_11 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_11->setObjectName(QString::fromUtf8("lineEdit_Position_11"));
+
+        gridLayout_3->addWidget(lineEdit_Position_11, 11, 3, 1, 1);
+
+        lineEdit_Position_8 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_8->setObjectName(QString::fromUtf8("lineEdit_Position_8"));
+
+        gridLayout_3->addWidget(lineEdit_Position_8, 8, 3, 1, 1);
+
+        comboBoxRulesName_2 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_2->setObjectName(QString::fromUtf8("comboBoxRulesName_2"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_2, 2, 4, 1, 1);
+
+        checkBox_1 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_1->setObjectName(QString::fromUtf8("checkBox_1"));
+
+        gridLayout_3->addWidget(checkBox_1, 1, 2, 1, 1);
+
+        lineEdit_Position_7 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_7->setObjectName(QString::fromUtf8("lineEdit_Position_7"));
+
+        gridLayout_3->addWidget(lineEdit_Position_7, 7, 3, 1, 1);
+
+        comboBoxRulesName_14 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_14->setObjectName(QString::fromUtf8("comboBoxRulesName_14"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_14, 14, 4, 1, 1);
+
+        lblG1IsEmpty = new QLabel(scrollAreaWidgetContents_2);
+        lblG1IsEmpty->setObjectName(QString::fromUtf8("lblG1IsEmpty"));
+        lblG1IsEmpty->setAlignment(Qt::AlignCenter);
+
+        gridLayout_3->addWidget(lblG1IsEmpty, 0, 2, 1, 1);
+
+        lblG1Curves = new QLabel(scrollAreaWidgetContents_2);
+        lblG1Curves->setObjectName(QString::fromUtf8("lblG1Curves"));
+        lblG1Curves->setAlignment(Qt::AlignCenter);
+
+        gridLayout_3->addWidget(lblG1Curves, 0, 5, 1, 1);
+
+        lineEdit_Name_3 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_3->setObjectName(QString::fromUtf8("lineEdit_Name_3"));
+
+        gridLayout_3->addWidget(lineEdit_Name_3, 3, 1, 1, 1);
+
+        checkBox_9 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_9->setObjectName(QString::fromUtf8("checkBox_9"));
+
+        gridLayout_3->addWidget(checkBox_9, 9, 2, 1, 1);
+
+        label_8 = new QLabel(scrollAreaWidgetContents_2);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+
+        gridLayout_3->addWidget(label_8, 8, 0, 1, 1);
+
+        lineEdit_Position_14 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_14->setObjectName(QString::fromUtf8("lineEdit_Position_14"));
+
+        gridLayout_3->addWidget(lineEdit_Position_14, 14, 3, 1, 1);
+
+        label_2 = new QLabel(scrollAreaWidgetContents_2);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        gridLayout_3->addWidget(label_2, 2, 0, 1, 1);
+
+        checkBox_13 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_13->setObjectName(QString::fromUtf8("checkBox_13"));
+
+        gridLayout_3->addWidget(checkBox_13, 13, 2, 1, 1);
+
+        cmbCurveName_15 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_15->setObjectName(QString::fromUtf8("cmbCurveName_15"));
+
+        gridLayout_3->addWidget(cmbCurveName_15, 15, 5, 1, 1);
+
+        comboBoxRulesName_9 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_9->setObjectName(QString::fromUtf8("comboBoxRulesName_9"));
+
+        gridLayout_3->addWidget(comboBoxRulesName_9, 9, 4, 1, 1);
+
+        label_15 = new QLabel(scrollAreaWidgetContents_2);
+        label_15->setObjectName(QString::fromUtf8("label_15"));
+
+        gridLayout_3->addWidget(label_15, 15, 0, 1, 1);
+
+        lineEdit_Name_13 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_13->setObjectName(QString::fromUtf8("lineEdit_Name_13"));
+
+        gridLayout_3->addWidget(lineEdit_Name_13, 13, 1, 1, 1);
+
+
+        horizontalLayout_2->addLayout(gridLayout_3);
+
+        gridLayout_2 = new QGridLayout();
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setHorizontalSpacing(6);
+        gridLayout_2->setVerticalSpacing(5);
+        comboBoxRulesName_24 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_24->setObjectName(QString::fromUtf8("comboBoxRulesName_24"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_24, 14, 4, 1, 1);
+
+        lineEdit_Name_21 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_21->setObjectName(QString::fromUtf8("lineEdit_Name_21"));
+
+        gridLayout_2->addWidget(lineEdit_Name_21, 11, 1, 1, 1);
+
+        checkBox_21 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_21->setObjectName(QString::fromUtf8("checkBox_21"));
+
+        gridLayout_2->addWidget(checkBox_21, 11, 2, 1, 1);
+
+        lineEdit_Name_19 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_19->setObjectName(QString::fromUtf8("lineEdit_Name_19"));
+
+        gridLayout_2->addWidget(lineEdit_Name_19, 9, 1, 1, 1);
+
+        label_22 = new QLabel(scrollAreaWidgetContents_2);
+        label_22->setObjectName(QString::fromUtf8("label_22"));
+
+        gridLayout_2->addWidget(label_22, 12, 0, 1, 1);
+
+        comboBoxRulesName_22 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_22->setObjectName(QString::fromUtf8("comboBoxRulesName_22"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_22, 12, 4, 1, 1);
+
+        checkBox_27 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_27->setObjectName(QString::fromUtf8("checkBox_27"));
+
+        gridLayout_2->addWidget(checkBox_27, 17, 2, 1, 1);
+
+        cmbCurveName_25 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_25->setObjectName(QString::fromUtf8("cmbCurveName_25"));
+
+        gridLayout_2->addWidget(cmbCurveName_25, 15, 5, 1, 1);
+
+        lineEdit_Position_29 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_29->setObjectName(QString::fromUtf8("lineEdit_Position_29"));
+
+        gridLayout_2->addWidget(lineEdit_Position_29, 19, 3, 1, 1);
+
+        checkBox_24 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_24->setObjectName(QString::fromUtf8("checkBox_24"));
+
+        gridLayout_2->addWidget(checkBox_24, 14, 2, 1, 1);
+
+        label_18 = new QLabel(scrollAreaWidgetContents_2);
+        label_18->setObjectName(QString::fromUtf8("label_18"));
+
+        gridLayout_2->addWidget(label_18, 8, 0, 1, 1);
+
+        comboBoxRulesName_23 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_23->setObjectName(QString::fromUtf8("comboBoxRulesName_23"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_23, 13, 4, 1, 1);
+
+        cmbCurveName_30 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_30->setObjectName(QString::fromUtf8("cmbCurveName_30"));
+
+        gridLayout_2->addWidget(cmbCurveName_30, 20, 5, 1, 1);
+
+        cmbCurveName_17 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_17->setObjectName(QString::fromUtf8("cmbCurveName_17"));
+
+        gridLayout_2->addWidget(cmbCurveName_17, 7, 5, 1, 1);
+
+        cmbCurveName_19 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_19->setObjectName(QString::fromUtf8("cmbCurveName_19"));
+
+        gridLayout_2->addWidget(cmbCurveName_19, 9, 5, 1, 1);
+
+        comboBoxRulesName_30 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_30->setObjectName(QString::fromUtf8("comboBoxRulesName_30"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_30, 20, 4, 1, 1);
+
+        lineEdit_Position_18 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_18->setObjectName(QString::fromUtf8("lineEdit_Position_18"));
+
+        gridLayout_2->addWidget(lineEdit_Position_18, 8, 3, 1, 1);
+
+        lblG2IsEmpty = new QLabel(scrollAreaWidgetContents_2);
+        lblG2IsEmpty->setObjectName(QString::fromUtf8("lblG2IsEmpty"));
+        lblG2IsEmpty->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(lblG2IsEmpty, 0, 2, 1, 1);
+
+        lineEdit_Position_26 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_26->setObjectName(QString::fromUtf8("lineEdit_Position_26"));
+
+        gridLayout_2->addWidget(lineEdit_Position_26, 16, 3, 1, 1);
+
+        lineEdit_Name_22 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_22->setObjectName(QString::fromUtf8("lineEdit_Name_22"));
+
+        gridLayout_2->addWidget(lineEdit_Name_22, 12, 1, 1, 1);
+
+        checkBox_28 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_28->setObjectName(QString::fromUtf8("checkBox_28"));
+
+        gridLayout_2->addWidget(checkBox_28, 18, 2, 1, 1);
+
+        lineEdit_Position_24 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_24->setObjectName(QString::fromUtf8("lineEdit_Position_24"));
+
+        gridLayout_2->addWidget(lineEdit_Position_24, 14, 3, 1, 1);
+
+        label_30 = new QLabel(scrollAreaWidgetContents_2);
+        label_30->setObjectName(QString::fromUtf8("label_30"));
+
+        gridLayout_2->addWidget(label_30, 20, 0, 1, 1);
+
+        lineEdit_Name_30 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_30->setObjectName(QString::fromUtf8("lineEdit_Name_30"));
+
+        gridLayout_2->addWidget(lineEdit_Name_30, 20, 1, 1, 1);
+
+        cmbCurveName_22 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_22->setObjectName(QString::fromUtf8("cmbCurveName_22"));
+
+        gridLayout_2->addWidget(cmbCurveName_22, 12, 5, 1, 1);
+
+        checkBox_18 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_18->setObjectName(QString::fromUtf8("checkBox_18"));
+
+        gridLayout_2->addWidget(checkBox_18, 8, 2, 1, 1);
+
+        lineEdit_Position_19 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_19->setObjectName(QString::fromUtf8("lineEdit_Position_19"));
+
+        gridLayout_2->addWidget(lineEdit_Position_19, 9, 3, 1, 1);
+
+        checkBox_20 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_20->setObjectName(QString::fromUtf8("checkBox_20"));
+
+        gridLayout_2->addWidget(checkBox_20, 10, 2, 1, 1);
+
+        lineEdit_Name_16 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_16->setObjectName(QString::fromUtf8("lineEdit_Name_16"));
+
+        gridLayout_2->addWidget(lineEdit_Name_16, 1, 1, 1, 1);
+
+        cmbCurveName_20 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_20->setObjectName(QString::fromUtf8("cmbCurveName_20"));
+
+        gridLayout_2->addWidget(cmbCurveName_20, 10, 5, 1, 1);
+
+        checkBox_26 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_26->setObjectName(QString::fromUtf8("checkBox_26"));
+
+        gridLayout_2->addWidget(checkBox_26, 16, 2, 1, 1);
+
+        cmbCurveName_23 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_23->setObjectName(QString::fromUtf8("cmbCurveName_23"));
+
+        gridLayout_2->addWidget(cmbCurveName_23, 13, 5, 1, 1);
+
+        checkBox_17 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_17->setObjectName(QString::fromUtf8("checkBox_17"));
+
+        gridLayout_2->addWidget(checkBox_17, 7, 2, 1, 1);
+
+        lineEdit_Position_28 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_28->setObjectName(QString::fromUtf8("lineEdit_Position_28"));
+
+        gridLayout_2->addWidget(lineEdit_Position_28, 18, 3, 1, 1);
+
+        lblG2Rules = new QLabel(scrollAreaWidgetContents_2);
+        lblG2Rules->setObjectName(QString::fromUtf8("lblG2Rules"));
+        lblG2Rules->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(lblG2Rules, 0, 4, 1, 1);
+
+        lineEdit_Position_30 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_30->setObjectName(QString::fromUtf8("lineEdit_Position_30"));
+
+        gridLayout_2->addWidget(lineEdit_Position_30, 20, 3, 1, 1);
+
+        comboBoxRulesName_21 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_21->setObjectName(QString::fromUtf8("comboBoxRulesName_21"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_21, 11, 4, 1, 1);
+
+        lineEdit_Name_18 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_18->setObjectName(QString::fromUtf8("lineEdit_Name_18"));
+
+        gridLayout_2->addWidget(lineEdit_Name_18, 8, 1, 1, 1);
+
+        comboBoxRulesName_17 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_17->setObjectName(QString::fromUtf8("comboBoxRulesName_17"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_17, 7, 4, 1, 1);
+
+        lineEdit_Position_21 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_21->setObjectName(QString::fromUtf8("lineEdit_Position_21"));
+
+        gridLayout_2->addWidget(lineEdit_Position_21, 11, 3, 1, 1);
+
+        cmbCurveName_27 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_27->setObjectName(QString::fromUtf8("cmbCurveName_27"));
+
+        gridLayout_2->addWidget(cmbCurveName_27, 17, 5, 1, 1);
+
+        comboBoxRulesName_27 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_27->setObjectName(QString::fromUtf8("comboBoxRulesName_27"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_27, 17, 4, 1, 1);
+
+        lineEdit_Name_29 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_29->setObjectName(QString::fromUtf8("lineEdit_Name_29"));
+
+        gridLayout_2->addWidget(lineEdit_Name_29, 19, 1, 1, 1);
+
+        lineEdit_Position_25 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_25->setObjectName(QString::fromUtf8("lineEdit_Position_25"));
+
+        gridLayout_2->addWidget(lineEdit_Position_25, 15, 3, 1, 1);
+
+        lblG2ItemName = new QLabel(scrollAreaWidgetContents_2);
+        lblG2ItemName->setObjectName(QString::fromUtf8("lblG2ItemName"));
+        lblG2ItemName->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(lblG2ItemName, 0, 1, 1, 1);
+
+        lineEdit_Position_23 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_23->setObjectName(QString::fromUtf8("lineEdit_Position_23"));
+
+        gridLayout_2->addWidget(lineEdit_Position_23, 13, 3, 1, 1);
+
+        lineEdit_Position_20 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_20->setObjectName(QString::fromUtf8("lineEdit_Position_20"));
+
+        gridLayout_2->addWidget(lineEdit_Position_20, 10, 3, 1, 1);
+
+        label_26 = new QLabel(scrollAreaWidgetContents_2);
+        label_26->setObjectName(QString::fromUtf8("label_26"));
+
+        gridLayout_2->addWidget(label_26, 16, 0, 1, 1);
+
+        lineEdit_Name_20 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_20->setObjectName(QString::fromUtf8("lineEdit_Name_20"));
+
+        gridLayout_2->addWidget(lineEdit_Name_20, 10, 1, 1, 1);
+
+        checkBox_25 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_25->setObjectName(QString::fromUtf8("checkBox_25"));
+
+        gridLayout_2->addWidget(checkBox_25, 15, 2, 1, 1);
+
+        comboBoxRulesName_29 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_29->setObjectName(QString::fromUtf8("comboBoxRulesName_29"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_29, 19, 4, 1, 1);
+
+        cmbCurveName_21 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_21->setObjectName(QString::fromUtf8("cmbCurveName_21"));
+
+        gridLayout_2->addWidget(cmbCurveName_21, 11, 5, 1, 1);
+
+        cmbCurveName_26 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_26->setObjectName(QString::fromUtf8("cmbCurveName_26"));
+
+        gridLayout_2->addWidget(cmbCurveName_26, 16, 5, 1, 1);
+
+        comboBoxRulesName_25 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_25->setObjectName(QString::fromUtf8("comboBoxRulesName_25"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_25, 15, 4, 1, 1);
+
+        checkBox_23 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_23->setObjectName(QString::fromUtf8("checkBox_23"));
+
+        gridLayout_2->addWidget(checkBox_23, 13, 2, 1, 1);
+
+        label_17 = new QLabel(scrollAreaWidgetContents_2);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+
+        gridLayout_2->addWidget(label_17, 7, 0, 1, 1);
+
+        label_28 = new QLabel(scrollAreaWidgetContents_2);
+        label_28->setObjectName(QString::fromUtf8("label_28"));
+
+        gridLayout_2->addWidget(label_28, 18, 0, 1, 1);
+
+        checkBox_16 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_16->setObjectName(QString::fromUtf8("checkBox_16"));
+
+        gridLayout_2->addWidget(checkBox_16, 1, 2, 1, 1);
+
+        lineEdit_Name_17 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_17->setObjectName(QString::fromUtf8("lineEdit_Name_17"));
+
+        gridLayout_2->addWidget(lineEdit_Name_17, 7, 1, 1, 1);
+
+        comboBoxRulesName_19 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_19->setObjectName(QString::fromUtf8("comboBoxRulesName_19"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_19, 9, 4, 1, 1);
+
+        lineEdit_Position_22 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_22->setObjectName(QString::fromUtf8("lineEdit_Position_22"));
+
+        gridLayout_2->addWidget(lineEdit_Position_22, 12, 3, 1, 1);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_2, 21, 1, 1, 1);
+
+        lineEdit_Name_24 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_24->setObjectName(QString::fromUtf8("lineEdit_Name_24"));
+
+        gridLayout_2->addWidget(lineEdit_Name_24, 14, 1, 1, 1);
+
+        comboBoxRulesName_16 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_16->setObjectName(QString::fromUtf8("comboBoxRulesName_16"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_16, 1, 4, 1, 1);
+
+        lineEdit_Name_28 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_28->setObjectName(QString::fromUtf8("lineEdit_Name_28"));
+
+        gridLayout_2->addWidget(lineEdit_Name_28, 18, 1, 1, 1);
+
+        label_29 = new QLabel(scrollAreaWidgetContents_2);
+        label_29->setObjectName(QString::fromUtf8("label_29"));
+
+        gridLayout_2->addWidget(label_29, 19, 0, 1, 1);
+
+        lineEdit_Position_27 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_27->setObjectName(QString::fromUtf8("lineEdit_Position_27"));
+
+        gridLayout_2->addWidget(lineEdit_Position_27, 17, 3, 1, 1);
+
+        label_24 = new QLabel(scrollAreaWidgetContents_2);
+        label_24->setObjectName(QString::fromUtf8("label_24"));
+
+        gridLayout_2->addWidget(label_24, 14, 0, 1, 1);
+
+        label_23 = new QLabel(scrollAreaWidgetContents_2);
+        label_23->setObjectName(QString::fromUtf8("label_23"));
+
+        gridLayout_2->addWidget(label_23, 13, 0, 1, 1);
+
+        checkBox_30 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_30->setObjectName(QString::fromUtf8("checkBox_30"));
+
+        gridLayout_2->addWidget(checkBox_30, 20, 2, 1, 1);
+
+        label_19 = new QLabel(scrollAreaWidgetContents_2);
+        label_19->setObjectName(QString::fromUtf8("label_19"));
+
+        gridLayout_2->addWidget(label_19, 9, 0, 1, 1);
+
+        comboBoxRulesName_28 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_28->setObjectName(QString::fromUtf8("comboBoxRulesName_28"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_28, 18, 4, 1, 1);
+
+        lineEdit_Name_23 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_23->setObjectName(QString::fromUtf8("lineEdit_Name_23"));
+
+        gridLayout_2->addWidget(lineEdit_Name_23, 13, 1, 1, 1);
+
+        cmbCurveName_16 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_16->setObjectName(QString::fromUtf8("cmbCurveName_16"));
+
+        gridLayout_2->addWidget(cmbCurveName_16, 1, 5, 1, 1);
+
+        lblG2Position = new QLabel(scrollAreaWidgetContents_2);
+        lblG2Position->setObjectName(QString::fromUtf8("lblG2Position"));
+        lblG2Position->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(lblG2Position, 0, 3, 1, 1);
+
+        cmbCurveName_24 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_24->setObjectName(QString::fromUtf8("cmbCurveName_24"));
+
+        gridLayout_2->addWidget(cmbCurveName_24, 14, 5, 1, 1);
+
+        checkBox_19 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_19->setObjectName(QString::fromUtf8("checkBox_19"));
+
+        gridLayout_2->addWidget(checkBox_19, 9, 2, 1, 1);
+
+        lineEdit_Position_16 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_16->setObjectName(QString::fromUtf8("lineEdit_Position_16"));
+
+        gridLayout_2->addWidget(lineEdit_Position_16, 1, 3, 1, 1);
+
+        label_16 = new QLabel(scrollAreaWidgetContents_2);
+        label_16->setObjectName(QString::fromUtf8("label_16"));
+
+        gridLayout_2->addWidget(label_16, 1, 0, 1, 1);
+
+        comboBoxRulesName_18 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_18->setObjectName(QString::fromUtf8("comboBoxRulesName_18"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_18, 8, 4, 1, 1);
+
+        label_21 = new QLabel(scrollAreaWidgetContents_2);
+        label_21->setObjectName(QString::fromUtf8("label_21"));
+
+        gridLayout_2->addWidget(label_21, 11, 0, 1, 1);
+
+        checkBox_29 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_29->setObjectName(QString::fromUtf8("checkBox_29"));
+
+        gridLayout_2->addWidget(checkBox_29, 19, 2, 1, 1);
+
+        lineEdit_Position_17 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Position_17->setObjectName(QString::fromUtf8("lineEdit_Position_17"));
+
+        gridLayout_2->addWidget(lineEdit_Position_17, 7, 3, 1, 1);
+
+        cmbCurveName_29 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_29->setObjectName(QString::fromUtf8("cmbCurveName_29"));
+
+        gridLayout_2->addWidget(cmbCurveName_29, 19, 5, 1, 1);
+
+        comboBoxRulesName_26 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_26->setObjectName(QString::fromUtf8("comboBoxRulesName_26"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_26, 16, 4, 1, 1);
+
+        comboBoxRulesName_20 = new QComboBox(scrollAreaWidgetContents_2);
+        comboBoxRulesName_20->setObjectName(QString::fromUtf8("comboBoxRulesName_20"));
+
+        gridLayout_2->addWidget(comboBoxRulesName_20, 10, 4, 1, 1);
+
+        label_20 = new QLabel(scrollAreaWidgetContents_2);
+        label_20->setObjectName(QString::fromUtf8("label_20"));
+
+        gridLayout_2->addWidget(label_20, 10, 0, 1, 1);
+
+        lblG2Curves = new QLabel(scrollAreaWidgetContents_2);
+        lblG2Curves->setObjectName(QString::fromUtf8("lblG2Curves"));
+        lblG2Curves->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(lblG2Curves, 0, 5, 1, 1);
+
+        label_25 = new QLabel(scrollAreaWidgetContents_2);
+        label_25->setObjectName(QString::fromUtf8("label_25"));
+
+        gridLayout_2->addWidget(label_25, 15, 0, 1, 1);
+
+        lineEdit_Name_27 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_27->setObjectName(QString::fromUtf8("lineEdit_Name_27"));
+
+        gridLayout_2->addWidget(lineEdit_Name_27, 17, 1, 1, 1);
+
+        cmbCurveName_18 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_18->setObjectName(QString::fromUtf8("cmbCurveName_18"));
+
+        gridLayout_2->addWidget(cmbCurveName_18, 8, 5, 1, 1);
+
+        checkBox_22 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_22->setObjectName(QString::fromUtf8("checkBox_22"));
+
+        gridLayout_2->addWidget(checkBox_22, 12, 2, 1, 1);
+
+        lineEdit_Name_25 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_25->setObjectName(QString::fromUtf8("lineEdit_Name_25"));
+
+        gridLayout_2->addWidget(lineEdit_Name_25, 15, 1, 1, 1);
+
+        cmbCurveName_28 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCurveName_28->setObjectName(QString::fromUtf8("cmbCurveName_28"));
+
+        gridLayout_2->addWidget(cmbCurveName_28, 18, 5, 1, 1);
+
+        lineEdit_Name_26 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_Name_26->setObjectName(QString::fromUtf8("lineEdit_Name_26"));
+
+        gridLayout_2->addWidget(lineEdit_Name_26, 16, 1, 1, 1);
+
+        label_27 = new QLabel(scrollAreaWidgetContents_2);
+        label_27->setObjectName(QString::fromUtf8("label_27"));
+
+        gridLayout_2->addWidget(label_27, 17, 0, 1, 1);
+
+
+        horizontalLayout_2->addLayout(gridLayout_2);
+
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setVerticalSpacing(5);
+        gridLayout->setContentsMargins(0, -1, 0, -1);
+        lineEdit_12 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_12->setObjectName(QString::fromUtf8("lineEdit_12"));
+
+        gridLayout->addWidget(lineEdit_12, 13, 3, 1, 1);
+
+        cmbCount_29 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_29->setObjectName(QString::fromUtf8("cmbCount_29"));
+
+        gridLayout->addWidget(cmbCount_29, 15, 2, 1, 1);
+
+        checkBox_37 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_37->setObjectName(QString::fromUtf8("checkBox_37"));
+
+        gridLayout->addWidget(checkBox_37, 6, 1, 1, 1);
+
+        lblG3ItemStartPos = new QLabel(scrollAreaWidgetContents_2);
+        lblG3ItemStartPos->setObjectName(QString::fromUtf8("lblG3ItemStartPos"));
+        lblG3ItemStartPos->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(lblG3ItemStartPos, 0, 3, 1, 1);
+
+        label_67 = new QLabel(scrollAreaWidgetContents_2);
+        label_67->setObjectName(QString::fromUtf8("label_67"));
+
+        gridLayout->addWidget(label_67, 12, 0, 1, 1);
+
+        checkBox_35 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_35->setObjectName(QString::fromUtf8("checkBox_35"));
+
+        gridLayout->addWidget(checkBox_35, 8, 1, 1, 1);
+
+        cmbCount_17 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_17->setObjectName(QString::fromUtf8("cmbCount_17"));
+
+        gridLayout->addWidget(cmbCount_17, 3, 2, 1, 1);
+
+        cmbCount_23 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_23->setObjectName(QString::fromUtf8("cmbCount_23"));
+
+        gridLayout->addWidget(cmbCount_23, 9, 2, 1, 1);
+
+        lineEdit_14 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_14->setObjectName(QString::fromUtf8("lineEdit_14"));
+
+        gridLayout->addWidget(lineEdit_14, 15, 3, 1, 1);
+
+        checkBox_39 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_39->setObjectName(QString::fromUtf8("checkBox_39"));
+
+        gridLayout->addWidget(checkBox_39, 4, 1, 1, 1);
+
+        lineEdit_5 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_5->setObjectName(QString::fromUtf8("lineEdit_5"));
+
+        gridLayout->addWidget(lineEdit_5, 6, 3, 1, 1);
+
+        label_55 = new QLabel(scrollAreaWidgetContents_2);
+        label_55->setObjectName(QString::fromUtf8("label_55"));
+
+        gridLayout->addWidget(label_55, 6, 0, 1, 1);
+
+        label_60 = new QLabel(scrollAreaWidgetContents_2);
+        label_60->setObjectName(QString::fromUtf8("label_60"));
+
+        gridLayout->addWidget(label_60, 8, 0, 1, 1);
+
+        lineEdit_15 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_15->setObjectName(QString::fromUtf8("lineEdit_15"));
+
+        gridLayout->addWidget(lineEdit_15, 16, 3, 1, 1);
+
+        label_71 = new QLabel(scrollAreaWidgetContents_2);
+        label_71->setObjectName(QString::fromUtf8("label_71"));
+
+        gridLayout->addWidget(label_71, 14, 0, 1, 1);
+
+        label_63 = new QLabel(scrollAreaWidgetContents_2);
+        label_63->setObjectName(QString::fromUtf8("label_63"));
+
+        gridLayout->addWidget(label_63, 10, 0, 1, 1);
+
+        lineEdit_7 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_7->setObjectName(QString::fromUtf8("lineEdit_7"));
+
+        gridLayout->addWidget(lineEdit_7, 8, 3, 1, 1);
+
+        lblG3ItemDistance = new QLabel(scrollAreaWidgetContents_2);
+        lblG3ItemDistance->setObjectName(QString::fromUtf8("lblG3ItemDistance"));
+        lblG3ItemDistance->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(lblG3ItemDistance, 0, 4, 1, 1);
+
+        label_37 = new QLabel(scrollAreaWidgetContents_2);
+        label_37->setObjectName(QString::fromUtf8("label_37"));
+
+        gridLayout->addWidget(label_37, 2, 0, 1, 1);
+
+        label_62 = new QLabel(scrollAreaWidgetContents_2);
+        label_62->setObjectName(QString::fromUtf8("label_62"));
+
+        gridLayout->addWidget(label_62, 9, 0, 1, 1);
+
+        cmbCount_24 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_24->setObjectName(QString::fromUtf8("cmbCount_24"));
+
+        gridLayout->addWidget(cmbCount_24, 10, 2, 1, 1);
+
+        label_56 = new QLabel(scrollAreaWidgetContents_2);
+        label_56->setObjectName(QString::fromUtf8("label_56"));
+
+        gridLayout->addWidget(label_56, 7, 0, 1, 1);
+
+        cmbCount_22 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_22->setObjectName(QString::fromUtf8("cmbCount_22"));
+
+        gridLayout->addWidget(cmbCount_22, 8, 2, 1, 1);
+
+        label_65 = new QLabel(scrollAreaWidgetContents_2);
+        label_65->setObjectName(QString::fromUtf8("label_65"));
+
+        gridLayout->addWidget(label_65, 11, 0, 1, 1);
+
+        lineEdit_6 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_6->setObjectName(QString::fromUtf8("lineEdit_6"));
+
+        gridLayout->addWidget(lineEdit_6, 7, 3, 1, 1);
+
+        checkBox_38 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_38->setObjectName(QString::fromUtf8("checkBox_38"));
+
+        gridLayout->addWidget(checkBox_38, 5, 1, 1, 1);
+
+        lineEdit_13 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_13->setObjectName(QString::fromUtf8("lineEdit_13"));
+
+        gridLayout->addWidget(lineEdit_13, 14, 3, 1, 1);
+
+        checkBox_41 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_41->setObjectName(QString::fromUtf8("checkBox_41"));
+
+        gridLayout->addWidget(checkBox_41, 2, 1, 1, 1);
+
+        checkBox_44 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_44->setObjectName(QString::fromUtf8("checkBox_44"));
+
+        gridLayout->addWidget(checkBox_44, 15, 1, 1, 1);
+
+        cmbCount_20 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_20->setObjectName(QString::fromUtf8("cmbCount_20"));
+
+        gridLayout->addWidget(cmbCount_20, 6, 2, 1, 1);
+
+        checkBox_34 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_34->setObjectName(QString::fromUtf8("checkBox_34"));
+
+        gridLayout->addWidget(checkBox_34, 9, 1, 1, 1);
+
+        lineEdit_11 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_11->setObjectName(QString::fromUtf8("lineEdit_11"));
+
+        gridLayout->addWidget(lineEdit_11, 12, 3, 1, 1);
+
+        cmbCount_30 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_30->setObjectName(QString::fromUtf8("cmbCount_30"));
+
+        gridLayout->addWidget(cmbCount_30, 16, 2, 1, 1);
+
+        lineEdit_8 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_8->setObjectName(QString::fromUtf8("lineEdit_8"));
+
+        gridLayout->addWidget(lineEdit_8, 9, 3, 1, 1);
+
+        checkBox_40 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_40->setObjectName(QString::fromUtf8("checkBox_40"));
+
+        gridLayout->addWidget(checkBox_40, 3, 1, 1, 1);
+
+        checkBox_32 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_32->setObjectName(QString::fromUtf8("checkBox_32"));
+
+        gridLayout->addWidget(checkBox_32, 11, 1, 1, 1);
+
+        label_73 = new QLabel(scrollAreaWidgetContents_2);
+        label_73->setObjectName(QString::fromUtf8("label_73"));
+
+        gridLayout->addWidget(label_73, 16, 0, 1, 1);
+
+        cmbCount_21 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_21->setObjectName(QString::fromUtf8("cmbCount_21"));
+
+        gridLayout->addWidget(cmbCount_21, 7, 2, 1, 1);
+
+        label_72 = new QLabel(scrollAreaWidgetContents_2);
+        label_72->setObjectName(QString::fromUtf8("label_72"));
+
+        gridLayout->addWidget(label_72, 15, 0, 1, 1);
+
+        checkBox_33 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_33->setObjectName(QString::fromUtf8("checkBox_33"));
+
+        gridLayout->addWidget(checkBox_33, 10, 1, 1, 1);
+
+        lblG3IsEmpty = new QLabel(scrollAreaWidgetContents_2);
+        lblG3IsEmpty->setObjectName(QString::fromUtf8("lblG3IsEmpty"));
+        lblG3IsEmpty->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(lblG3IsEmpty, 0, 1, 1, 1);
+
+        label_52 = new QLabel(scrollAreaWidgetContents_2);
+        label_52->setObjectName(QString::fromUtf8("label_52"));
+
+        gridLayout->addWidget(label_52, 3, 0, 1, 1);
+
+        cmbCount_25 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_25->setObjectName(QString::fromUtf8("cmbCount_25"));
+
+        gridLayout->addWidget(cmbCount_25, 11, 2, 1, 1);
+
+        checkBox_36 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_36->setObjectName(QString::fromUtf8("checkBox_36"));
+
+        gridLayout->addWidget(checkBox_36, 7, 1, 1, 1);
+
+        lineEdit_2 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
+
+        gridLayout->addWidget(lineEdit_2, 3, 3, 1, 1);
+
+        checkBox_43 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_43->setObjectName(QString::fromUtf8("checkBox_43"));
+
+        gridLayout->addWidget(checkBox_43, 14, 1, 1, 1);
+
+        label_69 = new QLabel(scrollAreaWidgetContents_2);
+        label_69->setObjectName(QString::fromUtf8("label_69"));
+
+        gridLayout->addWidget(label_69, 13, 0, 1, 1);
+
+        label_54 = new QLabel(scrollAreaWidgetContents_2);
+        label_54->setObjectName(QString::fromUtf8("label_54"));
+
+        gridLayout->addWidget(label_54, 5, 0, 1, 1);
+
+        cmbCount_19 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_19->setObjectName(QString::fromUtf8("cmbCount_19"));
+
+        gridLayout->addWidget(cmbCount_19, 5, 2, 1, 1);
+
+        checkBox_31 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_31->setObjectName(QString::fromUtf8("checkBox_31"));
+
+        gridLayout->addWidget(checkBox_31, 12, 1, 1, 1);
+
+        cmbCount_27 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_27->setObjectName(QString::fromUtf8("cmbCount_27"));
+
+        gridLayout->addWidget(cmbCount_27, 13, 2, 1, 1);
+
+        cmbCount_28 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_28->setObjectName(QString::fromUtf8("cmbCount_28"));
+
+        gridLayout->addWidget(cmbCount_28, 14, 2, 1, 1);
+
+        cmbCount_16 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_16->setObjectName(QString::fromUtf8("cmbCount_16"));
+
+        gridLayout->addWidget(cmbCount_16, 2, 2, 1, 1);
+
+        checkBox_45 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_45->setObjectName(QString::fromUtf8("checkBox_45"));
+
+        gridLayout->addWidget(checkBox_45, 16, 1, 1, 1);
+
+        cmbCount_26 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_26->setObjectName(QString::fromUtf8("cmbCount_26"));
+
+        gridLayout->addWidget(cmbCount_26, 12, 2, 1, 1);
+
+        lblG3ItemCount = new QLabel(scrollAreaWidgetContents_2);
+        lblG3ItemCount->setObjectName(QString::fromUtf8("lblG3ItemCount"));
+        lblG3ItemCount->setAlignment(Qt::AlignCenter);
+
+        gridLayout->addWidget(lblG3ItemCount, 0, 2, 1, 1);
+
+        lineEdit_10 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_10->setObjectName(QString::fromUtf8("lineEdit_10"));
+
+        gridLayout->addWidget(lineEdit_10, 11, 3, 1, 1);
+
+        cmbCount_18 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_18->setObjectName(QString::fromUtf8("cmbCount_18"));
+
+        gridLayout->addWidget(cmbCount_18, 4, 2, 1, 1);
+
+        checkBox_42 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_42->setObjectName(QString::fromUtf8("checkBox_42"));
+
+        gridLayout->addWidget(checkBox_42, 13, 1, 1, 1);
+
+        lineEdit_9 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_9->setObjectName(QString::fromUtf8("lineEdit_9"));
+
+        gridLayout->addWidget(lineEdit_9, 10, 3, 1, 1);
+
+        label_53 = new QLabel(scrollAreaWidgetContents_2);
+        label_53->setObjectName(QString::fromUtf8("label_53"));
+
+        gridLayout->addWidget(label_53, 4, 0, 1, 1);
+
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout->addItem(verticalSpacer_3, 17, 2, 1, 1);
+
+        lineEdit_16 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_16->setObjectName(QString::fromUtf8("lineEdit_16"));
+
+        gridLayout->addWidget(lineEdit_16, 2, 4, 1, 1);
+
+        lineEdit_17 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_17->setObjectName(QString::fromUtf8("lineEdit_17"));
+
+        gridLayout->addWidget(lineEdit_17, 3, 4, 1, 1);
+
+        lineEdit_18 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_18->setObjectName(QString::fromUtf8("lineEdit_18"));
+
+        gridLayout->addWidget(lineEdit_18, 4, 4, 1, 1);
+
+        lineEdit_19 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_19->setObjectName(QString::fromUtf8("lineEdit_19"));
+
+        gridLayout->addWidget(lineEdit_19, 5, 4, 1, 1);
+
+        lineEdit_20 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_20->setObjectName(QString::fromUtf8("lineEdit_20"));
+
+        gridLayout->addWidget(lineEdit_20, 6, 4, 1, 1);
+
+        lineEdit_21 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_21->setObjectName(QString::fromUtf8("lineEdit_21"));
+
+        gridLayout->addWidget(lineEdit_21, 7, 4, 1, 1);
+
+        lineEdit_22 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_22->setObjectName(QString::fromUtf8("lineEdit_22"));
+
+        gridLayout->addWidget(lineEdit_22, 8, 4, 1, 1);
+
+        lineEdit_23 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_23->setObjectName(QString::fromUtf8("lineEdit_23"));
+
+        gridLayout->addWidget(lineEdit_23, 9, 4, 1, 1);
+
+        lineEdit_24 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_24->setObjectName(QString::fromUtf8("lineEdit_24"));
+
+        gridLayout->addWidget(lineEdit_24, 10, 4, 1, 1);
+
+        lineEdit_25 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_25->setObjectName(QString::fromUtf8("lineEdit_25"));
+
+        gridLayout->addWidget(lineEdit_25, 11, 4, 1, 1);
+
+        lineEdit_26 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_26->setObjectName(QString::fromUtf8("lineEdit_26"));
+
+        gridLayout->addWidget(lineEdit_26, 12, 4, 1, 1);
+
+        lineEdit_27 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_27->setObjectName(QString::fromUtf8("lineEdit_27"));
+
+        gridLayout->addWidget(lineEdit_27, 13, 4, 1, 1);
+
+        lineEdit_28 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_28->setObjectName(QString::fromUtf8("lineEdit_28"));
+
+        gridLayout->addWidget(lineEdit_28, 14, 4, 1, 1);
+
+        lineEdit_29 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_29->setObjectName(QString::fromUtf8("lineEdit_29"));
+
+        gridLayout->addWidget(lineEdit_29, 15, 4, 1, 1);
+
+        lineEdit_30 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_30->setObjectName(QString::fromUtf8("lineEdit_30"));
+
+        gridLayout->addWidget(lineEdit_30, 16, 4, 1, 1);
+
+        lineEdit_61 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_61->setObjectName(QString::fromUtf8("lineEdit_61"));
+
+        gridLayout->addWidget(lineEdit_61, 2, 3, 1, 1);
+
+        lineEdit_62 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_62->setObjectName(QString::fromUtf8("lineEdit_62"));
+
+        gridLayout->addWidget(lineEdit_62, 4, 3, 1, 1);
+
+        lineEdit_63 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_63->setObjectName(QString::fromUtf8("lineEdit_63"));
+
+        gridLayout->addWidget(lineEdit_63, 5, 3, 1, 1);
+
+
+        horizontalLayout_2->addLayout(gridLayout);
+
+        gridLayout_6 = new QGridLayout();
+        gridLayout_6->setSpacing(6);
+        gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
+        gridLayout_6->setVerticalSpacing(5);
+        gridLayout_6->setContentsMargins(10, -1, 10, -1);
+        label_83 = new QLabel(scrollAreaWidgetContents_2);
+        label_83->setObjectName(QString::fromUtf8("label_83"));
+
+        gridLayout_6->addWidget(label_83, 4, 0, 1, 1);
+
+        label_93 = new QLabel(scrollAreaWidgetContents_2);
+        label_93->setObjectName(QString::fromUtf8("label_93"));
+
+        gridLayout_6->addWidget(label_93, 14, 0, 1, 1);
+
+        label_92 = new QLabel(scrollAreaWidgetContents_2);
+        label_92->setObjectName(QString::fromUtf8("label_92"));
+
+        gridLayout_6->addWidget(label_92, 13, 0, 1, 1);
+
+        label_40 = new QLabel(scrollAreaWidgetContents_2);
+        label_40->setObjectName(QString::fromUtf8("label_40"));
+
+        gridLayout_6->addWidget(label_40, 1, 0, 1, 1);
+
+        label_86 = new QLabel(scrollAreaWidgetContents_2);
+        label_86->setObjectName(QString::fromUtf8("label_86"));
+
+        gridLayout_6->addWidget(label_86, 7, 0, 1, 1);
+
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_6->addItem(verticalSpacer_5, 16, 2, 1, 1);
+
+        label_74 = new QLabel(scrollAreaWidgetContents_2);
+        label_74->setObjectName(QString::fromUtf8("label_74"));
+
+        gridLayout_6->addWidget(label_74, 2, 0, 1, 1);
+
+        label_76 = new QLabel(scrollAreaWidgetContents_2);
+        label_76->setObjectName(QString::fromUtf8("label_76"));
+
+        gridLayout_6->addWidget(label_76, 3, 0, 1, 1);
+
+        label_84 = new QLabel(scrollAreaWidgetContents_2);
+        label_84->setObjectName(QString::fromUtf8("label_84"));
+
+        gridLayout_6->addWidget(label_84, 5, 0, 1, 1);
+
+        lblG4ItemCount = new QLabel(scrollAreaWidgetContents_2);
+        lblG4ItemCount->setObjectName(QString::fromUtf8("lblG4ItemCount"));
+        lblG4ItemCount->setAlignment(Qt::AlignCenter);
+
+        gridLayout_6->addWidget(lblG4ItemCount, 0, 2, 1, 1);
+
+        label_90 = new QLabel(scrollAreaWidgetContents_2);
+        label_90->setObjectName(QString::fromUtf8("label_90"));
+
+        gridLayout_6->addWidget(label_90, 11, 0, 1, 1);
+
+        lblG4ItemDistance = new QLabel(scrollAreaWidgetContents_2);
+        lblG4ItemDistance->setObjectName(QString::fromUtf8("lblG4ItemDistance"));
+        lblG4ItemDistance->setAlignment(Qt::AlignCenter);
+
+        gridLayout_6->addWidget(lblG4ItemDistance, 0, 4, 1, 1);
+
+        label_89 = new QLabel(scrollAreaWidgetContents_2);
+        label_89->setObjectName(QString::fromUtf8("label_89"));
+
+        gridLayout_6->addWidget(label_89, 10, 0, 1, 1);
+
+        checkBox_46 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_46->setObjectName(QString::fromUtf8("checkBox_46"));
+
+        gridLayout_6->addWidget(checkBox_46, 1, 1, 1, 1);
+
+        lblG4ItemStartPos = new QLabel(scrollAreaWidgetContents_2);
+        lblG4ItemStartPos->setObjectName(QString::fromUtf8("lblG4ItemStartPos"));
+        lblG4ItemStartPos->setAlignment(Qt::AlignCenter);
+
+        gridLayout_6->addWidget(lblG4ItemStartPos, 0, 3, 1, 1);
+
+        label_85 = new QLabel(scrollAreaWidgetContents_2);
+        label_85->setObjectName(QString::fromUtf8("label_85"));
+
+        gridLayout_6->addWidget(label_85, 6, 0, 1, 1);
+
+        label_91 = new QLabel(scrollAreaWidgetContents_2);
+        label_91->setObjectName(QString::fromUtf8("label_91"));
+
+        gridLayout_6->addWidget(label_91, 12, 0, 1, 1);
+
+        checkBox_65 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_65->setObjectName(QString::fromUtf8("checkBox_65"));
+
+        gridLayout_6->addWidget(checkBox_65, 3, 1, 1, 1);
+
+        lblG4IsEmpty = new QLabel(scrollAreaWidgetContents_2);
+        lblG4IsEmpty->setObjectName(QString::fromUtf8("lblG4IsEmpty"));
+        lblG4IsEmpty->setAlignment(Qt::AlignCenter);
+
+        gridLayout_6->addWidget(lblG4IsEmpty, 0, 1, 1, 1);
+
+        checkBox_47 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_47->setObjectName(QString::fromUtf8("checkBox_47"));
+
+        gridLayout_6->addWidget(checkBox_47, 2, 1, 1, 1);
+
+        label_87 = new QLabel(scrollAreaWidgetContents_2);
+        label_87->setObjectName(QString::fromUtf8("label_87"));
+
+        gridLayout_6->addWidget(label_87, 8, 0, 1, 1);
+
+        label_88 = new QLabel(scrollAreaWidgetContents_2);
+        label_88->setObjectName(QString::fromUtf8("label_88"));
+
+        gridLayout_6->addWidget(label_88, 9, 0, 1, 1);
+
+        label_94 = new QLabel(scrollAreaWidgetContents_2);
+        label_94->setObjectName(QString::fromUtf8("label_94"));
+
+        gridLayout_6->addWidget(label_94, 15, 0, 1, 1);
+
+        checkBox_66 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_66->setObjectName(QString::fromUtf8("checkBox_66"));
+
+        gridLayout_6->addWidget(checkBox_66, 4, 1, 1, 1);
+
+        checkBox_67 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_67->setObjectName(QString::fromUtf8("checkBox_67"));
+
+        gridLayout_6->addWidget(checkBox_67, 5, 1, 1, 1);
+
+        checkBox_68 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_68->setObjectName(QString::fromUtf8("checkBox_68"));
+
+        gridLayout_6->addWidget(checkBox_68, 6, 1, 1, 1);
+
+        checkBox_69 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_69->setObjectName(QString::fromUtf8("checkBox_69"));
+
+        gridLayout_6->addWidget(checkBox_69, 7, 1, 1, 1);
+
+        checkBox_70 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_70->setObjectName(QString::fromUtf8("checkBox_70"));
+
+        gridLayout_6->addWidget(checkBox_70, 8, 1, 1, 1);
+
+        checkBox_71 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_71->setObjectName(QString::fromUtf8("checkBox_71"));
+
+        gridLayout_6->addWidget(checkBox_71, 9, 1, 1, 1);
+
+        checkBox_72 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_72->setObjectName(QString::fromUtf8("checkBox_72"));
+
+        gridLayout_6->addWidget(checkBox_72, 10, 1, 1, 1);
+
+        checkBox_73 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_73->setObjectName(QString::fromUtf8("checkBox_73"));
+
+        gridLayout_6->addWidget(checkBox_73, 11, 1, 1, 1);
+
+        checkBox_74 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_74->setObjectName(QString::fromUtf8("checkBox_74"));
+
+        gridLayout_6->addWidget(checkBox_74, 12, 1, 1, 1);
+
+        checkBox_75 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_75->setObjectName(QString::fromUtf8("checkBox_75"));
+
+        gridLayout_6->addWidget(checkBox_75, 13, 1, 1, 1);
+
+        checkBox_76 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_76->setObjectName(QString::fromUtf8("checkBox_76"));
+
+        gridLayout_6->addWidget(checkBox_76, 14, 1, 1, 1);
+
+        checkBox_77 = new QCheckBox(scrollAreaWidgetContents_2);
+        checkBox_77->setObjectName(QString::fromUtf8("checkBox_77"));
+
+        gridLayout_6->addWidget(checkBox_77, 15, 1, 1, 1);
+
+        lineEdit_31 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_31->setObjectName(QString::fromUtf8("lineEdit_31"));
+
+        gridLayout_6->addWidget(lineEdit_31, 1, 3, 1, 1);
+
+        cmbCount_31 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_31->setObjectName(QString::fromUtf8("cmbCount_31"));
+
+        gridLayout_6->addWidget(cmbCount_31, 1, 2, 1, 1);
+
+        cmbCount_32 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_32->setObjectName(QString::fromUtf8("cmbCount_32"));
+
+        gridLayout_6->addWidget(cmbCount_32, 2, 2, 1, 1);
+
+        cmbCount_33 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_33->setObjectName(QString::fromUtf8("cmbCount_33"));
+
+        gridLayout_6->addWidget(cmbCount_33, 3, 2, 1, 1);
+
+        cmbCount_34 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_34->setObjectName(QString::fromUtf8("cmbCount_34"));
+
+        gridLayout_6->addWidget(cmbCount_34, 4, 2, 1, 1);
+
+        cmbCount_35 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_35->setObjectName(QString::fromUtf8("cmbCount_35"));
+
+        gridLayout_6->addWidget(cmbCount_35, 5, 2, 1, 1);
+
+        cmbCount_36 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_36->setObjectName(QString::fromUtf8("cmbCount_36"));
+
+        gridLayout_6->addWidget(cmbCount_36, 6, 2, 1, 1);
+
+        cmbCount_37 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_37->setObjectName(QString::fromUtf8("cmbCount_37"));
+
+        gridLayout_6->addWidget(cmbCount_37, 7, 2, 1, 1);
+
+        cmbCount_38 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_38->setObjectName(QString::fromUtf8("cmbCount_38"));
+
+        gridLayout_6->addWidget(cmbCount_38, 8, 2, 1, 1);
+
+        cmbCount_39 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_39->setObjectName(QString::fromUtf8("cmbCount_39"));
+
+        gridLayout_6->addWidget(cmbCount_39, 9, 2, 1, 1);
+
+        cmbCount_40 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_40->setObjectName(QString::fromUtf8("cmbCount_40"));
+
+        gridLayout_6->addWidget(cmbCount_40, 10, 2, 1, 1);
+
+        cmbCount_41 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_41->setObjectName(QString::fromUtf8("cmbCount_41"));
+
+        gridLayout_6->addWidget(cmbCount_41, 11, 2, 1, 1);
+
+        cmbCount_42 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_42->setObjectName(QString::fromUtf8("cmbCount_42"));
+
+        gridLayout_6->addWidget(cmbCount_42, 12, 2, 1, 1);
+
+        cmbCount_43 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_43->setObjectName(QString::fromUtf8("cmbCount_43"));
+
+        gridLayout_6->addWidget(cmbCount_43, 13, 2, 1, 1);
+
+        cmbCount_44 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_44->setObjectName(QString::fromUtf8("cmbCount_44"));
+
+        gridLayout_6->addWidget(cmbCount_44, 14, 2, 1, 1);
+
+        cmbCount_45 = new QComboBox(scrollAreaWidgetContents_2);
+        cmbCount_45->setObjectName(QString::fromUtf8("cmbCount_45"));
+
+        gridLayout_6->addWidget(cmbCount_45, 15, 2, 1, 1);
+
+        lineEdit_32 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_32->setObjectName(QString::fromUtf8("lineEdit_32"));
+
+        gridLayout_6->addWidget(lineEdit_32, 2, 3, 1, 1);
+
+        lineEdit_33 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_33->setObjectName(QString::fromUtf8("lineEdit_33"));
+
+        gridLayout_6->addWidget(lineEdit_33, 3, 3, 1, 1);
+
+        lineEdit_34 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_34->setObjectName(QString::fromUtf8("lineEdit_34"));
+
+        gridLayout_6->addWidget(lineEdit_34, 4, 3, 1, 1);
+
+        lineEdit_35 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_35->setObjectName(QString::fromUtf8("lineEdit_35"));
+
+        gridLayout_6->addWidget(lineEdit_35, 5, 3, 1, 1);
+
+        lineEdit_36 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_36->setObjectName(QString::fromUtf8("lineEdit_36"));
+
+        gridLayout_6->addWidget(lineEdit_36, 6, 3, 1, 1);
+
+        lineEdit_37 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_37->setObjectName(QString::fromUtf8("lineEdit_37"));
+
+        gridLayout_6->addWidget(lineEdit_37, 7, 3, 1, 1);
+
+        lineEdit_38 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_38->setObjectName(QString::fromUtf8("lineEdit_38"));
+
+        gridLayout_6->addWidget(lineEdit_38, 8, 3, 1, 1);
+
+        lineEdit_39 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_39->setObjectName(QString::fromUtf8("lineEdit_39"));
+
+        gridLayout_6->addWidget(lineEdit_39, 9, 3, 1, 1);
+
+        lineEdit_40 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_40->setObjectName(QString::fromUtf8("lineEdit_40"));
+
+        gridLayout_6->addWidget(lineEdit_40, 10, 3, 1, 1);
+
+        lineEdit_41 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_41->setObjectName(QString::fromUtf8("lineEdit_41"));
+
+        gridLayout_6->addWidget(lineEdit_41, 11, 3, 1, 1);
+
+        lineEdit_42 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_42->setObjectName(QString::fromUtf8("lineEdit_42"));
+
+        gridLayout_6->addWidget(lineEdit_42, 12, 3, 1, 1);
+
+        lineEdit_43 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_43->setObjectName(QString::fromUtf8("lineEdit_43"));
+
+        gridLayout_6->addWidget(lineEdit_43, 13, 3, 1, 1);
+
+        lineEdit_44 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_44->setObjectName(QString::fromUtf8("lineEdit_44"));
+
+        gridLayout_6->addWidget(lineEdit_44, 14, 3, 1, 1);
+
+        lineEdit_45 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_45->setObjectName(QString::fromUtf8("lineEdit_45"));
+
+        gridLayout_6->addWidget(lineEdit_45, 15, 3, 1, 1);
+
+        lineEdit_46 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_46->setObjectName(QString::fromUtf8("lineEdit_46"));
+
+        gridLayout_6->addWidget(lineEdit_46, 1, 4, 1, 1);
+
+        lineEdit_47 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_47->setObjectName(QString::fromUtf8("lineEdit_47"));
+
+        gridLayout_6->addWidget(lineEdit_47, 2, 4, 1, 1);
+
+        lineEdit_48 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_48->setObjectName(QString::fromUtf8("lineEdit_48"));
+
+        gridLayout_6->addWidget(lineEdit_48, 3, 4, 1, 1);
+
+        lineEdit_49 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_49->setObjectName(QString::fromUtf8("lineEdit_49"));
+
+        gridLayout_6->addWidget(lineEdit_49, 4, 4, 1, 1);
+
+        lineEdit_50 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_50->setObjectName(QString::fromUtf8("lineEdit_50"));
+
+        gridLayout_6->addWidget(lineEdit_50, 5, 4, 1, 1);
+
+        lineEdit_51 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_51->setObjectName(QString::fromUtf8("lineEdit_51"));
+
+        gridLayout_6->addWidget(lineEdit_51, 6, 4, 1, 1);
+
+        lineEdit_52 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_52->setObjectName(QString::fromUtf8("lineEdit_52"));
+
+        gridLayout_6->addWidget(lineEdit_52, 7, 4, 1, 1);
+
+        lineEdit_53 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_53->setObjectName(QString::fromUtf8("lineEdit_53"));
+
+        gridLayout_6->addWidget(lineEdit_53, 8, 4, 1, 1);
+
+        lineEdit_54 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_54->setObjectName(QString::fromUtf8("lineEdit_54"));
+
+        gridLayout_6->addWidget(lineEdit_54, 9, 4, 1, 1);
+
+        lineEdit_55 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_55->setObjectName(QString::fromUtf8("lineEdit_55"));
+
+        gridLayout_6->addWidget(lineEdit_55, 10, 4, 1, 1);
+
+        lineEdit_56 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_56->setObjectName(QString::fromUtf8("lineEdit_56"));
+
+        gridLayout_6->addWidget(lineEdit_56, 11, 4, 1, 1);
+
+        lineEdit_57 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_57->setObjectName(QString::fromUtf8("lineEdit_57"));
+
+        gridLayout_6->addWidget(lineEdit_57, 12, 4, 1, 1);
+
+        lineEdit_58 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_58->setObjectName(QString::fromUtf8("lineEdit_58"));
+
+        gridLayout_6->addWidget(lineEdit_58, 13, 4, 1, 1);
+
+        lineEdit_59 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_59->setObjectName(QString::fromUtf8("lineEdit_59"));
+
+        gridLayout_6->addWidget(lineEdit_59, 14, 4, 1, 1);
+
+        lineEdit_60 = new QLineEdit(scrollAreaWidgetContents_2);
+        lineEdit_60->setObjectName(QString::fromUtf8("lineEdit_60"));
+
+        gridLayout_6->addWidget(lineEdit_60, 15, 4, 1, 1);
+
+
+        horizontalLayout_2->addLayout(gridLayout_6);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_5);
+
+        scrollArea->setWidget(scrollAreaWidgetContents_2);
+
+        horizontalLayout_6->addWidget(scrollArea);
+
+        tbSegment = new QTableWidget(layoutWidget);
+        if (tbSegment->columnCount() < 6)
+            tbSegment->setColumnCount(6);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        tbSegment->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        tbSegment->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        tbSegment->setHorizontalHeaderItem(2, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        tbSegment->setHorizontalHeaderItem(3, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        tbSegment->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        tbSegment->setHorizontalHeaderItem(5, __qtablewidgetitem5);
+        tbSegment->setObjectName(QString::fromUtf8("tbSegment"));
+        tbSegment->setMinimumSize(QSize(720, 0));
+
+        horizontalLayout_6->addWidget(tbSegment);
+
+        horizontalLayout_6->setStretch(0, 1);
+
+        verticalLayout_3->addLayout(horizontalLayout_6);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(-1, -1, 105, -1);
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_3);
+
+        pushButton_Cancel = new QPushButton(layoutWidget);
+        pushButton_Cancel->setObjectName(QString::fromUtf8("pushButton_Cancel"));
+
+        horizontalLayout_3->addWidget(pushButton_Cancel);
+
+        pushButton_Save = new QPushButton(layoutWidget);
+        pushButton_Save->setObjectName(QString::fromUtf8("pushButton_Save"));
+
+        horizontalLayout_3->addWidget(pushButton_Save);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_3);
+
+        verticalLayout_3->setStretch(1, 1);
 
         retranslateUi(TestPaper);
 
         QMetaObject::connectSlotsByName(TestPaper);
     } // setupUi
 
-    void retranslateUi(QWidget *TestPaper)
+    void retranslateUi(QDialog *TestPaper)
     {
         TestPaper->setWindowTitle(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\217\202\346\225\260\350\256\276\347\275\256", nullptr));
         groupBox->setTitle(QString());
+        lblCompany->setText(QApplication::translate("TestPaper", "\351\200\211\346\213\251\345\216\202\345\256\266", nullptr));
+        labela_2->setText(QString());
+        lblPaperType->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\347\261\273\345\236\213", nullptr));
+        labela_3->setText(QString());
+        lblProcess->setText(QApplication::translate("TestPaper", "\345\256\236\351\252\214\346\265\201\347\250\213", nullptr));
+        lblItemSearchWidth->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\346\237\245\346\211\276\345\256\275\345\272\246:", nullptr));
+        lblItemSpace->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\235\227\351\227\264\350\267\235:", nullptr));
+        txtItemWidth->setInputMask(QString());
+        txtItemWidth->setText(QString());
+        lblPixDistance->setText(QApplication::translate("TestPaper", "\345\203\217\347\264\240\350\267\235\347\246\273\347\231\276\345\210\206\346\257\224:", nullptr));
+        lblHeadLength->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\244\264\351\225\277\345\272\246:", nullptr));
+        label_70->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        lblCutOffPos->setText(QApplication::translate("TestPaper", "CutOff\344\275\215\347\275\256:", nullptr));
+        label_59->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        lblFunPostion->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\346\235\241\344\275\215\347\275\256:", nullptr));
+        lblCutOffValue->setText(QApplication::translate("TestPaper", "CutOff\347\201\260\345\272\246\345\200\274:", nullptr));
+        lblCutOffThreshold->setText(QApplication::translate("TestPaper", "CutOff\347\272\277\351\230\210\345\200\274:", nullptr));
+        txtItemSpace->setInputMask(QString());
+        txtItemSpace->setText(QString());
+        lblAnalyzeWidth->setText(QApplication::translate("TestPaper", "\345\210\206\346\236\220\345\256\275\345\272\246\345\214\272\351\227\264\346\257\224:", nullptr));
+        lblRotate->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\261\225\347\244\272\346\227\213\350\275\254:", nullptr));
+        label_64->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        lblFunWidth->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\347\272\277\346\237\245\346\211\276\345\256\275\345\272\246:", nullptr));
+        lblFunThreshold->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\347\272\277\351\230\210\345\200\274:", nullptr));
+        checkBox_CutOff->setText(QApplication::translate("TestPaper", " \346\230\257\345\220\246\346\234\211CufOff\347\272\277", nullptr));
+        lblPaperLength->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\351\225\277\345\272\246:", nullptr));
+        lblItemWidth->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\235\227\345\256\275\345\272\246:", nullptr));
+        label_68->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        txtArticleNo->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "lineEditUserName", nullptr)));
+        lblItemNum->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\346\225\260\351\207\217:", nullptr));
+        lblFunDirection->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\347\272\277\346\237\245\346\211\276\346\226\271\345\220\221:", nullptr));
+        label_43->setText(QApplication::translate("TestPaper", "mm  ", nullptr));
+        label_45->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        lineEdit_paper_head_length->setInputMask(QString());
+        lineEdit_paper_head_length->setText(QString());
+        txtThreshold->setText(QString());
+        lblPaperName->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\220\215\347\247\260:", nullptr));
+        lblArticleNo->setText(QApplication::translate("TestPaper", "\350\264\247\345\217\267:", nullptr));
+        lblColorValue->setText(QApplication::translate("TestPaper", "\351\242\234\350\211\262\345\200\274:", nullptr));
+        lblThreshold->setText(QApplication::translate("TestPaper", "\344\272\214\345\200\274\345\214\226\351\230\210\345\200\274:", nullptr));
+        lblAnalyzeHeight->setText(QApplication::translate("TestPaper", "\345\210\206\346\236\220\351\253\230\345\272\246\345\214\272\351\227\264\346\257\224:", nullptr));
+        lblBackGround->setText(QApplication::translate("TestPaper", "\350\203\214\346\231\257\345\200\274:", nullptr));
+        chkBlackSpot->setText(QApplication::translate("TestPaper", "\346\230\257\345\220\246\345\274\200\345\220\257\351\273\221\347\202\271\346\243\200\346\265\213", nullptr));
+        lblBlackSpotThreshold->setText(QApplication::translate("TestPaper", "\351\273\221\347\202\271\346\243\200\346\265\213\351\230\231\345\200\274:", nullptr));
+        pushButton_PickColor->setText(QApplication::translate("TestPaper", "\351\200\211\346\213\251", nullptr));
         pushButton_Set->setText(QApplication::translate("TestPaper", "\350\256\276\347\275\256", nullptr));
         pushButton_Set->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "normalBtnRed", nullptr)));
-        groupBox_2->setTitle(QApplication::translate("TestPaper", "GroupBox", nullptr));
-        label_53->setText(QApplication::translate("TestPaper", "\345\203\217\347\264\240\343\200\201", nullptr));
-        label_56->setText(QApplication::translate("TestPaper", "\345\203\217\347\264\240(<2300)\343\200\201", nullptr));
-        label_57->setText(QApplication::translate("TestPaper", "\346\210\252\345\233\276\351\253\230\357\274\232", nullptr));
-        label_58->setText(QApplication::translate("TestPaper", "\345\203\217\347\264\240\357\274\210<320\357\274\211", nullptr));
-        label_52->setText(QApplication::translate("TestPaper", "\345\203\217\347\264\240\343\200\201", nullptr));
-        label_68->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\217\202\346\225\260", nullptr));
-        label_69->setText(QApplication::translate("TestPaper", "\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200"
-                        "\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224\342\200\224", nullptr));
-        label_39->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\220\215\347\247\260\357\274\232", nullptr));
-        lineEdit_TestPaparName->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "lineEditUserName", nullptr)));
-        label_37->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\346\225\260\351\207\217\357\274\232", nullptr));
-        lineEdit_Item_Number->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "lineEditUserName", nullptr)));
-        label_46->setText(QApplication::translate("TestPaper", "\350\264\247\345\217\267\357\274\232", nullptr));
-        lineEdit_Article_No->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "lineEditUserName", nullptr)));
-        label_40->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\346\200\273\351\225\277\345\272\246\357\274\232", nullptr));
-        label_41->setText(QApplication::translate("TestPaper", "mm", nullptr));
-        lineEdit_height_percentage->setText(QApplication::translate("TestPaper", "50", nullptr));
-        label_60->setText(QApplication::translate("TestPaper", "\345\210\206\346\236\220\345\214\272\347\231\276\345\210\206\346\257\224\357\274\232", nullptr));
-        label_59->setText(QApplication::translate("TestPaper", "\357\274\2100-100\357\274\211  ", nullptr));
-        lineEdit_paper_head_length->setInputMask(QString());
-        lineEdit_paper_head_length->setText(QApplication::translate("TestPaper", "0", nullptr));
-        label_63->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\244\264\357\274\232", nullptr));
-        label_64->setText(QApplication::translate("TestPaper", "\345\203\217\347\264\240 ", nullptr));
-        lineEdit_paper_gray_value->setInputMask(QString());
-        lineEdit_paper_gray_value->setText(QApplication::translate("TestPaper", "15", nullptr));
-        label->setText(QApplication::translate("TestPaper", "\351\234\215\345\244\253\347\233\264\347\272\277\346\254\241\346\225\260\357\274\232", nullptr));
-        lineEdit_Left_Top_x->setText(QApplication::translate("TestPaper", "0", nullptr));
-        label_51->setText(QApplication::translate("TestPaper", "\344\272\214\345\200\274\345\214\226\351\230\210\345\200\274\357\274\232", nullptr));
-        label_54->setText(QApplication::translate("TestPaper", " \350\256\241\347\256\227\345\214\272\351\227\264\357\274\232", nullptr));
-        lineEdit_LeftTop_y->setText(QApplication::translate("TestPaper", "0", nullptr));
-        label_65->setText(QApplication::translate("TestPaper", "(<3.0)", nullptr));
-        label_66->setText(QApplication::translate("TestPaper", "\351\242\234\350\211\262\345\200\274\357\274\232", nullptr));
-        lineEdit_Weight->setText(QApplication::translate("TestPaper", "2300", nullptr));
-        label_55->setText(QApplication::translate("TestPaper", "\346\257\253\347\261\263\345\257\271\345\272\224\345\203\217\347\264\240\357\274\232", nullptr));
-        pushButton_PickColor->setText(QApplication::translate("TestPaper", "\351\200\211\346\213\251", nullptr));
-        checkBox_CutOff_2->setText(QApplication::translate("TestPaper", " \346\230\257\345\220\246\346\234\211\345\212\237\350\203\275\347\272\277", nullptr));
-        label_42->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\346\235\241\344\275\215\347\275\256\357\274\232", nullptr));
-        label_67->setText(QApplication::translate("TestPaper", "CutOff\347\272\277\351\230\210\345\200\274\357\274\232", nullptr));
-        label_43->setText(QApplication::translate("TestPaper", "mm  ", nullptr));
-        label_44->setText(QApplication::translate("TestPaper", "CutOff\344\275\215\347\275\256\357\274\232", nullptr));
-        checkBox_CutOff->setText(QApplication::translate("TestPaper", " \346\230\257\345\220\246\346\234\211CufOff\347\272\277", nullptr));
-        label_45->setText(QApplication::translate("TestPaper", "mm", nullptr));
-        label_50->setText(QApplication::translate("TestPaper", "CutOff\347\272\277\351\230\210\345\200\274\357\274\232", nullptr));
-        label_70->setText(QApplication::translate("TestPaper", "\345\274\202\345\270\270\347\202\271\345\215\240\346\257\224\357\274\232", nullptr));
-        label_71->setText(QApplication::translate("TestPaper", "\346\234\211\346\225\210\345\214\272\351\227\264\345\256\275Min\357\274\232", nullptr));
-        label_72->setText(QApplication::translate("TestPaper", "\346\234\211\346\225\210\345\214\272\351\227\264\345\256\275Max\357\274\232", nullptr));
-        label_73->setText(QApplication::translate("TestPaper", "\351\233\266\345\200\274\347\263\273\346\225\260\357\274\232", nullptr));
-        label_74->setText(QApplication::translate("TestPaper", "\345\267\256\345\200\274\357\274\232", nullptr));
-        label_75->setText(QApplication::translate("TestPaper", "\350\203\214\346\231\257\347\201\260\345\272\246\345\200\274\357\274\232", nullptr));
-        label_76->setText(QApplication::translate("TestPaper", "\345\233\276\345\203\217\347\237\253\345\201\217\351\230\210\345\200\274\357\274\232", nullptr));
-        pushButton_Save->setText(QApplication::translate("TestPaper", "\344\277\235\345\255\230", nullptr));
-        pushButton_Save->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "normalBtnRed", nullptr)));
-        pushButton_Cancel->setText(QApplication::translate("TestPaper", "\345\217\226\346\266\210", nullptr));
-        pushButton_Cancel->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "normalBtnGray", nullptr)));
-        label_36->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\220\215\347\247\260", nullptr));
-        label_35->setText(QApplication::translate("TestPaper", "\347\251\272\347\231\275", nullptr));
-        label_62->setText(QApplication::translate("TestPaper", "\344\275\215\347\275\256", nullptr));
-        label_49->setText(QApplication::translate("TestPaper", "\345\210\244\350\257\273\350\247\204\345\210\266", nullptr));
-        label_21->setText(QApplication::translate("TestPaper", "21", nullptr));
+        label_78->setText(QApplication::translate("TestPaper", "\345\256\232\346\240\207\346\233\262\347\272\277:", nullptr));
+        rdCurveSingle->setText(QApplication::translate("TestPaper", "\345\215\225\347\213\254\350\256\276\347\275\256", nullptr));
+        rdCurveAllSet->setText(QApplication::translate("TestPaper", "\347\273\237\344\270\200\350\256\276\347\275\256", nullptr));
+        label_77->setText(QApplication::translate("TestPaper", "\345\210\244\350\257\273\350\247\204\345\210\231:", nullptr));
+        rdRulesSingle->setText(QApplication::translate("TestPaper", "\345\215\225\347\213\254\350\256\276\347\275\256", nullptr));
+        rdRulesAllSet->setText(QApplication::translate("TestPaper", "\347\273\237\344\270\200\350\256\276\347\275\256", nullptr));
+        checkBox_6->setText(QString());
+        checkBox_3->setText(QString());
+        lineEdit_Name_1->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "lineEditUserName", nullptr)));
+        label_5->setText(QApplication::translate("TestPaper", "5", nullptr));
+        checkBox_14->setText(QString());
+        checkBox_10->setText(QString());
+        label_13->setText(QApplication::translate("TestPaper", "13", nullptr));
+        label_10->setText(QApplication::translate("TestPaper", "10", nullptr));
+        label_4->setText(QApplication::translate("TestPaper", "4", nullptr));
+        label_3->setText(QApplication::translate("TestPaper", "3", nullptr));
+        lblG1Rules->setText(QApplication::translate("TestPaper", "\345\210\244\350\257\273\350\247\204\345\210\266", nullptr));
+        checkBox_15->setText(QString());
+        label_9->setText(QApplication::translate("TestPaper", "9", nullptr));
+        checkBox_7->setText(QString());
+        checkBox_5->setText(QString());
+        checkBox_4->setText(QString());
+        label_11->setText(QApplication::translate("TestPaper", "11", nullptr));
+        label_7->setText(QApplication::translate("TestPaper", "7", nullptr));
+        label_12->setText(QApplication::translate("TestPaper", "12", nullptr));
+        lblG1Position->setText(QApplication::translate("TestPaper", "\344\275\215\347\275\256", nullptr));
+        label_6->setText(QApplication::translate("TestPaper", "6", nullptr));
+        checkBox_8->setText(QString());
+        lblG1ItemName->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\220\215\347\247\260", nullptr));
+        label_1->setText(QApplication::translate("TestPaper", "1", nullptr));
+        checkBox_2->setText(QString());
+        label_14->setText(QApplication::translate("TestPaper", "14", nullptr));
+        checkBox_12->setText(QString());
+        checkBox_11->setText(QString());
+        checkBox_1->setText(QString());
+        lblG1IsEmpty->setText(QApplication::translate("TestPaper", "\347\251\272\347\231\275", nullptr));
+        lblG1Curves->setText(QApplication::translate("TestPaper", "\345\256\232\346\240\207\346\233\262\347\272\277", nullptr));
+        checkBox_9->setText(QString());
+        label_8->setText(QApplication::translate("TestPaper", "8", nullptr));
+        label_2->setText(QApplication::translate("TestPaper", "2", nullptr));
+        checkBox_13->setText(QString());
+        label_15->setText(QApplication::translate("TestPaper", "15", nullptr));
         checkBox_21->setText(QString());
         label_22->setText(QApplication::translate("TestPaper", "22", nullptr));
-        checkBox_22->setText(QString());
-        label_23->setText(QApplication::translate("TestPaper", "23", nullptr));
-        checkBox_23->setText(QString());
-        label_24->setText(QApplication::translate("TestPaper", "24", nullptr));
-        checkBox_24->setText(QString());
-        label_25->setText(QApplication::translate("TestPaper", "25", nullptr));
-        checkBox_25->setText(QString());
-        label_26->setText(QApplication::translate("TestPaper", "26", nullptr));
-        checkBox_26->setText(QString());
-        label_27->setText(QApplication::translate("TestPaper", "27", nullptr));
         checkBox_27->setText(QString());
-        label_28->setText(QApplication::translate("TestPaper", "28", nullptr));
-        checkBox_28->setText(QString());
-        label_29->setText(QApplication::translate("TestPaper", "29", nullptr));
-        checkBox_29->setText(QString());
-        label_30->setText(QApplication::translate("TestPaper", "30", nullptr));
-        checkBox_30->setText(QString());
-        label_34->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\220\215\347\247\260", nullptr));
-        label_33->setText(QApplication::translate("TestPaper", "\347\251\272\347\231\275", nullptr));
-        label_61->setText(QApplication::translate("TestPaper", "\344\275\215\347\275\256", nullptr));
-        label_48->setText(QApplication::translate("TestPaper", "\345\210\244\350\257\273\350\247\204\345\210\266", nullptr));
-        label_11->setText(QApplication::translate("TestPaper", "11", nullptr));
-        checkBox_11->setText(QString());
-        label_12->setText(QApplication::translate("TestPaper", "12", nullptr));
-        checkBox_12->setText(QString());
-        label_13->setText(QApplication::translate("TestPaper", "13", nullptr));
-        checkBox_13->setText(QString());
-        label_14->setText(QApplication::translate("TestPaper", "14", nullptr));
-        checkBox_14->setText(QString());
-        label_15->setText(QApplication::translate("TestPaper", "15", nullptr));
-        checkBox_15->setText(QString());
-        label_16->setText(QApplication::translate("TestPaper", "16", nullptr));
-        checkBox_16->setText(QString());
-        label_17->setText(QApplication::translate("TestPaper", "17", nullptr));
-        checkBox_17->setText(QString());
+        checkBox_24->setText(QString());
         label_18->setText(QApplication::translate("TestPaper", "18", nullptr));
+        lblG2IsEmpty->setText(QApplication::translate("TestPaper", "\347\251\272\347\231\275", nullptr));
+        checkBox_28->setText(QString());
+        label_30->setText(QApplication::translate("TestPaper", "30", nullptr));
         checkBox_18->setText(QString());
-        label_19->setText(QApplication::translate("TestPaper", "19", nullptr));
-        checkBox_19->setText(QString());
-        label_20->setText(QApplication::translate("TestPaper", "20", nullptr));
         checkBox_20->setText(QString());
-        label_31->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\220\215\347\247\260", nullptr));
-        label_32->setText(QApplication::translate("TestPaper", "\347\251\272\347\231\275", nullptr));
-        label_38->setText(QApplication::translate("TestPaper", "\344\275\215\347\275\256", nullptr));
-        label_47->setText(QApplication::translate("TestPaper", "\345\210\244\350\257\273\350\247\204\345\210\266", nullptr));
-        label_1->setText(QApplication::translate("TestPaper", "1", nullptr));
-        lineEdit_Name_1->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "lineEditUserName", nullptr)));
-        checkBox_1->setText(QString());
-        label_2->setText(QApplication::translate("TestPaper", "2", nullptr));
-        checkBox_2->setText(QString());
-        label_3->setText(QApplication::translate("TestPaper", "3", nullptr));
-        checkBox_3->setText(QString());
-        label_4->setText(QApplication::translate("TestPaper", "4", nullptr));
-        checkBox_4->setText(QString());
-        label_5->setText(QApplication::translate("TestPaper", "5", nullptr));
-        checkBox_5->setText(QString());
-        label_6->setText(QApplication::translate("TestPaper", "6", nullptr));
-        checkBox_6->setText(QString());
-        label_7->setText(QApplication::translate("TestPaper", "7", nullptr));
-        checkBox_7->setText(QString());
-        label_8->setText(QApplication::translate("TestPaper", "8", nullptr));
-        checkBox_8->setText(QString());
-        label_9->setText(QApplication::translate("TestPaper", "9", nullptr));
-        checkBox_9->setText(QString());
-        label_10->setText(QApplication::translate("TestPaper", "10", nullptr));
-        checkBox_10->setText(QString());
+        checkBox_26->setText(QString());
+        checkBox_17->setText(QString());
+        lblG2Rules->setText(QApplication::translate("TestPaper", "\345\210\244\350\257\273\350\247\204\345\210\266", nullptr));
+        lblG2ItemName->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\220\215\347\247\260", nullptr));
+        label_26->setText(QApplication::translate("TestPaper", "26", nullptr));
+        checkBox_25->setText(QString());
+        checkBox_23->setText(QString());
+        label_17->setText(QApplication::translate("TestPaper", "17", nullptr));
+        label_28->setText(QApplication::translate("TestPaper", "28", nullptr));
+        checkBox_16->setText(QString());
+        label_29->setText(QApplication::translate("TestPaper", "29", nullptr));
+        label_24->setText(QApplication::translate("TestPaper", "24", nullptr));
+        label_23->setText(QApplication::translate("TestPaper", "23", nullptr));
+        checkBox_30->setText(QString());
+        label_19->setText(QApplication::translate("TestPaper", "19", nullptr));
+        lblG2Position->setText(QApplication::translate("TestPaper", "\344\275\215\347\275\256", nullptr));
+        checkBox_19->setText(QString());
+        label_16->setText(QApplication::translate("TestPaper", "16", nullptr));
+        label_21->setText(QApplication::translate("TestPaper", "21", nullptr));
+        checkBox_29->setText(QString());
+        label_20->setText(QApplication::translate("TestPaper", "20", nullptr));
+        lblG2Curves->setText(QApplication::translate("TestPaper", "\345\256\232\346\240\207\346\233\262\347\272\277", nullptr));
+        label_25->setText(QApplication::translate("TestPaper", "25", nullptr));
+        checkBox_22->setText(QString());
+        label_27->setText(QApplication::translate("TestPaper", "27", nullptr));
+        checkBox_37->setText(QString());
+        lblG3ItemStartPos->setText(QApplication::translate("TestPaper", "\350\265\267\345\247\213\344\275\215\347\275\256(mm)", nullptr));
+        label_67->setText(QApplication::translate("TestPaper", "11", nullptr));
+        checkBox_35->setText(QString());
+        checkBox_39->setText(QString());
+        label_55->setText(QApplication::translate("TestPaper", "5", nullptr));
+        label_60->setText(QApplication::translate("TestPaper", "7", nullptr));
+        label_71->setText(QApplication::translate("TestPaper", "13", nullptr));
+        label_63->setText(QApplication::translate("TestPaper", "9", nullptr));
+        lblG3ItemDistance->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\351\227\264\350\267\235(mm)", nullptr));
+        label_37->setText(QApplication::translate("TestPaper", "1", nullptr));
+        label_62->setText(QApplication::translate("TestPaper", "8", nullptr));
+        label_56->setText(QApplication::translate("TestPaper", "6", nullptr));
+        label_65->setText(QApplication::translate("TestPaper", "10", nullptr));
+        checkBox_38->setText(QString());
+        checkBox_41->setText(QString());
+        checkBox_44->setText(QString());
+        checkBox_34->setText(QString());
+        checkBox_40->setText(QString());
+        checkBox_32->setText(QString());
+        label_73->setText(QApplication::translate("TestPaper", "15", nullptr));
+        label_72->setText(QApplication::translate("TestPaper", "14", nullptr));
+        checkBox_33->setText(QString());
+        lblG3IsEmpty->setText(QApplication::translate("TestPaper", "\347\251\272\347\231\275", nullptr));
+        label_52->setText(QApplication::translate("TestPaper", "2", nullptr));
+        checkBox_36->setText(QString());
+        checkBox_43->setText(QString());
+        label_69->setText(QApplication::translate("TestPaper", "12", nullptr));
+        label_54->setText(QApplication::translate("TestPaper", "4", nullptr));
+        checkBox_31->setText(QString());
+        checkBox_45->setText(QString());
+        lblG3ItemCount->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\346\225\260\351\207\217", nullptr));
+        checkBox_42->setText(QString());
+        label_53->setText(QApplication::translate("TestPaper", "3", nullptr));
+        label_83->setText(QApplication::translate("TestPaper", "19", nullptr));
+        label_93->setText(QApplication::translate("TestPaper", "29", nullptr));
+        label_92->setText(QApplication::translate("TestPaper", "28", nullptr));
+        label_40->setText(QApplication::translate("TestPaper", "16", nullptr));
+        label_86->setText(QApplication::translate("TestPaper", "22", nullptr));
+        label_74->setText(QApplication::translate("TestPaper", "17", nullptr));
+        label_76->setText(QApplication::translate("TestPaper", "18", nullptr));
+        label_84->setText(QApplication::translate("TestPaper", "20", nullptr));
+        lblG4ItemCount->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\346\225\260\351\207\217", nullptr));
+        label_90->setText(QApplication::translate("TestPaper", "26", nullptr));
+        lblG4ItemDistance->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\351\227\264\350\267\235(mm)", nullptr));
+        label_89->setText(QApplication::translate("TestPaper", "25", nullptr));
+        checkBox_46->setText(QString());
+        lblG4ItemStartPos->setText(QApplication::translate("TestPaper", "\350\265\267\345\247\213\344\275\215\347\275\256(mm)", nullptr));
+        label_85->setText(QApplication::translate("TestPaper", "21", nullptr));
+        label_91->setText(QApplication::translate("TestPaper", "27", nullptr));
+        checkBox_65->setText(QString());
+        lblG4IsEmpty->setText(QApplication::translate("TestPaper", "\347\251\272\347\231\275", nullptr));
+        checkBox_47->setText(QString());
+        label_87->setText(QApplication::translate("TestPaper", "23", nullptr));
+        label_88->setText(QApplication::translate("TestPaper", "24", nullptr));
+        label_94->setText(QApplication::translate("TestPaper", "30", nullptr));
+        checkBox_66->setText(QString());
+        checkBox_67->setText(QString());
+        checkBox_68->setText(QString());
+        checkBox_69->setText(QString());
+        checkBox_70->setText(QString());
+        checkBox_71->setText(QString());
+        checkBox_72->setText(QString());
+        checkBox_73->setText(QString());
+        checkBox_74->setText(QString());
+        checkBox_75->setText(QString());
+        checkBox_76->setText(QString());
+        checkBox_77->setText(QString());
+        QTableWidgetItem *___qtablewidgetitem = tbSegment->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QApplication::translate("TestPaper", "\345\272\217\345\217\267", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = tbSegment->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QApplication::translate("TestPaper", "\347\261\273\345\236\213", nullptr));
+        QTableWidgetItem *___qtablewidgetitem2 = tbSegment->horizontalHeaderItem(2);
+        ___qtablewidgetitem2->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\345\220\215\347\247\260", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = tbSegment->horizontalHeaderItem(3);
+        ___qtablewidgetitem3->setText(QApplication::translate("TestPaper", "\346\211\200\345\261\236\345\210\206\346\256\265", nullptr));
+        QTableWidgetItem *___qtablewidgetitem4 = tbSegment->horizontalHeaderItem(4);
+        ___qtablewidgetitem4->setText(QApplication::translate("TestPaper", "\350\247\204\345\210\231", nullptr));
+        QTableWidgetItem *___qtablewidgetitem5 = tbSegment->horizontalHeaderItem(5);
+        ___qtablewidgetitem5->setText(QApplication::translate("TestPaper", "\346\233\262\347\272\277", nullptr));
+        pushButton_Cancel->setText(QApplication::translate("TestPaper", "\345\217\226\346\266\210", nullptr));
+        pushButton_Cancel->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "normalBtnGray", nullptr)));
+        pushButton_Save->setText(QApplication::translate("TestPaper", "\344\277\235\345\255\230", nullptr));
+        pushButton_Save->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "normalBtnRed", nullptr)));
     } // retranslateUi
 
 };

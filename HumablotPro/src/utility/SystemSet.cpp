@@ -331,12 +331,8 @@ SystemSet::SystemSet(QWidget *parent)
     while (CompanyQuery.next())
     {
         QString itemName = CompanyQuery.value("Name").toString();
-        //QString itemId = CompanyQuery.value("ID").toString();
-        //QString itemString = itemName + "-" + itemId;
-        //itemString.sprintf("%s-%s", itemName, itemId);
-        //ui.tableWidget_Company->insertRow(row);
-        //addCompanyContent(row, 0, itemName);
-        ui.comboBox_CompanyList->addItem(itemName); //带图标
+        QString id=CompanyQuery.value("ID").toString();
+        ui.comboBox_CompanyList->addItem(itemName,id); //带图标
         row++;
     }
     ui.comboBox_CompanyList->setView(new  QListView(this));
@@ -353,11 +349,6 @@ SystemSet::SystemSet(QWidget *parent)
                                                "   min-height: 40px;"   // 更改 item 高度为 40 像素
                                                "}"
                                                ));
-
-
-
-
-
     if (row > 0)
     {
         /*设置让某个单元格或某行选中*/
@@ -383,7 +374,7 @@ SystemSet::SystemSet(QWidget *parent)
 
     QString  loginName = GlobalData::getLoginName1();
 
-    int group_id = GlobalData::getGruopId();
+    uint group_id = GlobalData::getGruopId();
     //不是管理员,
     if (group_id == 3)
     {
@@ -537,12 +528,7 @@ void SystemSet::on_pushButton_Test_clicked()
 
 void SystemSet::on_pushButtonPara_clicked()
 {
-    //弹出参数配置界面
-    ProcessParaWidgets _ProcessParaWidgets;// = new ProcessParaWidgets();
-    _ProcessParaWidgets.exec();
-    //_ProcessParaWidgets.show();
-    //_ProcessParaWidgets.show();
-    //MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1287"), MyMessageBox::Ok, "OK", "");
+    emit sglProcessAction(ui.comboBox_CompanyList->currentText(),ui.comboBox_CompanyList->currentData().toString());
 }
 
 void SystemSet::on_pushButton_Save_clicked() 

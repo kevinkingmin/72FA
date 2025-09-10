@@ -26,6 +26,7 @@ LogInForm::LogInForm(QWidget *parent):
     ui(new Ui::LogInForm)
 {
     ui->setupUi(this);
+    ui->comboBox_UserName->setView(new  QListView(this));
 	ui->comboBox_UserName->setEditable(true);
 	//ui->comboBox_UserName->setcon
 	//ui->lineEditUserName->setVisible(false);
@@ -129,22 +130,7 @@ void LogInForm::comboBoxInit(QComboBox*box, int widthScroll, int height, bool bS
 		box->setLineEdit(lineEdit);
 	}
 	if (bSheet)//是否设置样式
-	{
-		QString sheet = QString("QComboBox{\
-            margin:2px;\
-            background: rgba(0,0,0,0);\
-            border: 1px solid #C0C4CC;\
-            border-radius: 4px;\
-            padding-left:%2px;\
-            }QComboBox::drop-down {width:%2px;}\
-            QComboBox QAbstractItemView {background-color:rgba(0, 0, 0, 0);}\
-            QComboBox QAbstractItemView::item {height: 130px;}\
-            QComboBox QAbstractScrollArea QScrollBar:vertical { width: %2px; }")
-			.arg(height).arg(widthScroll);
-
-		box->setStyleSheet(sheet);
-		box->setView(new QListView());
-
+    {
 		QString objectName = box->objectName() + "Widget";
 		QWidget*parent = qobject_cast<QWidget*>(box->parent());
 		if (parent && parent->objectName() != objectName) //  避免反复生成
@@ -175,7 +161,6 @@ void LogInForm::comboBoxInit(QComboBox*box, int widthScroll, int height, bool bS
 				model->item(i)->setTextAlignment(Qt::AlignCenter);
 		}
 	}
-
 };
 
 LogInForm::~LogInForm()

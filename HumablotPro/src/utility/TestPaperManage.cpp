@@ -1,9 +1,8 @@
 ﻿#include "TestPaperManage.h"
-#include "TestPaper.h"
 #include "AddCompany.h"
 #include <QMessageBox>
 #include <QCoreApplication>
-#include <QtXml> //也可以include <QDomDocument>
+#include <QtXml>
 #include<QFileDialog>
 #include "src/comm/GlobalData.h"
 #include "src/comm/Global.h"
@@ -18,28 +17,19 @@ TestPaperManage::TestPaperManage(QWidget *parent)
 {
 	setAttribute(Qt::WA_ShowModal, true);
 	ui.setupUi(this);
-
-	auto dao = AnalysisUIDao::instance();
-	bool bResult;
-
-	g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
-
 	InitCompanyTableWidget();
 	InitTestPaperTableWidget();
-
-	//ui.Add_Button->setVisible(false);
 	_instr = Instrument::instance();
-
 	//int nMachineUID = _instr->get_machine_no();
 	//m_strMachineUID = QString("%1").arg(nMachineUID, 2, 10, QChar('0'));//.Format("%08d", nMachineUID);
 	//
-	ui.label->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1098"));
-	ui.Inport_Button->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1106"));
-	ui.Export_Button->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1107"));
-	ui.Add_Button->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1108"));
-	ui.Modify_Button->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1109"));
-	ui.Delete_Button_2->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1104"));
-	ui.Delete_Button->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1105"));
+    ui.label->setText(GlobalData::LoadLanguageInfo("K1098"));
+    ui.Inport_Button->setText(GlobalData::LoadLanguageInfo("K1106"));
+    ui.Export_Button->setText(GlobalData::LoadLanguageInfo("K1107"));
+    ui.Add_Button->setText(GlobalData::LoadLanguageInfo("K1108"));
+    ui.Modify_Button->setText(GlobalData::LoadLanguageInfo("K1109"));
+    ui.Delete_Button_2->setText(GlobalData::LoadLanguageInfo("K1104"));
+    ui.Delete_Button->setText(GlobalData::LoadLanguageInfo("K1105"));
 	//ui.tableWidget_TestPaper->hideColumn(3);
 }
 
@@ -63,13 +53,13 @@ void TestPaperManage::InitTestPaperTableWidget()
 	//去掉网格线
 	ui.tableWidget_TestPaper->setShowGrid(false);
 	QStringList headerString;
-    QString sz1 = GlobalData::LoadLanguageInfo(g_language_type, "K1100");
-	QString sz2 = GlobalData::LoadLanguageInfo(g_language_type, "K1101");
-	QString sz3 = GlobalData::LoadLanguageInfo(g_language_type, "K1102");
-	QString sz4 = GlobalData::LoadLanguageInfo(g_language_type, "K1103");
+    QString sz1 = GlobalData::LoadLanguageInfo("K1100");
+    QString sz2 = GlobalData::LoadLanguageInfo("K1101");
+    QString sz3 = GlobalData::LoadLanguageInfo("K1102");
+    QString sz4 = GlobalData::LoadLanguageInfo("K1103");
 	headerString << "NO"<<sz1<<sz2<<sz3<<sz4;
 	ui.tableWidget_TestPaper->setHorizontalHeaderLabels(headerString);
-	this->setWindowTitle(GlobalData::LoadLanguageInfo(g_language_type, "K1015"));
+    this->setWindowTitle(GlobalData::LoadLanguageInfo("K1015"));
 }
 
 void TestPaperManage::InitCompanyTableWidget()
@@ -88,7 +78,7 @@ void TestPaperManage::InitCompanyTableWidget()
 	//去掉网格线
 	ui.tableWidget_Company->setShowGrid(false);
 	QStringList headerString;
-	headerString << GlobalData::LoadLanguageInfo(g_language_type, "K1099");
+    headerString << GlobalData::LoadLanguageInfo("K1099");
 	ui.tableWidget_Company->setHorizontalHeaderLabels(headerString);
 	QString itemName;
 	//DB中取Testitems表数据
@@ -96,7 +86,7 @@ void TestPaperManage::InitCompanyTableWidget()
     auto dao = AnalysisUIDao::instance();
 	QString  loginName = GlobalData::getLoginName1();
 	int company_id= Global::g_company_id;
-	int group_id = GlobalData::getGruopId();
+    uint group_id = GlobalData::getGruopId();
 	//不是管理员,
 	if (group_id == 3)
 	{
@@ -108,10 +98,9 @@ void TestPaperManage::InitCompanyTableWidget()
 	}
 	if (bResult == false)
 	{
-		QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1111");
-		QString sz1 = GlobalData::LoadLanguageInfo(g_language_type, "K1110");
+        QString sz = GlobalData::LoadLanguageInfo("K1111");
+        QString sz1 = GlobalData::LoadLanguageInfo("K1110");
 		MyMessageBox::warning(this, sz, sz1, MyMessageBox::Ok, "OK", "");
-		//MyMessageBox::warning(this, "错误", "检索测试膜条厂家失败！", MyMessageBox::Ok,"OK","");
 		return;
 	}
 	int row = 0;
@@ -191,11 +180,11 @@ void TestPaperManage::on_tableWidget_Company_cellClicked()
 		strValue = m_TestPaperQuery.value("isDelete").toString();
 		if (strValue == "0")
 		{
-			strValue = GlobalData::LoadLanguageInfo(g_language_type, "K1104");//"启用";
+            strValue = GlobalData::LoadLanguageInfo("K1104");//"启用";
 		}
 		else
 		{
-			strValue = GlobalData::LoadLanguageInfo(g_language_type, "K1105");//"不启用";
+            strValue = GlobalData::LoadLanguageInfo("K1105");//"不启用";
 		}
 		addTestPaperContent(row, 4, strValue);
 		row++;
@@ -319,12 +308,12 @@ void TestPaperManage::on_Down_Sort_Button_3_clicked()
 	result = false;
 	dao->UpdateRecord(&result, sql1);
 	on_tableWidget_Company_cellClicked();
-	//for (int i = 0; i < count; i++)
-	//{
-	//	int row = ui.tableWidget_TestPaper->row(items.at(i));//获取选中的行
-	//	QTableWidgetItem *item = items.at(i);
-	//	QString name = item->text();//获取内容
-	//}
+    //for (int i = 0; i < count; i++)
+    //{
+    //	int row = ui.tableWidget_TestPaper->row(items.at(i));//获取选中的行
+    //	QTableWidgetItem *item = items.at(i);
+    //	QString name = item->text();//获取内容
+    //}
 }
 
 void TestPaperManage::on_tableWidget_TestPaper_cellClicked()
@@ -418,11 +407,11 @@ void TestPaperManage::on_Add_Button_clicked()
 		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1265"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
-	TestPaper *testPaper = new TestPaper();
-	connect(testPaper, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshTableWidgetFlag(bool)));
-	testPaper->m_strCompany_ID = m_strCompany_ID;
-	testPaper->m_bModify = false;
-	testPaper->show();
+
+    //connect(m_testPaper, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshTableWidgetFlag(bool)));
+	TestPaper testPaper(this);
+    //testPaper.clearUIData();
+    testPaper.exec();
 }
 
 void TestPaperManage::on_Modify_Button_clicked()
@@ -439,13 +428,11 @@ void TestPaperManage::on_Modify_Button_clicked()
 		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1264"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
-	TestPaper *testPaper = new TestPaper();
-	connect(testPaper, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshTableWidgetFlag(bool)));
-	testPaper->m_strCompany_ID = m_strCompany_ID;
-	testPaper->m_bModify = true;
-	testPaper->m_strTestPaper_ID = m_strTestPaper_ID;
-	testPaper->Set_UI();
-	testPaper->show();
+    //connect(m_testPaper, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshTableWidgetFlag(bool)));
+	TestPaper testPaper(this);
+    testPaper.Set_UI(m_strTestPaper_ID,m_strCompany_ID);
+    testPaper.exec();
+
 	bool bResult;
 	m_strMachineUID = Global::g_machine_no;
 	QString sql1_log = QString("insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('%1','%2','%3','%4')").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1664")).arg(m_strMachineUID).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1109")).arg(GlobalData::getLoginName1());

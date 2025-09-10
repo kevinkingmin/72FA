@@ -9,6 +9,8 @@
 #include "../Include/TCPClient/TCPClient.h"
 #include "WorkerThread.h"
 #include "src/main/subDialog/AlarmDialog.h"
+#include "src/utility/SystemSet.h"
+#include "src/utility/ProcessDataList.h"
 
 class Camera;
 class ReagentWidget;
@@ -100,7 +102,8 @@ public:
 		MENU_ID_APPLICATION_ALARMINFO,
 		MENU_ID_APPLICATION_MAN_INCUBAT,//手动孵育
 		MENU_ID_APPLICATION_OPERATELOG,
-		MENU_ID_APPLICATION_PIPEWASHEMPTY
+        MENU_ID_APPLICATION_PIPEWASHEMPTY,
+        MENU_ID_PROCESS
 		//获得支持服务")	
 		//查看说明书")	
 		//查看软件信息"
@@ -151,16 +154,12 @@ private slots:
 	//void on_btnPause_clicked();
 
 	void on_btnCloseBeep1_clicked();
-
-	void on_pushButton_osk_open_clicked();
-	
-
+    void on_pushButton_osk_open_clicked();
 	void on_btnSystemLiquidStatus_clicked();
 	void on_btnRunState_clicked();
 	void on_btnWasteBottle_clicked();
     void removeSubTab(int index);
 	void onTabChanged(int index);
-
     void OnAction_SystemSet();
     void OnAction_MagicManage();
     void OnAction_ReagentManager();
@@ -169,25 +168,19 @@ private slots:
 	void OnAction_RulesSetting();
     void OnAction_systemLiquid();
     void OnAction_pump();
-
-
-
     void OnAction_pump_calibrate();
-
 	void OnAction_pipe_wash();
 	void OnAction_pipe_reflux();
 	void OnAction_system_liquid_pipe_wash();
 	void OnAction_pump_auto_check();
 	void OnAction_pump_mana_check();
 	void OnAction_liquid_detection();
-
     void OnAction_week_mantace();
     void OnAction_month_mantace();
 	void OnActive_new_pump_running_in();
     void OnAction_selfRunCheck();
 	void OnAction_CloseBeep();
 	void OnActive_camera_check();
-
     void OnAction_testRecord();
     void OnAction_maintaceRecord();
     void OnAction_communicateRecord();
@@ -218,7 +211,7 @@ private slots:
 	void slotMinitorSensorState(ushort code, bool isSucess);
 	//void slotUpdateMainWidgetCoverOpenStatus(int status);
 	void slotGetSampleBarCode(QString barCode);
-
+    void OnAction_Process(const QString &companyName,const QString &companyId);
 
 private:
     void initUI();
@@ -301,7 +294,9 @@ public:
     TcpClient *m_tcpClient;
     WorkerThread *m_workerThread;
     TestResultDataAll *_mTestResultDataAll;
-    AlarmDialog  *_alarmDialog;
+    AlarmDialog     *_alarmDialog;
+    SystemSet       *_systemSet;
+    ProcessDataList *_processDataList;
 public:
 	void autoSelfCheck();
     void autoSelfCheckResult(QString code);
