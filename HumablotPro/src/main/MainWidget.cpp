@@ -160,6 +160,7 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
         _alarmDialog->msgText(errStr,true);
         _alarmDialog->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
         _alarmDialog->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
+        _alarmDialog->setConfirmMsgText(GlobalData::LoadLanguageInfo("K1757"));
         _alarmDialog->exec();
         _instr->shutdownBee();
         dLog("shutdownBee");

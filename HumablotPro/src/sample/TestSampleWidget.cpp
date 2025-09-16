@@ -64,6 +64,7 @@ TestSampleWidget::TestSampleWidget(PrepareReagentDialog * dialog, QWidget *paren
   , _currentGroupId(0)
   , _stepRunTimeMap{}
   ,_stepName("")
+  ,_alarmDialg(new AlarmDialog(this))
 {
     ui->setupUi(this);
     auto dao = AnalysisUIDao::instance();
@@ -132,7 +133,7 @@ void TestSampleWidget::slotTestFinish(){
     MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1424"),MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
 }
 
-void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sample,QString slot,QString step,QString code,QString time){
+void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sample, QString slot, QString step, QString code, QString time, QString hint){
 	QMutexLocker lock(&_lock);
 	if(messageType=="1"){//开始
         ui->progressBar->setRange(0, 0);
@@ -213,9 +214,24 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
         }
     }
     else if(messageType=="4"){//时间更新
-        ui->lblPlainEnd->setText(time);
-        stepTime = QTime::currentTime();
-        stepTimeTotal = QTime::fromString(time, "HH:mm:ss");
+         ui->lblPlainEnd->setText(time);
+         stepTime = QTime::currentTime();
+         stepTimeTotal = QTime::fromString(time, "HH:mm:ss");
+    }
+    else if(messageType=="7")
+    {
+         auto strHint="\n\n\n"+GlobalData::LoadLanguageInfo(hint);
+         _alarmDialg->msgText(strHint,true);
+         _alarmDialg->setAlignCenter();
+         _alarmDialg->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
+         _alarmDialg->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
+         QString confireStr=GlobalData::LoadLanguageInfo("D0003");
+         if(hint=="D0002")
+             confireStr=GlobalData::LoadLanguageInfo("D0004");
+         _alarmDialg->setConfirmMsgText("\n"+confireStr+"\t\t\n");
+         _alarmDialg->exec();
+         _instrument->shutdownBee();
+         _instrument->testContinue();
     }
 }
 

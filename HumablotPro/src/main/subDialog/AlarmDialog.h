@@ -18,6 +18,8 @@ public:
     int getRet() const;
     void setFstBtnTest(const QString &text);
     void setSndBtnTest(const QString &text);
+    void setAlignCenter();
+    void setConfirmMsgText(const QString &confirmMsgText);
 protected:
     void showEvent(QShowEvent *)override;
 private slots:
@@ -28,7 +30,8 @@ private:
     void initUi();
 private:
     Ui::AlarmDialog *ui;
-    int m_ret;
+    int     m_ret;
+    QString m_confirmMsgText;
 };
 
 #endif // REPEATSETDIALOG_H

@@ -6,6 +6,7 @@
 #include "QTime"
 #include "../HumablotPro/src/main/subDialog/ProgressDialog.h"
 #include "../Include/TCPClient/TcpClient.h"
+#include "src/main/subDialog/AlarmDialog.h"
 #include <QMutex>
 
 class QProgressBar;
@@ -189,13 +190,14 @@ private:
     ProgressDialog *m_progressDialog;
     TcpClient  *m_tcpClient;
 	QMutex _lock;
+    AlarmDialog *_alarmDialg;
 public slots:
     void UpdateSlot(int num);
     void slotUpdateTime();
     void slotAlarmInfo(int alarmFlage);
     void slotHandleStepDetail(int stepId, int index, bool isSucess, const QString &stepName);
     void slotIsStepSuc(int ret);
-    void slotDetectionStartResult(QString MessageType,QString sample,QString slot,QString step,QString code,QString time);
+    void slotDetectionStartResult(QString MessageType,QString sample,QString slot,QString step,QString code,QString time,QString hint);
     void slotDetectionPauseResult(QString code);
     void slotDetectionContinueResult(QString code);
     void slotDetectionStopResult(QString code);

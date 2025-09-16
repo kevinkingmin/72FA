@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Instrument_t {
-    QByteArrayData data[68];
-    char stringdata0[972];
+    QByteArrayData data[69];
+    char stringdata0[977];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -87,18 +87,19 @@ QT_MOC_LITERAL(52, 716, 6), // "sample"
 QT_MOC_LITERAL(53, 723, 4), // "slot"
 QT_MOC_LITERAL(54, 728, 4), // "step"
 QT_MOC_LITERAL(55, 733, 4), // "time"
-QT_MOC_LITERAL(56, 738, 23), // "sglDetectionPauseResult"
-QT_MOC_LITERAL(57, 762, 26), // "sglDetectionContinueResult"
-QT_MOC_LITERAL(58, 789, 22), // "sglDetectionStopResult"
-QT_MOC_LITERAL(59, 812, 23), // "sglPrepareReagentResult"
-QT_MOC_LITERAL(60, 836, 16), // "sglOnTemperature"
-QT_MOC_LITERAL(61, 853, 23), // "sglScanSampleCodeResult"
-QT_MOC_LITERAL(62, 877, 10), // "resultData"
-QT_MOC_LITERAL(63, 888, 16), // "sglPrintPDFState"
-QT_MOC_LITERAL(64, 905, 18), // "sglAddSampleFailed"
-QT_MOC_LITERAL(65, 924, 14), // "connected_SLOT"
-QT_MOC_LITERAL(66, 939, 17), // "disconnected_SLOT"
-QT_MOC_LITERAL(67, 957, 14) // "readyRead_Slot"
+QT_MOC_LITERAL(56, 738, 4), // "hint"
+QT_MOC_LITERAL(57, 743, 23), // "sglDetectionPauseResult"
+QT_MOC_LITERAL(58, 767, 26), // "sglDetectionContinueResult"
+QT_MOC_LITERAL(59, 794, 22), // "sglDetectionStopResult"
+QT_MOC_LITERAL(60, 817, 23), // "sglPrepareReagentResult"
+QT_MOC_LITERAL(61, 841, 16), // "sglOnTemperature"
+QT_MOC_LITERAL(62, 858, 23), // "sglScanSampleCodeResult"
+QT_MOC_LITERAL(63, 882, 10), // "resultData"
+QT_MOC_LITERAL(64, 893, 16), // "sglPrintPDFState"
+QT_MOC_LITERAL(65, 910, 18), // "sglAddSampleFailed"
+QT_MOC_LITERAL(66, 929, 14), // "connected_SLOT"
+QT_MOC_LITERAL(67, 944, 17), // "disconnected_SLOT"
+QT_MOC_LITERAL(68, 962, 14) // "readyRead_Slot"
 
     },
     "Instrument\0sglDataArrive\0\0datas\0"
@@ -122,7 +123,7 @@ QT_MOC_LITERAL(67, 957, 14) // "readyRead_Slot"
     "sglSystemPipWashResult\0sglPipWashResult\0"
     "sglPipFlowbackResult\0sglDetectionStartResult\0"
     "messageType\0sample\0slot\0step\0time\0"
-    "sglDetectionPauseResult\0"
+    "hint\0sglDetectionPauseResult\0"
     "sglDetectionContinueResult\0"
     "sglDetectionStopResult\0sglPrepareReagentResult\0"
     "sglOnTemperature\0sglScanSampleCodeResult\0"
@@ -172,20 +173,20 @@ static const uint qt_meta_data_Instrument[] = {
       47,    1,  295,    2, 0x06 /* Public */,
       48,    1,  298,    2, 0x06 /* Public */,
       49,    1,  301,    2, 0x06 /* Public */,
-      50,    6,  304,    2, 0x06 /* Public */,
-      56,    1,  317,    2, 0x06 /* Public */,
-      57,    1,  320,    2, 0x06 /* Public */,
-      58,    1,  323,    2, 0x06 /* Public */,
-      59,    1,  326,    2, 0x06 /* Public */,
-      60,    1,  329,    2, 0x06 /* Public */,
-      61,    1,  332,    2, 0x06 /* Public */,
-      63,    1,  335,    2, 0x06 /* Public */,
-      64,    1,  338,    2, 0x06 /* Public */,
+      50,    7,  304,    2, 0x06 /* Public */,
+      57,    1,  319,    2, 0x06 /* Public */,
+      58,    1,  322,    2, 0x06 /* Public */,
+      59,    1,  325,    2, 0x06 /* Public */,
+      60,    1,  328,    2, 0x06 /* Public */,
+      61,    1,  331,    2, 0x06 /* Public */,
+      62,    1,  334,    2, 0x06 /* Public */,
+      64,    1,  337,    2, 0x06 /* Public */,
+      65,    1,  340,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      65,    0,  341,    2, 0x08 /* Private */,
-      66,    0,  342,    2, 0x08 /* Private */,
-      67,    0,  343,    2, 0x08 /* Private */,
+      66,    0,  343,    2, 0x08 /* Private */,
+      67,    0,  344,    2, 0x08 /* Private */,
+      68,    0,  345,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QByteArray,    3,
@@ -214,13 +215,13 @@ static const uint qt_meta_data_Instrument[] = {
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   51,   52,   53,   54,   31,   55,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   51,   52,   53,   54,   31,   55,   56,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::Float,   31,
-    QMetaType::Void, QMetaType::QByteArray,   62,
+    QMetaType::Void, QMetaType::QByteArray,   63,
     QMetaType::Void, QMetaType::Int,   19,
     QMetaType::Void, QMetaType::QString,   36,
 
@@ -264,7 +265,7 @@ void Instrument::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 23: _t->sglSystemPipWashResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 24: _t->sglPipWashResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 25: _t->sglPipFlowbackResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 26: _t->sglDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6]))); break;
+        case 26: _t->sglDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7]))); break;
         case 27: _t->sglDetectionPauseResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 28: _t->sglDetectionContinueResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 29: _t->sglDetectionStopResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
@@ -463,7 +464,7 @@ void Instrument::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
         {
-            using _t = void (Instrument::*)(QString , QString , QString , QString , QString , QString );
+            using _t = void (Instrument::*)(QString , QString , QString , QString , QString , QString , QString );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglDetectionStartResult)) {
                 *result = 26;
                 return;
@@ -750,9 +751,9 @@ void Instrument::sglPipFlowbackResult(QString _t1)
 }
 
 // SIGNAL 26
-void Instrument::sglDetectionStartResult(QString _t1, QString _t2, QString _t3, QString _t4, QString _t5, QString _t6)
+void Instrument::sglDetectionStartResult(QString _t1, QString _t2, QString _t3, QString _t4, QString _t5, QString _t6, QString _t7)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)), const_cast<void*>(reinterpret_cast<const void*>(&_t7)) };
     QMetaObject::activate(this, &staticMetaObject, 26, _a);
 }
 

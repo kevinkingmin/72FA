@@ -293,7 +293,7 @@ signals:
 
     void sglPipFlowbackResult(QString code);
 
-    void sglDetectionStartResult(QString messageType,QString sample,QString slot,QString step,QString code,QString time);
+    void sglDetectionStartResult(QString messageType,QString sample,QString slot,QString step,QString code,QString time,QString hint);
 
     void sglDetectionPauseResult(QString code);
 

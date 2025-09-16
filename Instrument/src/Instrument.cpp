@@ -200,7 +200,8 @@ void Instrument::analysisFrame(){
         QString code = obj.value("resultCode").toString();
         QString time = obj.value("time").toString();
         QString messageType = obj.value("messageType").toString();
-        emit sglDetectionStartResult(messageType,sample,slot,step,code,time);
+        QString hint = obj.value("hint").toString();
+        emit sglDetectionStartResult(messageType,sample,slot,step,code,time,hint);
     }else if(code==detectionPauseCommand){
         QJsonObject obj = doc.object();
         QStringList keys = obj.keys();
