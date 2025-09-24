@@ -217,9 +217,18 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
 QString AddSampleWidget::getHL7RequestData(const QString &barCode)
 {
     QString send_sz = "";
-    send_sz += QString("%1MSH | ^ |||||  || OUL ^ R21 |  | P |||| AL | AL || ASCII |||%2").arg(QChar(0x0B)).arg(QChar(0x0D));
-    send_sz += QString("PID | %1 ||||||  | 0 |||||||||||||||||||||||%2").arg(barCode).arg(QChar(0x0D));
-    send_sz += QString("%1%2").arg(QChar(0x1C)).arg(QChar(0x0D));
+    if(GlobalData::getLISRemoveSpace())
+    {
+        send_sz += QString("%1MSH|^|||||||OUL^R21||P||||AL|AL||ASCII|||%2").arg(QChar(0x0B)).arg(QChar(0x0D));
+        send_sz += QString("PID|%1|||||||0|||||||||||||||||||||||%2").arg(barCode).arg(QChar(0x0D));
+        send_sz += QString("%1%2").arg(QChar(0x1C)).arg(QChar(0x0D));
+    }
+    else
+    {
+        send_sz += QString("%1MSH | ^ |||||  || OUL ^ R21 |  | P |||| AL | AL || ASCII |||%2").arg(QChar(0x0B)).arg(QChar(0x0D));
+        send_sz += QString("PID | %1 ||||||  | 0 |||||||||||||||||||||||%2").arg(barCode).arg(QChar(0x0D));
+        send_sz += QString("%1%2").arg(QChar(0x1C)).arg(QChar(0x0D));
+    }
     return send_sz;
 }
 

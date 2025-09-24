@@ -1,4 +1,4 @@
-#include "..\include\precomp\precompile.h"
+ï»¿#include "..\include\precomp\precompile.h"
 #include "CameraCheckWidgets.h"
 #include "src/comm/GlobalData.h"
 #include "../../Camera/Camera.h"
@@ -37,16 +37,16 @@ CameraCheckWidgets::CameraCheckWidgets(QWidget *parent)
 {
 	ui->setupUi(this);
     //m_move_pos_thread = new Mythread();
-    //connect(this, SIGNAL(preper_save(CameraCheckWidgets *)), m_move_pos_thread, SLOT(StartSend()));//Á´½ÓĞÅºÅºÍ²Û
+    //connect(this, SIGNAL(preper_save(CameraCheckWidgets *)), m_move_pos_thread, SLOT(StartSend()));//é“¾æ¥ä¿¡å·å’Œæ§½
     //connect(m_move_pos_thread, SIGNAL(UpdateSignal(int)), this, SLOT(UpdateSlot(int)));
     //m_move_pos_thread->start();
 	double value = GetCameraParameter_ExposureTime();
 	QString str = "";
 	str = QString("%1").arg(value);
 	ui->lineEdit_4->setText(str);
-	//myo.moveToThread(&thread);//°Ñ¶ÔÏómyoÒÆµ½thread×ÓÏß³Ì
-	//connect(this, SIGNAL(clicked(void)), &myo, SLOT(f()));  //ÈÃ°´Å¥µÄµã»÷ĞÅºÅÁ¬½Ó¹¤×÷¶ÔÏóµÄ²Ûº¯Êı
-	//thread.start();//Ö´ĞĞ×ÓÏß³Ì
+	//myo.moveToThread(&thread);//æŠŠå¯¹è±¡myoç§»åˆ°threadå­çº¿ç¨‹
+	//connect(this, SIGNAL(clicked(void)), &myo, SLOT(f()));  //è®©æŒ‰é’®çš„ç‚¹å‡»ä¿¡å·è¿æ¥å·¥ä½œå¯¹è±¡çš„æ§½å‡½æ•°
+	//thread.start();//æ‰§è¡Œå­çº¿ç¨‹
 
 	QString sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1229");
 	ui->pushButton->setText(sz1);
@@ -118,7 +118,7 @@ void CameraCheckWidgets::on_pushButton_3_clicked()
 	QString str = QString("%1").arg(value);
 	ui->lineEdit_4->setText(str);
 	MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1437"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-	//QMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "ÉèÖÃÏà»ú²ÎÊıÆØ¹âÊ±¼äÊ§°Ü£¡", QMessageBox::Ok);
+	//QMessageBox::warning(0, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "è®¾ç½®ç›¸æœºå‚æ•°æ›å…‰æ—¶é—´å¤±è´¥ï¼", QMessageBox::Ok);
 }
 double CameraCheckWidgets::GetCameraParameter_ExposureTime()
 {
@@ -150,7 +150,7 @@ void CameraCheckWidgets::_onFunction()
 
 void CameraCheckWidgets::TakePic()
 {
-	//0C£º±³¹âµÆ
+	//0Cï¼šèƒŒå…‰ç¯
     //_instr->lightControl(0x0c, 0);
 	Sleep(1000);
     //_instr->lightControl(0x0c, 1);
@@ -175,7 +175,7 @@ void CameraCheckWidgets::TakePic()
 			auto state = _InstrumentState->getMachineState();
 			if (state.state == enumState::enumUnConn)
 			{
-				//QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("Í¨Ñ¶Òì³£"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
+				//QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("é€šè®¯å¼‚å¸¸"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
 				break;
 			}
 			else
@@ -183,7 +183,7 @@ void CameraCheckWidgets::TakePic()
 			}
 		}
 
-		//QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "Á¬½ÓÏà»úÊ§°Ü£¡", "È·¶¨");
+		//QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "è¿æ¥ç›¸æœºå¤±è´¥ï¼", "ç¡®å®š");
 		return;
 	}
 STARTDEALPIC:
@@ -194,7 +194,7 @@ STARTDEALPIC:
 	//_mShowImageDialog->ShowPicInfo();
 	//_mShowImageDialog->exec();
 	//pic_file_path_list.push_back(pic_file_name);
-	//µ÷ÓÃÊı¾İ·ÖÎö²¢±£´æµ½²âÊÔ½á¹û±í
+	//è°ƒç”¨æ•°æ®åˆ†æå¹¶ä¿å­˜åˆ°æµ‹è¯•ç»“æœè¡¨
 	//todo
 	m_cameraControl.CloseCamera();
 	while (true)
@@ -228,13 +228,13 @@ int CameraCheckWidgets::GetGrayValue()
 
 	//if (x > 2440 || x<1)
 	//{
-	//	QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "×ø±ê³¬·¶Î§£¡", "È·¶¨");
+	//	QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "åæ ‡è¶…èŒƒå›´ï¼", "ç¡®å®š");
 	//	return 0;
 	//}
 
 	//if (y > 269 || y<1)
 	//{
-	//	QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "×ø±ê³¬·¶Î§£¡", "È·¶¨");
+	//	QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), "åæ ‡è¶…èŒƒå›´ï¼", "ç¡®å®š");
 	//	return 0;
 	//}
 
@@ -247,19 +247,19 @@ int CameraCheckWidgets::GetGrayValue()
 	QString strPath = piture_root_str + "\\" + original_piture_path;
 	QString strPathFileName = strPath + "\\" + "test1" + ".png";
 	QString strPathFileName1 = strPath + "\\" + "test2" + ".png";
-	IplImage *srcGray = cvLoadImage(strPathFileName.toStdString().data(), CV_LOAD_IMAGE_ANYDEPTH | CV_LOAD_IMAGE_ANYCOLOR);//´Ó±¾µØ¶ÁÈ¡²ÊÉ«Í¼
+	IplImage *srcGray = cvLoadImage(strPathFileName.toStdString().data(), CV_LOAD_IMAGE_ANYDEPTH | CV_LOAD_IMAGE_ANYCOLOR);//ä»æœ¬åœ°è¯»å–å½©è‰²å›¾
 
 	CvSize sz;
-	sz.width = srcGray->width;//¿í¶È
-	sz.height = srcGray->height;//¸ß¶È
-	unsigned char * imageData;     //µ±Ç°Ö¡µÄÊı¾İÖ¸Õë
+	sz.width = srcGray->width;//å®½åº¦
+	sz.height = srcGray->height;//é«˜åº¦
+	unsigned char * imageData;     //å½“å‰å¸§çš„æ•°æ®æŒ‡é’ˆ
 	imageData = (unsigned char*)srcGray->imageData;
 	double aVerage = 0;
 	unsigned int sum = 0;
-	int count = 0; //Ò»¹²¼ÆËã¶àÉÙ¸öµã
+	int count = 0; //ä¸€å…±è®¡ç®—å¤šå°‘ä¸ªç‚¹
 	int value = 0;
 	IplImage *srcGray_RGB;
-	value = ((uchar*)(srcGray->imageData + srcGray->widthStep*y))[x];  //µÃµ½»Ò¶ÈÖµ
+	value = ((uchar*)(srcGray->imageData + srcGray->widthStep*y))[x];  //å¾—åˆ°ç°åº¦å€¼
 
 	//grayToRGB(srcGray);
 	//cvtColor(srcGray, cimg, CV_GRAY2RGB);
@@ -291,7 +291,7 @@ int CameraCheckWidgets::GetGrayValue()
 	//((uchar*)(srcGray->imageData + srcGray->widthStep*y))[x+3] = 100;
 	//((uchar*)(srcGray->imageData + srcGray->widthStep*y))[x+4] = 100;
 
-	cvSaveImage(strPathFileName1.toStdString().data(), srcGray);//½«Í¼±£´æµ½±¾µØ
+	cvSaveImage(strPathFileName1.toStdString().data(), srcGray);//å°†å›¾ä¿å­˜åˆ°æœ¬åœ°
 
 	ShowPicInfo1("test2");
 	QString value1 = "";
@@ -303,17 +303,17 @@ int CameraCheckWidgets::GetGrayValue()
 }
 
 
-//»Ò¶ÈÍ¼×ª²ÊÉ«Í¼
+//ç°åº¦å›¾è½¬å½©è‰²å›¾
 //Mat CameraCheckWidgets::grayToRGB(const cv::Mat input_img)
 //{
-//	//´´½¨Ò»¸öºÍ»Ò¶ÈÍ¼Ò»Ñù´óĞ¡µÄ0ÖµÍ¼
+//	//åˆ›å»ºä¸€ä¸ªå’Œç°åº¦å›¾ä¸€æ ·å¤§å°çš„0å€¼å›¾
 //	cv::Mat three_channel = cv::Mat::zeros(input_img.rows, input_img.cols, CV_8UC3);
 //	std::vector<cv::Mat> channels;
-//	//µÃµ½3ÕÅµ¥Í¨µÀÍ¼
+//	//å¾—åˆ°3å¼ å•é€šé“å›¾
 //	for (int i = 0; i < 3; i++)
 //		channels.push_back(input_img);
 //
-//	//RGBÍ¨µÀÍ¼µÄºÏ²¢
+//	//RGBé€šé“å›¾çš„åˆå¹¶
 //	cv::merge(channels, three_channel);
 //	return three_channel;
 //}
@@ -462,7 +462,7 @@ void CameraCheckWidgets::on_pushButton_clicked()
 	//	ShowPicInfo(file_name);
 	//}
 
-	//Òì³£Ğı×ª
+	//å¼‚å¸¸æ—‹è½¬
 	//ShowPicInfo("202303141156532");
 	//ShowPicInfo("202303141149455");
 	//ShowPicInfo("202303141030382");
@@ -507,7 +507,7 @@ void CameraCheckWidgets::on_pushButton_clicked()
 	//float temperature;//= 271646722;
 	//QString str = "";
 	//QString str2 = QString::number(temperature, 'f', 1);
-	//str = QString("·õÓıÅÌ£º%1 ¡æ  ").arg(str2);
+	//str = QString("å­µè‚²ç›˜ï¼š%1 â„ƒ  ").arg(str2);
 }
 
 void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString last_path1)
@@ -538,15 +538,15 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 	//Canny(src_gray, src_edge, 16, 128, 3);
 	//imshow("canny", src_edge);
 
-	//Í¨¹ı»ô·ò±ä»»¼ì²âÖ±Ïß
+	//é€šè¿‡éœå¤«å˜æ¢æ£€æµ‹ç›´çº¿
 	//std::vector<Vec2f> plines;
-	//µÚ5¸ö²ÎÊı¾ÍÊÇãĞÖµ£¬ãĞÖµÔ½´ó£¬¼ì²â¾«¶ÈÔ½¸ß
+	//ç¬¬5ä¸ªå‚æ•°å°±æ˜¯é˜ˆå€¼ï¼Œé˜ˆå€¼è¶Šå¤§ï¼Œæ£€æµ‹ç²¾åº¦è¶Šé«˜
 	//HoughLines(src_edge, plines, 1, CV_PI / 180, 200, 0, 0);
 	//HoughLines(src_edge, plines, 1, CV_PI / 180, 220, 0, 0);
 
-	//Í¨¹ı»ô·ò±ä»»¼ì²âÖ±Ïß
+	//é€šè¿‡éœå¤«å˜æ¢æ£€æµ‹ç›´çº¿
 	std::vector<Vec2f> plines;
-	//µÚ5¸ö²ÎÊı¾ÍÊÇãĞÖµ£¬ãĞÖµÔ½´ó£¬¼ì²â¾«¶ÈÔ½¸ß
+	//ç¬¬5ä¸ªå‚æ•°å°±æ˜¯é˜ˆå€¼ï¼Œé˜ˆå€¼è¶Šå¤§ï¼Œæ£€æµ‹ç²¾åº¦è¶Šé«˜
 	//HoughLines(src_edge, plines, 1, CV_PI / 180, 200, 0, 0);
 	int count_number = 3;
 	int value1 = 220;
@@ -575,11 +575,11 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 	}
 
 	//cout << plines.size() << endl;
-	//ÓÉÓÚÍ¼Ïñ²»Í¬£¬ãĞÖµ²»ºÃÉè¶¨£¬ÒòÎªãĞÖµÉè¶¨¹ı¸ßµ¼ÖÂÎŞ·¨¼ì²âÖ±Ïß£¬ãĞÖµ¹ıµÍÖ±ÏßÌ«¶à£¬ËÙ¶ÈºÜÂı
-	//ËùÒÔ¸ù¾İãĞÖµÓÉ´óµ½Ğ¡ÉèÖÃÁËÈı¸öãĞÖµ£¬Èç¹û¾­¹ı´óÁ¿ÊÔÑéºó£¬¿ÉÒÔ¹Ì¶¨Ò»¸öÊÊºÏµÄãĞÖµ¡£
+	//ç”±äºå›¾åƒä¸åŒï¼Œé˜ˆå€¼ä¸å¥½è®¾å®šï¼Œå› ä¸ºé˜ˆå€¼è®¾å®šè¿‡é«˜å¯¼è‡´æ— æ³•æ£€æµ‹ç›´çº¿ï¼Œé˜ˆå€¼è¿‡ä½ç›´çº¿å¤ªå¤šï¼Œé€Ÿåº¦å¾ˆæ…¢
+	//æ‰€ä»¥æ ¹æ®é˜ˆå€¼ç”±å¤§åˆ°å°è®¾ç½®äº†ä¸‰ä¸ªé˜ˆå€¼ï¼Œå¦‚æœç»è¿‡å¤§é‡è¯•éªŒåï¼Œå¯ä»¥å›ºå®šä¸€ä¸ªé€‚åˆçš„é˜ˆå€¼ã€‚
 	float sum = 0;
 	int sum_count = 0;
-	//ÒÀ´Î»­³öÃ¿ÌõÏß¶Î
+	//ä¾æ¬¡ç”»å‡ºæ¯æ¡çº¿æ®µ
 	for (size_t i = 0; i < plines.size(); i++)
 	{
 		float rho = plines[i][0];
@@ -587,7 +587,7 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 		Point pt1, pt2;
 		double a = cos(theta), b = sin(theta);
 		double x0 = a * rho, y0 = b * rho;
-		pt1.x = cvRound(x0 + 2500 * (-b));//cvRoundËÄÉáÎåÈë
+		pt1.x = cvRound(x0 + 2500 * (-b));//cvRoundå››èˆäº”å…¥
 		pt1.y = cvRound(y0 + 2500 * (a));
 		pt2.x = cvRound(x0 - 2500 * (-b));
 		pt2.y = cvRound(y0 - 2500 * (a));
@@ -595,8 +595,8 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 		if (qAbs(pt1.y)<1000 && qAbs(pt2.y) < 1000)
 		{
 			sum += theta;
-			line(src_gray, pt1, pt2, Scalar(55, 100, 195), 1, LINE_AA);//Scalarº¯ÊıÓÃÓÚµ÷½ÚÏß¶ÎÑÕÉ«         
-			//imshow("Ö±ÏßÌ½²âĞ§¹ûÍ¼", src_gray);
+			line(src_gray, pt1, pt2, Scalar(55, 100, 195), 1, LINE_AA);//Scalarå‡½æ•°ç”¨äºè°ƒèŠ‚çº¿æ®µé¢œè‰²         
+			//imshow("ç›´çº¿æ¢æµ‹æ•ˆæœå›¾", src_gray);
 			//imshow("plines", src_gray);
 			sum_count++;
 		}
@@ -608,20 +608,20 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 		//angle = DegreeTrans(average) - 90;
 	}
 
-	//float average = sum / plines.size(); //¶ÔËùÓĞ½Ç¶ÈÇóÆ½¾ù£¬ÕâÑù×öĞı×ªĞ§¹û»á¸üºÃ
-	float average = sum / sum_count; //¶ÔËùÓĞ½Ç¶ÈÇóÆ½¾ù£¬ÕâÑù×öĞı×ªĞ§¹û»á¸üºÃ
+	//float average = sum / plines.size(); //å¯¹æ‰€æœ‰è§’åº¦æ±‚å¹³å‡ï¼Œè¿™æ ·åšæ—‹è½¬æ•ˆæœä¼šæ›´å¥½
+	float average = sum / sum_count; //å¯¹æ‰€æœ‰è§’åº¦æ±‚å¹³å‡ï¼Œè¿™æ ·åšæ—‹è½¬æ•ˆæœä¼šæ›´å¥½
 	angle = average / CV_PI * 180 - 90;
 	//angle = -(average-0.5);
-	////ĞÂ½¨Ò»¸ö¸ĞĞËÈ¤µÄÇøÓòÍ¼£¬´óĞ¡¸úÔ­Í¼Ò»Ñù´ó  
-	//Mat RoiSrcImg(src.rows, src.cols, CV_8UC3); //×¢ÒâÕâÀï±ØĞëÑ¡CV_8UC3
-	//RoiSrcImg.setTo(0); //ÑÕÉ«¶¼ÉèÖÃÎªºÚÉ«  
-	////imshow("ĞÂ½¨µÄROI", RoiSrcImg);
-	////¶ÔµÃµ½µÄÂÖÀªÌî³äÒ»ÏÂ  
+	////æ–°å»ºä¸€ä¸ªæ„Ÿå…´è¶£çš„åŒºåŸŸå›¾ï¼Œå¤§å°è·ŸåŸå›¾ä¸€æ ·å¤§  
+	//Mat RoiSrcImg(src.rows, src.cols, CV_8UC3); //æ³¨æ„è¿™é‡Œå¿…é¡»é€‰CV_8UC3
+	//RoiSrcImg.setTo(0); //é¢œè‰²éƒ½è®¾ç½®ä¸ºé»‘è‰²  
+	////imshow("æ–°å»ºçš„ROI", RoiSrcImg);
+	////å¯¹å¾—åˆ°çš„è½®å»“å¡«å……ä¸€ä¸‹  
 	//drawContours(binImg, contours, -1, Scalar(255), CV_FILLED);
-	////¿ÙÍ¼µ½RoiSrcImg
+	////æŠ å›¾åˆ°RoiSrcImg
 	//src.copyTo(RoiSrcImg, binImg);
 	//double angle = DegreeTrans(average) - 90;
-	//Ğı×ªÖĞĞÄÎªÍ¼ÏñÖĞĞÄ    
+	//æ—‹è½¬ä¸­å¿ƒä¸ºå›¾åƒä¸­å¿ƒ    
 	Point2f center;
 	center.x = float(src.cols / 2.0);
 	center.y = float(src.rows / 2.0);
@@ -629,23 +629,23 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 	length = sqrt(src.cols*src.cols + src.rows*src.rows);
 	Mat M = getRotationMatrix2D(center, angle, 1);
 
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(255, 255, 255));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎª°×É«  
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0,0,0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
-	warpAffine(src, src_rotate, M, Size(length, src.rows), 1, 0, Scalar(0, 0, 0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0, 0, 0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(255, 255, 255));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºç™½è‰²  
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0,0,0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
+	warpAffine(src, src_rotate, M, Size(length, src.rows), 1, 0, Scalar(0, 0, 0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0, 0, 0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
 
-	//imshow("½ÃÕıºó", src_rotate);
+	//imshow("çŸ«æ­£å", src_rotate);
 	//imshow("new", src_rotate);
-	imwrite(new_path.toStdString(), src_rotate); //½«½ÃÕıºóµÄÍ¼Æ¬±£´æÏÂÀ´
-	//·µ»Ø½ÃÕıºóµÄMat
+	imwrite(new_path.toStdString(), src_rotate); //å°†çŸ«æ­£åçš„å›¾ç‰‡ä¿å­˜ä¸‹æ¥
+	//è¿”å›çŸ«æ­£åçš„Mat
 
-	//¶ÔĞı×ªºóµÄÍ¼Æ¬½øĞĞÂÖÀªÌáÈ¡  
+	//å¯¹æ—‹è½¬åçš„å›¾ç‰‡è¿›è¡Œè½®å»“æå–  
 	std::vector<std::vector<Point> > contours2;
 	std::vector<std::vector<Point> > contours3;
 	Mat raw = imread(new_path.toStdString());
 	Mat SecondFindImg;
 	//SecondFindImg.setTo(0);
-	cvtColor(raw, SecondFindImg, COLOR_BGR2GRAY);  //»Ò¶È»¯  
+	cvtColor(raw, SecondFindImg, COLOR_BGR2GRAY);  //ç°åº¦åŒ–  
 	//threshold(SecondFindImg, SecondFindImg, 80, 200, CV_THRESH_BINARY);
 	//double thres = 80;
 	//double maxval = 150;
@@ -656,7 +656,7 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 	//THRESH_TRIANGLE
 	threshold(SecondFindImg, SecondFindImg, thres, maxval, CV_THRESH_BINARY);
 
-	//imshow("gray_picture", SecondFindImg);//Êä³ö»Ò¶ÈÍ¼
+	//imshow("gray_picture", SecondFindImg);//è¾“å‡ºç°åº¦å›¾
 
 	//threshold(SecondFindImg, SecondFindImg, thres, maxval, CV_THRESH_TRIANGLE);
 	findContours(SecondFindImg, contours2, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
@@ -727,7 +727,7 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 		min_x = rect.x;
 		max_y = rect.y;
 		card_x.push_back(min_x);
-		//·ûºÏÌõ¼şµÄ¾ØĞÎ
+		//ç¬¦åˆæ¡ä»¶çš„çŸ©å½¢
 		if (rect.height > 22)
 		{
 			card_y_need.push_back(max_y);
@@ -758,7 +758,7 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 		return;
 	}
 
-	//µÃµ½Æ½¾ùÖµ
+	//å¾—åˆ°å¹³å‡å€¼
 	double sum1 = std::accumulate(std::begin(card_y_need), std::end(card_y_need), 0.0);
 	double avg_mean = sum1 / card_y_need.size();
 	int avgValue_y_asix = avg_mean;
@@ -769,18 +769,18 @@ void CameraCheckWidgets::RotatePng1(QString scr_path, QString new_path, QString 
 	int maxPosition_height = max_element(card_height.begin(), card_height.end()) - card_height.begin();
 
 
-	//Çó³öÒªÔØÈ¡ÇøÓòwidth,¸ù¾İ×îĞ¡µÄXÖµ
+	//æ±‚å‡ºè¦è½½å–åŒºåŸŸwidth,æ ¹æ®æœ€å°çš„Xå€¼
 	int maxValue_x = *max_element(card_x.begin(), card_x.end());
 	int maxPosition_x = max_element(card_x.begin(), card_x.end()) - card_x.begin();
 
 	minValue_x_asix = minValue_x_asix;//minValue_xx;
-	//µÃµ½ĞèÒªµÄÍ¼Ïñ¿í¶È
+	//å¾—åˆ°éœ€è¦çš„å›¾åƒå®½åº¦
 	rect = boundingRect(Mat(contours3[maxPosition_x]));
 	int need_width = 0;
 	int head_width = 120;
 
 	need_width = rect.x + rect.width - minValue_x_asix;
-	need_width = (rect.x + rect.width) - minValue_x_asix + head_width; //¿¼ÂÇÓĞĞ©Ä£ÌõÎŞ·¨Ê¶±ğÄ¤ÌõÍ·µÄÎÊÌâ¡£
+	need_width = (rect.x + rect.width) - minValue_x_asix + head_width; //è€ƒè™‘æœ‰äº›æ¨¡æ¡æ— æ³•è¯†åˆ«è†œæ¡å¤´çš„é—®é¢˜ã€‚
 
 	if (need_height > 65)
 	{
@@ -837,15 +837,15 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 	//Canny(src_gray, src_edge, 16, 128, 3);
 	//imshow("canny", src_edge);
 
-	//Í¨¹ı»ô·ò±ä»»¼ì²âÖ±Ïß
+	//é€šè¿‡éœå¤«å˜æ¢æ£€æµ‹ç›´çº¿
 	//std::vector<Vec2f> plines;
-	//µÚ5¸ö²ÎÊı¾ÍÊÇãĞÖµ£¬ãĞÖµÔ½´ó£¬¼ì²â¾«¶ÈÔ½¸ß
+	//ç¬¬5ä¸ªå‚æ•°å°±æ˜¯é˜ˆå€¼ï¼Œé˜ˆå€¼è¶Šå¤§ï¼Œæ£€æµ‹ç²¾åº¦è¶Šé«˜
 	//HoughLines(src_edge, plines, 1, CV_PI / 180, 200, 0, 0);
 	//HoughLines(src_edge, plines, 1, CV_PI / 180, 220, 0, 0);
 
-	//Í¨¹ı»ô·ò±ä»»¼ì²âÖ±Ïß
+	//é€šè¿‡éœå¤«å˜æ¢æ£€æµ‹ç›´çº¿
 	std::vector<Vec2f> plines;
-	//µÚ5¸ö²ÎÊı¾ÍÊÇãĞÖµ£¬ãĞÖµÔ½´ó£¬¼ì²â¾«¶ÈÔ½¸ß
+	//ç¬¬5ä¸ªå‚æ•°å°±æ˜¯é˜ˆå€¼ï¼Œé˜ˆå€¼è¶Šå¤§ï¼Œæ£€æµ‹ç²¾åº¦è¶Šé«˜
 	//HoughLines(src_edge, plines, 1, CV_PI / 180, 200, 0, 0);
 	int count_number = 3;
 	int value1 = 220;
@@ -874,11 +874,11 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 	}
 
 	//cout << plines.size() << endl;
-	//ÓÉÓÚÍ¼Ïñ²»Í¬£¬ãĞÖµ²»ºÃÉè¶¨£¬ÒòÎªãĞÖµÉè¶¨¹ı¸ßµ¼ÖÂÎŞ·¨¼ì²âÖ±Ïß£¬ãĞÖµ¹ıµÍÖ±ÏßÌ«¶à£¬ËÙ¶ÈºÜÂı
-	//ËùÒÔ¸ù¾İãĞÖµÓÉ´óµ½Ğ¡ÉèÖÃÁËÈı¸öãĞÖµ£¬Èç¹û¾­¹ı´óÁ¿ÊÔÑéºó£¬¿ÉÒÔ¹Ì¶¨Ò»¸öÊÊºÏµÄãĞÖµ¡£
+	//ç”±äºå›¾åƒä¸åŒï¼Œé˜ˆå€¼ä¸å¥½è®¾å®šï¼Œå› ä¸ºé˜ˆå€¼è®¾å®šè¿‡é«˜å¯¼è‡´æ— æ³•æ£€æµ‹ç›´çº¿ï¼Œé˜ˆå€¼è¿‡ä½ç›´çº¿å¤ªå¤šï¼Œé€Ÿåº¦å¾ˆæ…¢
+	//æ‰€ä»¥æ ¹æ®é˜ˆå€¼ç”±å¤§åˆ°å°è®¾ç½®äº†ä¸‰ä¸ªé˜ˆå€¼ï¼Œå¦‚æœç»è¿‡å¤§é‡è¯•éªŒåï¼Œå¯ä»¥å›ºå®šä¸€ä¸ªé€‚åˆçš„é˜ˆå€¼ã€‚
 	float sum = 0;
 	int sum_count = 0;
-	//ÒÀ´Î»­³öÃ¿ÌõÏß¶Î
+	//ä¾æ¬¡ç”»å‡ºæ¯æ¡çº¿æ®µ
 	for (size_t i = 0; i < plines.size(); i++)
 	{
 		float rho = plines[i][0];
@@ -886,7 +886,7 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 		Point pt1, pt2;
 		double a = cos(theta), b = sin(theta);
 		double x0 = a * rho, y0 = b * rho;
-		pt1.x = cvRound(x0 + 2500 * (-b));//cvRoundËÄÉáÎåÈë
+		pt1.x = cvRound(x0 + 2500 * (-b));//cvRoundå››èˆäº”å…¥
 		pt1.y = cvRound(y0 + 2500 * (a));
 		pt2.x = cvRound(x0 - 2500 * (-b));
 		pt2.y = cvRound(y0 - 2500 * (a));
@@ -894,8 +894,8 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 		if (qAbs(pt1.y) < 1000 && qAbs(pt2.y) < 1000)
 		{
 			sum += theta;
-			line(src_gray, pt1, pt2, Scalar(55, 100, 195), 1, LINE_AA);//Scalarº¯ÊıÓÃÓÚµ÷½ÚÏß¶ÎÑÕÉ«         
-			//imshow("Ö±ÏßÌ½²âĞ§¹ûÍ¼", src_gray);
+			line(src_gray, pt1, pt2, Scalar(55, 100, 195), 1, LINE_AA);//Scalarå‡½æ•°ç”¨äºè°ƒèŠ‚çº¿æ®µé¢œè‰²         
+			//imshow("ç›´çº¿æ¢æµ‹æ•ˆæœå›¾", src_gray);
 			//imshow("plines", src_gray);
 			sum_count++;
 		}
@@ -907,20 +907,20 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 		//angle = DegreeTrans(average) - 90;
 	}
 
-	//float average = sum / plines.size(); //¶ÔËùÓĞ½Ç¶ÈÇóÆ½¾ù£¬ÕâÑù×öĞı×ªĞ§¹û»á¸üºÃ
-	float average = sum / sum_count; //¶ÔËùÓĞ½Ç¶ÈÇóÆ½¾ù£¬ÕâÑù×öĞı×ªĞ§¹û»á¸üºÃ
+	//float average = sum / plines.size(); //å¯¹æ‰€æœ‰è§’åº¦æ±‚å¹³å‡ï¼Œè¿™æ ·åšæ—‹è½¬æ•ˆæœä¼šæ›´å¥½
+	float average = sum / sum_count; //å¯¹æ‰€æœ‰è§’åº¦æ±‚å¹³å‡ï¼Œè¿™æ ·åšæ—‹è½¬æ•ˆæœä¼šæ›´å¥½
 	angle = average / CV_PI * 180 - 90;
 	//angle = -(average-0.5);
-	////ĞÂ½¨Ò»¸ö¸ĞĞËÈ¤µÄÇøÓòÍ¼£¬´óĞ¡¸úÔ­Í¼Ò»Ñù´ó  
-	//Mat RoiSrcImg(src.rows, src.cols, CV_8UC3); //×¢ÒâÕâÀï±ØĞëÑ¡CV_8UC3
-	//RoiSrcImg.setTo(0); //ÑÕÉ«¶¼ÉèÖÃÎªºÚÉ«  
-	////imshow("ĞÂ½¨µÄROI", RoiSrcImg);
-	////¶ÔµÃµ½µÄÂÖÀªÌî³äÒ»ÏÂ  
+	////æ–°å»ºä¸€ä¸ªæ„Ÿå…´è¶£çš„åŒºåŸŸå›¾ï¼Œå¤§å°è·ŸåŸå›¾ä¸€æ ·å¤§  
+	//Mat RoiSrcImg(src.rows, src.cols, CV_8UC3); //æ³¨æ„è¿™é‡Œå¿…é¡»é€‰CV_8UC3
+	//RoiSrcImg.setTo(0); //é¢œè‰²éƒ½è®¾ç½®ä¸ºé»‘è‰²  
+	////imshow("æ–°å»ºçš„ROI", RoiSrcImg);
+	////å¯¹å¾—åˆ°çš„è½®å»“å¡«å……ä¸€ä¸‹  
 	//drawContours(binImg, contours, -1, Scalar(255), CV_FILLED);
-	////¿ÙÍ¼µ½RoiSrcImg
+	////æŠ å›¾åˆ°RoiSrcImg
 	//src.copyTo(RoiSrcImg, binImg);
 	//double angle = DegreeTrans(average) - 90;
-	//Ğı×ªÖĞĞÄÎªÍ¼ÏñÖĞĞÄ    
+	//æ—‹è½¬ä¸­å¿ƒä¸ºå›¾åƒä¸­å¿ƒ    
 	Point2f center;
 	center.x = float(src.cols / 2.0);
 	center.y = float(src.rows / 2.0);
@@ -928,23 +928,23 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 	length = sqrt(src.cols*src.cols + src.rows*src.rows);
 	Mat M = getRotationMatrix2D(center, angle, 1);
 
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(255, 255, 255));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎª°×É«  
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0,0,0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
-	warpAffine(src, src_rotate, M, Size(length, src.rows), 1, 0, Scalar(0, 0, 0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0, 0, 0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(255, 255, 255));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºç™½è‰²  
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0,0,0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
+	warpAffine(src, src_rotate, M, Size(length, src.rows), 1, 0, Scalar(0, 0, 0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0, 0, 0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
 
-	//imshow("½ÃÕıºó", src_rotate);
+	//imshow("çŸ«æ­£å", src_rotate);
 	//imshow("new", src_rotate);
-	imwrite(new_path.toStdString(), src_rotate); //½«½ÃÕıºóµÄÍ¼Æ¬±£´æÏÂÀ´
-	//·µ»Ø½ÃÕıºóµÄMat
+	imwrite(new_path.toStdString(), src_rotate); //å°†çŸ«æ­£åçš„å›¾ç‰‡ä¿å­˜ä¸‹æ¥
+	//è¿”å›çŸ«æ­£åçš„Mat
 
-	//¶ÔĞı×ªºóµÄÍ¼Æ¬½øĞĞÂÖÀªÌáÈ¡  
+	//å¯¹æ—‹è½¬åçš„å›¾ç‰‡è¿›è¡Œè½®å»“æå–  
 	std::vector<std::vector<Point> > contours2;
 	std::vector<std::vector<Point> > contours3;
 	Mat raw = imread(new_path.toStdString());
 	Mat SecondFindImg;
 	//SecondFindImg.setTo(0);
-	cvtColor(raw, SecondFindImg, COLOR_BGR2GRAY);  //»Ò¶È»¯  
+	cvtColor(raw, SecondFindImg, COLOR_BGR2GRAY);  //ç°åº¦åŒ–  
 	//threshold(SecondFindImg, SecondFindImg, 80, 200, CV_THRESH_BINARY);
 	//double thres = 80;
 	//double maxval = 150;
@@ -955,7 +955,7 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 	//THRESH_TRIANGLE
 	threshold(SecondFindImg, SecondFindImg, thres, maxval, CV_THRESH_BINARY);
 
-	//imshow("gray_picture", SecondFindImg);//Êä³ö»Ò¶ÈÍ¼
+	//imshow("gray_picture", SecondFindImg);//è¾“å‡ºç°åº¦å›¾
 
 	//threshold(SecondFindImg, SecondFindImg, thres, maxval, CV_THRESH_TRIANGLE);
 	findContours(SecondFindImg, contours2, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE);
@@ -1026,7 +1026,7 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 		min_x = rect.x;
 		max_y = rect.y;
 		card_x.push_back(min_x);
-		//·ûºÏÌõ¼şµÄ¾ØĞÎ
+		//ç¬¦åˆæ¡ä»¶çš„çŸ©å½¢
 		if (rect.height > 22)
 		{
 			card_y_need.push_back(max_y);
@@ -1057,7 +1057,7 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 		return;
 	}
 
-	//µÃµ½Æ½¾ùÖµ
+	//å¾—åˆ°å¹³å‡å€¼
 	double sum1 = std::accumulate(std::begin(card_y_need), std::end(card_y_need), 0.0);
 	double avg_mean = sum1 / card_y_need.size();
 	int avgValue_y_asix = avg_mean;
@@ -1068,18 +1068,18 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 	int maxPosition_height = max_element(card_height.begin(), card_height.end()) - card_height.begin();
 
 
-	//Çó³öÒªÔØÈ¡ÇøÓòwidth,¸ù¾İ×îĞ¡µÄXÖµ
+	//æ±‚å‡ºè¦è½½å–åŒºåŸŸwidth,æ ¹æ®æœ€å°çš„Xå€¼
 	int maxValue_x = *max_element(card_x.begin(), card_x.end());
 	int maxPosition_x = max_element(card_x.begin(), card_x.end()) - card_x.begin();
 
 	minValue_x_asix = minValue_x_asix;//minValue_xx;
-	//µÃµ½ĞèÒªµÄÍ¼Ïñ¿í¶È
+	//å¾—åˆ°éœ€è¦çš„å›¾åƒå®½åº¦
 	rect = boundingRect(Mat(contours3[maxPosition_x]));
 	int need_width = 0;
 	int head_width = 120;
 
 	need_width = rect.x + rect.width - minValue_x_asix;
-	need_width = (rect.x + rect.width) - minValue_x_asix + head_width; //¿¼ÂÇÓĞĞ©Ä£ÌõÎŞ·¨Ê¶±ğÄ¤ÌõÍ·µÄÎÊÌâ¡£
+	need_width = (rect.x + rect.width) - minValue_x_asix + head_width; //è€ƒè™‘æœ‰äº›æ¨¡æ¡æ— æ³•è¯†åˆ«è†œæ¡å¤´çš„é—®é¢˜ã€‚
 
 	if (need_height > 65)
 	{
@@ -1108,16 +1108,16 @@ void CameraCheckWidgets::RotatePng(QString scr_path, QString new_path, QString l
 }
 
 
-//µÚÒ»¸ö²ÎÊı£ºÊäÈëÍ¼Æ¬Ãû³Æ£»µÚ¶ş¸ö²ÎÊı£ºÊä³öÍ¼Æ¬Ãû³Æ
+//ç¬¬ä¸€ä¸ªå‚æ•°ï¼šè¾“å…¥å›¾ç‰‡åç§°ï¼›ç¬¬äºŒä¸ªå‚æ•°ï¼šè¾“å‡ºå›¾ç‰‡åç§°
 void CameraCheckWidgets::GetContoursPic(QString pSrcFileName, QString pDstFileName)
 {
 	Mat srcImg = imread(pSrcFileName.toStdString());
 	imshow("src pic ", srcImg);
 	Mat gray, binImg;
-	//»Ò¶È»¯
+	//ç°åº¦åŒ–
 	cvtColor(srcImg, gray, COLOR_RGB2GRAY);
 	imshow("gray pic", gray);
-	//¶şÖµ»¯
+	//äºŒå€¼åŒ–
 	threshold(gray, binImg, 80, 150, CV_THRESH_BINARY);
 	imshow("2 value", binImg);
 
@@ -1126,26 +1126,26 @@ void CameraCheckWidgets::GetContoursPic(QString pSrcFileName, QString pDstFileNa
 
 	std::vector<std::vector<Point> > contours;
 	std::vector<Rect> boundRect(contours.size());
-	//×¢ÒâµÚ5¸ö²ÎÊıÎªCV_RETR_EXTERNAL£¬Ö»¼ìË÷Íâ¿ò  
-	findContours(binImg, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE); //ÕÒÂÖÀª
+	//æ³¨æ„ç¬¬5ä¸ªå‚æ•°ä¸ºCV_RETR_EXTERNALï¼Œåªæ£€ç´¢å¤–æ¡†  
+	findContours(binImg, contours, CV_RETR_EXTERNAL, CV_CHAIN_APPROX_NONE); //æ‰¾è½®å»“
 	//cout << contours.size() << endl;
 	float angle = 0;
 	float sum = 0;
 	int valid_number = 0;
 	for (int i = 0; i < contours.size(); i++)
 	{
-		//ĞèÒª»ñÈ¡µÄ×ø±ê  
+		//éœ€è¦è·å–çš„åæ ‡  
 		CvPoint2D32f rectpoint[4];
 		CvBox2D rect = minAreaRect(Mat(contours[i]));
 
-		cvBoxPoints(rect, rectpoint); //»ñÈ¡4¸ö¶¥µã×ø±ê  
+		cvBoxPoints(rect, rectpoint); //è·å–4ä¸ªé¡¶ç‚¹åæ ‡  
 
 		//cout << angle << endl;
 
 		int line1 = sqrt((rectpoint[1].y - rectpoint[0].y)*(rectpoint[1].y - rectpoint[0].y) + (rectpoint[1].x - rectpoint[0].x)*(rectpoint[1].x - rectpoint[0].x));
 		int line2 = sqrt((rectpoint[3].y - rectpoint[0].y)*(rectpoint[3].y - rectpoint[0].y) + (rectpoint[3].x - rectpoint[0].x)*(rectpoint[3].x - rectpoint[0].x));
 		//rectangle(binImg, rectpoint[0], rectpoint[3], Scalar(255), 2);
-		//Ãæ»ıÌ«Ğ¡µÄÖ±½Ópass
+		//é¢ç§¯å¤ªå°çš„ç›´æ¥pass
 		//if ((line1 * line2 < 600) || (line1<200))
 		//{
 		//	continue;
@@ -1156,7 +1156,7 @@ void CameraCheckWidgets::GetContoursPic(QString pSrcFileName, QString pDstFileNa
 			continue;
 		}
 
-		//ÓëË®Æ½ÏßµÄ½Ç¶È  
+		//ä¸æ°´å¹³çº¿çš„è§’åº¦  
 		//sum += (90 + rect.angle);
 		if (tmp != 0 && abs(tmp) > 45)
 		{
@@ -1164,7 +1164,7 @@ void CameraCheckWidgets::GetContoursPic(QString pSrcFileName, QString pDstFileNa
 			valid_number++;
 		}
 
-		//ÎªÁËÈÃÕı·½ĞÎºá×Å·Å£¬ËùÒÔĞı×ª½Ç¶ÈÊÇ²»Ò»ÑùµÄ¡£Êú·ÅµÄ£¬¸øËû¼Ó90¶È£¬·­¹ıÀ´  
+		//ä¸ºäº†è®©æ­£æ–¹å½¢æ¨ªç€æ”¾ï¼Œæ‰€ä»¥æ—‹è½¬è§’åº¦æ˜¯ä¸ä¸€æ ·çš„ã€‚ç«–æ”¾çš„ï¼Œç»™ä»–åŠ 90åº¦ï¼Œç¿»è¿‡æ¥  
 		//if (line1 > line2)
 		//{
 		//	angle = 90 + angle;
@@ -1177,7 +1177,7 @@ void CameraCheckWidgets::GetContoursPic(QString pSrcFileName, QString pDstFileNa
 
 	}
 
-	float average = sum / valid_number;//contours.size(); //¶ÔËùÓĞ½Ç¶ÈÇóÆ½¾ù£¬ÕâÑù×öĞı×ªĞ§¹û»á¸üºÃ
+	float average = sum / valid_number;//contours.size(); //å¯¹æ‰€æœ‰è§’åº¦æ±‚å¹³å‡ï¼Œè¿™æ ·åšæ—‹è½¬æ•ˆæœä¼šæ›´å¥½
 
 	if (abs(average) > 45)
 	{
@@ -1207,14 +1207,14 @@ void CameraCheckWidgets::GetContoursPic(QString pSrcFileName, QString pDstFileNa
 	Mat M = getRotationMatrix2D(center, angle, 1);
 
 	Mat src_rotate;
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(255, 255, 255));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎª°×É«  
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0,0,0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
-	warpAffine(srcImg, src_rotate, M, Size(length, srcImg.rows), 1, 0, Scalar(0, 0, 0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0, 0, 0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(255, 255, 255));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºç™½è‰²  
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0,0,0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
+	warpAffine(srcImg, src_rotate, M, Size(length, srcImg.rows), 1, 0, Scalar(0, 0, 0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0, 0, 0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
 
-	//imshow("½ÃÕıºó", src_rotate);
+	//imshow("çŸ«æ­£å", src_rotate);
 	imshow("new", src_rotate);
-	imwrite(pDstFileName.toStdString(), src_rotate); //½«½ÃÕıºóµÄÍ¼Æ¬±£´æÏÂÀ´
+	imwrite(pDstFileName.toStdString(), src_rotate); //å°†çŸ«æ­£åçš„å›¾ç‰‡ä¿å­˜ä¸‹æ¥
 }
 
 
@@ -1224,21 +1224,21 @@ Mat  CameraCheckWidgets::RotatePic(QString scr_path, QString new_path)
 	Mat gray, binImg;
 	double angle;
 	src = imread(scr_path.toStdString());
-	imshow("ÎÄ±¾Í¼Æ¬", src);
+	imshow("æ–‡æœ¬å›¾ç‰‡", src);
 	cvtColor(src, src_gray, COLOR_RGB2GRAY);
 	Canny(src_gray, src_edge, 50, 200, 3);
 	imshow("canny", src_edge);
 
-	//Í¨¹ı»ô·ò±ä»»¼ì²âÖ±Ïß
+	//é€šè¿‡éœå¤«å˜æ¢æ£€æµ‹ç›´çº¿
 	std::vector<Vec2f> plines;
-	//µÚ5¸ö²ÎÊı¾ÍÊÇãĞÖµ£¬ãĞÖµÔ½´ó£¬¼ì²â¾«¶ÈÔ½¸ß
+	//ç¬¬5ä¸ªå‚æ•°å°±æ˜¯é˜ˆå€¼ï¼Œé˜ˆå€¼è¶Šå¤§ï¼Œæ£€æµ‹ç²¾åº¦è¶Šé«˜
 	HoughLines(src_edge, plines, 1, CV_PI / 180, 200, 0, 0);
 	//cout << plines.size() << endl;
-	//ÓÉÓÚÍ¼Ïñ²»Í¬£¬ãĞÖµ²»ºÃÉè¶¨£¬ÒòÎªãĞÖµÉè¶¨¹ı¸ßµ¼ÖÂÎŞ·¨¼ì²âÖ±Ïß£¬ãĞÖµ¹ıµÍÖ±ÏßÌ«¶à£¬ËÙ¶ÈºÜÂı
-	//ËùÒÔ¸ù¾İãĞÖµÓÉ´óµ½Ğ¡ÉèÖÃÁËÈı¸öãĞÖµ£¬Èç¹û¾­¹ı´óÁ¿ÊÔÑéºó£¬¿ÉÒÔ¹Ì¶¨Ò»¸öÊÊºÏµÄãĞÖµ¡£
+	//ç”±äºå›¾åƒä¸åŒï¼Œé˜ˆå€¼ä¸å¥½è®¾å®šï¼Œå› ä¸ºé˜ˆå€¼è®¾å®šè¿‡é«˜å¯¼è‡´æ— æ³•æ£€æµ‹ç›´çº¿ï¼Œé˜ˆå€¼è¿‡ä½ç›´çº¿å¤ªå¤šï¼Œé€Ÿåº¦å¾ˆæ…¢
+	//æ‰€ä»¥æ ¹æ®é˜ˆå€¼ç”±å¤§åˆ°å°è®¾ç½®äº†ä¸‰ä¸ªé˜ˆå€¼ï¼Œå¦‚æœç»è¿‡å¤§é‡è¯•éªŒåï¼Œå¯ä»¥å›ºå®šä¸€ä¸ªé€‚åˆçš„é˜ˆå€¼ã€‚
 
 	float sum = 0;
-	//ÒÀ´Î»­³öÃ¿ÌõÏß¶Î
+	//ä¾æ¬¡ç”»å‡ºæ¯æ¡çº¿æ®µ
 	for (size_t i = 0; i < plines.size(); i++)
 	{
 		float rho = plines[i][0];
@@ -1246,27 +1246,27 @@ Mat  CameraCheckWidgets::RotatePic(QString scr_path, QString new_path)
 		Point pt1, pt2;
 		double a = cos(theta), b = sin(theta);
 		double x0 = a * rho, y0 = b * rho;
-		pt1.x = cvRound(x0 + 1000 * (-b));//cvRoundËÄÉáÎåÈë
+		pt1.x = cvRound(x0 + 1000 * (-b));//cvRoundå››èˆäº”å…¥
 		pt1.y = cvRound(y0 + 1000 * (a));
 		pt2.x = cvRound(x0 - 1000 * (-b));
 		pt2.y = cvRound(y0 - 1000 * (a));
 		sum += theta;
-		line(src_gray, pt1, pt2, Scalar(55, 100, 195), 1, LINE_AA);//Scalarº¯ÊıÓÃÓÚµ÷½ÚÏß¶ÎÑÕÉ«         
-		imshow("Ö±ÏßÌ½²âĞ§¹ûÍ¼", src_gray);
+		line(src_gray, pt1, pt2, Scalar(55, 100, 195), 1, LINE_AA);//Scalarå‡½æ•°ç”¨äºè°ƒèŠ‚çº¿æ®µé¢œè‰²         
+		imshow("ç›´çº¿æ¢æµ‹æ•ˆæœå›¾", src_gray);
 		//angle = DegreeTrans(average) - 90;
 	}
-	float average = sum / plines.size(); //¶ÔËùÓĞ½Ç¶ÈÇóÆ½¾ù£¬ÕâÑù×öĞı×ªĞ§¹û»á¸üºÃ
+	float average = sum / plines.size(); //å¯¹æ‰€æœ‰è§’åº¦æ±‚å¹³å‡ï¼Œè¿™æ ·åšæ—‹è½¬æ•ˆæœä¼šæ›´å¥½
 	angle = average / CV_PI * 180 - 90;
-	////ĞÂ½¨Ò»¸ö¸ĞĞËÈ¤µÄÇøÓòÍ¼£¬´óĞ¡¸úÔ­Í¼Ò»Ñù´ó  
-	//Mat RoiSrcImg(src.rows, src.cols, CV_8UC3); //×¢ÒâÕâÀï±ØĞëÑ¡CV_8UC3
-	//RoiSrcImg.setTo(0); //ÑÕÉ«¶¼ÉèÖÃÎªºÚÉ«  
-	////imshow("ĞÂ½¨µÄROI", RoiSrcImg);
-	////¶ÔµÃµ½µÄÂÖÀªÌî³äÒ»ÏÂ  
+	////æ–°å»ºä¸€ä¸ªæ„Ÿå…´è¶£çš„åŒºåŸŸå›¾ï¼Œå¤§å°è·ŸåŸå›¾ä¸€æ ·å¤§  
+	//Mat RoiSrcImg(src.rows, src.cols, CV_8UC3); //æ³¨æ„è¿™é‡Œå¿…é¡»é€‰CV_8UC3
+	//RoiSrcImg.setTo(0); //é¢œè‰²éƒ½è®¾ç½®ä¸ºé»‘è‰²  
+	////imshow("æ–°å»ºçš„ROI", RoiSrcImg);
+	////å¯¹å¾—åˆ°çš„è½®å»“å¡«å……ä¸€ä¸‹  
 	//drawContours(binImg, contours, -1, Scalar(255), CV_FILLED);
-	////¿ÙÍ¼µ½RoiSrcImg
+	////æŠ å›¾åˆ°RoiSrcImg
 	//src.copyTo(RoiSrcImg, binImg);
 	//double angle = DegreeTrans(average) - 90;
-	//Ğı×ªÖĞĞÄÎªÍ¼ÏñÖĞĞÄ    
+	//æ—‹è½¬ä¸­å¿ƒä¸ºå›¾åƒä¸­å¿ƒ    
 	Point2f center;
 	center.x = float(src.cols / 2.0);
 	center.y = float(src.rows / 2.0);
@@ -1274,9 +1274,9 @@ Mat  CameraCheckWidgets::RotatePic(QString scr_path, QString new_path)
 	length = sqrt(src.cols*src.cols + src.rows*src.rows);
 	Mat M = getRotationMatrix2D(center, angle, 1);
 
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(255, 255, 255));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎª°×É«  
-	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0,0,0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
-	warpAffine(src, src_rotate, M, Size(length, src.rows), 1, 0, Scalar(0, 0, 0));//·ÂÉä±ä»»£¬±³¾°É«Ìî³äÎªlºÚÉ«
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(255, 255, 255));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºç™½è‰²  
+	//warpAffine(src, src_rotate, M, Size(length, length), 1, 0, Scalar(0,0,0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
+	warpAffine(src, src_rotate, M, Size(length, src.rows), 1, 0, Scalar(0, 0, 0));//ä»¿å°„å˜æ¢ï¼ŒèƒŒæ™¯è‰²å¡«å……ä¸ºlé»‘è‰²
 	return src_rotate;
 }
 
@@ -1301,7 +1301,7 @@ Mat  CameraCheckWidgets::concat(cv::Mat m1, cv::Mat m2)
 	int height = imgMatched.rows - imgTemp.rows + 1;
 	Mat matchResult(height, width, CV_32FC1);
 	matchTemplate(imgMatched, imgTemp, matchResult, TM_CCORR_NORMED);
-	normalize(matchResult, matchResult, 0, 1, NORM_MINMAX, -1);  //¹éÒ»»¯µ½0--1·¶Î§
+	normalize(matchResult, matchResult, 0, 1, NORM_MINMAX, -1);  //å½’ä¸€åŒ–åˆ°0--1èŒƒå›´
 
 	double minValue, maxValue;
 	Point minLoc, maxLoc;

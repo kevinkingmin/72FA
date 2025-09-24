@@ -75,6 +75,9 @@ public:
     static void setTcpClient(TcpClient *tcpClient);
 
     static bool reconnect();
+    static bool getLISRemoveSpace();
+    static void setLISRemoveSpace(bool LISRemoveSpace);
+
 private:
     static QMap<ushort,QString>_mapSampleType;
     static QMap<int,QString>_mapSampleCupType;
@@ -93,6 +96,7 @@ private:
 	static QString _UserType;
 	static QString _g_language_type;
     static TcpClient *m_tcpClient;
+    static bool _LISRemoveSpace;
 };
 
 #endif // GLOBALDATA_H

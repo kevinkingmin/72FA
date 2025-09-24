@@ -113,6 +113,7 @@ void MainWindow::sltLogin(QString userid, QString password)
     _ptrInstrumentState = InstrumentStateModel::instance();
     auto exe_path = GlobalData::getExePath() + "/config/instrumentConfig.ini";
     QSettings config_set(exe_path, QSettings::IniFormat);
+    GlobalData::setLISRemoveSpace(config_set.value("LIS/RemoveSpace",0).toInt()>0);
     _instrument->start_instrument();
    /* QtConcurrent::run([]() {
         // 这里是线程要执行的任务

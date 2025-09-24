@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QWidget>
 #include "ui_CameraCheckWidgets.h"
@@ -56,7 +56,7 @@ public:
 	void recv_msg(QString msg);
 	bool m_flag = false;
 
-    //Mythread *m_move_pos_thread;//ÉùÃ÷RunPaperPosThread¶ÔÏó
+    //Mythread *m_move_pos_thread;//å£°æ˜ŽRunPaperPosThreadå¯¹è±¡
 
 	//Mat grayToRGB(const cv::Mat input_img);
 

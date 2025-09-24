@@ -85,7 +85,7 @@ TestSampleWidget::TestSampleWidget(PrepareReagentDialog * dialog, QWidget *paren
     connect(this,&TestSampleWidget::sglUploadLIS,this,[this,dao](const QString &testId,int companyInfo)
     {
         dLog("upload data to LIS");
-        QString send_sz=dao->createLISData(testId, companyInfo);
+        QString send_sz=dao->createLISData(testId, companyInfo,GlobalData::getLISRemoveSpace());
         if(send_sz.isEmpty())
         {
             eLog("create LIS data failed,testId:{}",testId.toStdString());

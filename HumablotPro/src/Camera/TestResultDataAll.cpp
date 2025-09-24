@@ -1957,7 +1957,7 @@ void TestResultDataAll::on_pushButtonUpdateToLis_clicked()
                 MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1736"), MyMessageBox::Ok, "OK", "");
                 return;
             }
-            send_sz=dao->createLISData(testId, company_info);
+            send_sz=dao->createLISData(testId, company_info,GlobalData::getLISRemoveSpace());
             if(send_sz.isEmpty())
             {
                 eLog("数据发送失败,testId:{}",testId.toStdString());

@@ -74,6 +74,7 @@ QString GlobalData::_UserType("");
 QString GlobalData::_g_language_type("");
 QString GlobalData::_propertyName("pumpState");
 TcpClient *GlobalData::m_tcpClient(nullptr);
+bool GlobalData::_LISRemoveSpace(false);
 GlobalData::GlobalData()
 {   
 }
@@ -263,6 +264,16 @@ bool GlobalData::reconnect()
     }
     m_tcpClient->reconnect();
 	return isNeedConnect;
+}
+
+bool GlobalData::getLISRemoveSpace()
+{
+    return _LISRemoveSpace;
+}
+
+void GlobalData::setLISRemoveSpace(bool LISRemoveSpace)
+{
+    _LISRemoveSpace = LISRemoveSpace;
 }
 
 

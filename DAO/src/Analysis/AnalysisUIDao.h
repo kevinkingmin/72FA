@@ -270,7 +270,7 @@ public:
 
 		QString selectDataBaseVersion(bool *bResult);
 		//UpdateTargetValue(bool *bResult, QString id, QString value);
-        QString  createLISData(const QString &testId, const int companyId);
+        QString  createLISData(const QString &testId, const int companyId,bool removeSpace);
 		int getPaperItemCountBySampleId(const int pkid);
 		QSqlRecord getSampleByPkid(const int pkid,bool &ret);
 		QString getItemCHName(const QString &itemName,const int paperId);
