@@ -249,6 +249,8 @@ public:
     bool sendBySocket(QByteArray buf);
     void closeSocket();
     void openSocket();
+    //在流程中需要充灌的泵
+    void needFillPumps(QMap<int,ushort>pumpMap);
 signals:
     void sglDataArrive(QByteArray datas);
     void sglScanReagent();

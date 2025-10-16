@@ -16,7 +16,7 @@ QWidget *ComboxDelegate::createEditor(QWidget *parent,
     Q_UNUSED(option)
     Q_UNUSED(index)
     QComboBox *editor = new QComboBox(parent);
-	if (index.column() == 4)
+    if (index.column() == 5)
 	{
 		auto map = GlobalData::mapSexType();
 		for (auto it = map.begin(); it != map.end(); it++)

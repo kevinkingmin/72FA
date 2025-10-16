@@ -473,6 +473,11 @@ void Instrument::openSocket(){
     connect(tcpsocket,SIGNAL(disconnected()),this,SLOT(disconnected_SLOT()));
 }
 
+void Instrument::needFillPumps(QMap<int, ushort> pumpMap)
+{
+
+}
+
 void Instrument::closeSocket(){
     isReadFrame=false;
     QThread::msleep(1000);

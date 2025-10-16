@@ -299,7 +299,7 @@ void SampleWidget::on_btnNext_clicked()
 		if (m_prepareReagent->m_preview_wash_map.size() > 0)
 		{
 			m_testSampleWidget->m_preview_wash_flage = 1;
-            //Instrument::instance()->setNeedFillPump(m_prepareReagent->m_preview_wash_map);
+            Instrument::instance()->needFillPumps(m_prepareReagent->m_preview_wash_map);
 			QString strExePath = QDir::currentPath();
 			QDateTime time = QDateTime::currentDateTime();
 			QString str = time.toString("yyyyMMdd");//("yyyy-MM-dd hh:mm:ss");

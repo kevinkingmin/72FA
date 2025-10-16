@@ -640,18 +640,19 @@ QString AnalysisUIDao::createLISData(const QString &testId, const int companyId,
     while (TestDataQuery.next())
     {
         QString id = TestDataQuery.value("sampleNo").toString();
+        QString seqNo = TestDataQuery.value("barcode").toString();
         if (iii_count == 0)
         {
             if(removeSpace)
             {
                 send_sz += QString("%1"+MSH+"%2||OUL^R22||P|2.5.1|||AL|AL||ASCII|||%3").arg(QChar(0x0B)).arg(id).arg(QChar(0x0D));
-                send_sz += QString("PID|%1||||||%1|0|||||||||||||||||||||||%2").arg(id).arg(QChar(0x0D));//"PID | " + List[0].SampleNo + " |||||| " + List[0].SampleNo + " | 0 |||||||||||||||||||||||" + getstringforbyte(0x0D);
+                send_sz += QString("PID|%1|%3|||||%1|0|||||||||||||||||||||||%2").arg(id).arg(QChar(0x0D)).arg(seqNo);//"PID | " + List[0].SampleNo + " |||||| " + List[0].SampleNo + " | 0 |||||||||||||||||||||||" + getstringforbyte(0x0D);
                 send_sz += QString("OBR|4|%1|4|E - LAB ^ ES - 480|N|%1|%1||||||||||||||||||||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D));//"OBR | 4 | " + List[0].SampleNo + " | 4 | E - LAB ^ ES - 480 | N | " + List[0].SampleNo + " | " + List[0].SampleNo + " ||||||||| ||||  ||||||||||||||||||||||||||||" + getstringforbyte(0x0D);
             }
             else
             {
                 send_sz += QString("%1"+MSH+" %2 || OUL ^ R22 |  | P | 2.5.1 ||| AL | AL || ASCII |||%3").arg(QChar(0x0B)).arg(id).arg(QChar(0x0D));
-                send_sz += QString("PID | %1 |||||| %1 | 0 ||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D));//"PID | " + List[0].SampleNo + " |||||| " + List[0].SampleNo + " | 0 |||||||||||||||||||||||" + getstringforbyte(0x0D);
+                send_sz += QString("PID | %1 |%3||||| %1 | 0 ||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D)).arg(seqNo);//"PID | " + List[0].SampleNo + " |||||| " + List[0].SampleNo + " | 0 |||||||||||||||||||||||" + getstringforbyte(0x0D);
                 send_sz += QString("OBR | 4 | %1  | 4 | E - LAB ^ ES - 480 | N | %1 | %1  ||||||||| ||||  |||||||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D));//"OBR | 4 | " + List[0].SampleNo + " | 4 | E - LAB ^ ES - 480 | N | " + List[0].SampleNo + " | " + List[0].SampleNo + " ||||||||| ||||  ||||||||||||||||||||||||||||" + getstringforbyte(0x0D);
             }
         }

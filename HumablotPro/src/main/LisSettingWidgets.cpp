@@ -211,7 +211,7 @@ void  LisSettingWidgets::on_pushButtonSend_2_clicked() {
     if(GlobalData::getLISRemoveSpace())
     {
         send_sz += QString("%1MSH|^|||||202405161559174(样本管编号)||OUL^R22||P|2.5.1|||AL|AL||ASCII|||%2").arg(QChar(0x0B)).arg(QChar(0x0D));
-        send_sz += QString("PID|202405161559174(样本管编号)||||||202405161559174(样本管编号)|0|||||||||||||||||||||||%1").arg(QChar(0x0D));
+        send_sz += QString("PID|202405161559174(样本管编号)|50005(序号)|||||202405161559174(样本管编号)|0|||||||||||||||||||||||%1").arg(QChar(0x0D));
         send_sz += QString("OBR|4|202405161559174(样本管编号)|4|E - LAB ^ ES - 480|N|202405161559174|202405161559174|||||||||||||||||||||||||||||||||||||||||%1").arg(QChar(0x0D));
         send_sz += QString("OBX||NM|2024 - 05 - 16 15:59 : 56||FC|F||95.4667||||F|||BetchNo||Admin||HumaBlot 72FA|%1").arg(QChar(0x0D));
         send_sz += QString("OBX||NM|2024 - 05 - 16 15:59 : 56||CagA|F++||133.583||||F|||BetchNo||Admin||HumaBlot 72FA|%1").arg(QChar(0x0D));
@@ -224,7 +224,7 @@ void  LisSettingWidgets::on_pushButtonSend_2_clicked() {
     else
     {
         send_sz += QString("%1MSH | ^ |||||  202405161559174(样本管编号) || OUL ^ R22 |  | P | 2.5.1 ||| AL | AL || ASCII |||%2").arg(QChar(0x0B)).arg(QChar(0x0D));
-        send_sz += QString("PID | 202405161559174(样本管编号) |||||| 202405161559174(样本管编号) | 0 |||||||||||||||||||||||%1").arg(QChar(0x0D));
+        send_sz += QString("PID | 202405161559174(样本管编号) |50005(序号)||||| 202405161559174(样本管编号) | 0 |||||||||||||||||||||||%1").arg(QChar(0x0D));
         send_sz += QString("OBR | 4 | 202405161559174(样本管编号) | 4 | E - LAB ^ ES - 480 | N | 202405161559174 | 202405161559174  ||||||||| ||||  ||||||||||||||||||||||||||||%1").arg(QChar(0x0D));
         send_sz += QString("OBX | |NM | 2024 - 05 - 16 15:59 : 56 || FC | F || 95.4667 |||| F ||| BetchNo || Admin || HumaBlot 72FA |%1").arg(QChar(0x0D));
         send_sz += QString("OBX | |NM | 2024 - 05 - 16 15:59 : 56 || CagA | F++ || 133.583 |||| F ||| BetchNo || Admin || HumaBlot 72FA |%1").arg(QChar(0x0D));

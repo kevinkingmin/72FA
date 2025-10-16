@@ -156,20 +156,28 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
         return;
     }
     QString sample_id("");
+    QString seqNo{""};
     QVector<QString> paperIds;
     QStringList segments(data.split("\r"));
     for (int i = 0; i < segments.size(); i++)
     {
         QString need_sz = segments[i];
         QString modifiedString = need_sz.replace("\n", "");
-        if (!modifiedString.startsWith("OBR"))
-            continue;
+        if (modifiedString.startsWith("MSH"))
+            continue;        
         QStringList obrFields = modifiedString.split("|");
-        if (obrFields.length() < 6)
+        if (obrFields.length() < 8)
         {
             eLog("LIS data wrong:{}", modifiedString.toStdString());
             continue;
         }
+
+        if(obrFields[0].simplified().compare("PID",Qt::CaseInsensitive))
+        {
+            seqNo=obrFields[6];
+            continue;
+        }
+
 		auto paperId = obrFields.at(5).simplified().simplified();
 		if (paperId.isEmpty())
 		{
@@ -193,10 +201,10 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
         m_isLISRequestDataFinish=true;
         return;
     }
-    QString sql_insert = "insert into tsample(sampleNo,Id,paperPos,paperId,stateFlag,createDay,samplePos,cupType)values";
+    QString sql_insert = "insert into tsample(sampleNo,Id,paperPos,paperId,stateFlag,createDay,samplePos,cupType,barcode)values";
     QString valueStr{ "" };
     for (auto paperId : paperIds)
-        valueStr += QString("('%1','%1',1,%2,1,'%3',%4,1),").arg(sample_id).arg(paperId).arg(create_time).arg(m_samplePos);
+        valueStr += QString("('%1','%1',1,%2,1,'%3',%4,1,'%5'),").arg(sample_id).arg(paperId).arg(create_time).arg(m_samplePos).arg(seqNo);
     sql_insert = sql_insert + valueStr.left(valueStr.length() - 1);
     dao->UpdateRecord(&bResult, sql_insert);
     if (!bResult)
@@ -265,7 +273,6 @@ void AddSampleWidget::scanWorkState(const bool isFinish)
         emit ChangeBtnNextSignal(false);
         ui->btnBCR->setEnabled(false);
     }
-
 }
 //得到查询条件，然后传进去查询函数中去。
 void AddSampleWidget::slotGetQueryCondition(QString condition1,QString condition2)
@@ -319,7 +326,7 @@ void AddSampleWidget::initUI()
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(2, 100);
 
-    ui->tvSampleSet->setItemDelegateForColumn(2,new ComboxDelegate(this));
+    ui->tvSampleSet->setItemDelegateForColumn(3,new ComboxDelegate(this));
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Fixed);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(3, 80);
@@ -334,7 +341,7 @@ void AddSampleWidget::initUI()
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(4, 80);
 
-    ui->tvSampleSet->setItemDelegateForColumn(4, new ComboxDelegate(this));
+    ui->tvSampleSet->setItemDelegateForColumn(5, new ComboxDelegate(this));
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(5, 60);
@@ -361,14 +368,18 @@ void AddSampleWidget::initUI()
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Fixed);
+    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
+    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Fixed);
     //ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Stretch);
     ui->tvSampleSet->setColumnWidth(0, 70);
-    ui->tvSampleSet->setColumnWidth(1, 220);
+    ui->tvSampleSet->setColumnWidth(1, 190);
     ui->tvSampleSet->setColumnWidth(2, 160);
-    ui->tvSampleSet->setColumnWidth(4, 80);
+    ui->tvSampleSet->setColumnWidth(3, 160);
+    ui->tvSampleSet->setColumnWidth(4, 185);
     ui->tvSampleSet->setColumnWidth(5, 80);
+    ui->tvSampleSet->setColumnWidth(6, 80);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(40);
     //隔行变色
     ui->tvSampleSet->setAlternatingRowColors(true);
@@ -508,7 +519,7 @@ void AddSampleWidget::ShowTestInfoFromDatabase()
     while (selectSampleList.next())
     {
         QString sampleNo1 = selectSampleList.value("sampleNo").toString();
-        QString sql_query = QString("select COUNT(*) as number, paperId,sampleNo,PatientName,samplePos from tsample where stateFlag=1 and createDay='%1' and sampleNo='%2' GROUP BY paperId").arg(createDay).arg(sampleNo1);
+        QString sql_query = QString("select COUNT(*) as number, paperId,sampleNo,barcode,SexID,PatientName,samplePos from tsample where stateFlag=1 and createDay='%1' and sampleNo='%2' GROUP BY paperId").arg(createDay).arg(sampleNo1);
         auto countNumberQuery = dao->SelectRecord(&bResult, sql_query);
         //select COUNT(*) as number, paperId,sampleNo,PatientName,samplePos from tsample where stateFlag=1 and createDay='2022-06-13' and sampleNo='aaa' GROUP BY paperId
         while (countNumberQuery.next())
@@ -520,7 +531,9 @@ void AddSampleWidget::ShowTestInfoFromDatabase()
             QString sampleNo = countNumberQuery.value("sampleNo").toString();
 
             _vModel->_vect[samplePos].sampleNo = sampleNo;
-
+             _vModel->_vect[samplePos].articleNo=countNumberQuery.value("barcode").toString();
+             _vModel->_vect[samplePos].patientName=countNumberQuery.value("PatientName").toString();
+             _vModel->_vect[samplePos].sexID=countNumberQuery.value("SexID").toInt();
             auto map = _vModel->_vect[samplePos].paperCheckedCountMap;//it.paperCheckedCountMap;
             int paper_id_new = GetPaperId1(paperId);
             std::tuple tp(true, number);
@@ -871,6 +884,7 @@ void AddSampleWidget::SaveSample()
         int SexID = it.sexID;
         int Age = it.age;
         int paper_id = 0;
+        QString barcode=it.articleNo;
         auto map = it.paperCheckedCountMap;
         int ii = 0;
         //QString sql_delete = QString("delete from tsample where sampleNo='%1' and createDay='%2' and samplePos=%3 and stateFlag=1").arg(sampleNo).arg(createDay).arg(samplePos);
@@ -900,14 +914,14 @@ void AddSampleWidget::SaveSample()
                     {
                         QString id11 = Id_list.at(ii);
                         //生成修改sql
-                        sql = QString("update tsample set samplePos=%1,paperId=%2,PatientName='%3',SexID=%4,Age=%5,stateFlag=1,paperPos=0 where Id=%6 and samplePos=%1").arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id11);
+                        sql = QString("update tsample set samplePos=%1,paperId=%2,PatientName='%3',SexID=%4,Age=%5,stateFlag=1,paperPos=0,barcode='"+barcode+"' where Id=%6 and samplePos=%1").arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id11);
                         sql_list.append(sql);
                     }
                     else
                     {
                         id += 1;
                         //生成添加sql
-                        sql = QString("insert tsample(sampleNo,samplePos,paperId,PatientName,SexID,Age,id,stateFlag,paperPos,createDay,test_batch)VALUES('%1',%2,%3,'%4',%5,%6,%7,1,0,'%8',%9)").arg(sampleNo).arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id).arg(createDay).arg(test_batch_max);
+                        sql = QString("insert tsample(sampleNo,samplePos,paperId,PatientName,SexID,Age,id,stateFlag,paperPos,createDay,test_batch,barcode)VALUES('%1',%2,%3,'%4',%5,%6,%7,1,0,'%8',%9,'"+barcode+"')").arg(sampleNo).arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id).arg(createDay).arg(test_batch_max);
                         sql_list.append(sql);
                     }
                     ii++;
@@ -1282,7 +1296,8 @@ void AddSampleWidget::createSampleTestData(QMap<SampleStrc,QVector<int>>testMap,
         sample_pos.sprintf("%d", k.samplePos);
         psample->setSampleNo(k.sampleNo);
         psample->setCupType(k.cupType);
-        psample->setArticleNo(k.articleNo);
+        psample->setBarcode(k.articleNo);
+        psample->setPatientName(k.patientName);
         //psample->setPaperPos(2);
         for(auto pid:tvect)
         {

@@ -258,6 +258,11 @@
        </column>
        <column>
         <property name="text">
+         <string>序号</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
          <string>检测类型</string>
         </property>
        </column>
