@@ -298,8 +298,7 @@ void SampleWidget::on_btnNext_clicked()
 		m_testSampleWidget->m_i_n = 1;
 		if (m_prepareReagent->m_preview_wash_map.size() > 0)
 		{
-			m_testSampleWidget->m_preview_wash_flage = 1;
-            Instrument::instance()->needFillPumps(m_prepareReagent->m_preview_wash_map);
+			m_testSampleWidget->m_preview_wash_flage = 1;            
 			QString strExePath = QDir::currentPath();
 			QDateTime time = QDateTime::currentDateTime();
 			QString str = time.toString("yyyyMMdd");//("yyyy-MM-dd hh:mm:ss");
@@ -322,7 +321,7 @@ void SampleWidget::on_btnNext_clicked()
 			//m_preview_wash_flage = 0; 无延时充灌
 			m_testSampleWidget->m_preview_wash_flage = 0;
 		}
-
+		Instrument::instance()->needFillPumps(m_prepareReagent->m_preview_wash_map);
 		m_testSampleWidget->m_Enzyme_number = m_prepareReagent->m_Enzyme_number;
 		m_prepareReagent->m_Enzyme_number = 1;
     }
