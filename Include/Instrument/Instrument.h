@@ -131,6 +131,7 @@ public:
     int16_t frameResponeCommand = 0x0200;//消息收到响应
     int16_t getPDFReportCommand = 0x0015;//打印PDF
     int16_t addSampleFailed = 0x0170;//加样失败
+    int16_t delayFill=0x0016;
     int getUnitReagentVolumn(int companyId,int reagentId);
     //static void write_iccard_log(const std::string &text);
     //static InstrumentType get_instrument_type();

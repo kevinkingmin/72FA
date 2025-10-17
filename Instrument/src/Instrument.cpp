@@ -475,7 +475,43 @@ void Instrument::openSocket(){
 
 void Instrument::needFillPumps(QMap<int, ushort> pumpMap)
 {
+    QByteArray requestFrame;
+    QJsonObject jsonObject;
+    QJsonArray array;
+    for(auto pumpNum:pumpMap.keys())
+    {
+        array.append(pumpNum+1);
+    }
+    jsonObject.insert("pumpNo",array);
+    QJsonDocument doc(jsonObject);
+    QByteArray json = doc.toJson();
+    int16_t contentLength=static_cast<int16_t>(json.length());
+    QByteArray md5 = getMd5(json);
+    uint32_t msgId = getMessageId();
+    requestFrame.append(1024, char(0));
+    requestFrame[0] = start;
+    requestFrame[1] = static_cast<char>(msgId);
+    requestFrame[2] = static_cast<char>(msgId>>8);
+    requestFrame[3] = static_cast<char>(msgId>>16);
+    requestFrame[4] = static_cast<char>(msgId>>24);
+    requestFrame[5] = 0x01;
+    requestFrame[6] = 0x00;
+    requestFrame[7] = 0x01;
+    requestFrame[8] = 0x00;
+    requestFrame[9] = static_cast<char>(contentLength);
+    requestFrame[10] = static_cast<char>(contentLength>>8);
+    requestFrame[11] = static_cast<char>(delayFill);
+    requestFrame[12] = static_cast<char>(delayFill>>8);
+    for(int i=0;i<contentLength;i++){
+        requestFrame[13+i]=json[i];
+    }
 
+    for(int i=0;i<16;i++){
+        requestFrame[1007+i]=md5[i];
+    }
+    requestFrame[1023] = end;
+    sendBySocket(requestFrame);
+    return;
 }
 
 void Instrument::closeSocket(){

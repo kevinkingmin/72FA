@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\xing\AppData\Local\Temp\tftd1too.h4p;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtGui;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtANGLE;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtCore;C:\Users\xing\AppData\Local\Temp\tftd1too.h4p;\include;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\xing\AppData\Local\Temp\ocetimdd.kcm;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtGui;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtANGLE;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\include\QtCore;C:\Users\xing\AppData\Local\Temp\ocetimdd.kcm;\include;C:\Qt\Qt5.12.4\5.12.4\msvc2017_64\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>.\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
