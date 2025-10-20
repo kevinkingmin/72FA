@@ -130,13 +130,13 @@ QString AnalysisDao::SelectControlThreshold(bool *bResult,int paper_id,int compa
         return "";
     }
     QString sql = "";
-    sql.sprintf("select * from t_testpaper where id = %d and Company_ID=%d",paper_id,company_id);
+    sql.sprintf("select * from t_testpaper where id = %d and CompanyID=%d",paper_id,company_id);
     *bResult = query.exec(sql);
     if (*bResult == false)
         return "";
     if (query.next())
     {
-        strControlThreshold = query.value("funGrayValue").toString();
+        strControlThreshold = query.value("FuncGrayThreshold").toString();
     }
     else
     {
@@ -156,16 +156,15 @@ QString AnalysisDao::SelectCutOffThreshold(bool *bResult, int paper_id, int comp
         return "";
     }
     QString sql = "";
-    sql.sprintf("select * from t_testpaper where id = %d and Company_ID=%d", paper_id, company_id);
+    sql.sprintf("select * from t_testpaper where id = %d and CompanyID=%d", paper_id, company_id);
     *bResult = query.exec(sql);
-    //*bResult = query.exec("select * from tsystemset where id = 2 ");
     if (*bResult == false)
     {
         return "";
     }
     if (query.next())
     {
-        strCutOffThreshold = query.value("cutoffValue").toString();
+        strCutOffThreshold = query.value("CutoffGrayThreshold").toString();
     }
     else
     {
@@ -185,7 +184,7 @@ QString AnalysisDao::SelectThresholdValue(bool *bResult, int paper_id, int compa
         return "";
     }
     QString sql = "";
-    sql.sprintf("select * from t_testpaper where id = %d and Company_ID=%d", paper_id, company_id);
+    sql.sprintf("select * from t_testpaper where id = %d and CompanyID=%d", paper_id, company_id);
     *bResult = query.exec(sql);
     if (*bResult == false)
     {
@@ -193,7 +192,7 @@ QString AnalysisDao::SelectThresholdValue(bool *bResult, int paper_id, int compa
     }
     if (query.next())
     {
-        backgroundValue = query.value("threshold_value").toString();
+        backgroundValue = query.value("PaperBinarizationThreshold").toString();
     }
     else
     {
@@ -227,36 +226,14 @@ QSqlQuery AnalysisDao::SelectTestPaperItems(QString strTestPaper_ID, bool *bResu
         *bResult=false;
         return query;
     }
-
     QString strSql;
     strSql = "select * from titem where TestPaperID = ";
     strSql += strTestPaper_ID;
-
-
-    //strSql += "  order by ID";
     strSql += "  order BY PositionNo";
-
     *bResult = query.exec(strSql);
     return query;
 }
 
-QSqlQuery AnalysisDao::SelectTestPaperIDs(QString strProjectName, bool *bResult)
-{
-    QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-    {
-        *bResult=false;
-        return query;
-    }
-
-    QString strSql;
-    strSql = "select distinct(TestPaper_ID) as TestPaper_ID from wgm_Sample where ProjectName = '";
-    strSql += strProjectName;
-    strSql += "' order by TestPaper_ID";
-
-    *bResult = query.exec(strSql);
-    return query;
-}
 
 QSqlQuery AnalysisDao::SelectSamples(QString sampleId, bool *bResult)
 {
@@ -267,9 +244,7 @@ QSqlQuery AnalysisDao::SelectSamples(QString sampleId, bool *bResult)
         return query;
     }
     QString strSql;
-    //strSql = "select * from wgm_Sample where ProjectName = '";
     strSql = "select distinct paperId,sampleNo from tsample where sampleNo = '";
-    //select distinct paperId from tsample_test where sampleId = 1
     strSql += sampleId;
     strSql += "' order by sampleNo";
     *bResult = query.exec(strSql);
@@ -336,9 +311,7 @@ QSqlQuery AnalysisDao::SelectTestIdFromSamples(QString testId, bool *bResult)
         return query;
     }
     QString strSql;
-    //strSql = "select * from wgm_Sample where ProjectName = '";
     strSql = "select * from tsample where testId = '";
-    //select distinct paperId from tsample_test where sampleId = 1
     strSql += testId;
     strSql += "'";
     *bResult = query.exec(strSql);
@@ -391,24 +364,6 @@ bool AnalysisDao::Insert_tresult_left_right_pixp(QString testId, int position_in
     return bResult;
 }
 
-QSqlQuery AnalysisDao::SelectTestData(QString strProjectName, QString strSampleID, QString strTestPaper_ID, bool *bResult)
-{
-    QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-    {
-        *bResult=false;
-        return query;
-    }
-    QString strSql;
-    strSql = "select * from wgm_TestData where ProjectName = '";
-    strSql += strProjectName;
-    strSql += "' and SampleID = ";
-    strSql += strSampleID;
-    strSql += " and TestPaper_ID = ";
-    strSql += strTestPaper_ID;
-    *bResult = query.exec(strSql);
-    return query;
-}
 
 bool AnalysisDao::InsertTestData(
                                  QString strSolutionName,
@@ -476,15 +431,9 @@ bool AnalysisDao::UpdateSampleAnalysisState(QString sampleNo, QString testId, QS
     strSql =
             "update tSample set stateFlag = ";
     strSql += strAnalysisState;
-    //strSql += ",";
-    //strSql += "test_batch = ";
-    //strSql += QString::number(test_batch_value);
     strSql += "  where testId = '";
     strSql += testId;
-    strSql += "' ";// and SampleID = ";
-    //strSql += strSampleID;
-    //strSql += " and TestPaper_ID = ";+		strSql	update tSample set stateFlag = 81, where testId = '202206081117520' 	QString
-    //strSql += strTestPaper_ID;
+    strSql += "' ";
     bool bResult = query.exec(strSql);
     return bResult;
 }

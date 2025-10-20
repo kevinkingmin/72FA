@@ -141,8 +141,7 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
 	int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
 	QString createDay = QDate::currentDate().toString("yyyy-MM-dd");
 	QString sql = "";
-	QString sql_getSample = QString("select A.sampleNo from tsample A,t_testpaper B where A.paperId=B.ID and B.Company_ID='%2' and A.stateFlag=1 and A.createDay='%1' GROUP BY A.sampleNo  ORDER BY  A.pkid asc  ").arg(createDay).arg(company_id);
-	//QString sql_getSample = QString("select sampleNo from tsample where stateFlag=1 and createDay='%1' GROUP BY sampleNo").arg(createDay);
+    QString sql_getSample = QString("select A.sampleNo from tsample A,t_testpaper B where A.paperId=B.ID and B.CompanyID='%2' and A.stateFlag=1 and A.createDay='%1' GROUP BY A.sampleNo  ORDER BY  A.pkid asc  ").arg(createDay).arg(company_id);
 	auto selectSampleList = dao->SelectRecord(&bResult, sql_getSample);
 	for (int i = 0; i < 72; i++)
 	{

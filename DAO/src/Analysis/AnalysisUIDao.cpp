@@ -24,8 +24,6 @@ AnalysisUIDao *AnalysisUIDao::instance()
     return  Singleton<AnalysisUIDao>::instance();
 }
 
-
-
 bool AnalysisUIDao::UpdateSystemDes(QString strID, QString strsaveDes)
 {
     QSqlQuery query;
@@ -985,35 +983,7 @@ int AnalysisUIDao::SelectLisPort(bool *bResult)
 }
 
 
-bool AnalysisUIDao::InsertTestPaper(
-    QString strName,
-    QString strCompany_ID,
-    QString strTotalNumber,
-    QString strItem_Number,
-    QString strTestPaparLenght,
-    QString strFuncPosition,
-    QString strArticleNo,
-    QString rect_Analysis_x,
-    QString rect_Analysis_y,
-    QString rect_Analysis_width,
-    QString rect_Analysis_height,
-    QString analysis_height_percentage,
-    QString head_length,
-    int isCutOff,
-    QString cutoffPosition,
-    QString cutoffValue,
-    int left_judge_value,
-    int sort_id,
-    QString BGRGB,
-    int funGrayValue,
-    int isFun,
-    QString wave_pix_width,
-    QString wave_pix_width_max,
-    QString wave_pix_width_min,
-    QString background_values,
-    QString zero_value_coefficient,
-    QString bg_difference
-)
+bool AnalysisUIDao::InsertTestPaper(TestPaperModel& paper)
 {
     QSqlQuery query;
     if(DAO::createQuery(query)<0)
@@ -1021,103 +991,29 @@ bool AnalysisUIDao::InsertTestPaper(
         return false;
     }
     QString strSql;
-    //字段中有点 要加``
     strSql =
-        "insert into t_TestPaper(PaperName,Company_ID,TotalNumber,Item_Number,TestPaparLenght,FuncPosition,`rect_Analysis.x`,`rect_Analysis.y`,`rect_Analysis.width`,`rect_Analysis.height`,analysis_height_percentage,head_length,articleNo,isCutOff,cutoffPosition,cutoffValue,left_judge_value,sort_idx,BGRGB,funGrayValue,isFun) values ('";
-    strSql += strName;
-    strSql += "',";
-    strSql += strCompany_ID;
-    strSql += ",";
-    strSql += strTotalNumber;
-    strSql += ",";
-    strSql += strItem_Number;
-    strSql += ",";
-    strSql += strTestPaparLenght;
-    strSql += ",";
-    strSql += strFuncPosition;
-    strSql += ",";
-    //strSql += strTestAeaLenght;
-    //strSql += ",'";
-    strSql += rect_Analysis_x;
-    strSql += ",";
-    strSql += rect_Analysis_y;
-    strSql += ",";
-    strSql += rect_Analysis_width;
-    strSql += ",";
-    strSql += rect_Analysis_height;
-    strSql += ",";
-    strSql += analysis_height_percentage;
-    strSql += ",";
-    strSql += head_length;
-    strSql += ",'";
-    strSql += strArticleNo;
-    strSql += "',";
-    strSql += QString::number(isCutOff);
-    strSql += ",";
-    strSql += cutoffPosition;
-    strSql += ",";
-    strSql += cutoffValue;
-    strSql += ",";
-    strSql += QString::number(left_judge_value);
-    strSql += ",";
-    strSql += QString::number(sort_id);
-    strSql += ",'";
-    strSql += BGRGB;
-    strSql += "',";
-    strSql += QString::number(funGrayValue);
-    strSql += ",";
-    strSql += QString::number(isFun);
+        "insert into t_testpaper(CompanyID,PaperName,PaperType,TotalNumber,ItemNumber,"
+        "PaperLenght,PaperHeight,PaperMmToPixel,IgnoreHeadLenght,TestBlockWidth,"
+        "FuncFindDir,FuncPosition,FuncFindWidth,FuncGrayThreshold,IsBlackPointDetect,"
+        "BlackPointDetectThreshold,IsCutOff,CutoffGrayThreshold,CutoffValue,PaperShowAngle,"
+        "PaperBinarizationThreshold,PaperBackgroundValue,ItemFindWidth,ItemLineWidth,AnalysisPercentOfHeight,"
+        "AnalysisPercentOfWidth,PaperColorOnUi,IsPaperHide,ArticleNo,PaperSortIdxOnUi"
+        ") values ('";
+    strSql += QString::number(paper.getCompanyId())+","+paper.getPaperName()+","+QString::number(paper.getPaperType())
+            +","+ QString::number(paper.getTotalNumber())+","+QString::number(paper.getTestItemNumber());
+    strSql += ","+QString::number(paper.getPaperLenght(),'f',2)+","+QString::number(paper.getPaperHeight(),'f',2)+","+QString::number(paper.getPaperMmToPixel(),'f',2)
+          +","+QString::number(paper.getIgnoreHeadLenght(),'f',2)+","+QString::number(paper.getTestBlockWidth(),'f',2);
+    strSql += ","+QString::number(paper.getFuncFindDir())+","+QString::number(paper.getFuncPosition(),'f',2)+ ","+QString::number(paper.getFuncFindWidth(),'f',2)
+           +","+QString::number(paper.getFuncGrayThreshold(),'f',2)+","+QString::number(paper.getIsBlackPointDetect()?1:0);
+    strSql += ","+QString::number(paper.getBlackPointDetectThreshold(),'f',2)+","+QString::number(paper.getIsCutOff()?1:0)+ ","+QString::number(paper.getCutOffThreshold(),'f',2)
+            +","+QString::number(paper.getCutOffValue(),'f',2)+","+QString::number(paper.getPaperShowAngle());
+    strSql += "',"+ QString::number(paper.getPaperBinarizationThreshold())+","+QString::number(paper.getPaperBackgroundValue(),'f',2)+","+ QString::number(paper.getItemFindWidth(),'f',2)
+            +","+ QString::number(paper.getItemLineWidth(),'f',2)+","+QString::number(paper.getAnalysisPercentOfHeight());
+    strSql += ","+QString::number(paper.getAnalysisPercentOfWidth())+","+paper.getPaperColorOnUi()+","+QString::number(paper.isPaperHide()?1:0)
+            +","+paper.getArticleNo()+","+QString::number(paper.getPaperSortIdxOnUi());
     strSql += ")";
     bool bResult = query.exec(strSql);
     return bResult;
-}
-
-bool AnalysisUIDao::InsertTestData(
-    QString strProjectName,
-    QString strSampleID,
-    QString strTestPaper_ID,
-    QString strItemName,
-    QString strPosition,
-    QString strGrayValue,
-    QString strRatioToCut,
-    QString strTestDateTime)
-{
-    QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-    {
-        return false;
-    }
-    QString strSql;
-    strSql =
-        "insert into wgm_TestData (ProjectName,SampleID,TestPaper_ID,ItemName,Position,GrayValue,RatioToCut,TestDateTime ) values ('";
-
-    strSql += strProjectName;
-    strSql += "',";
-
-    strSql += strSampleID;
-    strSql += ",";
-
-    strSql += strTestPaper_ID;
-    strSql += ",'";
-
-    strSql += strItemName;
-    strSql += "',";
-
-    strSql += strPosition;
-    strSql += ",";
-
-    strSql += strGrayValue;
-    strSql += ",";
-
-    strSql += strRatioToCut;
-    strSql += ",'";
-
-    strSql += strTestDateTime;
-    strSql += "')";
-
-    bool bResult = query.exec(strSql);
-    return bResult;
-
 }
 
 
@@ -1226,36 +1122,7 @@ bool AnalysisUIDao::InsertCompany(QString strName)
     return bResult;
 }
 
-bool AnalysisUIDao::UpdateTestPaper(
-    QString strID,
-    QString strName,
-    QString strCompany_ID,
-    QString strTotalNumber,
-    QString strItem_Number,
-    QString strTestPaparLenght,
-    QString strFuncPosition,
-    QString strArticleNo,
-    QString rect_Analysis_x,
-    QString rect_Analysis_y,
-    QString rect_Analysis_width,
-    QString rect_Analysis_height,
-    QString analysis_height_percentage,
-    QString head_length,
-    int isCutOff,
-    QString cutoffPosition,
-    QString cutoffValue,
-    int left_judge_value,
-    int sort_id,
-    QString BGRGB,
-    int funGrayValue,
-    int isFun,
-    QString wave_pix_width,
-    QString wave_pix_width_max,
-    QString wave_pix_width_min,
-    QString background_values,
-    QString zero_value_coefficient,
-    QString bg_difference
-    )
+bool AnalysisUIDao::UpdateTestPaper(QString strID, TestPaperModel& paper)
 {
     QSqlQuery query;
     if(DAO::createQuery(query)<0)
@@ -1264,101 +1131,88 @@ bool AnalysisUIDao::UpdateTestPaper(
     }
 
     QString strSql;
-    strSql = "update t_TestPaper set PaperName = '";
-    strSql += strName;
-    strSql += "',";
-    strSql += "Company_ID = ";
-    strSql += strCompany_ID;
-    strSql += ",";
-    strSql += "TotalNumber = ";
-    strSql += strTotalNumber;
-    strSql += ",";
-    strSql += "Item_Number = ";
-    strSql += strItem_Number;
-    strSql += ",";
-    strSql += "TestPaparLenght = ";
-    strSql += strTestPaparLenght;
-    strSql += ",";
-    strSql += "FuncPosition = ";
-    strSql += strFuncPosition;
-    strSql += ",";
-
-    strSql += "`rect_Analysis.x` = ";
-    strSql += rect_Analysis_x;
-    strSql += ",";
-    strSql += "`rect_Analysis.y` = ";
-    strSql += rect_Analysis_y;
-    strSql += ",";
-    strSql += "`rect_Analysis.width` = ";
-    strSql += rect_Analysis_width;
-    strSql += ",";
-    strSql += "`rect_Analysis.height` = ";
-    strSql += rect_Analysis_height;
-    strSql += ",";
-    strSql += "analysis_height_percentage = ";
-    strSql += analysis_height_percentage;
-    strSql += ",";
-    strSql += "head_length = ";
-    strSql += head_length;
-    strSql += ",";
-
-    strSql += "isCutOff = ";
-    strSql += QString::number(isCutOff);
-    strSql += ",";
-
-    strSql += "cutoffPosition = ";
-    strSql += cutoffPosition;
-    strSql += ",";
-
-    strSql += "cutoffValue = ";
-    strSql += cutoffValue;
-    strSql += ",";
-
-    strSql += "left_judge_value = ";
-    strSql += QString::number(left_judge_value);
-    strSql += ",";
-
-    strSql += "sort_idx = ";
-    strSql += QString::number(sort_id);
-    strSql += ",";
-
-    strSql += "articleNo = '";
-    strSql += strArticleNo;
-    strSql += "',";
-
-    strSql += "BGRGB = '";
-    strSql += BGRGB;
-    strSql += "'";
-
-
-    strSql += ",funGrayValue = ";
-    strSql += QString::number(funGrayValue);
-
-
-    strSql += ",wave_pix_width = ";
-    strSql += wave_pix_width;
-    strSql += ",wave_pix_width_max = ";
-    strSql += wave_pix_width_max;
-    strSql += ",wave_pix_width_min = ";
-    strSql += wave_pix_width_min;
-    strSql += ",background_values = ";
-    strSql += background_values;
-    strSql += ",zero_value_coefficient = ";
-    strSql += zero_value_coefficient;
-    strSql += ",bg_difference = ";
-    strSql += bg_difference;
-
-
-
-    strSql += ",isFun = ";
-    strSql += QString::number(isFun);
-
-    strSql += "";
+    strSql = "update t_TestPaper set ";
+    strSql+="CompanyID="+QString::number(paper.getCompanyId())+
+            ",PaperName="+paper.getPaperName()+
+            ",PaperType="+QString::number(paper.getPaperType())+
+            ",TotalNumber="+QString::number(paper.getTotalNumber())+
+            ",ItemNumber="+QString::number(paper.getTestItemNumber())+
+            ",PaperLenght="+QString::number(paper.getPaperLenght(),'f',2)+
+            ",PaperHeight="+QString::number(paper.getPaperHeight(),'f',2)+
+            ",PaperMmToPixel="+QString::number(paper.getPaperMmToPixel(),'f',2)+
+            ",IgnoreHeadLenght="+QString::number(paper.getIgnoreHeadLenght(),'f',2)+
+            ",TestBlockWidth="+QString::number(paper.getTestBlockWidth(),'f',2)+
+            ",FuncFindDir="+QString::number(paper.getFuncFindDir())+
+            ",FuncPosition="+QString::number(paper.getFuncPosition(),'f',2) +
+            ",FuncFindWidth="+QString::number(paper.getFuncFindWidth(),'f',2)+
+            ",FuncGrayThreshold="+QString::number(paper.getFuncGrayThreshold(),'f',2)+
+            ",IsBlackPointDetect="+QString::number(paper.getIsBlackPointDetect()?1:0)+
+            ",BlackPointDetectThreshold="+QString::number(paper.getBlackPointDetectThreshold(),'f',2)+
+            ",IsCutOff="+QString::number(paper.getIsCutOff()?1:0) +
+            ",CutoffGrayThreshold="+QString::number(paper.getCutOffThreshold(),'f',2)+
+            ",CutoffValue="+QString::number(paper.getCutOffValue(),'f',2)+
+            ",PaperShowAngle="+QString::number(paper.getPaperShowAngle())+
+            ",PaperBinarizationThreshold="+QString::number(paper.getPaperBinarizationThreshold())+
+            ",PaperBackgroundValue="+QString::number(paper.getPaperBackgroundValue(),'f',2)+
+            ",ItemFindWidth="+QString::number(paper.getItemFindWidth(),'f',2)+
+            ",ItemLineWidth="+QString::number(paper.getItemLineWidth(),'f',2)+
+            ",AnalysisPercentOfHeight="+QString::number(paper.getAnalysisPercentOfHeight())+
+            ",AnalysisPercentOfWidth="+QString::number(paper.getAnalysisPercentOfWidth())+
+            ",PaperColorOnUi="+paper.getPaperColorOnUi()+
+            ",IsPaperHide="+QString::number(paper.isPaperHide()?1:0)+
+            ",ArticleNo="+paper.getArticleNo()+
+            ",PaperSortIdxOnUi="+QString::number(paper.getPaperSortIdxOnUi());
 
     strSql += " where ID = ";
     strSql += strID;
     bool bResult = query.exec(strSql);
     return bResult;
+}
+
+
+bool AnalysisUIDao::QueryTestPaper(QString paper_id, TestPaperModel& paper)
+{
+    bool bResult{false};
+    auto TestPaperQuery = SelectTestPaper(paper_id, &bResult);
+    if (bResult == false)
+    {
+        return false;
+    }
+    if (TestPaperQuery.next())
+    {
+        paper.setCompanyId(TestPaperQuery.value("CompanyID").toInt());
+        paper.setPaperName(TestPaperQuery.value("PaperName").toString());
+        paper.setPaperType(TestPaperQuery.value("PaperType").toInt());
+        paper.setTotalNumber(TestPaperQuery.value("TotalNumber").toInt());
+        paper.setTestItemNumber(TestPaperQuery.value("ItemNumber").toInt());
+        paper.setTotalLenght(TestPaperQuery.value("PaperLenght").toDouble());
+        paper.setPaperHeight(TestPaperQuery.value("PaperHeight").toDouble());
+        paper.setPaperMmToPixel(TestPaperQuery.value("PaperMmToPixel").toDouble());
+        paper.setIgnoreHeadLenght(TestPaperQuery.value("IgnoreHeadLenght").toDouble());
+        paper.setTestBlockWidth(TestPaperQuery.value("TestBlockWidth").toDouble());
+        paper.setFuncFindDir(TestPaperQuery.value("FuncFindDir").toInt());
+        paper.setFuncPosition(TestPaperQuery.value("FuncPosition").toDouble());
+        paper.setFuncFindWidth(TestPaperQuery.value("FuncFindWidth").toDouble());
+        paper.setFuncGrayThreshold(TestPaperQuery.value("FuncGrayThreshold").toDouble());
+        paper.setIsBlackPointDetect(TestPaperQuery.value("IsBlackPointDetect").toInt() == 1);
+        paper.setBlackPointDetectThreshold(TestPaperQuery.value("BlackPointDetectThreshold").toDouble());
+        paper.setIsCutOff(TestPaperQuery.value("IsCutOff").toInt());
+        paper.setCutOffPosition(TestPaperQuery.value("CutoffPosition").toDouble());
+        paper.setCutOffValue(TestPaperQuery.value("CutoffValue").toDouble());
+        paper.setCutOffThreshold(TestPaperQuery.value("CutOffThreshold").toDouble());
+        paper.setPaperShowAngle(TestPaperQuery.value("PaperShowAngle").toInt());
+        paper.setPaperBinarizationThreshold(TestPaperQuery.value("PaperBinarizationThreshold").toInt());
+        paper.setPaperBackgroundValue(TestPaperQuery.value("PaperBackgroundValue").toDouble());
+        paper.setItemFindWidth(TestPaperQuery.value("ItemFindWidth").toDouble());
+        paper.setItemLineWidth(TestPaperQuery.value("ItemLineWidth").toDouble());
+        paper.setAnalysisPercentOfWidth(TestPaperQuery.value("AnalysisPercentOfWidth").toInt());
+        paper.setAnalysisPercentOfHeight(TestPaperQuery.value("AnalysisPercentOfHeight").toInt());
+        paper.setPaperColorOnUi(TestPaperQuery.value("PaperColorOnUi").toString());
+        paper.setPaperHide(TestPaperQuery.value("IsPaperHide").toInt() == 1);
+        paper.setArticleNo(TestPaperQuery.value("ArticleNo").toString());
+        paper.setPaperSortIdxOnUi(TestPaperQuery.value("PaperSortIdxOnUi").toInt());
+    }
+    return true;
 }
 
 bool AnalysisUIDao::UpdateReagent(
@@ -1591,7 +1445,7 @@ bool AnalysisUIDao::UpdateTube(
     return bResult;
 }
 
-
+// 禁用膜条
 bool AnalysisUIDao::DeleteTestPaper(QString strID)
 {
     QSqlQuery query;
@@ -1602,7 +1456,7 @@ bool AnalysisUIDao::DeleteTestPaper(QString strID)
 
 
     QString strSql;
-    strSql ="update t_TestPaper set isDelete=1 where ID = ";
+    strSql ="update t_TestPaper set IsPaperHide=1 where ID = ";
     strSql += strID;
 
     bool bResult = query.exec(strSql);
@@ -1610,6 +1464,7 @@ bool AnalysisUIDao::DeleteTestPaper(QString strID)
 
 }
 
+// 启用膜条
 bool AnalysisUIDao::NoDeleteTestPaper(QString strID)
 {
     QSqlQuery query;
@@ -1619,7 +1474,7 @@ bool AnalysisUIDao::NoDeleteTestPaper(QString strID)
     }
 
     QString strSql;
-    strSql = "update t_TestPaper set isDelete=0 where ID = ";
+    strSql = "update t_TestPaper set IsPaperHide=0 where ID = ";
     strSql += strID;
 
     bool bResult = query.exec(strSql);
@@ -1842,11 +1697,8 @@ QSqlQuery AnalysisUIDao::SelectReagents(QString strCompany_ID, bool *bResult)
         return query;
     }
     QString strSql;
-    //strSql = "select * from treagent where CompanyID = ";
-    //strSql = "	select * from treagent A, t_testpaper B where A.TestPaperID = B.ID and A.CompanyID = ";
     strSql = "select * from treagent A, t_testpaper B where  (A.TestPaperID = B.ID  and  A.CompanyID in( " + strCompany_ID + ",0))   or  (A.PumpNo in(-1,4,5,6,7,8) and A.CompanyID in(" + strCompany_ID + ",0)) ";
-    //strSql = "	select * from treagent A, tprocess_reagent B where A.ID = B.reagentId where CompanyID = ";
-    strSql += "  GROUP BY reagentName ORDER BY  sort_idx asc ";
+    strSql += "  GROUP BY reagentName ORDER BY  PaperSortIdxOnUi asc ";
     qDebug() << "strSql:"<<strSql;
     *bResult = query.exec(strSql);
     return query;
@@ -2001,7 +1853,7 @@ QSqlQuery AnalysisUIDao::SelectTestPapers(QString strCompany_ID, bool *bResult)
         return query;
     }
     QString strSql;
-    strSql = "select * from t_TestPaper where Company_ID = ";
+    strSql = "select * from t_testpaper where CompanyID = ";
     strSql += strCompany_ID;
     strSql += " order by sort_idx desc";
     *bResult = query.exec(strSql);
@@ -2143,14 +1995,7 @@ QSqlQuery AnalysisUIDao::SelectTestPaperIDs(QString strProjectName, bool *bResul
         return query;
     }
     QString strSql;
-
     strSql = "select distinct paperId,paperName from tsample A,t_testpaper B where A.paperId=B.ID";
-    //strSql += strProjectName;
-    //strSql += "' order by TestPaper_ID";
-
-    //strSql = "select distinct(TestPaper_ID) as TestPaper_ID from wgm_Sample where ProjectName = '";
-    //strSql += strProjectName;
-    //strSql += "' order by TestPaper_ID";
     *bResult = query.exec(strSql);
     return query;
 }
@@ -2165,9 +2010,6 @@ QSqlQuery AnalysisUIDao::SelectSamples(QString strProjectName, bool *bResult)
     }
     QString strSql;
     strSql = "select * from tsample A,t_testpaper B where A.paperId = B.ID and testId is not null order by A.pkid desc";
-    //strSql = "select * from wgm_Sample where ProjectName = '";
-    //strSql += strProjectName;
-    //strSql += "' order by SampleID";
     *bResult = query.exec(strSql);
     return query;
 }
@@ -2361,12 +2203,10 @@ QString  AnalysisUIDao::SelectMaxPkid(int paper_id, QString start_time, QString 
     QString sql = "";
     if (paper_id == 0)
     {
-        //sql = QString("select MAX(pkid) AS max_pkid from tsample where  createDay>='" + start_time + "' and createDay<'" + end_time + "'  ");
         sql = QString("select count(*) AS max_pkid from tsample A,t_testpaper B where  (A.stateFlag=88 or A.stateFlag=81 or A.stateFlag=82 or A.stateFlag=83 or A.stateFlag=1 or A.stateFlag=2 or A.stateFlag=0)  and A.paperId = B.ID   and  createDay>='" + start_time + "' and createDay<'" + end_time + "'  ");
     }
     else
     {
-        //sql = QString("select MAX(pkid) AS max_pkid from tsample  where  paperId=%1 and  createDay>='" + start_time + "' and createDay<'" + end_time + "' ").arg(paper_id);
         sql = QString("select count(*)  AS max_pkid from tsample   A,t_testpaper B where (A.stateFlag=88 or A.stateFlag=81 or A.stateFlag=82 or A.stateFlag=83 or A.stateFlag=1 or A.stateFlag=2 or A.stateFlag=0) and  A.paperId = B.ID   and   paperId=%1 and  createDay>='" + start_time + "' and createDay<'" + end_time + "' ").arg(paper_id);
     }
 
@@ -2426,10 +2266,6 @@ QSqlQuery AnalysisUIDao::SelectSamples2(QString strProjectName, QString strTestP
     }
     QString strSql;
     strSql = "select * from tsample A, t_testpaper B where A.paperId = B.ID and A.paperId = '"+ strTestPaper_ID +"' and A.testId is not null order by A.pkid desc";
-    //strSql += strProjectName;
-    //strSql += "' and TestPaper_ID = ";
-    //strSql += strTestPaper_ID;
-    //strSql += " order by SampleID";
     *bResult = query.exec(strSql);
     return query;
 }
@@ -2444,7 +2280,6 @@ QSqlQuery AnalysisUIDao::SelectReagent(QString strID, bool *bResult)
     }
     QString strSql;
     strSql = "select * from treagent where ID = ";
-    //strSql = "select * from treagent A, tprocess_reagent B where A.ID = B.reagentId and A.ID = ";
     strSql += strID;
     *bResult = query.exec(strSql);
     return query;
@@ -2475,7 +2310,7 @@ QString AnalysisUIDao::GetTestPaper_ID(QString strCompany_ID, QString strTestPap
         *bResult = false;
         return "";
     }
-    QString strSql = "select ID from t_TestPaper where Company_ID = ";
+    QString strSql = "select ID from t_testpaper where CompanyID = ";
     strSql += strCompany_ID;
     strSql += " and PaperName = '";
     strSql += strTestPaperName;
@@ -2503,21 +2338,20 @@ QString AnalysisUIDao::GetTestPaper_sort_max(QString strCompany_ID, QString strT
         *bResult = false;
         return "";
     }
-    QString strSql = "select MAX(sort_idx)  as max_value from t_TestPaper where Company_ID = ";
+    QString strSql = "select MAX(PaperSortIdxOnUi)  as max_value from t_testpaper where CompanyID = ";
     strSql += strCompany_ID;
-    //strSql += " and PaperName = '";
-    //strSql += strTestPaperName;
-    //strSql += "'";
     *bResult = query.exec(strSql);
     if (*bResult == false)
-        return strID;
+    {
+        return "";
+    }
     if (query.next())
     {
         strID = query.value("max_value").toString();
     }
     else
     {
-        strID = "0";
+        strID = "";
     }
     return strID;
 }

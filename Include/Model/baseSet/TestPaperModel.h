@@ -8,64 +8,141 @@ class MODELSHARED_EXPORT TestPaperModel
 public:
     TestPaperModel();
 
-    int getID() const;
-    void setID(int ID);
 
-    QString getPaperName() const;
-    void setPaperName(const QString &PaperName);
+    int getId();
+    void setId(int id);
 
-    int getCompanyId() const;
+    int getCompanyId();
     void setCompanyId(int companyId);
 
-    int getTotalNumber() const;
-    void setTotalNumber(int TotalNumber);
+    QString	getPaperName();
+    void setPaperName(QString paperName);
 
-    int getItemNumber() const;
-    void setItemNumber(int itemNumber);
+    int getPaperType();
+    void setPaperType(int paperType);
 
-    int getTestPaparLenght() const;
-    void setTestPaparLenght(int TestPaparLenght);
+    int getTotalNumber();
+    void setTotalNumber(int totalNumber);
 
-    int getFuncPosition() const;
-    void setFuncPosition(int FuncPosition);
+    int getTestItemNumber();
+    void setTestItemNumber(int testItemNumber);
 
-    int getTestAeaLenght() const;
-    void setTestAeaLenght(int TestAeaLenght);
+    double getTotalLenght();
+    void setTotalLenght(double totalLenght);
 
-    int getUsageV() const;
-    void setUsageV(int usageV);
+    double getPaperMmToPixel();
+    void setPaperMmToPixel(double paperMmToPixel);
 
-	int getSort_idx() const;
-	void setSort_idx(int sort_idx);
+    double getIgnoreHeadLenght();
+    void setIgnoreHeadLenght(double ignoreHeadLenght);
 
-	QString getDefaultBGRGB() const;
-	void setDefaultBGRGB(const QString &defaultBGRGB);
+    double getPaperLenght();
+    void setPaperLenght(double paperLenght);
 
-	QString getBGRGB() const;
-	void setBGRGB(const QString &BGRGB);
+    double getPaperHeight();
+    void setPaperHeight(double paperHeight);
 
-	QString getArticleNo() const;
-	void setArticleNo(const QString &articleNo);
+    double getTestBlockWidth();
+    void setTestBlockWidth(double testBlockWidth);
 
-	bool getIsDelete() const;
-	void setIsDelete(bool isDelete);
+    int getFuncFindDir();
+    void setFuncFindDir(int funcFindDir);
+
+    int getPaperShowAngle();
+    void setPaperShowAngle(int paperShowAngle);
+
+    double getFuncPosition();
+    void setFuncPosition(double funcPosition);
+
+    double getFuncFindWidth();
+    void setFuncFindWidth(double funcFindWidth);
+
+    double getFuncGrayThreshold();
+    void setFuncGrayThreshold(double funcGrayThreshold);
+
+    bool getIsBlackPointDetect();
+    void setIsBlackPointDetect(bool isBlackPointDetect);
+
+    double getBlackPointDetectThreshold();
+    void setBlackPointDetectThreshold(double blackPointDetectThreshold);
+
+    bool getIsCutOff();
+    void setIsCutOff(bool isCutOff);
+
+    double getCutOffThreshold();
+    void setCutOffThreshold(double cutOffThreshold);
+
+    double getCutOffPosition();
+    void setCutOffPosition(double cutOffPosition);
+
+    double getCutOffValue();
+    void setCutOffValue(double cutOffValue);
+
+    int getPaperBinarizationThreshold();
+    void setPaperBinarizationThreshold(int paperBinarizationThreshold);
+
+    double getPaperBackgroundValue();
+    void setPaperBackgroundValue(double paperBackgroundValue);
+
+    double getItemFindWidth();
+    void setItemFindWidth(double itemFindWidth);
+
+    double getItemLineWidth();
+    void setItemLineWidth(double itemLineWidth);
+
+    int getAnalysisPercentOfHeight();
+    void setAnalysisPercentOfHeight(int analysisPercentOfHeight);
+
+    int getAnalysisPercentOfWidth();
+    void setAnalysisPercentOfWidth(int analysisPercentOfWidth);
+
+    QString getPaperColorOnUi();
+    void setPaperColorOnUi(QString paperColorOnUi);
+
+    bool isPaperHide();
+    void setPaperHide(bool paperHide);
+
+    QString getArticleNo();
+    void setArticleNo(QString articleNo);
+
+    int getPaperSortIdxOnUi();
+    void setPaperSortIdxOnUi(int paperSortIdxOnUi);
 
 
 private:
-	int _ID;
-	QString _PaperName;
-	int _companyId;
-	int _TotalNumber;
-	int _itemNumber;
-	int _TestPaparLenght;
-	int _FuncPosition;
-	int _TestAeaLenght;
-	int _usageV;
-	int _sort_idx;
-	QString _defaultBGRGB;
-	QString _BGRGB;
-	bool _isDelete;
-	QString _articleNo;
+    int _id;
+    int _companyId;
+    QString	_paperName;
+    int _paperType;
+    int _totalNumber;
+    int _testItemNumber;
+    double _totalLenght;
+    double _paperMmToPixel; // 毫米对应的像素点数
+    double _ignoreHeadLenght; // 忽略的头长度
+    double _paperLenght; // 模块长度
+    double _paperHeight; // 膜条高度
+    double _testBlockWidth; // 分段膜条块的宽度
+    int _funcFindDir; // 功能线查找方向
+    int _paperShowAngle; // 膜条显示角度
+    double _funcPosition; // 功能线位置
+    double _funcFindWidth; // 功能线查找宽度
+    double _funcGrayThreshold; // 功能线灰度阈值
+    bool _isBlackPointDetect; // 是否开启黑点检测
+    double _blackPointDetectThreshold;// 黑点检测阈值
+    bool _isCutOff;
+    double _cutOffThreshold;
+    double _cutOffPosition;
+    double _cutOffValue;
+    int _paperBinarizationThreshold; // 二值化阈值
+    double _paperBackgroundValue; // 膜条背景值
+    double _itemFindWidth; // 项目查找宽度
+    double _itemLineWidth; // 指标线宽
+    int _analysisPercentOfHeight; // 高度分析百分比
+    int _analysisPercentOfWidth; // 宽度分析百分比
+    QString _paperColorOnUi; // UI上显示的颜色
+    bool _isPaperHide; // UI上是否显示此膜条
+    QString _articleNo; // 货号
+    int _paperSortIdxOnUi; // UI上此膜条的排序
 };
 
 #endif // TESTPAPERMODEL_H

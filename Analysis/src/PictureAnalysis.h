@@ -6,17 +6,54 @@
 #include <QPoint>
 #include<vector>
 
+typedef struct {
+    int testPaperId; // 膜条ID
+    QString itemName; // 项目名称
+    int PositionNo; // 项目编号
+    int curveId; // 标曲ID
+    int rulesId; // 规则ID
+    double resultOffset; // 结果补偿
+    int position; // 项目位置
+    bool isNull; // 是否为空
+    QString itemFullName; //项目全名
+}TestPaperItem;
 
 typedef struct {
+    int companyId;
     QString	strTestPaperName;
+    int paperType;
     int nTotalNumber;
     int nTestItemNumber;
-    int nTestItemBlankNumber;
     double dTotalLenght;
-    double dFunctonalControlPosition;
-    double dCufOffPosition;
-    double dTestItemAreaTotalLenght;
-    double dOneTestItemLenght;
+    double paperMmToPixel; // 毫米对应的像素点数
+    double ignoreHeadLenght; // 忽略的头长度
+    double paperLenght; // 模块长度
+    double paperHeight; // 膜条高度
+    double testBlockWidth; // 分段膜条块的宽度
+    int funcFindDir; // 功能线查找方向
+    int paperShowAngle; // 膜条显示角度
+    double funcPosition; // 功能线位置
+    double funcFindWidth; // 功能线查找宽度
+    double funcGrayThreshold; // 功能线灰度阈值
+    bool isBlackPointDetect; // 是否开启黑点检测
+    double blackPointDetectThreshold;// 黑点检测阈值
+    bool isCutOff;
+    double cutOffThreshold;
+    double cutOffPosition;
+    double cutOffValue;
+    int paperBinarizationThreshold; // 二值化阈值
+    double paperBackgroundValue; // 膜条背景值
+    double itemFindWidth; // 项目查找宽度
+    double itemLineWidth; // 指标线宽
+    int analysisPercentOfHeight; // 高度分析百分比
+    int analysisPercentOfWidth; // 宽度分析百分比
+    int paperColorOnUi; // UI上显示的颜色
+    bool isPaperHide; // UI上是否显示此膜条
+    QString articleNo; // 货号
+    int paperSortIdxOnUi; // UI上此膜条的排序
+
+    QList<TestPaperItem> items; // 子项目参数
+
     QString strTestItemName[32];
     bool	isNullArea[32];
     double dItemPosition[32];
@@ -30,37 +67,11 @@ typedef struct {
     QString solutionName;
     QString manageName;
     QString sampleId;
-    QString articleNo;
     int paperId;
     QString Id;
-    int isCutOff;
-    int isFun;
-    double dHeadAreaLength;
-    double cutoff_value_user;
-    double rect_Analysis_x;
-    double rect_Analysis_y;
-    double rect_Analysis_width;
-    double rect_Analysis_height;
-    double analysis_height_percentage;
-    double head_length;
-    int set_calculate_point;
-    double	point_to_min_percent;
-    double detection_width;
-    int	find_min_times;
-    int left_judge_value;
-    int company_id;
-
-    int wave_pix_width;
-    int wave_pix_width_min;
-    int wave_pix_width_max;
-    int threshold_value;
-    int background_values;
-    double zero_value_coefficient;
-    int bg_difference;
-
 }TestPaperParameter, *LPTestPaperParameter;
 
-class PictureAnalysis : public QObject
+class  PictureAnalysis : public QObject
 {
     Q_OBJECT
 

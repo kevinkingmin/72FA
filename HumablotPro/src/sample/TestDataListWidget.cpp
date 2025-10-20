@@ -82,7 +82,7 @@ void TestDataListWidget::setPapersState(QVector<ptrTest> listTestData)
             continue;
         }
         QString sz = QString("%1:%2:%3").arg(it->getSamplePos()).arg(paper->getPaperName()).arg(it->getRemark());//sampleNo
-        lbl->setBgColor(paper->getBGRGB());
+        lbl->setBgColor(paper->getPaperColorOnUi());
         lbl->setText(sz);
     }
 }

@@ -55,6 +55,58 @@ void ItemModel::setIsNull(bool IsNull)
     _IsNull = IsNull;
 }
 
+
+int ItemModel::getCurveId() const
+{
+    return _CurveId;
+}
+
+void ItemModel::setCurveId(int curveId)
+{
+    _CurveId = curveId;
+}
+
+int ItemModel::getRulesId() const
+{
+    return _RulesId;
+}
+
+void ItemModel::setRulesId(int ruleId)
+{
+    _RulesId = ruleId;
+}
+
+double ItemModel::getResultOffset() const
+{
+    return _ResultOffset;
+}
+
+void ItemModel::setResultOffset(double resultOffset)
+{
+    _ResultOffset = resultOffset;
+}
+
+double ItemModel::getPosition() const
+{
+    return _Position;
+}
+
+void ItemModel::setPosition(double position)
+{
+    _Position = position;
+}
+
+QString ItemModel::getItemFullName() const
+{
+    return _ItemFullName;
+}
+
+void ItemModel::setItemFullName(QString itemFullName)
+{
+    _ItemFullName = itemFullName;
+}
+
+
 bool ItemModel::operator==(ItemModel &it) const
 {
     if(_ID==it._ID)

@@ -23,13 +23,13 @@ TestPaperManage::TestPaperManage(QWidget *parent)
 	//int nMachineUID = _instr->get_machine_no();
 	//m_strMachineUID = QString("%1").arg(nMachineUID, 2, 10, QChar('0'));//.Format("%08d", nMachineUID);
 	//
-    ui.label->setText(GlobalData::LoadLanguageInfo("K1098"));
-    ui.Inport_Button->setText(GlobalData::LoadLanguageInfo("K1106"));
-    ui.Export_Button->setText(GlobalData::LoadLanguageInfo("K1107"));
-    ui.Add_Button->setText(GlobalData::LoadLanguageInfo("K1108"));
-    ui.Modify_Button->setText(GlobalData::LoadLanguageInfo("K1109"));
-    ui.Delete_Button_2->setText(GlobalData::LoadLanguageInfo("K1104"));
-    ui.Delete_Button->setText(GlobalData::LoadLanguageInfo("K1105"));
+    ui.label->setText(GlobalData::LoadLanguageInfo("K1098")); // 膜条厂家选择
+    ui.Inport_Button->setText(GlobalData::LoadLanguageInfo("K1106")); // 导入
+    ui.Export_Button->setText(GlobalData::LoadLanguageInfo("K1107")); // 导出
+    ui.Add_Button->setText(GlobalData::LoadLanguageInfo("K1108")); // 追加
+    ui.Modify_Button->setText(GlobalData::LoadLanguageInfo("K1109")); //修改
+    ui.Delete_Button_2->setText(GlobalData::LoadLanguageInfo("K1104")); // 启用
+    ui.Delete_Button->setText(GlobalData::LoadLanguageInfo("K1105")); // 不启用
 	//ui.tableWidget_TestPaper->hideColumn(3);
 }
 
@@ -243,18 +243,12 @@ void TestPaperManage::on_Up_Sort_Button_2_clicked()
 	QString sql = "";
 	QString sql1 = "";
 	bool result = false;
-	sql = QString("update t_testpaper set sort_idx=%0 where PaperName = '%1'").arg(up_sort_id).arg(name);
+    sql = QString("update t_testpaper set PaperSortIdxOnUi=%0 where PaperName = '%1'").arg(up_sort_id).arg(name);
 	dao->UpdateRecord(&result,sql);
 	result = false;
-	sql1 = QString("update t_testpaper set sort_idx=%0 where PaperName = '%1'").arg(sort_idx).arg(up_name1);
+    sql1 = QString("update t_testpaper set PaperSortIdxOnUi=%0 where PaperName = '%1'").arg(sort_idx).arg(up_name1);
 	dao->UpdateRecord(&result, sql1);
 	on_tableWidget_Company_cellClicked();
-	//for (int i = 0; i < count; i++)
-	//{
-	//	int row = ui.tableWidget_TestPaper->row(items.at(i));//获取选中的行
-	//	QTableWidgetItem *item = items.at(i);
-	//	QString name = item->text();//获取内容
-	//}
 }
 
 void TestPaperManage::on_Down_Sort_Button_3_clicked()
@@ -300,8 +294,8 @@ void TestPaperManage::on_Down_Sort_Button_3_clicked()
 	QString sort_idx = item1->text();//获取内容
 	QString sql = "";
 	QString sql1 = "";
-	sql = QString("update t_testpaper set sort_idx=%0 where PaperName = '%1'").arg(down_sort_id).arg(name);
-	sql1 = QString("update t_testpaper set sort_idx=%0 where PaperName = '%1'").arg(sort_idx.toInt()).arg(down_name1);
+    sql = QString("update t_testpaper set PaperSortIdxOnUi=%0 where PaperName = '%1'").arg(down_sort_id).arg(name);
+    sql1 = QString("update t_testpaper set PaperSortIdxOnUi=%0 where PaperName = '%1'").arg(sort_idx.toInt()).arg(down_name1);
 
 	bool result = false;
 	dao->UpdateRecord(&result, sql);
@@ -475,6 +469,7 @@ void TestPaperManage::on_Delete_Button_clicked()
 	dao1->SelectRecord(&bResult, sql1_log);
 }
 
+// 膜条启用
 void TestPaperManage::on_Delete_Button_2_clicked()
 {
 	if (m_strCompany_ID.length() == 0)
@@ -511,7 +506,7 @@ void TestPaperManage::on_Delete_Button_2_clicked()
 	dao1->SelectRecord(&bResult, sql1_log);
 }
 
-
+// 膜条参数导入
 void TestPaperManage::on_Inport_Button_clicked() 
 {
 	if (m_strCompany_ID.length() == 0)
@@ -541,174 +536,147 @@ void TestPaperManage::on_Inport_Button_clicked()
 	}
 	QDomElement root = doc.documentElement(); //返回根节点
 	QDomNode node = root.firstChild(); //获得第一个子节点
-	QString tagName;
-	QString nodeValue;
-	QString  strName;
-	QString  strTotalNumber;
-	QString  strItem_Number;
-	QString  strTestPaparLenght;
-	QString  strFuncPosition;
-	QString  strTestAeaLenght;
-	QString rect_Analysis_x;
-	QString rect_Analysis_y;
-	QString rect_Analysis_width;
-	QString rect_Analysis_height;
-	QString analysis_height_percentage;
-	QString head_length;
-	QString  strItemNameList;
-	QString strItemPositionList;
-	QString  strTestPaper_ID;
-	QString strArticleNo;
-	int RulesId = 1;
-	int isCutOff = 0;
-	int isFun = 0;
-	QString cutoffPosition;
-	QString cutoffValue;
-	QString left_judge_value;
-	QString BGRGB;
-	QString funGrayValue;
 
-	QString wave_pix_width;// = ui.lineEdit_wave_pix_width->text();
-	QString wave_pix_width_max;// = ui.lineEdit_wave_pix_width_max->text();
-	QString wave_pix_width_min;// = ui.lineEdit_wave_pix_width_min->text();
-	QString background_values;// = ui.lineEdit_background_values->text();
-	QString zero_value_coefficient;// = ui.lineEdit_zero_value_coefficient->text();
-	QString bg_difference;// = ui.lineEdit_bg_difference->text();
-
-
-
+    TestPaperModel testPaperModel;
 	bool bOverLoad = false;
 	while (!node.isNull())  //如果节点不空
 	{
 		if (node.isElement()) //如果节点是元素
 		{
 			QDomElement e = node.toElement(); 
-			tagName = e.tagName();
-			nodeValue =e.text();
-			if (tagName == "Name")
+            auto tagName = e.tagName();
+            auto nodeValue =e.text();
+            if(tagName == "CompanyID")
+            {
+                testPaperModel.setCompanyId(nodeValue.toInt());
+            }
+            else if (tagName == "PaperName")
 			{
-				strName = nodeValue;
+                testPaperModel.setPaperName(nodeValue);
 			}
-			if (tagName == "TotalNumber")
+            else if (tagName == "PaperType")
+            {
+                testPaperModel.setPaperType(nodeValue.toInt());
+            }
+            else if (tagName == "TotalNumber")
 			{
-				strTotalNumber = nodeValue;
+                testPaperModel.setTotalNumber(nodeValue.toInt());
 			}
-			if (tagName == "Item_Number")
+            else if (tagName == "ItemNumber")
 			{
-				strItem_Number = nodeValue;
-			}
-			if (tagName == "TestPaparLenght")
+                testPaperModel.setTestItemNumber(nodeValue.toInt());
+            }
+            else if (tagName == "PaperLenght")
+            {
+                testPaperModel.setPaperLenght(nodeValue.toDouble());
+            }
+            else if (tagName == "PaperHeight")
+            {
+                testPaperModel.setPaperHeight(nodeValue.toDouble());
+            }
+            else if (tagName == "PaperMmToPixel")
 			{
-				strTestPaparLenght = nodeValue;
+                testPaperModel.setPaperMmToPixel(nodeValue.toDouble());
 			}
-			if (tagName == "FuncPosition")
+            else if (tagName == "IgnoreHeadLenght")
 			{
-				strFuncPosition = nodeValue;
+                testPaperModel.setPaperMmToPixel(nodeValue.toDouble());
 			}
-			if (tagName == "TestAeaLenght")
+            else if (tagName == "TestBlockWidth")
 			{
-				strTestAeaLenght = nodeValue;
+                testPaperModel.setTestBlockWidth(nodeValue.toDouble());
 			}
-			if (tagName == "rect_Analysis.x")
+            else if (tagName == "FuncFindDir")
 			{
-				rect_Analysis_x = nodeValue;
+                testPaperModel.setFuncFindDir(nodeValue.toInt());
 			}
-			if (tagName == "rect_Analysis.y")
+            else if (tagName == "FuncPosition")
 			{
-				rect_Analysis_y = nodeValue;
+                testPaperModel.setFuncPosition(nodeValue.toDouble());
 			}
-			if (tagName == "rect_Analysis.width")
+            else if (tagName == "FuncFindWidth")
 			{
-				rect_Analysis_width = nodeValue;
+                testPaperModel.setFuncFindWidth(nodeValue.toDouble());
 			}
-			if (tagName == "rect_Analysis.height")
+            else if (tagName == "FuncGrayThreshold")
 			{
-				rect_Analysis_height = nodeValue;
+                testPaperModel.setFuncGrayThreshold(nodeValue.toDouble());
 			}
-			if (tagName == "analysis_height_percentage")
+            else if (tagName == "IsBlackPointDetect")
 			{
-				analysis_height_percentage = nodeValue;
+                testPaperModel.setIsBlackPointDetect(nodeValue.toInt() == 1);
 			}
-			if (tagName == "head_length")
+            else if (tagName == "BlackPointDetectThreshold")
 			{
-				head_length = nodeValue;
+                testPaperModel.setBlackPointDetectThreshold(nodeValue.toDouble());
 			}
-			if (tagName == "articleNo")
+            else if (tagName == "IsCutOff")
 			{
-				strArticleNo = nodeValue;
+                testPaperModel.setIsCutOff(nodeValue.toInt()==1);
 			}
-			if (tagName == "ItemNameList")
+            else if (tagName == "CutoffGrayThreshold")
 			{
-				strItemNameList = nodeValue;
+                testPaperModel.setCutOffThreshold(nodeValue.toDouble());
 			}
-			if (tagName == "ItemPositionList")
+            else if (tagName == "CutoffPosition")
 			{
-				strItemPositionList = nodeValue;
+                testPaperModel.setCutOffPosition(nodeValue.toDouble());
 			}
-			if (tagName == "isCutOff")
+            else if (tagName == "CutoffValue")
 			{
-				isCutOff = nodeValue.toInt();
+                testPaperModel.setCutOffValue(nodeValue.toDouble());
 			}
-			if (tagName == "isFun")
+            else if (tagName == "PaperShowAngle")
 			{
-				isFun = nodeValue.toInt();
+                testPaperModel.setPaperShowAngle(nodeValue.toInt());
 			}
-			if (tagName == "cutoffValue")
+            else if (tagName == "PaperBinarizationThreshold")
 			{
-				cutoffValue = nodeValue;//.toInt();
+                testPaperModel.setPaperBinarizationThreshold(nodeValue.toInt());
 			}
-			if (tagName == "cutoffPosition")
+            else if (tagName == "PaperBackgroundValue")
 			{
-				cutoffPosition = nodeValue;//.toInt();
+                testPaperModel.setPaperBackgroundValue(nodeValue.toDouble());
 			}
-			if (tagName == "left_judge_value")
+            else if (tagName == "ItemFindWidth")
 			{
-				left_judge_value = nodeValue;//.toInt();
+                testPaperModel.setItemFindWidth(nodeValue.toDouble());
 			}
-			if (tagName == "BGRGB")
+            else if (tagName == "ItemLineWidth")
 			{
-				BGRGB = nodeValue;//.toInt();
+                testPaperModel.setItemLineWidth(nodeValue.toDouble());
 			}
-
-			if (tagName == "funGrayValue")
+            else if (tagName == "AnalysisPercentOfHeight")
 			{
-				funGrayValue = nodeValue;//.toInt();
+                testPaperModel.setAnalysisPercentOfHeight(nodeValue.toInt());
 			}
-
-
-			if (tagName == "wave_pix_width")
+            else if (tagName == "AnalysisPercentOfWidth")
 			{
-				wave_pix_width = nodeValue;//.toInt();
+                testPaperModel.setAnalysisPercentOfWidth(nodeValue.toInt());
 			}
-			if (tagName == "wave_pix_width_max")
+            else if (tagName == "PaperColorOnUi")
 			{
-				wave_pix_width_max = nodeValue;//.toInt();
+                testPaperModel.setPaperColorOnUi(nodeValue);
 			}
-			if (tagName == "wave_pix_width_min")
+            else if (tagName == "IsPaperHide")
 			{
-				wave_pix_width_min = nodeValue;//.toInt();
+                testPaperModel.setPaperHide(nodeValue.toInt()==1);
 			}
-			if (tagName == "background_values")
-			{
-				background_values = nodeValue;//.toInt();
+            else if (tagName == "ArticleNo")
+            {
+                testPaperModel.setArticleNo(nodeValue);
 			}
-			if (tagName == "zero_value_coefficient")
-			{
-				zero_value_coefficient = nodeValue;//.toInt();
-			}
-			if (tagName == "bg_difference")
-			{
-				bg_difference = nodeValue;//.toInt();
-			}
-
-
+            else if (tagName == "PaperSortIdxOnUi")
+            {
+                testPaperModel.setPaperSortIdxOnUi(nodeValue.toInt());
+            }
 		}
 		node = node.nextSibling();
 	}
 	file.close();
     auto dao = AnalysisUIDao::instance();
 	bool bResult;
-	strTestPaper_ID = dao->GetTestPaper_ID(m_strCompany_ID, strName, &bResult);
+    QString strTestPaper_ID = dao->GetTestPaper_ID(m_strCompany_ID, testPaperModel.getPaperName(), &bResult);
 	if (bResult == false)
 	{
 		//QMessageBox::warning(this, "错误", "检索膜条数据失败！", QMessageBox::Ok);
@@ -723,73 +691,13 @@ void TestPaperManage::on_Inport_Button_clicked()
 		else
 			return;
 	}
-	int left_judge_value_int = left_judge_value.toInt();
-	QString max_sort_id = dao->GetTestPaper_sort_max(m_strCompany_ID, strName, &bResult);
-	int sort_id = 0;
-	sort_id = max_sort_id.toInt();
-	sort_id += 1;
 	if (bOverLoad == false)
-	{
-		bResult = dao->InsertTestPaper(
-			strName,
-			m_strCompany_ID,
-			strTotalNumber,
-			strItem_Number,
-			strTestPaparLenght,
-			strFuncPosition,
-			strArticleNo,
-			rect_Analysis_x,
-			rect_Analysis_y,
-			rect_Analysis_width,
-			rect_Analysis_height,
-			analysis_height_percentage,
-			head_length,
-			isCutOff,
-			cutoffPosition,
-			cutoffValue,
-			left_judge_value_int,sort_id, BGRGB, funGrayValue.toInt(),isFun,
-			wave_pix_width,
-			wave_pix_width_max,
-			wave_pix_width_min,
-			background_values,
-			zero_value_coefficient,
-			bg_difference
-		);
-		if (bResult == false)
-		{
-			//QMessageBox::warning(this, "错误", "追加测试膜条数据失败！", QMessageBox::Ok);
-			MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1267"), MyMessageBox::Ok, "OK", "");
-			return ;
-		}
+    {
+        return;
 	}
 	else
-	{
-		bResult = dao->UpdateTestPaper(
-			strTestPaper_ID,
-			strName,
-			m_strCompany_ID,
-			strTotalNumber,
-			strItem_Number,
-			strTestPaparLenght,
-			strFuncPosition,
-			strArticleNo,
-			rect_Analysis_x,
-			rect_Analysis_y,
-			rect_Analysis_width,
-			rect_Analysis_height,
-			analysis_height_percentage,
-			head_length,
-			isCutOff, 
-			cutoffPosition,
-			cutoffValue,
-			left_judge_value_int,sort_id, BGRGB, funGrayValue.toInt(),isFun,
-			wave_pix_width,
-			wave_pix_width_max,
-			wave_pix_width_min,
-			background_values,
-			zero_value_coefficient,
-			bg_difference
-		);
+    {
+        bResult = dao->UpdateTestPaper(strTestPaper_ID, testPaperModel);
 		if (bResult == false)
 		{
 			//QMessageBox::warning(this, "错误", "更新测试膜条数据失败！", QMessageBox::Ok);
@@ -797,72 +705,60 @@ void TestPaperManage::on_Inport_Button_clicked()
 			return ;
 		}
 	}
-	if (bOverLoad == true)
-	{
-		bResult = dao->DeleteTestPaperItems(strTestPaper_ID);
-		if (bResult == false)
-		{
-			//QMessageBox::warning(this, "错误", "删除测试膜条数据失败！", QMessageBox::Ok);
-			MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1268"), MyMessageBox::Ok, "OK", "");
-			return ;
-		}
-	}
-	else
-	{
-		strTestPaper_ID = dao->GetTestPaper_ID(m_strCompany_ID, strName, &bResult);
-	}
-	int nTotalNumber = strTotalNumber.toInt();
-	QStringList itemNameList = strItemNameList.split(",");
-	QStringList itemPositionList = strItemPositionList.split(",");
-	QString strID,strPositionNo, strItemName, strIsNull,position;
-	for (int i = 0; i < nTotalNumber; i++)
-	{
-		strPositionNo = QString::number(i+1);
-		strItemName = itemNameList[i];
-		position = itemPositionList[i];
-		if (strItemName == "NULL")
-		{
-			strIsNull = "1";
-		}
-		else 
-		{
-			strIsNull = "0";
-		}
-		if (strTestPaper_ID.length() == 1)
-		{
-			strID = "00" + strTestPaper_ID;
-		}
-		if (strTestPaper_ID.length() == 2)
-		{
-			strID = "0" + strTestPaper_ID;
-		}
-		if (strPositionNo.length() == 2)
-		{
-			strID += strPositionNo;
-		}
-		else
-		{
-			strID += ("0" + strPositionNo);
-		}
-		bResult = dao->InsertTestPaperItem(
-			RulesId,
-			strID,
-			strIsNull,
-			strItemName,
-			strTestPaper_ID,
-			position,
-			strPositionNo);
-		if (bResult == false)
-		{
-			//QMessageBox::warning(this, "错误", "追加测试膜条数据失败！", QMessageBox::Ok);
-			MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1267"), MyMessageBox::Ok, "OK", "");
-			return ;
-		}
-	}
 
-	//QMessageBox::information(this, "成功", "导入膜条数据文件成功！", QMessageBox::Ok);
-	MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1259"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1266"), MyMessageBox::Ok, "OK", "");
-	on_tableWidget_Company_cellClicked();
+    //TODO::WANGZ
+//	int nTotalNumber = strTotalNumber.toInt();
+//	QStringList itemNameList = strItemNameList.split(",");
+//	QStringList itemPositionList = strItemPositionList.split(",");
+//	QString strID,strPositionNo, strItemName, strIsNull,position;
+//	for (int i = 0; i < nTotalNumber; i++)
+//	{
+//		strPositionNo = QString::number(i+1);
+//		strItemName = itemNameList[i];
+//		position = itemPositionList[i];
+//		if (strItemName == "NULL")
+//		{
+//			strIsNull = "1";
+//		}
+//		else
+//		{
+//			strIsNull = "0";
+//		}
+//		if (strTestPaper_ID.length() == 1)
+//		{
+//			strID = "00" + strTestPaper_ID;
+//		}
+//		if (strTestPaper_ID.length() == 2)
+//		{
+//			strID = "0" + strTestPaper_ID;
+//		}
+//		if (strPositionNo.length() == 2)
+//		{
+//			strID += strPositionNo;
+//		}
+//		else
+//		{
+//			strID += ("0" + strPositionNo);
+//		}
+//		bResult = dao->InsertTestPaperItem(
+//			RulesId,
+//			strID,
+//			strIsNull,
+//			strItemName,
+//			strTestPaper_ID,
+//			position,
+//			strPositionNo);
+//		if (bResult == false)
+//		{
+//			//QMessageBox::warning(this, "错误", "追加测试膜条数据失败！", QMessageBox::Ok);
+//			MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1267"), MyMessageBox::Ok, "OK", "");
+//			return ;
+//		}
+//	}
+
+//	//QMessageBox::information(this, "成功", "导入膜条数据文件成功！", QMessageBox::Ok);
+//	MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1259"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1266"), MyMessageBox::Ok, "OK", "");
+//	on_tableWidget_Company_cellClicked();
 }
 
 void TestPaperManage::on_Export_Button_clicked()
@@ -910,7 +806,8 @@ void TestPaperManage::on_Export_Button_clicked()
 	//添加根节点
 	QDomElement root = doc.createElement("TestPaper");
 	doc.appendChild(root);
-    QSqlQuery TestPaperQuery = dao->SelectTestPaper(m_strTestPaper_ID, &bResult);
+    TestPaperModel testPaperModel;
+    bResult = dao->QueryTestPaper(m_strTestPaper_ID, testPaperModel);
 	if (bResult == false)
 	{
 		//QMessageBox::warning(this, "错误", "检索测试膜条数据失败！", QMessageBox::Ok);
@@ -920,188 +817,188 @@ void TestPaperManage::on_Export_Button_clicked()
 	}
 	QDomElement element;
 	QDomText text;
-    if (TestPaperQuery.next())
-	{
-		element = doc.createElement("Name");
-        text = doc.createTextNode(TestPaperQuery.value("PaperName").toString());
+//    if (TestPaperQuery.next())
+//	{
+        element = doc.createElement("CompanyID");
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 		//articleNo
 		element = doc.createElement("articleNo");
-		text = doc.createTextNode(TestPaperQuery.value("articleNo").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("TotalNumber");
-        text = doc.createTextNode(TestPaperQuery.value("TotalNumber").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("Item_Number");
-        text = doc.createTextNode(TestPaperQuery.value("Item_Number").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("Null_Number");
-        text = doc.createTextNode(TestPaperQuery.value("Null_Number").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("TestPaparLenght");
-        text = doc.createTextNode(TestPaperQuery.value("TestPaparLenght").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("rect_Analysis.x");
-		text = doc.createTextNode(TestPaperQuery.value("rect_Analysis.x").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("rect_Analysis.y");
-		text = doc.createTextNode(TestPaperQuery.value("rect_Analysis.y").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("rect_Analysis.width");
-		text = doc.createTextNode(TestPaperQuery.value("rect_Analysis.width").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("rect_Analysis.height");
-		text = doc.createTextNode(TestPaperQuery.value("rect_Analysis.height").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("analysis_height_percentage");
-		text = doc.createTextNode(TestPaperQuery.value("analysis_height_percentage").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("head_length");
-		text = doc.createTextNode(TestPaperQuery.value("head_length").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("FuncPosition");
-        text = doc.createTextNode(TestPaperQuery.value("FuncPosition").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("TestAeaLenght");
-        text = doc.createTextNode(TestPaperQuery.value("TestAeaLenght").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("cutoffValue");
-		text = doc.createTextNode(TestPaperQuery.value("cutoffValue").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 
 		element = doc.createElement("cutoffPosition");
-		text = doc.createTextNode(TestPaperQuery.value("cutoffPosition").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("isCutOff");
-		text = doc.createTextNode(TestPaperQuery.value("isCutOff").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("isFun");
-		text = doc.createTextNode(TestPaperQuery.value("isFun").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("funGrayValue");
-		text = doc.createTextNode(TestPaperQuery.value("funGrayValue").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 
 		element = doc.createElement("left_judge_value");
-		text = doc.createTextNode(TestPaperQuery.value("left_judge_value").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 
 		element = doc.createElement("wave_pix_width");
-		text = doc.createTextNode(TestPaperQuery.value("wave_pix_width").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("wave_pix_width_max");
-		text = doc.createTextNode(TestPaperQuery.value("wave_pix_width_max").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("wave_pix_width_min");
-		text = doc.createTextNode(TestPaperQuery.value("wave_pix_width_min").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("background_values");
-		text = doc.createTextNode(TestPaperQuery.value("background_values").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("zero_value_coefficient");
-		text = doc.createTextNode(TestPaperQuery.value("zero_value_coefficient").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
 		element = doc.createElement("bg_difference");
-		text = doc.createTextNode(TestPaperQuery.value("bg_difference").toString());
+        text = doc.createTextNode(QString::number(testPaperModel.getCompanyId()));
 		element.appendChild(text);
 		root.appendChild(element);
 
-	}
-    auto TestPaperItemQuery = dao->SelectTestPaperItems(m_strTestPaper_ID, &bResult);
-	if (bResult == false)
-	{
-		//QMessageBox::warning(this, "错误", "检索测试膜条数据失败！", QMessageBox::Ok);
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "1263"), MyMessageBox::Ok, "OK", "");
-		//K1263
-		return;
-	}
-	QString strItemNameList;
-	QString strItemPositionList;
-    while (TestPaperItemQuery.next())
-	{
-        int nIsNull = TestPaperItemQuery.value("IsNull").toInt();
-		if (nIsNull == 1)
-		{
-			strItemNameList += "NULL";
-			strItemPositionList += "0";
-		}
-		else 
-		{
-            strItemNameList += TestPaperItemQuery.value("itemName").toString();
-			strItemPositionList += TestPaperItemQuery.value("position").toString();
+//	}
+//    auto TestPaperItemQuery = dao->SelectTestPaperItems(m_strTestPaper_ID, &bResult);
+//	if (bResult == false)
+//	{
+//		//QMessageBox::warning(this, "错误", "检索测试膜条数据失败！", QMessageBox::Ok);
+//		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "1263"), MyMessageBox::Ok, "OK", "");
+//		//K1263
+//		return;
+//	}
+//	QString strItemNameList;
+//	QString strItemPositionList;
+//    while (TestPaperItemQuery.next())
+//	{
+//        int nIsNull = TestPaperItemQuery.value("IsNull").toInt();
+//		if (nIsNull == 1)
+//		{
+//			strItemNameList += "NULL";
+//			strItemPositionList += "0";
+//		}
+//		else
+//		{
+//            strItemNameList += TestPaperItemQuery.value("itemName").toString();
+//			strItemPositionList += TestPaperItemQuery.value("position").toString();
 		
-		}
-		strItemNameList += ",";
-		strItemPositionList += ",";
-	}
-	//添加名字
-	strItemNameList = strItemNameList.left(strItemNameList.length() - 1);
-	element = doc.createElement("ItemNameList");
-	text = doc.createTextNode(strItemNameList);
-	element.appendChild(text);
-	root.appendChild(element);
-	//添加位置
-	strItemPositionList = strItemPositionList.left(strItemPositionList.length() - 1);
-	element = doc.createElement("ItemPositionList");
-	text = doc.createTextNode(strItemPositionList);
-	element.appendChild(text);
-	root.appendChild(element);
-	//输出到文件
-	QTextStream out_stream(&file);
-	doc.save(out_stream, 4); //缩进4格
-	file.close();
-	//QMessageBox::information(this, "成功", "导出膜条数据文件成功！", QMessageBox::Ok);
-	MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1259"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1262"), MyMessageBox::Ok,"OK","");
-	//K1262
+//		}
+//		strItemNameList += ",";
+//		strItemPositionList += ",";
+//	}
+//	//添加名字
+//	strItemNameList = strItemNameList.left(strItemNameList.length() - 1);
+//	element = doc.createElement("ItemNameList");
+//	text = doc.createTextNode(strItemNameList);
+//	element.appendChild(text);
+//	root.appendChild(element);
+//	//添加位置
+//	strItemPositionList = strItemPositionList.left(strItemPositionList.length() - 1);
+//	element = doc.createElement("ItemPositionList");
+//	text = doc.createTextNode(strItemPositionList);
+//	element.appendChild(text);
+//	root.appendChild(element);
+//	//输出到文件
+//	QTextStream out_stream(&file);
+//	doc.save(out_stream, 4); //缩进4格
+//	file.close();
+//	//QMessageBox::information(this, "成功", "导出膜条数据文件成功！", QMessageBox::Ok);
+//	MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1259"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1262"), MyMessageBox::Ok,"OK","");
+//	//K1262
 }
 
 

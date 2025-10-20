@@ -403,7 +403,7 @@ int Instrument::getUnitReagentVolumn(int companyId, int reagentId)
     auto papers{ TestPaperBLL().getOnUsedRowsByCompanyId(companyId) };
     QVector<int>pIds{};
     for (auto p : papers)
-        pIds.push_back(p->getID());
+        pIds.push_back(p->getId());
 
     QVector<int>paperRIds{};
     auto reagents{ ReagentBLL().getAllRows() };

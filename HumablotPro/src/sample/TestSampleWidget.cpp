@@ -674,7 +674,7 @@ void TestSampleWidget::setPapersState()
             //eLog("找不到对应的膜条,paperId:{}", it->getPaperId());
             continue;
         }
-        lbl->setBgColor(paper->getBGRGB());
+        lbl->setBgColor(paper->getPaperColorOnUi());
         lbl->setText(paper->getPaperName());
     }
 }

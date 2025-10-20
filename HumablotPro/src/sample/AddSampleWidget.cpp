@@ -488,8 +488,7 @@ void AddSampleWidget::ShowTestInfoFromDatabase()
     Global::g_company_id = company_id;
     QString createDay = QDate::currentDate().toString("yyyy-MM-dd");
     QString sql = "";
-    QString sql_getSample = QString("select A.sampleNo from tsample A,t_testpaper B where A.paperId=B.ID and B.Company_ID='%2' and A.stateFlag=1 and A.createDay='%1' GROUP BY A.sampleNo").arg(createDay).arg(company_id);
-    //QString sql_getSample = QString("select sampleNo from tsample where stateFlag=1 and createDay='%1' GROUP BY sampleNo").arg(createDay);
+    QString sql_getSample = QString("select A.sampleNo from tsample A,t_testpaper B where A.paperId=B.ID and B.CompanyID='%2' and A.stateFlag=1 and A.createDay='%1' GROUP BY A.sampleNo").arg(createDay).arg(company_id);
     auto selectSampleList = dao->SelectRecord(&bResult, sql_getSample);
     for (int i =0; i < PAPERCOUNT; i++)
     {
@@ -501,7 +500,6 @@ void AddSampleWidget::ShowTestInfoFromDatabase()
         QString sampleNo1 = selectSampleList.value("sampleNo").toString();
         QString sql_query = QString("select COUNT(*) as number, paperId,sampleNo,PatientName,samplePos from tsample where stateFlag=1 and createDay='%1' and sampleNo='%2' GROUP BY paperId").arg(createDay).arg(sampleNo1);
         auto countNumberQuery = dao->SelectRecord(&bResult, sql_query);
-        //select COUNT(*) as number, paperId,sampleNo,PatientName,samplePos from tsample where stateFlag=1 and createDay='2022-06-13' and sampleNo='aaa' GROUP BY paperId
         while (countNumberQuery.next())
         {
             SampleTestModel stm;

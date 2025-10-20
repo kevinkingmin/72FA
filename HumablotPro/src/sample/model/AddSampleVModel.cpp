@@ -95,7 +95,7 @@ AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 			HeadStrc paper;
 			int headVectCount = _headVect.count();
 			//paper.paperId = (headVectCount);
-			int paper_id = it->getID();
+            int paper_id = it->getId();
 			paper.paperId = (paper_id);
 			paper.id = headVectCount;
 			paper.field = it->getPaperName();

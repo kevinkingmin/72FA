@@ -179,52 +179,52 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId)
     m_Company_ID=companyId;
     bool bResult;
     auto dao = AnalysisUIDao::instance();
-    auto paperQuery = dao->SelectTestPaper(paperId, &bResult);//接口调用,获取膜条数据
+    TestPaperModel testPaperModel;
+    bResult = dao->QueryTestPaper(paperId, testPaperModel);//接口调用,获取膜条数据
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
         return;
     }
-    bool isSegmentPaper(false);
-    if (paperQuery.next())
-    {
-        ui->cmbCompany->setCurrentIndex(ui->cmbCompany->findData(m_Company_ID));//公司
-        auto segmentTag=paperQuery.value("").toString();//调用接口,是否分段标识
-        if(segmentTag=="2")
-            isSegmentPaper=true;
-        ui->cmbPaperType->setCurrentIndex(ui->cmbPaperType->findData(segmentTag));
-        auto process=paperQuery.value("").toString();//调用接口,实验流程
-        ui->cmbProcess->setCurrentIndex(ui->cmbProcess->findData(process));
-        ui->lineEdit_Item_Number->setText(paperQuery.value("TotalNumber").toString());
-        ui->lineEdit_TestPaparName->setText(paperQuery.value("PaperName").toString());
-        ui->lineEdit_TestPaparLenght->setText(paperQuery.value("TestPaparLenght").toString());
-        ui->lineEdit_paper_head_length->setText(paperQuery.value("head_length").toString());
-        ui->txtItemSpace->setText(paperQuery.value("").toString());//调用接口
-        ui->txtItemWidth->setText(paperQuery.value("").toString());//调用接口
-        auto funDirection=paperQuery.value("").toString();//调用接口
-        ui->cmbFunDirection->setCurrentIndex(ui->cmbFunDirection->findData(funDirection));
-        ui->lineEdit_FuncPosition->setText(paperQuery.value("FuncPosition").toString());
-        ui->txtFunThreshold->setText(paperQuery.value("funGrayValue").toString());
-        ui->txtFunWidth->setText(paperQuery.value("").toString());//调用接口,功能线宽度
-        bool isCheckBlackSpot=paperQuery.value("").toBool();//调用接口,是否开启黑点检测
-        ui->chkBlackSpot->setChecked(isCheckBlackSpot);
-        ui->txtBlackSpotThreshold->setText(paperQuery.value("").toString());//调用接口,黑点检测阙值
-        bool isExistCuttoff{paperQuery.value("isCutOff").toBool()};
-        ui->checkBox_CutOff->setChecked(isExistCuttoff);
-        ui->lineEdit_CutOff_Position->setText(paperQuery.value("cutoffPosition").toString());
-        ui->lblCutOffThreshold->setText(paperQuery.value("").toString());//调用接口,CutOff线阈值
-        ui->txtCutOffValue->setText(paperQuery.value("cutoffValue").toString());
-        auto angle=paperQuery.value("").toString();//调用接口,膜条展示旋转
-        ui->cmbRotate->setCurrentIndex(ui->cmbRotate->findData(angle));
-        ui->txtThreshold->setText(paperQuery.value("threshold_value").toString());
-        ui->txtBackGround->setText(paperQuery.value("background_values").toString());
-        ui->txtItemSearchWidth->setText(paperQuery.value("").toString());//调用接口,指标查找宽度
-        ui->txtAnalyzeHeight->setText(paperQuery.value("analysis_height_percentage").toString());
-        ui->txtAnalyzeWidth->setText(paperQuery.value("").toString());//调用接口,分析宽度区间比
-        ui->txtPixDistance->setText(paperQuery.value("").toString());//调用接口,像素距离百分比
-        ui->txtArticleNo->setText(paperQuery.value("articleNo").toString());
-        ui->txtColorValue->setText(paperQuery.value("BGRGB").toString());
-    }
+    bool isSegmentPaper = testPaperModel.getPaperType() == 1;
+    ui->cmbCompany->setCurrentIndex(ui->cmbCompany->findData(m_Company_ID));//公司
+    auto segmentTag = isSegmentPaper ? "2" : "1";
+    ui->cmbPaperType->setCurrentIndex(ui->cmbPaperType->findData(segmentTag));
+    // TODO::实验流程
+    auto process="";//paperQuery.value("").toString();//调用接口,实验流程
+    ui->cmbProcess->setCurrentIndex(ui->cmbProcess->findData(process));
+    ui->lineEdit_Item_Number->setText(QString::number(testPaperModel.getTotalNumber()));
+    ui->lineEdit_TestPaparName->setText(testPaperModel.getPaperName());
+    ui->lineEdit_TestPaparLenght->setText(QString::number(testPaperModel.getPaperLenght(), 'f', 2));
+
+
+    ui->lineEdit_paper_head_length->setText(QString::number(testPaperModel.getIgnoreHeadLenght(), 'f', 2));
+    // TODO::宽度
+    ui->txtItemSpace->setText("");//调用接口
+    ui->txtItemWidth->setText(QString::number(testPaperModel.getTestBlockWidth(), 'f', 2));//调用接口
+    auto funDirection = testPaperModel.getFuncFindDir()==0?"1":"2";//调用接口
+    ui->cmbFunDirection->setCurrentIndex(ui->cmbFunDirection->findData(funDirection));
+    ui->lineEdit_FuncPosition->setText(QString::number(testPaperModel.getFuncPosition(), 'f', 2));
+    ui->txtFunThreshold->setText(QString::number(testPaperModel.getFuncGrayThreshold(), 'f', 2));
+    ui->txtFunWidth->setText(QString::number(testPaperModel.getFuncFindWidth(), 'f', 2));//调用接口,功能线宽度
+    bool isCheckBlackSpot=testPaperModel.getIsBlackPointDetect();//调用接口,是否开启黑点检测
+    ui->chkBlackSpot->setChecked(isCheckBlackSpot);
+    ui->txtBlackSpotThreshold->setText(QString::number(testPaperModel.getBlackPointDetectThreshold(), 'f', 2));//调用接口,黑点检测阙值
+    ui->checkBox_CutOff->setChecked(testPaperModel.getIsCutOff());
+    ui->lineEdit_CutOff_Position->setText(QString::number(testPaperModel.getCutOffPosition(), 'f', 2));
+    ui->lblCutOffThreshold->setText(QString::number(testPaperModel.getCutOffThreshold(), 'f', 2));//调用接口,CutOff线阈值
+    ui->txtCutOffValue->setText(QString::number(testPaperModel.getCutOffValue(), 'f', 2));
+    auto angle=testPaperModel.getPaperShowAngle()==0?"0":"180";//调用接口
+    ui->cmbRotate->setCurrentIndex(ui->cmbRotate->findData(angle));
+    ui->txtThreshold->setText(QString::number(testPaperModel.getPaperBinarizationThreshold(), 'f', 2));
+    ui->txtBackGround->setText(QString::number(testPaperModel.getPaperBackgroundValue(), 'f', 2));
+    ui->txtItemSearchWidth->setText(QString::number(testPaperModel.getItemFindWidth(), 'f', 2));//调用接口,指标查找宽度
+    ui->txtAnalyzeHeight->setText(QString::number(testPaperModel.getAnalysisPercentOfHeight()));
+    ui->txtAnalyzeWidth->setText(QString::number(testPaperModel.getAnalysisPercentOfWidth()));//调用接口,分析宽度区间比
+    ui->txtPixDistance->setText(QString::number(testPaperModel.getPaperMmToPixel(), 'f', 2));//调用接口,像素距离百分比
+    ui->txtArticleNo->setText(testPaperModel.getArticleNo());
+    ui->txtColorValue->setText(testPaperModel.getPaperColorOnUi());
+
     uiCtlSet(ui->lineEdit_Item_Number->text().toInt());
     auto TestPaperItemQuery = dao->SelectTestPaperItems(paperId, &bResult);
     //调用接口,加载所有项目

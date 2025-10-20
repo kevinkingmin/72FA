@@ -34,10 +34,8 @@ public:
     QString SelectCutOffThreshold(bool *bResult, int paper_id, int company_id);
     QSqlQuery SelectTestPaper(QString strID, bool *bResult);
     QSqlQuery SelectTestPaperItems(QString strTestPaper_ID, bool *bResult);
-    QSqlQuery SelectTestPaperIDs(QString sampleNo, bool *bResult);
     QSqlQuery SelectSamples(QString sampleNo, bool *bResult);
     QSqlQuery SelectSamples2(QString sampleNo, QString strTestPaper_ID, bool *bResult);
-    QSqlQuery SelectTestData(QString sampleNo,QString strSampleID,QString strTestPaper_ID,bool *bResult);
     QSqlQuery SelectTestIdFromSamples(QString testId, bool *bResult);
     QString SelectCampanyId(bool *bResult);
 

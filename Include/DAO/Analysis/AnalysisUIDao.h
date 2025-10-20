@@ -5,6 +5,7 @@
 #include <QSqlRecord>
 #include "../dao.h"
 #include "../Include/Model/result/JudgeRules.h"
+#include "../Include/Model/baseSet/TestPaperModel.h"
 
 template<class T>
 class Singleton;
@@ -21,8 +22,6 @@ private:
     AnalysisUIDao &operator=(const AnalysisUIDao&)=delete;
     AnalysisUIDao &operator=(AnalysisUIDao&&)=delete;
     friend Singleton<AnalysisUIDao>;
-
-	//using ptrModel = QSharedPointer<ProcessParaModel>;
 
 public:
     ~AnalysisUIDao();
@@ -105,15 +104,6 @@ public:
 				QString strTestPaper_ID,
 				QString strAnalysisState,
 				QString strTestDateTime);
-	bool InsertTestData(
-		QString strProjectName,
-		QString strSampleID,
-		QString strTestPaper_ID,
-		QString strItemName,
-		QString strPosition,
-		QString strGrayValue,
-		QString strRatioToCut,
-		QString strTestDateTime);
 	bool UpdateTestData(QString testId,QString projectName,double testGrayValue);
 	bool InsertReagent(
 		QString strName,
@@ -165,66 +155,9 @@ public:
 		QString LiquidStartPos,
 		QString CupHeight);
 
-	bool InsertTestPaper(
-		QString strName,
-		QString strCompany_ID,
-		QString strTotalNumber,
-		QString strItem_Number,
-		QString strTestPaparLenght,
-		QString strFuncPosition,
-		QString strArticleNo,
-		QString rect_Analysis_x,
-		QString rect_Analysis_y,
-		QString rect_Analysis_width,
-		QString rect_Analysis_height,
-		QString analysis_height_percentage,
-		QString head_length,
-		int isCutOff,
-		QString cutoffPosition,
-		QString cutoffValue,
-		int left_judge_value,
-		int sort_id,
-		QString BGRGB,
-		int funGrayValue,
-		int isFun,
-		QString wave_pix_width,
-		QString wave_pix_width_max,
-		QString wave_pix_width_min,
-		QString background_values,
-		QString zero_value_coefficient,
-		QString bg_difference
-		);
-
-	bool UpdateTestPaper(
-		QString strID,
-		QString strName,
-		QString strCompany_ID,
-		QString strTotalNumber,
-		QString strItem_Number,
-		QString strTestPaparLenght,
-		QString strFuncPosition,
-		QString strArticleNo,
-		QString rect_Analysis_x,
-		QString rect_Analysis_y,
-		QString rect_Analysis_width,
-		QString rect_Analysis_height,
-		QString analysis_height_percentage,
-		QString head_length,
-		int isCutOff,
-		QString cutoffPosition,
-		QString cutoffValue,
-		int left_judge_value,
-		int sort_id,
-		QString BGRGB,
-		int funGrayValue,
-		int isFun,
-		QString wave_pix_width,
-		QString wave_pix_width_max,
-		QString wave_pix_width_min,
-		QString background_values,
-		QString zero_value_coefficient,
-		QString bg_difference
-		);
+    bool InsertTestPaper(TestPaperModel& paper);
+    bool UpdateTestPaper(QString strID, TestPaperModel& paper);
+    bool QueryTestPaper(QString paper_id, TestPaperModel& paper);
 
 		bool DeleteTestPaper(QString strID);
 		bool NoDeleteTestPaper(QString strID);
