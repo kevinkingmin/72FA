@@ -28,7 +28,6 @@ AddReagent::AddReagent(QWidget *parent)
     ui.label_3->setText(GlobalData::LoadLanguageInfo("K1143"));
     ui.label_4->setText(GlobalData::LoadLanguageInfo("K1144"));
 
-    ui.label_5->setText(GlobalData::LoadLanguageInfo("K1137"));
     ui.label_6->setText(GlobalData::LoadLanguageInfo("K1761"));
     ui.label_7->setText(GlobalData::LoadLanguageInfo("K1138"));
     ui.label_8->setText(GlobalData::LoadLanguageInfo("K1139"));
@@ -81,51 +80,25 @@ void AddReagent::Set_UI()
 		}
 
         nValue = ReagentQuery.value("IsNoDrip").toInt();
-		if (nValue == 1)
-			ui.checkBox_IsNoDrip->setChecked(true);
-		else
-			ui.checkBox_IsNoDrip->setChecked(false);
+        ui.checkBox_IsNoDrip->setChecked(nValue == 1);
         nValue = ReagentQuery.value("IsSkimp").toInt();
-		if (nValue == 1)
-			ui.checkBox_IsSkimp->setChecked(true);
-		else
-			ui.checkBox_IsSkimp->setChecked(false);
+        ui.checkBox_IsSkimp->setChecked(nValue == 1);
         nValue = ReagentQuery.value("IsNeedPrepare").toInt();
-		if (nValue == 1)
-			ui.checkBox_IsNeedPrepare->setChecked(true);
-		else
-			ui.checkBox_IsNeedPrepare->setChecked(false);
-        bNull = ReagentQuery.value("PumpNo").isNull();
-		if (bNull == false)
-		{
-			QString strValue = "";
-			int pump_no = ReagentQuery.value("PumpNo").toInt();
-			if (pump_no != -1)
-			{
-				strValue = QString("%1").arg(pump_no + 1);//m_ReagentQuery.value("PumpNo").toString();
-			}
-			else
-			{
-				strValue = QString("%1").arg(pump_no);//m_ReagentQuery.value("PumpNo").toString();
-			}
-			//ui.lineEdit_PumpNo->setText(ReagentQuery.value("PumpNo").toString());
-			ui.lineEdit_PumpNo->setText(strValue);
-		}
+        ui.checkBox_IsNeedPrepare->setChecked(nValue == 1);
 
 		ui.lineEdit_big_wash->setText(big_wash_sz);
 		ui.lineEdit_small_wash->setText(small_wash_sz);
+
 		if ((id == 5) || (id == 6) || (id == 7) || (id == 8) || (id == 9) || (id == 10))
 		{
 			ui.checkBox_IsNeedPrepare->setEnabled(false);
-			ui.lineEdit_PumpNo->setEnabled(false);
 			ui.lineEdit_Name->setEnabled(false);
 			ui.checkBox_IsSkimp->setEnabled(false);
 			ui.checkBox_IsNoDrip->setEnabled(false);
 		}
 		else
 		{
-			ui.checkBox_IsNeedPrepare->setEnabled(true);
-			ui.lineEdit_PumpNo->setEnabled(true);
+            ui.checkBox_IsNeedPrepare->setEnabled(true);
 			ui.lineEdit_Name->setEnabled(true);
 			ui.checkBox_IsSkimp->setEnabled(true);
 			ui.checkBox_IsNoDrip->setEnabled(true);
@@ -152,66 +125,11 @@ void AddReagent::on_pushButton_Save_clicked()
 	QString strIsNeedPrepare;
     QString strTestPaper_ID="0";
 	bool bValue = ui.checkBox_IsNoDrip->isChecked();
-	if (bValue == true) 
-		strIsNoDrip = "1";
-	else
-		strIsNoDrip = "0";
-
+    strIsNoDrip = bValue ? "1": "0";
 	bValue = ui.checkBox_IsSkimp->isChecked();
-	if (bValue == true)
-		strIsSkimp = "1";
-	else
-		strIsSkimp = "0";
-
+    strIsSkimp = bValue?"1":"0";
 	bValue = ui.checkBox_IsNeedPrepare->isChecked();
-	if (bValue == true)
-		strIsNeedPrepare = "1";
-	else
-		strIsNeedPrepare = "0";
-
-	QString strPumpNo = ui.lineEdit_PumpNo->text();
-
-	strPumpNo = strPumpNo.replace(" ", "");
-
-	if (strPumpNo == "")
-	{
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1530"), MyMessageBox::Ok,"OK","");
-		return;
-	}
-
-	if (strPumpNo.length() == 0)
-		strPumpNo = "null";
-
-	QString strValue = "";
-	int pump_no = strPumpNo.toInt();
-	//if ("系统液" == strName || "稀释缓冲液" == strName || "底物液" == strName || "终止液" == strName || "蒸馏水" == strName || "洗涤缓冲液" == strName)
-    if (GlobalData::LoadLanguageInfo("K1696") == strName || GlobalData::LoadLanguageInfo("K1693") == strName || GlobalData::LoadLanguageInfo("K1691") == strName || GlobalData::LoadLanguageInfo("K1694") == strName || GlobalData::LoadLanguageInfo("K1692") == strName || GlobalData::LoadLanguageInfo("K1695") == strName)
-	{
-		if ((pump_no > 9 || pump_no < 1) && pump_no != -1)
-		{
-            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1131"), MyMessageBox::Ok,"OK","");
-			return;
-		}
-	}
-	else
-	{
-		if (pump_no > 4 || pump_no < 1)
-		{
-            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1531"), MyMessageBox::Ok,"OK","");
-			return;
-		}
-	}
-
-	if (pump_no != -1)
-	{
-		strValue = QString("%1").arg(pump_no - 1);//m_ReagentQuery.value("PumpNo").toString();
-	}
-	else
-	{
-		strValue = QString("%1").arg(pump_no);//m_ReagentQuery.value("PumpNo").toString();
-	}
-
-	strPumpNo = strValue;
+    strIsNeedPrepare = bValue ? "1": "0";
     auto dao = AnalysisUIDao::instance();
 	bool bResult;
 	QString big_wash_sz = ui.lineEdit_big_wash->text();
@@ -256,7 +174,7 @@ void AddReagent::on_pushButton_Save_clicked()
 				strIsNoDrip,
 				strIsSkimp,
 				strIsNeedPrepare,
-				strPumpNo, big_wash_sz, small_wash_sz);
+                big_wash_sz, small_wash_sz);
 			if (bResult == false)
 			{
                 MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1536"), MyMessageBox::Ok, "OK", "");
@@ -277,7 +195,7 @@ void AddReagent::on_pushButton_Save_clicked()
 				strIsNoDrip,
 				strIsSkimp,
 				strIsNeedPrepare,
-				strPumpNo, big_wash_sz, small_wash_sz);
+                big_wash_sz, small_wash_sz);
 			if (bResult == false)
 			{
                 MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1536"), MyMessageBox::Ok, "OK", "");
@@ -303,7 +221,7 @@ void AddReagent::on_pushButton_Save_clicked()
 				strIsNoDrip,
 				strIsSkimp,
 				strIsNeedPrepare,
-				strPumpNo, big_wash_sz, small_wash_sz);
+                big_wash_sz, small_wash_sz);
 
 			if (bResult == false)
 			{
@@ -327,7 +245,7 @@ void AddReagent::on_pushButton_Save_clicked()
 				strIsNoDrip,
 				strIsSkimp,
 				strIsNeedPrepare,
-				strPumpNo, big_wash_sz, small_wash_sz);
+                big_wash_sz, small_wash_sz);
 
 			if (bResult == false)
 			{

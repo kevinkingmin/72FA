@@ -27,6 +27,7 @@ public:
     ~ProcessParaDao();
     static ProcessParaDao *instance();
     QVector<ptrModel> getAllRows();
+    QVector<QString> getProcessNameByCompany(int company);
 private:
     QVector<ptrModel>_vect;
 };

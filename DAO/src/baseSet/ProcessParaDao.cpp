@@ -1,4 +1,6 @@
 ﻿#include "ProcessParaDao.h"
+#include <QSet>
+#include <QDebug>
 #include <QSqlQuery>
 #include <QSettings>
 #include <QFile>
@@ -60,4 +62,27 @@ QVector<ProcessParaDao::ptrModel> ProcessParaDao::getAllRows()
     if (_vect.isEmpty())
         getTable();
     return _vect;
+}
+
+// 根据公司ID筛选流程名称
+QVector<QString> ProcessParaDao::getProcessNameByCompany(int companyId)
+{
+    QVector<QString> processNames;
+    QSet<QString> seen;
+    QSqlQuery query;
+    if (DAO::createQuery(query) < 0)
+        return {};
+    QString sqlStr = "SELECT *  FROM tprocess_para where companyId = " + QString::number(companyId);
+    if (!query.exec(sqlStr))
+        return {};
+    while (query.next())
+    {
+        QString name = query.value("processName").toString();
+        if(!seen.contains(name))
+        {
+            seen.insert(name);
+            processNames.append(name);
+        }
+    }
+    return processNames;
 }

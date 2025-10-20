@@ -7,10 +7,11 @@
 #include "src/main/subDialog/MyMessageBox.h"
 #include "../Include/Instrument/Instrument.h"
 #include "../Include/Model/baseSet/InstrumentStateModel.h"
+#include "../Include/DAO/baseSet/ProcessDao.h"
+#include "../Include/Model/baseSet/ProcessModel.h"
 
 AddProcess::AddProcess(QWidget *parent)
     : QDialog(parent)
-    ,m_companyName("")
     ,m_strCompany_ID("")
     ,m_bModify(false)
 {
@@ -31,16 +32,14 @@ void AddProcess::setStrCompany_ID(const QString &strCompany_ID)
     m_strCompany_ID = strCompany_ID;
 }
 
-void AddProcess::setCompanyName(const QString &companyName)
-{
-    m_companyName = companyName;
-}
-
 //调用接口,保存流程名称
 void AddProcess::on_pushButton_Save_clicked()
 {
-    //ui.lineEdit_Name->text();//流程名称
-    //m_strCompany_ID//公司id
+    QString processName = ui.lineEdit_Name->text();//流程名称
+    int companyId = m_strCompany_ID.toInt();
+    ProcessDao* dao = ProcessDao::instance();
+    dao->insert(companyId, processName);
+    this->close();
 }
 
 void AddProcess::on_pushButton_Cancel_clicked()

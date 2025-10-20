@@ -17,33 +17,55 @@ ProcessDao *ProcessDao::instance()
     return Singleton<ProcessDao>::instance();
 }
 
-QVector<ProcessDao::ptrModel> ProcessDao::getAllRows()
-{
-    if(_vect.isEmpty())
-        getTable();
-    return _vect;
-}
-
-void ProcessDao::getTable()
+// 获取所有行
+QVector<ProcessModel> ProcessDao::getAllRows()
 {
     QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-        return;
+    if(DAO::createQuery(query)<0) return {};
 
     QString sqlStr="SELECT * FROM tprocess";
-    if(!query.exec(sqlStr))
-        return;
-    QVector<ptrModel> tempVect;
-    _vect.swap(tempVect);
+    if(!query.exec(sqlStr)) return {};
+    QVector<ProcessModel> tempVect;
     while (query.next())
     {
-        ptrModel pm(new ProcessModel);
-        pm->setId(query.value("id").toInt());
-        pm->setPName(query.value("pName").toString());
-        pm->setRemark(query.value("remark").toString());
-        pm->setIsDefault(query.value("isDefault").toInt()==0?false:true);
-        pm->setAddUser(query.value("addUser").toString());
-        pm->setAddTime(query.value("addTime").toLongLong());
-        _vect.push_back(pm);
+        ProcessModel model;
+        model.setId(query.value("id").toInt());
+        model.setProcessName(query.value("processName").toString());
+        model.setRemark(query.value("remark").toString());
+        model.setCompanyId(query.value("companyId").toInt());
+        tempVect.push_back(model);
     }
+    return tempVect;
+}
+
+
+QVector<ProcessModel> ProcessDao::getModels(const int companyId)
+{
+    QVector<ProcessModel> tempVect;
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0)
+        return {};
+    QString sqlStr = QString("SELECT * FROM tprocess WHERE companyId = %1").arg(companyId);
+    if(!query.exec(sqlStr)) return {};
+    while (query.next())
+    {
+        ProcessModel model;
+        model.setId(query.value("id").toInt());
+        model.setProcessName(query.value("processName").toString());
+        model.setRemark(query.value("remark").toString());
+        model.setCompanyId(query.value("companyId").toInt());
+        tempVect.push_back(model);
+    }
+    return tempVect;
+}
+
+// 插入新数据
+bool ProcessDao::insert(const int companyId, const QString& processName)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return false;
+
+    QString sqlStr = QString("INSERT INTO tprocess (companyId, processName) VALUES (%1, '%2')").arg(companyId).arg(processName);
+    if(!query.exec(sqlStr)) return false;
+    return true;
 }

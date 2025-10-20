@@ -38,6 +38,7 @@ SOURCES += \
         src/baseSet/ItemModel.cpp \
         src/baseSet/ProcessModel.cpp \
         src/baseSet/ProcessParaModel.cpp \
+        src/baseSet/ProcessParameterModel.cpp \
         src/baseSet/ProcessStepModel.cpp \
         src/baseSet/RemarkModel.cpp \
         src/baseSet/SampleSenderModel.cpp \
@@ -68,9 +69,16 @@ HEADERS += \
         src/baseSet/DepartmentModel.h \
         src/baseSet/DiagnosisModel.h \
         src/baseSet/ItemModel.h \
+        src/baseSet/ProcessAddReagentModel.h \
+        src/baseSet/ProcessCleaningModel.h \
+        src/baseSet/ProcessDryingModel.h \
         src/baseSet/ProcessModel.h \
         src/baseSet/ProcessParaModel.h \
+        src/baseSet/ProcessParameterModel.h \
+        src/baseSet/ProcessPausingModel.h \
+        src/baseSet/ProcessSamplingModel.h \
         src/baseSet/ProcessStepModel.h \
+        src/baseSet/ProcessWettingModel.h \
         src/baseSet/RemarkModel.h \
         src/baseSet/SampleSenderModel.h \
         src/baseSet/SexModel.h \

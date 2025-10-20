@@ -18,16 +18,15 @@ private:
     ProcessDao(ProcessDao &&)=delete;
     ProcessDao &operator=(const ProcessDao&)=delete;
     ProcessDao &operator=(ProcessDao&&)=delete;
-    using ptrModel= QSharedPointer<ProcessModel>;
     friend Singleton<ProcessDao>;
-
-    void getTable();
 public:
     ~ProcessDao();
     static ProcessDao *instance();
-    QVector<ptrModel> getAllRows();
+    QVector<ProcessModel> getAllRows();
+
+    QVector<ProcessModel> getModels(const int companyId);
+    bool insert(const int companyId, const QString& processName);
 private:
-    QVector<ptrModel>_vect;
 };
 
 #endif // PROCESSDAO_H

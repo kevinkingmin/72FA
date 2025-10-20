@@ -16,6 +16,7 @@ class ProcessDataList : public QWidget
             :id("")
             ,processName("")
         {}
+        Process(const QString& id, const QString& name) : id(id), processName(name) {}
     };
 
     struct ProcessStep

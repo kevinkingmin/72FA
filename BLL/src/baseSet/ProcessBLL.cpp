@@ -7,9 +7,10 @@ ProcessBLL::ProcessBLL():_dao(ProcessDao::instance())
 
 }
 
+//TODO::WangZ
 QVector<ProcessBLL::ptrModel> ProcessBLL::getAllRows()
 {
-    return _dao->getAllRows();
+    return {};//_dao->getAllRows();
 }
 
 ProcessBLL::ptrModel ProcessBLL::getRowById(int id)
@@ -17,8 +18,8 @@ ProcessBLL::ptrModel ProcessBLL::getRowById(int id)
     auto vect = _dao->getAllRows();
     for(auto it : vect)
     {
-        if(it->getId()==id)
-            return it;
+//        if(it->getId()==id)
+//            return it;
     }
     return nullptr;
 }

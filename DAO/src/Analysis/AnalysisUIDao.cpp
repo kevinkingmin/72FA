@@ -1024,7 +1024,6 @@ bool AnalysisUIDao::InsertReagent(
     QString strIsNoDrip,
     QString strIsSkimp,
     QString strIsNeedPrepare,
-    QString strPumpNo,
     QString big_wash,
     QString small_wash)
 {
@@ -1035,7 +1034,7 @@ bool AnalysisUIDao::InsertReagent(
     }
     QString strSql;
     strSql =
-        "insert into treagent (reagentName,CompanyID,TestPaperID,IsNoDrip,IsSkimp,IsNeedPrepare,PumpNo,fluidMeasureSmall,fluidMeasure) values ('";
+        "insert into treagent (reagentName,CompanyID,TestPaperID,IsNoDrip,IsSkimp,IsNeedPrepare,fluidMeasureSmall,fluidMeasure) values ('";
 
     strSql += strName;
     strSql += "',";
@@ -1053,9 +1052,6 @@ bool AnalysisUIDao::InsertReagent(
     strSql += ",";
 
     strSql += strIsNeedPrepare;
-    strSql += ",";
-
-    strSql += strPumpNo;
     strSql += ",";
 
     strSql += small_wash;
@@ -1107,6 +1103,7 @@ bool AnalysisUIDao::InsertTube(
     return bResult;
 }
 
+// 插入公司名称
 bool AnalysisUIDao::InsertCompany(QString strName)
 {
     QSqlQuery query;
@@ -1223,7 +1220,6 @@ bool AnalysisUIDao::UpdateReagent(
     QString strIsNoDrip,
     QString strIsSkimp,
     QString strIsNeedPrepare,
-    QString strPumpNo,
     QString big_wash,
     QString small_wash)
 {
@@ -1257,10 +1253,6 @@ bool AnalysisUIDao::UpdateReagent(
 
     strSql += "IsNeedPrepare = ";
     strSql += strIsNeedPrepare;
-    strSql += ",";
-
-    strSql += "PumpNo = ";
-    strSql += strPumpNo;
     strSql += ",";
 
     strSql += "fluidMeasure = ";
@@ -1297,7 +1289,6 @@ bool AnalysisUIDao::UpdateReagent1(
     QString strIsNoDrip,
     QString strIsSkimp,
     QString strIsNeedPrepare,
-    QString strPumpNo,
     QString big_wash,
     QString small_wash)
 {
@@ -1331,10 +1322,6 @@ bool AnalysisUIDao::UpdateReagent1(
 
     strSql += "IsNeedPrepare = ";
     strSql += strIsNeedPrepare;
-    strSql += ",";
-
-    strSql += "PumpNo = ";
-    strSql += strPumpNo;
     strSql += ",";
 
     strSql += "fluidMeasure = ";
@@ -1855,7 +1842,7 @@ QSqlQuery AnalysisUIDao::SelectTestPapers(QString strCompany_ID, bool *bResult)
     QString strSql;
     strSql = "select * from t_testpaper where CompanyID = ";
     strSql += strCompany_ID;
-    strSql += " order by sort_idx desc";
+    strSql += " order by PaperSortIdxOnUi desc";
     *bResult = query.exec(strSql);
     return query;
 }

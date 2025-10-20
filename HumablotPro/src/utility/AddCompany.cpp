@@ -40,6 +40,7 @@ void AddCompany::on_pushButton_Save_clicked()
 
 }
 
+// 保存公司名称
 bool AddCompany::Save_Company() 
 {
 	QString strName = ui.lineEdit_Name->text();

@@ -41,6 +41,7 @@ SOURCES += \
         src/baseSet/ItemDao.cpp \
         src/baseSet/ProcessDao.cpp \
         src/baseSet/ProcessParaDao.cpp \
+        src/baseSet/ProcessParameterDao.cpp \
         src/baseSet/ProcessStepDao.cpp \
         src/baseSet/RemarkDao.cpp \
         src/baseSet/SampleSenderDao.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
         src/baseSet/ItemDao.h \
         src/baseSet/ProcessDao.h \
         src/baseSet/ProcessParaDao.h \
+        src/baseSet/ProcessParameterDao.h \
         src/baseSet/ProcessStepDao.h \
         src/baseSet/RemarkDao.h \
         src/baseSet/SampleSenderDao.h \

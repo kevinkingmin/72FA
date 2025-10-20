@@ -112,7 +112,6 @@ public:
 		QString strIsNoDrip,
 		QString strIsSkimp,
 		QString strIsNeedPrepare,
-		QString strPumpNo,
 		QString big_wash,
 		QString small_wash);
 
@@ -131,7 +130,6 @@ public:
 		QString strIsNoDrip,
 		QString strIsSkimp,
 		QString strIsNeedPrepare,
-		QString strPumpNo,
 		QString big_wash,
 		QString small_wash);
 
@@ -143,7 +141,6 @@ public:
 		QString strIsNoDrip,
 		QString strIsSkimp,
 		QString strIsNeedPrepare,
-		QString strPumpNo,
 		QString big_wash,
 		QString small_wash);
 

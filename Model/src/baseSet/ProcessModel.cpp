@@ -2,11 +2,9 @@
 
 ProcessModel::ProcessModel():
      _id(0)
-     ,_pName("")
+     ,_companyId(0)
+     ,_processName("")
      ,_remark("")
-     ,_isDefault(false)
-     ,_addUser("")
-     ,_addTime(0)
 {
 
 }
@@ -21,14 +19,25 @@ void ProcessModel::setId(int id)
     _id = id;
 }
 
-QString ProcessModel::getPName() const
+
+int ProcessModel::getCompanyId() const
 {
-    return _pName;
+    return _companyId;
 }
 
-void ProcessModel::setPName(const QString &pName)
+void ProcessModel::setCompanyId(int companyId)
 {
-    _pName = pName;
+    _companyId = companyId;
+}
+
+QString ProcessModel::getProcessName() const
+{
+    return _processName;
+}
+
+void ProcessModel::setProcessName(const QString &processName)
+{
+    _processName = processName;
 }
 
 QString ProcessModel::getRemark() const
@@ -41,32 +50,3 @@ void ProcessModel::setRemark(const QString &remark)
     _remark = remark;
 }
 
-bool ProcessModel::getIsDefault() const
-{
-    return _isDefault;
-}
-
-void ProcessModel::setIsDefault(bool isDefault)
-{
-    _isDefault = isDefault;
-}
-
-QString ProcessModel::getAddUser() const
-{
-    return _addUser;
-}
-
-void ProcessModel::setAddUser(const QString &addUser)
-{
-    _addUser = addUser;
-}
-
-qint64 ProcessModel::getAddTime() const
-{
-    return _addTime;
-}
-
-void ProcessModel::setAddTime(const qint64 &addTime)
-{
-    _addTime = addTime;
-}

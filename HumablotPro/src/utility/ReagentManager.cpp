@@ -50,10 +50,9 @@ void ReagentManager::InitReagentTableWidget()
 	QStringList headerString;
     QString sz1 = GlobalData::LoadLanguageInfo("K1136");
     QString sz2 = GlobalData::LoadLanguageInfo("K1100");
-    QString sz3 = GlobalData::LoadLanguageInfo("K1137");
     QString sz4 = GlobalData::LoadLanguageInfo("K1138");
     QString sz5 = GlobalData::LoadLanguageInfo("K1139");
-    headerString <<  sz1 << sz2 <<"" << "" << "" << sz3 << sz4 << sz5;
+    headerString <<  sz1 << "" <<"" << "" << "" << "" << sz4 << sz5;
 	ui.tableWidget_Reagent->setHorizontalHeaderLabels(headerString);
 	//ui.tableWidget_Reagent->setAlternatingRowColors(true);
 }
@@ -191,8 +190,6 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
 	}
 	int row = 0;
     QString sID = "";
-	bool bNull = false;
-
     while (m_ReagentQuery.next())
 	{
 		ui.tableWidget_Reagent->insertRow(row);
@@ -208,25 +205,6 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
         addReagentContent(row, 3, strValue);
         strValue = m_ReagentQuery.value("IsNeedPrepare").toString();
         addReagentContent(row, 4, strValue);
-        bNull = m_ReagentQuery.value("PumpNo").isNull();
-		if (bNull == true)
-		{
-            addReagentContent(row, 5, "");
-		}
-		else 
-		{
-			int pump_no = m_ReagentQuery.value("PumpNo").toInt();
-			if (pump_no != -1)
-			{
-				strValue = QString("%1").arg(pump_no + 1);//m_ReagentQuery.value("PumpNo").toString();
-                addReagentContent(row, 5, strValue);
-			}
-			else
-			{
-				strValue = QString("%1").arg(pump_no);//m_ReagentQuery.value("PumpNo").toString();
-                addReagentContent(row, 5, strValue);
-			}
-        }
 		QString big_wash = m_ReagentQuery.value("fluidMeasure").toString();
         addReagentContent(row, 6, big_wash);
 		QString small_wash  = m_ReagentQuery.value("fluidMeasureSmall").toString();
@@ -237,8 +215,8 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
     ui.tableWidget_Reagent->hideColumn(2);
     ui.tableWidget_Reagent->hideColumn(3);
     ui.tableWidget_Reagent->hideColumn(4);
+    ui.tableWidget_Reagent->hideColumn(5);
     ui.tableWidget_Reagent->setColumnWidth(0, 320);
-    ui.tableWidget_Reagent->setColumnWidth(5, 150);
     ui.tableWidget_Reagent->setColumnWidth(6, 150);
     ui.tableWidget_Reagent->setColumnWidth(7, 100);
 

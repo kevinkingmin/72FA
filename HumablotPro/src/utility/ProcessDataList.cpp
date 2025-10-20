@@ -4,6 +4,10 @@
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
 #include "../comm/GlobalData.h"
 #include <QDebug>
+#include "../Include/DAO/baseSet/ProcessParameterDao.h"
+#include "../Include/DAO/baseSet/ProcessDao.h"
+#include "../Include/Model/baseSet/ProcessParameterModel.h"
+#include "../Include/Model/baseSet/ProcessModel.h"
 
 ProcessDataList::ProcessDataList(QWidget *parent): QWidget(parent)
   ,m_companyName("")
@@ -28,17 +32,26 @@ void ProcessDataList::setCurrentCompany(const QString &companyName, const QStrin
     m_companyId=companyId;
     ui.label->setText(GlobalData::LoadLanguageInfo("K1763")+":"+companyName);
     ui.tbProcess->setRowCount(0);
-    QVector<Process>processVect;//调用接口,加载流程
+    ProcessDao* dao = ProcessDao::instance();
+    QVector<ProcessModel> processModelVect = dao->getModels(companyId.toInt());//调用接口,加载流程
+    QVector<Process>processVect;
+    for(const ProcessModel& model : processModelVect)
+    {
+        processVect.append(Process(QString::number(model.getId()), model.getProcessName()));
+    }
+
     for(int i=0;i<processVect.count();i++)
     {
         ui.tbProcess->insertRow(i);
         auto p=processVect.at(i);
         addTbProcessContent(i, 0, QString::number(i+1));
         addTbProcessContent(i, 1, p.processName);
-        addTbProcessContent(i,2,p.id);
+        addTbProcessContent(i, 2,p.id);
     }
     if(ui.tbProcess->rowCount()>0)
+    {
         ui.tbProcess->selectRow(0);
+    }
 }
 
 void ProcessDataList::InitTbProcessSteps()
@@ -109,10 +122,26 @@ void ProcessDataList::on_tbProcess_currentCellChanged(int currentRow, int curren
 
 void ProcessDataList::on_tbProcess_cellClicked()
 {
-    if(ui.tbProcess->rowCount()<=0)
-        return;
+    if(ui.tbProcess->rowCount()<=0) return;
+    // 获取选中行
+    int currentRow = ui.tbProcess->currentRow();
+    // 获取流程名称
+    QString processName = ui.tbProcess->item(currentRow, 1)->text();
     ui.tbProcessSteps->setRowCount(0);
     QVector<ProcessStep>processStepsVect;//调用接口,加载流程步骤
+    ProcessParameterDao* dao = ProcessParameterDao::instance();
+    //调用接口,加载流程
+    QVector<ProcessParameterDao::ptrModel> models = dao->getAllRows(m_companyId.toInt(), processName);
+    QVector<QString> processStepVect;
+    for (auto &model : models)
+    {
+        if (model)
+        {  // 安全检查：确保智能指针非空
+            model->parsingParas();
+            processStepVect.append(model->toShowString());
+        }
+    }
+
     for(int i=0;i<processStepsVect.count();i++)
     {
         ProcessStep step=processStepsVect.at(i);
@@ -175,9 +204,9 @@ void ProcessDataList::on_back_Button_clicked()
 void ProcessDataList::on_btnAddProcess_clicked()
 {
     AddProcess d(this);
-    d.setCompanyName(m_companyName);
     d.setStrCompany_ID(m_companyId);
     d.exec();
+    setCurrentCompany(m_companyName, m_companyId);
 }
 
 void ProcessDataList::on_btnDeleteProcess_clicked()

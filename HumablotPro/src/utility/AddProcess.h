@@ -16,12 +16,10 @@ private slots:
     void on_pushButton_Cancel_clicked();
 
 public:
-    void setCompanyName(const QString &companyName);
     void setStrCompany_ID(const QString &strCompany_ID);
 
 private:
     Ui::AddProcess ui;
-    QString m_companyName;
     QString m_strCompany_ID;
     bool m_bModify;
 };
