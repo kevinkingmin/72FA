@@ -23,8 +23,11 @@ public:
     ~ProcessParameterDao();
     using ptrModel= QSharedPointer<ProcessParameterModel>;
     static ProcessParameterDao *instance();
-    QVector<ptrModel> getAllRows(int companyId, const QString& processName);
-    QVector<QString> getProcessNameByCompany(int companyId);
+    QVector<ProcessParameterModel> getAllRows(int processId);
+    bool selectModel(int stepId, ProcessParameterModel& out);
+    bool delectModel(int stepId);
+    bool insert(ProcessParameterModel& model);
+    bool update(int stepId, ProcessParameterModel& model);
 private:
     //QVector<ptrModel>_vect;
 };

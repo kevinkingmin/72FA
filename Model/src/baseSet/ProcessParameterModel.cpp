@@ -14,12 +14,13 @@ const QString ProcessParameterModel::PAUSING_CODE = "L1906";
 
 ProcessParameterModel::ProcessParameterModel()
     :_id(0)
-    ,_companyId(0)
+    ,_processId(0)
+    ,_actType("")
     ,_actName("")
     ,_actCode("")
     ,_paras("")
     ,_paramParseSuccess(false)
-    ,_addReagentStrt(false, 2000, "加试剂", 100, false, 0)
+    ,_addReagentStrt(false, 2000, "加试剂", 1, 100, false, 0)
     ,_bedShakingStrt(0,0)
     ,_drainingStrt(0)
     ,_pausingStrt("")
@@ -38,14 +39,24 @@ void ProcessParameterModel::setId(int id)
     _id = id;
 }
 
-int ProcessParameterModel::getCompanyId() const
+int ProcessParameterModel::getProcessId() const
 {
-    return _companyId;
+    return _processId;
 }
 
-void ProcessParameterModel::setCompanyId(int companyId)
+void ProcessParameterModel::setProcessId(int processId)
 {
-    _companyId = companyId;
+    _processId = processId;
+}
+
+QString ProcessParameterModel::getActType() const
+{
+    return _actType;
+}
+
+void ProcessParameterModel::setActType(const QString &actType)
+{
+    _actType = actType;
 }
 
 QString ProcessParameterModel::getActName() const
@@ -76,9 +87,10 @@ bool ProcessParameterModel::strToAddReagent(ProcessParameterModel::AddReagentStr
     if (document.isNull() ||(parse_error.error != QJsonParseError::NoError)) return false;
     auto obj = document.object();
     out._reagentName=obj.value("reagentName").toString();
-    out._reagentUl=obj.value("reagentUl").toDouble();
+    out._pumpNo=obj.value("pumpNo").toInt();
+    out._reagentMl=obj.value("reagentMl").toDouble();
     out._isBackFlow=obj.value("isBackFlow").toBool();
-    out._backFlowUl=obj.value("backFlowUl").toDouble();
+    out._backFlowMl=obj.value("backFlowMl").toDouble();
     out._isDrainWaster=obj.value("isDrainWaster").toBool();
     out._drainTime=obj.value("drainTime").toDouble();
     return true;
@@ -88,9 +100,10 @@ QString ProcessParameterModel::AddReagentToStr(const AddReagentStrt &strt)
 {
     QJsonObject obj;
     obj.insert("reagentName",strt._reagentName);
-    obj.insert("reagentUl",strt._reagentUl);
+    obj.insert("pumpNo", strt._pumpNo);
+    obj.insert("reagentMl",strt._reagentMl);
     obj.insert("isBackFlow",strt._isBackFlow);
-    obj.insert("backFlowUl",strt._backFlowUl);
+    obj.insert("backFlowMl",strt._backFlowMl);
     obj.insert("isDrainWaster",strt._isDrainWaster);
     obj.insert("drainTime",strt._drainTime);
 
@@ -243,6 +256,12 @@ bool ProcessParameterModel::parsingParas()
     return _paramParseSuccess;
 }
 
+
+QString ProcessParameterModel::getParas()
+{
+    return _paras;
+}
+
 void ProcessParameterModel::setParas(QString &str)
 {
     _paras = str;
@@ -342,30 +361,35 @@ void ProcessParameterModel::setDrying(const ProcessParameterModel::DryingStrt &s
 QString ProcessParameterModel::toShowString()
 {
     QString show = "";
+    show += "步骤:";
+    show += _actName;
+    show+=";";
     if(_actCode == ADD_REAGENT_CODE)
     {
         show+="试剂名称:";
         show+=_addReagentStrt._reagentName;
         show+=";";
         show+="试剂量:";
-        show+=QString::number(_addReagentStrt._reagentUl);
-        show+="ul;";
-        show+="是否排废液:";
+        show+=QString::number(_addReagentStrt._reagentMl);
+        show+="ml;";
+        show+="排废液:";
         show+=_addReagentStrt._isDrainWaster?"是":"否";
-        show+="排废液时间:";
+        show+=";";
+        show+="时间:";
         show+=QString::number(_addReagentStrt._drainTime);
         show+="s;";
-        show+="是否回流:";
+        show+="回流:";
         show+=_addReagentStrt._isBackFlow?"是":"否";
-        show+="回流体积:";
-        show+=QString::number(_addReagentStrt._backFlowUl);
-        show+="ul;";
+        show+=";";
+        show+="体积:";
+        show+=QString::number(_addReagentStrt._backFlowMl);
+        show+="ml;";
     }else if(_actCode == BED_SHAKING_CODE)
     {
-        show+="摇床振荡时间:";
+        show+="孵育时间:";
         show+=QString::number(_bedShakingStrt._shakeTime);
         show+="s;";
-        show+="摇床振荡温度:";
+        show+="摇床温度:";
         show+=QString::number(_bedShakingStrt._bedTemperature);
         show+="℃;";
 
@@ -374,12 +398,12 @@ QString ProcessParameterModel::toShowString()
         show+="干燥总时间:";
         show+=QString::number(_dryingStrt._dryTime);
         show+="s;";
-        show+="风扇开启时间:";
+        show+="风扇时间:";
         show+=QString::number(_dryingStrt._fanTime);
         show+="s;";
-        show+="风扇开启等级:";
+        show+="风扇等级:";
         show+=QString::number(_dryingStrt._fanLevel);
-        show+="摇床振荡时间:";
+        show+="摇床时间:";
         show+=QString::number(_dryingStrt._bedTime);
         show+="s;";
         show+="摇床温度:";
@@ -398,9 +422,9 @@ QString ProcessParameterModel::toShowString()
 
     }else if(_actCode == PAUSING_CODE)
     {
-        show+="暂停通知上位机:";
+        show+="暂停流程, 上报信息:";
         show+=_pausingStrt._notifyMessage;
     }
-    return "";
+    return show;
 }
 

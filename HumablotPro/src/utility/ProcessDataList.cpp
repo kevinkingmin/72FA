@@ -32,6 +32,7 @@ void ProcessDataList::setCurrentCompany(const QString &companyName, const QStrin
     m_companyId=companyId;
     ui.label->setText(GlobalData::LoadLanguageInfo("K1763")+":"+companyName);
     ui.tbProcess->setRowCount(0);
+
     ProcessDao* dao = ProcessDao::instance();
     QVector<ProcessModel> processModelVect = dao->getModels(companyId.toInt());//调用接口,加载流程
     QVector<Process>processVect;
@@ -46,7 +47,7 @@ void ProcessDataList::setCurrentCompany(const QString &companyName, const QStrin
         auto p=processVect.at(i);
         addTbProcessContent(i, 0, QString::number(i+1));
         addTbProcessContent(i, 1, p.processName);
-        addTbProcessContent(i, 2,p.id);
+        addTbProcessContent(i, 2, p.id);
     }
     if(ui.tbProcess->rowCount()>0)
     {
@@ -106,8 +107,6 @@ void ProcessDataList::addTbProcessStepContent(int row, int column, QString conte
     QTableWidgetItem *item = new QTableWidgetItem(content);
     if(column==0)
         item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-	if (column == 1)
-        ui.tbProcessSteps->resizeColumnsToContents();
     ui.tbProcessSteps->setItem(row, column, item);
 }
 
@@ -117,33 +116,38 @@ void ProcessDataList::on_tbProcess_currentCellChanged(int currentRow, int curren
     Q_UNUSED(currentColumn)
     Q_UNUSED(previousRow)
     Q_UNUSED(previousColumn)
-    on_tbProcess_cellClicked();
+//    on_tbProcess_cellClicked();
 }
 
 void ProcessDataList::on_tbProcess_cellClicked()
 {
+    qDebug()<<"on_tbProcess_cellClicked"<<ui.tbProcess->rowCount()<<ui.tbProcess->currentRow();
     if(ui.tbProcess->rowCount()<=0) return;
     // 获取选中行
     int currentRow = ui.tbProcess->currentRow();
     // 获取流程名称
     QString processName = ui.tbProcess->item(currentRow, 1)->text();
     ui.tbProcessSteps->setRowCount(0);
-    QVector<ProcessStep>processStepsVect;//调用接口,加载流程步骤
+    QVector<ProcessStep> processStepsVect;//调用接口,加载流程步骤
     ProcessParameterDao* dao = ProcessParameterDao::instance();
     //调用接口,加载流程
-    QVector<ProcessParameterDao::ptrModel> models = dao->getAllRows(m_companyId.toInt(), processName);
-    QVector<QString> processStepVect;
+    int intRow = ui.tbProcess->currentRow();
+    int processId = (ui.tbProcess->item(intRow, 2)->text()).toInt();
+    QVector<ProcessParameterModel> models = dao->getAllRows(processId);
+    qDebug()<<"processId"<<processId<<models.count();
     for (auto &model : models)
     {
-        if (model)
-        {  // 安全检查：确保智能指针非空
-            model->parsingParas();
-            processStepVect.append(model->toShowString());
-        }
+        model.parsingParas();
+        qDebug()<<"model"<<model.getActCode()<<model.toShowString();
+        ProcessStep step;
+        step.id = QString::number(model.getId());
+        step.stepDes = model.toShowString();
+        processStepsVect.append(step);
     }
 
     for(int i=0;i<processStepsVect.count();i++)
     {
+        ui.tbProcessSteps->insertRow(i);
         ProcessStep step=processStepsVect.at(i);
         addTbProcessStepContent(i, 0, QString::number(i));
         addTbProcessStepContent(i,1,step.stepDes);
@@ -160,7 +164,8 @@ void ProcessDataList::on_Add_Button_clicked()
         return;
     }
     _processData->setBModify(false);
-    _processData->setProcessId(ui.tbProcess->item(intRow,2)->text());
+    _processData->setProcessId(ui.tbProcess->item(intRow, 2)->text());
+    _processData->SetUI(false);
     _processData->exec();
     on_tbProcess_cellClicked();
 }
@@ -175,7 +180,7 @@ void ProcessDataList::on_Modify_Button_clicked()
     }
     _processData->setBModify(true);
     _processData->setStepId(ui.tbProcessSteps->item(intRow,2)->text());
-    _processData->SetUI();
+    _processData->SetUI(true);
     _processData->exec();
     on_tbProcess_cellClicked();
 }
@@ -193,6 +198,10 @@ void ProcessDataList::on_Delete_Button_clicked()
 	{
 		return;
     }
+    int stepId = ui.tbProcessSteps->item(intRow,2)->text().toInt();
+    // 删除
+    ProcessParameterDao* dao = ProcessParameterDao::instance();
+    dao->delectModel(stepId);
     on_tbProcess_cellClicked();
 }
 

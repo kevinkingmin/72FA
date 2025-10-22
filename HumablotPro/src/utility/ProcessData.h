@@ -31,7 +31,7 @@ private slots:
     void on_pushButton_Cancel_clicked();
     void on_cmbStepType_currentIndexChanged(int index);
 public:
-    void SetUI();
+    void SetUI(bool modify);
     void setBModify(bool bModify);
     void setStepId(const QString &stepId);
     void setProcessId(const QString &processId);
@@ -42,5 +42,6 @@ private:
     QRegExp _doubleReg;
     QString _stepId;
     QString _processId;
-    QVector<QString> _actNameVect;
+    QVector<QString> _actTypeVect;
+    int _currentSelectStep;
 };

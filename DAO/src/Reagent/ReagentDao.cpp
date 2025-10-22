@@ -90,6 +90,35 @@ QVector<ReagentDao::ptrModel> ReagentDao::getAllRows()
     return outVect;
 }
 
+// 根据公司ID选择试剂
+QVector<ReagentModel> ReagentDao::selectReagent(const int companyId)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return {};
+    QString sqlStr=QString("SELECT * FROM treagent WHERE companyId = %1").arg(companyId);
+    if(!query.exec(sqlStr)) return {};
+    QVector<ReagentModel> tempVect;
+    while (query.next())
+    {
+        ReagentModel model;
+        model.setID(query.value("ID").toInt());
+        model.setPaperId(query.value("TestPaperID").toInt());
+        model.setReagentName(query.value("reagentName").toString());
+        model.setCompanyID(query.value("companyID").toInt());
+        model.setIsNoDrip(query.value("IsNoDrip").toInt()==0?false:true);
+        model.setIsSkimp(query.value("IsSkimp").toInt()==0?false:true);
+        model.setIsNeedPrepare(query.value("IsNeedPrepare").toInt()==0?false:true);
+        float fluid_measure = query.value("fluidMeasure").toFloat();
+        float fluid_measure_small = query.value("fluidMeasureSmall").toFloat();
+        QString spent_time = query.value("spentTime").toString();
+        model.setFluidMeasure(fluid_measure);
+        model.setFluidMeasureSmall(fluid_measure_small);
+        model.setSpentTime(spent_time);
+        tempVect.push_back(model);
+    }
+    return tempVect;
+}
+
 void ReagentDao::getTable()
 {
     QSqlQuery query;

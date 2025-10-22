@@ -38,6 +38,24 @@ QVector<ProcessModel> ProcessDao::getAllRows()
     return tempVect;
 }
 
+// 根据id获取对象
+bool ProcessDao::getModel(const int processId, ProcessModel& out)
+{
+    QVector<ProcessModel> tempVect;
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0)
+        return false;
+    QString sqlStr = QString("SELECT * FROM tprocess WHERE id = %1").arg(processId);
+    if(!query.exec(sqlStr)) return false;
+    if (query.next())
+    {
+        out.setId(query.value("id").toInt());
+        out.setProcessName(query.value("processName").toString());
+        out.setRemark(query.value("remark").toString());
+        out.setCompanyId(query.value("companyId").toInt());
+    }
+    return true;
+}
 
 QVector<ProcessModel> ProcessDao::getModels(const int companyId)
 {

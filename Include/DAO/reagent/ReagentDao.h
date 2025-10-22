@@ -25,6 +25,7 @@ public:
     bool updateModel(ptrModel pm);
     bool insertModel(ptrModel pm);
     QVector<ptrModel>getAllRows();
+    QVector<ReagentModel> selectReagent(const int companyId);
 private:
     void getTable();
     void queryBindValue(QSqlQuery &query, ptrModel pm);

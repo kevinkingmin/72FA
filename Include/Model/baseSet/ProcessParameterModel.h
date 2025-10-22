@@ -22,20 +22,32 @@ public:
         double _drainTime;
         // 试剂名
         QString _reagentName;
+        // 泵编号
+        int _pumpNo;
         // 试剂量
-        double _reagentUl;
+        double _reagentMl;
         // 对应蠕动泵是否回流
         bool _isBackFlow;
         // 回流体积
-        double _backFlowUl;
-        AddReagentStrt(const bool isDrainWaster,const double drainTime,
-                       const QString& name, const double ul,  const bool isBackFlow, const double backFlowUl)
+        double _backFlowMl;
+        AddReagentStrt()
+            :_isDrainWaster(false)
+            ,_drainTime(0)
+            ,_reagentName("")
+            ,_pumpNo(1)
+            ,_reagentMl(1)
+            ,_isBackFlow(false)
+            ,_backFlowMl(0)
+        {}
+        AddReagentStrt(const bool isDrainWaster,const double drainTime, const QString& name,
+                       const int pumpNo, const double ul,  const bool isBackFlow, const double backFlowMl)
             :_isDrainWaster(isDrainWaster)
             ,_drainTime(drainTime)
             ,_reagentName(name)
-            ,_reagentUl(ul)
+            ,_pumpNo(pumpNo)
+            ,_reagentMl(ul)
             ,_isBackFlow(isBackFlow)
-            ,_backFlowUl(backFlowUl)
+            ,_backFlowMl(backFlowMl)
         {}
     };
 
@@ -46,6 +58,10 @@ public:
         double _shakeTime;
         // 摇床温度
         double _bedTemperature;
+        BedShakingStrt()
+            :_shakeTime(0)
+            ,_bedTemperature(0)
+        {}
         BedShakingStrt(const double shakeTime, const double bedTemperature)
             :_shakeTime(shakeTime)
             ,_bedTemperature(bedTemperature)
@@ -65,6 +81,13 @@ public:
         double _bedTemperature;
         // 风干等级
         double _bedTime;
+        DryingStrt()
+            :_dryTime(0)
+            ,_fanLevel(0)
+            ,_fanTime(0)
+            ,_bedTemperature(0)
+            ,_bedTime(0)
+        {}
         DryingStrt(const double dryTime, const int fanLevel, const double fanTime, const double bedTemperature, const double bedTime)
             :_dryTime(dryTime)
             ,_fanLevel(fanLevel)
@@ -78,6 +101,9 @@ public:
     struct SamplingStrt
     {
         double _sampleUl;
+        SamplingStrt()
+            :_sampleUl(0)
+        {}
         SamplingStrt(const double sampleUl)
             :_sampleUl(sampleUl)
         {}
@@ -88,6 +114,9 @@ public:
     {
         // 抽干时间
         double _drainTime;
+        DrainingStrt()
+            :_drainTime(0)
+        {}
         DrainingStrt(const double drainTime)
             :_drainTime(drainTime)
         {}
@@ -98,6 +127,9 @@ public:
     {
         // 向上位机发送的信息
         QString _notifyMessage;
+        PausingStrt()
+            :_notifyMessage("")
+        {}
         PausingStrt(const QString& notifyMessage)
             :_notifyMessage(notifyMessage)
         {}
@@ -107,17 +139,20 @@ public:
     int getId() const;
     void setId(int id);
 
-    int getCompanyId() const;
-    void setCompanyId(int companyId);
+    int getProcessId() const;
+    void setProcessId(int companyId);
 
-    int getActIndex() const;
-    void setActIndex(int index);
+    QString getActType() const;
+    void setActType(const QString &actName);
 
     QString getActName() const;
     void setActName(const QString &actName);
 
     QString getActCode() const;
     void setActCode(const QString &actNameCode);
+
+    QString getParas();
+    void setParas(QString &str);
 
     bool getAddReagent(AddReagentStrt &out);
     void setAddReagent(const AddReagentStrt &strt);
@@ -137,37 +172,29 @@ public:
     bool getDrying(DryingStrt &out);
     void setDrying(const DryingStrt &strt);
 
-    void setParas(QString &str);
 
     bool parsingParas();
 
     QString toShowString();
 
+    QString AddReagentToStr(const AddReagentStrt &strt);
+    QString drainingToStr(const DrainingStrt &strt);
+    QString PausingToStr(PausingStrt &strt);
+    QString SamplingToStr(const SamplingStrt &strt);
+    QString BedShakingToStr(const BedShakingStrt &strt);
+    QString dryingToStr(const DryingStrt &strt);
 private:
     bool strToAddReagent(AddReagentStrt& out, const QString &str);
-    QString AddReagentToStr(const AddReagentStrt &strt);
-
     bool strToDraining(DrainingStrt& out, const QString &str);
-    QString drainingToStr(const DrainingStrt &strt);
-
-
     bool strToPausing(PausingStrt& out, const QString &str);
-    QString PausingToStr(PausingStrt &strt);
-
-
     bool strToSampling(SamplingStrt& out, const QString &str);
-    QString SamplingToStr(const SamplingStrt &strt);
-
-
     bool strToBedShaking(BedShakingStrt& out, const QString &str);
-    QString BedShakingToStr(const BedShakingStrt &strt);
-
     bool strToDrying(DryingStrt& out, const QString &str);
-    QString dryingToStr(const DryingStrt &strt);
 
 private:
     int _id;
-    int _companyId;
+    int _processId;
+    QString _actType;
     QString _actName;
     QString _actCode;
     QString _paras;

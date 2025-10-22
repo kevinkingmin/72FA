@@ -16,6 +16,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
@@ -33,6 +34,8 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *lblStepType;
     QComboBox *cmbStepType;
+    QLabel *lblStepType_2;
+    QLineEdit *lineEdit;
     QSpacerItem *horizontalSpacer;
     QGridLayout *gridLayout;
     QSpacerItem *verticalSpacer;
@@ -74,7 +77,20 @@ public:
 
         horizontalLayout->addWidget(cmbStepType);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        lblStepType_2 = new QLabel(layoutWidget);
+        lblStepType_2->setObjectName(QString::fromUtf8("lblStepType_2"));
+        lblStepType_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        horizontalLayout->addWidget(lblStepType_2);
+
+        lineEdit = new QLineEdit(layoutWidget);
+        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        lineEdit->setMaximumSize(QSize(250, 16777215));
+        lineEdit->setMaxLength(32767);
+
+        horizontalLayout->addWidget(lineEdit);
+
+        horizontalSpacer = new QSpacerItem(10, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
 
@@ -109,6 +125,7 @@ public:
         pushButton_Cancel->setText(QApplication::translate("ProcessData", "\345\217\226\346\266\210", nullptr));
         pushButton_Cancel->setProperty("btnStyle", QVariant(QApplication::translate("ProcessData", "normalBtnGray", nullptr)));
         lblStepType->setText(QApplication::translate("ProcessData", "\351\200\211\346\213\251\346\226\260\345\242\236\346\255\245\351\252\244\357\274\232", nullptr));
+        lblStepType_2->setText(QApplication::translate("ProcessData", "\346\255\245\351\252\244\345\220\215\347\247\260\357\274\232", nullptr));
     } // retranslateUi
 
 };

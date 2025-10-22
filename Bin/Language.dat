@@ -789,6 +789,14 @@ K1822|删除规则|
 K1823|规则|Rule
 K1824|曲线|
 K1825|请选择对应的规则!|
+K1826|排废液|Discharge liquid
+K1827|暂停|Pause
+K1828|孵育|Incubation
+K1829|回流量|Pipeline backflow volume
+K1830|孵育|Incubation
+K1831|执行时间|Discharge liquid time
+K1832|报告信息|Report message
+K1833|风扇转速|
 
 K9990|检测到多个条带|Multiple strips detected
 K9991|（检测到异常条带）|（Abnormal stripe detected）
