@@ -63,6 +63,9 @@
     <ClCompile Include="src\baseSet\ProcessParaModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\baseSet\ProcessParameterModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\reagent\ProcessReagentModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -149,16 +152,37 @@
     <ClInclude Include="src\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\baseSet\ProcessAddReagentModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\baseSet\ProcessCleaningModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\baseSet\ProcessDryingModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\baseSet\ProcessModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\baseSet\ProcessParaModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\baseSet\ProcessParameterModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\baseSet\ProcessPausingModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\reagent\ProcessReagentModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\baseSet\ProcessSamplingModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\baseSet\ProcessStepModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\baseSet\ProcessWettingModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\reagent\ReagentModel.h">

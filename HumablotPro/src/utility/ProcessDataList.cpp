@@ -126,6 +126,7 @@ void ProcessDataList::on_tbProcess_cellClicked()
     // 获取选中行
     int currentRow = ui.tbProcess->currentRow();
     // 获取流程名称
+	currentRow = currentRow >= 0 ? currentRow : 0;
     QString processName = ui.tbProcess->item(currentRow, 1)->text();
     ui.tbProcessSteps->setRowCount(0);
     QVector<ProcessStep>processStepsVect;//调用接口,加载流程步骤

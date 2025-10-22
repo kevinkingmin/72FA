@@ -159,6 +159,7 @@ copy "$(TargetPath)" ..\Bin</Command>
     <ClCompile Include="src\result\JudgeRules.cpp" />
     <ClCompile Include="src\baseSet\ProcessModel.cpp" />
     <ClCompile Include="src\baseSet\ProcessParaModel.cpp" />
+    <ClCompile Include="src\baseSet\ProcessParameterModel.cpp" />
     <ClCompile Include="src\reagent\ProcessReagentModel.cpp" />
     <ClCompile Include="src\baseSet\ProcessStepModel.cpp" />
     <ClCompile Include="src\reagent\ReagentModel.cpp" />
@@ -189,10 +190,17 @@ copy "$(TargetPath)" ..\Bin</Command>
     <ClInclude Include="src\baseSet\ItemModel.h" />
     <ClInclude Include="src\result\JudgeRules.h" />
     <ClInclude Include="src\Model.h" />
+    <ClInclude Include="src\baseSet\ProcessAddReagentModel.h" />
+    <ClInclude Include="src\baseSet\ProcessCleaningModel.h" />
+    <ClInclude Include="src\baseSet\ProcessDryingModel.h" />
     <ClInclude Include="src\baseSet\ProcessModel.h" />
     <ClInclude Include="src\baseSet\ProcessParaModel.h" />
+    <ClInclude Include="src\baseSet\ProcessParameterModel.h" />
+    <ClInclude Include="src\baseSet\ProcessPausingModel.h" />
     <ClInclude Include="src\reagent\ProcessReagentModel.h" />
+    <ClInclude Include="src\baseSet\ProcessSamplingModel.h" />
     <ClInclude Include="src\baseSet\ProcessStepModel.h" />
+    <ClInclude Include="src\baseSet\ProcessWettingModel.h" />
     <ClInclude Include="src\reagent\ReagentModel.h" />
     <ClInclude Include="src\baseSet\RemarkModel.h" />
     <ClInclude Include="src\sample\SampleModel.h" />

@@ -157,6 +157,7 @@ copy "$(TargetPath)" ..\Bin</Command>
     <ClCompile Include="src\baseSet\ItemDao.cpp" />
     <ClCompile Include="src\baseSet\ProcessDao.cpp" />
     <ClCompile Include="src\baseSet\ProcessParaDao.cpp" />
+    <ClCompile Include="src\baseSet\ProcessParameterDao.cpp" />
     <ClCompile Include="src\Reagent\ProcessReagentDao.cpp" />
     <ClCompile Include="src\baseSet\ProcessStepDao.cpp" />
     <ClCompile Include="src\Reagent\ReagentDao.cpp" />
@@ -185,6 +186,7 @@ copy "$(TargetPath)" ..\Bin</Command>
     <ClInclude Include="src\baseSet\ItemDao.h" />
     <ClInclude Include="src\baseSet\ProcessDao.h" />
     <ClInclude Include="src\baseSet\ProcessParaDao.h" />
+    <ClInclude Include="src\baseSet\ProcessParameterDao.h" />
     <ClInclude Include="src\Reagent\ProcessReagentDao.h" />
     <ClInclude Include="src\baseSet\ProcessStepDao.h" />
     <ClInclude Include="src\Reagent\ReagentDao.h" />
