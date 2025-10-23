@@ -57,6 +57,9 @@
     <ClCompile Include="src\baseSet\ProcessParaDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\baseSet\ProcessParameterDao.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\Reagent\ProcessReagentDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -135,6 +138,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\baseSet\ProcessParaDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\baseSet\ProcessParameterDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Reagent\ProcessReagentDao.h">
