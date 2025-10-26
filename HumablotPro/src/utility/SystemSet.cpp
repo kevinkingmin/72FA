@@ -9,6 +9,8 @@
 #include "../Include/Instrument/Instrument.h"
 #include "../Include/Model/baseSet/InstrumentStateModel.h"
 #include "ProcessParaWidgets.h"
+#include "../Include/Model/baseSet/CompanyModel.h"
+#include "../Include/DAO/baseSet/CompanyDao.h"
 
 SystemSet::SystemSet(QWidget *parent)
     : QWidget(parent)
@@ -62,10 +64,8 @@ SystemSet::SystemSet(QWidget *parent)
     //当前应用膜条公司名字
     QString PaperInfo = dao->SelectPaperInfo(&bResult);
 
-    QSqlQuery CompanyQuery = dao->SelectCompanys(&bResult);
-
-
-
+    CompanyDao* companyDao = CompanyDao::instance();
+    QVector<CompanyModel> companyModels = companyDao->getAllRows();
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1290"), MyMessageBox::Ok,"OK","");
@@ -328,10 +328,10 @@ SystemSet::SystemSet(QWidget *parent)
     }
 
     int row = 0;
-    while (CompanyQuery.next())
+    for (CompanyModel& model : companyModels)
     {
-        QString itemName = CompanyQuery.value("Name").toString();
-        QString id=CompanyQuery.value("ID").toString();
+        QString itemName = model.getName();
+        QString id=QString::number(model.getId());
         ui.comboBox_CompanyList->addItem(itemName,id); //带图标
         row++;
     }

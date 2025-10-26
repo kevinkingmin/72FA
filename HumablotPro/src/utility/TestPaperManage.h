@@ -4,6 +4,7 @@
 #include "ui_TestPaperManage.h"
 #include <QSqlQuery>
 #include "TestPaper.h"
+#include "../Include/Model/baseSet/CompanyModel.h"
 
 class Instrument;
 
@@ -40,7 +41,8 @@ private:
     Ui::TestPaperManage ui;
     QString m_strCompany_ID;
     QString m_strTestPaper_ID;
-    QSqlQuery m_CompanyQuery;
+
+    QVector<CompanyModel> _companyModels;
     QSqlQuery m_TestPaperQuery;
     Instrument * _instr;
     QString m_strMachineUID;

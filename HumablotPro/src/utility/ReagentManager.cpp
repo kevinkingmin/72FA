@@ -10,6 +10,7 @@
 #include <QProcess>
 #include "src/main/subDialog/MyMessageBox.h"
 #include <QDebug>
+#include "../Include/DAO/baseSet/CompanyDao.h"
 
 ReagentManager::ReagentManager(QWidget *parent): QWidget(parent)
   ,m_companyName("")
@@ -76,29 +77,32 @@ void ReagentManager::InitCompanyTableWidget()
 
 	QString itemName;
 	bool bResult = true;
-    auto dao = AnalysisUIDao::instance();
+    auto dao = CompanyDao::instance();
 	//m_CompanyQuery = dao->SelectCompanys(&bResult);
 	QString  loginName = GlobalData::getLoginName1();
 	int company_id = Global::g_company_id;
     uint group_id = GlobalData::getGruopId();
+    _companyModels.clear();
 	//不是管理员,
-	if (group_id == 3)
-	{
-		m_CompanyQuery = dao->SelectCompanysById(&bResult, company_id);
-	}
-	else
-	{
-		m_CompanyQuery = dao->SelectCompanys(&bResult);
-	}
-	if (bResult == false)
-	{
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1290"), MyMessageBox::Ok,"OK","");
-		return;
-	}
+    if (group_id == 3)
+    {
+        CompanyModel model;
+        bResult = dao->getModel(company_id, model);
+        _companyModels.push_back(model);
+    }
+    else
+    {
+        _companyModels = dao->getAllRows();
+    }
+    if (bResult == false)
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1290"), MyMessageBox::Ok,"OK","");
+        return;
+    }
 	int row = 0;
-    while (m_CompanyQuery.next())
+    for (CompanyModel& m : _companyModels)
 	{
-        itemName = m_CompanyQuery.value("Name").toString();
+        itemName = m.getName();
 		ui.tableWidget_Company->insertRow(row);
 		addCompanyContent(row, 0, itemName);
 		row++;
@@ -168,11 +172,11 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
 	//清空列表
 	ui.tableWidget_Reagent->setRowCount(0);
 	int intRow = ui.tableWidget_Company->currentRow();//获取选中的行
-    if (m_CompanyQuery.size() == 0)
+    if (_companyModels.size() == 0)
 		return;
     m_companyName=ui.tableWidget_Company->item(intRow,0)->text();
-    m_CompanyQuery.seek(intRow);
-    m_strCompany_ID = m_CompanyQuery.value("ID").toString();
+    CompanyModel model = _companyModels[intRow];
+    m_strCompany_ID = QString::number(model.getId());
     qDebug() << "m_strCompany_ID:"<<m_strCompany_ID;
 	QString strValue;
 	bool bResult = true;

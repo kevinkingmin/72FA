@@ -29,6 +29,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/baseSet/CommonType.cpp \
+        src/baseSet/CompanyModel.cpp \
         src/baseSet/InstrumentParasSetModel.cpp \
         src/baseSet/InstrumentStateModel.cpp \
         src/baseSet/AgeUnitModel.cpp \
@@ -62,6 +63,7 @@ SOURCES += \
 HEADERS += \
         src/Model.h \
         src/baseSet/CommonType.h \
+        src/baseSet/CompanyModel.h \
         src/baseSet/InstrumentParasSetModel.h \
         src/baseSet/InstrumentStateModel.h \
         src/baseSet/AgeUnitModel.h \
@@ -69,16 +71,10 @@ HEADERS += \
         src/baseSet/DepartmentModel.h \
         src/baseSet/DiagnosisModel.h \
         src/baseSet/ItemModel.h \
-        src/baseSet/ProcessAddReagentModel.h \
-        src/baseSet/ProcessCleaningModel.h \
-        src/baseSet/ProcessDryingModel.h \
         src/baseSet/ProcessModel.h \
         src/baseSet/ProcessParaModel.h \
         src/baseSet/ProcessParameterModel.h \
-        src/baseSet/ProcessPausingModel.h \
-        src/baseSet/ProcessSamplingModel.h \
         src/baseSet/ProcessStepModel.h \
-        src/baseSet/ProcessWettingModel.h \
         src/baseSet/RemarkModel.h \
         src/baseSet/SampleSenderModel.h \
         src/baseSet/SexModel.h \

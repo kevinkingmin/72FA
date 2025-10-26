@@ -1103,22 +1103,6 @@ bool AnalysisUIDao::InsertTube(
     return bResult;
 }
 
-// 插入公司名称
-bool AnalysisUIDao::InsertCompany(QString strName)
-{
-    QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-    {
-        return false;
-    }
-    QString strSql;
-    strSql ="insert into t_TestPaperCompany (Name) values ('";
-    strSql += strName;
-    strSql += "')";
-    bool bResult = query.exec(strSql);
-    return bResult;
-}
-
 bool AnalysisUIDao::UpdateTestPaper(QString strID, TestPaperModel& paper)
 {
     QSqlQuery query;
@@ -1580,44 +1564,6 @@ QSqlQuery AnalysisUIDao::SelectRulues(bool *bResult)
     *bResult = query.exec(strSql);
     return query;
 }
-
-QSqlQuery AnalysisUIDao::SelectCompanysById(bool *bResult, int id)
-{
-    QSqlQuery query;
-    if (DAO::createQuery(query) < 0)
-    {
-        *bResult = false;
-        return query;
-    }
-    QString strSql;
-
-    if (id == 0)
-    {
-        strSql = QString("select * from t_testpapercompany order by ID");
-    }
-    else
-    {
-        strSql = QString("select * from t_testpapercompany where ID=%1 order by ID").arg(id);
-    }
-
-    *bResult = query.exec(strSql);
-    return query;
-}
-
-QSqlQuery AnalysisUIDao::SelectCompanys(bool *bResult)
-{
-    QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-    {
-        *bResult = false;
-        return query;
-    }
-    QString strSql;
-    strSql = "select * from t_testpapercompany order by ID";
-    *bResult = query.exec(strSql);
-    return query;
-}
-
 
 
 ///

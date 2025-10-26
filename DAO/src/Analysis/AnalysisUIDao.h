@@ -42,9 +42,6 @@ public:
 	bool UpdateSystemSet(QString strID,QString strsaveDes);
 	bool UpdateSystemDes(QString strID, QString strsaveDes);
 	bool UpdateSystemSetId5(QString strID, QString strsaveDes);
-	bool InsertCompany(QString strName);
-    QSqlQuery SelectCompanys(bool *bResult);
-	QSqlQuery SelectCompanysById(bool *bResult,int id);
 	QSqlQuery SelectRulues(bool *bResult);
     QSqlQuery SelectTestPapers(QString strCompany_ID, bool *bResult);
 	QString GetTestPaper_ID(QString strCompany_ID, QString strTestPaperName, bool *bResult);

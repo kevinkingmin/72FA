@@ -3,12 +3,12 @@
 #include "../dao.h"
 #include <QSharedPointer>
 #include <QVector>
+#include "../Include/Model/baseSet/ProcessModel.h"
 
 template<class T>
 class Singleton;
 
 class QSqlQuery;
-class ProcessModel;
 
 class DAOSHARED_EXPORT ProcessDao
 {

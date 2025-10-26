@@ -3,6 +3,7 @@
 #include <QWidget>
 #include "ui_ReagentManager.h"
 #include <QSqlQuery>
+#include "../Include/Model/baseSet/CompanyModel.h"
 
 class Instrument;
 
@@ -33,7 +34,7 @@ private:
     Ui::ReagentManager ui;
     QString m_strCompany_ID;
     QString m_strReagent_ID;
-    QSqlQuery m_CompanyQuery;
+    QVector<CompanyModel> _companyModels;
     QSqlQuery m_ReagentQuery;
     QString m_strMachineUID;
     Instrument * _instr;

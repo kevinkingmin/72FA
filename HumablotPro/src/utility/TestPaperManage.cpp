@@ -10,7 +10,7 @@
 #include "../Include/Instrument/Instrument.h"
 #include "src/main/subDialog/MyMessageBox.h"
 #include "../comm/GlobalData.h"
-#include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/DAO/baseSet/CompanyDao.h"
 
 TestPaperManage::TestPaperManage(QWidget *parent)
 	: QWidget(parent)
@@ -83,18 +83,21 @@ void TestPaperManage::InitCompanyTableWidget()
 	QString itemName;
 	//DB中取Testitems表数据
 	bool bResult = true;
-    auto dao = AnalysisUIDao::instance();
+    auto dao = CompanyDao::instance();
 	QString  loginName = GlobalData::getLoginName1();
 	int company_id= Global::g_company_id;
     uint group_id = GlobalData::getGruopId();
+    _companyModels.clear();
 	//不是管理员,
 	if (group_id == 3)
 	{
-		m_CompanyQuery = dao->SelectCompanysById(&bResult, company_id);
+        CompanyModel model;
+        bResult = dao->getModel(company_id, model);
+        _companyModels.push_back(model);
 	}
 	else
 	{
-		m_CompanyQuery = dao->SelectCompanys(&bResult);
+        _companyModels = dao->getAllRows();
 	}
 	if (bResult == false)
 	{
@@ -104,9 +107,9 @@ void TestPaperManage::InitCompanyTableWidget()
 		return;
 	}
 	int row = 0;
-    while (m_CompanyQuery.next())
+    for (CompanyModel& m : _companyModels)
 	{
-        itemName = m_CompanyQuery.value("Name").toString();
+        itemName = m.getName();
 		ui.tableWidget_Company->insertRow(row);
 		addCompanyContent(row, 0, itemName);
 		row++;
@@ -143,10 +146,11 @@ void TestPaperManage::on_tableWidget_Company_cellClicked()
 	//清空列表
 	ui.tableWidget_TestPaper->setRowCount(0);
 	int intRow = ui.tableWidget_Company->currentRow();//获取选中的行
-    if (m_CompanyQuery.size() == 0)
+    intRow = intRow>=0 ? intRow:0;
+    if (_companyModels.size() == 0)
 		return;
-    m_CompanyQuery.seek(intRow);
-    m_strCompany_ID = m_CompanyQuery.value("ID").toString();
+    CompanyModel companyModel = _companyModels[intRow];
+    m_strCompany_ID = QString::number(companyModel.getId());
 	QString strValue;
 	bool bResult = true;
     auto dao = AnalysisUIDao::instance();
@@ -175,9 +179,9 @@ void TestPaperManage::on_tableWidget_Company_cellClicked()
 		//货号
 		strValue = m_TestPaperQuery.value("articleNo").toString();
 		addTestPaperContent(row, 2, strValue);
-		strValue = m_TestPaperQuery.value("sort_idx").toString();
+        strValue = m_TestPaperQuery.value("PaperSortIdxOnUi").toString();
 		addTestPaperContent(row, 3, strValue);
-		strValue = m_TestPaperQuery.value("isDelete").toString();
+        strValue = m_TestPaperQuery.value("IsPaperHide").toString();
 		if (strValue == "0")
 		{
             strValue = GlobalData::LoadLanguageInfo("K1104");//"启用";
@@ -198,14 +202,8 @@ void TestPaperManage::on_tableWidget_Company_cellClicked()
 }
 void TestPaperManage::on_Up_Sort_Button_2_clicked()
 {
-	//ui.tableWidget_TestPaper->
 	QList<QTableWidgetItem*>items = ui.tableWidget_TestPaper->selectedItems();
 	int row = ui.tableWidget_TestPaper->row(items.at(0));//获取选中的行
-	//if (row == 0)
-	//{
-	//	QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "请先选择膜条!", QMessageBox::Ok);
-	//	return;
-	//}
 	auto dao = AnalysisUIDao::instance();
 	int count = items.count();
 	if (count < 2)
@@ -341,8 +339,6 @@ void TestPaperManage::on_Add_Company_Button_clicked()
 {
 	AddCompany *addCompany = new AddCompany();
 	connect(addCompany, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshCompanyTableWidgetFlag(bool)));
-	//addCompany->m_strCompany_ID = m_strCompany_ID;
-	//addCompany->m_bModify = false;
 	addCompany->show();
 	bool bResult;
 	m_strMachineUID = Global::g_machine_no;
@@ -360,8 +356,7 @@ void TestPaperManage::on_Delete_Company_Button_clicked()
 		return;
 	}
 	if (m_strCompany_ID.length() == 0)
-	{
-		//QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "请先选择膜条厂家!", QMessageBox::Ok);
+    {
 		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1265"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
@@ -375,36 +370,23 @@ void TestPaperManage::on_Delete_Company_Button_clicked()
 	if (nRes == MyMessageBox::Yes)
 	{
 		//删除公司
-		sql1_log = QString("delete from t_testpapercompany where ID='%1' ").arg(m_strCompany_ID);
-		dao->SelectRecord(&bResult, sql1_log);
+        CompanyDao* companyDao = CompanyDao::instance();
+        companyDao->deleteModel(m_strCompany_ID.toInt());
 		InitCompanyTableWidget();
 	}
 	else
 	{
 	}
-	//AddCompany *addCompany = new AddCompany();
-	//connect(addCompany, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshCompanyTableWidgetFlag(bool)));
-	////addCompany->m_strCompany_ID = m_strCompany_ID;
-	////addCompany->m_bModify = false;
-	//addCompany->show();
-	//bool bResult;
-	//QString sql1_log = QString("insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('%1','%2','%3','%4')").arg("膜条管理模块").arg(m_strMachineUID).arg("添加").arg("");
-	//auto dao = AnalysisUIDao::instance();
-	//dao->SelectRecord(&bResult, sql1_log);
 }
 
 void TestPaperManage::on_Add_Button_clicked()
 {
 	if (m_strCompany_ID.length() == 0)
-	{
-		//QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "请先选择膜条厂家!", QMessageBox::Ok);
+    {
 		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1265"), MyMessageBox::Ok, "OK", "");
 		return;
 	}
-
-    //connect(m_testPaper, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshTableWidgetFlag(bool)));
-	TestPaper testPaper(this);
-    //testPaper.clearUIData();
+    TestPaper testPaper(this);
     testPaper.exec();
 }
 

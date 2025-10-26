@@ -1,6 +1,7 @@
 ﻿#include "AddCompany.h"
 #include <QMessageBox>
-#include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/Model/baseSet/CompanyModel.h"
+#include "../Include/DAO/baseSet/CompanyDao.h"
 #include "src/main/subDialog/MyMessageBox.h"
 #include "src/comm/GlobalData.h"
 
@@ -25,19 +26,13 @@ AddCompany::~AddCompany()
 void AddCompany::on_pushButton_Cancel_clicked()
 {
 	this->close();
-
 }
 
 void AddCompany::on_pushButton_Save_clicked()
 {
-
-	if (Save_Company() == false)
-		return;
-
+    if (Save_Company() == false) return;
 	emit SetRefresh(true);
-
 	this->close();
-
 }
 
 // 保存公司名称
@@ -49,9 +44,11 @@ bool AddCompany::Save_Company()
 		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1525"), MyMessageBox::Ok,"OK","");
 		return false;
 	}
-    auto dao = AnalysisUIDao::instance();
+    auto dao = CompanyDao::instance();
 	bool bResult;
-	bResult = dao->InsertCompany(strName);
+    CompanyModel model;
+    model.setName(strName);
+    bResult = dao->insertModel(model);
 	if (bResult == false)
 	{
 		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1526"), MyMessageBox::Ok,"OK","");

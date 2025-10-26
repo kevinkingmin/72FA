@@ -13,6 +13,10 @@
 #include "../Include/Instrument/Instrument.h"
 #include "../Include/Model/baseSet/InstrumentStateModel.h"
 #include "../Include/Utilities/log.h"
+#include "../Include/Model/baseSet/CompanyModel.h"
+#include "../Include/Model/baseSet/ProcessModel.h"
+#include "../Include/DAO/baseSet/CompanyDao.h"
+#include "../Include/DAO/baseSet/ProcessDao.h"
 
 TestPaper::TestPaper(QWidget *parent)
     : QDialog(parent)
@@ -308,11 +312,6 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId)
     }
 }
 
-//void TestPaper::closeEvent(QCloseEvent *event)
-//{
-//    event->ignore();
-//    this->hide();
-//}
 
 void TestPaper::on_pushButton_Set_clicked()
 {
@@ -830,7 +829,13 @@ void TestPaper::getUIBlockAndItemData()
 void TestPaper::initComboBox()
 {    
     QVector<ComboxData>boxDatas;
-    //boxDatas= //调用接口,选择厂家
+    CompanyDao* companyDao = CompanyDao::instance();
+    QVector<CompanyModel> companyModels = companyDao->getAllRows();
+    for(CompanyModel& model : companyModels)
+    {
+        qDebug()<<"company name"<<model.getName();
+        boxDatas.push_back(ComboxData(model.getName(), model.getName()));
+    }
     setComBoBoxData(ui->cmbCompany,boxDatas);
     connect(ui->cmbCompany,&QComboBox::currentTextChanged,this,&TestPaper::slotCmbCompanyTextChanged);
 
@@ -936,8 +941,14 @@ void TestPaper::slotCmbCompanyTextChanged(const QString &text)
 {
     Q_UNUSED(text)
     //text 为厂家名称，根据厂家名称获取实验流程接口
-    //QString currentData=ui->cmbCompany->currentData().toString();//厂家ID
-    QVector<ComboxData>boxDatas;
-    //boxDatas= //调用接口,实验流程
+    QString currentData=ui->cmbCompany->currentData().toString();//厂家ID
+    ProcessDao* dao = ProcessDao::instance();
+    QVector<ProcessModel> processVect = dao->getAllRows();
+    QVector<ComboxData> boxDatas;
+    //调用接口,实验流程
+    for(ProcessModel &model : processVect)
+    {
+        boxDatas.push_back(ComboxData(model.getProcessName(), model.getProcessName()));
+    }
     setComBoBoxData(ui->cmbProcess,boxDatas);
 }

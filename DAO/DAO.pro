@@ -35,6 +35,7 @@ SOURCES += \
         src/aes/aesencryptor.cpp \
         src/baseSet/AgeUnitDao.cpp \
         src/baseSet/BedNoDao.cpp \
+        src/baseSet/CompanyDao.cpp \
         src/baseSet/DepartmentDao.cpp \
         src/baseSet/DiagnosisDao.cpp \
         src/baseSet/InstrumentParasSetDao.cpp \
@@ -64,6 +65,7 @@ HEADERS += \
         src/aes/aesencryptor.h \
         src/baseSet/AgeUnitDao.h \
         src/baseSet/BedNoDao.h \
+        src/baseSet/CompanyDao.h \
         src/baseSet/DepartmentDao.h \
         src/baseSet/DiagnosisDao.h \
         src/baseSet/InstrumentParasSetDao.h \
