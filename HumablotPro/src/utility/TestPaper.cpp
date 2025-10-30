@@ -15,8 +15,15 @@
 #include "../Include/Utilities/log.h"
 #include "../Include/Model/baseSet/CompanyModel.h"
 #include "../Include/Model/baseSet/ProcessModel.h"
+#include "../Include/Model/baseSet/ItemModel.h"
+#include "../Include/Model/result/JudgeRules.h"
+#include "../Include/Model/baseSet/StandaryCurveModel.h"
 #include "../Include/DAO/baseSet/CompanyDao.h"
 #include "../Include/DAO/baseSet/ProcessDao.h"
+#include "../Include/DAO/baseSet/JudgeDao.h"
+#include "../Include/DAO/baseSet/StandardCurveDao.h"
+#include "../Include/DAO/baseSet/TestPaperDao.h"
+#include "../Include/DAO/baseSet/ItemDao.h"
 
 TestPaper::TestPaper(QWidget *parent)
     : QDialog(parent)
@@ -161,87 +168,84 @@ void TestPaper::initUI()
     ui->tbSegment->setColumnWidth(0,65);
     ui->tbSegment->setColumnWidth(2,165);
     //ui->lineEdit_Item_Number->setPlaceholderText("       测试");
-    bool bResult=true;
-    auto dao = AnalysisUIDao::instance();
-    auto ruleQuery = dao->SelectRulues(&bResult);
-    while (ruleQuery.next())
+    QVector<JudgeRules> rules = JudgeDao::instance()->getAllRows();
+    for(JudgeRules r:rules)
     {
-        ComboxData cmbData(GlobalData::LoadLanguageInfo(ruleQuery.value("RuleName").toString()),ruleQuery.value("pkid").toString());
+        ComboxData cmbData(r.getRuleName(), QString::number(r.getpkid()));
         m_ruleCmbDatas.push_back(cmbData);
     }
-    //m_curveCmbDatas //调用接口,曲线下拉框数据
+    //调用接口,曲线下拉框数据
+    QVector<StandaryCurveModel> curves = StandardCurveDao::instance()->getAllRows();
+    for(StandaryCurveModel c:curves)
+    {
+        ComboxData cmbData(c.getCurveName(), QString::number(c.getCurveId()));
+        m_curveCmbDatas.push_back(cmbData);
+    }
     getAllItemControl();
     initComboBox();
 }
 
-void TestPaper::Set_UI(const QString &paperId, const QString &companyId)
+void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool isModify)
 {
-    if (paperId.isEmpty())
+    if (paperId.isEmpty()) return;
+    m_bModify=isModify;
+    if(!isModify)
+    {
+        _testPaperModel = TestPaperModel();
         return;
-    m_bModify=true;
-    _paperId=paperId;
-    m_Company_ID=companyId;
+    }
+    _paperId = paperId;
     bool bResult;
-    auto dao = AnalysisUIDao::instance();
-    TestPaperModel testPaperModel;
-    bResult = dao->QueryTestPaper(paperId, testPaperModel);//接口调用,获取膜条数据
+    m_Company_ID = companyId;
+    bResult = TestPaperDao::instance()->getModel(paperId.toInt(), _testPaperModel);//接口调用,获取膜条数据
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
         return;
     }
-    bool isSegmentPaper = testPaperModel.getPaperType() == 1;
+    _itemModelVect = ItemDao::instance()->selectItems(paperId.toInt());
+    bool isSegmentPaper = _testPaperModel.getPaperType() == TestPaperModel::PAPER_TYPE_SEGMENT;
     ui->cmbCompany->setCurrentIndex(ui->cmbCompany->findData(m_Company_ID));//公司
-    auto segmentTag = isSegmentPaper ? "2" : "1";
+    auto segmentTag = isSegmentPaper ? "1" : "0";
     ui->cmbPaperType->setCurrentIndex(ui->cmbPaperType->findData(segmentTag));
-    // TODO::实验流程
-    auto process="";//paperQuery.value("").toString();//调用接口,实验流程
-    ui->cmbProcess->setCurrentIndex(ui->cmbProcess->findData(process));
-    ui->lineEdit_Item_Number->setText(QString::number(testPaperModel.getTotalNumber()));
-    ui->lineEdit_TestPaparName->setText(testPaperModel.getPaperName());
-    ui->lineEdit_TestPaparLenght->setText(QString::number(testPaperModel.getPaperLenght(), 'f', 2));
-
-
-    ui->lineEdit_paper_head_length->setText(QString::number(testPaperModel.getIgnoreHeadLenght(), 'f', 2));
+    ui->cmbProcess->setCurrentIndex(ui->cmbProcess->findData(QString::number(_testPaperModel.getProcessId())));
+    ui->lineEdit_Item_Number->setText(QString::number(_testPaperModel.getTotalNumber()));
+    ui->lineEdit_TestPaparName->setText(_testPaperModel.getPaperName());
+    ui->lineEdit_TestPaparLenght->setText(QString::number(_testPaperModel.getPaperLenght(), 'f', 2));
+    ui->lineEdit_paper_head_length->setText(QString::number(_testPaperModel.getIgnoreHeadLenght(), 'f', 2));
     // TODO::宽度
     ui->txtItemSpace->setText("");//调用接口
-    ui->txtItemWidth->setText(QString::number(testPaperModel.getTestBlockWidth(), 'f', 2));//调用接口
-    auto funDirection = testPaperModel.getFuncFindDir()==0?"1":"2";//调用接口
+    ui->txtItemWidth->setText(QString::number(_testPaperModel.getTestBlockWidth(), 'f', 2)); // 项目块宽度
+    auto funDirection = _testPaperModel.getFuncFindDir()==0?"0":"1";//调用接口
     ui->cmbFunDirection->setCurrentIndex(ui->cmbFunDirection->findData(funDirection));
-    ui->lineEdit_FuncPosition->setText(QString::number(testPaperModel.getFuncPosition(), 'f', 2));
-    ui->txtFunThreshold->setText(QString::number(testPaperModel.getFuncGrayThreshold(), 'f', 2));
-    ui->txtFunWidth->setText(QString::number(testPaperModel.getFuncFindWidth(), 'f', 2));//调用接口,功能线宽度
-    bool isCheckBlackSpot=testPaperModel.getIsBlackPointDetect();//调用接口,是否开启黑点检测
+    ui->lineEdit_FuncPosition->setText(QString::number(_testPaperModel.getFuncPosition(), 'f', 2));
+    ui->txtFunThreshold->setText(QString::number(_testPaperModel.getFuncGrayThreshold(), 'f', 2));
+    ui->txtFunWidth->setText(QString::number(_testPaperModel.getFuncFindWidth(), 'f', 2));//调用接口,功能线宽度
+    bool isCheckBlackSpot=_testPaperModel.getIsBlackPointDetect();//调用接口,是否开启黑点检测
     ui->chkBlackSpot->setChecked(isCheckBlackSpot);
-    ui->txtBlackSpotThreshold->setText(QString::number(testPaperModel.getBlackPointDetectThreshold(), 'f', 2));//调用接口,黑点检测阙值
-    ui->checkBox_CutOff->setChecked(testPaperModel.getIsCutOff());
-    ui->lineEdit_CutOff_Position->setText(QString::number(testPaperModel.getCutOffPosition(), 'f', 2));
-    ui->lblCutOffThreshold->setText(QString::number(testPaperModel.getCutOffThreshold(), 'f', 2));//调用接口,CutOff线阈值
-    ui->txtCutOffValue->setText(QString::number(testPaperModel.getCutOffValue(), 'f', 2));
-    auto angle=testPaperModel.getPaperShowAngle()==0?"0":"180";//调用接口
+    ui->txtBlackSpotThreshold->setText(QString::number(_testPaperModel.getBlackPointDetectThreshold(), 'f', 2));//调用接口,黑点检测阙值
+    ui->checkBox_CutOff->setChecked(_testPaperModel.getIsCutOff());
+    ui->lineEdit_CutOff_Position->setText(QString::number(_testPaperModel.getCutOffPosition(), 'f', 2));
+    ui->lblCutOffThreshold->setText(QString::number(_testPaperModel.getCutOffThreshold(), 'f', 2));//调用接口,CutOff线阈值
+    ui->txtCutOffValue->setText(QString::number(_testPaperModel.getCutOffValue(), 'f', 2));
+    auto angle=_testPaperModel.getPaperShowAngle()==0?"0":"180";//调用接口
     ui->cmbRotate->setCurrentIndex(ui->cmbRotate->findData(angle));
-    ui->txtThreshold->setText(QString::number(testPaperModel.getPaperBinarizationThreshold(), 'f', 2));
-    ui->txtBackGround->setText(QString::number(testPaperModel.getPaperBackgroundValue(), 'f', 2));
-    ui->txtItemSearchWidth->setText(QString::number(testPaperModel.getItemFindWidth(), 'f', 2));//调用接口,指标查找宽度
-    ui->txtAnalyzeHeight->setText(QString::number(testPaperModel.getAnalysisPercentOfHeight()));
-    ui->txtAnalyzeWidth->setText(QString::number(testPaperModel.getAnalysisPercentOfWidth()));//调用接口,分析宽度区间比
-    ui->txtPixDistance->setText(QString::number(testPaperModel.getPaperMmToPixel(), 'f', 2));//调用接口,像素距离百分比
-    ui->txtArticleNo->setText(testPaperModel.getArticleNo());
-    ui->txtColorValue->setText(testPaperModel.getPaperColorOnUi());
+    ui->txtThreshold->setText(QString::number(_testPaperModel.getPaperBinarizationThreshold(), 'f', 2));
+    ui->txtBackGround->setText(QString::number(_testPaperModel.getPaperBackgroundValue(), 'f', 2));
+    ui->txtItemSearchWidth->setText(QString::number(_testPaperModel.getItemFindWidth(), 'f', 2));//调用接口,指标查找宽度
+    ui->txtAnalyzeHeight->setText(QString::number(_testPaperModel.getAnalysisPercentOfHeight()));
+    ui->txtAnalyzeWidth->setText(QString::number(_testPaperModel.getAnalysisPercentOfWidth()));//调用接口,分析宽度区间比
+    ui->txtPixDistance->setText(QString::number(_testPaperModel.getPaperMmToPixel(), 'f', 2));//调用接口,像素距离百分比
+    ui->txtArticleNo->setText(_testPaperModel.getArticleNo());
+    ui->txtColorValue->setText(_testPaperModel.getPaperColorOnUi());
 
     uiCtlSet(ui->lineEdit_Item_Number->text().toInt());
-    auto TestPaperItemQuery = dao->SelectTestPaperItems(paperId, &bResult);
-    //调用接口,加载所有项目
-    if (bResult == false)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
-        return;
-    }
+
+    QVector<ItemModel>itemVect = ItemDao::instance()->selectItems(paperId.toInt());
 
     if(!isSegmentPaper)
     {
-        int i=1;
-        while (TestPaperItemQuery.next())
+        for (int i = 1; i<itemVect.count()+1;i++)
         {
             if(i>m_gridItemCtl.itemCtlMap.count())
             {
@@ -249,13 +253,12 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId)
                 break;
             }
             Item_Control &ctl=m_gridItemCtl.itemCtlMap[i];
-            ctl.lineEdit_Name->setText(TestPaperItemQuery.value("itemName").toString());
-            ctl.checkBox->setChecked(TestPaperItemQuery.value("IsNull").toInt()>0);
-            ctl.lineEdit_Position->setText(TestPaperItemQuery.value("position").toString());
-            ctl.combo_box_rule->setCurrentIndex(ctl.combo_box_rule->findData(TestPaperItemQuery.value("RulesId").toString()));
+            ctl.lineEdit_Name->setText(itemVect[i].getItemName());
+            ctl.checkBox->setChecked(itemVect[i].getIsNull());
+            ctl.lineEdit_Position->setText(QString::number(itemVect[i].getPosition(), 'f', 1));
+            ctl.combo_box_rule->setCurrentIndex(ctl.combo_box_rule->findData(QString::number(itemVect[i].getRulesId())));
             //调用接口 ,定标曲线
-            ctl.cmbCurve->setCurrentText(TestPaperItemQuery.value("").toString());
-            i++;
+            ctl.cmbCurve->setCurrentIndex(ctl.cmbCurve->findData(QString::number(itemVect[i].getCurveId())));
         }
         return;
     }
@@ -312,7 +315,7 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId)
     }
 }
 
-
+// 设置按钮
 void TestPaper::on_pushButton_Set_clicked()
 {
     auto itemCount = ui->lineEdit_Item_Number->text().toInt();
@@ -484,12 +487,11 @@ void TestPaper::slotCreatDetailRows(const QString &data)
     tbSegmentAddData(oldRow);
 }
 
+// 保存
 void TestPaper::on_pushButton_Save_clicked()
 {
-    if(Save_TestPaper_Parameters() == false)
-        return;
-    if (Save_TestPaper_Items() == false)
-        return;
+    if(Save_TestPaper_Parameters() == false) return;
+    if (Save_TestPaper_Items() == false) return;
 
     m_strMachineUID = Global::g_machine_no;
     bool bResult;
@@ -514,53 +516,63 @@ void TestPaper::on_pushButton_Save_clicked()
         return;
     }
 
-    // 或者   aApp->closeAllWindows();
-    Instrument::instance()->closeSocket();
-    QString program = QCoreApplication::applicationFilePath();
-    QStringList arguments = QCoreApplication::arguments();
-    QProcess::startDetached(program, arguments);
-    QCoreApplication::instance()->quit();
+    // 或者   aApp->closeAllWindows(); TODO::
+//    Instrument::instance()->closeSocket();
+//    QString program = QCoreApplication::applicationFilePath();
+//    QStringList arguments = QCoreApplication::arguments();
+//    QProcess::startDetached(program, arguments);
+//    QCoreApplication::instance()->quit();
 }
 
 //调用接口,保存膜条参数
 bool TestPaper::Save_TestPaper_Parameters()
 {
-    //ui->cmbCompany->currentData().toString();//厂家
-    //ui->cmbPaperType->currentData().toString();//膜条类型
-    //ui->cmbProcess->currentData().toString();//实验流程
-    //lineEdit_Item_Number;//项目数量
-    //lineEdit_TestPaparName;//膜条名称
-    //lineEdit_TestPaparLenght;//膜条长度
-    //lineEdit_paper_head_length;//膜条头长度
-    //txtItemSpace;//项目块间距
-    //txtItemWidth;//项目块宽度
-    //ui->cmbFunDirection->currentData().toString();//功能线查找方向
-    //lineEdit_FuncPosition;//功能条位置
-    //txtFunThreshold;//功能线阈值
-    //txtFunWidth;//功能线查找宽度
-    //ui->chkBlackSpot->isChecked();//是否开启黑点检测
-    //txtBlackSpotThreshold;//黑点检测阙值
-    //ui->checkBox_CutOff->isChecked();// 是否有CufOff线
-    //lineEdit_CutOff_Position;//CutOff位置
-    //txtCutOffThreshold;//CutOff线阈值
-    //txtCutOffValue;//CutOff灰度值;
-    //ui->cmbRotate->currentData().toString();//膜条展示旋转
-    //txtThreshold;//二值化阈值
-    //txtBackGround;//背景值
-    //txtItemSearchWidth;//指标查找宽度
-    //txtAnalyzeHeight;//分析高度区间比
-    //txtAnalyzeWidth;//分析宽度区间比
-    //txtPixDistance;//像素距离百分比
-    //txtArticleNo;//货号
-    //txtColorValue;//颜色值:
+    _testPaperModel.setCompanyId(ui->cmbCompany->currentData().toInt());//厂家
+    _testPaperModel.setPaperType(ui->cmbPaperType->currentData().toInt());//膜条类型
+    _testPaperModel.setProcessId(ui->cmbProcess->currentData().toInt());//实验流程
+    _testPaperModel.setTestItemNumber(ui->lineEdit_Item_Number->text().simplified().toInt());//项目数量
+    _testPaperModel.setPaperName(ui->lineEdit_TestPaparName->text().simplified());//膜条名称
+    _testPaperModel.setPaperLenght(ui->lineEdit_TestPaparLenght->text().simplified().toDouble());//膜条长度
+    _testPaperModel.setIgnoreHeadLenght(ui->lineEdit_paper_head_length->text().simplified().toDouble());//膜条头长度
+//   _testPaperModel. ui->txtItemSpace->text().simplified();//项目块间距
+   _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
+   _testPaperModel.setPaperShowAngle(ui->cmbFunDirection->currentData().toInt());//功能线查找方向
+   _testPaperModel.setFuncPosition(ui->lineEdit_FuncPosition->text().simplified().toDouble());//功能条位置
+   _testPaperModel.setFuncGrayThreshold(ui->txtFunThreshold->text().simplified().toInt());//功能线阈值
+   _testPaperModel.setFuncFindWidth(ui->txtFunWidth->text().simplified().toDouble());//功能线查找宽度
+   _testPaperModel.setIsBlackPointDetect(ui->chkBlackSpot->isChecked());//是否开启黑点检测
+   _testPaperModel.setBlackPointDetectThreshold(ui->txtBlackSpotThreshold->text().simplified().toInt());//黑点检测阙值
+   _testPaperModel.setIsCutOff(ui->checkBox_CutOff->isChecked());// 是否有CufOff线
+   _testPaperModel.setCutOffPosition(ui->lineEdit_CutOff_Position->text().simplified().toDouble());//CutOff位置
+   _testPaperModel.setCutOffThreshold(ui->txtCutOffThreshold->text().simplified().toInt());//CutOff线阈值
+   _testPaperModel.setCutOffValue(ui->txtCutOffValue->text().simplified().toInt());//CutOff灰度值;
+   _testPaperModel.setPaperShowAngle(ui->cmbRotate->currentData().toInt());//膜条展示旋转
+   _testPaperModel.setPaperBinarizationThreshold(ui->txtThreshold->text().simplified().toInt());//二值化阈值
+   _testPaperModel.setPaperBackgroundValue(ui->txtBackGround->text().simplified().toInt());//背景值
+   _testPaperModel.setItemFindWidth(ui->txtItemSearchWidth->text().simplified().toDouble());//指标查找宽度
+   _testPaperModel.setAnalysisPercentOfHeight(ui->txtAnalyzeHeight->text().simplified().toInt());//分析高度区间比
+   _testPaperModel.setAnalysisPercentOfWidth(ui->txtAnalyzeWidth->text().simplified().toInt());//分析宽度区间比
+   _testPaperModel.setPaperMmToPixel(ui->txtPixDistance->text().simplified().toDouble());//像素距离百分比
+   _testPaperModel.setArticleNo(ui->txtArticleNo->text().simplified());//货号
+   _testPaperModel.setPaperColorOnUi(ui->txtColorValue->text().simplified());//颜色值:
 
+    bool result = false;
     if(m_bModify)
     {
         //调用接口,修改
+        result = TestPaperDao::instance()->update(_testPaperModel);
     }
     else
     {
         //调用接口,新增
+        result = TestPaperDao::instance()->insert(_testPaperModel);
+    }
+    if(result)
+    {
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1378"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
+    }else
+    {
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1301"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
     }
     return true;
 }
@@ -568,7 +580,7 @@ bool TestPaper::Save_TestPaper_Parameters()
 //调用接口,保存膜条项目
 bool TestPaper::Save_TestPaper_Items()
 {
-    if(ui->cmbPaperType->currentData().toInt()==2)//分段
+    if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
     {
         getUIBlockAndItemData();
         auto count=ui->lineEdit_Item_Number->text().simplified().toInt();
@@ -834,28 +846,28 @@ void TestPaper::initComboBox()
     for(CompanyModel& model : companyModels)
     {
         qDebug()<<"company name"<<model.getName();
-        boxDatas.push_back(ComboxData(model.getName(), model.getName()));
+        boxDatas.push_back(ComboxData(model.getName(), QString::number(model.getId())));
     }
     setComBoBoxData(ui->cmbCompany,boxDatas);
     connect(ui->cmbCompany,&QComboBox::currentTextChanged,this,&TestPaper::slotCmbCompanyTextChanged);
 
     boxDatas.clear();
-    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1809"),"1"));
-    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1810"),"2"));
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1809"),QString::number(TestPaperModel::PAPER_TYPE_CONTINUOUS)));
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1810"),QString::number(TestPaperModel::PAPER_TYPE_SEGMENT)));
     setComBoBoxData(ui->cmbPaperType,boxDatas);
     ui->cmbPaperType->setCurrentText(GlobalData::LoadLanguageInfo("K1809"));
 
     boxDatas.clear();
-    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1813"),"1"));
-    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1814"),"2"));
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1813"),QString::number(TestPaperModel::PAPER_FUNC_FIND_DIR_HEAD)));
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1814"),QString::number(TestPaperModel::PAPER_FUNC_FIND_DIR_TAIL)));
     setComBoBoxData(ui->cmbFunDirection,boxDatas);
     ui->cmbFunDirection->setCurrentText(GlobalData::LoadLanguageInfo("K1813"));
 
     boxDatas.clear();
-    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("0°"),"0"));
-    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("180°"),"180"));
+    boxDatas.push_back(ComboxData("0°", QString::number(TestPaperModel::PAPER_SHOW_DRAGE_0)));
+    boxDatas.push_back(ComboxData("180°",QString::number(TestPaperModel::PAPER_SHOW_DRAGE_180)));
     setComBoBoxData(ui->cmbRotate,boxDatas);
-    ui->cmbRotate->setCurrentText(GlobalData::LoadLanguageInfo("0°"));
+    ui->cmbRotate->setCurrentText("0°");
 }
 
 void TestPaper::setComBoBoxData(QComboBox *cmb, const QVector<ComboxData> &datas)
@@ -871,7 +883,8 @@ void TestPaper::setComBoBoxData(QComboBox *cmb, const QVector<ComboxData> &datas
 void TestPaper::uiCtlSet(const int itemCount)
 {
     int data{ui->cmbPaperType->currentData().toInt()};
-    if(data==2)
+    // 0为连续膜条
+    if(data == TestPaperModel::PAPER_TYPE_SEGMENT)
     {
         ui->gridLayout_3->setContentsMargins(0,0,0,0);
         ui->lblItemNum->setText(GlobalData::LoadLanguageInfo("K1127"));
@@ -948,7 +961,7 @@ void TestPaper::slotCmbCompanyTextChanged(const QString &text)
     //调用接口,实验流程
     for(ProcessModel &model : processVect)
     {
-        boxDatas.push_back(ComboxData(model.getProcessName(), model.getProcessName()));
+        boxDatas.push_back(ComboxData(model.getProcessName(), QString::number(model.getId())));
     }
     setComBoBoxData(ui->cmbProcess,boxDatas);
 }

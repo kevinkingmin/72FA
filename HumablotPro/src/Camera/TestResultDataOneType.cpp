@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QSqlQuery>
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/DAO/baseSet/JudgeDao.h"
+#include "../Include/Model/result/JudgeRules.h"
 #include "src/main/subDialog/MyMessageBox.h"
 #include "src/comm/GlobalData.h"
 
@@ -246,53 +248,18 @@ void TestResultDataOneType::InitTableWidget_Data()//初始化状态列表
 		strRel = "";
         while (TestDataQuery.next())
 		{
-            //strItemName = TestDataQuery.value("ItemName").toString();
-            //dRatioToCut = TestDataQuery.value("RatioToCut").toDouble();
 			strItemName = TestDataQuery.value("projectName").toString();
 			dRatioToCut = TestDataQuery.value("cutGrayValue").toDouble();
 			testResult = TestDataQuery.value("testResult").toString();
 			paperId = TestDataQuery.value("paperId").toInt();
-			//旧的显示方式
-			//if (dRatioToCut > 1 && strItemName != "FC" && strItemName != "Cut")
-			//{
-			//	strRel += strItemName;
-			//	strRel += "(";
-			//	strRel += QString::number((dRatioToCut - 1) * 100, 'f', 0);
-			//	strRel += "%)  ";
-			//}
-			//新的显示方式
-			//if (strItemName != "FC" && strItemName != "Cut")
-			//{
-			//	strRel += strItemName;
-			//	strRel += "(";
-			//	strRel += testResult;
-			//	strRel += ")  ";
-			//}
 			if (strItemName != "FC" && strItemName != "Cut")
 			{
-				//根据strItemName查出项目判断规制RulesId，
-				//select * from t_judge_rules where RulesId = (select RulesId from titem where itemName = 'Nucleosomes' and TestPaperID = 1)
-				QString sql = "";
-				//sql = "select * from t_judge_rules where RulesId = (select RulesId from titem where itemName = '" + strItemName + "' and TestPaperID=" + paperId + "";
-				sql.sprintf("select * from t_judge_rules where RulesId = (select RulesId from titem where itemName = '%s' and TestPaperID =%d ) order by GrayValue asc", strItemName.toUtf8().data(), paperId);
-				auto JudgeRulesQuery = dao->SelectRecord(&bResult, sql);
-				QMap<double, QString> mapJudgeRules;
+                //根据strItemName查出项目判断规制RulesId，
+                QMap<double, QString> mapJudgeRules = JudgeDao::instance()->getJudgeValueMap(strItemName, paperId);
 				testResult = "";
-				while (JudgeRulesQuery.next())
-				{
-					double grayValue = JudgeRulesQuery.value("GrayValue").toDouble();
-					QString grayWord = JudgeRulesQuery.value("GrayWord").toString();
-					mapJudgeRules.insert(grayValue, grayWord);
-				}
 				QList<double> key_list;
 				QList<QString> value_list;
 				QMap<double, QString>::Iterator it = mapJudgeRules.begin();
-				//while (it != mapJudgeRules.end())
-				//{
-				//	key_list.push_back(it.key());
-				//	value_list.push_back(it.value());
-				//	it++;
-				//}
 				int tmp_i = 0;
 				while (it != mapJudgeRules.end())
 				{

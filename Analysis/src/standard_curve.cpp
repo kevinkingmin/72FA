@@ -23,7 +23,6 @@
 #include <QRandomGenerator>
 #include <numeric>
 #include <QDebug>
-#include "../BLL/src/baseSet/ItemBll.h"
 #include "../Include/Model/sample/SampleTestModel.h"
 #include "../Include/Utilities/log.h"
 

@@ -52,4 +52,4 @@ private:
     QString _ItemFullName; // 项目全称
 };
 
-#endif // ITEMMODEL_H
+#endif

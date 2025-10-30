@@ -41,8 +41,7 @@ public:
 	bool InsertSystemSet(QString strID,QString strsaveDes);
 	bool UpdateSystemSet(QString strID,QString strsaveDes);
 	bool UpdateSystemDes(QString strID, QString strsaveDes);
-	bool UpdateSystemSetId5(QString strID, QString strsaveDes);
-	QSqlQuery SelectRulues(bool *bResult);
+    bool UpdateSystemSetId5(QString strID, QString strsaveDes);
     QSqlQuery SelectTestPapers(QString strCompany_ID, bool *bResult);
 	QString GetTestPaper_ID(QString strCompany_ID, QString strTestPaperName, bool *bResult);
     QSqlQuery SelectTestPaperIDs(QString strProjectName, bool *bResult);
@@ -50,8 +49,6 @@ public:
 
 	//查询sample_test表中数据量
 	QString SelectSampleTestTotalNumber(QString test_id);
-
-	QMap<int, QString> SelectAllWord(bool *bResult);
 
 	//结果数据表中总数量
 	QString SelectTotalNumber(int paper_id, QString start_time, QString end_time);
@@ -199,14 +196,10 @@ public:
 		//UpdateTargetValue(bool *bResult, QString id, QString value);
         QString  createLISData(const QString &testId, const int companyId);
 		int getPaperItemCountBySampleId(const int pkid);
-		QSqlRecord getSampleByPkid(const int pkid,bool &ret);
-		QString getItemCHName(const QString &itemName,const int paperId);
+        QSqlRecord getSampleByPkid(const int pkid,bool &ret);
         bool updateTestResult(const QVector<QVector<QString>> &testResult);
 		QString convetItemCutValue(const int companyId, const QString &itemName, const double &cutValue);
 private:
-        QMap<QString, QVector<JudgeRules>> getPaperJudgeRules(const int paperId);
-        QMap<int, QVector<JudgeRules> > convertGrayRadio();
-        std::tuple<QString, QString> getConvertPara(QVector<JudgeRules>&judgeRulesVect, const double &dRatioToCut, const int paperId);
 private:
         QVector<int> m_paperIdVect;
 		int m_count_i = 0;

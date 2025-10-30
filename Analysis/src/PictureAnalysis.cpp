@@ -10,6 +10,8 @@
 #include"iostream"
 #include "../Include/DAO/Analysis/AnalysisDao.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/DAO/baseSet/JudgeDao.h"
+#include "../Include/Model/result/JudgeRules.h"
 #include "../Include/Utilities/log.h"
 #include "Wave_Low_Top_Info.h"
 #include <opencv2/opencv.hpp>
@@ -23,8 +25,8 @@
 #include <QRandomGenerator>
 #include <numeric>
 #include <QDebug>
-#include "../BLL/src/baseSet/ItemBll.h"
 #include "../Include/Model/sample/SampleTestModel.h"
+#include "../Include/Model/result/JudgeRules.h"
 #include "../Include/Utilities/log.h"
 #include "standard_curve.h"
 
@@ -1851,19 +1853,8 @@ struct DataPoint {
 
 QString PictureAnalysis::CaculateResultText(double dItemGrayRatio, QString itemName, int paper_id,int error_code)
 {
-    bool bResult = true;
-    auto dao = AnalysisUIDao::instance();
-    QString sql = "";
-    sql.sprintf("select * from t_judge_rules where RulesId = (select RulesId from titem where itemName = '%s' and TestPaperID =%d ) order by GrayValue asc", itemName.toUtf8().data(), paper_id);
-    auto JudgeRulesQuery = dao->SelectRecord(&bResult, sql);
     QString testResult = "";
-    QMap<double, QString> mapJudgeRules;
-    while (JudgeRulesQuery.next())
-    {
-        double grayValue = JudgeRulesQuery.value("GrayValue").toDouble();
-        QString grayWord = JudgeRulesQuery.value("GrayWord").toString();
-        mapJudgeRules.insert(grayValue, grayWord);
-    }
+    QMap<double, QString> mapJudgeRules = JudgeDao::instance()->getJudgeValueMap(itemName, paper_id);
     QList<double> key_list;
     QList<QString> value_list;
     QMap<double, QString>::Iterator it = mapJudgeRules.begin();

@@ -9,6 +9,7 @@
 #include <QTextCodec>
 #include "../Include/Utilities/log.h"
 #include "../Include/Model/baseSet/ProcessParaModel.h"
+#include "../Include/DAO/baseSet/JudgeDao.h"
 
 #pragma execution_character_set("utf-8")
 AnalysisUIDao::AnalysisUIDao()
@@ -522,28 +523,6 @@ QVector<QString> AnalysisUIDao::SelectAllCreateDay(bool *bResult) {
     return _vect;
 }
 
-//按顺序查询出来所有的符号
-QMap<int, QString> AnalysisUIDao::SelectAllWord(bool *bResult) {
-    QMap<int, QString> _wordMap;
-    QSqlQuery query;
-    if (DAO::createQuery(query) < 0)
-        return _wordMap;
-    QString sqlStr = QString("select * from t_judge_rules");
-    if (!query.exec(sqlStr))
-        return _wordMap;
-    QMap<int, QString> tempVect;
-    _wordMap.swap(tempVect);
-    int pkid = 0;
-    QString paras = "";
-    while (query.next())
-    {
-        pkid = query.value("pkid").toInt();
-        paras = query.value("GrayWord").toString();
-        _wordMap.insert(pkid, paras);
-    }
-    return _wordMap;
-}
-
 QVector<ProcessParaModel> AnalysisUIDao::MProcessPara(bool *bResult, int company_id) {
 
     QVector<ProcessParaModel>_vect;
@@ -632,7 +611,6 @@ QString AnalysisUIDao::createLISData(const QString &testId, const int companyId)
     int paperId(0);
     QString MSH = SelectTargetValueDes(&bResult, "9999");
     MSH=MSH.isEmpty()?"MSH |^ |||||":MSH;
-    QMap<QString, QVector<JudgeRules>>judgeRulesMap{};
     while (TestDataQuery.next())
     {
         QString id = TestDataQuery.value("sampleNo").toString();
@@ -644,8 +622,7 @@ QString AnalysisUIDao::createLISData(const QString &testId, const int companyId)
         }
 		if (paperId != TestDataQuery.value("paperId").toInt())
 		{
-			paperId = TestDataQuery.value("paperId").toInt();
-			judgeRulesMap = getPaperJudgeRules(paperId);
+            paperId = TestDataQuery.value("paperId").toInt();
 		}
         QString projectName = TestDataQuery.value("projectName").toString();
         QString cutGrayValue = convetItemCutValue(companyId, projectName,TestDataQuery.value("cutGrayValue").toDouble());
@@ -692,23 +669,6 @@ QSqlRecord AnalysisUIDao::getSampleByPkid(const int pkid, bool &ret)
 	return query.record();
 }
 
-QString AnalysisUIDao::getItemCHName(const QString &itemName, const int paperId)
-{
-	QSqlQuery query;
-	if (DAO::createQuery(query) < 0)
-		return "";
-	QString sqlStr = QString("select * from titem where TestPaperID=%1 and itemName='%2'").arg(paperId).arg(itemName);
-	if (!query.exec(sqlStr))
-		return "";
-	if (query.next())
-	{
-		if (query.value("chItemName").isNull())
-			return "";
-		return query.value("chItemName").toString();
-	}
-    return "";
-}
-
 bool AnalysisUIDao::updateTestResult(const QVector<QVector<QString> > &testResult)
 {
     QSqlQuery query;
@@ -740,131 +700,6 @@ QString AnalysisUIDao::convetItemCutValue(const int companyId, const QString & i
 			outValue = "＜100";
 	}
 	return outValue;
-}
-
-QMap<QString, QVector<JudgeRules> > AnalysisUIDao::getPaperJudgeRules(const int paperId)
-{
-    QMap<QString, QVector<JudgeRules>>outMap{};
-    QSqlQuery query;
-    if (DAO::createQuery(query) < 0)
-        return outMap;
-
-    auto judgeRulesMap{convertGrayRadio()};
-    QString strSql = "SELECT * FROM titem WHERE TestPaperID=" + QString::number(paperId);
-    if(!query.exec(strSql))
-        return outMap;
-
-    while (query.next())
-    {
-        int RulesId{ query.value("RulesId").toInt() };
-        auto it{ judgeRulesMap.find(RulesId) };
-        if (it == judgeRulesMap.end())
-            continue;
-        outMap.insert(query.value("itemName").toString(), it.value());
-    }
-    return outMap;
-}
-
-QMap<int, QVector<JudgeRules> > AnalysisUIDao::convertGrayRadio()
-{
-    QMap<int,QVector<JudgeRules>>judgeMap{};
-    QSqlQuery query;
-    if (DAO::createQuery(query) < 0)
-        return judgeMap;
-    QString strSql("SELECT * FROM t_judge_rules order by RulesId,GrayValue asc;");
-    if (!query.exec(strSql))
-        return judgeMap;
-
-    while (query.next())
-    {
-        JudgeRules m;
-        m.setpkid(query.value("pkid").toInt());
-        auto ruleId{query.value("RulesId").toInt()};
-        m.setRulesId(ruleId);
-        m.setGrayValue(query.value("GrayValue").toDouble());
-        m.setGrayWord(query.value("GrayWord").toString());
-        auto it{judgeMap.find(ruleId)};
-        if(it!=judgeMap.end())
-        {
-            it.value().push_back(m);
-            continue;
-        }
-        judgeMap.insert(ruleId,{m});
-    }
-    QVector<double>targetValues{4.99,10.0,40.0,70.0,100.0};
-    for(auto it=judgeMap.begin();it!=judgeMap.end();it++)
-    {
-        auto &judgeVect{it.value()};
-        if(judgeVect.size()!=5)
-            continue;
-        double preValue{0};
-        double preTarget{0};
-        int count{judgeVect.count()};
-        for(int i=0;i<count;i++)
-        {
-            auto &m{judgeVect[i]};
-            double grayDV{m.getGrayValue()-preValue};
-            if (grayDV-0.00000006 <= 0)
-            {
-                eLog("grayDV is error!");
-                continue;
-            }
-            double targetDV=targetValues[i]-preTarget;
-            if (targetDV - 0.00000006 <= 0)
-            {
-                eLog("targetDV is error!");
-                continue;
-            }
-            double coff{targetDV/grayDV};
-            m.setConvertCoff(coff);//即转化系数
-            m.setConvertAdd(preTarget);
-            if(i<count-1)
-            {
-                preValue=m.getGrayValue()+0.00001;
-                preTarget=targetValues[i]+0.01;
-            }
-            else
-            {
-                preValue=m.getGrayValue();
-                preTarget=targetValues[i];
-            }
-        }
-    }
-    return judgeMap;
-}
-
-std::tuple<QString, QString> AnalysisUIDao::getConvertPara(QVector<JudgeRules> &judgeRulesVect, const double &dRatioToCut, const int paperId)
-{
-    std::sort(judgeRulesVect.begin(),judgeRulesVect.end(),[](JudgeRules &a,JudgeRules &b)
-    {
-        return b.getGrayValue()>a.getGrayValue();
-    });
-
-    int index{-1};
-    for(int i=0;i<judgeRulesVect.count();i++)
-    {
-        auto grayValue{ judgeRulesVect.at(i).getGrayValue() };
-        if(grayValue > dRatioToCut)
-        {
-            index=i;
-            break;
-        }
-    }
-
-    if (index < 0)
-        return std::tuple<QString, QString>("", "");
-    double preGrayValue(0);
-    if (index > 0)
-        preGrayValue = judgeRulesVect.at(index-1).getGrayValue()+0.00001;
-    auto m(judgeRulesVect.at(index));
-    QString strCovertRatioCut = QString::number(dRatioToCut,'f',5);
-    if (m_paperIdVect.contains(paperId))
-    {
-        auto covertRatioCut = (dRatioToCut - preGrayValue) *m.getConvertCoff() + m.getConvertAdd();
-        strCovertRatioCut = QString::number(covertRatioCut, 'f', 2);
-    }
-    //return std::tuple<QString, QString>(strCovertRatioCut, m.getDisplayWord());
-    return std::tuple<QString, QString>(strCovertRatioCut, m.getGrayWord());
 }
 
 ///通过膜条类型来读取耗时时间
@@ -1551,20 +1386,6 @@ bool AnalysisUIDao::InsertTestPaperItem(
     return bResult;
 
 }
-QSqlQuery AnalysisUIDao::SelectRulues(bool *bResult)
-{
-    QSqlQuery query;
-    if (DAO::createQuery(query) < 0)
-    {
-        *bResult = false;
-        return query;
-    }
-    QString strSql;
-    strSql = "select * from t_judge_rules_name order by pkid";
-    *bResult = query.exec(strSql);
-    return query;
-}
-
 
 ///
 ///

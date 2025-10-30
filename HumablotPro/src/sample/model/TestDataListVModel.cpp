@@ -124,10 +124,11 @@ QVariant TestDataListVModel::data(const QModelIndex &index, int role) const
 			break;
         case 3:
         {
-			auto paper = TestPaperBLL().getRowById(pm->getPaperId());
-            if(paper.isNull())
+            TestPaperModel paper;
+            bool result = TestPaperBLL().getRowById(pm->getPaperId(), paper);
+            if(!result)
                 return "";
-            return paper->getPaperName();
+            return paper.getPaperName();
 			break;
         }
         case 4:

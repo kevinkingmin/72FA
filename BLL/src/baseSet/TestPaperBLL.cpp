@@ -11,51 +11,37 @@ TestPaperBLL::TestPaperBLL()
 {
 }
 
-QVector<TestPaperBLL::ptrModel> TestPaperBLL::getRowsByCompanyId(int companyId)
+QVector<TestPaperModel> TestPaperBLL::getOnUsedRowsByCompanyId(int companyId)
 {
     auto vect=_dao->getAllRows();
-    QVector<ptrModel>outVect;
+    QVector<TestPaperModel>outVect;
     for(auto it:vect)
     {
-        if(it->getCompanyId()==companyId)
+        if(it.getCompanyId()==companyId && !it.isPaperHide())
             outVect.push_back(it);
     }
+    // 使用 lambda 表达式对属性进行排序
+    std::sort(outVect.begin(), outVect.end(), [](TestPaperModel &a, TestPaperModel &b) {
+        return a.getPaperSortIdxOnUi() < b.getPaperSortIdxOnUi();
+    });
     return outVect;
 }
 
-// 比较函数，用于按照对象的属性进行排序
-bool TestPaperBLL::compareObjects1(const ptrModel &obj1, const ptrModel &obj2) {
-    return obj1->getPaperSortIdxOnUi() < obj2->getPaperSortIdxOnUi(); // 这里假设您希望按照property属性升序排序
-}
-
-QVector<TestPaperBLL::ptrModel> TestPaperBLL::getOnUsedRowsByCompanyId(int companyId)
-{
-    auto vect=_dao->getAllRows();
-    QVector<ptrModel>outVect;
-    for(auto it:vect)
-    {
-        if(it->getCompanyId()==companyId && !it->isPaperHide())
-            outVect.push_back(it);
-    }
-	// 使用 lambda 表达式对属性进行排序
-	std::sort(outVect.begin(), outVect.end(), [](const ptrModel &a, const ptrModel &b) {
-        return a->getPaperSortIdxOnUi() < b->getPaperSortIdxOnUi();
-	});
-    return outVect;
-}
-
-QVector<TestPaperBLL::ptrModel> TestPaperBLL::getAllRows()
+QVector<TestPaperModel> TestPaperBLL::getAllRows()
 {
     return _dao->getAllRows();
 }
 
-TestPaperBLL::ptrModel TestPaperBLL::getRowById(int id)
+bool TestPaperBLL::getRowById(int id, TestPaperModel& out)
 {
     auto vect=_dao->getAllRows();
     for(auto it:vect)
     {
-        if(it->getId()==id)
-            return it;
+        if(it.getId()==id)
+        {
+            out = std::move(it);
+            return true;
+        }
     }
-    return nullptr;
+    return false;
 }

@@ -48,35 +48,32 @@ RulesSetting::~RulesSetting()
 
 void RulesSetting::tbRuleLoadData()
 {
-    if(m_isRule)//调用接口,规则(目前用的是老的接口)
+    if(m_isRule)
     {
-        bool bResult = true;
-        QSqlQuery ruleQuery = AnalysisUIDao::instance()->SelectRulues(&bResult);
-        if (bResult == false)
-        {
-            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1275"), MyMessageBox::Ok,"OK","");
-            return;
-        }
+        QVector<JudgeRules> rules = JudgeDao::instance()->getAllRows();
+        qDebug()<<"tbRuleLoadData count"<<rules.count();
         int row = 0;
-        while (ruleQuery.next())
+        for(JudgeRules& r : rules)
         {
             ui.tbRule->insertRow(row);
-            addRuleContent(row, 0, GlobalData::LoadLanguageInfo(ruleQuery.value("RuleName").toString()));
-            addRuleContent(row,1,ruleQuery.value("pkid").toString());
+            addRuleContent(row, 0, r.getRuleName());
+            addRuleContent(row, 1, QString::number(r.getpkid()));
             row++;
         }
         ui.tbRule->selectRow(0);
-        //ui.tbRule->setCurrentCell(0, 0, QItemSelectionModel::Select);
+        int intRow = ui.tbRule->currentRow();
+        qDebug()<<"tbRuleLoadData id"<<ui.tbRule->item(intRow,1)->text().simplified();
     }
     else
     {
-        QSqlQuery ruleQuery;//调用接口,曲线
+        //调用接口,曲线
+        QVector<StandaryCurveModel> curves = StandardCurveDao::instance()->getAllRows();
         int row = 0;
-        while (ruleQuery.next())
+        for(StandaryCurveModel& curve : curves)
         {
             ui.tbRule->insertRow(row);
-            addRuleContent(row, 0, ruleQuery.value("").toString());//曲线名
-            addRuleContent(row,1,ruleQuery.value("").toString());//id
+            addRuleContent(row, 0, curve.getCurveName());//曲线名
+            addRuleContent(row, 1, QString::number(curve.getCurveId()));//id
             row++;
         }
         ui.tbRule->selectRow(0);
@@ -85,26 +82,28 @@ void RulesSetting::tbRuleLoadData()
 
 void RulesSetting::tbRuleItemLoadData(const QString &id)
 {
-    int row = 0;
     bool bResult = true;
+    qDebug()<<"tbRuleItemLoadData m_isRule"<<m_isRule;
     if(m_isRule)//调用接口,规则数据(目前用的是老的接口)
     {
         ui.tbRuleItem->setRowCount(0);
-        QString sql = "select * from t_judge_rules where RulesId ='"+id+"' order by GrayValue asc";
-        QSqlQuery ruleItemQuery = AnalysisUIDao::instance()->SelectRecord(&bResult, sql);
+        JudgeDao* judgeDao = JudgeDao::instance();
+        bResult = judgeDao->getModel(id.toInt(), _ruleModel);
+        qDebug()<<"tbRuleItemLoadData m_isRule"<<_ruleModel.parameterToStr();
         if (bResult == false)
         {
             MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
             return;
         }
-        while (ruleItemQuery.next())
+
+        QVector<JudgeRules::ParameterStrt> parameters = _ruleModel.getParameter();
+        for(int i = 0; i < parameters.count(); i++)
         {
-            ui.tbRuleItem->insertRow(row);
-            addRuleItemContent(row, 0, QString::number(row + 1));
-            addRuleItemContent(row, 1, ruleItemQuery.value("GrayValue").toString());
-            addRuleItemContent(row, 2, ruleItemQuery.value("GrayWord").toString());
-            addRuleItemContent(row, 3, ruleItemQuery.value("pkid").toString());
-            row++;
+            ui.tbRuleItem->insertRow(i);
+            addRuleItemContent(i, 0, QString::number(i+1));
+            addRuleItemContent(i, 1, QString::number(parameters[i]._v, 'f', 2));
+            addRuleItemContent(i, 2, parameters[i]._k);
+            addRuleItemContent(i, 3, "0");
         }
     }
     else
@@ -115,16 +114,31 @@ void RulesSetting::tbRuleItemLoadData(const QString &id)
         }
         ui.tbRuleItem->setRowCount(0);
         m_isCurveData=true;
-        QSqlQuery curveItemQuery;//调用接口,曲线数据
-        m_cmbBox->setCurrentText("");//调用接口,线性或四参数
-        while (curveItemQuery.next())
+        StandardCurveDao* curveDao = StandardCurveDao::instance();
+        qDebug()<<"curve id"<<id;
+        bResult = curveDao->getModel(id.toInt(), _curveModel);
+        if (bResult == false)
         {
-            ui.tbRuleItem->insertRow(row);
-            addRuleItemContent(row, 0, curveItemQuery.value("").toString());//a、b、c、d
-            addRuleItemContent(row, 1, curveItemQuery.value("").toString());//a、b、c、d 对应值
-            addRuleItemContent(row, 2, "");
-            addRuleItemContent(row, 3, curveItemQuery.value("pkid").toString());//id
-            row++;
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+        // 设置拟合方式
+        m_cmbBox->setCurrentText(_curveModel.getCurveType()==0?GlobalData::LoadLanguageInfo("K1816"):GlobalData::LoadLanguageInfo("K1817"));
+        QVector<double> param = _curveModel.getDataGroup();
+        QVector<QString> title = {"a", "b", "c", "d"};
+        qDebug()<<"param count"<<param.count();
+        if((_curveModel.getCurveType() == 0 && param.count()!=2) || (_curveModel.getCurveType() == 1 && param.count()!=4))
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+        for(int i = 0; i < param.count(); i++)
+        {
+            ui.tbRuleItem->insertRow(i);
+            addRuleItemContent(i, 0, title[i]);//a、b、c、d
+            addRuleItemContent(i, 1, QString::number(param[i]));//a、b、c、d 对应值
+            addRuleItemContent(i, 2, "");
+            addRuleItemContent(i, 3, "");
         }
         m_isCurveData=false;
     }
@@ -228,6 +242,19 @@ void RulesSetting::loadUIData(const bool isRule)
     m_isRule=isRule;
     ui.btnAddItem->setVisible(isRule);
     ui.btnDelete->setVisible(isRule);
+    if(isRule)
+    {
+        ui.btnAddRule->setText(GlobalData::LoadLanguageInfo("K1820"));
+        ui.btnDeleteRule->setText(GlobalData::LoadLanguageInfo("K1822"));
+        ui.label->setText(GlobalData::LoadLanguageInfo("K1022"));
+    }else
+    {
+        ui.label->setText(GlobalData::LoadLanguageInfo("K1836"));
+        ui.btnAddRule->setText(GlobalData::LoadLanguageInfo("K1834"));
+        ui.btnDeleteRule->setText(GlobalData::LoadLanguageInfo("K1835"));
+    }
+
+
     ui.tbRule->setRowCount(0);
     ui.tbRuleItem->setRowCount(0);
     initTbRule();
@@ -281,10 +308,11 @@ void RulesSetting::AddFitCurveItem()
         return;
     auto fitType=m_cmbBox->currentData().toInt();
     int rowCount=2;
-    if(fitType==2)
-        rowCount=4;
+    if(fitType==2) rowCount=4;
     while (ui.tbRuleItem->rowCount()>rowCount)
+    {
         ui.tbRuleItem->removeRow(rowCount);
+    }
     for(int i=ui.tbRuleItem->rowCount();i<rowCount;i++)
     {
         ui.tbRuleItem->insertRow(i);
@@ -303,7 +331,7 @@ void RulesSetting::AddFitCurveItem()
             addRuleItemContent(i,0,"d");
             break;
         }
-        addRuleItemContent(i, 1, "");
+        addRuleItemContent(i, 1, "0");
     }
 }
 
@@ -330,17 +358,42 @@ void RulesSetting::on_btnAddRule_clicked()
         strName=ui.tbRule->item(ui.tbRule->rowCount()-1,0)->text().simplified();
     getNumStr(strName);
     int newRowIndex = ui.tbRule->rowCount();
+    int newId = 0;
     ui.tbRule->insertRow(newRowIndex);
-    addRuleContent(newRowIndex,0,strName);
-    addRuleContent(newRowIndex,1,"0");
     if(m_isRule)
     {//调用接口,增加规则
-
+        JudgeDao* judgeDao = JudgeDao::instance();
+        JudgeRules rule;
+        rule.setRuleName(strName);
+        QVector<JudgeRules::ParameterStrt> paramStrt;
+        paramStrt.push_back(JudgeRules::ParameterStrt("-", 0));
+        paramStrt.push_back(JudgeRules::ParameterStrt("+", 10));
+        rule.setParameter(paramStrt);
+        bool success = judgeDao->insert(rule);
+        newId = rule.getpkid();
+        if(!success)
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1301"), MyMessageBox::Ok,"OK","");
+            return;
+        }
     }
     else
     {//调用接口,增加曲线
-
+        StandardCurveDao* standardDao = StandardCurveDao::instance();
+        StandaryCurveModel curve;
+        curve.setCurveName(strName);
+        curve.setCurveType(0);
+        curve.setDataGroup({1.0,1.0});
+        curve.setRemark("");
+        if(!standardDao->insert(curve))
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1301"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+        newId = curve.getCurveId();
     }
+    addRuleContent(newRowIndex, 0, strName);
+    addRuleContent(newRowIndex, 1, QString::number(newId));
     ui.tbRule->selectRow(ui.tbRule->rowCount()-1);
 }
 
@@ -355,25 +408,21 @@ void RulesSetting::on_tbRule_clicked(const QModelIndex &index)
 void RulesSetting::on_btnDeleteRule_clicked()
 {
     int row=ui.tbRule->currentRow();
-    if (row < 0)
-        return;
+    if (row < 0) return;
     auto ret=QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1260"),
                                       GlobalData::LoadLanguageInfo("K1801"),
                                       GlobalData::LoadLanguageInfo("K1181"),
                                       GlobalData::LoadLanguageInfo("K1134"));
-    if(ret!=0)
-        return;
+    if(ret!=0) return;
     QString id=ui.tbRule->item(row,1)->text().simplified();
-    QString sqlStr="delete from t_judge_rules where pkid = "+id+";";
     bool bResult = true;
-    auto dao = AnalysisUIDao::instance();
     if(m_isRule)//调用接口,删除规则(老接口)
     {
-        dao->SelectRecord(&bResult, sqlStr);
+        JudgeDao::instance()->deleteModel(id.toInt());
     }
     else
     {//调用接口,删除曲线
-
+        StandardCurveDao::instance()->deleteModel(id.toInt());
     }
     if(!bResult)
     {
@@ -381,21 +430,31 @@ void RulesSetting::on_btnDeleteRule_clicked()
                               GlobalData::LoadLanguageInfo("K1291"), MyMessageBox::Ok,"OK","");
         return;
     }
-    sqlStr = "insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('"+GlobalData::LoadLanguageInfo("K1658")+"','"+m_strMachineUID+"','"+GlobalData::LoadLanguageInfo("K1662")+"','"+GlobalData::getLoginName1()+"');";
+    auto dao = AnalysisUIDao::instance();
+    QString sqlStr = "insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('"+GlobalData::LoadLanguageInfo("K1658")+"','"+m_strMachineUID+"','"+GlobalData::LoadLanguageInfo("K1662")+"','"+GlobalData::getLoginName1()+"');";
     dao->SelectRecord(&bResult, sqlStr);
     ui.tbRule->removeRow(row);
 }
 
+// 增加规则条目, 新增条目默认填充为上一条的内容
 void RulesSetting::on_btnAddItem_clicked()
 {
-    if(!m_isRule)
-        return;
+    if(!m_isRule) return;
     int newRowIndex=ui.tbRuleItem->rowCount();
     ui.tbRuleItem->insertRow(newRowIndex);
-    addRuleItemContent(newRowIndex, 0, "");
-    addRuleItemContent(newRowIndex, 1, "");
-    addRuleItemContent(newRowIndex, 2, "");
-    addRuleItemContent(newRowIndex, 3, "");
+    if(newRowIndex == 0)
+    {
+        addRuleItemContent(newRowIndex, 0, QString::number(newRowIndex+1));
+        addRuleItemContent(newRowIndex, 1, "-");
+        addRuleItemContent(newRowIndex, 2, "0.1");
+        addRuleItemContent(newRowIndex, 3, "");
+    }else
+    {
+        addRuleItemContent(newRowIndex, 0, QString::number(newRowIndex+1));
+        addRuleItemContent(newRowIndex, 1, ui.tbRuleItem->item(newRowIndex-1, 1)->text().simplified());
+        addRuleItemContent(newRowIndex, 2, ui.tbRuleItem->item(newRowIndex-1, 2)->text().simplified());
+        addRuleItemContent(newRowIndex, 3, "");
+    }
 }
 
 void RulesSetting::on_btnSaveItem_clicked()
@@ -411,34 +470,81 @@ void RulesSetting::on_btnSaveItem_clicked()
 
     if(m_isRule)
     {//调用接口,保存规则项目
-
+        QVector<JudgeRules::ParameterStrt> parameter;
+        int rowCount = ui.tbRuleItem->rowCount();
+        for(int i = 0; i < rowCount; i++)
+        {
+            parameter.push_back(JudgeRules::ParameterStrt(
+                                    ui.tbRuleItem->item(i, 2)->text().simplified(),
+                                    ui.tbRuleItem->item(i, 1)->text().simplified().toDouble())
+                                );
+        }
+        if(_ruleModel.hasParameterDuplicates(parameter))
+        {
+            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180")
+                                     ,GlobalData::LoadLanguageInfo("K1283")
+                                     ,GlobalData::LoadLanguageInfo("K1181"));
+             return;
+        }
+        int currentRuleRow = ui.tbRule->currentRow();
+        QString ruleName =ui.tbRule->item(currentRuleRow, 0)->text().simplified();
+        _ruleModel.setRuleName(ruleName);
+        _ruleModel.setParameter(parameter);
+        qDebug()<<"ruleName"<<ruleName;
+        qDebug()<<"update id"<<_ruleModel.getpkid();
+        if(!JudgeDao::instance()->update(_ruleModel))
+        {
+            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180")
+                                     ,GlobalData::LoadLanguageInfo("K1283")
+                                     ,GlobalData::LoadLanguageInfo("K1181"));
+            return;
+        }
+        QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180")
+                                 ,GlobalData::LoadLanguageInfo("K1378")
+                                 ,GlobalData::LoadLanguageInfo("K1181"));
     }
     else
     {//调用接口,保存曲线项目
-
+        QVector<double> parameter;
+        int rowCount = ui.tbRuleItem->rowCount();
+        for(int i = 0; i < rowCount; i++)
+        {
+            parameter.push_back(ui.tbRuleItem->item(i, 1)->text().simplified().toDouble());
+        }
+        int currentRuleRow = ui.tbRule->currentRow();
+        QString curveName =ui.tbRule->item(currentRuleRow, 0)->text().simplified();
+        int curveType = m_cmbBox->currentText() == GlobalData::LoadLanguageInfo("K1816")?0:1;
+        _curveModel.setCurveType(curveType);
+        _curveModel.setCurveName(curveName);
+        _curveModel.setDataGroup(parameter);
+        qDebug()<<"curveName"<<curveName;
+        qDebug()<<"update id"<<_curveModel.getCurveId();
+        if(!StandardCurveDao::instance()->update(_curveModel))
+        {
+            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180")
+                                     ,GlobalData::LoadLanguageInfo("K1283")
+                                     ,GlobalData::LoadLanguageInfo("K1181"));
+            return;
+        }
+        QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180")
+                                 ,GlobalData::LoadLanguageInfo("K1378")
+                                 ,GlobalData::LoadLanguageInfo("K1181"));
     }
 }
 
 void RulesSetting::on_btnDelete_clicked()
 {
-    if(!m_isRule)
-        return;
+    if(!m_isRule) return;
     int row=ui.tbRuleItem->currentRow();
-    if(row<0)
-        return;
+    if(row<0) return;
 	auto item = ui.tbRuleItem->item(row, 3);
-	if (item == nullptr)
-		return;
+    if (item == nullptr) return;
     auto ret=QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1260"),
                                       GlobalData::LoadLanguageInfo("K1801"),
                                       GlobalData::LoadLanguageInfo("K1181"),
                                       GlobalData::LoadLanguageInfo("K1134"));
-	if (ret != 0)
-		return;
+    if (ret != 0) return;
 	QString id = item->text();
-    //调用接口,删除项目数据
-	
-
 	ui.tbRuleItem->removeRow(row);
 }
 

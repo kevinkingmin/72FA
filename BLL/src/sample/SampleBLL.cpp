@@ -113,8 +113,8 @@ bool SampleBLL::insertModel(ptrSample pm, QVector<ptrTest> &tests)
         for(auto item:itemVect)
         {
             ResultSct r;
-            r.itemId=item->getID();
-            r.orderNo=item->getPositionNo();
+            r.itemId=item.getID();
+            r.orderNo=item.getPositionNo();
             resultVect.push_back(r);
         }
         //it->setResultVect(resultVect);

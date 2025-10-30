@@ -22,20 +22,16 @@ private:
     ItemDao &operator=(const ItemDao&)=delete;
     ItemDao &operator=(ItemDao&&)=delete;
 
-    using ptrModel= QSharedPointer<ItemModel>;
     friend Singleton<ItemDao>;
-    void queryBindValue(QSqlQuery &query, ItemModel &m);
-    void equalToPoint(ptrModel pm, ItemModel &m);
     void getTable();
 
 public:
     ~ItemDao();
     static ItemDao *instance();
-    QVector<ptrModel> getAllRows();
-	QList<TestResultModel> getAllRows_list(int paper_id);
+    QVector<ItemModel> selectItems(int paper_id);
     bool update(ItemModel &m);
+    bool insert(ItemModel &m);
 private:
-    QMap<int,ptrModel> _map;
 };
 
 #endif // ITEMDAO_H

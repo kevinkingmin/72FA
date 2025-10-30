@@ -44,6 +44,7 @@ SOURCES += \
         src/baseSet/RemarkModel.cpp \
         src/baseSet/SampleSenderModel.cpp \
         src/baseSet/SexModel.cpp \
+        src/baseSet/StandaryCurveModel.cpp \
         src/baseSet/SystemSetModel.cpp \
         src/baseSet/TestPaperModel.cpp \
         src/baseSet/WardModel.cpp \
@@ -78,6 +79,7 @@ HEADERS += \
         src/baseSet/RemarkModel.h \
         src/baseSet/SampleSenderModel.h \
         src/baseSet/SexModel.h \
+        src/baseSet/StandaryCurveModel.h \
         src/baseSet/SystemSetModel.h \
         src/baseSet/TestPaperModel.h \
         src/baseSet/WardModel.h \

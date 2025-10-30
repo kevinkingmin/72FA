@@ -8,14 +8,11 @@ class TestPaperDao;
 class BLLSHARED_EXPORT TestPaperBLL
 {
 public:
-    using ptrModel=QSharedPointer<TestPaperModel>;
+    //using ptrModel=QSharedPointer<TestPaperModel>;
     TestPaperBLL();
-
-	bool compareObjects1(const ptrModel &obj1, const ptrModel &obj2);
-    QVector<ptrModel> getRowsByCompanyId(int companyId);
-    QVector<ptrModel> getOnUsedRowsByCompanyId(int companyId);
-    QVector<ptrModel> getAllRows();
-    ptrModel getRowById(int id);
+    QVector<TestPaperModel> getOnUsedRowsByCompanyId(int companyId);
+    QVector<TestPaperModel> getAllRows();
+    bool getRowById(int id, TestPaperModel& out);
 
 private:
     TestPaperDao *_dao;

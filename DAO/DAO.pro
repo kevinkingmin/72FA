@@ -40,6 +40,7 @@ SOURCES += \
         src/baseSet/DiagnosisDao.cpp \
         src/baseSet/InstrumentParasSetDao.cpp \
         src/baseSet/ItemDao.cpp \
+        src/baseSet/JudgeDao.cpp \
         src/baseSet/ProcessDao.cpp \
         src/baseSet/ProcessParaDao.cpp \
         src/baseSet/ProcessParameterDao.cpp \
@@ -47,6 +48,7 @@ SOURCES += \
         src/baseSet/RemarkDao.cpp \
         src/baseSet/SampleSenderDao.cpp \
         src/baseSet/SexDao.cpp \
+        src/baseSet/StandardCurveDao.cpp \
         src/baseSet/SystemSetDao.cpp \
         src/baseSet/TestPaperDao.cpp \
         src/baseSet/WardDao.cpp \
@@ -70,6 +72,7 @@ HEADERS += \
         src/baseSet/DiagnosisDao.h \
         src/baseSet/InstrumentParasSetDao.h \
         src/baseSet/ItemDao.h \
+        src/baseSet/JudgeDao.h \
         src/baseSet/ProcessDao.h \
         src/baseSet/ProcessParaDao.h \
         src/baseSet/ProcessParameterDao.h \
@@ -77,6 +80,7 @@ HEADERS += \
         src/baseSet/RemarkDao.h \
         src/baseSet/SampleSenderDao.h \
         src/baseSet/SexDao.h \
+        src/baseSet/StandardCurveDao.h \
         src/baseSet/SystemSetDao.h \
         src/baseSet/TestPaperDao.h \
         src/baseSet/WardDao.h \

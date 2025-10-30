@@ -52,7 +52,7 @@ K1044|批量添加|Add in batch
 K1045|Scan|Scan
 K1046|下一步|Next
 K1047|上一步|Back
-K1048|位置|Position
+K1048|Cutoff线位置|Cutoff Position
 K1049|样本编号|Sample No.
 K1050|试管型号|Sample tube model
 K1051|病人姓名|Patient name
@@ -123,7 +123,7 @@ K1115|设置|Settings
 K1116|CutOff线阈值|Cutoff line threshold
 K1117|是否有CutOff线|Cutoff line available?
 K1118|功能线阈值|Function line threshold:
-K1119|功能条位置|Function bar location:
+K1119|功能线位置|Function bar location:
 K1120|是否有功能线|Function line available?
 K1121|颜色值|Color value
 K1122|毫米对应像素|Corresponding millimeter pixel
@@ -797,6 +797,9 @@ K1830|孵育|Incubation
 K1831|执行时间|Discharge liquid time
 K1832|报告信息|Report message
 K1833|风扇转速|
+K1834|新增曲线|
+K1835|删除曲线|
+K1836|标准曲线设置
 
 K9990|检测到多个条带|Multiple strips detected
 K9991|（检测到异常条带）|（Abnormal stripe detected）

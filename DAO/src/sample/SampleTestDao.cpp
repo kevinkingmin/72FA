@@ -6,7 +6,6 @@
 #include <QDate>
 #include "../Include/Utilities/log.h"
 #include "../Include/Comm/singleton.h"
-#include"../Include/BLL/baseSet/ItemBll.h"
 #include "../Include/Model/sample/SampleTestModel.h"
 
 SampleTestDao::SampleTestDao()
@@ -35,9 +34,6 @@ SampleTestDao *SampleTestDao::instance()
 ///
 void SampleTestDao::queryBindValue(QSqlQuery &query, SampleTestDao::ptrModel pm)
 {
-	//int paperid = pm->getPaperId();
-	//QList<TestResultModel> project_info_list1 = ItemBll().getItemInfoList(paperid);
-
     query.bindValue(":Id",pm->getId());
 	query.bindValue(":solutionName", pm->getSolutionName());
 	query.bindValue(":manageName", pm->getManageName());
@@ -62,9 +58,6 @@ void SampleTestDao::queryBindValue(QSqlQuery &query, SampleTestDao::ptrModel pm)
 
 void SampleTestDao::insertBindValue(QSqlQuery &query, SampleTestDao::ptrModel pm)
 {
-    //int paperid = pm->getPaperId();
-    //QList<TestResultModel> project_info_list1 = ItemBll().getItemInfoList(paperid);
-
     query.bindValue(":Id",pm->getId());
     query.bindValue(":solutionName", pm->getSolutionName());
     query.bindValue(":manageName", pm->getManageName());
@@ -89,9 +82,6 @@ void SampleTestDao::insertBindValue(QSqlQuery &query, SampleTestDao::ptrModel pm
 
 void SampleTestDao::editBindValue(QSqlQuery &query, SampleTestDao::ptrModel pm)
 {
-    //int paperid = pm->getPaperId();
-    //QList<TestResultModel> project_info_list1 = ItemBll().getItemInfoList(paperid);
-
     query.bindValue(":Id",pm->getId());
     query.bindValue(":solutionName", pm->getSolutionName());
     query.bindValue(":manageName", pm->getManageName());

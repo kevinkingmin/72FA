@@ -667,15 +667,16 @@ void TestSampleWidget::setPapersState()
         if (it.isNull())
             continue;
 
-        auto paper = TestPaperBLL().getRowById(it->getPaperId());
-        if (paper.isNull())
+        TestPaperModel paper;
+        bool result = TestPaperBLL().getRowById(it->getPaperId(), paper);
+        if (!result)
         {
             MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1428"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
             //eLog("找不到对应的膜条,paperId:{}", it->getPaperId());
             continue;
         }
-        lbl->setBgColor(paper->getPaperColorOnUi());
-        lbl->setText(paper->getPaperName());
+        lbl->setBgColor(paper.getPaperColorOnUi());
+        lbl->setText(paper.getPaperName());
     }
 }
 
@@ -1578,68 +1579,6 @@ void TestSampleWidget::on_btnSet_clicked()
     selectProcessMap = m_selectPDialog->getSeletedPGMap();
     QMap<int, QString>::iterator iter = selectProcessMap.begin();
     Global::g_run_or_maintenance_flage = 0;
-    /*if (selectProcessMap.count() == 1 && iter.value()== GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"))//"拍照")//K1608
-    {
-        //如果当前未运行结束，那么返回
-        if (state.state == InstrumentStateModel::enumRuning)
-        {
-            return;
-        }
-
-        bool b = SampleBLL().insertModel(_sampleTestTpVect);
-        if (!b)
-        {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1434"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-            //eLog("样本数据保存失败");
-            return;
-        }
-
-        _currentGroupId = 0;
-        _isNewTest = false;
-        m_errorAddSampleMap.clear();
-        m_errorAddSampleMap1.clear();
-
-        //_instrument->motorInitialize(0x05, 60000);
-
-        Sleep(100);
-        QString strExePath = QDir::currentPath();
-        QDateTime time = QDateTime::currentDateTime();
-        QString str = time.toString("yyyyMMdd");//("yyyy-MM-dd hh:mm:ss");
-        QString str1 = QString("[%1]    %2\n").arg(time.toString("yyyy-MM-dd hh:mm:ss.zzz")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1635"));//"摇床初始化");
-        QString filePath = QString("%1/log/%2/%3").arg(strExePath).arg(str).arg("摇床初始记录1.log");
-        //filePath = QString("%1/log/%2/%3").arg("D:/linshi/Y72/project2022042901/project/camera_project_Qt_Release/camera_project_Qt/Bin").arg(str).arg(fileName);
-        QFile file(filePath);
-        file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append);
-        file.write(str1.toUtf8());
-        file.close();
-        //_instrument->lightControl(12, 1);
-        Sleep(6000);
-        //qDebug("测试完成，正在测读"); //
-        //emit preper_save(this);//发送信号将指针传递给槽函数
-
-        auto dao = AnalysisUIDao::instance();
-        bool bResult;
-        int is_camera_open = dao->SelectSaveSetById(&bResult, 20008).toInt();
-        //如果不需要判读，改为
-        if (is_camera_open)
-        {
-            //m_run_paper_pos_thread->start();//开始线程
-            ui->lblProgress->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1583"));//"正在进行判读，请勿打开设备上盖。");
-        }
-        else
-        {
-            UpdateSlot(1);
-        }
-
-
-        return;
-        //ui->btnSet->setEnabled(false);//setVisible(false);
-        //ui->progressBar->setVisible(false);
-        ////写入结果表
-        //_timer->stop();
-        //直接调用拍照并且goto Next;
-        //goto Next;
-    }*/
 
     //这里用时较久
     bool b = SampleBLL().insertModel(_sampleTestTpVect);

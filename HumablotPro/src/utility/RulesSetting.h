@@ -5,6 +5,10 @@
 #include <QSqlTableModel>
 #include <QComboBox>
 #include "src/comm/CustomHeaderView.h"
+#include "../Include/DAO/baseSet/StandardCurveDao.h"
+#include "../Include/Model/baseSet/StandaryCurveModel.h"
+#include "../Include/DAO/baseSet/JudgeDao.h"
+#include "../Include/Model/result/JudgeRules.h"
 
 class Instrument;
 
@@ -48,4 +52,6 @@ private:
     QLabel             *m_lable;
     bool               m_isRule;
     bool               m_isCurveData;
+    StandaryCurveModel _curveModel;
+    JudgeRules _ruleModel;
 };

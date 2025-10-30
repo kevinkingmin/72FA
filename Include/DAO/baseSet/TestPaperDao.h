@@ -13,7 +13,7 @@ class QSqlQuery;
 class DAOSHARED_EXPORT TestPaperDao
 {
 private:
-    using ptrModel=QSharedPointer<TestPaperModel>;
+    //using ptrModel=QSharedPointer<TestPaperModel>;
     TestPaperDao();
     TestPaperDao(TestPaperDao &)=delete;
     TestPaperDao(TestPaperDao &&)=delete;
@@ -22,15 +22,20 @@ private:
 
     friend Singleton<TestPaperDao>;
 
-    void getTable();
-    void queryBindValue(QSqlQuery &query, ptrModel pm);
+    QVector<TestPaperModel> getModelFormQuery(QSqlQuery& query);
+//    void getTable();
+//    void queryBindValue(QSqlQuery &query, ptrModel pm);
 public:
     ~TestPaperDao();
     static TestPaperDao *instance();
     bool deleteById(int id);
-    QVector<ptrModel>getAllRows();
+    QVector<TestPaperModel>getAllRows();
+    QVector<QString> getAllNames();
+    bool getModel(const int paperId, TestPaperModel& out);
+    bool insert(TestPaperModel& model);
+    bool update(TestPaperModel& model);
 private:
-    QMap<int,ptrModel>_map;
+    //QMap<int,ptrModel>_map;
 };
 
 #endif // TESTPAPERDAO_H

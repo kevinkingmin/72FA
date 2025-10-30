@@ -70,10 +70,7 @@ public:
     int getReagentClass() const;
     void setReagentClass(const int &val);
 
-    bool getReagentBarCode(const QString &barCode);
-    bool getUniversalReagentBarCode(const QString &barCode);
-private:    
-    bool barCodeValidAndGet(const QString &barCode);
+private:
 private:
     QString _leader;
     int _barCodeType;//试剂、定标等

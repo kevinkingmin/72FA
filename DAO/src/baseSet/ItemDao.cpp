@@ -1,52 +1,32 @@
 ﻿#include "ItemDao.h"
 #include <QSqlQuery>
-//#include "../Include/Model/"
-
 
 ItemDao::ItemDao()
-    :_map{}
 {    
 }
 
-void ItemDao::getTable()
-{
-    QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-        return;
-    QString sqlStr="SELECT * FROM titem";
-    if(!query.exec(sqlStr))
-        return;
-    QMap<int,ptrModel> tempMap;
-    _map.swap(tempMap);
-    while (query.next())
-    {
-        ptrModel pm(new ItemModel);
-        pm->setID(query.value("ID").toInt());
-        pm->setTestPaperID(query.value("TestPaperID").toInt());
-        pm->setItemName(query.value("ItemName").toString());
-        pm->setPositionNo(query.value("PositionNo").toInt());
-        pm->setIsNull(query.value("IsNull").toInt()==0?false:true);
-        _map.insert(pm->getID(),pm);
-    }
-}
+//void ItemDao::getTable()
+//{
+//    QSqlQuery query;
+//    if(DAO::createQuery(query)<0)
+//        return;
+//    QString sqlStr="SELECT * FROM titem";
+//    if(!query.exec(sqlStr))
+//        return;
+//    QMap<int,ItemModel> tempMap;
+//    _map.swap(tempMap);
+//    while (query.next())
+//    {
+//        ItemModel item;
+//        item.setID(query.value("ID").toInt());
+//        item.setTestPaperID(query.value("TestPaperID").toInt());
+//        item.setItemName(query.value("ItemName").toString());
+//        item.setPositionNo(query.value("PositionNo").toInt());
+//        item.setIsNull(query.value("IsNull").toInt()==0?false:true);
+//        _map.insert(pm->getID(),pm);
+//    }
+//}
 
-void ItemDao::queryBindValue(QSqlQuery &query, ItemModel &m)
-{
-    query.bindValue(":ID",m.getID());
-    query.bindValue(":TestPaperID",m.getTestPaperID());
-    query.bindValue(":ItemName",m.getItemName());
-    query.bindValue(":PositionNo",m.getPositionNo());
-    query.bindValue(":IsNull",m.getIsNull()?1:0);
-}
-
-void ItemDao::equalToPoint(ItemDao::ptrModel pm, ItemModel &m)
-{
-    pm->setID(m.getID());
-    pm->setTestPaperID(m.getTestPaperID());
-    pm->setItemName(m.getItemName());
-    pm->setPositionNo(m.getPositionNo());
-    pm->setIsNull(m.getIsNull());
-}
 
 ItemDao::~ItemDao()
 {
@@ -57,28 +37,11 @@ ItemDao *ItemDao::instance()
     return Singleton<ItemDao>::instance();
 }
 
-QVector<ItemDao::ptrModel> ItemDao::getAllRows()
+QVector<ItemModel> ItemDao::selectItems(int paper_id)
 {
-    if(_map.isEmpty())
-        getTable();
-    QVector<ptrModel> outVect;
-    auto list = _map.values();
-    for(auto it:list)
-    {
-        auto m=*it;
-        ptrModel p(new ItemModel(std::move(m)));
-        outVect.push_back(p);
-    }
-	TestResultModel tr;
-    return outVect;
-}
-
-QList<TestResultModel> ItemDao::getAllRows_list(int paper_id)
-{
-	QList<TestResultModel> ptr_model_list;
+    QVector<ItemModel> itemVect;
 	QSqlQuery query;
-	if (DAO::createQuery(query) < 0)
-		return ptr_model_list;
+    if (DAO::createQuery(query) < 0) return itemVect;
 	QString sqlStr = "";
 	if (paper_id == -1)
 	{
@@ -86,47 +49,59 @@ QList<TestResultModel> ItemDao::getAllRows_list(int paper_id)
 	}
 	else
 	{
-		sqlStr.sprintf("SELECT * FROM titem where IsNull=0 and TestPaperID=%d", paper_id); // = "SELECT * FROM titem where TestPaperID=" + paper_id;
+        sqlStr.sprintf("SELECT * FROM titem where IsNull=0 and TestPaperID=%d", paper_id);
 	}
 	if (!query.exec(sqlStr))
-		return ptr_model_list;
+        return itemVect;
 	while (query.next())
 	{
-		TestResultModel tr;//= new TestResultModel();
+        ItemModel tr;
 		tr.setID(query.value("ID").toInt());
 		tr.setTestPaperID(query.value("TestPaperID").toInt());
-		tr.setItemName(query.value("ItemName").toString());
+        tr.setItemName(query.value("itemName").toString());
 		tr.setPositionNo(query.value("PositionNo").toInt());
+        tr.setCurveId(query.value("curveId").toInt());
+        tr.setRulesId(query.value("RulesId").toInt());
+        tr.setResultOffset(query.value("resultOffset").toDouble());
 		tr.setIsNull(query.value("IsNull").toInt() == 0 ? false : true);
-		//_map.insert(pm->getID(), pm);
-		ptr_model_list.push_back(tr);
+        tr.setItemFullName(query.value("itemFullName").toString());
+        itemVect.push_back(tr);
 	}
-	return ptr_model_list;
+    return itemVect;
 }
-
+// 更新数据
 bool ItemDao::update(ItemModel &m)
 {
     QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-        return false;
-    QString sqlStr="update titem set "
-                "TestPaperID=:TestPaperID,itemName=:itemName,PositionNo=:PositionNo,IsNull=:IsNull"
-                " where ID=:ID";
-    query.prepare(sqlStr);
-    queryBindValue(query,m);
-    if(!query.exec())
-        return false;
-    else
-    {
-        if(_map.keys().contains(m.getID()))
-        {
-            ptrModel pm(new ItemModel);
-            equalToPoint(pm, m);
-            _map.insert(m.getID(),pm);
-        }
-        else
-            getTable();
-        return true;
-    }
+    if(DAO::createQuery(query)<0) return false;
+    QString sqlStr=QString("update titem set TestPaperID=%1,itemName='%2',PositionNo=%3,curveId=%4,RulesId=%5,resultOffset=%6,position=%7,IsNull=%8,itemFullName='%9' where ID=%10")
+            .arg(m.getTestPaperID())
+            .arg(m.getItemName())
+            .arg(m.getPositionNo())
+            .arg(m.getCurveId())
+            .arg(m.getRulesId())
+            .arg(m.getResultOffset())
+            .arg(m.getPosition())
+            .arg(m.getIsNull()?1:0)
+            .arg(m.getItemFullName())
+            .arg(m.getID());
+    return query.exec();
+}
+// 插入新数据
+bool ItemDao::insert(ItemModel &m)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return false;
+    QString sqlStr=QString("INSERT INTO titem (TestPaperID,'itemName',PositionNo,curveId,RulesId,resultOffset,position,IsNull,'itemFullName') VALUES (%1,%2,%3,%4,%5,%6,%7,%8,%9)")
+            .arg(m.getTestPaperID())
+            .arg(m.getItemName())
+            .arg(m.getPositionNo())
+            .arg(m.getCurveId())
+            .arg(m.getRulesId())
+            .arg(m.getResultOffset())
+            .arg(m.getPosition())
+            .arg(m.getIsNull()?1:0)
+            .arg(m.getItemFullName());
+    return query.exec();
 }
 

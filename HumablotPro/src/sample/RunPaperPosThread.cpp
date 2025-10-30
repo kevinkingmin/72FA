@@ -20,7 +20,6 @@
 #include "../Include/BLL/sample/SampleBLL.h"
 #include "../Include/Model/sample/SampleTestModel.h"
 #include "../Include/BLL/baseSet/TestPaperBLL.h"
-#include "../Include/BLL/baseSet/ItemBll.h"
 #include "../Include/Model/baseSet/TestPaperModel.h"
 #include "../Include/Instrument/Instrument.h"
 #include "../Include/Model/baseSet/InstrumentStateModel.h"

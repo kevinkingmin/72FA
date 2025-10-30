@@ -1,5 +1,12 @@
 ﻿#include "TestPaperModel.h"
 
+const int TestPaperModel::PAPER_TYPE_CONTINUOUS = 0; // 连续膜条
+const int TestPaperModel::PAPER_TYPE_SEGMENT = 1; // 分段膜条
+const int TestPaperModel::PAPER_SHOW_DRAGE_0 = 0; // 膜条展示角度
+const int TestPaperModel::PAPER_SHOW_DRAGE_180 = 180; // 膜条展示角度
+const int TestPaperModel::PAPER_FUNC_FIND_DIR_HEAD = 0; // 功能线查找方向 头
+const int TestPaperModel::PAPER_FUNC_FIND_DIR_TAIL = 1; // 功能线查找方向 尾
+
 TestPaperModel::TestPaperModel()
     :_id(0)
     ,_companyId(0)
@@ -363,6 +370,16 @@ int TestPaperModel::getPaperSortIdxOnUi()
 void TestPaperModel::setPaperSortIdxOnUi(int paperSortIdxOnUi)
 {
     _paperSortIdxOnUi = paperSortIdxOnUi;
+}
+
+int TestPaperModel::getProcessId()
+{
+    return _processId;
+}
+
+void TestPaperModel::setProcessId(int processId)
+{
+    _processId = processId;
 }
 
 

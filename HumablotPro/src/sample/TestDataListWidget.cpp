@@ -16,7 +16,6 @@
 #include "../Include/BLL/sample/SampleBLL.h"
 #include "../Include/Model/sample/SampleTestModel.h"
 #include "../Include/BLL/baseSet/TestPaperBLL.h"
-#include "../Include/BLL/baseSet/ItemBll.h"
 #include "../Include/Model/baseSet/TestPaperModel.h"
 #include "../Include/Utilities/log.h"
 #include "src/main/subDialog/MyMessageBox.h"
@@ -74,15 +73,17 @@ void TestDataListWidget::setPapersState(QVector<ptrTest> listTestData)
         if (it.isNull())
             continue;
 
-        auto paper = TestPaperBLL().getRowById(it->getPaperId());
-        if (paper.isNull())
+
+        TestPaperModel paper;
+        bool result=TestPaperBLL().getRowById(it->getPaperId(),paper);
+        if (!result)
         {
             MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1428"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
             eLog("paper is null", it->getPaperId());
             continue;
         }
-        QString sz = QString("%1:%2:%3").arg(it->getSamplePos()).arg(paper->getPaperName()).arg(it->getRemark());//sampleNo
-        lbl->setBgColor(paper->getPaperColorOnUi());
+        QString sz = QString("%1:%2:%3").arg(it->getSamplePos()).arg(paper.getPaperName()).arg(it->getRemark());//sampleNo
+        lbl->setBgColor(paper.getPaperColorOnUi());
         lbl->setText(sz);
     }
 }

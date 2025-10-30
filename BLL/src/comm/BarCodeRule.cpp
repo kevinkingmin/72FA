@@ -1,6 +1,5 @@
 ﻿#include "BarCodeRule.h"
 #include <QDateTime>
-#include "src/baseSet/ItemBll.h"
 #include "../Include/Model/baseSet/ItemModel.h"
 #include "../Include/Utilities/log.h"
 
@@ -15,54 +14,6 @@ BarCodeRule::BarCodeRule()
     ,_reagentClass(0)
 {
 
-}
-
-bool BarCodeRule::barCodeValidAndGet(const QString &barCode)
-{    
-    if(barCode.length()<32)
-    {
-        eLog("条码长度不对，length:{},barCode:{}",barCode.length(),barCode.toStdString());
-        return false;
-    }
-    auto leader=barCode.mid(0,2);
-    if(leader.compare("HC",Qt::CaseInsensitive))//匹配不能功
-    {
-        eLog("条码解析失败,leader:{}",leader.toStdString());
-        return false;
-    }
-
-    _barCodeType=barCode.mid(2,2).toInt();
-    if(!_CodeTypeVect.contains(_barCodeType))
-    {
-        eLog("条码解析失败,codeType:{}",_barCodeType);
-        return false;
-    }
-
-    auto itemId=barCode.mid(4,5).toInt();
-    auto vect=ItemBll().getAllRows();
-    QVector<int>itemVect;
-    for(auto it:vect)
-        itemVect.push_back(it->getID());
-
-    if(!itemVect.contains(itemId))
-    {
-        eLog("条码解析失败,id:{}",itemId);
-        return false;
-    }
-    auto stability=QDateTime::fromString("20"+barCode.mid(24,6), "yyyyMMdd").toMSecsSinceEpoch();
-	if (stability <= 10000)
-	{
-		eLog("时间格式错误！！");
-		return false;
-	}
-
-    _leader=leader;
-    _ItemID=itemId;
-    _barCode=barCode.mid(9,10);
-    _stability=stability;
-    _serialnumber=barCode.mid(19,5);
-    _reagentClass=barCode.mid(30,1).toInt();
-    return true;
 }
 
 QString BarCodeRule::getLeader() const
@@ -133,64 +84,4 @@ int BarCodeRule::getReagentClass() const
 void BarCodeRule::setReagentClass(const int &val)
 {
     _reagentClass = val;
-}
-
-bool BarCodeRule::getReagentBarCode(const QString &barCode)
-{
-   if(!barCodeValidAndGet(barCode))
-       return false;
-
-   if(_barCodeType!=enumReagent)
-       return false;
-
-   if(_reagentClass!=enumR012 && _reagentClass!=enumR34)
-       return false;
-
-   return true;
-}
-
-bool BarCodeRule::getUniversalReagentBarCode(const QString &barCode)
-{
-
-    if(barCode.length()!=27)
-    {
-        eLog("条码长度不对，length:{},barCode:{}",barCode.length(),barCode.toStdString());
-        return false;
-    }
-
-    auto leader=barCode.mid(0,2);
-    if(leader.compare("HC",Qt::CaseInsensitive))//匹配不能功
-    {
-        eLog("条码解析失败,leader:{}",leader.toStdString());
-        return false;
-    }
-
-    _barCodeType=barCode.mid(2,2).toInt();
-    if(_barCodeType!=enumDiluent && _barCodeType!=enumSubstrate)
-    {
-        eLog("数据类型不对,type:{}",_barCodeType);
-        return false;
-    }
-
-    auto stability=QDateTime::fromString("20"+barCode.mid(19,6), "yyyyMMdd").toMSecsSinceEpoch();
-    if (stability <= 10000)
-    {
-        eLog("时间格式错误！！");
-        return false;
-    }
-
-    _leader=leader;
-    _ItemID=0;
-    _barCode=barCode.mid(4,10);
-    _stability=stability;
-    _serialnumber=barCode.mid(14,5);
-    _reagentClass=barCode.mid(25,1).toInt();
-
-    if(_barCodeType!=enumDiluent && _barCodeType!=enumSubstrate)
-        return false;
-
-    if(_reagentClass!=1 && _reagentClass!=2)
-        return false;
-
-    return true;
 }

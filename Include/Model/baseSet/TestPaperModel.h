@@ -6,6 +6,13 @@
 class MODELSHARED_EXPORT TestPaperModel
 {
 public:
+    static const int PAPER_TYPE_CONTINUOUS; // 连续膜条
+    static const int PAPER_TYPE_SEGMENT; // 分段膜条
+    static const int PAPER_SHOW_DRAGE_0; // 膜条展示角度
+    static const int PAPER_SHOW_DRAGE_180; // 膜条展示角度
+    static const int PAPER_FUNC_FIND_DIR_HEAD; // 功能线查找方向 头
+    static const int PAPER_FUNC_FIND_DIR_TAIL; // 功能线查找方向 尾
+
     TestPaperModel();
 
 
@@ -108,6 +115,9 @@ public:
     int getPaperSortIdxOnUi();
     void setPaperSortIdxOnUi(int paperSortIdxOnUi);
 
+    int getProcessId();
+    void setProcessId(int processId);
+
 
 private:
     int _id;
@@ -143,6 +153,7 @@ private:
     bool _isPaperHide; // UI上是否显示此膜条
     QString _articleNo; // 货号
     int _paperSortIdxOnUi; // UI上此膜条的排序
+    int _processId; // 流程id
 };
 
 #endif // TESTPAPERMODEL_H

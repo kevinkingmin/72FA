@@ -9,7 +9,6 @@
 #include "../Include/Comm/singleton.h"
 #include "../Include/Model/sample/SampleModel.h"
 #include "../Include/Model/sample/SampleTestModel.h"
-#include "../Include/BLL/baseSet/ItemBll.h"
 #include "../Include/Model/result/TestResultModel.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
 #include "../Include/DAO/Analysis/AnalysisDao.h"

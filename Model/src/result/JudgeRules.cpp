@@ -1,11 +1,13 @@
 ﻿#include "JudgeRules.h"
+#include <QJsonObject>
+#include <QJsonValue>
+#include <QJsonArray>
+#include <QJsonParseError>
+#include <QDebug>
 JudgeRules::JudgeRules()
     :_pkid(0)
-    ,_RulesId(0)
-    ,_GrayValue(0)
-    ,_GrayWord("")
-    ,_convertCoff(0)
-    ,_convertAdd(0)
+    ,_ruleName("")
+    ,_parameter({})
 {
 
 }
@@ -18,49 +20,76 @@ void JudgeRules::setpkid(int pkid)
 {
 	_pkid = pkid;
 }
-int JudgeRules::getRulesId() const
+
+QString JudgeRules::getRuleName() const
 {
-	return _RulesId;
-}
-void JudgeRules::setRulesId(int rulesId)
-{
-	_RulesId = rulesId;
+    return _ruleName;
 }
 
-double JudgeRules::getGrayValue() const
+void JudgeRules::setRuleName(QString name)
 {
-	return _GrayValue;
-}
-void JudgeRules::setGrayValue(double GrayValue)
-{
-	_GrayValue = GrayValue;
+    _ruleName = name;
 }
 
-QString JudgeRules::getGrayWord() const
+bool JudgeRules::strToParameter(const QString &str)
 {
-	return _GrayWord;
-}
-void JudgeRules::setGrayWord(QString GrayWord)
-{
-	_GrayWord = GrayWord;
-}
-
-double JudgeRules::getConvertCoff() const
-{
-    return _convertCoff;
-}
-
-void JudgeRules::setConvertCoff(double convertCoff)
-{
-    _convertCoff = convertCoff;
-}
-
-double JudgeRules::getConvertAdd() const
-{
-    return _convertAdd;
+    if(str.isNull() || str.isEmpty()) return false;
+    QJsonParseError parse_error;
+    QJsonDocument document = QJsonDocument::fromJson(str.toUtf8(), &parse_error);
+    if (document.isNull() ||(parse_error.error != QJsonParseError::NoError)) return false;
+    auto array = document.array();
+    _parameter.clear();
+    for (auto it : array)
+    {
+        JudgeRules::ParameterStrt strt;
+        strt._k = it.toObject().value("k").toString();
+        strt._v =it.toObject().value("v").toDouble();
+        _parameter.push_back(strt);
+    }
+    return true;
 }
 
-void JudgeRules::setConvertAdd(double convertAdd)
+QString JudgeRules::parameterToStr()
 {
-    _convertAdd = convertAdd;
+    if(_parameter.empty())return "";
+    QJsonArray array;
+    int i=0;
+    for(auto it:_parameter)
+    {
+        QJsonObject obj;
+        obj.insert("k",it._k);
+        obj.insert("v",it._v);
+        array.insert(i,obj);
+        i++;
+    }
+    QJsonDocument doc;
+    doc.setArray(array);
+    QString jsonStr=doc.toJson(QJsonDocument::Compact);
+    return jsonStr;
+}
+
+
+QVector<JudgeRules::ParameterStrt> JudgeRules::getParameter()
+{
+    return _parameter;
+}
+
+void JudgeRules::setParameter(QVector<JudgeRules::ParameterStrt> parameter)
+{
+    _parameter = parameter;
+}
+
+// 参数是否重复 true重复 false未重复
+bool JudgeRules::hasParameterDuplicates(QVector<JudgeRules::ParameterStrt> parameter)
+{
+    QSet<ParameterStrt> seen;
+    for (const auto& param : parameter)
+    {
+        if (seen.contains(param))
+        {
+            return true; // 找到重复项
+        }
+        seen.insert(param);
+    }
+    return false;
 }

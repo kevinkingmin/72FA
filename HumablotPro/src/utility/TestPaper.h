@@ -3,6 +3,8 @@
 #include <QDialog>
 #include "ui_TestPaper.h"
 #include <QMap>
+#include "../Include/Model/baseSet/TestPaperModel.h"
+#include "../Include/Model/baseSet/ItemModel.h"
 
 class TestPaper : public QDialog
 {
@@ -284,7 +286,7 @@ class TestPaper : public QDialog
 public:
     TestPaper(QWidget *parent = Q_NULLPTR);
     virtual~TestPaper()override;    
-    void Set_UI(const QString &paperId,const QString &companyId);
+    void Set_UI(const QString &paperId,const QString &companyId, bool isModify);
 protected:
 //    void closeEvent(QCloseEvent *event) override;
 private:
@@ -324,4 +326,6 @@ private:
     QString                         _paperId;
     bool                            m_bModify;
     QString                         m_Company_ID;
+    TestPaperModel                  _testPaperModel;
+    QVector<ItemModel>              _itemModelVect;
 };
