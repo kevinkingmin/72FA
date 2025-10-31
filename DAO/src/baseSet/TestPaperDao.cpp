@@ -154,7 +154,7 @@ bool TestPaperDao::update(TestPaperModel& model)
                   "FuncFindWidth = ?,ItemLineWidth = ?,PaperMmToPixel = ?,PaperHeight = ?,AnalysisPercentOfHeight = ?,"
                   "AnalysisPercentOfWidth = ?,IgnoreHeadLenght = ?,TestBlockWidth = ?,FuncFindDir = ?,PaperShowAngle = ?,"
                   "PaperSortIdxOnUi = ?,PaperBinarizationThreshold = ?,PaperBackgroundValue = ?,BlackPointDetectThreshold = ?,IsBlackPointDetect = ?,"
-                  "ItemFindWidth = ?, ProcessId = ?, WHERE ID = ?");
+                  "ItemFindWidth = ?, ProcessId = ? WHERE ID = ?");
     query.addBindValue(model.getPaperName());
     query.addBindValue(model.getPaperType());
     query.addBindValue(model.getCompanyId());
@@ -189,7 +189,20 @@ bool TestPaperDao::update(TestPaperModel& model)
     query.addBindValue(model.getIsBlackPointDetect());
     query.addBindValue(model.getItemFindWidth());
     query.addBindValue(model.getProcessId());
-    return query.exec();
+    query.addBindValue(model.getId());
+    if(!query.exec())
+    {
+        QSqlError err = query.lastError();
+        qDebug() << "SQL Insert FAILED!";
+        qDebug() << "Error Code:" << err.number();
+        qDebug() << "Error Msg:" << err.text();
+        qDebug() << "Database Text:" << err.databaseText();
+        qDebug() << "Driver Text:" << err.driverText();
+        // （Qt 5.13+）可选：查看实际执行的语句（仅占位符，不展开值）
+        qDebug() << "Executed Query (with ?):" << query.executedQuery();
+        return false;
+    }
+    return true;
 }
 
 QVector<TestPaperModel> TestPaperDao::getModelFormQuery(QSqlQuery& query)
@@ -200,37 +213,38 @@ QVector<TestPaperModel> TestPaperDao::getModelFormQuery(QSqlQuery& query)
         TestPaperModel model;
         model.setId(query.value("ID").toInt());
         model.setCompanyId(query.value("CompanyID").toInt());
+        model.setProcessId(query.value("ProcessId").toInt());
         model.setPaperName(query.value("PaperName").toString());
         model.setPaperType(query.value("PaperType").toInt());
         model.setTotalNumber(query.value("TotalNumber").toInt());
         model.setTestItemNumber(query.value("ItemNumber").toInt());
-        model.setPaperLenght(query.value("PaperLenght").toDouble());
-        model.setPaperHeight(query.value("PaperHeight").toDouble());
+        model.setPaperLenght(query.value("TestPaparLenght").toDouble());
+        model.setFuncPosition(query.value("FuncPosition").toDouble());
+        model.setCutOffPosition(query.value("CutoffPosition").toDouble());
+        model.setFuncGrayThreshold(query.value("FuncGrayThreshold").toDouble());
+        model.setIsCutOff(query.value("IsCutOff").toInt());
+        model.setCutOffValue(query.value("CutoffValue").toDouble());
+        model.setCutOffThreshold(query.value("CutoffGrayThreshold").toDouble());
+        model.setArticleNo(query.value("ArticleNo").toString());
+        model.setPaperColorOnUi(query.value("PaperColorOnUi").toString());
+        model.setPaperHide(query.value("IsPaperHide").toInt() == 1);
+        model.setFuncFindWidth(query.value("FuncFindWidth").toDouble());
+        model.setItemLineWidth(query.value("ItemLineWidth").toDouble());
         model.setPaperMmToPixel(query.value("PaperMmToPixel").toDouble());
+        model.setPaperHeight(query.value("PaperHeight").toDouble());
+        model.setAnalysisPercentOfHeight(query.value("AnalysisPercentOfHeight").toInt());
+        model.setAnalysisPercentOfWidth(query.value("AnalysisPercentOfWidth").toInt());
         model.setIgnoreHeadLenght(query.value("IgnoreHeadLenght").toDouble());
         model.setTestBlockWidth(query.value("TestBlockWidth").toDouble());
         model.setFuncFindDir(query.value("FuncFindDir").toInt());
-        model.setFuncPosition(query.value("FuncPosition").toDouble());
-        model.setFuncFindWidth(query.value("FuncFindWidth").toDouble());
-        model.setFuncGrayThreshold(query.value("FuncGrayThreshold").toDouble());
-        model.setIsBlackPointDetect(query.value("IsBlackPointDetect").toInt() == 1);
-        model.setBlackPointDetectThreshold(query.value("BlackPointDetectThreshold").toDouble());
-        model.setIsCutOff(query.value("IsCutOff").toInt());
-        model.setCutOffPosition(query.value("CutoffPosition").toDouble());
-        model.setCutOffValue(query.value("CutoffValue").toDouble());
-        model.setCutOffThreshold(query.value("CutOffThreshold").toDouble());
         model.setPaperShowAngle(query.value("PaperShowAngle").toInt());
+        model.setPaperSortIdxOnUi(query.value("PaperSortIdxOnUi").toInt());
         model.setPaperBinarizationThreshold(query.value("PaperBinarizationThreshold").toInt());
         model.setPaperBackgroundValue(query.value("PaperBackgroundValue").toDouble());
+        model.setBlackPointDetectThreshold(query.value("BlackPointDetectThreshold").toDouble());
+        model.setIsBlackPointDetect(query.value("IsBlackPointDetect").toInt() == 1);
         model.setItemFindWidth(query.value("ItemFindWidth").toDouble());
-        model.setItemLineWidth(query.value("ItemLineWidth").toDouble());
-        model.setAnalysisPercentOfWidth(query.value("AnalysisPercentOfWidth").toInt());
-        model.setAnalysisPercentOfHeight(query.value("AnalysisPercentOfHeight").toInt());
-        model.setPaperColorOnUi(query.value("PaperColorOnUi").toString());
-        model.setPaperHide(query.value("IsPaperHide").toInt() == 1);
-        model.setArticleNo(query.value("ArticleNo").toString());
-        model.setPaperSortIdxOnUi(query.value("PaperSortIdxOnUi").toInt());
-        model.setProcessId(query.value("ProcessId").toInt());
+
         vect.push_back(std::move(model));
     }
     return vect;

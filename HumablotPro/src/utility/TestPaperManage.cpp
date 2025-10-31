@@ -406,7 +406,7 @@ void TestPaperManage::on_Modify_Button_clicked()
 		return;
 	}
     //connect(m_testPaper, SIGNAL(SetRefresh(bool)), this, SLOT(getRefreshTableWidgetFlag(bool)));
-	TestPaper testPaper(this);
+    TestPaper testPaper(this);
     testPaper.Set_UI(m_strTestPaper_ID,m_strCompany_ID, true);
     testPaper.exec();
 
@@ -549,7 +549,7 @@ void TestPaperManage::on_Inport_Button_clicked()
 			{
                 testPaperModel.setTestItemNumber(nodeValue.toInt());
             }
-            else if (tagName == "PaperLenght")
+            else if (tagName == "TestPaperLenght")
             {
                 testPaperModel.setPaperLenght(nodeValue.toDouble());
             }

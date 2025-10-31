@@ -1,7 +1,23 @@
 ﻿#include "ItemModel.h"
 
+
+const int ItemModel::ITEM_TYPE_FUNC = 0; // 功能线
+const int ItemModel::ITEM_TYPE_CUTOFF = 1; // cutoff线
+const int ItemModel::ITEM_TYPE_ITEM = 2; // 项目线
+
 ItemModel::ItemModel():
     _ID(0)
+    ,_TestPaperID(0)
+    ,_itemName("")
+    ,_itemType(2)
+    ,_segmentIndex(0)
+    ,_PositionNo(0)
+    ,_CurveId(0)
+    ,_RulesId(0)
+    ,_ResultOffset(0)
+    ,_Position(0)
+    ,_IsNull(0)
+    ,_ItemFullName("")
 {
 }
 
@@ -33,6 +49,26 @@ QString ItemModel::getItemName() const
 void ItemModel::setItemName(const QString &itemName)
 {
     _itemName = itemName;
+}
+
+int ItemModel::getItemType() const
+{
+    return _itemType;
+}
+
+void ItemModel::setItemType(int itemType)
+{
+    _itemType = itemType;
+}
+
+int ItemModel::getSegmentIndex() const
+{
+    return _segmentIndex;
+}
+
+void ItemModel::setSegmentIndex(int segmentIndex)
+{
+    _segmentIndex = segmentIndex;
 }
 
 int ItemModel::getPositionNo() const

@@ -35,6 +35,7 @@ TestPaper::TestPaper(QWidget *parent)
     ,m_blockItemCtlMap{}
     ,m_ruleCmbDatas{}
     ,m_curveCmbDatas{}
+    ,m_itemTypeCmbDatas{}
     ,_isNeedUpdate(false)
     ,_paperId("")
     ,m_bModify(false)
@@ -123,27 +124,24 @@ void TestPaper::initUI()
     ui->rdCurveAllSet->setChecked(true);
     ui->pushButton_Set->setText(GlobalData::LoadLanguageInfo("K1115"));
 
+
+    ui->lblG1ItemName_3->setText(GlobalData::LoadLanguageInfo("K1811"));
     ui->lblG1ItemName->setText(GlobalData::LoadLanguageInfo("K1131"));
     ui->lblG1IsEmpty->setText(GlobalData::LoadLanguageInfo("K1132"));
     ui->lblG1Position->setText(GlobalData::LoadLanguageInfo("K1115"));
     ui->lblG1Rules->setText(GlobalData::LoadLanguageInfo("K1133"));
     ui->lblG1Curves->setText(GlobalData::LoadLanguageInfo("K1794"));
 
+    ui->label_32->setText(GlobalData::LoadLanguageInfo("K1811"));
     ui->lblG2ItemName->setText(GlobalData::LoadLanguageInfo("K1131"));
     ui->lblG2IsEmpty->setText(GlobalData::LoadLanguageInfo("K1132"));
     ui->lblG2Position->setText(GlobalData::LoadLanguageInfo("K1115"));
     ui->lblG2Rules->setText(GlobalData::LoadLanguageInfo("K1133"));
     ui->lblG2Curves->setText(GlobalData::LoadLanguageInfo("K1794"));
 
-    ui->lblG3IsEmpty->setText(GlobalData::LoadLanguageInfo("K1132"));
     ui->lblG3ItemCount->setText(GlobalData::LoadLanguageInfo("K1797"));
-    ui->lblG3ItemStartPos->setText(GlobalData::LoadLanguageInfo("K1798"));
-    ui->lblG3ItemDistance->setText(GlobalData::LoadLanguageInfo("K1799"));
 
-    ui->lblG4IsEmpty->setText(GlobalData::LoadLanguageInfo("K1132"));
     ui->lblG4ItemCount->setText(GlobalData::LoadLanguageInfo("K1797"));
-    ui->lblG4ItemStartPos->setText(GlobalData::LoadLanguageInfo("K1798"));
-    ui->lblG4ItemDistance->setText(GlobalData::LoadLanguageInfo("K1799"));
     ui->pushButton_Save->setText(GlobalData::LoadLanguageInfo("K1038"));
     ui->pushButton_Cancel->setText(GlobalData::LoadLanguageInfo("K1134"));
 
@@ -152,10 +150,11 @@ void TestPaper::initUI()
     QString sz1 = GlobalData::LoadLanguageInfo("K1767");
     QString sz2 = GlobalData::LoadLanguageInfo("K1811");
     QString sz3 = GlobalData::LoadLanguageInfo("K1131");
-    QString sz4 = GlobalData::LoadLanguageInfo("K1812");
-    QString sz5 = GlobalData::LoadLanguageInfo("K1133");
-    QString sz6 = GlobalData::LoadLanguageInfo("K1794");
-    headerString<<sz1<<sz2<<sz3<<sz4<<sz5<<sz6;
+    QString sz4 = GlobalData::LoadLanguageInfo("K1132");
+    QString sz5 = GlobalData::LoadLanguageInfo("K1812");
+    QString sz6 = GlobalData::LoadLanguageInfo("K1133");
+    QString sz7 = GlobalData::LoadLanguageInfo("K1794");
+    headerString<<sz1<<sz2<<sz3<<sz4<<sz5<<sz6<<sz7;
     ui->tbSegment->setHorizontalHeaderLabels(headerString);
     ui->tbSegment->horizontalHeader()->setStretchLastSection(true);
     ui->tbSegment->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -181,12 +180,19 @@ void TestPaper::initUI()
         ComboxData cmbData(c.getCurveName(), QString::number(c.getCurveId()));
         m_curveCmbDatas.push_back(cmbData);
     }
+    m_itemTypeCmbDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1807"), QString::number(ItemModel::ITEM_TYPE_FUNC)));
+    m_itemTypeCmbDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1837"), QString::number(ItemModel::ITEM_TYPE_CUTOFF)));
+    m_itemTypeCmbDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1808"), QString::number(ItemModel::ITEM_TYPE_ITEM)));
+    qDebug()<<"create 1";
     getAllItemControl();
+    qDebug()<<"create 1";
     initComboBox();
+    qDebug()<<"create 1";
 }
 
 void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool isModify)
 {
+    qDebug()<<"set ui 01";
     if (paperId.isEmpty()) return;
     m_bModify=isModify;
     if(!isModify)
@@ -194,6 +200,7 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         _testPaperModel = TestPaperModel();
         return;
     }
+    qDebug()<<"set ui 01";
     _paperId = paperId;
     bool bResult;
     m_Company_ID = companyId;
@@ -203,6 +210,7 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
         return;
     }
+    qDebug()<<"set ui 02";
     _itemModelVect = ItemDao::instance()->selectItems(paperId.toInt());
     bool isSegmentPaper = _testPaperModel.getPaperType() == TestPaperModel::PAPER_TYPE_SEGMENT;
     ui->cmbCompany->setCurrentIndex(ui->cmbCompany->findData(m_Company_ID));//公司
@@ -226,7 +234,7 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
     ui->txtBlackSpotThreshold->setText(QString::number(_testPaperModel.getBlackPointDetectThreshold(), 'f', 2));//调用接口,黑点检测阙值
     ui->checkBox_CutOff->setChecked(_testPaperModel.getIsCutOff());
     ui->lineEdit_CutOff_Position->setText(QString::number(_testPaperModel.getCutOffPosition(), 'f', 2));
-    ui->lblCutOffThreshold->setText(QString::number(_testPaperModel.getCutOffThreshold(), 'f', 2));//调用接口,CutOff线阈值
+    ui->txtCutOffThreshold->setText(QString::number(_testPaperModel.getCutOffThreshold(), 'f', 2));//调用接口,CutOff线阈值
     ui->txtCutOffValue->setText(QString::number(_testPaperModel.getCutOffValue(), 'f', 2));
     auto angle=_testPaperModel.getPaperShowAngle()==0?"0":"180";//调用接口
     ui->cmbRotate->setCurrentIndex(ui->cmbRotate->findData(angle));
@@ -240,22 +248,23 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
     ui->txtColorValue->setText(_testPaperModel.getPaperColorOnUi());
 
     uiCtlSet(ui->lineEdit_Item_Number->text().toInt());
-
     QVector<ItemModel>itemVect = ItemDao::instance()->selectItems(paperId.toInt());
-
+    qDebug()<<"set ui 03"<<paperId<<itemVect.count();
     if(!isSegmentPaper)
     {
-        for (int i = 1; i<itemVect.count()+1;i++)
+        qDebug()<<"set ui 04";
+        for (int i = 0; i<itemVect.count();i++)
         {
-            if(i>m_gridItemCtl.itemCtlMap.count())
+            if(i>=m_gridItemCtl.itemCtlMap.count())
             {
                 eLog("TestPaperItemQuery error");
                 break;
             }
-            Item_Control &ctl=m_gridItemCtl.itemCtlMap[i];
+            Item_Control &ctl=m_gridItemCtl.itemCtlMap[i+1];
             ctl.lineEdit_Name->setText(itemVect[i].getItemName());
             ctl.checkBox->setChecked(itemVect[i].getIsNull());
             ctl.lineEdit_Position->setText(QString::number(itemVect[i].getPosition(), 'f', 1));
+            ctl.combo_item_type->setCurrentIndex(ctl.combo_item_type->findData(QString::number(itemVect[i].getItemType())));
             ctl.combo_box_rule->setCurrentIndex(ctl.combo_box_rule->findData(QString::number(itemVect[i].getRulesId())));
             //调用接口 ,定标曲线
             ctl.cmbCurve->setCurrentIndex(ctl.cmbCurve->findData(QString::number(itemVect[i].getCurveId())));
@@ -263,7 +272,24 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         return;
     }
 
+    qDebug()<<"set ui 05";
+    // 根据膜条段分组
+    QMap<int, QVector<ItemModel>> groupedBySem;
+    for (const ItemModel& m : itemVect)
+    {
+        groupedBySem[m.getSegmentIndex()].append(m);
+        qDebug()<<"itemCount m.getSegmentIndex()"<<m.getItemName();
+    }
     QVector<BlockData>blockVect;//调用接口,分段膜条所有的块数据
+    int idx = 0;
+    for (auto it = groupedBySem.begin(); it != groupedBySem.end(); ++it)
+    {
+        BlockData block;
+        block.serialNo = idx++;
+        block.itemCount = it.value().count();
+        blockVect.push_back(block);
+        qDebug()<<"itemCount count"<<block.itemCount;
+    }
     if(blockVect.count()>30)
     {
         eLog("vect count over limit");
@@ -280,13 +306,28 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         auto &b=blockVect.at(i-1);
         auto ctl=it.value();
         ctl.label->setText(QString::number(i));
-        if(i!=b.serialNo)
-            eLog("error,i:{},serialNo:{}",i,b.serialNo);
-        ctl.checkBox->setChecked(b.isNullArea);
-        ctl.distanceLineEdit->setText(QString::number(b.distance));
-        ctl.startPosLineEdit->setText(QString::number(b.startPos));
-        QVector<BlockItemData> itemDataVect;//调用接口,块对应的项目数据
+        if(i!=b.serialNo) eLog("error,i:{},serialNo:{}",i,b.serialNo);
+        //调用接口,块对应的项目数据
+        QVector<BlockItemData> itemDataVect;
+        QVector<ItemModel> itemVectBySem;
+        if(groupedBySem.contains(i))
+        {
+            itemVectBySem = groupedBySem[i];
+        }
+        for(ItemModel& model : itemVectBySem)
+        {
+            BlockItemData block;
+            block.curve = model.getCurveId();
+            block.ignore = model.getIsNull();
+            block.blockNo = model.getSegmentIndex();
+            block.judgerule = model.getRulesId();
+            block.itemType = model.getItemType();
+            block.serialNo = model.getPositionNo();
+            block.strItemName = model.getItemName();
+            itemDataVect.push_back(block);
+        }
         auto count=itemDataVect.count();
+        qDebug()<<"count count"<<count;
         ctl.cmbItemCount->setCurrentText(QString::number(count));
         auto itemCtlIt=m_blockItemCtlMap.find(i);
         if(itemCtlIt==m_blockItemCtlMap.end())
@@ -298,18 +339,18 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         auto &itemCtlVect=itemCtlIt.value();
         for(auto &detailCtl:itemCtlVect)
         {
-
             if(j>=count)
             {
                 eLog("itemDetailVect count error");
                 break;
             }
             auto &item=itemDataVect.at(j);
+            detailCtl.cmbItemType->setCurrentIndex(detailCtl.cmbItemType->findData(item.itemType));
+            detailCtl.itemNameEdit->setText(item.strItemName);
+            detailCtl.checkBox->setChecked(item.ignore);
             detailCtl.blockNo=i;
             detailCtl.cmbRuleBox->setCurrentIndex(detailCtl.cmbRuleBox->findData(item.judgerule));
             detailCtl.cmbCurveBox->setCurrentIndex(detailCtl.cmbCurveBox->findData(item.curve));
-            detailCtl.cmbItemType->setCurrentIndex(detailCtl.cmbItemType->findData(item.itemType));
-            detailCtl.itemNameEdit->setText(item.strItemName);
             j++;
         }
     }
@@ -423,9 +464,6 @@ void TestPaper::slotCreatDetailRows(const QString &data)
 		oldCtlVect = it.value();
         m_blockItemCtlMap.remove(seqNo);
     }
-    QVector<ComboxData>ItemTypes{};
-    ItemTypes.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1807"),"1"));
-    ItemTypes.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1808"),"2"));
     auto oldCount = oldCtlVect.count();
     for (int i = 0; i < row; i++)
 	{
@@ -454,6 +492,7 @@ void TestPaper::slotCreatDetailRows(const QString &data)
             int typeIndex=-1;
             int ruleIndex= -1;
             int curveIndex= -1;
+            bool ignoreChecked = false;
             QString itemName="";
 			if (ctl.cmbItemType != nullptr)
 			{
@@ -461,6 +500,7 @@ void TestPaper::slotCreatDetailRows(const QString &data)
 				ruleIndex = ctl.cmbRuleBox->currentIndex();
 				curveIndex = ctl.cmbCurveBox->currentIndex();
                 itemName=ctl.itemNameEdit->text().simplified();
+                ignoreChecked=ctl.checkBox->isChecked();
 			}
             ctl.isNew=true;
             ctl.itemNameEdit=new QLineEdit(this);
@@ -468,8 +508,11 @@ void TestPaper::slotCreatDetailRows(const QString &data)
 
             ctl.cmbItemType = new QComboBox(this);
             ctl.cmbItemType->setView(new QListView(ctl.cmbItemType));
-            setComBoBoxData(ctl.cmbItemType, ItemTypes);
+            setComBoBoxData(ctl.cmbItemType, m_itemTypeCmbDatas);
             ctl.cmbItemType->setCurrentIndex(typeIndex);
+
+            ctl.checkBox = new QCheckBox(this);
+            ctl.checkBox->setChecked(ignoreChecked);
 
             ctl.cmbRuleBox = new QComboBox(this);
             ctl.cmbRuleBox->setView(new QListView(ctl.cmbRuleBox));
@@ -589,15 +632,33 @@ bool TestPaper::Save_TestPaper_Items()
             QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
             return false;
         }
-
-        //m_blockAndItemDataMap; //调用接口，保存此变量中的数据，块--项目
-        if(m_bModify)//修改
+        // 先删除在插入
+        if(!ItemDao::instance()->deleteItems(_paperId.toInt()))
         {
-
+            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+            return false;
         }
-        else
-        {//新增
-
+        // 更新数据库
+        for (auto it = m_blockAndItemDataMap.begin(); it != m_blockAndItemDataMap.end(); ++it)
+        {
+            int idx = 0; // 项目在段中的位置
+            for(BlockItemData& sub:it.value().itemDatas)
+            {
+                ItemModel item;
+                item.setSegmentIndex(it.value().blockData.serialNo);
+                item.setIsNull(sub.ignore?1:0);
+                item.setCurveId(sub.curve);
+                item.setRulesId(sub.judgerule);
+                item.setPositionNo(idx++);
+                item.setPosition(0);
+                item.setItemName(sub.strItemName);
+                item.setTestPaperID(_paperId.toInt());
+                if(!ItemDao::instance()->insert(item))
+                {
+                    QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+                    return false;
+                }
+            }
         }
     }
     else
@@ -610,14 +671,27 @@ bool TestPaper::Save_TestPaper_Items()
             return false;
         }
 
-        //m_itemDataMap;  //调用接口,保存此变量中的数据
-        if(m_bModify)//修改
+        if(!ItemDao::instance()->deleteItems(_paperId.toInt()))
         {
-
+            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+            return false;
         }
-        else
-        {//新增
-
+        for (auto it = m_itemDataMap.begin(); it != m_itemDataMap.end(); ++it)
+        {
+            ItemModel item;
+            item.setIsNull(it.value().isNullArea?1:0);
+            item.setCurveId(it.value().curve);
+            item.setSegmentIndex(0);
+            item.setRulesId(it.value().judgerule);
+            item.setPositionNo(it.value().serialNo);
+            item.setPosition(it.value().position);
+            item.setItemName(it.value().strItemName);
+            item.setTestPaperID(_paperId.toInt());
+            if(!ItemDao::instance()->insert(item))
+            {
+                QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+                return false;
+            }
         }
     }
     return true;
@@ -632,21 +706,20 @@ void TestPaper::getAllItemControl()
     m_gridBlockCtl.table=ui->tbSegment;
     auto fun=[this](const QGridLayout * glay,QVector<QLabel *>&headVect)
     {
-        if(glay==nullptr)
-            return;
+        if(glay==nullptr) return;
         headVect.clear();
+        qDebug()<<"row col count"<<glay->rowCount()<<glay->columnCount();
         for (int row = 0; row < glay->rowCount(); ++row)
         {
             Item_Control ctr;    
 			int k = 0;
             for (int col = 0; col < glay->columnCount(); ++col)
             {
+                qDebug()<<"row col"<<row<<col;
                 QLayoutItem *item =  glay->itemAtPosition(row, col);
-				if (item == nullptr)
-					continue;
+                if (item == nullptr) continue;
                 QWidget *widget = item->widget();
-				if (!widget)
-					continue;
+                if (!widget) continue;
 
                 if(row==0)
                 {
@@ -658,14 +731,21 @@ void TestPaper::getAllItemControl()
                 {
                     ctr.label=static_cast<QLabel *>(widget);
                     if(ctr.label->text().simplified().toInt()>0)
+                    {
                         k=ctr.label->text().simplified().toInt();
+                    }
+                }else if(col==1)
+                {
+                     ctr.combo_item_type = static_cast<QComboBox *>(widget);
+                     ctr.combo_item_type->setView(new QListView(widget));
+                     setComBoBoxData(ctr.combo_item_type,m_itemTypeCmbDatas);
                 }
-                else if(col==1)
+                else if(col==2)
                 {
                     ctr.lineEdit_Name=static_cast<QLineEdit *>(widget);
                     ui->lineEdit_Position_1->setValidator(new QRegExpValidator(QRegExp("[0-9.]+"), this));
                 }
-                else if(col==2)
+                else if(col==3)
                 {
                     ctr.checkBox=static_cast<QCheckBox *>(widget);
                     connect(ctr.checkBox,&QCheckBox::clicked,this,[ctr](bool checked)
@@ -681,30 +761,33 @@ void TestPaper::getAllItemControl()
                         }
                     });
                 }
-                else if(col==3)
-                    ctr.lineEdit_Position=static_cast<QLineEdit *>(widget);
                 else if(col==4)
+                {
+                    ctr.lineEdit_Position=static_cast<QLineEdit *>(widget);
+                }
+                else if(col==5)
                 {
                     ctr.combo_box_rule=static_cast<QComboBox *>(widget);
                     ctr.combo_box_rule->setView(new QListView(widget));
                     setComBoBoxData(ctr.combo_box_rule,m_ruleCmbDatas);
-                    connect(ctr.cmbCurve,SIGNAL(currentIndexChanged(int)),this,SLOT(slotCmbCurveDataSet(int)),Qt::UniqueConnection);
+                    connect(ctr.combo_box_rule,SIGNAL(currentIndexChanged(int)),this,SLOT(slotCmbRuleDataSet(int)),Qt::UniqueConnection);
                 }
-                else if(col==5)
+                else if(col==6)
                 {
                     ctr.cmbCurve=static_cast<QComboBox *>(widget);
                     ctr.cmbCurve->setView(new QListView(widget));
                     setComBoBoxData(ctr.cmbCurve,m_curveCmbDatas);
-                    connect(ctr.combo_box_rule,SIGNAL(currentIndexChanged(int)),this,SLOT(slotCmbRuleDataSet(int)),Qt::UniqueConnection);
+                    connect(ctr.cmbCurve,SIGNAL(currentIndexChanged(int)),this,SLOT(slotCmbCurveDataSet(int)),Qt::UniqueConnection);
                 }
             }
-            if(k>0)
-                m_gridItemCtl.itemCtlMap.insert(k,ctr);
+            if(k>0) m_gridItemCtl.itemCtlMap.insert(k,ctr);
         }
     };
 
     fun(ui->gridLayout_3,m_gridItemCtl.gridHead1);
+    qDebug()<<"fun 1";
     fun(ui->gridLayout_2,m_gridItemCtl.gridHead2);
+    qDebug()<<"fun 2";
     QVector<ComboxData> boxDatas{};
     for(int i=1;i<=10;i++)
         boxDatas.push_back(ComboxData(QString::number(i),QString::number(i)));
@@ -736,11 +819,12 @@ void TestPaper::getAllItemControl()
                 {
                     block.label=static_cast<QLabel *>(widget);
                     if(block.label->text().simplified().toInt()>0)
+                    {
                         k=block.label->text().simplified().toInt();
+                    }
+
                 }
                 else if(col==1)
-                    block.checkBox=static_cast<QCheckBox *>(widget);
-                else if(col==2)
                 {
                     block.cmbItemCount=static_cast<QComboBox *>(widget);
                     block.cmbItemCount->setObjectName(QString::number(k));
@@ -748,21 +832,14 @@ void TestPaper::getAllItemControl()
                     setComBoBoxData(block.cmbItemCount,boxDatas);
                     connect(block.cmbItemCount,SIGNAL(currentTextChanged(const QString &)),this,SLOT(slotCreatDetailRows(const QString &)),Qt::UniqueConnection);
                 }
-                else if(col==3)
-                {
-                    block.startPosLineEdit=static_cast<QLineEdit *>(widget);
-                }
-                else if(col==4)
-                {
-                    block.distanceLineEdit=static_cast<QLineEdit *>(widget);
-                }
             }
-            if(k>0)
-                m_gridBlockCtl.blockCtlMap.insert(k,block);
+            if(k>0) m_gridBlockCtl.blockCtlMap.insert(k,block);
         }
     };
     sgfun(ui->gridLayout,m_gridBlockCtl.gridHead1);
+    qDebug()<<"sgfun 1";
     sgfun(ui->gridLayout_6,m_gridBlockCtl.gridHead2);
+    qDebug()<<"sgfun 2";
 }
 
 void TestPaper::getUIItemData()
@@ -779,7 +856,8 @@ void TestPaper::getUIItemData()
 
         TestPaper_Item itemData;
 		itemData.serialNo = it.label->text().simplified().toInt();
-        itemData.curve=it.cmbCurve->currentText().simplified();
+        itemData.curve=it.cmbCurve->currentData().toInt();
+        itemData.itemType=it.combo_item_type->currentData().toInt();
         itemData.position=it.lineEdit_Position->text().simplified().toDouble();
 		itemData.isNullArea = it.checkBox->isChecked();
 		itemData.judgerule = it.combo_box_rule->currentData().toInt();
@@ -789,6 +867,7 @@ void TestPaper::getUIItemData()
             itemData.strItemName = "";
             itemData.position = 0;
         }
+        qDebug()<<"getUIItemData"<<itemData.serialNo<<itemData.curve<<itemData.itemType<<itemData.position<<itemData.isNullArea<<itemData.judgerule<<itemData.strItemName;
         m_itemDataMap.insert(i,itemData);
 		i++;
     }
@@ -800,19 +879,12 @@ void TestPaper::getUIBlockAndItemData()
     auto &map=m_gridBlockCtl.blockCtlMap;
     for(auto &blockCtl:map)
     {
-        if(!blockCtl.checkBox->isVisible())
-            return;
-        if(!blockCtl.checkBox->isChecked() && blockCtl.cmbItemCount->currentText().toInt()<=0)
-            continue;
-
+        if(blockCtl.cmbItemCount->currentText().toInt()<=0) continue;
         BlockAndItemData blockItemData;
         BlockData bData;
         QVector<BlockItemData> bItemDatas{};
         bData.serialNo=blockCtl.label->text().toInt();
-        bData.isNullArea=blockCtl.checkBox->isChecked();
         bData.itemCount=blockCtl.cmbItemCount->currentText().toInt();
-        bData.startPos=blockCtl.distanceLineEdit->text().simplified().toDouble();
-        bData.distance=blockCtl.distanceLineEdit->text().simplified().toDouble();
         blockItemData.blockData=bData;
         auto itemIt=m_blockItemCtlMap.find(bData.serialNo);
         if(itemIt==m_blockItemCtlMap.end())
@@ -826,11 +898,13 @@ void TestPaper::getUIBlockAndItemData()
         {
             BlockItemData itemData;
             itemData.serialNo=itemCtl.serialNo;
-            itemData.curve=itemCtl.cmbCurveBox->currentData().toString();
+            itemData.curve=itemCtl.cmbCurveBox->currentData().toInt();
+            itemData.ignore=itemCtl.checkBox->isChecked();
             itemData.blockNo=itemCtl.blockNo;
-            itemData.itemType=itemCtl.cmbItemType->currentData().toString();
-            itemData.judgerule=itemCtl.cmbCurveBox->currentData().toInt();
+            itemData.itemType=itemCtl.cmbItemType->currentData().toInt();
+            itemData.judgerule=itemCtl.cmbRuleBox->currentData().toInt();
             itemData.strItemName=itemCtl.itemNameEdit->text().simplified();
+            qDebug()<<"getUIBlockAndItemData"<<bData.serialNo<<itemData.serialNo<<itemData.curve<<itemData.blockNo<<itemData.itemType<<itemData.judgerule<<itemData.strItemName;
             bItemDatas.push_back(itemData);
         }
         blockItemData.itemDatas=bItemDatas;
@@ -883,7 +957,7 @@ void TestPaper::setComBoBoxData(QComboBox *cmb, const QVector<ComboxData> &datas
 void TestPaper::uiCtlSet(const int itemCount)
 {
     int data{ui->cmbPaperType->currentData().toInt()};
-    // 0为连续膜条
+    // 0为连续膜条 1为分段膜条
     if(data == TestPaperModel::PAPER_TYPE_SEGMENT)
     {
         ui->gridLayout_3->setContentsMargins(0,0,0,0);
@@ -926,9 +1000,10 @@ void TestPaper::tbSegmentAddData(const int oldRow)
             ui->tbSegment->setItem(count,0,new QTableWidgetItem(QString::number(count+1)));
             ui->tbSegment->setCellWidget(count,1,ctl.cmbItemType);
             ui->tbSegment->setCellWidget(count,2,ctl.itemNameEdit);
-            ui->tbSegment->setItem(count,3,new QTableWidgetItem(QString::number(ctl.blockNo)));
-            ui->tbSegment->setCellWidget(count,4,ctl.cmbRuleBox);
-            ui->tbSegment->setCellWidget(count,5,ctl.cmbCurveBox);
+            ui->tbSegment->setCellWidget(count,3,ctl.checkBox);
+            ui->tbSegment->setItem(count,4,new QTableWidgetItem(QString::number(ctl.blockNo)));
+            ui->tbSegment->setCellWidget(count,5,ctl.cmbRuleBox);
+            ui->tbSegment->setCellWidget(count,6,ctl.cmbCurveBox);
             ctl.isNew=false;
             count++;
         }

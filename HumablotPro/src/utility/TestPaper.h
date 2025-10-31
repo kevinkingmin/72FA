@@ -13,6 +13,7 @@ class TestPaper : public QDialog
         QLabel	  *label;
         QLineEdit *lineEdit_Name;
         QCheckBox *checkBox;
+        QComboBox *combo_item_type;
         QLineEdit *lineEdit_Position;
         QComboBox *combo_box_rule;
         QComboBox *cmbCurve;
@@ -30,40 +31,35 @@ class TestPaper : public QDialog
             label->setVisible(visible);
             lineEdit_Name->setVisible(visible);
             checkBox->setVisible(visible);
+            combo_item_type->setVisible(visible);
             lineEdit_Position->setVisible(visible);
             combo_box_rule->setVisible(visible);
             cmbCurve->setVisible(visible);
         }
     };
 
+    // 分段膜条
     struct BlockControl
     {
         QLabel	  *label;
-        QCheckBox *checkBox;
         QComboBox *cmbItemCount;
-        QLineEdit *startPosLineEdit;
-        QLineEdit *distanceLineEdit;
         BlockControl()
             :label(nullptr)
-            ,checkBox(nullptr)
             ,cmbItemCount(nullptr)
-            ,startPosLineEdit(nullptr)
-            ,distanceLineEdit(nullptr)
         {}
         void setCtlVisible(const bool visible)
         {
             label->setVisible(visible);
-            checkBox->setVisible(visible);
             cmbItemCount->setVisible(visible);
-            startPosLineEdit->setVisible(visible);
-            distanceLineEdit->setVisible(visible);
         }
     };
 
+    //分段膜条
     struct BlockItemCtl
     {        
         QComboBox *cmbItemType;
         QLineEdit *itemNameEdit;
+        QCheckBox *checkBox;
         int       blockNo;
         QComboBox *cmbRuleBox;
         QComboBox *cmbCurveBox;
@@ -212,50 +208,49 @@ class TestPaper : public QDialog
     {
         bool	isNullArea;
         int     serialNo;
+        int     itemType;
         QString	strItemName;
         int     judgerule;
         double  position;
-        QString curve;
+        int     curve;
         TestPaper_Item()
             :isNullArea(false)
             ,serialNo(0)
+            ,itemType(0)
             ,strItemName("")
             ,judgerule(0)
             ,position(0)
-            ,curve("")
+            ,curve(0)
         {}
     };
 
+    // 分段膜条块设置
     struct BlockData
     {
         int     serialNo;
-        bool	isNullArea;
         int     itemCount;
-        double  startPos;
-        double  distance;
         BlockData()
             :serialNo(0)
-            ,isNullArea(false)
             ,itemCount(0)
-            ,startPos(0)
-            ,distance(0)
         {}
     };
 
+    // 分段膜条项目设置
     struct BlockItemData
     {
         int     serialNo;
-        QString itemType;
+        int itemType;
         QString	strItemName;
+        bool ignore; // 是否忽略此项目
         int     blockNo;
         int     judgerule;
-        QString curve;
+        int curve;
         BlockItemData()
-            :itemType("")
+            :itemType(0)
             ,strItemName("")
             ,blockNo(0)
             ,judgerule(0)
-            ,curve("")
+            ,curve(0)
         {}
     };
 
@@ -322,6 +317,7 @@ private:
     QMap<int,QVector<BlockItemCtl>> m_blockItemCtlMap;
     QVector<ComboxData>             m_ruleCmbDatas;//规则下拉框数据
     QVector<ComboxData>             m_curveCmbDatas;//曲线下拉框数据
+    QVector<ComboxData>             m_itemTypeCmbDatas;//项目类型下拉数据
     bool                            _isNeedUpdate;
     QString                         _paperId;
     bool                            m_bModify;

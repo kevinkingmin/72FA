@@ -6,6 +6,10 @@
 class MODELSHARED_EXPORT ItemModel
 {
 public:
+    static const int ITEM_TYPE_FUNC;
+    static const int ITEM_TYPE_CUTOFF;
+    static const int ITEM_TYPE_ITEM;
+
     ItemModel();
     int getID() const;
     void setID(const int &ID);
@@ -15,6 +19,12 @@ public:
 
     QString getItemName() const;
     void setItemName(const QString &itemName);
+
+    int getItemType() const;
+    void setItemType(int itemType);
+
+    int getSegmentIndex() const;
+    void setSegmentIndex(int segmentIndex);
 
     int getPositionNo() const;
     void setPositionNo(int PositionNo);
@@ -43,6 +53,8 @@ private:
     int _ID;
     int _TestPaperID;
     QString _itemName;
+    int _itemType;
+    int _segmentIndex; // 段序号
     int _PositionNo;
     int _CurveId; // 曲线ID
     int _RulesId; // 规则ID

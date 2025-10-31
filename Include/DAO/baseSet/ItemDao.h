@@ -31,7 +31,8 @@ public:
     QVector<ItemModel> selectItems(int paper_id);
     bool update(ItemModel &m);
     bool insert(ItemModel &m);
+    bool deleteItems(int paper_id);
 private:
 };
 
-#endif // ITEMDAO_H
+#endif

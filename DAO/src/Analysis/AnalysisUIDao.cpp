@@ -828,7 +828,7 @@ bool AnalysisUIDao::InsertTestPaper(TestPaperModel& paper)
     QString strSql;
     strSql =
         "insert into t_testpaper(CompanyID,PaperName,PaperType,TotalNumber,ItemNumber,"
-        "PaperLenght,PaperHeight,PaperMmToPixel,IgnoreHeadLenght,TestBlockWidth,"
+        "TestPaperLenght,PaperHeight,PaperMmToPixel,IgnoreHeadLenght,TestBlockWidth,"
         "FuncFindDir,FuncPosition,FuncFindWidth,FuncGrayThreshold,IsBlackPointDetect,"
         "BlackPointDetectThreshold,IsCutOff,CutoffGrayThreshold,CutoffValue,PaperShowAngle,"
         "PaperBinarizationThreshold,PaperBackgroundValue,ItemFindWidth,ItemLineWidth,AnalysisPercentOfHeight,"
@@ -953,7 +953,7 @@ bool AnalysisUIDao::UpdateTestPaper(QString strID, TestPaperModel& paper)
             ",PaperType="+QString::number(paper.getPaperType())+
             ",TotalNumber="+QString::number(paper.getTotalNumber())+
             ",ItemNumber="+QString::number(paper.getTestItemNumber())+
-            ",PaperLenght="+QString::number(paper.getPaperLenght(),'f',2)+
+            ",TestPaperLenght="+QString::number(paper.getPaperLenght(),'f',2)+
             ",PaperHeight="+QString::number(paper.getPaperHeight(),'f',2)+
             ",PaperMmToPixel="+QString::number(paper.getPaperMmToPixel(),'f',2)+
             ",IgnoreHeadLenght="+QString::number(paper.getIgnoreHeadLenght(),'f',2)+
@@ -1001,7 +1001,7 @@ bool AnalysisUIDao::QueryTestPaper(QString paper_id, TestPaperModel& paper)
         paper.setPaperType(TestPaperQuery.value("PaperType").toInt());
         paper.setTotalNumber(TestPaperQuery.value("TotalNumber").toInt());
         paper.setTestItemNumber(TestPaperQuery.value("ItemNumber").toInt());
-        paper.setTotalLenght(TestPaperQuery.value("PaperLenght").toDouble());
+        paper.setTotalLenght(TestPaperQuery.value("TestPaperLenght").toDouble());
         paper.setPaperHeight(TestPaperQuery.value("PaperHeight").toDouble());
         paper.setPaperMmToPixel(TestPaperQuery.value("PaperMmToPixel").toDouble());
         paper.setIgnoreHeadLenght(TestPaperQuery.value("IgnoreHeadLenght").toDouble());
@@ -1015,7 +1015,7 @@ bool AnalysisUIDao::QueryTestPaper(QString paper_id, TestPaperModel& paper)
         paper.setIsCutOff(TestPaperQuery.value("IsCutOff").toInt());
         paper.setCutOffPosition(TestPaperQuery.value("CutoffPosition").toDouble());
         paper.setCutOffValue(TestPaperQuery.value("CutoffValue").toDouble());
-        paper.setCutOffThreshold(TestPaperQuery.value("CutOffThreshold").toDouble());
+        paper.setCutOffThreshold(TestPaperQuery.value("CutOffGrayThreshold").toDouble());
         paper.setPaperShowAngle(TestPaperQuery.value("PaperShowAngle").toInt());
         paper.setPaperBinarizationThreshold(TestPaperQuery.value("PaperBinarizationThreshold").toInt());
         paper.setPaperBackgroundValue(TestPaperQuery.value("PaperBackgroundValue").toDouble());

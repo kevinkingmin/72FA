@@ -785,7 +785,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>1254</width>
+           <width>1032</width>
            <height>594</height>
           </rect>
          </property>
@@ -822,250 +822,66 @@
             <property name="verticalSpacing">
              <number>5</number>
             </property>
-            <item row="10" column="5">
-             <widget class="QComboBox" name="cmbCurveName_10"/>
-            </item>
-            <item row="6" column="2">
-             <widget class="QCheckBox" name="checkBox_6">
+            <item row="8" column="3">
+             <widget class="QCheckBox" name="checkBox_8">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="10" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_10"/>
-            </item>
-            <item row="8" column="5">
-             <widget class="QComboBox" name="cmbCurveName_8"/>
-            </item>
-            <item row="2" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_2"/>
-            </item>
-            <item row="3" column="2">
-             <widget class="QCheckBox" name="checkBox_3">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_1">
-              <property name="btnStyle" stdset="0">
-               <string>lineEditUserName</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_6"/>
-            </item>
-            <item row="12" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_12"/>
-            </item>
-            <item row="5" column="4">
+            <item row="5" column="5">
              <widget class="QComboBox" name="comboBoxRulesName_5"/>
             </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>5</string>
-              </property>
-             </widget>
+            <item row="8" column="6">
+             <widget class="QComboBox" name="cmbCurveName_8"/>
             </item>
-            <item row="14" column="2">
+            <item row="11" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_11"/>
+            </item>
+            <item row="14" column="3">
              <widget class="QCheckBox" name="checkBox_14">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="10" column="2">
-             <widget class="QCheckBox" name="checkBox_10">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_3"/>
-            </item>
-            <item row="15" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_15"/>
-            </item>
-            <item row="13" column="5">
-             <widget class="QComboBox" name="cmbCurveName_13"/>
-            </item>
-            <item row="13" column="0">
-             <widget class="QLabel" name="label_13">
-              <property name="text">
-               <string>13</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_8"/>
-            </item>
-            <item row="4" column="5">
-             <widget class="QComboBox" name="cmbCurveName_4"/>
-            </item>
-            <item row="16" column="1">
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="6" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_6"/>
-            </item>
-            <item row="10" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_10"/>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string>10</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="5">
-             <widget class="QComboBox" name="cmbCurveName_9"/>
-            </item>
-            <item row="3" column="5">
-             <widget class="QComboBox" name="cmbCurveName_3"/>
-            </item>
-            <item row="6" column="5">
-             <widget class="QComboBox" name="cmbCurveName_6"/>
-            </item>
-            <item row="7" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_7"/>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>4</string>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="5">
-             <widget class="QComboBox" name="cmbCurveName_11"/>
-            </item>
-            <item row="2" column="5">
-             <widget class="QComboBox" name="cmbCurveName_2"/>
-            </item>
-            <item row="12" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_12"/>
-            </item>
-            <item row="11" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_11"/>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>3</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_13"/>
-            </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="lblG1Rules">
-              <property name="text">
-               <string>判读规制</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="2">
+            <item row="15" column="3">
              <widget class="QCheckBox" name="checkBox_15">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_9">
-              <property name="text">
-               <string>9</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_3"/>
-            </item>
-            <item row="5" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_5"/>
-            </item>
             <item row="7" column="2">
-             <widget class="QCheckBox" name="checkBox_7">
+             <widget class="QLineEdit" name="lineEdit_Name_7"/>
+            </item>
+            <item row="11" column="3">
+             <widget class="QCheckBox" name="checkBox_11">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="12" column="5">
-             <widget class="QComboBox" name="cmbCurveName_12"/>
+            <item row="13" column="1">
+             <widget class="QComboBox" name="comboBox_13"/>
             </item>
-            <item row="5" column="5">
-             <widget class="QComboBox" name="cmbCurveName_5"/>
-            </item>
-            <item row="7" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_7"/>
-            </item>
-            <item row="14" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_14"/>
-            </item>
-            <item row="13" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_13"/>
-            </item>
-            <item row="1" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_1"/>
-            </item>
-            <item row="11" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_11"/>
-            </item>
-            <item row="15" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_15"/>
-            </item>
-            <item row="5" column="2">
+            <item row="5" column="3">
              <widget class="QCheckBox" name="checkBox_5">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="4" column="2">
-             <widget class="QCheckBox" name="checkBox_4">
+            <item row="9" column="1">
+             <widget class="QComboBox" name="comboBox_9"/>
+            </item>
+            <item row="0" column="5">
+             <widget class="QLabel" name="lblG1Rules">
               <property name="text">
-               <string/>
+               <string>判读规制</string>
               </property>
-             </widget>
-            </item>
-            <item row="11" column="0">
-             <widget class="QLabel" name="label_11">
-              <property name="text">
-               <string>11</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_6"/>
-            </item>
-            <item row="1" column="5">
-             <widget class="QComboBox" name="cmbCurveName_1"/>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>7</string>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -1076,63 +892,35 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="3">
-             <widget class="QLabel" name="lblG1Position">
-              <property name="text">
-               <string>位置</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
+            <item row="12" column="6">
+             <widget class="QComboBox" name="cmbCurveName_12"/>
             </item>
-            <item row="7" column="5">
-             <widget class="QComboBox" name="cmbCurveName_7"/>
+            <item row="14" column="1">
+             <widget class="QComboBox" name="comboBox_14"/>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_6">
-              <property name="text">
-               <string>6</string>
-              </property>
-             </widget>
+            <item row="12" column="1">
+             <widget class="QComboBox" name="comboBox_12"/>
             </item>
-            <item row="5" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_5"/>
+            <item row="10" column="6">
+             <widget class="QComboBox" name="cmbCurveName_10"/>
             </item>
-            <item row="9" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_9"/>
-            </item>
-            <item row="8" column="2">
-             <widget class="QCheckBox" name="checkBox_8">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_4"/>
-            </item>
-            <item row="15" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_15"/>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_2"/>
-            </item>
-            <item row="9" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_9"/>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="lblG1ItemName">
-              <property name="text">
-               <string>项目名称</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
+            <item row="2" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_2"/>
             </item>
             <item row="8" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_8"/>
+             <widget class="QLineEdit" name="lineEdit_Position_8"/>
+            </item>
+            <item row="4" column="6">
+             <widget class="QComboBox" name="cmbCurveName_4"/>
+            </item>
+            <item row="11" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_11"/>
+            </item>
+            <item row="1" column="6">
+             <widget class="QComboBox" name="cmbCurveName_1"/>
+            </item>
+            <item row="5" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_5"/>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_1">
@@ -1141,11 +929,51 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_1"/>
-            </item>
             <item row="2" column="2">
-             <widget class="QCheckBox" name="checkBox_2">
+             <widget class="QLineEdit" name="lineEdit_Name_2"/>
+            </item>
+            <item row="14" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_14"/>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>10</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_4"/>
+            </item>
+            <item row="12" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_12"/>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>6</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="3">
+             <widget class="QCheckBox" name="checkBox_12">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="lblG1IsEmpty">
+              <property name="text">
+               <string>空白</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="3">
+             <widget class="QCheckBox" name="checkBox_9">
               <property name="text">
                <string/>
               </property>
@@ -1158,68 +986,52 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_4"/>
+            <item row="4" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_4"/>
             </item>
-            <item row="12" column="2">
-             <widget class="QCheckBox" name="checkBox_12">
+            <item row="2" column="3">
+             <widget class="QCheckBox" name="checkBox_2">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="12" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_12"/>
+            <item row="8" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_8"/>
             </item>
-            <item row="10" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_10"/>
+            <item row="13" column="3">
+             <widget class="QCheckBox" name="checkBox_13">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
-            <item row="14" column="5">
+            <item row="6" column="1">
+             <widget class="QComboBox" name="comboBox_6"/>
+            </item>
+            <item row="13" column="0">
+             <widget class="QLabel" name="label_13">
+              <property name="text">
+               <string>13</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="6">
              <widget class="QComboBox" name="cmbCurveName_14"/>
             </item>
-            <item row="4" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_4"/>
+            <item row="1" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_1"/>
             </item>
-            <item row="11" column="2">
-             <widget class="QCheckBox" name="checkBox_11">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_11"/>
-            </item>
-            <item row="8" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_8"/>
+            <item row="7" column="6">
+             <widget class="QComboBox" name="cmbCurveName_7"/>
             </item>
             <item row="2" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_2"/>
+             <widget class="QLineEdit" name="lineEdit_Position_2"/>
             </item>
-            <item row="1" column="2">
-             <widget class="QCheckBox" name="checkBox_1">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
+            <item row="15" column="6">
+             <widget class="QComboBox" name="cmbCurveName_15"/>
             </item>
-            <item row="7" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_7"/>
-            </item>
-            <item row="14" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_14"/>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="lblG1IsEmpty">
-              <property name="text">
-               <string>空白</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="5">
+            <item row="0" column="6">
              <widget class="QLabel" name="lblG1Curves">
               <property name="text">
                <string>定标曲线</string>
@@ -1229,15 +1041,59 @@
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_3"/>
+            <item row="11" column="6">
+             <widget class="QComboBox" name="cmbCurveName_11"/>
             </item>
-            <item row="9" column="2">
-             <widget class="QCheckBox" name="checkBox_9">
+            <item row="7" column="3">
+             <widget class="QCheckBox" name="checkBox_7">
               <property name="text">
                <string/>
               </property>
              </widget>
+            </item>
+            <item row="8" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_8"/>
+            </item>
+            <item row="4" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_4"/>
+            </item>
+            <item row="5" column="1">
+             <widget class="QComboBox" name="comboBox_5"/>
+            </item>
+            <item row="4" column="3">
+             <widget class="QCheckBox" name="checkBox_4">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="1">
+             <widget class="QComboBox" name="comboBox_8"/>
+            </item>
+            <item row="5" column="6">
+             <widget class="QComboBox" name="cmbCurveName_5"/>
+            </item>
+            <item row="3" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_3"/>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>5</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_3"/>
+            </item>
+            <item row="3" column="6">
+             <widget class="QComboBox" name="cmbCurveName_3"/>
+            </item>
+            <item row="6" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_6"/>
+            </item>
+            <item row="6" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_6"/>
             </item>
             <item row="8" column="0">
              <widget class="QLabel" name="label_8">
@@ -1246,28 +1102,63 @@
               </property>
              </widget>
             </item>
-            <item row="14" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_14"/>
+            <item row="3" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_3"/>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_2">
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_3">
               <property name="text">
-               <string>2</string>
+               <string>3</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="2">
-             <widget class="QCheckBox" name="checkBox_13">
+            <item row="5" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_5"/>
+            </item>
+            <item row="14" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_14"/>
+            </item>
+            <item row="10" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_10"/>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_1">
+              <property name="btnStyle" stdset="0">
+               <string>lineEditUserName</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_15"/>
+            </item>
+            <item row="12" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_12"/>
+            </item>
+            <item row="9" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_9"/>
+            </item>
+            <item row="15" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_15"/>
+            </item>
+            <item row="6" column="3">
+             <widget class="QCheckBox" name="checkBox_6">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="15" column="5">
-             <widget class="QComboBox" name="cmbCurveName_15"/>
+            <item row="6" column="6">
+             <widget class="QComboBox" name="cmbCurveName_6"/>
             </item>
-            <item row="9" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_9"/>
+            <item row="15" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_15"/>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>7</string>
+              </property>
+             </widget>
             </item>
             <item row="15" column="0">
              <widget class="QLabel" name="label_15">
@@ -1276,8 +1167,172 @@
               </property>
              </widget>
             </item>
-            <item row="13" column="1">
+            <item row="1" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_1"/>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="comboBox"/>
+            </item>
+            <item row="3" column="3">
+             <widget class="QCheckBox" name="checkBox_3">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_9"/>
+            </item>
+            <item row="11" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_11"/>
+            </item>
+            <item row="9" column="6">
+             <widget class="QComboBox" name="cmbCurveName_9"/>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>11</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_10"/>
+            </item>
+            <item row="12" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_12"/>
+            </item>
+            <item row="1" column="3">
+             <widget class="QCheckBox" name="checkBox_1">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="1">
+             <widget class="QComboBox" name="comboBox_15"/>
+            </item>
+            <item row="10" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_10"/>
+            </item>
+            <item row="13" column="6">
+             <widget class="QComboBox" name="cmbCurveName_13"/>
+            </item>
+            <item row="13" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_13"/>
+            </item>
+            <item row="16" column="2">
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>9</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="6">
+             <widget class="QComboBox" name="cmbCurveName_2"/>
+            </item>
+            <item row="13" column="2">
              <widget class="QLineEdit" name="lineEdit_Name_13"/>
+            </item>
+            <item row="11" column="1">
+             <widget class="QComboBox" name="comboBox_11"/>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="lblG1ItemName">
+              <property name="text">
+               <string>项目名称</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QComboBox" name="comboBox_3"/>
+            </item>
+            <item row="10" column="3">
+             <widget class="QCheckBox" name="checkBox_10">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="lblG1Position">
+              <property name="text">
+               <string>位置</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_9"/>
+            </item>
+            <item row="14" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_14"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QComboBox" name="comboBox_4"/>
+            </item>
+            <item row="7" column="1">
+             <widget class="QComboBox" name="comboBox_7"/>
+            </item>
+            <item row="10" column="1">
+             <widget class="QComboBox" name="comboBox_10"/>
+            </item>
+            <item row="7" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_7"/>
+            </item>
+            <item row="13" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_13"/>
+            </item>
+            <item row="6" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_6"/>
+            </item>
+            <item row="7" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_7"/>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_2"/>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lblG1ItemName_3">
+              <property name="text">
+               <string>类型</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -1289,78 +1344,99 @@
             <property name="verticalSpacing">
              <number>5</number>
             </property>
-            <item row="14" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_24"/>
+            <item row="16" column="3">
+             <widget class="QCheckBox" name="checkBox_26">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
-            <item row="11" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_21"/>
+            <item row="7" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_17"/>
+            </item>
+            <item row="18" column="0">
+             <widget class="QLabel" name="label_28">
+              <property name="text">
+               <string>28</string>
+              </property>
+             </widget>
             </item>
             <item row="11" column="2">
-             <widget class="QCheckBox" name="checkBox_21">
+             <widget class="QLineEdit" name="lineEdit_Name_21"/>
+            </item>
+            <item row="19" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_29"/>
+            </item>
+            <item row="13" column="3">
+             <widget class="QCheckBox" name="checkBox_23">
               <property name="text">
                <string/>
               </property>
              </widget>
-            </item>
-            <item row="9" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_19"/>
-            </item>
-            <item row="12" column="0">
-             <widget class="QLabel" name="label_22">
-              <property name="text">
-               <string>22</string>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_22"/>
-            </item>
-            <item row="17" column="2">
-             <widget class="QCheckBox" name="checkBox_27">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="5">
-             <widget class="QComboBox" name="cmbCurveName_25"/>
             </item>
             <item row="19" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_29"/>
+             <widget class="QCheckBox" name="checkBox_29">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
             </item>
-            <item row="14" column="2">
+            <item row="16" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_26"/>
+            </item>
+            <item row="20" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_30"/>
+            </item>
+            <item row="13" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_23"/>
+            </item>
+            <item row="16" column="0">
+             <widget class="QLabel" name="label_26">
+              <property name="text">
+               <string>26</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_24"/>
+            </item>
+            <item row="14" column="3">
              <widget class="QCheckBox" name="checkBox_24">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="label_18">
+            <item row="19" column="6">
+             <widget class="QComboBox" name="cmbCurveName_29"/>
+            </item>
+            <item row="14" column="6">
+             <widget class="QComboBox" name="cmbCurveName_24"/>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_20">
               <property name="text">
-               <string>18</string>
+               <string>20</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_23"/>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_16"/>
             </item>
-            <item row="20" column="5">
-             <widget class="QComboBox" name="cmbCurveName_30"/>
+            <item row="15" column="0">
+             <widget class="QLabel" name="label_25">
+              <property name="text">
+               <string>25</string>
+              </property>
+             </widget>
             </item>
-            <item row="7" column="5">
-             <widget class="QComboBox" name="cmbCurveName_17"/>
+            <item row="1" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_16"/>
             </item>
-            <item row="9" column="5">
-             <widget class="QComboBox" name="cmbCurveName_19"/>
+            <item row="9" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_19"/>
             </item>
-            <item row="20" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_30"/>
-            </item>
-            <item row="8" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_18"/>
-            </item>
-            <item row="0" column="2">
+            <item row="0" column="3">
              <widget class="QLabel" name="lblG2IsEmpty">
               <property name="text">
                <string>空白</string>
@@ -1370,198 +1446,130 @@
               </property>
              </widget>
             </item>
-            <item row="16" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_26"/>
-            </item>
-            <item row="12" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_22"/>
-            </item>
-            <item row="18" column="2">
-             <widget class="QCheckBox" name="checkBox_28">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_24"/>
-            </item>
-            <item row="20" column="0">
-             <widget class="QLabel" name="label_30">
-              <property name="text">
-               <string>30</string>
-              </property>
-             </widget>
-            </item>
-            <item row="20" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_30"/>
-            </item>
-            <item row="12" column="5">
-             <widget class="QComboBox" name="cmbCurveName_22"/>
-            </item>
-            <item row="8" column="2">
-             <widget class="QCheckBox" name="checkBox_18">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_17"/>
             </item>
             <item row="9" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_19"/>
-            </item>
-            <item row="10" column="2">
-             <widget class="QCheckBox" name="checkBox_20">
+             <widget class="QCheckBox" name="checkBox_19">
               <property name="text">
                <string/>
               </property>
              </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_16"/>
             </item>
             <item row="10" column="5">
-             <widget class="QComboBox" name="cmbCurveName_20"/>
+             <widget class="QComboBox" name="comboBoxRulesName_20"/>
             </item>
-            <item row="16" column="2">
-             <widget class="QCheckBox" name="checkBox_26">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="5">
-             <widget class="QComboBox" name="cmbCurveName_23"/>
-            </item>
-            <item row="7" column="2">
-             <widget class="QCheckBox" name="checkBox_17">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="18" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_28"/>
-            </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="lblG2Rules">
-              <property name="text">
-               <string>判读规制</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="20" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_30"/>
-            </item>
-            <item row="11" column="4">
+            <item row="11" column="5">
              <widget class="QComboBox" name="comboBoxRulesName_21"/>
             </item>
-            <item row="8" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_18"/>
-            </item>
-            <item row="7" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_17"/>
-            </item>
-            <item row="11" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_21"/>
-            </item>
-            <item row="17" column="5">
-             <widget class="QComboBox" name="cmbCurveName_27"/>
-            </item>
-            <item row="17" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_27"/>
-            </item>
-            <item row="19" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_29"/>
-            </item>
-            <item row="15" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_25"/>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="lblG2ItemName">
+            <item row="0" column="4">
+             <widget class="QLabel" name="lblG2Position">
               <property name="text">
-               <string>项目名称</string>
+               <string>位置</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item row="13" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_23"/>
+            <item row="17" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_27"/>
             </item>
-            <item row="10" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_20"/>
-            </item>
-            <item row="16" column="0">
-             <widget class="QLabel" name="label_26">
+            <item row="17" column="0">
+             <widget class="QLabel" name="label_27">
               <property name="text">
-               <string>26</string>
+               <string>27</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_20"/>
+            <item row="7" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_17"/>
             </item>
-            <item row="15" column="2">
+            <item row="8" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_18"/>
+            </item>
+            <item row="14" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_24"/>
+            </item>
+            <item row="15" column="3">
              <widget class="QCheckBox" name="checkBox_25">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="19" column="4">
+            <item row="19" column="5">
              <widget class="QComboBox" name="comboBoxRulesName_29"/>
             </item>
-            <item row="11" column="5">
-             <widget class="QComboBox" name="cmbCurveName_21"/>
+            <item row="1" column="6">
+             <widget class="QComboBox" name="cmbCurveName_16"/>
             </item>
-            <item row="16" column="5">
-             <widget class="QComboBox" name="cmbCurveName_26"/>
-            </item>
-            <item row="15" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_25"/>
-            </item>
-            <item row="13" column="2">
-             <widget class="QCheckBox" name="checkBox_23">
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_18">
               <property name="text">
-               <string/>
+               <string>18</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_17">
-              <property name="text">
-               <string>17</string>
-              </property>
-             </widget>
+            <item row="15" column="6">
+             <widget class="QComboBox" name="cmbCurveName_25"/>
             </item>
-            <item row="18" column="0">
-             <widget class="QLabel" name="label_28">
-              <property name="text">
-               <string>28</string>
-              </property>
-             </widget>
+            <item row="13" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_23"/>
             </item>
-            <item row="1" column="2">
+            <item row="1" column="3">
              <widget class="QCheckBox" name="checkBox_16">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_17"/>
+            <item row="17" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_27"/>
             </item>
-            <item row="9" column="4">
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_22">
+              <property name="text">
+               <string>22</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_32">
+              <property name="text">
+               <string>类型</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="5">
              <widget class="QComboBox" name="comboBoxRulesName_19"/>
             </item>
-            <item row="12" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_22"/>
+            <item row="16" column="6">
+             <widget class="QComboBox" name="cmbCurveName_26"/>
             </item>
-            <item row="21" column="1">
+            <item row="18" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_28"/>
+            </item>
+            <item row="20" column="3">
+             <widget class="QCheckBox" name="checkBox_30">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="19" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_29"/>
+            </item>
+            <item row="14" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_24"/>
+            </item>
+            <item row="12" column="6">
+             <widget class="QComboBox" name="cmbCurveName_22"/>
+            </item>
+            <item row="21" column="2">
              <spacer name="verticalSpacer_2">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -1574,129 +1582,19 @@
               </property>
              </spacer>
             </item>
-            <item row="14" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_24"/>
-            </item>
-            <item row="1" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_16"/>
-            </item>
-            <item row="18" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_28"/>
-            </item>
-            <item row="19" column="0">
-             <widget class="QLabel" name="label_29">
-              <property name="text">
-               <string>29</string>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_27"/>
-            </item>
-            <item row="14" column="0">
-             <widget class="QLabel" name="label_24">
-              <property name="text">
-               <string>24</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="0">
-             <widget class="QLabel" name="label_23">
-              <property name="text">
-               <string>23</string>
-              </property>
-             </widget>
-            </item>
-            <item row="20" column="2">
-             <widget class="QCheckBox" name="checkBox_30">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_19">
-              <property name="text">
-               <string>19</string>
-              </property>
-             </widget>
-            </item>
-            <item row="18" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_28"/>
-            </item>
-            <item row="13" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_23"/>
-            </item>
-            <item row="1" column="5">
-             <widget class="QComboBox" name="cmbCurveName_16"/>
-            </item>
-            <item row="0" column="3">
-             <widget class="QLabel" name="lblG2Position">
-              <property name="text">
-               <string>位置</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="5">
-             <widget class="QComboBox" name="cmbCurveName_24"/>
-            </item>
-            <item row="9" column="2">
-             <widget class="QCheckBox" name="checkBox_19">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_16"/>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_16">
-              <property name="text">
-               <string>16</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_18"/>
-            </item>
-            <item row="11" column="0">
-             <widget class="QLabel" name="label_21">
-              <property name="text">
-               <string>21</string>
-              </property>
-             </widget>
-            </item>
-            <item row="19" column="2">
-             <widget class="QCheckBox" name="checkBox_29">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="3">
-             <widget class="QLineEdit" name="lineEdit_Position_17"/>
-            </item>
-            <item row="19" column="5">
-             <widget class="QComboBox" name="cmbCurveName_29"/>
-            </item>
-            <item row="16" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_26"/>
+            <item row="13" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_23"/>
             </item>
             <item row="10" column="4">
-             <widget class="QComboBox" name="comboBoxRulesName_20"/>
+             <widget class="QLineEdit" name="lineEdit_Position_20"/>
             </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_20">
-              <property name="text">
-               <string>20</string>
-              </property>
-             </widget>
+            <item row="13" column="6">
+             <widget class="QComboBox" name="cmbCurveName_23"/>
             </item>
-            <item row="0" column="5">
+            <item row="16" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_26"/>
+            </item>
+            <item row="0" column="6">
              <widget class="QLabel" name="lblG2Curves">
               <property name="text">
                <string>定标曲线</string>
@@ -1706,41 +1604,253 @@
               </property>
              </widget>
             </item>
-            <item row="15" column="0">
-             <widget class="QLabel" name="label_25">
+            <item row="10" column="3">
+             <widget class="QCheckBox" name="checkBox_20">
               <property name="text">
-               <string>25</string>
+               <string/>
               </property>
              </widget>
             </item>
-            <item row="17" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_27"/>
+            <item row="18" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_28"/>
             </item>
-            <item row="8" column="5">
-             <widget class="QComboBox" name="cmbCurveName_18"/>
+            <item row="12" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_22"/>
+            </item>
+            <item row="20" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_30"/>
             </item>
             <item row="12" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_22"/>
+            </item>
+            <item row="9" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_19"/>
+            </item>
+            <item row="7" column="1">
+             <widget class="QComboBox" name="comboBox_16"/>
+            </item>
+            <item row="13" column="0">
+             <widget class="QLabel" name="label_23">
+              <property name="text">
+               <string>23</string>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="0">
+             <widget class="QLabel" name="label_30">
+              <property name="text">
+               <string>30</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="6">
+             <widget class="QComboBox" name="cmbCurveName_21"/>
+            </item>
+            <item row="17" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_27"/>
+            </item>
+            <item row="0" column="5">
+             <widget class="QLabel" name="lblG2Rules">
+              <property name="text">
+               <string>判读规制</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_25"/>
+            </item>
+            <item row="8" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_18"/>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_19">
+              <property name="text">
+               <string>19</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_16"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_16">
+              <property name="text">
+               <string>16</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="2">
+             <widget class="QLineEdit" name="lineEdit_Name_20"/>
+            </item>
+            <item row="7" column="6">
+             <widget class="QComboBox" name="cmbCurveName_17"/>
+            </item>
+            <item row="9" column="6">
+             <widget class="QComboBox" name="cmbCurveName_19"/>
+            </item>
+            <item row="11" column="3">
+             <widget class="QCheckBox" name="checkBox_21">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_22"/>
+            </item>
+            <item row="18" column="3">
+             <widget class="QCheckBox" name="checkBox_28">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="20" column="6">
+             <widget class="QComboBox" name="cmbCurveName_30"/>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_17">
+              <property name="text">
+               <string>17</string>
+              </property>
+             </widget>
+            </item>
+            <item row="17" column="3">
+             <widget class="QCheckBox" name="checkBox_27">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="3">
              <widget class="QCheckBox" name="checkBox_22">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="15" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_25"/>
-            </item>
-            <item row="18" column="5">
-             <widget class="QComboBox" name="cmbCurveName_28"/>
-            </item>
-            <item row="16" column="1">
-             <widget class="QLineEdit" name="lineEdit_Name_26"/>
-            </item>
-            <item row="17" column="0">
-             <widget class="QLabel" name="label_27">
+            <item row="7" column="3">
+             <widget class="QCheckBox" name="checkBox_17">
               <property name="text">
-               <string>27</string>
+               <string/>
               </property>
              </widget>
+            </item>
+            <item row="8" column="3">
+             <widget class="QCheckBox" name="checkBox_18">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="6">
+             <widget class="QComboBox" name="cmbCurveName_20"/>
+            </item>
+            <item row="8" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_18"/>
+            </item>
+            <item row="15" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_25"/>
+            </item>
+            <item row="8" column="6">
+             <widget class="QComboBox" name="cmbCurveName_18"/>
+            </item>
+            <item row="11" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_21"/>
+            </item>
+            <item row="20" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_30"/>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_24">
+              <property name="text">
+               <string>24</string>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_28"/>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_21">
+              <property name="text">
+               <string>21</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="lblG2ItemName">
+              <property name="text">
+               <string>项目名称</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="4">
+             <widget class="QLineEdit" name="lineEdit_Position_26"/>
+            </item>
+            <item row="17" column="6">
+             <widget class="QComboBox" name="cmbCurveName_27"/>
+            </item>
+            <item row="7" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_17"/>
+            </item>
+            <item row="19" column="0">
+             <widget class="QLabel" name="label_29">
+              <property name="text">
+               <string>29</string>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="6">
+             <widget class="QComboBox" name="cmbCurveName_28"/>
+            </item>
+            <item row="15" column="5">
+             <widget class="QComboBox" name="comboBoxRulesName_25"/>
+            </item>
+            <item row="8" column="1">
+             <widget class="QComboBox" name="comboBox_18"/>
+            </item>
+            <item row="9" column="1">
+             <widget class="QComboBox" name="comboBox_19"/>
+            </item>
+            <item row="10" column="1">
+             <widget class="QComboBox" name="comboBox_20"/>
+            </item>
+            <item row="11" column="1">
+             <widget class="QComboBox" name="comboBox_21"/>
+            </item>
+            <item row="12" column="1">
+             <widget class="QComboBox" name="comboBox_22"/>
+            </item>
+            <item row="13" column="1">
+             <widget class="QComboBox" name="comboBox_23"/>
+            </item>
+            <item row="14" column="1">
+             <widget class="QComboBox" name="comboBox_24"/>
+            </item>
+            <item row="15" column="1">
+             <widget class="QComboBox" name="comboBox_25"/>
+            </item>
+            <item row="16" column="1">
+             <widget class="QComboBox" name="comboBox_26"/>
+            </item>
+            <item row="17" column="1">
+             <widget class="QComboBox" name="comboBox_27"/>
+            </item>
+            <item row="18" column="1">
+             <widget class="QComboBox" name="comboBox_28"/>
+            </item>
+            <item row="19" column="1">
+             <widget class="QComboBox" name="comboBox_29"/>
+            </item>
+            <item row="20" column="1">
+             <widget class="QComboBox" name="comboBox_30"/>
             </item>
            </layout>
           </item>
@@ -1755,66 +1865,10 @@
             <property name="verticalSpacing">
              <number>5</number>
             </property>
-            <item row="13" column="3">
-             <widget class="QLineEdit" name="lineEdit_12"/>
-            </item>
-            <item row="15" column="2">
-             <widget class="QComboBox" name="cmbCount_29"/>
-            </item>
-            <item row="6" column="1">
-             <widget class="QCheckBox" name="checkBox_37">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
-             <widget class="QLabel" name="lblG3ItemStartPos">
-              <property name="text">
-               <string>起始位置(mm)</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
             <item row="12" column="0">
              <widget class="QLabel" name="label_67">
               <property name="text">
                <string>11</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
-             <widget class="QCheckBox" name="checkBox_35">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2">
-             <widget class="QComboBox" name="cmbCount_17"/>
-            </item>
-            <item row="9" column="2">
-             <widget class="QComboBox" name="cmbCount_23"/>
-            </item>
-            <item row="15" column="3">
-             <widget class="QLineEdit" name="lineEdit_14"/>
-            </item>
-            <item row="4" column="1">
-             <widget class="QCheckBox" name="checkBox_39">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="3">
-             <widget class="QLineEdit" name="lineEdit_5"/>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_55">
-              <property name="text">
-               <string>5</string>
               </property>
              </widget>
             </item>
@@ -1825,13 +1879,13 @@
               </property>
              </widget>
             </item>
-            <item row="16" column="3">
-             <widget class="QLineEdit" name="lineEdit_15"/>
+            <item row="4" column="1">
+             <widget class="QComboBox" name="cmbCount_18"/>
             </item>
-            <item row="14" column="0">
-             <widget class="QLabel" name="label_71">
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_53">
               <property name="text">
-               <string>13</string>
+               <string>3</string>
               </property>
              </widget>
             </item>
@@ -1842,110 +1896,30 @@
               </property>
              </widget>
             </item>
-            <item row="8" column="3">
-             <widget class="QLineEdit" name="lineEdit_7"/>
-            </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="lblG3ItemDistance">
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_52">
               <property name="text">
-               <string>指标间距(mm)</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
+               <string>2</string>
               </property>
              </widget>
+            </item>
+            <item row="15" column="0">
+             <widget class="QLabel" name="label_72">
+              <property name="text">
+               <string>14</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="1">
+             <widget class="QComboBox" name="cmbCount_30"/>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="cmbCount_16"/>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_37">
               <property name="text">
                <string>1</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_62">
-              <property name="text">
-               <string>8</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="2">
-             <widget class="QComboBox" name="cmbCount_24"/>
-            </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_56">
-              <property name="text">
-               <string>6</string>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="2">
-             <widget class="QComboBox" name="cmbCount_22"/>
-            </item>
-            <item row="11" column="0">
-             <widget class="QLabel" name="label_65">
-              <property name="text">
-               <string>10</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="3">
-             <widget class="QLineEdit" name="lineEdit_6"/>
-            </item>
-            <item row="5" column="1">
-             <widget class="QCheckBox" name="checkBox_38">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="3">
-             <widget class="QLineEdit" name="lineEdit_13"/>
-            </item>
-            <item row="2" column="1">
-             <widget class="QCheckBox" name="checkBox_41">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="1">
-             <widget class="QCheckBox" name="checkBox_44">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="2">
-             <widget class="QComboBox" name="cmbCount_20"/>
-            </item>
-            <item row="9" column="1">
-             <widget class="QCheckBox" name="checkBox_34">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="3">
-             <widget class="QLineEdit" name="lineEdit_11"/>
-            </item>
-            <item row="16" column="2">
-             <widget class="QComboBox" name="cmbCount_30"/>
-            </item>
-            <item row="9" column="3">
-             <widget class="QLineEdit" name="lineEdit_8"/>
-            </item>
-            <item row="3" column="1">
-             <widget class="QCheckBox" name="checkBox_40">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="1">
-             <widget class="QCheckBox" name="checkBox_32">
-              <property name="text">
-               <string/>
               </property>
              </widget>
             </item>
@@ -1956,137 +1930,39 @@
               </property>
              </widget>
             </item>
-            <item row="7" column="2">
-             <widget class="QComboBox" name="cmbCount_21"/>
-            </item>
-            <item row="15" column="0">
-             <widget class="QLabel" name="label_72">
-              <property name="text">
-               <string>14</string>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="1">
-             <widget class="QCheckBox" name="checkBox_33">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="lblG3IsEmpty">
-              <property name="text">
-               <string>空白</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_52">
-              <property name="text">
-               <string>2</string>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="2">
+            <item row="11" column="1">
              <widget class="QComboBox" name="cmbCount_25"/>
             </item>
-            <item row="7" column="1">
-             <widget class="QCheckBox" name="checkBox_36">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="3">
-             <widget class="QLineEdit" name="lineEdit_2"/>
-            </item>
-            <item row="14" column="1">
-             <widget class="QCheckBox" name="checkBox_43">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="0">
-             <widget class="QLabel" name="label_69">
-              <property name="text">
-               <string>12</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QLabel" name="label_54">
-              <property name="text">
-               <string>4</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="2">
+            <item row="5" column="1">
              <widget class="QComboBox" name="cmbCount_19"/>
             </item>
-            <item row="12" column="1">
-             <widget class="QCheckBox" name="checkBox_31">
+            <item row="10" column="1">
+             <widget class="QComboBox" name="cmbCount_24"/>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_62">
               <property name="text">
-               <string/>
+               <string>8</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="2">
-             <widget class="QComboBox" name="cmbCount_27"/>
+            <item row="9" column="1">
+             <widget class="QComboBox" name="cmbCount_23"/>
             </item>
-            <item row="14" column="2">
-             <widget class="QComboBox" name="cmbCount_28"/>
+            <item row="8" column="1">
+             <widget class="QComboBox" name="cmbCount_22"/>
             </item>
-            <item row="2" column="2">
-             <widget class="QComboBox" name="cmbCount_16"/>
+            <item row="3" column="1">
+             <widget class="QComboBox" name="cmbCount_17"/>
             </item>
-            <item row="16" column="1">
-             <widget class="QCheckBox" name="checkBox_45">
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_65">
               <property name="text">
-               <string/>
+               <string>10</string>
               </property>
              </widget>
             </item>
-            <item row="12" column="2">
-             <widget class="QComboBox" name="cmbCount_26"/>
-            </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="lblG3ItemCount">
-              <property name="text">
-               <string>指标数量</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="3">
-             <widget class="QLineEdit" name="lineEdit_10"/>
-            </item>
-            <item row="4" column="2">
-             <widget class="QComboBox" name="cmbCount_18"/>
-            </item>
-            <item row="13" column="1">
-             <widget class="QCheckBox" name="checkBox_42">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="3">
-             <widget class="QLineEdit" name="lineEdit_9"/>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_53">
-              <property name="text">
-               <string>3</string>
-              </property>
-             </widget>
-            </item>
-            <item row="17" column="2">
+            <item row="17" column="1">
              <spacer name="verticalSpacer_3">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -2099,59 +1975,68 @@
               </property>
              </spacer>
             </item>
-            <item row="2" column="4">
-             <widget class="QLineEdit" name="lineEdit_16"/>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_56">
+              <property name="text">
+               <string>6</string>
+              </property>
+             </widget>
             </item>
-            <item row="3" column="4">
-             <widget class="QLineEdit" name="lineEdit_17"/>
+            <item row="13" column="0">
+             <widget class="QLabel" name="label_69">
+              <property name="text">
+               <string>12</string>
+              </property>
+             </widget>
             </item>
-            <item row="4" column="4">
-             <widget class="QLineEdit" name="lineEdit_18"/>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_55">
+              <property name="text">
+               <string>5</string>
+              </property>
+             </widget>
             </item>
-            <item row="5" column="4">
-             <widget class="QLineEdit" name="lineEdit_19"/>
+            <item row="15" column="1">
+             <widget class="QComboBox" name="cmbCount_29"/>
             </item>
-            <item row="6" column="4">
-             <widget class="QLineEdit" name="lineEdit_20"/>
+            <item row="5" column="0">
+             <widget class="QLabel" name="label_54">
+              <property name="text">
+               <string>4</string>
+              </property>
+             </widget>
             </item>
-            <item row="7" column="4">
-             <widget class="QLineEdit" name="lineEdit_21"/>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_71">
+              <property name="text">
+               <string>13</string>
+              </property>
+             </widget>
             </item>
-            <item row="8" column="4">
-             <widget class="QLineEdit" name="lineEdit_22"/>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lblG3ItemCount">
+              <property name="text">
+               <string>指标数量</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
             </item>
-            <item row="9" column="4">
-             <widget class="QLineEdit" name="lineEdit_23"/>
+            <item row="14" column="1">
+             <widget class="QComboBox" name="cmbCount_28"/>
             </item>
-            <item row="10" column="4">
-             <widget class="QLineEdit" name="lineEdit_24"/>
+            <item row="13" column="1">
+             <widget class="QComboBox" name="cmbCount_27"/>
             </item>
-            <item row="11" column="4">
-             <widget class="QLineEdit" name="lineEdit_25"/>
+            <item row="12" column="1">
+             <widget class="QComboBox" name="cmbCount_26"/>
             </item>
-            <item row="12" column="4">
-             <widget class="QLineEdit" name="lineEdit_26"/>
+            <item row="7" column="1">
+             <widget class="QComboBox" name="cmbCount_21"/>
             </item>
-            <item row="13" column="4">
-             <widget class="QLineEdit" name="lineEdit_27"/>
-            </item>
-            <item row="14" column="4">
-             <widget class="QLineEdit" name="lineEdit_28"/>
-            </item>
-            <item row="15" column="4">
-             <widget class="QLineEdit" name="lineEdit_29"/>
-            </item>
-            <item row="16" column="4">
-             <widget class="QLineEdit" name="lineEdit_30"/>
-            </item>
-            <item row="2" column="3">
-             <widget class="QLineEdit" name="lineEdit_61"/>
-            </item>
-            <item row="4" column="3">
-             <widget class="QLineEdit" name="lineEdit_62"/>
-            </item>
-            <item row="5" column="3">
-             <widget class="QLineEdit" name="lineEdit_63"/>
+            <item row="6" column="1">
+             <widget class="QComboBox" name="cmbCount_20"/>
             </item>
            </layout>
           </item>
@@ -2166,17 +2051,77 @@
             <property name="verticalSpacing">
              <number>5</number>
             </property>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_83">
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_90">
               <property name="text">
-               <string>19</string>
+               <string>26</string>
               </property>
              </widget>
             </item>
-            <item row="14" column="0">
-             <widget class="QLabel" name="label_93">
+            <item row="12" column="1">
+             <widget class="QComboBox" name="cmbCount_42"/>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_91">
               <property name="text">
-               <string>29</string>
+               <string>27</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1">
+             <widget class="QComboBox" name="cmbCount_40"/>
+            </item>
+            <item row="4" column="1">
+             <widget class="QComboBox" name="cmbCount_34"/>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_74">
+              <property name="text">
+               <string>17</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="1">
+             <widget class="QComboBox" name="cmbCount_43"/>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_76">
+              <property name="text">
+               <string>18</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="0">
+             <widget class="QLabel" name="label_94">
+              <property name="text">
+               <string>30</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_89">
+              <property name="text">
+               <string>25</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="1">
+             <widget class="QComboBox" name="cmbCount_44"/>
+            </item>
+            <item row="6" column="1">
+             <widget class="QComboBox" name="cmbCount_36"/>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLabel" name="label_86">
+              <property name="text">
+               <string>22</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_85">
+              <property name="text">
+               <string>21</string>
               </property>
              </widget>
             </item>
@@ -2187,21 +2132,25 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_40">
-              <property name="text">
-               <string>16</string>
-              </property>
-             </widget>
+            <item row="3" column="1">
+             <widget class="QComboBox" name="cmbCount_33"/>
             </item>
-            <item row="7" column="0">
-             <widget class="QLabel" name="label_86">
-              <property name="text">
-               <string>22</string>
-              </property>
-             </widget>
+            <item row="11" column="1">
+             <widget class="QComboBox" name="cmbCount_41"/>
             </item>
-            <item row="16" column="2">
+            <item row="1" column="1">
+             <widget class="QComboBox" name="cmbCount_31"/>
+            </item>
+            <item row="15" column="1">
+             <widget class="QComboBox" name="cmbCount_45"/>
+            </item>
+            <item row="5" column="1">
+             <widget class="QComboBox" name="cmbCount_35"/>
+            </item>
+            <item row="9" column="1">
+             <widget class="QComboBox" name="cmbCount_39"/>
+            </item>
+            <item row="16" column="1">
              <spacer name="verticalSpacer_5">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -2214,17 +2163,10 @@
               </property>
              </spacer>
             </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_74">
+            <item row="9" column="0">
+             <widget class="QLabel" name="label_88">
               <property name="text">
-               <string>17</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_76">
-              <property name="text">
-               <string>18</string>
+               <string>24</string>
               </property>
              </widget>
             </item>
@@ -2235,92 +2177,16 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="lblG4ItemCount">
-              <property name="text">
-               <string>指标数量</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="0">
-             <widget class="QLabel" name="label_90">
-              <property name="text">
-               <string>26</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="lblG4ItemDistance">
-              <property name="text">
-               <string>指标间距(mm)</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="0">
-             <widget class="QLabel" name="label_89">
-              <property name="text">
-               <string>25</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="checkBox_46">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
-             <widget class="QLabel" name="lblG4ItemStartPos">
-              <property name="text">
-               <string>起始位置(mm)</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_85">
-              <property name="text">
-               <string>21</string>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="0">
-             <widget class="QLabel" name="label_91">
-              <property name="text">
-               <string>27</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QCheckBox" name="checkBox_65">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="lblG4IsEmpty">
-              <property name="text">
-               <string>空白</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
+            <item row="7" column="1">
+             <widget class="QComboBox" name="cmbCount_37"/>
             </item>
             <item row="2" column="1">
-             <widget class="QCheckBox" name="checkBox_47">
+             <widget class="QComboBox" name="cmbCount_32"/>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_93">
               <property name="text">
-               <string/>
+               <string>29</string>
               </property>
              </widget>
             </item>
@@ -2331,238 +2197,32 @@
               </property>
              </widget>
             </item>
-            <item row="9" column="0">
-             <widget class="QLabel" name="label_88">
-              <property name="text">
-               <string>24</string>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="0">
-             <widget class="QLabel" name="label_94">
-              <property name="text">
-               <string>30</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QCheckBox" name="checkBox_66">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QCheckBox" name="checkBox_67">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
-             <widget class="QCheckBox" name="checkBox_68">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="1">
-             <widget class="QCheckBox" name="checkBox_69">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
             <item row="8" column="1">
-             <widget class="QCheckBox" name="checkBox_70">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="1">
-             <widget class="QCheckBox" name="checkBox_71">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="10" column="1">
-             <widget class="QCheckBox" name="checkBox_72">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="1">
-             <widget class="QCheckBox" name="checkBox_73">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="1">
-             <widget class="QCheckBox" name="checkBox_74">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="1">
-             <widget class="QCheckBox" name="checkBox_75">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="1">
-             <widget class="QCheckBox" name="checkBox_76">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="1">
-             <widget class="QCheckBox" name="checkBox_77">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <widget class="QLineEdit" name="lineEdit_31"/>
-            </item>
-            <item row="1" column="2">
-             <widget class="QComboBox" name="cmbCount_31"/>
-            </item>
-            <item row="2" column="2">
-             <widget class="QComboBox" name="cmbCount_32"/>
-            </item>
-            <item row="3" column="2">
-             <widget class="QComboBox" name="cmbCount_33"/>
-            </item>
-            <item row="4" column="2">
-             <widget class="QComboBox" name="cmbCount_34"/>
-            </item>
-            <item row="5" column="2">
-             <widget class="QComboBox" name="cmbCount_35"/>
-            </item>
-            <item row="6" column="2">
-             <widget class="QComboBox" name="cmbCount_36"/>
-            </item>
-            <item row="7" column="2">
-             <widget class="QComboBox" name="cmbCount_37"/>
-            </item>
-            <item row="8" column="2">
              <widget class="QComboBox" name="cmbCount_38"/>
             </item>
-            <item row="9" column="2">
-             <widget class="QComboBox" name="cmbCount_39"/>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_83">
+              <property name="text">
+               <string>19</string>
+              </property>
+             </widget>
             </item>
-            <item row="10" column="2">
-             <widget class="QComboBox" name="cmbCount_40"/>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lblG4ItemCount">
+              <property name="text">
+               <string>指标数量</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
             </item>
-            <item row="11" column="2">
-             <widget class="QComboBox" name="cmbCount_41"/>
-            </item>
-            <item row="12" column="2">
-             <widget class="QComboBox" name="cmbCount_42"/>
-            </item>
-            <item row="13" column="2">
-             <widget class="QComboBox" name="cmbCount_43"/>
-            </item>
-            <item row="14" column="2">
-             <widget class="QComboBox" name="cmbCount_44"/>
-            </item>
-            <item row="15" column="2">
-             <widget class="QComboBox" name="cmbCount_45"/>
-            </item>
-            <item row="2" column="3">
-             <widget class="QLineEdit" name="lineEdit_32"/>
-            </item>
-            <item row="3" column="3">
-             <widget class="QLineEdit" name="lineEdit_33"/>
-            </item>
-            <item row="4" column="3">
-             <widget class="QLineEdit" name="lineEdit_34"/>
-            </item>
-            <item row="5" column="3">
-             <widget class="QLineEdit" name="lineEdit_35"/>
-            </item>
-            <item row="6" column="3">
-             <widget class="QLineEdit" name="lineEdit_36"/>
-            </item>
-            <item row="7" column="3">
-             <widget class="QLineEdit" name="lineEdit_37"/>
-            </item>
-            <item row="8" column="3">
-             <widget class="QLineEdit" name="lineEdit_38"/>
-            </item>
-            <item row="9" column="3">
-             <widget class="QLineEdit" name="lineEdit_39"/>
-            </item>
-            <item row="10" column="3">
-             <widget class="QLineEdit" name="lineEdit_40"/>
-            </item>
-            <item row="11" column="3">
-             <widget class="QLineEdit" name="lineEdit_41"/>
-            </item>
-            <item row="12" column="3">
-             <widget class="QLineEdit" name="lineEdit_42"/>
-            </item>
-            <item row="13" column="3">
-             <widget class="QLineEdit" name="lineEdit_43"/>
-            </item>
-            <item row="14" column="3">
-             <widget class="QLineEdit" name="lineEdit_44"/>
-            </item>
-            <item row="15" column="3">
-             <widget class="QLineEdit" name="lineEdit_45"/>
-            </item>
-            <item row="1" column="4">
-             <widget class="QLineEdit" name="lineEdit_46"/>
-            </item>
-            <item row="2" column="4">
-             <widget class="QLineEdit" name="lineEdit_47"/>
-            </item>
-            <item row="3" column="4">
-             <widget class="QLineEdit" name="lineEdit_48"/>
-            </item>
-            <item row="4" column="4">
-             <widget class="QLineEdit" name="lineEdit_49"/>
-            </item>
-            <item row="5" column="4">
-             <widget class="QLineEdit" name="lineEdit_50"/>
-            </item>
-            <item row="6" column="4">
-             <widget class="QLineEdit" name="lineEdit_51"/>
-            </item>
-            <item row="7" column="4">
-             <widget class="QLineEdit" name="lineEdit_52"/>
-            </item>
-            <item row="8" column="4">
-             <widget class="QLineEdit" name="lineEdit_53"/>
-            </item>
-            <item row="9" column="4">
-             <widget class="QLineEdit" name="lineEdit_54"/>
-            </item>
-            <item row="10" column="4">
-             <widget class="QLineEdit" name="lineEdit_55"/>
-            </item>
-            <item row="11" column="4">
-             <widget class="QLineEdit" name="lineEdit_56"/>
-            </item>
-            <item row="12" column="4">
-             <widget class="QLineEdit" name="lineEdit_57"/>
-            </item>
-            <item row="13" column="4">
-             <widget class="QLineEdit" name="lineEdit_58"/>
-            </item>
-            <item row="14" column="4">
-             <widget class="QLineEdit" name="lineEdit_59"/>
-            </item>
-            <item row="15" column="4">
-             <widget class="QLineEdit" name="lineEdit_60"/>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_40">
+              <property name="text">
+               <string>16</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -2599,6 +2259,11 @@
         <column>
          <property name="text">
           <string>类型</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>空白</string>
          </property>
         </column>
         <column>
@@ -2667,12 +2332,28 @@
     </item>
    </layout>
   </widget>
+  <widget class="QLabel" name="lblG1ItemName_2">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>840</y>
+     <width>52</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>项目名称</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

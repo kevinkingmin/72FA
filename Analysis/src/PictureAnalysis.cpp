@@ -295,7 +295,7 @@ bool PictureAnalysis::GetTestPaperParameter(TestPaperParameter &testPaperParamet
         testPaperParameterStruct.paperType = TestPaperQuery.value("PaperType").toInt();
         testPaperParameterStruct.nTotalNumber = TestPaperQuery.value("TotalNumber").toInt();
         testPaperParameterStruct.nTestItemNumber = TestPaperQuery.value("ItemNumber").toInt();
-        testPaperParameterStruct.dTotalLenght = TestPaperQuery.value("PaperLenght").toDouble();
+        testPaperParameterStruct.dTotalLenght = TestPaperQuery.value("TestPaperLenght").toDouble();
         testPaperParameterStruct.paperHeight = TestPaperQuery.value("PaperHeight").toDouble();
         testPaperParameterStruct.paperMmToPixel = TestPaperQuery.value("PaperMmToPixel").toDouble();
         testPaperParameterStruct.ignoreHeadLenght = TestPaperQuery.value("IgnoreHeadLenght").toDouble();
@@ -309,7 +309,7 @@ bool PictureAnalysis::GetTestPaperParameter(TestPaperParameter &testPaperParamet
         testPaperParameterStruct.isCutOff = TestPaperQuery.value("IsCutOff").toInt();
         testPaperParameterStruct.cutOffPosition = TestPaperQuery.value("CutoffPosition").toDouble();
         testPaperParameterStruct.cutOffValue = TestPaperQuery.value("CutoffValue").toDouble();
-        testPaperParameterStruct.cutOffThreshold = TestPaperQuery.value("CutOffThreshold").toDouble();
+        testPaperParameterStruct.cutOffThreshold = TestPaperQuery.value("CutOffGrayThreshold").toDouble();
         testPaperParameterStruct.paperShowAngle = TestPaperQuery.value("PaperShowAngle").toInt();
         testPaperParameterStruct.paperBinarizationThreshold = TestPaperQuery.value("PaperBinarizationThreshold").toInt();
         testPaperParameterStruct.paperBackgroundValue = TestPaperQuery.value("PaperBackgroundValue").toDouble();
