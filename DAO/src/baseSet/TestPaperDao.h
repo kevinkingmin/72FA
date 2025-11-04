@@ -30,10 +30,14 @@ public:
     static TestPaperDao *instance();
     bool deleteById(int id);
     QVector<TestPaperModel>getAllRows();
+    QVector<TestPaperModel> getCompanyPapers(QString companyId);
+    QVector<TestPaperModel> getCompanyEnablePapers(QString companyId);
     QVector<QString> getAllNames();
     bool getModel(const int paperId, TestPaperModel& out);
     bool insert(TestPaperModel& model);
     bool update(TestPaperModel& model);
+    bool enableAndUpdate(const int paperId, const bool enable);
+
 private:
     //QMap<int,ptrModel>_map;
 };

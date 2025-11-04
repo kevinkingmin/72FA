@@ -24,6 +24,7 @@ public:
     static ProcessDao *instance();
     QVector<ProcessModel> getAllRows();
     QVector<ProcessModel> getModels(const int companyId);
+    QVector<ProcessModel> getModelsFromSystemSet();
     bool getModel(const int processId, ProcessModel& out);
     bool insert(const int companyId, const QString& processName);
 private:

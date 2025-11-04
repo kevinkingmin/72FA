@@ -11,6 +11,12 @@
 #include "ProcessParaWidgets.h"
 #include "../Include/Model/baseSet/CompanyModel.h"
 #include "../Include/DAO/baseSet/CompanyDao.h"
+#include "../Include/Model/baseSet/ProcessModel.h"
+#include "../Include/DAO/baseSet/ProcessDao.h"
+#include "../Include/Model/baseSet/TestPaperModel.h"
+#include "../Include/DAO/baseSet/TestPaperDao.h"
+#include "../Include/Model/baseSet/CompanyModel.h"
+#include "../Include/DAO/baseSet/CompanyDao.h"
 
 SystemSet::SystemSet(QWidget *parent)
     : QWidget(parent)
@@ -19,10 +25,6 @@ SystemSet::SystemSet(QWidget *parent)
     setAttribute(Qt::WA_ShowModal, true);
     auto dao = AnalysisUIDao::instance();
     bool bResult;
-    //QRegExp regExp;
-    //regExp.setPattern("[1-6]?[0-9]|[7][0-2]|[1-9]");
-    //QValidator * q_validator = new QRegExpValidator(regExp, ui.lineEdit_ControlThreshold);
-    //ui.lineEdit_ControlThreshold->setValidator(q_validator);
     QRegExpValidator* validator = new QRegExpValidator(QRegExp("^(?:[5-9]|[1-9][0-9]|[1-2][0-3][0-9]|240)$"), ui.lineEdit_week_finish_time);
     ui.lineEdit_week_finish_time->setValidator(validator);
     ui.lineEdit_RootPathReport->setEnabled(true);
@@ -39,31 +41,28 @@ SystemSet::SystemSet(QWidget *parent)
     QString strRootPathReport = dao->SelectTestReportsRootPath(&bResult);
     ui.lineEdit_RootPathReport->setText(strRootPathReport);
 
-    //ui.lineEdit_week_finish_time->setEnabled(false);
-
     //打开、关闭
-    ui.comboBox_aspirate_sample->clear();//.addItem('条目1')
-    ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo("K1698"));//.addItem('条目1')
-    ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo("K1699"));//.addItem('条目1')
+    ui.comboBox_aspirate_sample->clear();
+    ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo("K1698"));
+    ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo("K1699"));
 
-    ui.comboBox_vomit->clear();//.addItem('条目1')
-    ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo("K1698"));//.addItem('条目1')
-    ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo("K1699"));//.addItem('条目1')
+    ui.comboBox_vomit->clear();
+    ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo("K1698"));
+    ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo("K1699"));
 
     //是、否
     ui.comboBox_beep_enable->clear();
-    ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));//.addItem('条目1')
-    ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));//.addItem('条目1')
+    ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));
+    ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));
 
 
     ui.comboBox_waste_liquid_tank_enable->clear();
-    ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));//.addItem('条目1')
-    ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));//.addItem('条目1')
+    ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));
+    ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));
 
 
     //当前应用膜条公司名字
     QString PaperInfo = dao->SelectPaperInfo(&bResult);
-
     CompanyDao* companyDao = CompanyDao::instance();
     QVector<CompanyModel> companyModels = companyDao->getAllRows();
     if (bResult == false)
@@ -72,6 +71,20 @@ SystemSet::SystemSet(QWidget *parent)
         return;
     }
 
+    ProcessDao* processDao = ProcessDao::instance();
+    QVector<ProcessModel> processVect = processDao->getModelsFromSystemSet();
+    if (bResult == false)
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1839"), MyMessageBox::Ok,"OK","");
+        return;
+    }
+
+    ui.comboBox_run_sequence->setView(new QListView(this));
+    for(ProcessModel& process:processVect)
+    {
+        qDebug()<<"name1"<<process.getProcessName();
+        ui.comboBox_run_sequence->addItem(process.getProcessName(), process.getId());
+    }
 
     //取出所有的参数
     QString sql = "select * from tsystemset";
@@ -98,7 +111,6 @@ SystemSet::SystemSet(QWidget *parent)
                                                         "min-height: 40px;"   // 更改 item 高度为 40 像素
                                                         "}"
                                                         ));
-            //6	1	defaultProcess	默认时序
         }
         else if (pkid == 20005)
         {
@@ -331,43 +343,47 @@ SystemSet::SystemSet(QWidget *parent)
     for (CompanyModel& model : companyModels)
     {
         QString itemName = model.getName();
-        QString id=QString::number(model.getId());
-        ui.comboBox_CompanyList->addItem(itemName,id); //带图标
+        ui.comboBox_CompanyList->addItem(itemName, model.getId());
         row++;
     }
-    ui.comboBox_CompanyList->setView(new  QListView(this));
-    ui.comboBox_CompanyList->setStyleSheet(QString(
-                                               "QComboBox QAbstractItemView {"
-                                               "background: rgb(192,192,192);"
-                                               "   min-height: 40px;"   // 更改 item 高度为 40 像素
-                                               "}"
-                                               ));
+    connect(ui.comboBox_CompanyList,
+                &QComboBox::currentTextChanged,
+                this,
+                &SystemSet::onCompanyComboBoxChanged);
+//    connect(ui.comboBox_CompanyList, &QComboBox::currentIndexChanged,
+//             this, &SystemSet::onCompanyComboBoxChanged);
+//    ui.comboBox_CompanyList->setStyleSheet(QString(
+//                                               "QComboBox QAbstractItemView {"
+//                                               "background: rgb(192,192,192);"
+//                                               "   min-height: 40px;"   // 更改 item 高度为 40 像素
+//                                               "}"
+//                                               ));
 
-    ui.comboBox_CompanyList->setStyleSheet(QString(
-                                               "QComboBox QAbstractItemView:item {"
-                                               "background: rgb(192,192,192);"
-                                               "   min-height: 40px;"   // 更改 item 高度为 40 像素
-                                               "}"
-                                               ));
+//    ui.comboBox_CompanyList->setStyleSheet(QString(
+//                                               "QComboBox QAbstractItemView:item {"
+//                                               "background: rgb(192,192,192);"
+//                                               "   min-height: 40px;"   // 更改 item 高度为 40 像素
+//                                               "}"
+//                                               ));
     if (row > 0)
     {
         /*设置让某个单元格或某行选中*/
         //选中单元格 第一行：
         ui.comboBox_CompanyList->setCurrentText(PaperInfo);
         ui.comboBox_CompanyList->setView(new  QListView(this));
-        ui.comboBox_CompanyList->setStyleSheet(QString(
-                                                   "QComboBox QAbstractItemView {"
-                                                   "background: rgb(192,192,192);"
-                                                   "   min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                   "}"
-                                                   ));
+//        ui.comboBox_CompanyList->setStyleSheet(QString(
+//                                                   "QComboBox QAbstractItemView {"
+//                                                   "background: rgb(192,192,192);"
+//                                                   "   min-height: 40px;"   // 更改 item 高度为 40 像素
+//                                                   "}"
+//                                                   ));
 
-        ui.comboBox_CompanyList->setStyleSheet(QString(
-                                                   "QComboBox QAbstractItemView:item {"
-                                                   "background: rgb(192,192,192);"
-                                                   "   min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                   "}"
-                                                   ));
+//        ui.comboBox_CompanyList->setStyleSheet(QString(
+//                                                   "QComboBox QAbstractItemView:item {"
+//                                                   "background: rgb(192,192,192);"
+//                                                   "   min-height: 40px;"   // 更改 item 高度为 40 像素
+//                                                   "}"
+//                                                   ));
 
         //ui.tableWidget_Company->setCurrentCell(0, 0, QItemSelectionModel::Select);
     }
@@ -487,12 +503,6 @@ SystemSet::SystemSet(QWidget *parent)
 
     sz = GlobalData::LoadLanguageInfo("K1122");
     ui.label_55->setText(sz);
-
-    //ui.pushButtonPara->setHidden(true);//.hide();
-    //ui.pushButtonPara->setEnabled(true);// setEnabled(True);
-    //ui.pushButtonPara->setStyleSheet("background-color: lightblue; color: white;");
-    //ui.pushButtonPara->setStyleSheet("background-color: rgba(0, 0, 0, 0); border: none;color: white;border:0px solid;background - color:rgba(0, 0, 0, 0);");
-    //ui.pushButtonPara->setStyleSheet("background-color: rgba(0, 0, 0, 0); border: none;"); // 将按钮设为透明
     ui.pushButtonPara->setVisible(true);
 
 }
@@ -683,16 +693,6 @@ void SystemSet::on_pushButton_Save_clicked()
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1284"), MyMessageBox::Ok,"OK","");
         return;
     }
-
-    //当前使用的膜条所属公司
-    //QString select_paper_company_name = ui.comboBox_CompanyList->currentText();//ui.lineEdit_RootPathReport->text();
-    //bResult = dao->UpdateSystemSetId5("5", select_paper_company_name);
-    //if (bResult == false)
-    //{
-    //	QMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), "更新膜条所属公司失败！", QMessageBox::Ok);
-    //	return;
-    //}
-
 
     //6	1	defaultProcess	默认时序
     value_set = ui.comboBox_language->currentText();
@@ -963,4 +963,13 @@ void SystemSet::on_pushButton_Save_clicked()
 void SystemSet::on_pushButton_Cancel_clicked() 
 {
     this->close();
+}
+
+void SystemSet::onCompanyComboBoxChanged(const QString &text)
+{
+//    qDebug() << "当前选中索引:" << index;
+//    qDebug() << "当前文本:" << comboBox->currentText();
+//    qDebug() << "当前数据:" << comboBox->currentData(); // 如果设置了 userData
+    qDebug()<<"click"<<text;
+
 }

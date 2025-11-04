@@ -43,6 +43,30 @@ QVector<TestPaperModel> TestPaperDao::getAllRows()
     return getModelFormQuery(query);
 }
 
+// 获取所有行
+QVector<TestPaperModel> TestPaperDao::getCompanyPapers(QString companyId)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return {};
+
+    query.prepare("SELECT * FROM t_testpaper where CompanyID = ?");
+    query.addBindValue(companyId);
+    if(!query.exec()) return {};
+    return getModelFormQuery(query);
+}
+
+// 获取所有行
+QVector<TestPaperModel> TestPaperDao::getCompanyEnablePapers(QString companyId)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return {};
+
+    query.prepare("SELECT * FROM t_testpaper where CompanyID = ? and IsPaperHide = 0");
+    query.addBindValue(companyId);
+    if(!query.exec()) return {};
+    return getModelFormQuery(query);
+}
+
 
 // 获取名称
 QVector<QString> TestPaperDao::getAllNames()
@@ -205,6 +229,30 @@ bool TestPaperDao::update(TestPaperModel& model)
     return true;
 }
 
+
+// 设置膜条是否启用
+bool TestPaperDao::enableAndUpdate(const int paperId, const bool enable)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return false;
+    query.prepare("UPDATE t_testpaper SET IsPaperHide = ? WHERE ID = ?");
+    query.addBindValue(enable?0:1);
+    query.addBindValue(paperId);
+    if(!query.exec())
+    {
+        QSqlError err = query.lastError();
+        qDebug() << "SQL Insert FAILED!";
+        qDebug() << "Error Code:" << err.number();
+        qDebug() << "Error Msg:" << err.text();
+        qDebug() << "Database Text:" << err.databaseText();
+        qDebug() << "Driver Text:" << err.driverText();
+        // （Qt 5.13+）可选：查看实际执行的语句（仅占位符，不展开值）
+        qDebug() << "Executed Query (with ?):" << query.executedQuery();
+        return false;
+    }
+    return true;
+}
+
 QVector<TestPaperModel> TestPaperDao::getModelFormQuery(QSqlQuery& query)
 {
     QVector<TestPaperModel> vect;
@@ -249,3 +297,4 @@ QVector<TestPaperModel> TestPaperDao::getModelFormQuery(QSqlQuery& query)
     }
     return vect;
 }
+

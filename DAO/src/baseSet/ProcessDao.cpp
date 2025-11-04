@@ -3,6 +3,8 @@
 #include <QVariant>
 #include "../Include/Model/baseSet/ProcessModel.h"
 #include "../Include/Comm/singleton.h"
+#include <QSqlError>
+#include <QDebug>
 
 ProcessDao::ProcessDao()
 {    
@@ -56,6 +58,26 @@ bool ProcessDao::getModel(const int processId, ProcessModel& out)
     }
     return true;
 }
+
+
+QVector<ProcessModel> ProcessDao::getModelsFromSystemSet()
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return {};
+    query.prepare("SELECT saveSet FROM tsystemset WHERE id = 5 LIMIT 1");
+    if(!query.exec())
+    {
+        qWarning() << "SQL exec failed:" << query.lastError().text();
+        return {};
+    }
+    int companyId = 0;
+    if (query.next())
+    {
+        companyId = query.value("saveSet").toInt();
+    }
+    return getModels(companyId);
+}
+
 
 QVector<ProcessModel> ProcessDao::getModels(const int companyId)
 {

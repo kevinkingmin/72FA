@@ -427,8 +427,6 @@ public:
         gridLayout_2->addWidget(label_13, 3, 0, 1, 1);
 
         comboBox_run_sequence = new QComboBox(groupBox);
-        comboBox_run_sequence->addItem(QString());
-        comboBox_run_sequence->addItem(QString());
         comboBox_run_sequence->setObjectName(QString::fromUtf8("comboBox_run_sequence"));
 
         gridLayout_2->addWidget(comboBox_run_sequence, 3, 5, 1, 1);
@@ -567,9 +565,6 @@ public:
         label_30->setText(QApplication::translate("SystemSet", "1-5ml", nullptr));
         label_12->setText(QApplication::translate("SystemSet", "\347\263\273\347\273\237\346\266\262\346\270\205\346\264\227\344\275\223\347\247\257\357\274\232", nullptr));
         label_13->setText(QApplication::translate("SystemSet", "\346\234\210\347\273\264\346\212\244\346\263\265\345\205\205\347\201\214\351\207\217\357\274\232", nullptr));
-        comboBox_run_sequence->setItemText(0, QApplication::translate("SystemSet", "Process1", nullptr));
-        comboBox_run_sequence->setItemText(1, QApplication::translate("SystemSet", "defaultProcess", nullptr));
-
         lineEdit_Weight->setText(QApplication::translate("SystemSet", "18.481", nullptr));
         label_21->setText(QApplication::translate("SystemSet", "\346\234\210\347\273\264\346\212\244\346\263\265\346\240\241\345\207\206\351\207\217\357\274\232", nullptr));
         comboBox_beep_enable->setItemText(0, QApplication::translate("SystemSet", "\345\220\246", nullptr));

@@ -32,10 +32,10 @@ public:
     QSpacerItem *horizontalSpacer_2;
     QPushButton *Add_Button;
     QPushButton *Modify_Button;
-    QPushButton *Delete_Button;
+    QPushButton *Disable_Button;
     QSpacerItem *horizontalSpacer;
     QPushButton *Inport_Button;
-    QPushButton *Delete_Button_2;
+    QPushButton *Enable_Button;
     QSpacerItem *horizontalSpacer_3;
     QSpacerItem *horizontalSpacer_6;
     QPushButton *Export_Button;
@@ -99,10 +99,10 @@ public:
 
         gridLayout->addWidget(Modify_Button, 0, 6, 1, 1);
 
-        Delete_Button = new QPushButton(layoutWidget);
-        Delete_Button->setObjectName(QString::fromUtf8("Delete_Button"));
+        Disable_Button = new QPushButton(layoutWidget);
+        Disable_Button->setObjectName(QString::fromUtf8("Disable_Button"));
 
-        gridLayout->addWidget(Delete_Button, 0, 8, 1, 1);
+        gridLayout->addWidget(Disable_Button, 0, 8, 1, 1);
 
         horizontalSpacer = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
@@ -113,10 +113,10 @@ public:
 
         gridLayout->addWidget(Inport_Button, 0, 0, 1, 1);
 
-        Delete_Button_2 = new QPushButton(layoutWidget);
-        Delete_Button_2->setObjectName(QString::fromUtf8("Delete_Button_2"));
+        Enable_Button = new QPushButton(layoutWidget);
+        Enable_Button->setObjectName(QString::fromUtf8("Enable_Button"));
 
-        gridLayout->addWidget(Delete_Button_2, 0, 10, 1, 1);
+        gridLayout->addWidget(Enable_Button, 0, 10, 1, 1);
 
         horizontalSpacer_3 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
@@ -181,12 +181,12 @@ public:
         Add_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
         Modify_Button->setText(QApplication::translate("TestPaperManage", "\344\277\256\346\224\271", nullptr));
         Modify_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
-        Delete_Button->setText(QApplication::translate("TestPaperManage", "\344\270\215\345\220\257\347\224\250", nullptr));
-        Delete_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
+        Disable_Button->setText(QApplication::translate("TestPaperManage", "\344\270\215\345\220\257\347\224\250", nullptr));
+        Disable_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
         Inport_Button->setText(QApplication::translate("TestPaperManage", "\345\257\274\345\205\245", nullptr));
         Inport_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
-        Delete_Button_2->setText(QApplication::translate("TestPaperManage", "\345\220\257\347\224\250", nullptr));
-        Delete_Button_2->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
+        Enable_Button->setText(QApplication::translate("TestPaperManage", "\345\220\257\347\224\250", nullptr));
+        Enable_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
         Export_Button->setText(QApplication::translate("TestPaperManage", "\345\257\274\345\207\272", nullptr));
         Export_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
         Down_Sort_Button_3->setText(QString());

@@ -5,6 +5,8 @@
 #include <QSqlQuery>
 #include "TestPaper.h"
 #include "../Include/Model/baseSet/CompanyModel.h"
+#include "../Include/DAO/baseSet/TestPaperDao.h"
+#include "../Include/Model/baseSet/TestPaperModel.h"
 
 class Instrument;
 
@@ -28,8 +30,8 @@ private slots:
 	void on_Delete_Company_Button_clicked();
 	void on_Add_Button_clicked();
 	void on_Modify_Button_clicked();
-	void on_Delete_Button_clicked();
-	void on_Delete_Button_2_clicked();
+    void on_Disable_Button_clicked();
+    void on_Enable_Button_clicked();
 	void on_Export_Button_clicked();
 	void on_Inport_Button_clicked();
 	void on_Up_Sort_Button_2_clicked();
@@ -37,13 +39,16 @@ private slots:
 	
 	void getRefreshTableWidgetFlag(bool bFlag);
 	void getRefreshCompanyTableWidgetFlag(bool bFlag);
+    void enablePaper(bool enable);
 private:
     Ui::TestPaperManage ui;
     QString m_strCompany_ID;
-    QString m_strTestPaper_ID;
+    QString _selectPaperId;
 
     QVector<CompanyModel> _companyModels;
-    QSqlQuery m_TestPaperQuery;
+    TestPaperModel _selectPaperModel;
+    QVector<TestPaperModel> _selectPaperVect;
+    //QSqlQuery m_TestPaperQuery;
     Instrument * _instr;
     QString m_strMachineUID;
 };

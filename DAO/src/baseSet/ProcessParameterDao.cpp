@@ -80,7 +80,6 @@ QVector<ProcessParameterModel> ProcessParameterDao::getAllRows(int processId)
 
 bool ProcessParameterDao::insert(ProcessParameterModel& model)
 {
-    qDebug()<<"insert";
     QSqlQuery query;
     if (DAO::createQuery(query) < 0) return false;
 
@@ -108,4 +107,32 @@ bool ProcessParameterDao::update(int stepId, ProcessParameterModel& model)
             .arg(stepId);
     if(!query.exec(sqlStr)) return false;
     return true;
+}
+
+
+// 查找动作组名称
+QList<QString> ProcessParameterDao::getActionGroupNameVect(int processId)
+{
+    QSqlQuery query;
+    if (DAO::createQuery(query) < 0) return {};
+    query.prepare("SELECT actName FROM tprocess_parameter WHERE processId = ? ORDER BY id ASC");
+    query.addBindValue(processId);
+    if (!query.exec()) return {};
+    QList<QString> result;
+    QSet<QString> seen;  // 辅助去重
+
+    while (query.next())
+    {
+        QVariant value = query.value("actName");
+        if (value.isNull()) continue;
+        QString name = value.toString();
+        if (name.isEmpty()) continue;
+        if (!seen.contains(name))
+        {
+            seen.insert(name);
+            result.append(name);
+        }
+    }
+
+    return result;
 }

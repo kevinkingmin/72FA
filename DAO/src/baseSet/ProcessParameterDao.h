@@ -3,6 +3,7 @@
 #include "../dao.h"
 #include <QSharedPointer>
 #include <QVector>
+#include <QList>
 #include <QVariant>
 
 template<class T>
@@ -28,6 +29,7 @@ public:
     bool delectModel(int stepId);
     bool insert(ProcessParameterModel& model);
     bool update(int stepId, ProcessParameterModel& model);
+    QList<QString> getActionGroupNameVect(int processId);
 private:
     //QVector<ptrModel>_vect;
 };

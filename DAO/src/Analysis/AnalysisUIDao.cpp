@@ -478,31 +478,6 @@ QString AnalysisUIDao::SelectTargetValueDes(bool *bResult, QString condition)
     return strTargetValue;
 }
 
-//
-QMap<int, QString> AnalysisUIDao::MGroupIdMap(bool *bResult,int company_id) {
-    QMap<int, QString> result_map;
-    int map_index = 1;
-    QSqlQuery query;
-    if (DAO::createQuery(query) < 0)
-    {
-        *bResult = false;
-        return result_map;
-    }
-
-    QString sql = "";
-    sql = QString("SELECT * FROM tprocess_para WHERE companyId=%1 GROUP BY groupId ").arg(company_id);
-    *bResult = query.exec(sql);
-    if (*bResult == false)
-        return result_map;
-
-    while (query.next())
-    {
-        result_map.insert(map_index,query.value("groupId").toString());
-        map_index++;
-    }
-    return result_map;
-}
-
 //查出所有测试结果日期
 QVector<QString> AnalysisUIDao::SelectAllCreateDay(bool *bResult) {
     QVector<QString>_vect;

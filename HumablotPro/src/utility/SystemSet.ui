@@ -537,18 +537,7 @@
        </widget>
       </item>
       <item row="3" column="5">
-       <widget class="QComboBox" name="comboBox_run_sequence">
-        <item>
-         <property name="text">
-          <string>Process1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>defaultProcess</string>
-         </property>
-        </item>
-       </widget>
+       <widget class="QComboBox" name="comboBox_run_sequence"/>
       </item>
       <item row="9" column="5">
        <widget class="QLineEdit" name="lineEdit_Weight">

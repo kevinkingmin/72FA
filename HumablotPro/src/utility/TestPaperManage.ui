@@ -123,7 +123,7 @@
      </widget>
     </item>
     <item row="0" column="8">
-     <widget class="QPushButton" name="Delete_Button">
+     <widget class="QPushButton" name="Disable_Button">
       <property name="text">
        <string>不启用</string>
       </property>
@@ -159,7 +159,7 @@
      </widget>
     </item>
     <item row="0" column="10">
-     <widget class="QPushButton" name="Delete_Button_2">
+     <widget class="QPushButton" name="Enable_Button">
       <property name="text">
        <string>启用</string>
       </property>

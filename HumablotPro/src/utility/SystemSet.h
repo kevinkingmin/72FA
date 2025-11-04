@@ -19,5 +19,7 @@ private slots:
 	void on_pushButton_Save_clicked();
 	void on_pushButton_Cancel_clicked();
 	void on_pushButton_Test_clicked();
-	void on_pushButtonPara_clicked();	
+    void on_pushButtonPara_clicked();
+    // 公司选择的信号槽
+    void onCompanyComboBoxChanged(const QString &text);
 };

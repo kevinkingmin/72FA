@@ -68,7 +68,6 @@ void SelectProcessDialog::creatBtns()
             {
                 it->setChecked(true);
             }
-            //if (select_btn_txt == "润湿")
             if (select_btn_txt == GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1599"))
             {
                 btn->setChecked(btn_selected);//btn_selected
@@ -93,33 +92,15 @@ void SelectProcessDialog::creatBtns()
         );
     };
 
-    //GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111")
-    //   fun("1",tr("润湿"));
-    //   fun("2",tr("加样本"));
-    //   fun("3",tr("清洗"));
-    //   fun("4",tr("加酶"));
-    //   fun("5",tr("二次清洗"));
-    //   fun("6",tr("加底物"));
-    //   fun("7",tr("加蒸馏水"));
-    //if (Global::g_company_id != 2)
-    //{
-    //	fun("8", tr("加终止液"));
-    //}
-    //fun("9",tr("干燥"));
-    //fun("10", tr("拍照"));
-    //SELECT * FROM tprocess_para WHERE companyId=4 GROUP BY groupId
-
-    //auto map = Instrument::instance()->getGroupMap();
     bool bResult;
-    auto dao1 = AnalysisUIDao::instance();
-    int company_id = dao1->SelectSaveSetById(&bResult, 5).toInt();
+    auto dao = AnalysisUIDao::instance();
+    int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
+
 
     if(company_id==6){
-        QMap<int, QString> result_map = dao1->MGroupIdMap(&bResult, company_id);
+        QMap<int, QString> result_map = {};// = dao->MGroupIdMap(&bResult, company_id);
         QMap<int, QString>::const_iterator i = result_map.constBegin();
         while (i != result_map.constEnd()) {
-            //qDebug() << "key: " << i.key();
-            //qDebug() << "value: " << i.value();
             int value = i.value().toInt();
             switch (value)
             {
@@ -158,12 +139,6 @@ void SelectProcessDialog::creatBtns()
             }
             ++i;
         }
-
-        //if (Global::g_company_id != 2)
-        //{
-        //	fun("8", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1606"));
-        //}
-        //fun("9", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1607"));
         auto dao = AnalysisUIDao::instance();
         //bool bResult;
         int is_camera_open = dao->SelectSaveSetById(&bResult, 20008).toInt();
@@ -172,12 +147,10 @@ void SelectProcessDialog::creatBtns()
             fun("11", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"));
         }
     }else{
-        int company_id = dao1->SelectSaveSetById(&bResult, 5).toInt();
-        QMap<int, QString> result_map = dao1->MGroupIdMap(&bResult, company_id);
+        int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
+        QMap<int, QString> result_map = {};//dao->MGroupIdMap(&bResult, company_id);
         QMap<int, QString>::const_iterator i = result_map.constBegin();
         while (i != result_map.constEnd()) {
-            //qDebug() << "key: " << i.key();
-            //qDebug() << "value: " << i.value();
             int value = i.value().toInt();
             switch (value)
             {
@@ -213,14 +186,7 @@ void SelectProcessDialog::creatBtns()
             }
             ++i;
         }
-
-        //if (Global::g_company_id != 2)
-        //{
-        //	fun("8", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1606"));
-        //}
-        //fun("9", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1607"));
         auto dao = AnalysisUIDao::instance();
-        //bool bResult;
         int is_camera_open = dao->SelectSaveSetById(&bResult, 20008).toInt();
         if (is_camera_open)
         {
