@@ -172,7 +172,7 @@ void AddSampleWidget::slotRecivedLISData(const QString &data)
             continue;
         }
 
-        if(obrFields[0].simplified().compare("PID",Qt::CaseInsensitive))
+        if(!obrFields[0].simplified().compare("PID",Qt::CaseInsensitive))
         {
             seqNo=obrFields[6];
             continue;
