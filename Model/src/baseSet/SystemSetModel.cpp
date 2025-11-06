@@ -20,10 +20,15 @@ void SystemSetModel::setId(const uint &id)
 
 int SystemSetModel::getSaveSet() const
 {
+    return static_cast<int>(_saveSet);
+}
+
+double SystemSetModel::getSaveSetDou() const
+{
     return _saveSet;
 }
 
-void SystemSetModel::setSaveSet(int saveSet)
+void SystemSetModel::setSaveSet(double saveSet)
 {
     _saveSet = saveSet;
 }

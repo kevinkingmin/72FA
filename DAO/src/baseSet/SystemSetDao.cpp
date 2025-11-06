@@ -12,35 +12,11 @@ SystemSetDao::~SystemSetDao()
 {
 }
 
-void SystemSetDao::getTable()
+void SystemSetDao::queryBindValue(QSqlQuery &query, SystemSetModel& model)
 {
-    QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-        return;
-    QString sqlStr="SELECT id,saveSet,saveDes,remark FROM tsystemset";
-    if(!query.exec(sqlStr))
-        return;
-    QMap<uint,ptrModel>tempMap;
-    _map.swap(tempMap);
-    uint id=0;
-    while (query.next())
-    {
-        ptrModel pm(new SystemSetModel);
-        id=query.value("id").toUInt();
-        pm->setId(id);
-        pm->setSaveSet(query.value("saveSet").toInt());
-        pm->setSaveDes(query.value("saveDes").toString());
-        pm->setRemark(query.value("remark").toString());
-        _map.insert(id,pm);
-    }
-}
-
-void SystemSetDao::queryBindValue(QSqlQuery &query, SystemSetDao::ptrModel pm)
-{
-    query.bindValue(":id",pm->getId());
-    query.bindValue(":saveSet",pm->getSaveSet());
-    query.bindValue(":saveDes",pm->getSaveDes());
-    query.bindValue(":remark",pm->getRemark());
+    query.bindValue(":id",model.getId());
+    query.bindValue(":saveSet",model.getSaveSet());
+    query.bindValue(":saveDes",model.getSaveDes());
 }
 
 SystemSetDao *SystemSetDao::instance()
@@ -48,49 +24,52 @@ SystemSetDao *SystemSetDao::instance()
     return Singleton<SystemSetDao>::instance();
 }
 
-bool SystemSetDao::deleteById(uint id)
+bool SystemSetDao::updateModel(SystemSetModel& model)
 {
     QSqlQuery query;
     if(DAO::createQuery(query)<0)
         return false;
-
-    if(id<=0)
-        return false;
-    QString sqlStr="delete from tsystemset where id = "+QString::number(id)+"";
-
-    if(!query.exec(sqlStr))
-        return false;
-
-    if(_map.keys().contains(id))
-        _map.remove(id);
-    else
-        getTable();
-
+    query.prepare("update tsystemset set saveSet=:saveSet,saveDes=:saveDes where id=:id");
+    queryBindValue(query, model);
+    if(!query.exec()) return false;
     return true;
 }
 
-bool SystemSetDao::updateModel(SystemSetDao::ptrModel pm)
+bool SystemSetDao::getModel(int id, SystemSetModel& out)
 {
     QSqlQuery query;
     if(DAO::createQuery(query)<0)
         return false;
-
-    QString sqlStr="update tsystemset set saveSet=:saveSet,saveDes=:saveDes,"
-                   "remark=:remark where id=:id";
-    query.prepare(sqlStr);
-    queryBindValue(query,pm);
-    if(!query.exec())
-        return false;
-    if(_map.keys().contains(pm->getId()))
-        _map[pm->getId()]=pm;
-    else
-        getTable();
+    query.prepare("Select * from tsystemset where id=? LIMIT 1");
+    query.addBindValue(id);
+    if(!query.exec()) return false;
+    if (query.next())
+    {
+        out.setId(query.value("id").toString().toUInt());
+        out.setSaveDes(query.value("saveDes").toString());
+        out.setSaveSet(query.value("saveSet").toInt());
+        out.setRemark(query.value("remark").toString());
+    }
     return true;
 }
 
-QVector<SystemSetDao::ptrModel> SystemSetDao::getAllRows()
+QVector<SystemSetModel> SystemSetDao::getAllRows()
 {
-    if(_map.isEmpty())
-        getTable();
-    return _map.values().toVector();
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return {};
+    query.prepare("SELECT id,saveSet,saveDes,remark FROM tsystemset");
+    if(!query.exec()) return{};
+    QVector<SystemSetModel> systemSetItemVect;
+    uint id=0;
+    while (query.next())
+    {
+        SystemSetModel item;
+        id=query.value("id").toUInt();
+        item.setId(id);
+        item.setSaveSet(query.value("saveSet").toInt());
+        item.setSaveDes(query.value("saveDes").toString());
+        item.setRemark(query.value("remark").toString());
+        systemSetItemVect.push_back(item);
+    }
+    return systemSetItemVect;
 }

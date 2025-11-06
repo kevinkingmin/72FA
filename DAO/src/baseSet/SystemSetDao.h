@@ -13,26 +13,23 @@ class QSqlQuery;
 
 class DAOSHARED_EXPORT SystemSetDao
 {
-public:
+private:
     SystemSetDao();
     SystemSetDao(SystemSetDao &)=delete;
     SystemSetDao(SystemSetDao &&)=delete;
     SystemSetDao &operator=(const SystemSetDao&)=delete;
     SystemSetDao &operator=(SystemSetDao&&)=delete;
 
-    using ptrModel=QSharedPointer<SystemSetModel>;
     friend Singleton<SystemSetDao>;
 
-    void getTable();
-    void queryBindValue(QSqlQuery &query, ptrModel pm);
+    void queryBindValue(QSqlQuery &query, SystemSetModel& model);
 public:
     ~SystemSetDao();
     static SystemSetDao *instance();
-    bool deleteById(uint id);
-    bool updateModel(ptrModel pm);
-    QVector<ptrModel>getAllRows();
+    bool updateModel(SystemSetModel& model);
+    bool getModel(int id, SystemSetModel& out);
+    QVector<SystemSetModel>getAllRows();
 private:
-    QMap<uint,ptrModel>_map;
 };
 
-#endif // SYSTEMSETDAO_H
+#endif

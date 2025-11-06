@@ -1,72 +1,34 @@
 ﻿#include "ProcessParaBLL.h"
-#include "../Include/DAO/baseSet/ProcessParaDao.h"
 
 ProcessParaBLL::ProcessParaBLL()
-    :_dao(ProcessParaDao::instance())
+    :_dao(ProcessParameterDao::instance())
 {
 }
 
-QVector<ProcessParaBLL::ptrModel> ProcessParaBLL::getAllRows()
+QVector<ProcessParaBLL::ptrModel> ProcessParaBLL::getAllRows(int processId)
 {
-    return _dao->getAllRows();
-}
-
-ProcessParaBLL::ptrModel ProcessParaBLL::getRowById(int id)
-{
-    auto vect = _dao->getAllRows();
-    for(auto it:vect)
-    {
-        if(it->getId()==id)
-            return it;
-    }
-    return nullptr;
-}
-
-QVector<ProcessParaBLL::ptrModel> ProcessParaBLL::getRowByActId(int companyId,int actId){
-    QVector<ProcessParaBLL::ptrModel>outvect{};
-    auto vect = _dao->getAllRows();
-    for(auto it:vect)
-    {
-        if(it->getActId()==actId&&it->getCompanyId()==companyId){
-            outvect.push_back(it);
-        }
-    }
-    return outvect;
-}
-
-QVector<ProcessParaBLL::ptrModel> ProcessParaBLL::getModels(int groupId, int companyId)
-{
-    QVector<ProcessParaBLL::ptrModel>outvect{};
-    auto vect = _dao->getAllRows();
-    for(auto it:vect)
-    {
-        if(it->getCompanyId()==companyId && it->getGroupId()==groupId)
-        {
-            outvect.push_back(it);
-        }
-    }
-    return outvect;
+    return toPtrVector(_dao->getAllRows(processId));
 }
 
 QMap<int, int> ProcessParaBLL::getReagentIdAndParaIds(QVector<int> pGroupIds, int companyId)
 {
     QString reagentFlag="RID";
     QMap<int, int>reagentIdAndProcessParaIdMap;
-    auto vect =_dao->getAllRows();
+//    auto vect =_dao->getAllRows();
 
-    for(auto pm:vect)
-    {
-        int group_id = pm->getGroupId();
-        if(!pGroupIds.contains(group_id) || pm->getCompanyId()!=companyId)
-            continue;
-        auto vect=pm->getParas();
-        for(auto it:vect)
-        {
-            if(it.paraName!=reagentFlag)
-                continue;
-            reagentIdAndProcessParaIdMap.insert(static_cast<int>(it.paraValue),pm->getId());
-        }
-    }
+//    for(auto pm:vect)
+//    {
+//        int group_id = pm->getGroupId();
+//        if(!pGroupIds.contains(group_id) || pm->getCompanyId()!=companyId)
+//            continue;
+//        auto vect=pm->getParas();
+//        for(auto it:vect)
+//        {
+//            if(it.paraName!=reagentFlag)
+//                continue;
+//            reagentIdAndProcessParaIdMap.insert(static_cast<int>(it.paraValue),pm->getId());
+//        }
+//    }
     return reagentIdAndProcessParaIdMap;
 }
 
@@ -75,20 +37,53 @@ QMap<int, int> ProcessParaBLL::getIncubationTime(QVector<int> pGroupIds)
 {
     QString reagentFlag = "震荡孵育时间(s)";
     QMap<int, int>reagentIdAndProcessParaIdMap;
-    auto vect = _dao->getAllRows();
-    for (auto pm : vect)
-    {
-        if (!pGroupIds.contains(pm->getGroupId()))
-            continue;
-        auto vect = pm->getParas();
-        for (auto it : vect)
-        {
-            if (it.paraName != reagentFlag)
-                continue;
-            reagentIdAndProcessParaIdMap.insert(static_cast<int>(it.paraValue), pm->getId());
-        }
-    }
+//    auto vect = _dao->getAllRows();
+//    for (auto pm : vect)
+//    {
+//        if (!pGroupIds.contains(pm->getGroupId()))
+//            continue;
+//        auto vect = pm->getParas();
+//        for (auto it : vect)
+//        {
+//            if (it.paraName != reagentFlag)
+//                continue;
+//            reagentIdAndProcessParaIdMap.insert(static_cast<int>(it.paraValue), pm->getId());
+//        }
+//    }
     return reagentIdAndProcessParaIdMap;
 }
 
+// 获取试剂名称与体积的QMap
+QMap<QString, double> ProcessParaBLL::getUnitReagentMl(const int processId)
+{
+    QMap<QString, double> rtnMap;
+    QVector<ProcessParameterModel> processModelVect = _dao->selectModel(processId, ProcessParameterModel::ADD_REAGENT_CODE);
+
+    for (ProcessParameterModel& model : processModelVect)
+    {
+        ProcessParameterModel::AddReagentStrt strt;
+        if (model.getAddReagent(strt))
+        {
+            rtnMap[strt._reagentName] += strt._reagentMl;
+        }
+    }
+    return rtnMap;
+}
+
+double ProcessParaBLL::getUnitReagentMl(const int processId, const QString& reagentName)
+{
+    QMap<QString, double> reagentNameVolMap = getUnitReagentMl(processId);
+    return reagentNameVolMap[reagentName];
+}
+
+QVector<ProcessParaBLL::ptrModel> ProcessParaBLL::toPtrVector(const QVector<ProcessParameterModel>& models)
+{
+    QVector<ptrModel> result;
+    result.reserve(models.size());
+    for (const auto& model : models)
+    {
+        result.append(QSharedPointer<ProcessParameterModel>::create(std::move(model)));
+    }
+    return result;
+}
 

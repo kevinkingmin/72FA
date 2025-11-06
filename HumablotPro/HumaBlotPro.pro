@@ -142,7 +142,6 @@ SOURCES += \
         src/utility/maintain/PumpManaCheckWidgets.cpp \
         src/utility/maintain/WeekMaintenanceWidgets.cpp \
         #src/utility/maintain/thread/MyThread.cpp \
-        src/utility/ProcessParaWidgets.cpp \
         src/workArea/workAreaForm.cpp \
         src/sample/TestSampleWidget.cpp \
         src/sample/BatchAddSampleWidgets.cpp \
@@ -245,7 +244,6 @@ HEADERS += \
         src/utility/maintain/PumpManaCheckWidgets.h \
         src/utility/maintain/WeekMaintenanceWidgets.h \
         #src/utility/maintain/thread/MyThread.h \
-        src/utility/ProcessParaWidgets.h \
         src/workArea/workAreaForm.h \
         src/sample/TestSampleWidget.h \
         src/sample/BatchAddSampleWidgets.h \
@@ -305,7 +303,6 @@ FORMS += \
         ui/sample/EmptyWasteBottleWidget.ui \
         ui/sample/IrrigationSystemLiquidWidget.ui \
         ui/sample/SampleWidget.ui \
-        src/utility/ProcessParaWidgets.ui \
         ui/main/MainWidget.ui \
         ui/sample/BatchAddSampleWidgets.ui \
         ui/sample/TestDataListWidget.ui \

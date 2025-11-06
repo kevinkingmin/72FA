@@ -8,10 +8,12 @@ class SystemSetModel;
 
 class BLLSHARED_EXPORT SystemSetBLL
 {
+private:
 public:
     SystemSetBLL();
     using ptrModel=QSharedPointer<SystemSetModel>;
 
+    QVector<ptrModel> toPtrVector(const QVector<SystemSetModel>& models);
     QVector<ptrModel>getAllRows();
     QVector<ptrModel> getRowsByIds(QVector<uint>ids);
     ptrModel getRowById(uint id);

@@ -18,8 +18,9 @@ public:
     QVector<ptrModel>getAllRows();
     ptrModel getRowById(int id);
     //ptrModel getReagent(const int &rid, const int &paperId, const int &processParaId);
-	ptrModel getReagent(const int &rid, const int &paperId, const int companyId);
-    ptrModel getReagent_new(const int &rid, const int &paperId, const int companyId);
+    ptrModel getReagent(const int &rid, const int &paperId, const int companyId);
+    ptrModel getReagent(const QString& reagentName);
+    ptrModel getReagent(const int& rid);
 private:
     ReagentDao *_dao;
 };

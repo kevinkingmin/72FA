@@ -27,12 +27,6 @@ QT_BEGIN_NAMESPACE
 class Ui_SystemSet
 {
 public:
-    QLineEdit *lineEdit_CutOffThreshold;
-    QLineEdit *lineEdit_ControlThreshold;
-    QLabel *label_2;
-    QLabel *label;
-    QLabel *label_20;
-    QLineEdit *lineEdit_pip_15_min;
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout_2;
@@ -106,24 +100,6 @@ public:
         if (SystemSet->objectName().isEmpty())
             SystemSet->setObjectName(QString::fromUtf8("SystemSet"));
         SystemSet->resize(1650, 776);
-        lineEdit_CutOffThreshold = new QLineEdit(SystemSet);
-        lineEdit_CutOffThreshold->setObjectName(QString::fromUtf8("lineEdit_CutOffThreshold"));
-        lineEdit_CutOffThreshold->setGeometry(QRect(1370, 817, 133, 20));
-        lineEdit_ControlThreshold = new QLineEdit(SystemSet);
-        lineEdit_ControlThreshold->setObjectName(QString::fromUtf8("lineEdit_ControlThreshold"));
-        lineEdit_ControlThreshold->setGeometry(QRect(1370, 780, 133, 20));
-        label_2 = new QLabel(SystemSet);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(1210, 817, 114, 16));
-        label = new QLabel(SystemSet);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(1230, 780, 96, 16));
-        label_20 = new QLabel(SystemSet);
-        label_20->setObjectName(QString::fromUtf8("label_20"));
-        label_20->setGeometry(QRect(1190, 780, 132, 16));
-        lineEdit_pip_15_min = new QLineEdit(SystemSet);
-        lineEdit_pip_15_min->setObjectName(QString::fromUtf8("lineEdit_pip_15_min"));
-        lineEdit_pip_15_min->setGeometry(QRect(1360, 740, 133, 20));
         groupBox = new QGroupBox(SystemSet);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setGeometry(QRect(160, 50, 1471, 681));
@@ -511,9 +487,6 @@ public:
     void retranslateUi(QWidget *SystemSet)
     {
         SystemSet->setWindowTitle(QApplication::translate("SystemSet", "SystemSet", nullptr));
-        label_2->setText(QApplication::translate("SystemSet", "Cut Off\346\235\241\347\201\260\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
-        label->setText(QApplication::translate("SystemSet", "\345\212\237\350\203\275\346\235\241\347\201\260\345\272\246\351\230\210\345\200\274\357\274\232", nullptr));
-        label_20->setText(QApplication::translate("SystemSet", "\346\234\210\347\273\264\346\212\244\347\256\241\350\267\257\346\265\270\346\263\24115\345\210\206\351\222\237\357\274\232", nullptr));
         groupBox->setTitle(QString());
         label_15->setText(QApplication::translate("SystemSet", "\346\263\265\346\240\241\345\207\206\344\270\213\351\231\220\345\200\274\357\274\232", nullptr));
         label_26->setText(QApplication::translate("SystemSet", "1-10ml", nullptr));

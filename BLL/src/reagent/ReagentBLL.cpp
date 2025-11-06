@@ -123,57 +123,82 @@ ReagentBLL::ptrModel ReagentBLL::getReagent(const int & rid, const int & paperId
     return nullptr;
 }
 
-ReagentBLL::ptrModel ReagentBLL::getReagent_new(const int &rid, const int &paperId, const int companyId)
+//ReagentBLL::ptrModel ReagentBLL::getReagent_new(const int &rid, const int &paperId, const int companyId)
+//{
+//    if(paperId>=929){
+//        if (rid >= 0)
+//        {
+//            auto reagent = getRowById(rid);
+//            if (reagent.isNull())
+//            {
+//                eLog("没有相关的试剂信息,reagentId:{}", rid);
+//                return nullptr;
+//            }
+//            return reagent;
+//        }
+
+//        auto vect{ _dao->getAllRows() };
+//        for (auto reagent : vect)
+//        {
+//            if(rid==-2){
+//                int paper_id_set_value = reagent->getPaperId();
+//                int company_id_set_value = reagent->getCompanyID();
+//                if (paper_id_set_value == paperId && companyId == company_id_set_value&& reagent->getReagentName().contains("抗人IgE抗体液"))
+//                    return reagent;
+//            }else if(rid==-1){
+//                int paper_id_set_value = reagent->getPaperId();
+//                int company_id_set_value = reagent->getCompanyID();
+//                if (paper_id_set_value == paperId && companyId == company_id_set_value&& reagent->getReagentName().contains("酶结合物"))
+//                    return reagent;
+//            }
+//        }
+//        eLog("no reagent found,paperId:{},companyId:{}",paperId,companyId);
+//        return nullptr;
+//    }else{
+//        if (rid >= 0)
+//        {
+//            auto reagent = getRowById(rid);
+//            if (reagent.isNull())
+//            {
+//                eLog("没有相关的试剂信息,reagentId:{}", rid);
+//                return nullptr;
+//            }
+//            return reagent;
+//        }
+
+//        auto vect{ _dao->getAllRows() };
+//        for (auto reagent : vect)
+//        {
+//            if (reagent->getPaperId() == paperId && companyId == reagent->getCompanyID())
+//                return reagent;
+//        }
+//        eLog("no reagent found,paperId:{},companyId:{}",paperId,companyId);
+//        return nullptr;
+//    }
+
+//}
+
+ReagentBLL::ptrModel ReagentBLL::getReagent(const QString& reagentName)
 {
-    if(paperId>=929){
-        if (rid >= 0)
+    auto vect{ _dao->getAllRows() };
+    for (auto reagent : vect)
+    {
+        if (reagent->getReagentName() == reagentName)
         {
-            auto reagent = getRowById(rid);
-            if (reagent.isNull())
-            {
-                eLog("没有相关的试剂信息,reagentId:{}", rid);
-                return nullptr;
-            }
             return reagent;
         }
+    }
+//    eLog("no reagent found,reagentName:{}",reagentName);
+    return nullptr;
+}
 
-        auto vect{ _dao->getAllRows() };
-        for (auto reagent : vect)
-        {
-            if(rid==-2){
-                int paper_id_set_value = reagent->getPaperId();
-                int company_id_set_value = reagent->getCompanyID();
-                if (paper_id_set_value == paperId && companyId == company_id_set_value&& reagent->getReagentName().contains("抗人IgE抗体液"))
-                    return reagent;
-            }else if(rid==-1){
-                int paper_id_set_value = reagent->getPaperId();
-                int company_id_set_value = reagent->getCompanyID();
-                if (paper_id_set_value == paperId && companyId == company_id_set_value&& reagent->getReagentName().contains("酶结合物"))
-                    return reagent;
-            }
-        }
-        eLog("no reagent found,paperId:{},companyId:{}",paperId,companyId);
-        return nullptr;
-    }else{
-        if (rid >= 0)
-        {
-            auto reagent = getRowById(rid);
-            if (reagent.isNull())
-            {
-                eLog("没有相关的试剂信息,reagentId:{}", rid);
-                return nullptr;
-            }
-            return reagent;
-        }
-
-        auto vect{ _dao->getAllRows() };
-        for (auto reagent : vect)
-        {
-            if (reagent->getPaperId() == paperId && companyId == reagent->getCompanyID())
-                return reagent;
-        }
-        eLog("no reagent found,paperId:{},companyId:{}",paperId,companyId);
+ReagentBLL::ptrModel ReagentBLL::getReagent(const int& rId)
+{
+    auto reagent = getRowById(rId);
+    if (reagent.isNull())
+    {
+        eLog("没有相关的试剂信息,reagentId:{}", rId);
         return nullptr;
     }
-
+    return reagent;
 }

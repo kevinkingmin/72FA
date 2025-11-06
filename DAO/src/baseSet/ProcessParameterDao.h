@@ -25,6 +25,7 @@ public:
     using ptrModel= QSharedPointer<ProcessParameterModel>;
     static ProcessParameterDao *instance();
     QVector<ProcessParameterModel> getAllRows(int processId);
+    QVector<ProcessParameterModel> selectModel(const int processId, const QString& actType);
     bool selectModel(int stepId, ProcessParameterModel& out);
     bool delectModel(int stepId);
     bool insert(ProcessParameterModel& model);

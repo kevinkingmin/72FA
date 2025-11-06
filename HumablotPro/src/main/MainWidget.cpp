@@ -41,6 +41,7 @@
 #include "src/sample/TestSampleWidget.h"
 #include "src/comm/Global.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/DAO/baseSet/SystemSetDao.h"
 #include "src/Camera/CameraControl.h"
 #include "src/utility/AboutUsWidgets.h"
 #include "src/sample/subDialog/SelfCheckResultShowDialog.h" 
@@ -90,9 +91,10 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     _ui->setupUi(this);
     _userFlage = iFlage;
     mUserName = userName;
-    auto dao = AnalysisUIDao::instance();
     bool bResult;
-    g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
+    SystemSetModel setModel;
+    bResult = SystemSetDao::instance()->getModel(20005, setModel);
+    g_language_type = QString::number(setModel.getSaveSet());
     GlobalData::setLanguageType(g_language_type);
     authorizedControl();
     initUI();

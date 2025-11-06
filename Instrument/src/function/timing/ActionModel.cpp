@@ -80,7 +80,7 @@ int ActionModel::getPumpNoFun_(int processParaId, int paperId, int reagentId)
 
 int ActionModel::getPumpNoFun_new(int reagentId, int paperId, int companyId)
 {
-   auto reagent{ ReagentBLL().getReagent_new(reagentId,paperId,companyId)};
+   auto reagent{ ReagentBLL().getReagent(reagentId,paperId,companyId)};
    if(reagent.isNull())
        return -1;
    return reagent->getPumpNo();

@@ -10,8 +10,9 @@ public:
     uint getId() const;
     void setId(const uint &id);
 
+    double getSaveSetDou() const;
+    void setSaveSet(double saveSet);
     int getSaveSet() const;
-    void setSaveSet(int saveSet);
 
     QString getSaveDes() const;
     void setSaveDes(const QString &saveDes);
@@ -21,7 +22,7 @@ public:
 
 private:
     uint _id;
-    int _saveSet;
+    double _saveSet;
     QString _saveDes;
     QString _remark;
 };

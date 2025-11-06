@@ -398,71 +398,12 @@ bool Instrument::sendBySocket(QByteArray buf){
     return true;
 }
 
-int Instrument::getUnitReagentVolumn(int companyId, int reagentId)
+// 获取试剂总体积
+int Instrument::getUnitReagentVolumn(int processId, int reagentId)
 {
-    auto papers{ TestPaperBLL().getOnUsedRowsByCompanyId(companyId) };
-    QVector<int>pIds{};
-    for (auto p : papers)
-        pIds.push_back(p.getId());
-
-    QVector<int>paperRIds{};
-    auto reagents{ ReagentBLL().getAllRows() };
-    for (auto r : reagents)
-    {
-        if (r->getCompanyID() == companyId && pIds.contains(r->getPaperId()))
-            paperRIds.push_back(r->getID());
-    }
-
-    auto processParaVect{ ProcessParaBLL().getRowByActId(companyId,2) };
-    QMap<int, int>reagentIdVolumnMap{};
-    for (auto pm : processParaVect)
-    {
-        if (pm->getCompanyId() != companyId)
-            continue;
-
-        auto paras{ pm->getParas() };
-        int id{ -99 };
-        int v{ 0 };
-        for (auto para : paras)
-        {
-            if (para.id == 1)
-                id = static_cast<int>(para.paraValue);
-            else if (para.id == 2)
-                v = static_cast<int>(para.paraValue);
-        }
-
-        if (v <= 0 || id == -99)
-        {
-            //eLog("para set error");
-            continue;
-        }
-
-        if (reagentIdVolumnMap.keys().contains(id))
-        {
-            auto value{ reagentIdVolumnMap.value(id) + v };
-            reagentIdVolumnMap[id] = value;
-        }
-        else
-        {
-            reagentIdVolumnMap.insert(id, v);
-        }
-
-    }
-
-    if (reagentIdVolumnMap.keys().contains(reagentId))
-        return reagentIdVolumnMap.value(reagentId);
-
-    if (!reagentIdVolumnMap.keys().contains(-1))
-    {
-        eLog("tprocess_para set paper reagent id error");
-        return 0;
-    }
-
-    if (paperRIds.contains(reagentId))
-        return reagentIdVolumnMap.value(-1);
-
-    eLog("can not find reagent,companyid may be error,reagentId:{}", reagentId);
-    return 0;
+    ReagentBLL::ptrModel reagentPtr = ReagentBLL().getReagent(reagentId);
+    QString reagentName = reagentPtr.isNull() ? "" : reagentPtr->getReagentName();
+    return static_cast<int>(ProcessParaBLL().getUnitReagentMl(processId, reagentName)*1000);
 }
 
 void Instrument::openSocket(){

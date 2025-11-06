@@ -3,8 +3,6 @@
 #include <QWidget>
 #include "ui_SystemSet.h"
 
-class ProcessParaWidgets;
-
 class SystemSet : public QWidget
 {
 	Q_OBJECT

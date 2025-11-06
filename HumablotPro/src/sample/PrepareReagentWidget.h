@@ -94,7 +94,6 @@ private:
     void changeSystemLiquidIcon();
     void updatePumpBtnByTest();
 	QVector<PrepareReagentWidget::pReagent> GetReagentVect();
-	void getIncubation();
 
     QVector<int> getPaperIds();
     bool setReagentWithPump(QVector<int>usedPos,QVector<pReagent>&regentVect);

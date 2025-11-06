@@ -8,30 +8,32 @@ SystemSetBLL::SystemSetBLL()
 
 QVector<SystemSetBLL::ptrModel> SystemSetBLL::getAllRows()
 {
-    return SystemSetDao::instance()->getAllRows();
+    return toPtrVector(SystemSetDao::instance()->getAllRows());
 }
 
 QVector<SystemSetBLL::ptrModel> SystemSetBLL::getRowsByIds(QVector<uint> ids)
 {
-    QVector<ptrModel>outVect;
+    QVector<SystemSetModel>outVect;
     auto vect=SystemSetDao::instance()->getAllRows();
     for(auto it:vect)
     {
-        if(ids.contains(it->getId()))
+        if(ids.contains(it.getId()))
+        {
             outVect.push_back(it);
+        }
     }
-    return outVect;
+    return toPtrVector(outVect);
 }
 
 SystemSetBLL::ptrModel SystemSetBLL::getRowById(uint id)
 {
-    auto vect=SystemSetDao::instance()->getAllRows();
-    for(auto it:vect)
+    SystemSetModel setModel;
+    bool result=SystemSetDao::instance()->getModel(static_cast<int>(id), setModel);
+    if(!result)
     {
-        if(it->getId()==id)
-            return it;
+        return nullptr;
     }
-    return nullptr;
+    return QSharedPointer<SystemSetModel>::create(std::move(setModel));
 }
 
 int SystemSetBLL::updateByModel(SystemSetBLL::ptrModel pm)
@@ -40,5 +42,16 @@ int SystemSetBLL::updateByModel(SystemSetBLL::ptrModel pm)
         return -1;
     if(pm->getId()<=0)
         return -2;
-    return SystemSetDao::instance()->updateModel(pm)?1:-3;
+    return SystemSetDao::instance()->updateModel(*pm)?1:-3;
+}
+
+QVector<SystemSetBLL::ptrModel> SystemSetBLL::toPtrVector(const QVector<SystemSetModel>& models)
+{
+    QVector<ptrModel> result;
+    result.reserve(models.size());
+    for (const auto& model : models)
+    {
+        result.append(QSharedPointer<SystemSetModel>::create(std::move(model)));
+    }
+    return result;
 }

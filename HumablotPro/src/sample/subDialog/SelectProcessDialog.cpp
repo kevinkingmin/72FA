@@ -4,10 +4,13 @@
 #include "../Include/BLL/baseSet/SystemSetBLL.h"
 #include "../Include/Model/baseSet/SystemSetModel.h"
 #include "../Include/Model/baseSet/InstrumentStateModel.h"
+#include "../Include/Model/baseSet/ProcessParameterModel.h"
 #include "../Include/Instrument/Instrument.h"
 #include "src/comm/Global.h"
 #include "src/comm/GlobalData.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/DAO/baseSet/ProcessParameterDao.h"
+#include "../Include/DAO/baseSet/SystemSetDao.h"
 
 SelectProcessDialog::SelectProcessDialog(QWidget *parent) :
     BaseDialog(parent),
@@ -23,7 +26,6 @@ SelectProcessDialog::SelectProcessDialog(QWidget *parent) :
     this->setStyleSheet("background-color:#FFFFFFFF;");
     creatBtns();
     //请选择要执行的时序
-    //GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180")
     ui->label_2->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1614"));
     ui->btnConfig->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
 }
@@ -36,7 +38,6 @@ SelectProcessDialog::~SelectProcessDialog()
 void SelectProcessDialog::showEvent(QShowEvent *)
 {
     centerDisplay();
-    //creatBtns();
     if(_instrState->getMachineState().state==InstrumentStateModel::enumRuning||_instrState->getMachineState().state==InstrumentStateModel::enumPause)
     {
         updateBtnState();
@@ -93,107 +94,20 @@ void SelectProcessDialog::creatBtns()
     };
 
     bool bResult;
-    auto dao = AnalysisUIDao::instance();
-    int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
-
-
-    if(company_id==6){
-        QMap<int, QString> result_map = {};// = dao->MGroupIdMap(&bResult, company_id);
-        QMap<int, QString>::const_iterator i = result_map.constBegin();
-        while (i != result_map.constEnd()) {
-            int value = i.value().toInt();
-            switch (value)
-            {
-            case 1:
-                fun("1", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1084"));
-                break;
-            case 2:
-                fun("2", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1085"));
-                break;
-            case 3:
-                fun("3", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1086"));
-                break;
-            case 4:
-                fun("4", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1141"));
-                break;
-            case 5:
-                fun("5", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1088"));
-                break;
-            case 6:
-                fun("6", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1087"));
-                break;
-            case 7:
-                fun("7", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1139"));
-                break;
-            case 8:
-                fun("8", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1089"));
-                break;
-            case 9:
-                fun("9", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1140"));
-                break;
-            case 10:
-                fun("10", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1092"));
-                break;
-            default:
-                break;
-            }
-            ++i;
-        }
-        auto dao = AnalysisUIDao::instance();
-        //bool bResult;
-        int is_camera_open = dao->SelectSaveSetById(&bResult, 20008).toInt();
-        if (is_camera_open)
-        {
-            fun("11", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"));
-        }
-    }else{
-        int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
-        QMap<int, QString> result_map = {};//dao->MGroupIdMap(&bResult, company_id);
-        QMap<int, QString>::const_iterator i = result_map.constBegin();
-        while (i != result_map.constEnd()) {
-            int value = i.value().toInt();
-            switch (value)
-            {
-            case 1:
-                fun("1", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1599"));
-                break;
-            case 2:
-                fun("2", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1600"));
-                break;
-            case 3:
-                fun("3", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1601"));
-                break;
-            case 4:
-                fun("4", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1602"));
-                break;
-            case 5:
-                fun("5", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1603"));
-                break;
-            case 6:
-                fun("6", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1604"));
-                break;
-            case 7:
-                fun("7", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1605"));
-                break;
-            case 8:
-                fun("8", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1606"));
-                break;
-            case 9:
-                fun("9", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1607"));
-                break;
-            default:
-                break;
-            }
-            ++i;
-        }
-        auto dao = AnalysisUIDao::instance();
-        int is_camera_open = dao->SelectSaveSetById(&bResult, 20008).toInt();
-        if (is_camera_open)
-        {
-            fun("10", GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"));
-        }
+    SystemSetModel systemSetModel;
+    bResult = SystemSetDao::instance()->getModel(6, systemSetModel);
+    ProcessParameterDao* processDao = ProcessParameterDao::instance();
+    QList<QString> processActionGroupList = processDao->getActionGroupNameVect(systemSetModel.getSaveSet());
+    for(int i = 0; i < processActionGroupList.count();i++)
+    {
+        fun(QString::number(i), processActionGroupList[i]);
     }
-
+    bResult = SystemSetDao::instance()->getModel(20008, systemSetModel);
+    int is_camera_open = systemSetModel.getSaveSet()==1;
+    if (is_camera_open)
+    {
+        fun(QString::number(processActionGroupList.count()), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"));
+    }
 }
 
 void SelectProcessDialog::on_pushButtonClose_clicked()
@@ -214,29 +128,31 @@ bool SelectProcessDialog::getIsCloseBtn() const
     return _isCloseBtn;
 }
 
+//TODO::WangZ
 void SelectProcessDialog::updateBtnState()
 {
-    auto map=Instrument::instance()->getGroupMap();
+//    auto map=Instrument::instance()->getGroupMap();
 
-    //map.insert(10, "拍照");
-    auto dao = AnalysisUIDao::instance();
-    bool bResult;
-    int is_camera_open = dao->SelectSaveSetById(&bResult, 20008).toInt();
-    if (is_camera_open)
-    {
-        map.insert(10, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"));
-    }
-
+//    auto dao = AnalysisUIDao::instance();
+//    bool bResult;
+//    int is_camera_open = dao->SelectSaveSetById(&bResult, 20008).toInt();
+//    if (is_camera_open)
+//    {
+//        map.insert(10, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"));
+//    }
 
 
-    auto keys=map.keys();
-    for(auto it:m_btnVect)
-    {
-        it->setChecked(false);
-        int id=it->objectName().toInt();
-        if(keys.contains(id))
-            it->setChecked(true);
-    }
+
+//    auto keys=map.keys();
+//    for(auto it:m_btnVect)
+//    {
+//        it->setChecked(false);
+//        int id=it->objectName().toInt();
+//        if(keys.contains(id))
+//        {
+//            it->setChecked(true);
+//        }
+//    }
 }
 
 QMap<int,QString> SelectProcessDialog::getSeletedPGMap()
@@ -244,8 +160,7 @@ QMap<int,QString> SelectProcessDialog::getSeletedPGMap()
     QMap<int, QString>map;
     for(auto it:m_btnVect)
     {
-        if(!it->isChecked())
-            continue;
+        if(!it->isChecked()) continue;
         int id=it->objectName().toInt();
         map.insert(id,it->text().simplified());
     }

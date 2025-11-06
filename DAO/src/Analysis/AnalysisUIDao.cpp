@@ -468,7 +468,7 @@ QString AnalysisUIDao::SelectTargetValueDes(bool *bResult, QString condition)
         return "";
     if (query.next())
     {
-        strTargetValue = query.value("saveDes").toString();
+        strTargetValue = query.value("saveSet").toString();
     }
     else
     {
@@ -494,42 +494,6 @@ QVector<QString> AnalysisUIDao::SelectAllCreateDay(bool *bResult) {
     {
         paras = query.value("createDay").toString();
         _vect.push_back(paras);
-    }
-    return _vect;
-}
-
-QVector<ProcessParaModel> AnalysisUIDao::MProcessPara(bool *bResult, int company_id) {
-
-    QVector<ProcessParaModel>_vect;
-    QSqlQuery query;
-    if (DAO::createQuery(query) < 0)
-        return _vect;
-    QString sqlStr = QString("SELECT id,companyId,groupId,groupName,groupNameCode,stepName,stepNameCode,actIndex,actId,actName,actNameCode,isPopWindow,popWindowDes,popWindowDesCode,paras FROM tprocess_para where companyId=%1").arg(company_id);
-    if (!query.exec(sqlStr))
-        return _vect;
-    QVector<ProcessParaModel>tempVect;
-    _vect.swap(tempVect);
-    QString paras = "";
-    while (query.next())
-    {
-        ProcessParaModel pm;//= new ProcessParaModel();
-        pm.setId(query.value("id").toInt());
-        pm.setCompanyId(query.value("companyId").toInt());
-        pm.setGroupId(query.value("groupId").toInt());
-        pm.setGroupName(query.value("groupName").toString());
-        pm.setGroupNameCode(query.value("groupNameCode").toString());
-        pm.setStepName(query.value("stepName").toString());
-        pm.setStepNameCode(query.value("stepNameCode").toString());
-        pm.setActIndex(query.value("actIndex").toInt());
-        pm.setActId(query.value("actId").toInt());
-        pm.setActName(query.value("actName").toString());
-        pm.setActNameCode(query.value("actNameCode").toString());
-        pm.setIsPopWindow(query.value("isPopWindow").toInt() > 0);
-        pm.setPopWindowDes(query.value("popWindowDes").toString());
-        pm.setPopWindowDesCode(query.value("popWindowDesCode").toString());
-        paras = query.value("paras").toString();
-        pm.setParas(paras);
-        _vect.push_back(pm);
     }
     return _vect;
 }

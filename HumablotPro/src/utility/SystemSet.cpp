@@ -8,7 +8,6 @@
 #include "../comm/GlobalData.h"
 #include "../Include/Instrument/Instrument.h"
 #include "../Include/Model/baseSet/InstrumentStateModel.h"
-#include "ProcessParaWidgets.h"
 #include "../Include/Model/baseSet/CompanyModel.h"
 #include "../Include/DAO/baseSet/CompanyDao.h"
 #include "../Include/Model/baseSet/ProcessModel.h"
@@ -17,6 +16,8 @@
 #include "../Include/DAO/baseSet/TestPaperDao.h"
 #include "../Include/Model/baseSet/CompanyModel.h"
 #include "../Include/DAO/baseSet/CompanyDao.h"
+#include "../Include/Model/baseSet/SystemSetModel.h"
+#include "../Include/DAO/baseSet/SystemSetDao.h"
 
 SystemSet::SystemSet(QWidget *parent)
     : QWidget(parent)
@@ -30,39 +31,33 @@ SystemSet::SystemSet(QWidget *parent)
     ui.lineEdit_RootPathReport->setEnabled(true);
     ui.lineEdit_RootPathPicture->setEnabled(true);
     QString strControlThreshold = dao->SelectControlThreshold(&bResult);
-    ui.lineEdit_ControlThreshold->setText(strControlThreshold);
-
     QString strCutOffThreshold = dao->SelectCutOffThreshold(&bResult);
-    ui.lineEdit_CutOffThreshold->setText(strCutOffThreshold);
-
     QString strRootPathPicture = dao->SelectTestPicturesRootPath(&bResult);
     ui.lineEdit_RootPathPicture->setText(strRootPathPicture);
-
     QString strRootPathReport = dao->SelectTestReportsRootPath(&bResult);
     ui.lineEdit_RootPathReport->setText(strRootPathReport);
 
-    //打开、关闭
+    //样本针取样探测
     ui.comboBox_aspirate_sample->clear();
     ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo("K1698"));
     ui.comboBox_aspirate_sample->addItem(GlobalData::LoadLanguageInfo("K1699"));
 
+    //样本针吐样液位探测
     ui.comboBox_vomit->clear();
     ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo("K1698"));
     ui.comboBox_vomit->addItem(GlobalData::LoadLanguageInfo("K1699"));
 
-    //是、否
+    //蜂鸣器开启
     ui.comboBox_beep_enable->clear();
     ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));
     ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));
 
-
+    // 废液桶 使能 1、去使能为 0”
     ui.comboBox_waste_liquid_tank_enable->clear();
     ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));
     ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));
 
-
-    //当前应用膜条公司名字
-    QString PaperInfo = dao->SelectPaperInfo(&bResult);
+    // 设置公司
     CompanyDao* companyDao = CompanyDao::instance();
     QVector<CompanyModel> companyModels = companyDao->getAllRows();
     if (bResult == false)
@@ -70,21 +65,31 @@ SystemSet::SystemSet(QWidget *parent)
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1290"), MyMessageBox::Ok,"OK","");
         return;
     }
-
-    ProcessDao* processDao = ProcessDao::instance();
-    QVector<ProcessModel> processVect = processDao->getModelsFromSystemSet();
-    if (bResult == false)
+    for (CompanyModel& model : companyModels)
     {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1839"), MyMessageBox::Ok,"OK","");
-        return;
+        QString itemName = model.getName();
+        ui.comboBox_CompanyList->addItem(itemName, QString::number(model.getId()));
+    }
+    ui.comboBox_CompanyList->setView(new  QListView(this));// 设置样式
+    ui.comboBox_CompanyList->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192);min-height: 40px;}"));
+    ui.comboBox_CompanyList->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192);min-height: 40px;}"));
+
+    connect(ui.comboBox_CompanyList,
+                &QComboBox::currentTextChanged,
+                this,
+                &SystemSet::onCompanyComboBoxChanged);    // 连接切换事件
+    if (ui.comboBox_CompanyList->count() > 0)
+    {
+        //当前应用膜条公司名字
+        QString PaperInfo = dao->SelectPaperInfo(&bResult);
+        //选中单元格 第一行：
+        ui.comboBox_CompanyList->setCurrentText(PaperInfo);
     }
 
+    // 设置流程样式
     ui.comboBox_run_sequence->setView(new QListView(this));
-    for(ProcessModel& process:processVect)
-    {
-        qDebug()<<"name1"<<process.getProcessName();
-        ui.comboBox_run_sequence->addItem(process.getProcessName(), process.getId());
-    }
+    ui.comboBox_run_sequence->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192); min-height: 40px;}"));
+    ui.comboBox_run_sequence->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192); min-height: 40px;}"));
 
     //取出所有的参数
     QString sql = "select * from tsystemset";
@@ -92,48 +97,16 @@ SystemSet::SystemSet(QWidget *parent)
     while (all_system_set_para.next())
     {
         int pkid = all_system_set_para.value("id").toInt();
-
-        if (pkid == 6)
-        {
-            int saveSet = all_system_set_para.value("saveSet").toInt();
-            ui.comboBox_run_sequence->setCurrentIndex(saveSet);
-            ui.comboBox_run_sequence->setView(new  QListView(this));
-            ui.comboBox_run_sequence->setStyleSheet(QString(
-                                                        "QComboBox QAbstractItemView{"
-                                                        "background: rgb(192,192,192);"
-                                                        "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                        "}"
-                                                        ));
-
-            ui.comboBox_run_sequence->setStyleSheet(QString(
-                                                        "QComboBox QAbstractItemView:item{"
-                                                        "background: rgb(192,192,192);"
-                                                        "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                        "}"
-                                                        ));
-        }
-        else if (pkid == 20005)
+        if (pkid == 20005) // 设置语言
         {
             int saveSet = all_system_set_para.value("saveDes").toInt();
             ui.comboBox_language->setCurrentIndex(saveSet);
-            ui.comboBox_language->setView(new  QListView(this));
-            ui.comboBox_language->setStyleSheet(QString(
-                                                    "QComboBox QAbstractItemView{"
-                                                    "background: rgb(192,192,192);"
-                                                    "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                    "}"
-                                                    ));
-
-            ui.comboBox_language->setStyleSheet(QString(
-                                                    "QComboBox QAbstractItemView:item{"
-                                                    "background: rgb(192,192,192);"
-                                                    "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                    "}"
-                                                    ));
+            ui.comboBox_language->setView(new QListView(this));
+            ui.comboBox_language->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192); min-height: 40px;}"));
+            ui.comboBox_language->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192); min-height: 40px;}"));
         }
-        else if (pkid == 20)
+        else if (pkid == 20) //系统液充灌体积
         {
-            //20	500	systemLiquidIrrigate	系统液充灌体积
             int saveSet = all_system_set_para.value("saveSet").toInt()/1000;
             ui.lineEdit_system_filling_volume->setText(QString::number(saveSet));
         }
@@ -150,26 +123,18 @@ SystemSet::SystemSet(QWidget *parent)
             int saveSet = all_system_set_para.value("saveSet").toInt()/1000;
             ui.lineEdit_month_filling_volume->setText(QString::number(saveSet));
         }
-        //1	0	40	功能条灰度阈值
-        //2	0	18	Cut Off条灰度阈值
-        //3	0	D:\HumablotProFiles\TestPictures	测试图像保存根目录
-        //4	0	D:\HumablotProFiles\Reports	测试报告保存根目录
-        //5	1	human	当前使用的膜条所属公司
-
         else if (pkid == 23)
         {
             //23	200	200, 200, 200	周维护泵充灌
             int saveSet = all_system_set_para.value("saveSet").toInt()/1000;
             ui.lineEdit_week_filling_volume->setText(QString::number(saveSet));
         }
-
-        //if (pkid == 24)
-        //{
-        //	//24	900000		月维护管路浸泡15分钟
-        //	int saveSet = all_system_set_para.value("saveSet").toInt();
-        //	ui.lineEdit_pip_15_min->setText(QString::number(saveSet));
-        //}
-
+        else if (pkid == 24)
+        {
+            //9992	9999	2022 - 10 - 09 10:50 : 57	月维护完成时间
+            int saveSet = all_system_set_para.value("saveSet").toInt()/60000;
+            ui.lineEdit_month_finish_time->setText(QString::number(saveSet));
+        }
         else if (pkid == 25)
         {
             //25	50		月维护泵校准
@@ -190,12 +155,6 @@ SystemSet::SystemSet(QWidget *parent)
             int saveSet = all_system_set_para.value("saveSet").toInt()/60000;
             ui.lineEdit_week_finish_time->setText(QString::number(saveSet));
         }
-        else if (pkid == 24)
-        {
-            //9992	9999	2022 - 10 - 09 10:50 : 57	月维护完成时间
-            int saveSet = all_system_set_para.value("saveSet").toInt()/60000;
-            ui.lineEdit_month_finish_time->setText(QString::number(saveSet));
-        }
         else if (pkid == 20006)
         {
             //9992	9999	2022 - 10 - 09 10:50 : 57	月维护完成时间
@@ -208,19 +167,8 @@ SystemSet::SystemSet(QWidget *parent)
             int saveSet = all_system_set_para.value("saveSet").toInt();
             ui.comboBox_beep_enable->setCurrentIndex(saveSet);
             ui.comboBox_beep_enable->setView(new  QListView(this));
-            ui.comboBox_beep_enable->setStyleSheet(QString(
-                                                       "QComboBox QAbstractItemView {"
-                                                       "background: rgb(192,192,192);"
-                                                       "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                       "}"
-                                                       ));
-
-            ui.comboBox_beep_enable->setStyleSheet(QString(
-                                                       "QComboBox QAbstractItemView:item{"
-                                                       "background: rgb(192,192,192);"
-                                                       "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                       "}"
-                                                       ));
+            ui.comboBox_beep_enable->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192); min-height: 40px;}"));
+            ui.comboBox_beep_enable->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192); min-height: 40px;}"));
         }
         else if (pkid == 20002)
         {
@@ -228,19 +176,8 @@ SystemSet::SystemSet(QWidget *parent)
             int saveSet = all_system_set_para.value("saveSet").toInt();
             ui.comboBox_waste_liquid_tank_enable->setCurrentIndex(saveSet);
             ui.comboBox_waste_liquid_tank_enable->setView(new  QListView(this));
-            ui.comboBox_waste_liquid_tank_enable->setStyleSheet(QString(
-                                                                    "QComboBox QAbstractItemView {"
-                                                                    "background: rgb(192,192,192);"
-                                                                    "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                                    "}"
-                                                                    ));
-
-            ui.comboBox_waste_liquid_tank_enable->setStyleSheet(QString(
-                                                                    "QComboBox QAbstractItemView:item {"
-                                                                    "background: rgb(192,192,192);"
-                                                                    "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                                    "}"
-                                                                    ));
+            ui.comboBox_waste_liquid_tank_enable->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192); min-height: 40px;}"));
+            ui.comboBox_waste_liquid_tank_enable->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192); min-height: 40px;}"));
         }
         else if (pkid == 20008)
         {
@@ -248,19 +185,8 @@ SystemSet::SystemSet(QWidget *parent)
             int saveSet = all_system_set_para.value("saveSet").toInt();
             ui.comboBox_waste_liquid_tank_enable_2->setCurrentIndex(saveSet);
             ui.comboBox_waste_liquid_tank_enable_2->setView(new  QListView(this));
-            ui.comboBox_waste_liquid_tank_enable_2->setStyleSheet(QString(
-                                                                      "QComboBox QAbstractItemView {"
-                                                                      "background: rgb(192,192,192);"
-                                                                      "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                                      "}"
-                                                                      ));
-
-            ui.comboBox_waste_liquid_tank_enable_2->setStyleSheet(QString(
-                                                                      "QComboBox QAbstractItemView:item {"
-                                                                      "background: rgb(192,192,192);"
-                                                                      "min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                                      "}"
-                                                                      ));
+            ui.comboBox_waste_liquid_tank_enable_2->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192); min-height: 40px;}"));
+            ui.comboBox_waste_liquid_tank_enable_2->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192); min-height: 40px;}"));
         }
         else if (pkid == 20003)
         {
@@ -287,19 +213,8 @@ SystemSet::SystemSet(QWidget *parent)
                 ui.comboBox_aspirate_sample->setCurrentIndex(0);
             }
             ui.comboBox_aspirate_sample->setView(new  QListView(this));
-            ui.comboBox_aspirate_sample->setStyleSheet(QString(
-                                                           "QComboBox QAbstractItemView {"
-                                                           "background: rgb(192,192,192);"
-                                                           "   min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                           "}"
-                                                           ));
-
-            ui.comboBox_aspirate_sample->setStyleSheet(QString(
-                                                           "QComboBox QAbstractItemView:item {"
-                                                           "background: rgb(192,192,192);"
-                                                           "   min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                           "}"
-                                                           ));
+            ui.comboBox_aspirate_sample->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192); min-height: 40px;}"));
+            ui.comboBox_aspirate_sample->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192); min-height: 40px;}"));
         }
         else if (pkid == 8)
         {
@@ -314,23 +229,9 @@ SystemSet::SystemSet(QWidget *parent)
                 ui.comboBox_vomit->setCurrentIndex(0);
             }
             ui.comboBox_vomit->setView(new  QListView(this));
+            ui.comboBox_vomit->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192); min-height: 40px;}"));
+            ui.comboBox_vomit->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192); min-height: 40px;}"));
 
-            ui.comboBox_vomit->setStyleSheet(QString(
-                                                 "QComboBox QAbstractItemView {"
-                                                 "background: rgb(192,192,192);"
-                                                 "   min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                 "}"
-                                                 ));
-
-
-            ui.comboBox_vomit->setStyleSheet(QString(
-                                                 "QComboBox QAbstractItemView:item {"
-                                                 "background: rgb(192,192,192);"
-                                                 "   min-height: 40px;"   // 更改 item 高度为 40 像素
-                                                 "}"
-                                                 ));
-
-            //ui.comboBox_vomit->setCurrentIndex(saveSet);
         }
         else if(pkid == 20010)
         {
@@ -338,80 +239,21 @@ SystemSet::SystemSet(QWidget *parent)
         }
 
     }
-
-    int row = 0;
-    for (CompanyModel& model : companyModels)
-    {
-        QString itemName = model.getName();
-        ui.comboBox_CompanyList->addItem(itemName, model.getId());
-        row++;
-    }
-    connect(ui.comboBox_CompanyList,
-                &QComboBox::currentTextChanged,
-                this,
-                &SystemSet::onCompanyComboBoxChanged);
-//    connect(ui.comboBox_CompanyList, &QComboBox::currentIndexChanged,
-//             this, &SystemSet::onCompanyComboBoxChanged);
-//    ui.comboBox_CompanyList->setStyleSheet(QString(
-//                                               "QComboBox QAbstractItemView {"
-//                                               "background: rgb(192,192,192);"
-//                                               "   min-height: 40px;"   // 更改 item 高度为 40 像素
-//                                               "}"
-//                                               ));
-
-//    ui.comboBox_CompanyList->setStyleSheet(QString(
-//                                               "QComboBox QAbstractItemView:item {"
-//                                               "background: rgb(192,192,192);"
-//                                               "   min-height: 40px;"   // 更改 item 高度为 40 像素
-//                                               "}"
-//                                               ));
-    if (row > 0)
-    {
-        /*设置让某个单元格或某行选中*/
-        //选中单元格 第一行：
-        ui.comboBox_CompanyList->setCurrentText(PaperInfo);
-        ui.comboBox_CompanyList->setView(new  QListView(this));
-//        ui.comboBox_CompanyList->setStyleSheet(QString(
-//                                                   "QComboBox QAbstractItemView {"
-//                                                   "background: rgb(192,192,192);"
-//                                                   "   min-height: 40px;"   // 更改 item 高度为 40 像素
-//                                                   "}"
-//                                                   ));
-
-//        ui.comboBox_CompanyList->setStyleSheet(QString(
-//                                                   "QComboBox QAbstractItemView:item {"
-//                                                   "background: rgb(192,192,192);"
-//                                                   "   min-height: 40px;"   // 更改 item 高度为 40 像素
-//                                                   "}"
-//                                                   ));
-
-        //ui.tableWidget_Company->setCurrentCell(0, 0, QItemSelectionModel::Select);
-    }
-
     QString  loginName = GlobalData::getLoginName1();
-
     uint group_id = GlobalData::getGruopId();
     //不是管理员,
     if (group_id == 3)
     {
         ui.comboBox_CompanyList->setEnabled(false);
+        ui.comboBox_run_sequence->setEnabled(false);
     }
     else
     {
         ui.comboBox_CompanyList->setEnabled(true);
+        ui.comboBox_run_sequence->setEnabled(true);
     }
 
-    ui.label->setVisible(false);
-    ui.label_2->setVisible(false);
-    ui.lineEdit_ControlThreshold->setVisible(false);
-    ui.lineEdit_CutOffThreshold->setVisible(false);
-    //ui.label_4->setVisible(false);
-    //ui.label_5->setVisible(false);
-    //ui.pushButton_Test->setVisible(false);
     ui.pushButton_Cancel->setVisible(false);
-
-    ui.lineEdit_pip_15_min->setVisible(false);
-    ui.label_20->setVisible(false);
 
     QRegExpValidator* validator11 = new QRegExpValidator(QRegExp("^(5|[1-9][0-9]?|1[0-9]{2}|2[0-3][0-9]|240)$"), ui.lineEdit_week_finish_time);
 
@@ -543,14 +385,13 @@ void SystemSet::on_pushButtonPara_clicked()
 
 void SystemSet::on_pushButton_Save_clicked() 
 {
-    auto dao = AnalysisUIDao::instance(); 
-    bool bResult;
-
-
+//    auto dao = AnalysisUIDao::instance();
+    SystemSetModel setModel;
+    bool bResult = false;
     QString value_set = ui.lineEdit_between_two_drops_of_pump->text();
     QString value_des = ui.lineEdit_between_two_drops_of_pump_max->text();
 
-
+    // 周维护浸泡时间
     int week_finish_time = ui.lineEdit_week_finish_time->text().toInt();
     if (week_finish_time == 0 || week_finish_time < 5 || week_finish_time>240)
     {
@@ -559,9 +400,8 @@ void SystemSet::on_pushButton_Save_clicked()
         return;
     }
 
-
+    // 月维护浸泡时间
     int month_finish_time = ui.lineEdit_month_finish_time->text().toInt();
-
     if (month_finish_time == 0 || month_finish_time < 5 || month_finish_time>240)
     {
         ui.lineEdit_month_finish_time->setFocus();
@@ -569,8 +409,8 @@ void SystemSet::on_pushButton_Save_clicked()
         return;
     }
 
+    // 月维护泵校准
     int monthly_maintenance_pump_calibration = ui.lineEdit_monthly_maintenance_pump_calibration->text().toInt();
-
     if (monthly_maintenance_pump_calibration == 0 || monthly_maintenance_pump_calibration < 300 || monthly_maintenance_pump_calibration>700)
     {
         ui.lineEdit_monthly_maintenance_pump_calibration->setFocus();
@@ -653,23 +493,11 @@ void SystemSet::on_pushButton_Save_clicked()
         return;
     }
 
-    bResult = dao->UpdateSystemSet("1", ui.lineEdit_ControlThreshold->text());
-    if (bResult == false)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1288"), MyMessageBox::Ok,"OK","");
-        return;
-    }
-
-    bResult = dao->UpdateSystemSet("2", ui.lineEdit_CutOffThreshold->text());
-    if (bResult == false)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1287"), MyMessageBox::Ok,"OK","");
-        return;
-    }
-
     QString root_path_picture = ui.lineEdit_RootPathPicture->text();
-    root_path_picture = root_path_picture.replace("\\", "\\\\");
-    bResult = dao->UpdateSystemSet("3", root_path_picture);
+    setModel.setId(3);
+    setModel.setSaveDes(root_path_picture);
+    setModel.setSaveSet(0);
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1286"), MyMessageBox::Ok,"OK","");
@@ -677,8 +505,10 @@ void SystemSet::on_pushButton_Save_clicked()
     }
 
     QString root_path_resport = ui.lineEdit_RootPathReport->text();
-    root_path_resport = root_path_resport.replace("\\","\\\\");
-    bResult = dao->UpdateSystemSet("4", root_path_resport);
+    setModel.setId(4);
+    setModel.setSaveDes(root_path_resport);
+    setModel.setSaveSet(0);
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1285"), MyMessageBox::Ok,"OK","");
@@ -686,29 +516,34 @@ void SystemSet::on_pushButton_Save_clicked()
     }
 
     //当前使用的膜条所属公司
-    QString select_paper_company_name = ui.comboBox_CompanyList->currentText();//ui.lineEdit_RootPathReport->text();
-    bResult = dao->UpdateSystemSetId5("5", select_paper_company_name);
+    setModel.setId(5);
+    setModel.setSaveDes(ui.comboBox_CompanyList->currentText());
+    setModel.setSaveSet(ui.comboBox_CompanyList->currentData().toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1284"), MyMessageBox::Ok,"OK","");
         return;
     }
 
-    //6	1	defaultProcess	默认时序
+    //	语言
+    setModel.setId(20005);
+    setModel.setSaveDes(ui.comboBox_language->currentText());
+    setModel.setSaveSet(value_set == "EN"?2:1);
     value_set = ui.comboBox_language->currentText();
-    if (value_set == "EN")
+    bResult = SystemSetDao::instance()->updateModel(setModel);
+    if (bResult == false)
     {
-        bResult = dao->UpdateSystemDes("20005", "2");
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1284"), MyMessageBox::Ok,"OK","");
+        return;
     }
-    else
-    {
-        bResult = dao->UpdateSystemDes("20005", "1");
-    }
-
-
 
     value_set = ui.comboBox_run_sequence->currentText();
-    bResult = dao->UpdateSystemSet("6", value_set);
+    int processId = ui.comboBox_run_sequence->currentData().toInt();
+    setModel.setId(6);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(processId);
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -717,7 +552,10 @@ void SystemSet::on_pushButton_Save_clicked()
 
     //20	500	systemLiquidIrrigate	系统液充灌体积
     value_set = QString("%1").arg(ui.lineEdit_system_filling_volume->text().toInt()*1000);
-    bResult = dao->UpdateSystemSet("20", value_set);
+    setModel.setId(20);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -727,28 +565,38 @@ void SystemSet::on_pushButton_Save_clicked()
     //21	600		系统液清洗体积
     //value_set = ui.lineEdit_system_wash_volume->text();
     value_set = QString("%1").arg(ui.lineEdit_system_wash_volume->text().toInt() * 1000);
-    bResult = dao->UpdateSystemSet("21", value_set);
+    setModel.setId(21);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
-    //value_set = ui.lineEdit_system_wash_volume_2->text();
     value_set = QString("%1").arg(ui.lineEdit_system_wash_volume_2->text().toInt() * 1000);
-    bResult = dao->UpdateSystemSet("20003", value_set);
+    setModel.setId(20003);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
+    value_set = QString("%1").arg(ui.lineEdit_Weight->text().toDouble());
+    setModel.setId(20006);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toDouble());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
 
-    QString des_1 = QString("%1").arg(ui.lineEdit_Weight->text().toDouble());
-    bResult = dao->UpdateSystemDes("20006", des_1);
-
-    //value_set = ui.lineEdit_system_wash_volume_3->text();
+    // 泵回流量
     value_set = QString("%1").arg(ui.lineEdit_system_wash_volume_3->text().toInt() * 1000);
-    bResult = dao->UpdateSystemSet("20004", value_set);
+    setModel.setId(20004);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -758,7 +606,10 @@ void SystemSet::on_pushButton_Save_clicked()
     //22	300	300, 300, 300	月维护泵充灌
     //value_set = ui.lineEdit_month_filling_volume->text();
     value_set = QString("%1").arg(ui.lineEdit_month_filling_volume->text().toInt() * 1000);
-    bResult = dao->UpdateSystemSet("22", value_set);
+    setModel.setId(22);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -774,26 +625,22 @@ void SystemSet::on_pushButton_Save_clicked()
 
     //23	200	200, 200, 200	周维护泵充灌
     value_set = QString("%1").arg(ui.lineEdit_week_filling_volume->text().toInt() * 1000);
-    //value_set = ui.lineEdit_week_filling_volume->text();
-    bResult = dao->UpdateSystemSet("23", value_set);
+    setModel.setId(23);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
-    //24	900000		月维护管路浸泡15分钟
-    //value_set = ui.lineEdit_pip_15_min->text();
-    //bResult = dao->UpdateSystemSet("24", value_set);
-    //if (bResult == false)
-    //{
-    //	MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
-    //	return;
-    //}
-
     //25	50		月维护泵校准
     value_set = ui.lineEdit_monthly_maintenance_pump_calibration->text();
-    bResult = dao->UpdateSystemSet("25", value_set);
+    setModel.setId(25);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -803,8 +650,10 @@ void SystemSet::on_pushButton_Save_clicked()
     //26	500	1000	泵校准两次下降最大差值
     value_set = ui.lineEdit_between_two_drops_of_pump->text();
     value_des = ui.lineEdit_between_two_drops_of_pump_max->text();
-    bResult = dao->UpdateSystemSet("26", value_set);
-    bResult = dao->UpdateSystemDes("26", value_des);
+    setModel.setId(26);
+    setModel.setSaveDes(value_des);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -812,9 +661,11 @@ void SystemSet::on_pushButton_Save_clicked()
     }
 
     //9991	9999	2022 - 04 - 29 14:14 : 12	周维护完成时间
-    //value_set = ui.lineEdit_week_finish_time->text();
     value_set = QString("%1").arg(ui.lineEdit_week_finish_time->text().toInt() * 60000);
-    bResult = dao->UpdateSystemSet("27", value_set);
+    setModel.setId(27);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -822,17 +673,19 @@ void SystemSet::on_pushButton_Save_clicked()
     }
 
     //9992	9999	2022 - 10 - 09 10:50 : 57	月维护完成时间
-    //value_set = ui.lineEdit_month_finish_time->text();
     value_set = QString("%1").arg(ui.lineEdit_month_finish_time->text().toInt() * 60000);
-    bResult = dao->UpdateSystemSet("24", value_set);
+    setModel.setId(24);
+    setModel.setSaveDes(value_set);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
     //20001	0	0	增加蜂鸣器声音“使能 - 1 / 关闭 - 0”按钮
-    value_set = ui.comboBox_beep_enable->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo("K1700"))//"是")
+    value_des = ui.comboBox_beep_enable->currentText();
+    if (value_des == GlobalData::LoadLanguageInfo("K1700"))//"是")
     {
         value_set = "1";
     }
@@ -840,7 +693,10 @@ void SystemSet::on_pushButton_Save_clicked()
     {
         value_set = "0";
     }
-    bResult = dao->UpdateSystemSet("20001", value_set);
+    setModel.setId(20001);
+    setModel.setSaveDes(value_des);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -857,16 +713,19 @@ void SystemSet::on_pushButton_Save_clicked()
     }
 
     //20002	0	0	废液桶 使能 1、去使能为 0”
-    value_set = ui.comboBox_waste_liquid_tank_enable->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo("K1700"))//"是")
+    value_des = ui.comboBox_waste_liquid_tank_enable->currentText();//ui.lineEdit_RootPathReport->text();
+    if (value_des == GlobalData::LoadLanguageInfo("K1700"))//"是")
     {
         value_set = "1";
     }
     else
     {
-        value_set = "0";
+        value_des = "0";
     }
-    bResult = dao->UpdateSystemSet("20002", value_set);
+    setModel.setId(20002);
+    setModel.setSaveDes(value_des);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -874,8 +733,8 @@ void SystemSet::on_pushButton_Save_clicked()
     }
 
 
-    value_set = ui.comboBox_waste_liquid_tank_enable_2->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo("K1700"))//"是")
+    value_des = ui.comboBox_waste_liquid_tank_enable_2->currentText();//ui.lineEdit_RootPathReport->text();
+    if (value_des == GlobalData::LoadLanguageInfo("K1700"))//"是")
     {
         value_set = "1";
     }
@@ -883,18 +742,19 @@ void SystemSet::on_pushButton_Save_clicked()
     {
         value_set = "0";
     }
-    bResult = dao->UpdateSystemSet("20008", value_set);
+    setModel.setId(20008);
+    setModel.setSaveDes(value_des);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok, "OK", "");
         return;
     }
 
-
     //7	1	sampleNeedle suck	样本针吸样液位探测，1 = 打开，0 = 关闭
-
-    value_set = ui.comboBox_aspirate_sample->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo("K1698"))//"打开")
+    value_des = ui.comboBox_aspirate_sample->currentText();//ui.lineEdit_RootPathReport->text();
+    if (value_des == GlobalData::LoadLanguageInfo("K1698"))//"打开")
     {
         value_set = "1";
     }
@@ -902,7 +762,10 @@ void SystemSet::on_pushButton_Save_clicked()
     {
         value_set = "0";
     }
-    bResult = dao->UpdateSystemSet("7", value_set);
+    setModel.setId(7);
+    setModel.setSaveDes(value_des);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
@@ -910,8 +773,8 @@ void SystemSet::on_pushButton_Save_clicked()
     }
 
     //8	1	sampleNeedle spit	样本针吐样液位探测，1 = 打开，0 = 关闭	//
-    value_set = ui.comboBox_vomit->currentText();//ui.lineEdit_RootPathReport->text();
-    if (value_set == GlobalData::LoadLanguageInfo("K1698"))//"打开")
+    value_des = ui.comboBox_vomit->currentText();
+    if (value_des == GlobalData::LoadLanguageInfo("K1698"))//"打开")
     {
         value_set = "1";
     }
@@ -919,27 +782,25 @@ void SystemSet::on_pushButton_Save_clicked()
     {
         value_set = "0";
     }
-
-    bResult = dao->UpdateSystemSet("8", value_set);
+    setModel.setId(8);
+    setModel.setSaveDes(value_des);
+    setModel.setSaveSet(value_set.toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
+    if (bResult == false)
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
+        return;
+    }
+    setModel.setId(20010);
+    setModel.setSaveDes(ui.txtReportTitle->text().simplified());
+    setModel.setSaveSet(0);
+    bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }
 
-    bResult = dao->UpdateSystemSet("20010",ui.txtReportTitle->text().simplified());
-    if (bResult == false)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
-        return;
-    }
-    //if (!(state.state == _InstrumentState->enumStandby))
-    //{
-    //	MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
-    //	return;
-    //}
-
-    //QMessageBox::information(this, "成功", "更新系统参数成功，软件将重新启动！", QMessageBox::Ok);
     auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1259"), GlobalData::LoadLanguageInfo("K1278"), MyMessageBox::Ok| MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if (ret == MyMessageBox::Ok)
     {
@@ -957,7 +818,6 @@ void SystemSet::on_pushButton_Save_clicked()
         QProcess::startDetached(program, arguments);
         QCoreApplication::instance()->quit();
     }
-    //QMessageBox::information(this, "成功", "所有系统参数配置完成，请重新启软件！", QMessageBox::Ok);
 }
 
 void SystemSet::on_pushButton_Cancel_clicked() 
@@ -967,9 +827,29 @@ void SystemSet::on_pushButton_Cancel_clicked()
 
 void SystemSet::onCompanyComboBoxChanged(const QString &text)
 {
-//    qDebug() << "当前选中索引:" << index;
-//    qDebug() << "当前文本:" << comboBox->currentText();
-//    qDebug() << "当前数据:" << comboBox->currentData(); // 如果设置了 userData
-    qDebug()<<"click"<<text;
-
+    ui.comboBox_run_sequence->clear();
+    int index = ui.comboBox_CompanyList->findText(text);
+    if(index == -1) return;
+    int companyId = ui.comboBox_CompanyList->itemData(index, Qt::UserRole).toInt();
+    qDebug()<<"name1 text"<<text<<companyId;
+    ProcessDao* processDao = ProcessDao::instance();
+    QVector<ProcessModel> processVect = processDao->getModels(companyId);
+    for(ProcessModel& process:processVect)
+    {
+        qDebug()<<"name1"<<process.getProcessName();
+        ui.comboBox_run_sequence->addItem(process.getProcessName(), process.getId());
+    }
+    SystemSetModel setModel;
+    if(SystemSetDao::instance()->getModel(6, setModel))
+    {
+        int index = ui.comboBox_run_sequence->findText(setModel.getSaveDes());
+        qDebug()<<"process name"<<setModel.getSaveDes()<<index;
+        if (index != -1)
+        {
+            ui.comboBox_run_sequence->setCurrentIndex(index);
+        } else
+        {
+            ui.comboBox_run_sequence->setCurrentIndex(-1);
+        }
+    }
 }

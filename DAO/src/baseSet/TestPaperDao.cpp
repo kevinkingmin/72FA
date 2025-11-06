@@ -44,6 +44,30 @@ QVector<TestPaperModel> TestPaperDao::getAllRows()
 }
 
 // 获取所有行
+QVector<TestPaperModel> TestPaperDao::getProcessPapers(int processId)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return {};
+
+    query.prepare("SELECT * FROM t_testpaper where ProcessId = ?");
+    query.addBindValue(processId);
+    if(!query.exec()) return {};
+    return getModelFormQuery(query);
+}
+
+// 获取所有行
+QVector<TestPaperModel> TestPaperDao::getProcessEnablePapers(int processId)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return {};
+
+    query.prepare("SELECT * FROM t_testpaper where ProcessId = ? and IsPaperHide = 0");
+    query.addBindValue(processId);
+    if(!query.exec()) return {};
+    return getModelFormQuery(query);
+}
+
+// 获取所有行
 QVector<TestPaperModel> TestPaperDao::getCompanyPapers(QString companyId)
 {
     QSqlQuery query;

@@ -24,8 +24,8 @@ QString GetLanguageClsBLL::getlangValue(const QString id)
 void GetLanguageClsBLL::LoadLanguageInfoList()
 {//1为汉语，2为英文，3德语，4为法语，5为日语
     auto set=SystemSetBLL().getRowById(20005);
-	QString des = set->getSaveDes();
-    int iType(set.isNull()?1:des.toInt());
+    int des = set->getSaveSet();
+    int iType(set.isNull()?1:des);
     if(iType==_languageType)
         return;
 

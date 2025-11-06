@@ -2,26 +2,29 @@
 #define PROCESSPARABLL_H
 #include <QSharedPointer>
 #include <QVector>
+#include <QSet>
 #include "../bll.h"
-#include "../include/Model/baseSet/ProcessParaModel.h"
+#include "../Include/Model/baseSet/ProcessParameterModel.h"
+#include "../Include/DAO/baseSet/ProcessParameterDao.h"
 
-class ProcessParaDao;
+class ProcessParameterDao;
 
 class BLLSHARED_EXPORT ProcessParaBLL
 {
 public:
-    using ptrModel=QSharedPointer<ProcessParaModel>;
-    using ParaStrt=ProcessParaModel::ParaStrt;
+    using ptrModel=QSharedPointer<ProcessParameterModel>;
     ProcessParaBLL();
-    QVector<ptrModel>getAllRows();
-    ptrModel getRowById(int id);
-    QVector<ptrModel> getRowByActId(int companyId,int actId);
-    QVector<ptrModel> getModels(int groupId,int companyId);
+    QVector<ptrModel>getAllRows(int processId);
     QMap<int,int> getReagentIdAndParaIds(QVector<int> pGroupIds,int companyId);
-	QMap<int, int> getIncubationTime(QVector<int> pGroupIds);
+    QMap<int, int> getIncubationTime(QVector<int> pGroupIds);
+    QVector<ProcessParaBLL::ptrModel> toPtrVector(const QVector<ProcessParameterModel>& models);
+    // 获取各试剂总体积单位毫升 返回key:试剂名称 value:对应试剂量
+    QMap<QString, double> getUnitReagentMl(const int processId);
+    // 获取指定试剂的总量
+    double getUnitReagentMl(const int processId, const QString& reagentName);
 	
 private:
-    ProcessParaDao *_dao;
+    ProcessParameterDao *_dao;
 };
 
 #endif // PROCESSPARABLL_H

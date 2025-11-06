@@ -187,8 +187,6 @@ public:
 
 		//
 		QMap<int, QString> MGroupIdMap(bool *bResult, int company_id);
-
-		QVector<ProcessParaModel> MProcessPara(bool *bResult, int company_id);
 		
 		QVector<QString> SelectAllCreateDay(bool *bResult);
 

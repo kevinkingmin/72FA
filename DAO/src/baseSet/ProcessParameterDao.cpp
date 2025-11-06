@@ -44,6 +44,31 @@ bool ProcessParameterDao::selectModel(int stepId, ProcessParameterModel& out)
     return true;
 }
 
+QVector<ProcessParameterModel> ProcessParameterDao::selectModel(const int processId, const QString& actCode)
+{
+    QSqlQuery query;
+    if (DAO::createQuery(query) < 0) return {};
+    query.prepare("SELECT * FROM tprocess_parameter WHERE processId = ? ADN actCode=? ORDER BY id ASC");
+    query.addBindValue(processId);
+    query.addBindValue(actCode);
+    if (!query.exec()) return {};
+    QVector<ProcessParameterModel> tempVect;
+    QString paras = "";
+    while (query.next())
+    {
+        ProcessParameterModel model;
+        model.setId(query.value("id").toInt());
+        model.setProcessId(query.value("processId").toInt());
+        model.setActType(query.value("actType").toString());
+        model.setActName(query.value("actName").toString());
+        model.setActCode(query.value("actCode").toString());
+        paras=query.value("paras").toString();
+        model.setParas(paras);
+        tempVect.push_back(model);
+    }
+    return tempVect;
+}
+
 // 删除
 bool ProcessParameterDao::delectModel(int stepId)
 {
@@ -76,7 +101,6 @@ QVector<ProcessParameterModel> ProcessParameterDao::getAllRows(int processId)
     }
     return tempVect;
 }
-
 
 bool ProcessParameterDao::insert(ProcessParameterModel& model)
 {
