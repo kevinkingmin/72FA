@@ -243,7 +243,7 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 	int row = index.row();
 	int column = index.column();
 	QString sample_no = "";
-	auto regExp = QRegExp("[a-zA-Z0-9]*");
+    auto regExp = QRegExp("[a-zA-Z0-9_-]*");
 
 	if (!index.isValid())
 	{
@@ -264,6 +264,7 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 			}
 			else
 			{
+                _vect[row].sampleNo = value.toString();
 				if (regExp.exactMatch(sample_no)) {
                     // 符合条件
                     _vect[row].sampleNo = value.toString();
