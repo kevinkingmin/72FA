@@ -11,7 +11,6 @@ ReagentModel::ReagentModel():
   ,_spentTime("")
   ,_fluidMeasure(0)
   ,_fluidMeasureSmall(0)
-  ,_PumpNo(-1)
 {}
 
 int ReagentModel::getID() const
@@ -84,15 +83,6 @@ void ReagentModel::setIsNeedPrepare(bool IsNeedPrepare)
     _IsNeedPrepare = IsNeedPrepare;
 }
 
-int ReagentModel::getPumpNo() const
-{
-    return _PumpNo;
-}
-
-void ReagentModel::setPumpNo(int PumpNo)
-{
-    _PumpNo = PumpNo;
-}
 QString ReagentModel::getSpentTime() const
 {
 	return _spentTime;

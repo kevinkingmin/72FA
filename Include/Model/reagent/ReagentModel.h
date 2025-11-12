@@ -31,9 +31,6 @@ public:
     bool getIsNeedPrepare() const;
     void setIsNeedPrepare(bool IsNeedPrepare);
 
-    int getPumpNo() const;
-    void setPumpNo(int PumpNo);
-
 	float getFluidMeasure() const;
 	void setFluidMeasure(float fluidMeasure);
 
@@ -48,7 +45,6 @@ private:
     bool _IsNoDrip;
     bool _IsSkimp;
     bool _IsNeedPrepare;
-    int _PumpNo;
 	QString _spentTime;
 	///大充灌液量
 	float _fluidMeasure;

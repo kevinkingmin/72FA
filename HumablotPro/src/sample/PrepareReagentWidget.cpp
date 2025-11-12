@@ -40,17 +40,13 @@ PrepareReagentWidget::PrepareReagentWidget(QWidget *parent) :
   ,_delayFile("rDelay.png")
   ,_instrument(Instrument::instance())
   , m_instrState(InstrumentStateModel::instance())
+  ,_pumpNoReagentMap({})
 {
     ui->setupUi(this);
     _btnGroup->setExclusive(false);
-    // emit ChangeBtnNextSignal(true);
     createPumpBtn();
-    //ui->btnSmall->setVisible(false);
-    //ui->btnBig->setVisible(false);
-    //ui->horizontalLayout_4
     ui->pushButtonSmall->setVisible(false);
     ui->label_4->setVisible(false);
-    ui->cb_all->setVisible(false);
     ui->btnDelay->hide();
     m_postion_map.clear();
     m_postion_map.insert(1, 0);
@@ -67,19 +63,22 @@ PrepareReagentWidget::PrepareReagentWidget(QWidget *parent) :
     auto dao = AnalysisUIDao::instance();
     bool bResult;
     g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
-
+    //检测前准备
     QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1074");
     ui->label_14->setText(sz);
+    //全选
     sz = GlobalData::LoadLanguageInfo(g_language_type, "K1081");
     ui->btnFill_2->setText(sz);
+    //系统液灌注
     sz = GlobalData::LoadLanguageInfo(g_language_type, "K1076");
     ui->label_12->setText(sz);
-
+    //灌注系统液体！
     sz = GlobalData::LoadLanguageInfo(g_language_type, "K1077");
     ui->lblHint->setText(sz);
-
+    //系统液管路充灌
     sz = GlobalData::LoadLanguageInfo(g_language_type, "K1078");
     ui->btnWash->setText(sz);
+    //跳过充灌
     sz = GlobalData::LoadLanguageInfo(g_language_type, "K1079");
     ui->btnFill->setText(sz);
 
@@ -101,92 +100,58 @@ void PrepareReagentWidget::setSelectPDialog(SelectProcessDialog *selectPDialog)
     m_selectPDialog = selectPDialog;
 }
 //显示试剂总用量
-void PrepareReagentWidget::ShowCountReagentDose(int reagentId,int index,int paper_id)
+void PrepareReagentWidget::ShowCountReagentDose(const ReagentInfoStrt& info)
 {
     int test_count = m_listTest.size();
-    int test_count1 = 0;
     std::map<int, int> countMap;
-    for (const auto& obj : m_listTest) {
+    for (const auto& obj : m_listTest)
+    {
         countMap[obj->getPaperId()]++;
     }
-
-    if (paper_id != 111)
-    {
-        auto it = countMap.find(paper_id);  // 在 map 中查找指定的键
-        if (it != countMap.end()) {
-            test_count1 = it->second;
-        }
-    }
-    else
-    {
-        test_count1 = test_count;
-    }
-
-    SystemSetModel systemSetting;
-    SystemSetDao::instance()->getModel(6, systemSetting);
-    int processId = static_cast<int>(systemSetting.getId());
-    ReagentBLL::ptrModel reagentModel = ReagentBLL().getReagent(reagentId);
-    QString reagentName = reagentModel.isNull()?"":reagentModel->getReagentName();
-    double need_volumn =ProcessParaBLL().getUnitReagentMl(processId, reagentName);
-    if (index < 4)
-    {
-        need_volumn = test_count1 * need_volumn;
-    }
-    else
-    {
-        need_volumn = test_count * need_volumn;
-    }
-
-    QString exe_path = QCoreApplication::applicationDirPath() + "/PrepareReagent.ini";
-    QSettings config_set(exe_path, QSettings::IniFormat);
-    config_set.beginGroup("Add");
+    float volume = test_count * info._reagentMl;
+    volume = test_count * volume;
+    volume += info._deadMl;
+    double need_volumn = static_cast<double>(volume);
     QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1085");
-
     QString str = "";
-    if (index == 0)
+    switch (info._pumpNo)
     {
-        str = QString(sz+":\n\r%1(mL)").arg(need_volumn + config_set.value("PrepareReagent_1").toDouble());
+    case 1:
+        str = QString(sz+":\n\r%1(mL)").arg(need_volumn);
         ui->label->setText(str);
-    }
-    if (index == 1)
-    {
-        str = QString(sz + " :\n\r%1(mL)").arg(need_volumn + config_set.value("PrepareReagent_2").toDouble());
+        break;
+    case 2:
+        str = QString(sz + " :\n\r%1(mL)").arg(need_volumn);
         ui->label_2->setText(str);
-    }
-    if (index == 2)
-    {
-        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn + config_set.value("PrepareReagent_3").toDouble());
+        break;
+    case 3:
+        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn);
         ui->label_3->setText(str);
-    }
-    if (index == 3)
-    {
-        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn + config_set.value("PrepareReagent_4").toDouble());
+        break;
+    case 4:
+        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn);
         ui->label_5->setText(str);
-    }
-    if (index == 4)
-    {
-        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn + config_set.value("PrepareReagent_5").toDouble());
+        break;
+    case 5:
+        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn);
         ui->label_6->setText(str);
-    }
-    if (index == 5)
-    {
-        str = QString(sz + "\n\r%1(mL)").arg(need_volumn + config_set.value("PrepareReagent_6").toDouble());
+        break;
+    case 6:
+        str = QString(sz + "\n\r%1(mL)").arg(need_volumn);
         ui->label_7->setText(str);
-    }
-    if (index == 6)
-    {
-        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn + config_set.value("PrepareReagent_7").toDouble());
+        break;
+    case 7:
+        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn);
         ui->label_8->setText(str);
-    }
-    if (index == 7)
-    {
-        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn + config_set.value("PrepareReagent_8").toDouble());
+        break;
+    case 8:
+        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn);
         ui->label_9->setText(str);
-    }
-    if (index == 8)
-    {
-        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn + config_set.value("PrepareReagent_9").toDouble());
+        break;
+    case 9:
+        str = QString(sz + ":\n\r%1(mL)").arg(need_volumn);
         ui->label_10->setText(str);
+        break;
     }
 }
 
@@ -206,8 +171,8 @@ void PrepareReagentWidget::createPumpBtn()
 
         btn->setUpText(QString::number(i + 1)+ sz);//".位置");
         btn->setObjectName(QString::number(i));
-        btn->setReagentName("");
-        btn->setCheckable(false);
+        btn->setReagentName("wz"+QString::number(i + 1));
+        btn->setCheckable(true);
         btn->setBtnId(i);
         btn->setProperty("btnStyle","btnReagentPosStyle");
         btn->setProperty(GlobalData::getPropertyName(),PumpPosState::enumEmpty);
@@ -220,11 +185,13 @@ void PrepareReagentWidget::createPumpBtn()
                 QList<uint8_t> pumpListMin;
                 pumpListMin.append(static_cast<uint8_t>(senderButton->objectName().toUInt()+1));
                 for(auto r:m_reagentVect){
-                    if(static_cast<uint>(r->getPumpNo())  == senderButton->objectName().toUInt()){
-                        _instrument->prepareReagent(pumpListMin,"min");
-                        m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1715"));
-                        m_progressDialog->exec();
-                    }
+                    // TODO::
+//                    if(static_cast<uint>(r->getPumpNo())  == senderButton->objectName().toUInt()){
+//                        // 泵号list
+//                        _instrument->prepareReagent(pumpListMin,"min");
+//                        m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1715"));
+//                        m_progressDialog->exec();
+//                    }
                 }
             }
         });
@@ -287,10 +254,11 @@ void PrepareReagentWidget::changeIcon(const QString &fileName, PumpPosState stat
                 QString volumn1;
                 for (auto r : reagentVect)
                 {
-                    if (r->getPumpNo() == pumpNo)
-                    {
-                        volumn1.sprintf("%.2f ml", r->getFluidMeasure());
-                    }
+                    //TODO::
+//                    if (r->getPumpNo() == pumpNo)
+//                    {
+//                        volumn1.sprintf("%.2f ml", r->getFluidMeasure());
+//                    }
                 }
                 auto strVolumn = btn->getVolumn();
                 auto volumn = static_cast<ushort>(volumn1.left(volumn1.length() - 2).toDouble() * 1000);
@@ -333,7 +301,6 @@ void PrepareReagentWidget::changeIcon(const QString &fileName, PumpPosState stat
         }
     }
     emit sglPumpStateChanged();
-    ui->cb_all->setChecked(false);
     int finish_count = 0;
     int key_value = 0;
     for (const auto& key : m_finish_map.keys()) {
@@ -470,46 +437,47 @@ void PrepareReagentWidget::on_btnFill_2_clicked()
             auto pumpNo = btn->objectName().toInt();
             for (auto r : m_reagentVect)
             {
-                if (r->getPumpNo() == pumpNo)
-                {
-                    if (index == 0)
-                    {
-                        ui->chk_1->setChecked(true);
-                    }
-                    if (index == 1)
-                    {
-                        ui->chk_2->setChecked(true);
-                    }
-                    if (index == 2)
-                    {
-                        ui->chk_3->setChecked(true);
-                    }
-                    if (index == 3)
-                    {
-                        ui->chk_4->setChecked(true);
-                    }
-                    if (index == 4)
-                    {
-                        ui->chk_5->setChecked(true);
-                    }
-                    if (index == 5)
-                    {
-                        ui->chk_6->setChecked(true);
-                    }
-                    if (index == 6)
-                    {
-                        ui->chk_7->setChecked(true);
-                    }
-                    if (index == 7)
-                    {
-                        ui->chk_8->setChecked(true);
-                    }
-                    if (index == 8)
-                    {
-                        ui->chk_9->setChecked(true);
-                    }
-                    break;
-                }
+                //TODO::
+//                if (r->getPumpNo() == pumpNo)
+//                {
+//                    if (index == 0)
+//                    {
+//                        ui->chk_1->setChecked(true);
+//                    }
+//                    if (index == 1)
+//                    {
+//                        ui->chk_2->setChecked(true);
+//                    }
+//                    if (index == 2)
+//                    {
+//                        ui->chk_3->setChecked(true);
+//                    }
+//                    if (index == 3)
+//                    {
+//                        ui->chk_4->setChecked(true);
+//                    }
+//                    if (index == 4)
+//                    {
+//                        ui->chk_5->setChecked(true);
+//                    }
+//                    if (index == 5)
+//                    {
+//                        ui->chk_6->setChecked(true);
+//                    }
+//                    if (index == 6)
+//                    {
+//                        ui->chk_7->setChecked(true);
+//                    }
+//                    if (index == 7)
+//                    {
+//                        ui->chk_8->setChecked(true);
+//                    }
+//                    if (index == 8)
+//                    {
+//                        ui->chk_9->setChecked(true);
+//                    }
+//                    break;
+//                }
             }
             index++;
         }
@@ -565,66 +533,42 @@ void PrepareReagentWidget::on_btnFill_clicked()
 }
 
 QVector<PrepareReagentWidget::pReagent> PrepareReagentWidget::GetReagentVect() {
-    auto dao = AnalysisUIDao::instance();
     bool bResult;
-    int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
-    QMap<int,QString> groupStepMap = m_selectPDialog->getSeletedPGMap();
-    QVector<int> paperIds = getPaperIds();
-    QVector<int> groupIds = groupStepMap.keys().toVector();//选中的所有时序
-    auto reagentIdAndParaIdMap = ProcessParaBLL().getReagentIdAndParaIds(groupIds, company_id);
-    QVector<ProcessReagentModel>processReagentVect;
-    _processReagentVect.swap(processReagentVect);
-    QVector<pReagent>reagentVect;
+    SystemSetModel systemModel;
+    bResult = SystemSetDao::instance()->getModel(6, systemModel);
+    if(!bResult)
+    {
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1839"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
+        return {};
+    }
+    QMap<QString, std::tuple<int, double>> reagentVolumeMap = ProcessParaBLL().getUnitReagentMl(systemModel.getSaveSet());
+    qDebug()<<"reagentVolumeMap"<<reagentVolumeMap.size();
+    QSet<QString> reagentNameVect = reagentVolumeMap.keys().toSet();
+    QVector<ReagentBLL::ptrModel> reagentModelVect = ReagentBLL().getReagent(reagentNameVect);
     QVector<int> usedPosVect;
-
-    for (auto it = reagentIdAndParaIdMap.begin(); it != reagentIdAndParaIdMap.end(); it++)
-    {
-        auto r = ReagentBLL().getReagent(it.key(), 0, company_id);
-        if (r.isNull())
-        {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1415"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-            return reagentVect;
-        }
-
-        if (m_flushing_type == 1)
-        {
-            r->setFluidMeasure(r->getFluidMeasureSmall());
-        }
-
-        if (r->getPumpNo() >= 0)
-            usedPosVect.push_back(r->getPumpNo());
-        reagentVect.push_back(r);
-
-        auto m = getProcessReagentModel(0, r, it.value(), 0);
+    for (ReagentBLL::ptrModel& it : reagentModelVect)
+    {//TODO::
+//        qDebug()<<"reagentModelVect"<<it->getReagentName()<<it->getPumpNo();
+//        if (m_flushing_type == 1)
+//        {
+//            it->setFluidMeasure(it->getFluidMeasureSmall());
+//        }
+//
+//        if (it->getPumpNo() >= 0)
+//        {
+//            usedPosVect.push_back(it->getPumpNo());
+//        }
+        auto m = getProcessReagentModel(0, it);
         _processReagentVect.push_back(m);
-
     }
-
-    QVector<int> pumpNumberMap;
-    int i = 0;
-    int j = reagentVect.count() - paperIds.count();
-    for (int i = 0; i < paperIds.count(); i++)
-    {
-        int paperId = paperIds[i];
-        for (auto it = reagentVect.begin(); it < reagentVect.end(); it++)
-        {
-        }
-    }
-
-    if ((pumpNumberMap.count() + j) > PUMPCOUNT)
-    {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1416"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-        return reagentVect;
-    }
-
-    if (!setReagentWithPump(usedPosVect, reagentVect))
+    if (!setReagentWithPump(usedPosVect, reagentModelVect))
     {
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1417"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-        return reagentVect;
+        return reagentModelVect;
     }
-    return reagentVect;
+    return reagentModelVect;
 }
-
+// 关闭设备所有指示灯
 void PrepareReagentWidget::CloseAllLight()
 {
     /*_instrument->lightControl(0x02, 0);
@@ -651,10 +595,11 @@ void PrepareReagentWidget::updatePumpBtnByTest()
 { 
     all_select_flage = false;
     ui->btnFill_2->setText(GlobalData::LoadLanguageInfo(g_language_type, "K1081"));//"全选");
-    ui->label_4->setVisible(false);
+    ui->label_4->setVisible(false); // 报警框隐藏
     ui->groupBox_2->setVisible(true);
     ui->groupBox->setVisible(true);
     m_reagentVect.clear();
+    // 总用量
     QString str = "";
     str = QString("").arg("");
     ui->label->setText(str);
@@ -674,114 +619,7 @@ void PrepareReagentWidget::updatePumpBtnByTest()
     ui->label_9->setText(str);
     str = QString("").arg("");
     ui->label_10->setText(str);
-    auto dao = AnalysisUIDao::instance();
-    bool bResult;
-    int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
-    auto groupStepMap=m_selectPDialog->getSeletedPGMap();
-    auto paperIds=getPaperIds();
-    QVector<int> groupIds=groupStepMap.keys().toVector();//选中的所有时序
-
-    auto reagentIdAndParaIdMap = ProcessParaBLL().getReagentIdAndParaIds(groupIds,company_id);
-    if (reagentIdAndParaIdMap.size() == 0)
-    {
-        //MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "K1674该厂家膜条未添加实验流程，请联系技术支持人员。", MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
-        if (groupIds.count() == 10)
-        {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1674"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
-            return;
-        }
-    }
-    QVector<ProcessReagentModel> processReagentVect;
-    _processReagentVect.swap(processReagentVect);
-    QVector<pReagent>reagentVect;
-    QVector<int> usedPosVect;
-    for(auto it=reagentIdAndParaIdMap.begin();it!=reagentIdAndParaIdMap.end();it++)
-    {
-        auto r=ReagentBLL().getReagent(it.key(),0, company_id);
-        if(r.isNull())
-        {
-            MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"),GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1415"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-            return;
-        }
-        if (m_flushing_type == 1)
-        {
-            r->setFluidMeasure(r->getFluidMeasureSmall());
-        }
-        if(r->getPumpNo()>=0)
-            usedPosVect.push_back(r->getPumpNo());
-        reagentVect.push_back(r);
-
-        auto m=getProcessReagentModel(0,r,it.value(),0);
-        _processReagentVect.push_back(m);
-
-    }
-    QVector<int> pumpNumberMap;
-
-    int i = 0;
-    int j = reagentVect.count() - paperIds.count();
-
-    for (auto it = reagentVect.begin();it< reagentVect.end();it++)
-    {
-        if (i < paperIds.count()) {
-            int pumpNo = it->data()->getPumpNo();
-            if (pumpNumberMap.indexOf(pumpNo))
-            {
-                pumpNumberMap.push_back(pumpNo);
-            }
-        }
-        i++;
-    }
-
-    QString pump_sz = "";
-    for (int i = 0; i < pumpNumberMap.count(); i++)
-    {
-        int iPumpNo = pumpNumberMap[i];
-        int iPumpNumber = 0;
-        int kk = 0;
-        for (auto it = reagentVect.begin(); it < reagentVect.end(); it++)
-        {
-            if (kk < paperIds.count()) {
-                if (it->data()->getPumpNo() == iPumpNo)
-                {
-                    iPumpNumber++;
-                    pump_sz += QString("%3：%1  %4 %2\r\n").arg(it->data()->getReagentName()).arg(iPumpNo+1).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1136")).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1514"));
-                }
-            }
-            kk++;
-        }
-
-        if (iPumpNumber > 1)
-        {
-            ui->groupBox_2->setVisible(false);
-            ui->groupBox->setVisible(false);
-            ui->label_4->setVisible(true);
-            ui->label_4->move(500,330);
-            QString tip1 = "";
-            tip1 = QString("%2\r\n%1").arg(pump_sz).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1420"));
-            ui->label_4->setText(tip1);
-            QString tip = "";
-            tip = QString("%2\r\n%1").arg(pump_sz).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1421"));
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tip, MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-            emit ChangeBtnNextSignal(false); //btn tmp
-            // emit ChangeBtnNextSignal(true);//测试阶段忽略灌注限制
-            return;
-        }
-    }
-
-    m_Enzyme_number = pumpNumberMap.count();
-
-    if ((pumpNumberMap.count() + j) > PUMPCOUNT)
-    {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1416"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-        return;
-    }
-    if(!setReagentWithPump(usedPosVect,reagentVect))
-    {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1417"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-        return;
-    }
-    updateBtnByReagents(reagentVect);
-    m_reagentVect = reagentVect;
+    updateBtnByReagents();
     on_chk_1_toggled(false);
 }
 
@@ -798,42 +636,47 @@ QVector<int> PrepareReagentWidget::getPaperIds()
     return paperIds;
 }
 
-bool PrepareReagentWidget::setReagentWithPump(QVector<int>usedPos,QVector<pReagent>&regentVect)
+bool PrepareReagentWidget::setReagentWithPump(QVector<int>usedPos, QVector<pReagent>&regentVect)
 {
     QVector<int>freePos;
     for(int i=0;i<PUMPCOUNT;i++)
     {
         if(!usedPos.contains(i))
+        {
             freePos.push_back(i);
+        }
     }
 
     int j=0;
     for(auto &it:regentVect)
     {
-        if(it->getPumpNo()<0)
-        {
-            if(j>freePos.count()-1)
-            {
-                return false;
-            }
-            it->setPumpNo(freePos[j]);
-            for(auto & r:_processReagentVect)
-            {
-                if(r.getReagentId()==it->getID())
-                    r.setPumpNo(freePos[j]);
-            }
-            j++;
-        }
+        //TODO::
+//        if(it->getPumpNo()<0)
+//        {
+//            if(j>freePos.count()-1)
+//            {
+//                return false;
+//            }
+//            it->setPumpNo(freePos[j]);
+//            for(auto & r:_processReagentVect)
+//            {
+//                if(r.getReagentId()==it->getID())
+//                {
+//                    r.setPumpNo(freePos[j]);
+//                }
+//            }
+//            j++;
+//        }
     }
     return true;
 }
 
-ProcessReagentModel PrepareReagentWidget::getProcessReagentModel(int id, pReagent r,int processParaId,int paperId)
+ProcessReagentModel PrepareReagentWidget::getProcessReagentModel(int id, pReagent r)
 {
     ProcessReagentModel m;
     m.setId(id);
-    m.setPumpNo(r->getPumpNo());
-    m.setPaperId(paperId);
+    // TODO::
+    //m.setPumpNo(r->getPumpNo());
     m.setReagentId(r->getID());
     if (m_flushing_type == 0)
     {
@@ -843,69 +686,37 @@ ProcessReagentModel PrepareReagentWidget::getProcessReagentModel(int id, pReagen
     {
         m.setFluidMeasure(r->getFluidMeasureSmall());
     }
-
-    m.setProcessParaId(processParaId);
     return m;
 }
 
-void PrepareReagentWidget::updateBtnByReagents(const QVector<pReagent> &reagentVect)
+void PrepareReagentWidget::updateBtnByReagents()
 {
-    auto dao = AnalysisUIDao::instance();
-    bool bResult;
-    int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
-    auto btns=_btnGroup->buttons();
-    int index = 0;
+    QList<QAbstractButton*> btns=_btnGroup->buttons();
     for(auto &it:btns)
     {
         auto btn=reinterpret_cast<CustomButton*>(it);
         btn->reset(_pixPath+_emptyFile);
         btn->setProperty(GlobalData::getPropertyName(),PumpPosState::enumEmpty);
         btn->setLblPixSize(128, 64);
-        auto pumpNo=btn->objectName().toInt();
-        for(auto r:reagentVect)
+        auto pumpNo=btn->objectName().toInt()+1;
+        if(_pumpNoReagentMap.contains(pumpNo))
         {
-            if (r->getPumpNo() == pumpNo)
-            {
-                int id = r->getID();
-                int paper_id = r->getPaperId();
-                ShowCountReagentDose(id, index, paper_id);
-                btn->setCheckable(true);
-                btn->setProperty(GlobalData::getPropertyName(),PumpPosState::enumFlush);
-                btn->setPixPath(_pixPath+_flushFile);
-                QString reagent_name = r->getReagentName();
-                QString reagent_id =QString::number( r->getPaperId());
-                int length = 15;
-                if (id > 4 && id < 11)
-                {
-                    QString reagent_name1 = GlobalData::LoadLanguageInfo(g_language_type, reagent_name);
-                    if (reagent_name1.length() > length)
-                    {
-                        reagent_name1 = QString("%1\n%2").arg(reagent_name1.mid(0, length)).arg(reagent_name1.mid(length));
-                    }
-                    btn->setReagentName(reagent_name1);//reagent_name);
-                }
-                else
-                {
-                    QString reagent_name1 = reagent_name;
-                    if (reagent_name1.length() > length)
-                    {
-                        reagent_name1 = QString("%1\n%2").arg(reagent_name1.mid(0, length)).arg(reagent_name1.mid(length));
-                    }
-                    btn->setReagentName(reagent_name1);//reagent_name);
-                }
-
-                QString volumn;
-                qDebug()<<"pumpNo:"<<pumpNo;
-                QString exe_path = QCoreApplication::applicationDirPath() + "/PrepareReagent.ini";
-                QSettings config_set(exe_path, QSettings::IniFormat);
-                config_set.beginGroup("Add");
-                volumn.sprintf("%.2f ml ", config_set.value("PrepareReagent_"+QString::number(pumpNo+1)).toFloat());
-                btn->setVolumn(volumn);
-                break;
-            }
+            const ReagentInfoStrt& info = _pumpNoReagentMap[pumpNo];
+            if(pumpNo > 10 || pumpNo < 1) continue;
+            auto btn=reinterpret_cast<CustomButton*>(btns[pumpNo-1]);
+            btn->reset(_pixPath+_emptyFile);
+            btn->setProperty(GlobalData::getPropertyName(),PumpPosState::enumEmpty);
+            btn->setLblPixSize(128, 64);
+            ShowCountReagentDose(info);
+            btn->setCheckable(true);
+            btn->setProperty(GlobalData::getPropertyName(),PumpPosState::enumFlush);
+            btn->setPixPath(_pixPath+_flushFile);
+            btn->setReagentName(info._reagentName);
+            // 设置死体积
+            double deadMl = static_cast<double>(info._deadMl);
+            QString volumn = QString("%1 ml ").arg(QString::number(deadMl, 'f', 2));
+            btn->setVolumn(volumn);
         }
-        ui->hLayPump->addWidget(btn);
-        index++;
     }
     auto empty = ":/images/buttonIcon/irrigationIconSmall.png";
     QImage image(empty);
@@ -1031,15 +842,53 @@ void PrepareReagentWidget::showEvent(QShowEvent *e)
     Q_UNUSED(e);
     m_selectPDialog->resetBtn();
     on_cb_all_toggled(false);
-    ui->cb_all->setChecked(false);
     CloseAllLight();
+    // 总图标为待充盈状态
     auto empty = ":/images/buttonIcon/irrigationIcon.png";
     QImage image(empty);
     QPixmap fitpixmap = QPixmap::fromImage(image).scaled(image.width(), image.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     ui->btnIrrigate->setIcon(QIcon(fitpixmap));
     ui->btnIrrigate->setIconSize(QSize(image.width(), image.height()));
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1077");
+    // 总文案显示灌注系统液体！
+    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1077"); //灌注系统液体！
     ui->lblHint->setText(sz);
+    SystemSetModel systemSetting;
+    SystemSetDao::instance()->getModel(6, systemSetting);
+    // 单个测试需要使用的试剂名 泵号 试剂用量
+    QMap<QString, std::tuple<int, double>> reagentVolumeMap = ProcessParaBLL().getUnitReagentMl(systemSetting.getSaveSet());
+    QSet<QString> reagentNameVect = reagentVolumeMap.keys().toSet();
+    QVector<ReagentBLL::ptrModel> reagentModelVect = ReagentBLL().getReagent(reagentNameVect);
+    qDebug()<<"size="<<reagentVolumeMap.size()<<reagentNameVect.count()<<reagentModelVect.count();
+    if(reagentNameVect.count() != reagentModelVect.count())
+    {
+        // TODO::报错
+        return;
+    }
+    QString exe_path = QCoreApplication::applicationDirPath() + "/PrepareReagent.ini";
+    QSettings config_set(exe_path, QSettings::IniFormat);
+    config_set.beginGroup("Add");
+    _pumpNoReagentMap.clear();
+    for (ReagentBLL::ptrModel& it : reagentModelVect)
+    {
+        const QString& name = it->getReagentName();
+        if(!reagentVolumeMap.contains(name))
+        {
+            continue;
+        }
+        std::tuple<int, double> reagentUse = reagentVolumeMap[name];
+        auto [pumpNo, mlDouble] = reagentVolumeMap[name];
+        float ml = static_cast<float>(mlDouble);
+        float deadMl = config_set.value("PrepareReagent_"+QString::number(pumpNo), 0.0f).toFloat();
+        if(!_pumpNoReagentMap.contains(pumpNo))
+        {
+            _pumpNoReagentMap.insert(pumpNo, ReagentInfoStrt(it->getReagentName(), pumpNo, ml, deadMl, it->getFluidMeasure(), it->getFluidMeasureSmall()));
+        }else
+        {
+            qWarning() << "Pump already assigned:" << pumpNo
+                       << "Current reagent:" << name
+                       << "(Previous reagent will be kept)";
+        }
+    }
     updatePumpBtnByTest();
     emit ChangeBtnNextSignal(false);
     // emit ChangeBtnNextSignal(true);//测试阶段忽略灌注限制
@@ -1073,11 +922,12 @@ void PrepareReagentWidget::on_btnFlash_clicked()
             QString volumn1;
             for (auto r : reagentVect)
             {
-                if (r->getPumpNo() == pumpNo)
-                {
+                // TODO
+//                if (r->getPumpNo() == pumpNo)
+//                {
 
-                    volumn1.sprintf("%.2f ml", r->getFluidMeasure());
-                }
+//                    volumn1.sprintf("%.2f ml", r->getFluidMeasure());
+//                }
             }
 
             //auto strVolumn=btn->getVolumn();
@@ -1140,7 +990,7 @@ void PrepareReagentWidget::changeSystemLiquidIcon(){
     QPixmap fitpixmap = QPixmap::fromImage(image).scaled(image.width(), image.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
     ui->btnIrrigate->setIcon(QIcon(fitpixmap));
     ui->btnIrrigate->setIconSize(QSize(image.width(), image.height()));
-    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1082");
+    QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1082");//灌注系统液体！已完成灌注
     ui->lblHint->setText(sz);
 }
 
@@ -1190,11 +1040,12 @@ void PrepareReagentWidget::on_pushButtonSmall_clicked()
             QString volumn1;
             for (auto r : reagentVect)
             {
-                if (r->getPumpNo() == pumpNo)
-                {
+                // TODO::
+//                if (r->getPumpNo() == pumpNo)
+//                {
 
-                    volumn1.sprintf("%.2f ml", r->getFluidMeasureSmall());
-                }
+//                    volumn1.sprintf("%.2f ml", r->getFluidMeasureSmall());
+//                }
             }
 
             auto strVolumn = btn->getVolumn();
@@ -1293,47 +1144,48 @@ void PrepareReagentWidget::on_cb_all_toggled(bool state)
             auto pumpNo = btn->objectName().toInt();
             for (auto r : m_reagentVect)
             {
-                if (r->getPumpNo() == pumpNo)
-                {
-                    if (index == 0)
-                    {
-                        ui->chk_1->setChecked(true);
-                        ui->chk_1->setText("");
-                    }
-                    if (index == 1)
-                    {
-                        ui->chk_2->setChecked(true);
-                    }
-                    if (index == 2)
-                    {
-                        ui->chk_3->setChecked(true);
-                    }
-                    if (index == 3)
-                    {
-                        ui->chk_4->setChecked(true);
-                    }
-                    if (index == 4)
-                    {
-                        ui->chk_5->setChecked(true);
-                    }
-                    if (index == 5)
-                    {
-                        ui->chk_6->setChecked(true);
-                    }
-                    if (index == 6)
-                    {
-                        ui->chk_7->setChecked(true);
-                    }
-                    if (index == 7)
-                    {
-                        ui->chk_8->setChecked(true);
-                    }
-                    if (index == 8)
-                    {
-                        ui->chk_9->setChecked(true);
-                    }
-                    break;
-                }
+                //TODO::
+//                if (r->getPumpNo() == pumpNo)
+//                {
+//                    if (index == 0)
+//                    {
+//                        ui->chk_1->setChecked(true);
+//                        ui->chk_1->setText("");
+//                    }
+//                    if (index == 1)
+//                    {
+//                        ui->chk_2->setChecked(true);
+//                    }
+//                    if (index == 2)
+//                    {
+//                        ui->chk_3->setChecked(true);
+//                    }
+//                    if (index == 3)
+//                    {
+//                        ui->chk_4->setChecked(true);
+//                    }
+//                    if (index == 4)
+//                    {
+//                        ui->chk_5->setChecked(true);
+//                    }
+//                    if (index == 5)
+//                    {
+//                        ui->chk_6->setChecked(true);
+//                    }
+//                    if (index == 6)
+//                    {
+//                        ui->chk_7->setChecked(true);
+//                    }
+//                    if (index == 7)
+//                    {
+//                        ui->chk_8->setChecked(true);
+//                    }
+//                    if (index == 8)
+//                    {
+//                        ui->chk_9->setChecked(true);
+//                    }
+//                    break;
+//                }
             }
             index++;
         }
@@ -1448,18 +1300,13 @@ QVector<uchar> PrepareReagentWidget::getCheckBtn()
     }
 
     mOutVect = outVect;
+    // 更新图标按钮的选中状态
     auto btns = _btnGroup->buttons();
     int iii = 0;
     for (auto &it : btns)
     {
         auto btn = reinterpret_cast<CustomButton*>(it);
         QString reagent_name = btn->getReagentName();
-        if (reagent_name != "")
-        {
-        }
-        else
-        {
-        }
         int valuezx = m_postion_map[iii + 1];
         if (valuezx == 0)
         {

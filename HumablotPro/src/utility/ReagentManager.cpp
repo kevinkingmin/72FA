@@ -70,7 +70,6 @@ void ReagentManager::InitCompanyTableWidget()
 	ui.tableWidget_Company->setSelectionMode(QAbstractItemView::SingleSelection); //设置选择膜式，选择单行
 	ui.tableWidget_Company->setEditTriggers(QAbstractItemView::NoEditTriggers);	//列表不可编辑
 
-
 	QStringList headerString;
     headerString << GlobalData::LoadLanguageInfo("K1099");
 	ui.tableWidget_Company->setHorizontalHeaderLabels(headerString);
@@ -172,46 +171,33 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
 	//清空列表
 	ui.tableWidget_Reagent->setRowCount(0);
 	int intRow = ui.tableWidget_Company->currentRow();//获取选中的行
-    if (_companyModels.size() == 0)
-		return;
+    if (_companyModels.size() == 0) return;
     m_companyName=ui.tableWidget_Company->item(intRow,0)->text();
     CompanyModel model = _companyModels[intRow];
     m_strCompany_ID = QString::number(model.getId());
-    qDebug() << "m_strCompany_ID:"<<m_strCompany_ID;
-	QString strValue;
-	bool bResult = true;
-    auto dao = AnalysisUIDao::instance();
-    //有问题需要更换接口
-	m_ReagentQuery = dao->SelectReagents(m_strCompany_ID, &bResult);//调用接口
-	if (bResult == false)
-	{
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
-		return;
-	}
-    if (m_ReagentQuery.size() == 0)
+    _reagentVect = ReagentDao::instance()->selectReagent(m_strCompany_ID.toInt());
+    if (_reagentVect.size() == 0)
 	{
 		return;
 	}
-	int row = 0;
-    QString sID = "";
-    while (m_ReagentQuery.next())
+    int row = 0;
+    QString strValue;
+    for(ReagentModel& reagent:_reagentVect)
 	{
 		ui.tableWidget_Reagent->insertRow(row);
 		//名称
-        strValue = m_ReagentQuery.value("reagentName").toString();
-
-		QString test_paper_id = m_ReagentQuery.value("TestPaperID").toString();
-		addReagentContent(row, 0, GlobalData::LoadLanguageInfo(strValue));//strValue);
+        strValue = reagent.getReagentName();
+        addReagentContent(row, 0, strValue);
         addReagentContent(row, 1, "");
-        strValue = m_ReagentQuery.value("IsNoDrip").toString();
+        strValue = reagent.getIsNoDrip()?"1":"0";
         addReagentContent(row, 2, strValue);
-        strValue = m_ReagentQuery.value("IsSkimp").toString();
+        strValue = reagent.getIsSkimp()?"1":"0";
         addReagentContent(row, 3, strValue);
-        strValue = m_ReagentQuery.value("IsNeedPrepare").toString();
+        strValue = reagent.getIsNeedPrepare()?"1":"0";
         addReagentContent(row, 4, strValue);
-		QString big_wash = m_ReagentQuery.value("fluidMeasure").toString();
+        QString big_wash = QString::number(static_cast<double>(reagent.getFluidMeasure()), 'f', 2);
         addReagentContent(row, 6, big_wash);
-		QString small_wash  = m_ReagentQuery.value("fluidMeasureSmall").toString();
+        QString small_wash  = QString::number(static_cast<double>(reagent.getFluidMeasureSmall()), 'f', 2);
         addReagentContent(row, 7, small_wash);
 		row++;
 	}
@@ -229,12 +215,8 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
 void ReagentManager::on_tableWidget_Reagent_cellClicked()
 {
 	int intRow = ui.tableWidget_Reagent->currentRow();//获取选中的行
-
-    if (m_ReagentQuery.size() == 0)
-		return;
-
-    m_ReagentQuery.seek(intRow);
-    m_strReagent_ID = m_ReagentQuery.value("ID").toString();
+    if (_reagentVect.size() == 0 || intRow >= _reagentVect.size()) return;
+    m_strReagent_ID = QString::number(_reagentVect[intRow].getID());
 }
 
 void ReagentManager::getRefreshCompanyTableWidgetFlag(bool bFlag)
@@ -318,23 +300,8 @@ void ReagentManager::on_Delete_Button_clicked()
 	}
 
 	int intRow = ui.tableWidget_Reagent->currentRow();//获取选中的行
-    if (m_ReagentQuery.size() == 0)
-		return;
-
-    m_ReagentQuery.seek(intRow);
-    m_strReagent_ID = m_ReagentQuery.value("ID").toString();
-
-	if (m_strReagent_ID == "5" || m_strReagent_ID == "6" || m_strReagent_ID == "7" || m_strReagent_ID == "8" || m_strReagent_ID == "9" || m_strReagent_ID == "10")
-	{
-		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1541"), MyMessageBox::Ok,"OK","");
-		return;
-	}
-
-
-    auto dao = AnalysisUIDao::instance();
-	bool bResult;
-	bResult = dao->DeleteReagent(m_strReagent_ID);
-
+    if (_reagentVect.size() == 0 || intRow >= _reagentVect.size()) return;
+    bool bResult = ReagentDao::instance()->deleteById(_reagentVect[intRow].getID());
 	if (bResult == false)
 	{
 		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1111"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1542"), MyMessageBox::Ok,"OK","");

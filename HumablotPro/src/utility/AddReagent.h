@@ -3,6 +3,7 @@
 #include <QDialog>
 #include "ui_AddReagent.h"
 #include <QSqlQuery>
+#include "../Include/Model/reagent/ReagentModel.h"
 
 class AddReagent : public QDialog
 {
@@ -22,11 +23,11 @@ public:
     QString m_strCompany_ID;
     bool m_bModify = false;
     QString m_strReagent_ID;
-    QString m_language_code;
-    QString m_reagent_name1; //= "";
+//    QString m_language_code;
+//    QString m_reagent_name1; //= "";
 private:
     Ui::AddReagent ui;
-    QSqlQuery m_TestPaperQuery;
     QString m_companyName;
+    ReagentModel _reagent;
 
 };

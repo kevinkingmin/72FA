@@ -2,6 +2,7 @@
 #include <QMessageBox>
 #include "../comm/GlobalData.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/DAO/reagent/ReagentDao.h"
 #include <QProcess>
 #include <QListView>
 #include "src/main/subDialog/MyMessageBox.h"
@@ -18,22 +19,21 @@ AddReagent::AddReagent(QWidget *parent)
     setWindowFlags((windowFlags() & ~(Qt::WindowContextHelpButtonHint)));
     setFixedSize(width(), height());
 	QDoubleValidator* validator6 = new QDoubleValidator(0.0, 0.0, 2, ui.lineEdit_big_wash);
-	ui.lineEdit_big_wash->setValidator(validator6);
-	//QRegExpValidator* validator7 = new QRegExpValidator(QRegExp("^\\d*$"), ui.lineEdit_small_wash);
+    ui.lineEdit_big_wash->setValidator(validator6);
 	QDoubleValidator* validator7 = new QDoubleValidator(0.0, 0.0, 2, ui.lineEdit_small_wash);	
 	ui.lineEdit_small_wash->setValidator(validator7);
 	ui.lineEdit_Name->setProperty("preserveTrailingSpaces", true);  // 设置保留尾部输入空格
-    ui.label->setText(GlobalData::LoadLanguageInfo("K1136"));
-    ui.label_2->setText(GlobalData::LoadLanguageInfo("K1142"));
-    ui.label_3->setText(GlobalData::LoadLanguageInfo("K1143"));
-    ui.label_4->setText(GlobalData::LoadLanguageInfo("K1144"));
+    ui.label->setText(GlobalData::LoadLanguageInfo("K1136")); // 试剂名称
+    ui.label_2->setText(GlobalData::LoadLanguageInfo("K1142")); // 防挂滴
+    ui.label_3->setText(GlobalData::LoadLanguageInfo("K1143")); // 试剂回流
+    ui.label_4->setText(GlobalData::LoadLanguageInfo("K1144")); // 运行前灌装
 
-    ui.label_6->setText(GlobalData::LoadLanguageInfo("K1761"));
-    ui.label_7->setText(GlobalData::LoadLanguageInfo("K1138"));
-    ui.label_8->setText(GlobalData::LoadLanguageInfo("K1139"));
+    ui.label_6->setText(GlobalData::LoadLanguageInfo("K1761")); // 关联厂家
+    ui.label_7->setText(GlobalData::LoadLanguageInfo("K1138")); // 大充灌量
+    ui.label_8->setText(GlobalData::LoadLanguageInfo("K1139")); // 小充灌量
 
-    ui.pushButton_Save->setText(GlobalData::LoadLanguageInfo("K1141"));
-    ui.pushButton_Cancel->setText(GlobalData::LoadLanguageInfo("K1134"));
+    ui.pushButton_Save->setText(GlobalData::LoadLanguageInfo("K1141")); // 保存
+    ui.pushButton_Cancel->setText(GlobalData::LoadLanguageInfo("K1134")); // 取消
 }
 
 AddReagent::~AddReagent()
@@ -43,67 +43,38 @@ AddReagent::~AddReagent()
 void AddReagent::Set_UI()
 {
     ui.txtCompany->setText(m_companyName);
-	bool bResult;
-    auto dao = AnalysisUIDao::instance();
-	m_TestPaperQuery = dao->SelectTestPapers(m_strCompany_ID, &bResult);
-	if (bResult == false)
-	{
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1272"), MyMessageBox::Ok,"OK","");
-		return;
+    bool bResult;
+    if (!m_bModify)
+    {
+        _reagent = ReagentModel();
+        return;
     }
-	if (m_bModify == false)
-		return;
-    QSqlQuery ReagentQuery = dao->SelectReagent(m_strReagent_ID, &bResult);
+    bResult=ReagentDao::instance()->selectReagentById(m_strReagent_ID.toInt(), _reagent);
 	if (bResult == false)
 	{
+        _reagent = ReagentModel();
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1527"), MyMessageBox::Ok,"OK","");
 		return;
-	}
-	int nValue = 0;
-	bool bNull = false;
-    if (ReagentQuery.next())
-	{
-        m_strCompany_ID = ReagentQuery.value("CompanyID").toString();
-		QString reagent_name = ReagentQuery.value("reagentName").toString();
-		QString small_wash_sz = ReagentQuery.value("fluidMeasureSmall").toString();
-		QString big_wash_sz = ReagentQuery.value("fluidMeasure").toString();
-		int id = ReagentQuery.value("ID").toInt();
-		m_language_code = ReagentQuery.value("reagentName").toString();
-        m_reagent_name1 = GlobalData::LoadLanguageInfo(m_language_code);
-		if (m_reagent_name1 == "")
-		{
-			ui.lineEdit_Name->setText(ReagentQuery.value("reagentName").toString());
-		}
-		else
-		{
-			ui.lineEdit_Name->setText(m_reagent_name1);
-		}
+    }
+    m_strCompany_ID = QString::number(_reagent.getCompanyID());
+    QString reagent_name = _reagent.getReagentName();
+    QString small_wash_sz = QString::number(static_cast<double>(_reagent.getFluidMeasureSmall()), 'f', 2);
+    QString big_wash_sz = QString::number(static_cast<double>(_reagent.getFluidMeasure()), 'f', 2);
+    ui.lineEdit_Name->setText(reagent_name);
 
-        nValue = ReagentQuery.value("IsNoDrip").toInt();
-        ui.checkBox_IsNoDrip->setChecked(nValue == 1);
-        nValue = ReagentQuery.value("IsSkimp").toInt();
-        ui.checkBox_IsSkimp->setChecked(nValue == 1);
-        nValue = ReagentQuery.value("IsNeedPrepare").toInt();
-        ui.checkBox_IsNeedPrepare->setChecked(nValue == 1);
+    int nValue = _reagent.getIsNoDrip();
+    ui.checkBox_IsNoDrip->setChecked(nValue == 1);
+    nValue = _reagent.getIsSkimp();
+    ui.checkBox_IsSkimp->setChecked(nValue == 1);
+    nValue = _reagent.getIsNeedPrepare();
+    ui.checkBox_IsNeedPrepare->setChecked(nValue == 1);
+    ui.lineEdit_big_wash->setText(big_wash_sz);
+    ui.lineEdit_small_wash->setText(small_wash_sz);
 
-		ui.lineEdit_big_wash->setText(big_wash_sz);
-		ui.lineEdit_small_wash->setText(small_wash_sz);
-
-		if ((id == 5) || (id == 6) || (id == 7) || (id == 8) || (id == 9) || (id == 10))
-		{
-			ui.checkBox_IsNeedPrepare->setEnabled(false);
-			ui.lineEdit_Name->setEnabled(false);
-			ui.checkBox_IsSkimp->setEnabled(false);
-			ui.checkBox_IsNoDrip->setEnabled(false);
-		}
-		else
-		{
-            ui.checkBox_IsNeedPrepare->setEnabled(true);
-			ui.lineEdit_Name->setEnabled(true);
-			ui.checkBox_IsSkimp->setEnabled(true);
-			ui.checkBox_IsNoDrip->setEnabled(true);
-		}
-	}
+    ui.checkBox_IsNeedPrepare->setEnabled(true);
+    ui.lineEdit_Name->setEnabled(true);
+    ui.checkBox_IsSkimp->setEnabled(true);
+    ui.checkBox_IsNoDrip->setEnabled(true);
 }
 
 void AddReagent::setCompanyName(const QString &companyName)
@@ -120,32 +91,20 @@ void AddReagent::on_pushButton_Save_clicked()
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1528"), MyMessageBox::Ok,"OK","");
 		return ;
 	}
-	QString strIsNoDrip;
-	QString strIsSkimp;
-	QString strIsNeedPrepare;
-    QString strTestPaper_ID="0";
-	bool bValue = ui.checkBox_IsNoDrip->isChecked();
-    strIsNoDrip = bValue ? "1": "0";
-	bValue = ui.checkBox_IsSkimp->isChecked();
-    strIsSkimp = bValue?"1":"0";
-	bValue = ui.checkBox_IsNeedPrepare->isChecked();
-    strIsNeedPrepare = bValue ? "1": "0";
-    auto dao = AnalysisUIDao::instance();
-	bool bResult;
-	QString big_wash_sz = ui.lineEdit_big_wash->text();
-	QString small_wash_sz = ui.lineEdit_small_wash->text();
-
-
-	big_wash_sz = big_wash_sz.replace(" ","");
-	small_wash_sz = small_wash_sz.replace(" ", "");
-
-	float big_wash = ui.lineEdit_big_wash->text().toFloat();
+    bool isNoDrip;
+    bool isSkimp;
+    bool isNeedPrepare;
+    isNoDrip = ui.checkBox_IsNoDrip->isChecked();
+    isSkimp = ui.checkBox_IsSkimp->isChecked();
+    isNeedPrepare = ui.checkBox_IsNeedPrepare->isChecked();
+    bool bResult;
+    float big_wash = ui.lineEdit_big_wash->text().simplified().toFloat();
     if (big_wash <= 0)
 	{
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1532"), MyMessageBox::Ok,"OK","");
 		return;
 	}
-	float small_wash = ui.lineEdit_small_wash->text().toFloat();
+    float small_wash = ui.lineEdit_small_wash->text().simplified().toFloat();
     if (small_wash <= 0)
 	{
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1533"), MyMessageBox::Ok,"OK","");
@@ -158,103 +117,31 @@ void AddReagent::on_pushButton_Save_clicked()
 		return;
 	}
 
-	if (m_bModify == false)
-	{
-		if (m_reagent_name1 == "")
-		{
-			if (dao->SelectReagentName(strName, 1, m_strReagent_ID.toInt()) == 1)
-			{
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1535"), MyMessageBox::Ok, "OK", "");
-				return;
-			}
-			bResult = dao->InsertReagent(
-				strName,
-				m_strCompany_ID,
-				strTestPaper_ID,
-				strIsNoDrip,
-				strIsSkimp,
-				strIsNeedPrepare,
-                big_wash_sz, small_wash_sz);
-			if (bResult == false)
-			{
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1536"), MyMessageBox::Ok, "OK", "");
-				return;
-			}
-		}
-		else
-		{
-			if (dao->SelectReagentName(m_language_code, 1, m_strReagent_ID.toInt()) == 1)
-			{
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1535"), MyMessageBox::Ok, "OK", "");
-				return;
-			}
-			bResult = dao->InsertReagent(
-				m_language_code,
-				m_strCompany_ID,
-				strTestPaper_ID,
-				strIsNoDrip,
-				strIsSkimp,
-				strIsNeedPrepare,
-                big_wash_sz, small_wash_sz);
-			if (bResult == false)
-			{
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1536"), MyMessageBox::Ok, "OK", "");
-				return;
-			}
-		}
-		
+    _reagent.setReagentName(strName);
+    _reagent.setIsSkimp(isSkimp);
+    _reagent.setCompanyID(m_strCompany_ID.toInt());
+    _reagent.setIsNoDrip(isNoDrip);
+    _reagent.setIsNeedPrepare(isNeedPrepare);
+    _reagent.setFluidMeasure(big_wash);
+    _reagent.setFluidMeasureSmall(small_wash);
+    if (!m_bModify)
+    {
+        bResult = ReagentDao::instance()->insertModel(_reagent);
+        if (bResult == false)
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1536"), MyMessageBox::Ok, "OK", "");
+            return;
+        }
 	}
 	else
 	{
-		if (m_reagent_name1 == "")
-		{
-			if (dao->SelectReagentName(strName, 0, m_strReagent_ID.toInt()) == 1)
-			{
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1535"), MyMessageBox::Ok, "OK", "");
-				return;
-			}
-			bResult = dao->UpdateReagent(
-				m_strReagent_ID,
-				strName,
-				m_strCompany_ID,
-				strTestPaper_ID,
-				strIsNoDrip,
-				strIsSkimp,
-				strIsNeedPrepare,
-                big_wash_sz, small_wash_sz);
-
-			if (bResult == false)
-			{
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1537"), MyMessageBox::Ok, "OK", "");
-				return;
-			}
-		}
-		else
-		{
-			if (dao->SelectReagentName(m_language_code, 0, m_strReagent_ID.toInt()) == 1)
-			{
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1535"), MyMessageBox::Ok, "OK", "");
-				return;
-			}
-
-			bResult = dao->UpdateReagent(
-				m_strReagent_ID,
-				m_language_code,
-				m_strCompany_ID,
-				strTestPaper_ID,
-				strIsNoDrip,
-				strIsSkimp,
-				strIsNeedPrepare,
-                big_wash_sz, small_wash_sz);
-
-			if (bResult == false)
-			{
-                MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1537"), MyMessageBox::Ok, "OK", "");
-				return;
-			}
-		}
-
-	}
+        bResult = ReagentDao::instance()->updateModel(_reagent);
+        if (bResult == false)
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1537"), MyMessageBox::Ok, "OK", "");
+            return;
+        }
+    }
     auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1278"), MyMessageBox::Ok|MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
 	if (ret == MyMessageBox::No)
 	{

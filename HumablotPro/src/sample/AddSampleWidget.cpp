@@ -400,6 +400,7 @@ void AddSampleWidget::initUI()
     //从条件查询窗口得到数据
     connect(_mFromLisByIntervalWidgets, SIGNAL(sglQueryCondition(QString, QString)), this, SLOT(slotGetQueryCondition(QString, QString)));
     connect(m_batchAddSampleWidget, SIGNAL(sglFromBatchSample(QString)), this, SLOT(OnFromBatchAdd(QString)));
+    ui->lineEdit->setText(_vModel->g_companyName);
     ui->lineEdit_3->setText("1");
     ui->lineEdit_4->setText("72");
 

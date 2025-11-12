@@ -52,8 +52,8 @@ void ProcessReagentDao::getTable()
         ptrModel pm(new ProcessReagentModel);
         id=query.value("id").toInt();
         pm->setId(id);
-        pm->setProcessParaId(query.value("processParaId").toInt());
-        pm->setPaperId(query.value("paperId").toInt());
+//        pm->setProcessParaId(query.value("processParaId").toInt());
+//        pm->setPaperId(query.value("paperId").toInt());
         pm->setReagentId(query.value("reagentId").toInt());
         _map.insert(id,pm);
     }

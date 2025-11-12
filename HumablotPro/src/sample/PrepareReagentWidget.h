@@ -27,6 +27,38 @@ class PrepareReagentWidget : public QWidget
 {
     Q_OBJECT
 public:
+    struct ReagentInfoStrt
+    {
+        // 试剂名
+        QString _reagentName;
+        // 泵编号
+        int _pumpNo;
+        // 试剂量
+        float _reagentMl;
+        // 死枪量
+        float _deadMl;
+        // 大灌注量
+        float _fillingMl;
+        // 小灌注量
+        float _fillingMlSmall;
+        ReagentInfoStrt()
+            :_reagentName("")
+            ,_pumpNo(0)
+            ,_reagentMl(0)
+            ,_deadMl(0)
+            ,_fillingMl(0)
+            ,_fillingMlSmall(0)
+        {}
+        ReagentInfoStrt(const QString& reagentName,const int pumpNo, const float reagentMl,
+                       const float deadMl, const float fillingMl, const float fillingMlSmall)
+            :_reagentName(reagentName)
+            ,_pumpNo(pumpNo)
+            ,_reagentMl(reagentMl)
+            ,_deadMl(deadMl)
+            ,_fillingMl(fillingMl)
+            ,_fillingMlSmall(fillingMlSmall)
+        {}
+    };
 	using PumpPosState = GlobalData::PumpPosState;
 	using ptrTest = QSharedPointer<SampleTestModel>;
 	using pReagent = QSharedPointer<ReagentModel>;
@@ -35,14 +67,6 @@ public:
     ~PrepareReagentWidget();
 protected:
     void showEvent(QShowEvent *e);
-
-	//void showEvent(QShowEvent *event) override {
-	//	// 调用父类的showEvent函数，确保基类的功能正常工作
-	//	QWidget::showEvent(event);
-
-	//	// 在这里可以调用你要执行的特定函数
-	//	move_chk_position();
-	//}
 
 	void resizeEvent(QResizeEvent *event);
 	void paintEvent(QPaintEvent *event);
@@ -79,7 +103,7 @@ private slots:
 public:
     void setSelectPDialog(SelectProcessDialog *selectPDialog);
     void createPumpBtn();
-	void ShowCountReagentDose(int reagentId,int index,int paper_id);
+    void ShowCountReagentDose(const ReagentInfoStrt& info);
 
 	void CloseAllLight();
 
@@ -97,8 +121,8 @@ private:
 
     QVector<int> getPaperIds();
     bool setReagentWithPump(QVector<int>usedPos,QVector<pReagent>&regentVect);
-    ProcessReagentModel getProcessReagentModel(int id,pReagent r,int processParaId,int paperId);
-    void updateBtnByReagents(const QVector<pReagent> &reagentVect);
+    ProcessReagentModel getProcessReagentModel(int id, pReagent r);
+    void updateBtnByReagents();
 
 	void createPumpBtn2(QPushButton *pushButton, bool selected_status);
 
@@ -121,12 +145,15 @@ public:
 	//系统液是否跳过或完成了灌注，false未完成，true完成。
 	bool m_system_liquid_finish = false;
 
+    // 试剂位置对应的选中选项
 	QMap<int, int> m_postion_map;
 
 	///试剂未关联标识
 	bool m_paper_connect_reagent_flage = false;
+    // 流程中用到的试剂
 	QVector<pReagent> m_reagentVect;
 	//void createPumpBtn(QPushButton *pushButton, bool selected_status);
+    // 语言类型
 	QString g_language_type = "";
 
 	//酶的数量
@@ -140,6 +167,7 @@ private:
     QString _iconPath;
     QString _pixPath;
     SelectProcessDialog *m_selectPDialog;
+    // 测试列表
     QVector<ptrTest> m_listTest;
     QVector<ProcessReagentModel> _processReagentVect;//试剂不重复，如里存在没有分配的泵，则会分配泵信息
 
@@ -156,7 +184,11 @@ private:
 	int m_flushing_type = 0;
 
 	QVector<uchar> getCheckBtn();
+    // 位置checkbox的选中状态
 	QVector<uchar> mOutVect;
+    QMap<int, ReagentInfoStrt> _pumpNoReagentMap;
+
+
 };
 
 #endif // PREPAREREAGENTWIDGET_H

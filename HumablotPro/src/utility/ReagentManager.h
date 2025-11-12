@@ -4,6 +4,7 @@
 #include "ui_ReagentManager.h"
 #include <QSqlQuery>
 #include "../Include/Model/baseSet/CompanyModel.h"
+#include "../Include/DAO/reagent/ReagentDao.h"
 
 class Instrument;
 
@@ -35,7 +36,8 @@ private:
     QString m_strCompany_ID;
     QString m_strReagent_ID;
     QVector<CompanyModel> _companyModels;
-    QSqlQuery m_ReagentQuery;
+//    QSqlQuery m_ReagentQuery;
+    QVector<ReagentModel> _reagentVect;
     QString m_strMachineUID;
     Instrument * _instr;
     QString m_companyName;

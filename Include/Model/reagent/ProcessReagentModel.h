@@ -9,11 +9,11 @@ public:
     int getId() const;
     void setId(int id);
 
-    int getProcessParaId() const;
-    void setProcessParaId(int id);
+//    int getProcessParaId() const;
+//    void setProcessParaId(int id);
 
-    int getPaperId() const;
-    void setPaperId(int paperId);
+//    int getPaperId() const;
+//    void setPaperId(int paperId);
 
     int getReagentId() const;
     void setReagentId(int reagentId);

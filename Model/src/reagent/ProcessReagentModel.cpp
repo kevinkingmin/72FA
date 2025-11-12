@@ -21,25 +21,25 @@ void ProcessReagentModel::setId(int id)
     _id = id;
 }
 
-int ProcessReagentModel::getProcessParaId() const
-{
-    return _processParaId;
-}
+//int ProcessReagentModel::getProcessParaId() const
+//{
+//    return _processParaId;
+//}
+// TODO::WangZ
+//void ProcessReagentModel::setProcessParaId(int id)
+//{
+//    _processParaId = id;
+//}
 
-void ProcessReagentModel::setProcessParaId(int id)
-{
-    _processParaId = id;
-}
+//int ProcessReagentModel::getPaperId() const
+//{
+//    return _paperId;
+//}
 
-int ProcessReagentModel::getPaperId() const
-{
-    return _paperId;
-}
-
-void ProcessReagentModel::setPaperId(int paperId)
-{
-    _paperId = paperId;
-}
+//void ProcessReagentModel::setPaperId(int paperId)
+//{
+//    _paperId = paperId;
+//}
 
 int ProcessReagentModel::getReagentId() const
 {

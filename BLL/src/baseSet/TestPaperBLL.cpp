@@ -27,6 +27,24 @@ QVector<TestPaperModel> TestPaperBLL::getOnUsedRowsByCompanyId(int companyId)
     return outVect;
 }
 
+QVector<TestPaperModel> TestPaperBLL::getEnablePaper(int processId)
+{
+    auto vect=_dao->getAllRows();
+    QVector<TestPaperModel>outVect;
+    for(auto it:vect)
+    {
+        if(it.getProcessId()==processId && !it.isPaperHide())
+        {
+            outVect.push_back(it);
+        }
+    }
+    // 使用 lambda 表达式对属性进行排序
+    std::sort(outVect.begin(), outVect.end(), [](TestPaperModel &a, TestPaperModel &b) {
+        return a.getPaperSortIdxOnUi() < b.getPaperSortIdxOnUi();
+    });
+    return outVect;
+}
+
 QVector<TestPaperModel> TestPaperBLL::getAllRows()
 {
     return _dao->getAllRows();

@@ -5,6 +5,7 @@
 #include "../Include/DAO/reagent/ReagentDao.h"
 #include "../Include/Model/sample/TestParasModel.h"
 #include "../Include/Utilities/log.h"
+#include <QSet>
 
 ReagentBLL::ReagentBLL()
     :_dao(ReagentDao::instance())
@@ -29,30 +30,19 @@ bool ReagentBLL::editModel(ReagentBLL::ptrModel pm)
         return false;
     }
 
-    if(pm->getID()<=0)
+    auto vect = _dao->getAllRows();
+    bool isExist=false;
+    for(auto it:vect)
     {
-        if(pm->getPumpNo()<0)
+        if(it->getReagentName()==pm->getReagentName())
         {
-            eLog("没有指定泵类型，pumpNo:{}",pm->getPumpNo());
-            return false;
+            pm->setID(it->getID());
+            isExist=true;
+            break;
         }
-
-        auto vect = _dao->getAllRows();
-        bool isExist=false;
-        for(auto it:vect)
-        {
-            if(it->getPumpNo()==pm->getPumpNo())
-            {
-                pm->setID(it->getID());
-                isExist=true;
-                break;
-            }
-        }
-
-        if(!isExist)
-            return _dao->insertModel(pm);
     }
-    return _dao->updateModel(pm);
+    if(!isExist) return _dao->insertModel(*pm);
+    return _dao->updateModel(*pm);
 }
 
 QVector<ReagentBLL::ptrModel> ReagentBLL::getAllRows()
@@ -123,61 +113,6 @@ ReagentBLL::ptrModel ReagentBLL::getReagent(const int & rid, const int & paperId
     return nullptr;
 }
 
-//ReagentBLL::ptrModel ReagentBLL::getReagent_new(const int &rid, const int &paperId, const int companyId)
-//{
-//    if(paperId>=929){
-//        if (rid >= 0)
-//        {
-//            auto reagent = getRowById(rid);
-//            if (reagent.isNull())
-//            {
-//                eLog("没有相关的试剂信息,reagentId:{}", rid);
-//                return nullptr;
-//            }
-//            return reagent;
-//        }
-
-//        auto vect{ _dao->getAllRows() };
-//        for (auto reagent : vect)
-//        {
-//            if(rid==-2){
-//                int paper_id_set_value = reagent->getPaperId();
-//                int company_id_set_value = reagent->getCompanyID();
-//                if (paper_id_set_value == paperId && companyId == company_id_set_value&& reagent->getReagentName().contains("抗人IgE抗体液"))
-//                    return reagent;
-//            }else if(rid==-1){
-//                int paper_id_set_value = reagent->getPaperId();
-//                int company_id_set_value = reagent->getCompanyID();
-//                if (paper_id_set_value == paperId && companyId == company_id_set_value&& reagent->getReagentName().contains("酶结合物"))
-//                    return reagent;
-//            }
-//        }
-//        eLog("no reagent found,paperId:{},companyId:{}",paperId,companyId);
-//        return nullptr;
-//    }else{
-//        if (rid >= 0)
-//        {
-//            auto reagent = getRowById(rid);
-//            if (reagent.isNull())
-//            {
-//                eLog("没有相关的试剂信息,reagentId:{}", rid);
-//                return nullptr;
-//            }
-//            return reagent;
-//        }
-
-//        auto vect{ _dao->getAllRows() };
-//        for (auto reagent : vect)
-//        {
-//            if (reagent->getPaperId() == paperId && companyId == reagent->getCompanyID())
-//                return reagent;
-//        }
-//        eLog("no reagent found,paperId:{},companyId:{}",paperId,companyId);
-//        return nullptr;
-//    }
-
-//}
-
 ReagentBLL::ptrModel ReagentBLL::getReagent(const QString& reagentName)
 {
     auto vect{ _dao->getAllRows() };
@@ -190,6 +125,22 @@ ReagentBLL::ptrModel ReagentBLL::getReagent(const QString& reagentName)
     }
 //    eLog("no reagent found,reagentName:{}",reagentName);
     return nullptr;
+}
+
+// 根据试剂名称查询试剂
+QVector<ReagentBLL::ptrModel> ReagentBLL::getReagent(const QSet<QString>& reagentNameSet)
+{
+    if(reagentNameSet.isEmpty()) return {};
+    QVector<ReagentBLL::ptrModel> allRows = _dao->getAllRows();
+    QVector<ReagentBLL::ptrModel> result;
+    for (const auto& reagent : allRows)
+    {
+        if(reagentNameSet.contains(reagent->getReagentName()))
+        {
+            result.push_back(reagent);
+        }
+    }
+    return result;
 }
 
 ReagentBLL::ptrModel ReagentBLL::getReagent(const int& rId)

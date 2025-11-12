@@ -11,6 +11,7 @@ public:
     //using ptrModel=QSharedPointer<TestPaperModel>;
     TestPaperBLL();
     QVector<TestPaperModel> getOnUsedRowsByCompanyId(int companyId);
+    QVector<TestPaperModel> getEnablePaper(int processId);
     QVector<TestPaperModel> getAllRows();
     bool getRowById(int id, TestPaperModel& out);
 

@@ -87,6 +87,7 @@ public :
 	QVector<QVector<bool>> m_data_check;
 	QVector<bool> checkboxes_;
 	QWidget* g_parent;
+    QString g_companyName;
 
 };
 

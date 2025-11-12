@@ -403,7 +403,8 @@ int Instrument::getUnitReagentVolumn(int processId, int reagentId)
 {
     ReagentBLL::ptrModel reagentPtr = ReagentBLL().getReagent(reagentId);
     QString reagentName = reagentPtr.isNull() ? "" : reagentPtr->getReagentName();
-    return static_cast<int>(ProcessParaBLL().getUnitReagentMl(processId, reagentName)*1000);
+    double ml = std::get<1>(ProcessParaBLL().getUnitReagentMl(processId, reagentName));
+    return static_cast<int>(ml*1000);
 }
 
 void Instrument::openSocket(){

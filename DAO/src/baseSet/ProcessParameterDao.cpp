@@ -48,7 +48,7 @@ QVector<ProcessParameterModel> ProcessParameterDao::selectModel(const int proces
 {
     QSqlQuery query;
     if (DAO::createQuery(query) < 0) return {};
-    query.prepare("SELECT * FROM tprocess_parameter WHERE processId = ? ADN actCode=? ORDER BY id ASC");
+    query.prepare("SELECT * FROM tprocess_parameter WHERE processId = ? AND actCode=? ORDER BY id ASC");
     query.addBindValue(processId);
     query.addBindValue(actCode);
     if (!query.exec()) return {};
@@ -64,6 +64,7 @@ QVector<ProcessParameterModel> ProcessParameterDao::selectModel(const int proces
         model.setActCode(query.value("actCode").toString());
         paras=query.value("paras").toString();
         model.setParas(paras);
+        model.parsingParas();
         tempVect.push_back(model);
     }
     return tempVect;

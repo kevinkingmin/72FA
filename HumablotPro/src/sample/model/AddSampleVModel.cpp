@@ -9,6 +9,8 @@
 
 #include "../../comm/GlobalData.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/DAO/baseSet/SystemSetDao.h"
+#include "../Include/DAO/baseSet/TestPaperDao.h"
 
 
 #include <QApplication>
@@ -22,11 +24,8 @@
 AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 	, _headVect{}
 	, _space("       ")
+    , g_companyName("")
 {
-
-	auto dao = AnalysisUIDao::instance();
-	bool bResult;
-
 	g_parent = parent;
 	HeadStrc pos;
 	pos.id = 0;
@@ -50,11 +49,6 @@ AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 	cupType.field = sz;//tr("试管型号");
 	_headVect.push_back(cupType);
 
-	//HeadStrc cupType1;
-	//cupType1.paperId = 0;
-	//cupType1.field = tr("试管型号ssss");
-	//_headVect.push_back(cupType1);
-	//5是tsystemset表中第5行的配置信息
 	HeadStrc patientName;
 	patientName.paperId = 3;
 	patientName.id = 3;
@@ -84,39 +78,30 @@ AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 	articleNo.field = sz;// tr("批号");
 
 	_headVect.push_back(articleNo);
-	auto pm = SystemSetBLL().getRowById(5);
+
+
+    auto pm = SystemSetBLL().getRowById(6);
 	if (!pm.isNull())
 	{
-		int campany_id = pm->getSaveSet();
-		auto vect = TestPaperBLL().getOnUsedRowsByCompanyId(campany_id);
+        int processId = pm->getSaveSet();
+        QVector<TestPaperModel> vect = TestPaperBLL().getEnablePaper(processId);
 		m_paper_number = vect.count();
 		for (auto it : vect)
 		{
 			HeadStrc paper;
 			int headVectCount = _headVect.count();
-			//paper.paperId = (headVectCount);
-            int paper_id = it.getId();
-			paper.paperId = (paper_id);
+            paper.paperId = it.getId();
 			paper.id = headVectCount;
             paper.field = it.getPaperName();
-			//paper.articleNo = it->getPaperName();
 			_headVect.push_back(paper);
 		}
 	}
+    auto companyPm = SystemSetBLL().getRowById(5);
+    if(!companyPm.isNull())
+    {
+        g_companyName = pm->getSaveDes();
+    }
 }
-
-//void AddSampleVModel::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) {
-//
-//	if (index.isValid()) {
-//		// 自定义绘制控件并设置背景色
-//		QPushButton button("Button");
-//		button.setGeometry(option.rect);
-//		button.setStyleSheet("background-color: lightblue;"); // 设置控件背景色
-//		QPixmap pixmap(button.size());
-//		button.render(&pixmap);
-//		painter->drawPixmap(option.rect, pixmap, pixmap.rect());
-//	}
-//}
 
 
 QVariant AddSampleVModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -156,27 +141,6 @@ QVariant AddSampleVModel::data(const QModelIndex &index, int role) const
 
 	int row = index.row();
 	int column = index.column();
-
-
-	//if (role == Qt::CheckStateRole && index.column() == 0) {
-	//	return checkboxes_[index.row()] ? Qt::Checked : Qt::Unchecked;
-	//}
-	//return AddSampleVModel::data(index, role);
-	           
-	//if (role == Qt::BackgroundRole && index.row() == 3 && index.column() == 3) {
-	//	return QColor(255, 0, 0); // 返回透明的背景色
-	//}
-
-
-	//if (role == Qt::BackgroundRole ) {
-	//	// 返回自定义的背景数据
-	//	// 例如：return QBrush(QColor(255, 0, 0)); // 红色背景
-	//	return QColor(255, 0, 0); // 
-	//}
-
-	//if (role == Qt::BackgroundRole && index.row() == 1 && index.column() == 1) {
-	//	return QColor(255, 0, 0, 200); // 返回透明的背景色
-	//}
 
 	if (Qt::TextAlignmentRole == role)
 	{
@@ -241,14 +205,6 @@ QVariant AddSampleVModel::data(const QModelIndex &index, int role) const
 			if (map.keys().contains(column))
 				return std::get<0>(map[column]) ? Qt::Checked : Qt::Unchecked;
 		}
-		//////////////////////////////
-		//if (index.column() == 0) {
-		//	return m_data_check[index.row()][index.column()] ? QVariant(true) : QVariant(false);
-		//}
-		//else {
-		//	return QVariant();
-		//}
-		///////////////////////////////////
 	}
 	return QVariant();
 }
@@ -266,18 +222,6 @@ Qt::ItemFlags AddSampleVModel::flags(const QModelIndex &index) const
 		return  defaultFlags | QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 	else
 		return  QAbstractItemModel::flags(index) | Qt::ItemIsUserCheckable;
-
-	//return defaultFlags | Qt::ItemIsSelectable;
-	//Qt::ItemFlags flags = QAbstractItemModel::flags(index);
-	//if (index.column() == 0) {
-	//	flags |= Qt::ItemIsUserCheckable;
-	//}
-	//else {
-	//	flags |= Qt::ItemIsSelectable | Qt::ItemIsDragEnabled;
-	//}
-
-	//return flags;
-
 }
 
 bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -291,18 +235,6 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 	{
 		return false;
 	}
-
-	//if (role == Qt::CheckStateRole && index.column() == 0) {
-	//	checkboxes_[index.row()] = value == Qt::Checked;
-	//	emit dataChanged(index, index);
-	//	return true;
-	//}
-	//return AddSampleVModel::setData(index, value, role);
-
-
-
-
-
 
 	if (Qt::EditRole == role)
 	{
@@ -357,26 +289,6 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 			auto arr1 = value.toString().split(',');
 			_vect[row].sexIDText = arr1[0];
 			_vect[row].sexID = arr1[1].toInt();
-
-			//if (value.toInt() > 1)
-			//{
-            //	QMessageBox::information(NULL, GlobalData::LoadLanguageInfo("K1180"), "性别不能为大于1", "确定");
-			//	_vect[row].sexID = 1;// "4ssddd";// value.toString();
-			//}
-			//else if (value.toInt() < 0)
-			//{
-            //	QMessageBox::information(NULL, GlobalData::LoadLanguageInfo("K1180"), "性别不能为负数", "确定");
-			//	_vect[row].sexID = 0;// "4ssddd";// value.toString();
-			//}
-			//else
-			//{
-			//	_vect[row].sexID = value.toInt();// "4ssddd";// value.toString();
-			//}
-
-			//// 将字符串转换为布尔值，并将其设置为本行性别数据
-
-			//_vect[index.row()].sexID = value.toString().compare(tr("男"))?1:0;
-			//return true;
 			break;
 		}
 		case 5:
@@ -417,51 +329,6 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 
 		return true;
 	}
-
-	/////////////////////////////////////////
-	//if (role == Qt::EditRole && index.column() > 6) {
-	//	m_data_check[index.row()][index.column()] = value.toBool();
-	//	return true;
-	//}
-	///////////////////////////////////////////////////////////
-
-
-	//if (Qt::EditRole == role)
-	//{
-	//	switch (column)
-	//	{
-	//	case 1:
-	//		_vect[row].sampleNo = value.toString();
-	//		break;
-	//	case 2:
-	//	{
-	//		auto arr = value.toString().split(',');
-	//		_vect[row].cupTypeText = arr[0];
-	//		_vect[row].cupType = arr[1].toInt();
-	//		//_vect[row].articleNo = "2ssddd";// value.toString();
-	//		//_vect[row].articleNo = arr[2];
-	//		break;
-	//	}
-	//	case 3:
-	//		_vect[row].patientName = value.toString(); //"3ssddd";// value.toString();
-	//		break;
-	//	case 4:
-	//		_vect[row].sexID = value.toInt();// "4ssddd";// value.toString();
-	//		break;
-	//	case 5:
-	//		_vect[row].age = value.toInt();// "5ssddd";// value.toString();
-	//		break;
-	//	case 6:
-	//		_vect[row].articleNo = value.toString();
-	//		break;
-
-	//	default:
-	//		break;
-	//	}
-	//	emit dataChanged(index, index);
-	//	return true;
-	//}
-
     else if (role == Qt::CheckStateRole)
 	{
         if (column > _headVect.count() - m_paper_number-1)
@@ -512,11 +379,6 @@ void AddSampleVModel::updateData()
 			std::tuple tp(false, 1);
 			dt.paperCheckedCountMap.insert(jj, tp);
 		}
-        //for (int j = PAPERSTARPOS; j < _headVect.count() - 4; j++)
-		//{
-		//	std::tuple tp(false, 1);
-		//	dt.paperCheckedCountMap.insert(j, tp);
-		//}
 		_vect.push_back(dt);
 	}
 	this->layoutChanged();//.layoutChanged.emit();

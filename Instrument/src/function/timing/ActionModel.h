@@ -30,7 +30,6 @@ public:
     static uint calAddLiquidMotorStep(double liquidVolumeInReactionTube,uint currentReagentVolumn);
     int getPaperIdFun(int slotPos);
     int getPumpNoFun_(int processParaId,int paperId,int reagentId);
-    int getPumpNoFun_new(int reagentId,int paperId,int companyId);
 
     QString getStepName() const;
     void setStepName(const QString &value);

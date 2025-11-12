@@ -56,44 +56,45 @@ SampleWidget::SampleWidget(QWidget *parent) :
 	dao = AnalysisUIDao::instance();
 	QString sql_query = QString("select * from tsample where stateFlag=1 and stateFlag is not null ");
 	auto countNumberQuery = dao->SelectRecord(&bResult, sql_query);
-	int number = 0;
+    int number = 0;
 
-	while (countNumberQuery.next())
-	{
-		number++;
-	}
+    while (countNumberQuery.next())
+    {
+        number++;
+    }
 
-	if (number > 0)
-	{
-		on_changebtnNextEnable(true);
-	}
-	else
-	{
-		on_changebtnNextEnable(false);
-	}
+    qDebug()<<"number"<<number;
+    if (number > 0)
+    {
+        on_changebtnNextEnable(true);
+    }
+    else
+    {
+        on_changebtnNextEnable(false);
+    }
 
     connect(m_prepareReagent, SIGNAL(ChangeBtnNextSignal(bool)), this, SLOT(on_changebtnNextEnable(bool)));
     connect(m_irrigateSLiquidWidget, SIGNAL(ChangeBtnNextSignal(bool)), this, SLOT(on_changebtnNextEnable(bool)));
     connect(m_addSampleWidget, SIGNAL(ChangeBtnNextSignal(bool)), this, SLOT(on_changebtnNextEnable(bool)));
     connect(m_addSampleWidget, SIGNAL(ChangeBtnSaveSignal(bool)), this, SLOT(on_changebtnSaveEnable(bool)));
-	connect(this, &SampleWidget::sglAlarmInfo, m_testSampleWidget, &TestSampleWidget::slotAlarmInfo1);
+    connect(this, &SampleWidget::sglAlarmInfo, m_testSampleWidget, &TestSampleWidget::slotAlarmInfo1);
     connect(m_testSampleWidget, &TestSampleWidget::testStop, this, &SampleWidget::ReturnSampleEdit);
-	ui->btnIncubation->setVisible(false);
-	ui->btnBatchAdd->setVisible(false);
-	ui->btnDeleteAll->setVisible(false);
-	ui->btnReQuestLisAll->setVisible(false);
-	this->setWindowFlags(Qt::FramelessWindowHint);
+    ui->btnIncubation->setVisible(false);
+    ui->btnBatchAdd->setVisible(false);
+    ui->btnDeleteAll->setVisible(false);
+    ui->btnReQuestLisAll->setVisible(false);
+    this->setWindowFlags(Qt::FramelessWindowHint);
 
-	QString sz = GlobalData::LoadLanguageInfo("K1038");
-	ui->btnSaveAdd->setText(sz);
-	sz = GlobalData::LoadLanguageInfo("K1039");
-	ui->btnDelete->setText(sz);
-	sz = GlobalData::LoadLanguageInfo("K1040");
-	ui->btnRequestLis->setText(sz);
-	sz = GlobalData::LoadLanguageInfo("K1041");
-	ui->btnReTest->setText(sz);
-	sz = GlobalData::LoadLanguageInfo("K1046");
-	ui->btnNext->setText(sz);
+    QString sz = GlobalData::LoadLanguageInfo("K1038");
+    ui->btnSaveAdd->setText(sz);
+    sz = GlobalData::LoadLanguageInfo("K1039");
+    ui->btnDelete->setText(sz);
+    sz = GlobalData::LoadLanguageInfo("K1040");
+    ui->btnRequestLis->setText(sz);
+    sz = GlobalData::LoadLanguageInfo("K1041");
+    ui->btnReTest->setText(sz);
+    sz = GlobalData::LoadLanguageInfo("K1046");
+    ui->btnNext->setText(sz);
 }
 
 void SampleWidget::slotAlarmInfo1(QString alarm_info,QString code_type)
@@ -183,6 +184,7 @@ void SampleWidget::stackIndexChange()
     ui->btnCancel->setVisible(false);
     ui->btnReTest->setVisible(false);
     auto index=ui->sampleStackPage->currentIndex();
+    qDebug()<<"stackIndexChange"<<index;
     if(index==STACK_ADD_SAMPLE)
     {
         ui->btnPre->setVisible(false);
@@ -231,6 +233,7 @@ void SampleWidget::on_btnPre_clicked()
 void SampleWidget::on_changebtnNextEnable(bool flage)
 {
 	ui->btnNext->setEnabled(flage);
+    qDebug()<<"on_changebtnNextEnable"<<flage;
 }
 
 void SampleWidget::on_changebtnSaveEnable(bool flage)
@@ -340,6 +343,7 @@ void SampleWidget::on_btnNext_clicked()
 void SampleWidget::ReturnSampleEdit()
 {
 	auto index = ui->sampleStackPage->currentIndex();
+    qDebug()<<"ReturnSampleEdit"<<index;
 	if (index == STACK_ADD_SAMPLE)
 	{
 		m_testSampleWidget->ClearTextBrowser();

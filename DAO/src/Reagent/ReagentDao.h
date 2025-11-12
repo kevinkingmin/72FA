@@ -22,15 +22,16 @@ public:
     ~ReagentDao();
     static ReagentDao *instance();
     bool deleteById(int id);
-    bool updateModel(ptrModel pm);
-    bool insertModel(ptrModel pm);
+    bool updateModel(ReagentModel& reagent);
+    bool insertModel(ReagentModel& reagent);
     QVector<ptrModel>getAllRows();
     QVector<ReagentModel> selectReagent(const int companyId);
+    bool selectReagentById(const int reagentId, ReagentModel& out);
 private:
     void getTable();
-    void queryBindValue(QSqlQuery &query, ptrModel pm);
+    void queryBindValue(QSqlQuery &query, ReagentModel& pm);
 private:
     QMap<int, ptrModel>_map;
 };
 
-#endif // REAGENTDAO_H
+#endif

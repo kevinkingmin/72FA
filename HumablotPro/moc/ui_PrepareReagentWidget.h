@@ -79,7 +79,6 @@ public:
     QLabel *label_13;
     QLabel *label_14;
     QPushButton *btnFill_2;
-    QCheckBox *cb_all;
 
     void setupUi(QWidget *PrepareReagentWidget)
     {
@@ -320,9 +319,6 @@ public:
         btnFill_2->setObjectName(QString::fromUtf8("btnFill_2"));
         btnFill_2->setGeometry(QRect(680, 540, 101, 35));
         btnFill_2->setMinimumSize(QSize(0, 35));
-        cb_all = new QCheckBox(vLayoutFrame);
-        cb_all->setObjectName(QString::fromUtf8("cb_all"));
-        cb_all->setGeometry(QRect(230, 30, 47, 16));
 
         verticalLayout_3->addWidget(vLayoutFrame);
 
@@ -378,7 +374,6 @@ public:
         label_14->setText(QApplication::translate("PrepareReagentWidget", "\346\243\200\346\265\213\345\211\215\345\207\206\345\244\207", nullptr));
         btnFill_2->setText(QApplication::translate("PrepareReagentWidget", "\345\205\250\351\200\211", nullptr));
         btnFill_2->setProperty("btnStyle", QVariant(QApplication::translate("PrepareReagentWidget", "normalBtnpink", nullptr)));
-        cb_all->setText(QApplication::translate("PrepareReagentWidget", "\345\205\250\351\200\211", nullptr));
     } // retranslateUi
 
 };

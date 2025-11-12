@@ -26,11 +26,11 @@ ProcessReagentBLL::ptrModel ProcessReagentBLL::getRowById(int id)
 
 ProcessReagentBLL::ptrModel ProcessReagentBLL::getModel(int processParaId, int paperId)
 {
-    auto vect = _dao->getAllRows();
-    for(auto pm:vect)
-    {
-        if(pm->getProcessParaId()==processParaId && pm->getPaperId()==paperId)
-            return pm;
-    }
+//    auto vect = _dao->getAllRows();
+//    for(auto pm:vect)
+//    {
+//        if(pm->getProcessParaId()==processParaId && pm->getPaperId()==paperId)
+//            return pm;
+//    }
     return nullptr;
 }

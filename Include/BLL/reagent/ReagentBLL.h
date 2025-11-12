@@ -19,6 +19,7 @@ public:
     ptrModel getRowById(int id);
     //ptrModel getReagent(const int &rid, const int &paperId, const int &processParaId);
     ptrModel getReagent(const int &rid, const int &paperId, const int companyId);
+    QVector<ptrModel> getReagent(const QSet<QString>& reagentNameVect);
     ptrModel getReagent(const QString& reagentName);
     ptrModel getReagent(const int& rid);
 private:

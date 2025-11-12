@@ -64,26 +64,18 @@ int ActionModel::getPumpNoFun_(int processParaId, int paperId, int reagentId)
     auto vect = getProcessReagentVect();
     for(auto it:vect)
     {
-        if(reagentId>0)
-        {
-            if(it.getReagentId()==reagentId)
-                return it.getPumpNo();
-        }
-        else
-        {
-            if(it.getPaperId()==paperId && it.getProcessParaId()==processParaId)
-                return it.getPumpNo();
-        }
+//        if(reagentId>0)
+//        {
+//            if(it.getReagentId()==reagentId)
+//                return it.getPumpNo();
+//        }
+//        else
+//        {
+//            if(it.getPaperId()==paperId && it.getProcessParaId()==processParaId)
+//                return it.getPumpNo();
+//        }
     }
     return -1;
-}
-
-int ActionModel::getPumpNoFun_new(int reagentId, int paperId, int companyId)
-{
-   auto reagent{ ReagentBLL().getReagent(reagentId,paperId,companyId)};
-   if(reagent.isNull())
-       return -1;
-   return reagent->getPumpNo();
 }
 
 void ActionModel::updateModel()
