@@ -268,8 +268,6 @@ void SampleWidget::on_btnNext_clicked()
     else if(index == STACK_PREPAREREAGENT)
     {
         Instrument::instance()->setProcessReagentVect(m_prepareReagent->getProcessReagentVect());
-        m_testSampleWidget->setPumpLblState();
-
 
 		m_testSampleWidget->mWetting_time = 0;
 		m_testSampleWidget->mAddSample_time = 0;

@@ -74,12 +74,12 @@ void PrepareReagentDialog::showEvent(QShowEvent *)
         ui->hLayPump->addWidget(btn);
     }
 
-	auto empty = ":/images/buttonIcon/irrigationIconSmall.png";
+    auto empty = ":/images/buttonIcon/irrigationIconSmall.png";
 	//auto empty = ":/images/buttonIcon/q555.png";
-	QImage image(empty);
+    QImage image(empty);
 	//ui->pumpLB1_1->setPixmap(QPixmap::fromImage(image));
-	QPixmap fitpixmap = QPixmap::fromImage(image).scaled(image.width(), image.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	ui->pushButtonSmall->setIcon(QIcon(fitpixmap));
+    QPixmap fitpixmap = QPixmap::fromImage(image).scaled(image.width(), image.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    ui->pushButtonSmall->setIcon(QIcon(fitpixmap));
 }
 
 void PrepareReagentDialog::setSelectProcessDialog(SelectProcessDialog *widget)
@@ -110,16 +110,16 @@ bool PrepareReagentDialog::getIsCloseBtn() const
 
 void PrepareReagentDialog::on_pushButtonSmall_clicked()
 {
-	_reagentWidget->m_flushing_type = 1;
-	//_reagentWidget->on_btnSmall_clicked();
+    _reagentWidget->m_flushing_type = 1;
+    //_reagentWidget->on_btnSmall_clicked();
 
-	centerDisplay();
-	auto btns = _reagentWidget->getBtnGroup()->buttons();
-	for (auto btn : btns)
-	{
-		ui->hLayPump->addWidget(btn);
-	}
-	_reagentWidget->changeIcon(_reagentWidget->_flushFile, PumpPosState::enumFlush);
+    centerDisplay();
+    auto btns = _reagentWidget->getBtnGroup()->buttons();
+    for (auto btn : btns)
+    {
+        ui->hLayPump->addWidget(btn);
+    }
+    _reagentWidget->changeIcon(_reagentWidget->_flushFile, PumpPosState::enumFlush);
 }
 
 void PrepareReagentDialog::on_btnFlash_clicked()

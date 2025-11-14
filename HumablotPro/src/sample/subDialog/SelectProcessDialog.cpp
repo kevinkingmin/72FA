@@ -128,31 +128,27 @@ bool SelectProcessDialog::getIsCloseBtn() const
     return _isCloseBtn;
 }
 
-//TODO::WangZ
 void SelectProcessDialog::updateBtnState()
 {
-//    auto map=Instrument::instance()->getGroupMap();
+    auto map=Instrument::instance()->getGroupMap();
 
-//    auto dao = AnalysisUIDao::instance();
-//    bool bResult;
-//    int is_camera_open = dao->SelectSaveSetById(&bResult, 20008).toInt();
-//    if (is_camera_open)
-//    {
-//        map.insert(10, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"));
-//    }
-
-
-
-//    auto keys=map.keys();
-//    for(auto it:m_btnVect)
-//    {
-//        it->setChecked(false);
-//        int id=it->objectName().toInt();
-//        if(keys.contains(id))
-//        {
-//            it->setChecked(true);
-//        }
-//    }
+    auto dao = AnalysisUIDao::instance();
+    bool bResult;
+    int is_camera_open = dao->SelectSaveSetById(&bResult, 20008).toInt();
+    if (is_camera_open)
+    {
+        map.insert(10, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"));
+    }
+    auto keys=map.keys();
+    for(auto it:m_btnVect)
+    {
+        it->setChecked(false);
+        int id=it->objectName().toInt();
+        if(keys.contains(id))
+        {
+            it->setChecked(true);
+        }
+    }
 }
 
 QMap<int,QString> SelectProcessDialog::getSeletedPGMap()

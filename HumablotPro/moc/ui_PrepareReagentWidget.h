@@ -29,7 +29,6 @@ public:
     QVBoxLayout *verticalLayout_3;
     QFrame *vLayoutFrame;
     QLabel *label_4;
-    QPushButton *pushButtonSmall;
     QGroupBox *groupBox;
     QLabel *lblHint;
     QPushButton *btnIrrigate;
@@ -94,10 +93,6 @@ public:
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(480, 0, 1021, 20));
         label_4->setAlignment(Qt::AlignCenter);
-        pushButtonSmall = new QPushButton(vLayoutFrame);
-        pushButtonSmall->setObjectName(QString::fromUtf8("pushButtonSmall"));
-        pushButtonSmall->setGeometry(QRect(0, -40, 128, 128));
-        pushButtonSmall->setMinimumSize(QSize(128, 128));
         groupBox = new QGroupBox(vLayoutFrame);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setGeometry(QRect(1525, 50, 301, 591));
@@ -332,8 +327,6 @@ public:
     {
         PrepareReagentWidget->setWindowTitle(QApplication::translate("PrepareReagentWidget", "Form", nullptr));
         label_4->setText(QApplication::translate("PrepareReagentWidget", "\345\210\206\351\205\215\346\210\226\345\273\266\350\277\237\357\274\214\346\257\217\344\270\252\345\267\262\347\224\250\350\257\225\345\211\202", nullptr));
-        pushButtonSmall->setText(QString());
-        pushButtonSmall->setProperty("btnStyle", QVariant(QApplication::translate("PrepareReagentWidget", "btnReagentStyle", nullptr)));
         groupBox->setTitle(QString());
         lblHint->setText(QApplication::translate("PrepareReagentWidget", "\347\201\214\346\263\250\347\263\273\347\273\237\346\266\262\344\275\223\357\274\201", nullptr));
         btnIrrigate->setText(QString());

@@ -78,8 +78,6 @@ private slots:
     void on_btnReady_clicked();
     void on_btnDelay_clicked();
 
-	void on_pushButtonSmall_clicked();
-
 	void on_btnWash_clicked();
 	void on_btnFill_clicked();
 
@@ -96,7 +94,6 @@ private slots:
 	void on_chk_9_toggled(bool state);
 	void on_cb_all_toggled(bool state);
 
-	void slot_btnGroupClicked(int i);
 	void onWidgetShow();
 
 
@@ -117,15 +114,10 @@ private:
     void changeIcon(const QString &fileName,PumpPosState state);
     void changeSystemLiquidIcon();
     void updatePumpBtnByTest();
-	QVector<PrepareReagentWidget::pReagent> GetReagentVect();
+//	QVector<PrepareReagentWidget::pReagent> GetReagentVect();
 
     QVector<int> getPaperIds();
-    bool setReagentWithPump(QVector<int>usedPos,QVector<pReagent>&regentVect);
-    ProcessReagentModel getProcessReagentModel(int id, pReagent r);
     void updateBtnByReagents();
-
-	void createPumpBtn2(QPushButton *pushButton, bool selected_status);
-
 	void move_chk_position();
 
 
@@ -135,9 +127,11 @@ public:
 	int m_jump_irrigate;
 	int m_pump_no;
 
+    // 全选标记位
 	bool all_select_flage = false;
 	//选择预充灌的泵号。
 	//选择预充灌的泵号。
+    // 延时充灌的泵号
 	QMap<int, ushort> m_preview_wash_map;
 
 	//已经完成充灌或是相关操作的泵号
@@ -151,7 +145,7 @@ public:
 	///试剂未关联标识
 	bool m_paper_connect_reagent_flage = false;
     // 流程中用到的试剂
-	QVector<pReagent> m_reagentVect;
+//	QVector<pReagent> m_reagentVect;
 	//void createPumpBtn(QPushButton *pushButton, bool selected_status);
     // 语言类型
 	QString g_language_type = "";

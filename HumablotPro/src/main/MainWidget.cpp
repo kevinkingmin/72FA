@@ -1536,7 +1536,8 @@ void MainWidget::on_btnRunState_clicked()
 void MainWidget::on_btnReturnMain_clicked()
 {
     auto state = _InstrumentState->getMachineState();
-    if (state.state != enumState::enumStandby)
+    qDebug()<<"on_btnReturnMain_clicked state"<<state.state;
+    if (state.state == enumState::enumRuning || state.state == enumState::enumPause)
     {
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1581"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
         return;

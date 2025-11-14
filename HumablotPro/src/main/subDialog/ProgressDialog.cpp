@@ -95,8 +95,8 @@ void ProgressDialog::showEvent(QShowEvent *)
     ui->progressBar->setValue(0);
     updateProgress(_maxValue);
 
-	ui->lblHead->setStyleSheet("background:transparent;}");
-	ui->label_2->setStyleSheet("background:transparent;}");
+    ui->lblHead->setStyleSheet("background:transparent;");
+    ui->label_2->setStyleSheet("background:transparent;");
 }
 
 void ProgressDialog::hideEvent(QHideEvent *)

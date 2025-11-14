@@ -98,7 +98,7 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
     ));
 
     ui.comboBoxPaperID->setStyleSheet(QString(
-        "QComboBox QAbstractItemView:item {"
+        "QComboBox QAbstractItemView::item {"
         "background: rgb(0,192,192);"
         "   min-height: 70px;"   // 更改 item 高度为 40 像素
         "}"

@@ -70,7 +70,7 @@ LisSettingWidgets::LisSettingWidgets(QWidget *parent)
 	));
 
 	ui.comboBoxPorocolType->setStyleSheet(QString(
-		"QComboBox QAbstractItemView:item {"
+        "QComboBox QAbstractItemView::item {"
 		"background: rgb(192,192,192);"
         "   min-height: 40px;"
 		"}"

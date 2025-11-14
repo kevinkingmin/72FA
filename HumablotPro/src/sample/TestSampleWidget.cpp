@@ -56,7 +56,6 @@ TestSampleWidget::TestSampleWidget(PrepareReagentDialog * dialog, QWidget *paren
   , _lblPaperVect{}
   , _lblPumpVect{}
   , _sampleTestTpVect{}
-  , _pReagentDialog(dialog)
   , _btnGroup{ nullptr }
   , _isNewTest{ true }
   , _instrument{ Instrument::instance() }
@@ -680,52 +679,6 @@ void TestSampleWidget::setPapersState()
     }
 }
 
-void TestSampleWidget::setPumpLblState()
-{
-    if (_btnGroup == nullptr)
-        return;
-    auto btns = _btnGroup->buttons();
-    auto fun = [btns](int id)->CustomButton *
-    {
-        for (auto it : btns)
-        {
-            auto btn = reinterpret_cast<CustomButton *>(it);
-            if (btn->objectName().toInt() == id)
-                return btn;
-        }
-        return nullptr;
-    };
-
-    QString fileStr = "";
-    for (auto lbl : _lblPumpVect)
-    {
-        lbl->reset();
-        auto id = lbl->objectName().toInt();
-        auto btn = fun(id);
-
-        auto propertyValue = btn->property(GlobalData::getPropertyName()).toInt();
-        if (propertyValue == PumpPosState::enumDelay)
-            fileStr = _imgPath + _delayFileName;
-        else if (propertyValue == PumpPosState::enumEmpty)
-            fileStr = _imgPath + _emptyFileName;
-        else if (propertyValue == PumpPosState::enumFlush)
-            fileStr = _imgPath + _usedFileName;
-        else if (propertyValue == PumpPosState::enumReady)
-            fileStr = _imgPath + _readyFileName;
-        else
-            fileStr = "";
-        if (fileStr.isEmpty())
-        {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1429"), MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-            //eLog("生成指示图失败");
-            return;
-        }
-        lbl->setProperty(PROPERTY, propertyValue);
-        lbl->setPos(id + 1);
-        lbl->setPixPath(fileStr);
-        lbl->setTimeStr(btn->getTimeText());
-    }
-}
 
 void TestSampleWidget::ClearTextBrowser()
 {
@@ -758,10 +711,6 @@ void TestSampleWidget::initUI()
     ui->lblProgress->setText("......");
     //创建膜条标签
     createPapers();
-    connect(ui->btnFlushWidget, SIGNAL(clicked()), this, SLOT(slotPumpFlush()), Qt::UniqueConnection);
-    connect(_pReagentDialog, &PrepareReagentDialog::sglPumpStateChange, this, [this]() {
-        setPumpLblState();
-    });
 
     connect(_instrument,&Instrument::sglHandelStepName,this,[this](const QString &stempName){_stepName=stempName;});
     connect(_instrument, &Instrument::sglCurrentGroupIdChanged, this,&TestSampleWidget::slotCurrentGroupIdChanged, Qt::UniqueConnection);
@@ -1430,9 +1379,6 @@ void TestSampleWidget::setBtnGroup(QButtonGroup *btnGroup)
 void TestSampleWidget::setSelectPDialog(SelectProcessDialog *selectPDialog)
 {
     m_selectPDialog = selectPDialog;
-    connect(m_selectPDialog, &SelectProcessDialog::sglProcessChanged, _pReagentDialog, [this]() {
-        _pReagentDialog->setSelectProcessDialog(m_selectPDialog);//用来改变_pReagentDialog中泵的状态
-    });
 }
 
 void TestSampleWidget::setSampleTestTpVect(QVector<std::tuple<ptrSample, QVector<ptrTest>>>sampleTestTpVect)
@@ -1517,7 +1463,7 @@ void TestSampleWidget::on_btnSet_clicked()
     }
 
     auto state = _instrState->getMachineState();
-    //判断是否停止状态 如果是停止则发送继续的指令
+    //判断是否暂停状态 如果是停止则发送继续的指令
     if(state.state==InstrumentStateModel::enumPause){
         int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1260"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K14321"), MyMessageBox::Ok | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
         if (ret == MyMessageBox::Ok)
@@ -1534,8 +1480,6 @@ void TestSampleWidget::on_btnSet_clicked()
     //删除目录下的文件
     deleteFilesInDirectory();
 
-    //Global::g_stop_flage = 0;
-    //SaveRunInfo("dddd3455666666");
     //查询上盖是否打开
     //return;
     auto dao = AnalysisUIDao::instance();
@@ -1564,6 +1508,7 @@ void TestSampleWidget::on_btnSet_clicked()
     if (Global::g_pause_flage != 1)
     {
         m_selectPDialog->exec();
+        qDebug()<<"getIsCloseBtn"<<m_selectPDialog->getIsCloseBtn();
         if (m_selectPDialog->getIsCloseBtn())
         {
             mPause_flage = false;
@@ -1572,6 +1517,7 @@ void TestSampleWidget::on_btnSet_clicked()
         }
     }
 
+    qDebug()<<"getIsCloseBtn1"<<m_selectPDialog->getIsCloseBtn();
     mPause_flage = false;
     Global::g_pause_flage = 0;
     //把所有的样本信息插入到数据库
@@ -1602,31 +1548,6 @@ void TestSampleWidget::on_btnSet_clicked()
     //qDeleteAll(m_errorAddSampleMap);
     m_errorAddSampleMap.clear();
     m_errorAddSampleMap1.clear();
-
-}
-
-void TestSampleWidget::slotPumpFlush()
-{
-    /*auto state = _instrState->getMachineState();
-    if (!state.canRun)
-    {
-        QMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), tr("当前状态不允许启动测试"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"));
-        return;
-    }
-    if (state.state == InstrumentStateModel::enumRuning)
-        _instrument->setIsPause(true);*/
-    //_instrument->setIsPause(true);
-    if (_timer != nullptr)
-    {
-        _timer->stop();
-    }
-    _pReagentDialog->exec();
-    //_instrument->setIsPause(false);
-
-    if (_timer != nullptr)
-    {
-        _timer->start();
-    }
 
 }
 

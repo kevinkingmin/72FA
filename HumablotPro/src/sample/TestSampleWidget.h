@@ -53,7 +53,6 @@ public:
     ~TestSampleWidget();
     void setListTest(QVector<ptrTest> listTest);
     void setPapersState();
-    void setPumpLblState();
     void setSampleTestTpVect(QVector<std::tuple<ptrSample, QVector<ptrTest>>> sampleTestTpVect);
     void setSelectPDialog(SelectProcessDialog *selectPDialog);
     void setBtnGroup(QButtonGroup *btnGroup);
@@ -71,7 +70,6 @@ public:
 private slots:
     void on_btnPause_clicked();
     void on_btnSet_clicked();
-    void slotPumpFlush();
     void slotLblClick(int pos);
     void on_btnSubBody_clicked();
     void slotCurrentGroupIdChanged(int groupId,int realTime);
@@ -164,7 +162,6 @@ private:
     QVector<CustomLabel *> _lblPaperVect;
     QVector<CustomerPumpStateLable *> _lblPumpVect;
     QVector<std::tuple<ptrSample,QVector<ptrTest>>> _sampleTestTpVect;
-    PrepareReagentDialog *_pReagentDialog;
     QButtonGroup *_btnGroup;
     bool _isNewTest;
     Instrument *_instrument;
