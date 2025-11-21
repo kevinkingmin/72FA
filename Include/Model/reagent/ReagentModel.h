@@ -12,9 +12,16 @@ public:
 
     QString getReagentName() const;
     void setReagentName(const QString &reagentName);
+
+    int getReagentType() const;
+    void setReagentType(int val);
+
     //PaperId
 	int getPaperId() const;
 	void setPaperId(int val);
+
+    int getPumpNo() const;
+    void setPumpNo(int val);
 
 	QString getSpentTime() const;
 	void setSpentTime(const QString &spentTime);
@@ -40,8 +47,10 @@ public:
 private:
     int _ID;
     QString _reagentName;
+    int _reagentType;
     int _paperId;
     int _companyID;
+    int _pumpNo;
     bool _IsNoDrip;
     bool _IsSkimp;
     bool _IsNeedPrepare;

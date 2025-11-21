@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
@@ -28,20 +29,24 @@ public:
     QPushButton *pushButton_Cancel;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QLineEdit *lineEdit_Name;
-    QCheckBox *checkBox_IsNeedPrepare;
-    QCheckBox *checkBox_IsSkimp;
     QLineEdit *lineEdit_small_wash;
-    QLabel *label_2;
-    QLabel *label_8;
+    QLabel *label_IsSkimp;
+    QCheckBox *checkBox_IsSpecificReagent;
+    QCheckBox *checkBox_IsSkimp;
+    QLabel *label_SmallWash;
+    QLabel *label_ReagentName;
     QCheckBox *checkBox_IsNoDrip;
-    QLabel *label_7;
-    QLabel *label_3;
-    QLabel *label;
+    QLabel *label_PaperName;
+    QComboBox *comboBox_PaperName;
     QLineEdit *txtCompany;
-    QLabel *label_4;
-    QLabel *label_6;
+    QLabel *label_Company;
+    QLabel *label_SpecificReagent;
+    QLabel *label_IsNoDrip;
+    QComboBox *comboBox_ReagentName;
     QLineEdit *lineEdit_big_wash;
+    QLabel *label_BigWash;
+    QLabel *label_pumpNo;
+    QComboBox *comboBox_pumpNo;
 
     void setupUi(QDialog *AddReagent)
     {
@@ -65,83 +70,105 @@ public:
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setHorizontalSpacing(35);
         gridLayout->setContentsMargins(30, 0, 55, 0);
-        lineEdit_Name = new QLineEdit(gridLayoutWidget);
-        lineEdit_Name->setObjectName(QString::fromUtf8("lineEdit_Name"));
+        lineEdit_small_wash = new QLineEdit(gridLayoutWidget);
+        lineEdit_small_wash->setObjectName(QString::fromUtf8("lineEdit_small_wash"));
 
-        gridLayout->addWidget(lineEdit_Name, 0, 1, 1, 1);
+        gridLayout->addWidget(lineEdit_small_wash, 8, 1, 1, 1);
 
-        checkBox_IsNeedPrepare = new QCheckBox(gridLayoutWidget);
-        checkBox_IsNeedPrepare->setObjectName(QString::fromUtf8("checkBox_IsNeedPrepare"));
+        label_IsSkimp = new QLabel(gridLayoutWidget);
+        label_IsSkimp->setObjectName(QString::fromUtf8("label_IsSkimp"));
+        label_IsSkimp->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(checkBox_IsNeedPrepare, 3, 1, 1, 1);
+        gridLayout->addWidget(label_IsSkimp, 5, 0, 1, 1);
+
+        checkBox_IsSpecificReagent = new QCheckBox(gridLayoutWidget);
+        checkBox_IsSpecificReagent->setObjectName(QString::fromUtf8("checkBox_IsSpecificReagent"));
+
+        gridLayout->addWidget(checkBox_IsSpecificReagent, 0, 1, 1, 1);
 
         checkBox_IsSkimp = new QCheckBox(gridLayoutWidget);
         checkBox_IsSkimp->setObjectName(QString::fromUtf8("checkBox_IsSkimp"));
 
-        gridLayout->addWidget(checkBox_IsSkimp, 2, 1, 1, 1);
+        gridLayout->addWidget(checkBox_IsSkimp, 5, 1, 1, 1);
 
-        lineEdit_small_wash = new QLineEdit(gridLayoutWidget);
-        lineEdit_small_wash->setObjectName(QString::fromUtf8("lineEdit_small_wash"));
+        label_SmallWash = new QLabel(gridLayoutWidget);
+        label_SmallWash->setObjectName(QString::fromUtf8("label_SmallWash"));
+        label_SmallWash->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(lineEdit_small_wash, 6, 1, 1, 1);
+        gridLayout->addWidget(label_SmallWash, 8, 0, 1, 1);
 
-        label_2 = new QLabel(gridLayoutWidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        label_ReagentName = new QLabel(gridLayoutWidget);
+        label_ReagentName->setObjectName(QString::fromUtf8("label_ReagentName"));
+        label_ReagentName->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
-
-        label_8 = new QLabel(gridLayoutWidget);
-        label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout->addWidget(label_8, 6, 0, 1, 1);
+        gridLayout->addWidget(label_ReagentName, 2, 0, 1, 1);
 
         checkBox_IsNoDrip = new QCheckBox(gridLayoutWidget);
         checkBox_IsNoDrip->setObjectName(QString::fromUtf8("checkBox_IsNoDrip"));
 
-        gridLayout->addWidget(checkBox_IsNoDrip, 1, 1, 1, 1);
+        gridLayout->addWidget(checkBox_IsNoDrip, 4, 1, 1, 1);
 
-        label_7 = new QLabel(gridLayoutWidget);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        label_PaperName = new QLabel(gridLayoutWidget);
+        label_PaperName->setObjectName(QString::fromUtf8("label_PaperName"));
+        label_PaperName->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(label_7, 5, 0, 1, 1);
+        gridLayout->addWidget(label_PaperName, 1, 0, 1, 1);
 
-        label_3 = new QLabel(gridLayoutWidget);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        comboBox_PaperName = new QComboBox(gridLayoutWidget);
+        comboBox_PaperName->setObjectName(QString::fromUtf8("comboBox_PaperName"));
 
-        gridLayout->addWidget(label_3, 2, 0, 1, 1);
-
-        label = new QLabel(gridLayoutWidget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout->addWidget(label, 0, 0, 1, 1);
+        gridLayout->addWidget(comboBox_PaperName, 1, 1, 1, 1);
 
         txtCompany = new QLineEdit(gridLayoutWidget);
         txtCompany->setObjectName(QString::fromUtf8("txtCompany"));
         txtCompany->setEnabled(false);
 
-        gridLayout->addWidget(txtCompany, 4, 1, 1, 1);
+        gridLayout->addWidget(txtCompany, 6, 1, 1, 1);
 
-        label_4 = new QLabel(gridLayoutWidget);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        label_Company = new QLabel(gridLayoutWidget);
+        label_Company->setObjectName(QString::fromUtf8("label_Company"));
+        label_Company->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(label_4, 3, 0, 1, 1);
+        gridLayout->addWidget(label_Company, 6, 0, 1, 1);
 
-        label_6 = new QLabel(gridLayoutWidget);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        label_SpecificReagent = new QLabel(gridLayoutWidget);
+        label_SpecificReagent->setObjectName(QString::fromUtf8("label_SpecificReagent"));
+        label_SpecificReagent->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(label_6, 4, 0, 1, 1);
+        gridLayout->addWidget(label_SpecificReagent, 0, 0, 1, 1);
+
+        label_IsNoDrip = new QLabel(gridLayoutWidget);
+        label_IsNoDrip->setObjectName(QString::fromUtf8("label_IsNoDrip"));
+        label_IsNoDrip->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_IsNoDrip, 4, 0, 1, 1);
+
+        comboBox_ReagentName = new QComboBox(gridLayoutWidget);
+        comboBox_ReagentName->setObjectName(QString::fromUtf8("comboBox_ReagentName"));
+
+        gridLayout->addWidget(comboBox_ReagentName, 2, 1, 1, 1);
 
         lineEdit_big_wash = new QLineEdit(gridLayoutWidget);
         lineEdit_big_wash->setObjectName(QString::fromUtf8("lineEdit_big_wash"));
 
-        gridLayout->addWidget(lineEdit_big_wash, 5, 1, 1, 1);
+        gridLayout->addWidget(lineEdit_big_wash, 7, 1, 1, 1);
+
+        label_BigWash = new QLabel(gridLayoutWidget);
+        label_BigWash->setObjectName(QString::fromUtf8("label_BigWash"));
+        label_BigWash->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_BigWash, 7, 0, 1, 1);
+
+        label_pumpNo = new QLabel(gridLayoutWidget);
+        label_pumpNo->setObjectName(QString::fromUtf8("label_pumpNo"));
+        label_pumpNo->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_pumpNo, 3, 0, 1, 1);
+
+        comboBox_pumpNo = new QComboBox(gridLayoutWidget);
+        comboBox_pumpNo->setObjectName(QString::fromUtf8("comboBox_pumpNo"));
+
+        gridLayout->addWidget(comboBox_pumpNo, 3, 1, 1, 1);
 
 
         retranslateUi(AddReagent);
@@ -156,16 +183,18 @@ public:
         pushButton_Save->setProperty("btnStyle", QVariant(QApplication::translate("AddReagent", "normalBtnRed", nullptr)));
         pushButton_Cancel->setText(QApplication::translate("AddReagent", "\345\217\226\346\266\210", nullptr));
         pushButton_Cancel->setProperty("btnStyle", QVariant(QApplication::translate("AddReagent", "normalBtnGray", nullptr)));
-        checkBox_IsNeedPrepare->setText(QString());
+        label_IsSkimp->setText(QApplication::translate("AddReagent", "\350\257\225\345\211\202\345\233\236\346\265\201\357\274\232", nullptr));
+        checkBox_IsSpecificReagent->setText(QString());
         checkBox_IsSkimp->setText(QString());
-        label_2->setText(QApplication::translate("AddReagent", "\351\230\262\346\214\202\346\273\264\357\274\232", nullptr));
-        label_8->setText(QApplication::translate("AddReagent", "\345\260\217\345\205\205\347\201\214\351\207\217\357\274\232", nullptr));
+        label_SmallWash->setText(QApplication::translate("AddReagent", "\345\260\217\345\205\205\347\201\214\351\207\217\357\274\232", nullptr));
+        label_ReagentName->setText(QApplication::translate("AddReagent", "\350\257\225\345\211\202\345\220\215\347\247\260\357\274\232", nullptr));
         checkBox_IsNoDrip->setText(QString());
-        label_7->setText(QApplication::translate("AddReagent", "\345\244\247\345\205\205\347\201\214\351\207\217\357\274\232", nullptr));
-        label_3->setText(QApplication::translate("AddReagent", "\350\257\225\345\211\202\345\233\236\346\265\201\357\274\232", nullptr));
-        label->setText(QApplication::translate("AddReagent", "\350\257\225\345\211\202\345\220\215\347\247\260\357\274\232", nullptr));
-        label_4->setText(QApplication::translate("AddReagent", "\350\277\220\350\241\214\345\211\215\347\201\214\350\243\205\357\274\232", nullptr));
-        label_6->setText(QApplication::translate("AddReagent", "\345\205\263\350\201\224\345\216\202\345\256\266\357\274\232", nullptr));
+        label_PaperName->setText(QApplication::translate("AddReagent", "\345\205\263\350\201\224\350\206\234\346\235\241\357\274\232", nullptr));
+        label_Company->setText(QApplication::translate("AddReagent", "\345\205\263\350\201\224\345\216\202\345\256\266\357\274\232", nullptr));
+        label_SpecificReagent->setText(QApplication::translate("AddReagent", "\344\270\223\347\224\250\350\257\225\345\211\202\357\274\232", nullptr));
+        label_IsNoDrip->setText(QApplication::translate("AddReagent", "\351\230\262\346\214\202\346\273\264\357\274\232", nullptr));
+        label_BigWash->setText(QApplication::translate("AddReagent", "\345\244\247\345\205\205\347\201\214\351\207\217\357\274\232", nullptr));
+        label_pumpNo->setText(QApplication::translate("AddReagent", "\346\263\265\345\217\267\357\274\232", nullptr));
     } // retranslateUi
 
 };

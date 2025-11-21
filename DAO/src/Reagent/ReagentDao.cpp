@@ -1,5 +1,6 @@
 ﻿#include "ReagentDao.h"
 #include <QVector>
+#include <QDebug>
 #include <QSqlQuery>
 #include <QVariant>
 #include "../Include/Model/reagent/ReagentModel.h"
@@ -36,14 +37,19 @@ bool ReagentDao::updateModel(ReagentModel& pm)
 {
     QSqlQuery query;
     if(DAO::createQuery(query)<0) return false;
-    QString sqlStr="update treagent set reagentName=:reagentName,TestPaperID=:TestPaperID,"
-                   "companyID=:companyID,IsNoDrip=:IsNoDrip,IsSkimp=:IsSkimp,"
+    QString sqlStr="update treagent set reagentName=:reagentName,reagentType=:reagentType,TestPaperID=:TestPaperID,"
+                   "companyID=:companyID,pumpNo=:pumpNo,IsNoDrip=:IsNoDrip,IsSkimp=:IsSkimp,"
                    "IsNeedPrepare=:IsNeedPrepare,fluidMeasure=:fluidMeasure,fluidMeasureSmall=:fluidMeasureSmall"
                    " where ID=:ID";
     query.prepare(sqlStr);
     query.bindValue(":ID",pm.getID());
     queryBindValue(query, pm);
-    if(!query.exec()) return false;
+    if(!query.exec())
+    {
+        qDebug() << "Insert failed!";
+        qDebug() << "Executed Query:" << query.executedQuery();
+        return false;
+    }
     getTable();
     return true;
 }
@@ -52,9 +58,9 @@ bool ReagentDao::insertModel(ReagentModel& pm)
 {
     QSqlQuery query;
     if(DAO::createQuery(query)<0) return false;
-    QString sqlStr="insert into treagent(reagentName,TestPaperID,companyID,IsNoDrip,IsSkimp,IsNeedPrepare,fluidMeasure,fluidMeasureSmall)"
+    QString sqlStr="insert into treagent(reagentName,reagentType, TestPaperID,companyID, pumpNo,IsNoDrip,IsSkimp,IsNeedPrepare,fluidMeasure,fluidMeasureSmall)"
                    "values"
-                   "(:reagentName,:TestPaperID,:companyID,:IsNoDrip,:IsSkimp,:IsNeedPrepare,:fluidMeasure,:fluidMeasureSmall)";
+                   "(:reagentName,:reagentType,:TestPaperID,:companyID,:pumpNo,:IsNoDrip,:IsSkimp,:IsNeedPrepare,:fluidMeasure,:fluidMeasureSmall)";
     query.prepare(sqlStr);
     queryBindValue(query,pm);
     if(!query.exec()) return false;
@@ -92,7 +98,9 @@ QVector<ReagentModel> ReagentDao::selectReagent(const int companyId)
         model.setID(query.value("ID").toInt());
         model.setPaperId(query.value("TestPaperID").toInt());
         model.setReagentName(query.value("reagentName").toString());
+        model.setReagentType(query.value("reagentType").toInt());
         model.setCompanyID(query.value("companyID").toInt());
+        model.setPumpNo(query.value("pumpNo").toInt());
         model.setIsNoDrip(query.value("IsNoDrip").toInt()==0?false:true);
         model.setIsSkimp(query.value("IsSkimp").toInt()==0?false:true);
         model.setIsNeedPrepare(query.value("IsNeedPrepare").toInt()==0?false:true);
@@ -121,6 +129,8 @@ bool ReagentDao::selectReagentById(const int reagentId, ReagentModel& out)
         out.setID(query.value("ID").toInt());
         out.setPaperId(query.value("TestPaperID").toInt());
         out.setReagentName(query.value("reagentName").toString());
+        out.setReagentType(query.value("reagentType").toInt());
+        out.setPumpNo(query.value("pumpNo").toInt());
         out.setCompanyID(query.value("companyID").toInt());
         out.setIsNoDrip(query.value("IsNoDrip").toInt()==0?false:true);
         out.setIsSkimp(query.value("IsSkimp").toInt()==0?false:true);
@@ -152,7 +162,9 @@ void ReagentDao::getTable()
         pm->setID(id);
 		pm->setPaperId(query.value("TestPaperID").toInt());
         pm->setReagentName(query.value("reagentName").toString());
+        pm->setReagentType(query.value("reagentType").toInt());
         pm->setCompanyID(query.value("companyID").toInt());
+        pm->setPumpNo(query.value("pumpNo").toInt());
         pm->setIsNoDrip(query.value("IsNoDrip").toInt()==0?false:true);
         pm->setIsSkimp(query.value("IsSkimp").toInt()==0?false:true);
         pm->setIsNeedPrepare(query.value("IsNeedPrepare").toInt()==0?false:true);
@@ -170,7 +182,10 @@ void ReagentDao::queryBindValue(QSqlQuery &query, ReagentModel& pm)
 {
     query.bindValue(":TestPaperID", pm.getPaperId());
     query.bindValue(":reagentName",pm.getReagentName());
+    query.bindValue(":reagentType", pm.getReagentType());
+    qDebug()<<"reagentType"<<pm.getReagentType();
     query.bindValue(":companyID",pm.getCompanyID());
+    query.bindValue(":pumpNo",pm.getPumpNo());
     query.bindValue(":IsNoDrip",pm.getIsNoDrip()?1:0);
     query.bindValue(":IsSkimp",pm.getIsSkimp()?1:0);
     query.bindValue(":IsNeedPrepare",pm.getIsNeedPrepare()?1:0);

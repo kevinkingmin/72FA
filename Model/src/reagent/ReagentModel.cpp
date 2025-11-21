@@ -3,8 +3,10 @@
 ReagentModel::ReagentModel():
     _ID(0)
   ,_reagentName("")
+  ,_reagentType(0)
   ,_paperId(0)
   ,_companyID(0)
+  ,_pumpNo(1)
   ,_IsNoDrip(false)
   ,_IsSkimp(false)
   ,_IsNeedPrepare(false)
@@ -33,6 +35,16 @@ void ReagentModel::setReagentName(const QString &reagentName)
     _reagentName = reagentName;
 }
 
+int ReagentModel::getReagentType() const
+{
+    return _reagentType;
+}
+
+void ReagentModel::setReagentType(int val)
+{
+    _reagentType = val;
+}
+
 int ReagentModel::getPaperId() const
 {
 	return _paperId;
@@ -41,6 +53,16 @@ int ReagentModel::getPaperId() const
 void ReagentModel::setPaperId(int val)
 {
 	_paperId = val;
+}
+
+int ReagentModel::getPumpNo() const
+{
+    return _pumpNo;
+}
+
+void ReagentModel::setPumpNo(int val)
+{
+    _pumpNo = val;
 }
 
 int ReagentModel::getCompanyID() const

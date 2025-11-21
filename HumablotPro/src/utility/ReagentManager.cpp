@@ -4,6 +4,7 @@
 #include <QCheckBox>
 #include <QSqlQuery>
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/DAO/baseSet/TestPaperDao.h"
 #include "../Include/Instrument/Instrument.h"
 #include "../comm/Global.h"
 #include "../comm/GlobalData.h"
@@ -49,11 +50,12 @@ void ReagentManager::InitReagentTableWidget()
 	//去掉网格线
 	ui.tableWidget_Reagent->setShowGrid(false);
 	QStringList headerString;
-    QString sz1 = GlobalData::LoadLanguageInfo("K1136");
-    QString sz2 = GlobalData::LoadLanguageInfo("K1100");
-    QString sz4 = GlobalData::LoadLanguageInfo("K1138");
-    QString sz5 = GlobalData::LoadLanguageInfo("K1139");
-    headerString <<  sz1 << "" <<"" << "" << "" << "" << sz4 << sz5;
+    QString sz1 = GlobalData::LoadLanguageInfo("K1136"); // 试剂名称
+    QString sz2 = GlobalData::LoadLanguageInfo("K1145"); // 关联膜条
+    QString sz3 = GlobalData::LoadLanguageInfo("K1514"); // 泵号
+    QString sz4 = GlobalData::LoadLanguageInfo("K1138"); // 大充灌量
+    QString sz5 = GlobalData::LoadLanguageInfo("K1139"); // 小充灌量
+    headerString <<  sz1 << sz2 <<"" << "" << "" << sz3 << sz4 << sz5;
 	ui.tableWidget_Reagent->setHorizontalHeaderLabels(headerString);
 	//ui.tableWidget_Reagent->setAlternatingRowColors(true);
 }
@@ -188,27 +190,44 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
 		//名称
         strValue = reagent.getReagentName();
         addReagentContent(row, 0, strValue);
-        addReagentContent(row, 1, "");
+        if(reagent.getReagentType() == 0) //通用试剂
+        {
+            strValue = GlobalData::LoadLanguageInfo("K1697");// 通用
+        }else
+        {
+            TestPaperModel paper;
+            if(!TestPaperDao::instance()->getModel(reagent.getPaperId(), paper))
+            {
+                continue;
+            }else
+            {
+                strValue = paper.getPaperName();
+            }
+        }
+
+        addReagentContent(row, 1, strValue);
         strValue = reagent.getIsNoDrip()?"1":"0";
         addReagentContent(row, 2, strValue);
         strValue = reagent.getIsSkimp()?"1":"0";
         addReagentContent(row, 3, strValue);
         strValue = reagent.getIsNeedPrepare()?"1":"0";
         addReagentContent(row, 4, strValue);
+        strValue = QString::number(reagent.getPumpNo());
+        addReagentContent(row, 5, strValue);
         QString big_wash = QString::number(static_cast<double>(reagent.getFluidMeasure()), 'f', 2);
         addReagentContent(row, 6, big_wash);
         QString small_wash  = QString::number(static_cast<double>(reagent.getFluidMeasureSmall()), 'f', 2);
         addReagentContent(row, 7, small_wash);
 		row++;
-	}
-    ui.tableWidget_Reagent->hideColumn(1);
+    }
     ui.tableWidget_Reagent->hideColumn(2);
     ui.tableWidget_Reagent->hideColumn(3);
     ui.tableWidget_Reagent->hideColumn(4);
-    ui.tableWidget_Reagent->hideColumn(5);
-    ui.tableWidget_Reagent->setColumnWidth(0, 320);
-    ui.tableWidget_Reagent->setColumnWidth(6, 150);
-    ui.tableWidget_Reagent->setColumnWidth(7, 100);
+    ui.tableWidget_Reagent->setColumnWidth(0, 250);
+    ui.tableWidget_Reagent->setColumnWidth(1, 150);
+    ui.tableWidget_Reagent->setColumnWidth(5, 50);
+    ui.tableWidget_Reagent->setColumnWidth(6, 80);
+    ui.tableWidget_Reagent->setColumnWidth(7, 80);
 
 }
 

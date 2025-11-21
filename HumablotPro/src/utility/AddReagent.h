@@ -13,6 +13,8 @@ public:
     AddReagent(QWidget *parent = Q_NULLPTR);
 	~AddReagent();
 private slots:
+
+    void onSpecificReagentToggled(bool checked);
     void on_pushButton_Save_clicked();
     void on_pushButton_Cancel_clicked();
 

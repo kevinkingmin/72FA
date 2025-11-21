@@ -802,6 +802,10 @@ K1835|删除曲线|
 K1836|标准曲线设置|
 K1837|临界线|
 K1839|检索测试流程失败
+K1840|通用试剂|General reagent
+K1841|专用试剂|Specific reagent
+K1842|通用试剂泵号不能重复!|
+K1843|专用试剂泵号不能与通用试剂重复!|
 
 K9990|检测到多个条带|Multiple strips detected
 K9991|（检测到异常条带）|（Abnormal stripe detected）
