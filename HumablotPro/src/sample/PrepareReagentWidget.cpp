@@ -179,7 +179,6 @@ void PrepareReagentWidget::createPumpBtn()
             if (senderButton) {
                 senderButton->setChecked(false);
                 int clickedPumpNo = senderButton->objectName().toInt();
-                qDebug() << "Button clicked!"<<senderButton->objectName()<<"PumpNo"<<clickedPumpNo;
                 if(_pumpNoReagentMap.contains(clickedPumpNo))
                 {
                     _instrument->prepareReagent({static_cast<uint8_t>(clickedPumpNo)},"min");
@@ -226,7 +225,6 @@ void PrepareReagentWidget::changeIcon(const QString &fileName, PumpPosState stat
             }
         }
     }
-    qDebug()<<"before0";
     if (map.isEmpty())
     {
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"),
@@ -237,7 +235,8 @@ void PrepareReagentWidget::changeIcon(const QString &fileName, PumpPosState stat
 
     int finish_count = 0;
     int key_value = 0;
-    for (const auto& key : m_finish_map.keys()) {
+    for (const auto& key : m_finish_map.keys())
+    {
         if (m_finish_map.value(key) == 1 || m_finish_map.value(key)>0)
         {
             finish_count++;
@@ -245,38 +244,37 @@ void PrepareReagentWidget::changeIcon(const QString &fileName, PumpPosState stat
         key_value = key;
         switch (key_value)
         {
-        case 0:
+        case 1:
             ui->chk_1->setChecked(false);
             break;
-        case 1:
+        case 2:
             ui->chk_2->setChecked(false);
             break;
-        case 2:
+        case 3:
             ui->chk_3->setChecked(false);
             break;
-        case 3:
+        case 4:
             ui->chk_4->setChecked(false);
             break;
-        case 4:
+        case 5:
             ui->chk_5->setChecked(false);
             break;
-        case 5:
+        case 6:
             ui->chk_6->setChecked(false);
             break;
-        case 6:
+        case 7:
             ui->chk_7->setChecked(false);
             break;
-        case 7:
+        case 8:
             ui->chk_8->setChecked(false);
             break;
-        case 8:
+        case 9:
             ui->chk_9->setChecked(false);
             break;
         default:
             break;
         }
     }
-    qDebug()<<"before3";
     //如果操作
     if (m_system_liquid_finish && finish_count == _pumpNoReagentMap.size())
     {
@@ -457,7 +455,6 @@ QVector<int> PrepareReagentWidget::getPaperIds()
     return paperIds;
 }
 
-
 void PrepareReagentWidget::updateBtnByReagents()
 {
     QList<QAbstractButton*> btns=_btnGroup->buttons();
@@ -621,31 +618,33 @@ void PrepareReagentWidget::showEvent(QShowEvent *e)
     // ui右侧总文案显示灌注系统液体！
     QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1077"); //灌注系统液体！
     ui->lblHint->setText(sz);
-    SystemSetModel systemSetting;
-    SystemSetDao::instance()->getModel(6, systemSetting);
-    // 单个测试需要使用的试剂名 泵号 试剂用量
-    QMap<QString, std::tuple<int, double>> reagentVolumeMap = ProcessParaBLL().getUnitReagentMl(systemSetting.getSaveSet());
-    QSet<QString> reagentNameVect = reagentVolumeMap.keys().toSet();
-    QVector<ReagentBLL::ptrModel> reagentModelVect = ReagentBLL().getReagent(reagentNameVect);
-    qDebug()<<"size="<<reagentVolumeMap.size()<<reagentNameVect.count()<<reagentModelVect.count();
-    if(reagentNameVect.count() != reagentModelVect.count())
-    {
-        // TODO::报错
-        return;
+    int processId = 0;
+    int companyId = 0;
+    {// 获取流程id和公司id
+        SystemSetModel systemSetting;
+        SystemSetDao::instance()->getModel(6, systemSetting);
+        processId = systemSetting.getSaveSet();
+        SystemSetDao::instance()->getModel(5, systemSetting);
+        companyId = systemSetting.getSaveSet();
     }
+    QVector<int> paperIdVect = getPaperIds();
+    // 单个测试需要使用的试剂名 泵号 试剂用量
+    QMap<int, std::tuple<QString, double>> reagentVolumeMap = ProcessParaBLL().getUnitReagentMl(processId, paperIdVect);
+    // 根据公司及泵号获取对应实际
+    QVector<ReagentBLL::ptrModel> reagentModelVect = ReagentBLL().getReagent(companyId, reagentVolumeMap.keys().toSet());
     QString exe_path = QCoreApplication::applicationDirPath() + "/PrepareReagent.ini";
     QSettings config_set(exe_path, QSettings::IniFormat);
     config_set.beginGroup("Add");
     _pumpNoReagentMap.clear();
     for (ReagentBLL::ptrModel& it : reagentModelVect)
     {
-        const QString& name = it->getReagentName();
-        if(!reagentVolumeMap.contains(name))
+        const int pumpNo = it->getPumpNo();
+        if(!reagentVolumeMap.contains(pumpNo))
         {
             continue;
         }
-        std::tuple<int, double> reagentUse = reagentVolumeMap[name];
-        auto [pumpNo, mlDouble] = reagentVolumeMap[name];
+        std::tuple<QString, double> reagentUse = reagentVolumeMap[pumpNo];
+        auto [reagentName, mlDouble] = reagentVolumeMap[pumpNo];
         float ml = static_cast<float>(mlDouble);
         float deadMl = config_set.value("PrepareReagent_"+QString::number(pumpNo), 0.0f).toFloat();
         if(!_pumpNoReagentMap.contains(pumpNo))
@@ -654,7 +653,7 @@ void PrepareReagentWidget::showEvent(QShowEvent *e)
         }else
         {
             qWarning() << "Pump already assigned:" << pumpNo
-                       << "Current reagent:" << name
+                       << "Current reagent:" << reagentName
                        << "(Previous reagent will be kept)";
         }
     }

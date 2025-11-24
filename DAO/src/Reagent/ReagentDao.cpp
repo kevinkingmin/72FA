@@ -183,7 +183,6 @@ void ReagentDao::queryBindValue(QSqlQuery &query, ReagentModel& pm)
     query.bindValue(":TestPaperID", pm.getPaperId());
     query.bindValue(":reagentName",pm.getReagentName());
     query.bindValue(":reagentType", pm.getReagentType());
-    qDebug()<<"reagentType"<<pm.getReagentType();
     query.bindValue(":companyID",pm.getCompanyID());
     query.bindValue(":pumpNo",pm.getPumpNo());
     query.bindValue(":IsNoDrip",pm.getIsNoDrip()?1:0);

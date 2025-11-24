@@ -18,9 +18,11 @@ public:
     QMap<int, int> getIncubationTime(QVector<int> pGroupIds);
     QVector<ProcessParaBLL::ptrModel> toPtrVector(const QVector<ProcessParameterModel>& models);
     // 获取各试剂总体积单位毫升 返回key:试剂名称 value:对应试剂量
-    QMap<QString, std::tuple<int, double>> getUnitReagentMl(const int processId);
+//    QMap<QString, std::tuple<int, double>> getUnitReagentMl(const int processId);
+    // key: 泵号, value: item1试剂名称 item2:试剂用量
+    QMap<int, std::tuple<QString, double>> getUnitReagentMl(const int processId, QVector<int> paperIdVect);
     // 获取指定试剂的总量
-    std::tuple<int, double> getUnitReagentMl(const int processId, const QString& reagentName);
+    std::tuple<int, double> getUnitReagentMl(const int processId, const int paperId, const QString& reagentName);
 	
 private:
     ProcessParameterDao *_dao;

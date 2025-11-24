@@ -399,11 +399,11 @@ bool Instrument::sendBySocket(QByteArray buf){
 }
 
 // 获取试剂总体积
-int Instrument::getUnitReagentVolumn(int processId, int reagentId)
+int Instrument::getUnitReagentVolumn(int processId, int paperId, int reagentId)
 {
     ReagentBLL::ptrModel reagentPtr = ReagentBLL().getReagent(reagentId);
     QString reagentName = reagentPtr.isNull() ? "" : reagentPtr->getReagentName();
-    double ml = std::get<1>(ProcessParaBLL().getUnitReagentMl(processId, reagentName));
+    double ml = std::get<1>(ProcessParaBLL().getUnitReagentMl(processId, paperId, reagentName));
     return static_cast<int>(ml*1000);
 }
 
