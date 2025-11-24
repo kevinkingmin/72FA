@@ -173,14 +173,16 @@ void ProcessDataList::on_Add_Button_clicked()
 
 void ProcessDataList::on_Modify_Button_clicked()
 {
-    int intRow = ui.tbProcessSteps->currentRow();
-    if(intRow<0)
+    int processRow = ui.tbProcess->currentRow();
+    int stepRow = ui.tbProcessSteps->currentRow();
+    if(stepRow<0 || processRow < 0)
     {
         QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1787"),GlobalData::LoadLanguageInfo("K1181"));
         return;
     }
     _processData->setBModify(true);
-    _processData->setStepId(ui.tbProcessSteps->item(intRow,2)->text());
+    _processData->setProcessId(ui.tbProcess->item(processRow, 2)->text());
+    _processData->setStepId(ui.tbProcessSteps->item(stepRow,2)->text());
     _processData->SetUI(true);
     _processData->exec();
     on_tbProcess_cellClicked();

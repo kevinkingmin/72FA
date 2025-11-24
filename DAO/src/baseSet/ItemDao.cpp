@@ -32,6 +32,7 @@ QVector<ItemModel> ItemDao::selectItems(int paper_id)
         tr.setItemType(query.value("itemType").toInt());
         tr.setSegmentIndex(query.value("segmentIndex").toInt());
 		tr.setPositionNo(query.value("PositionNo").toInt());
+        tr.setPosition(query.value("position").toInt());
         tr.setCurveId(query.value("curveId").toInt());
         tr.setRulesId(query.value("RulesId").toInt());
         tr.setResultOffset(query.value("resultOffset").toDouble());

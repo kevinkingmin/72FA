@@ -66,14 +66,14 @@ void TestPaper::initUI()
     ui->txtItemWidth->setValidator(doublReg);
     ui->lineEdit_FuncPosition->setValidator(doublReg);
     auto intReg{new QIntValidator(0,9999,this)};
-    ui->txtFunThreshold->setValidator(intReg);
+    ui->txtFunThreshold->setValidator(doublReg);
     ui->txtFunWidth->setValidator(doublReg);
-    ui->txtBlackSpotThreshold->setValidator(intReg);
+    ui->txtBlackSpotThreshold->setValidator(doublReg);
     ui->lineEdit_CutOff_Position->setValidator(doublReg);
-    ui->txtCutOffThreshold->setValidator(intReg);
-    ui->txtCutOffValue->setValidator(intReg);
-    ui->txtThreshold->setValidator(intReg);
-    ui->txtBackGround->setValidator(intReg);
+    ui->txtCutOffThreshold->setValidator(doublReg);
+    ui->txtCutOffValue->setValidator(doublReg);
+    ui->txtThreshold->setValidator(doublReg);
+    ui->txtBackGround->setValidator(doublReg);
     ui->txtItemSearchWidth->setValidator(doublReg);
     ui->txtAnalyzeHeight->setValidator(doublReg);
     ui->txtAnalyzeWidth->setValidator(doublReg);
@@ -581,17 +581,18 @@ bool TestPaper::Save_TestPaper_Parameters()
    _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
    _testPaperModel.setPaperShowAngle(ui->cmbFunDirection->currentData().toInt());//功能线查找方向
    _testPaperModel.setFuncPosition(ui->lineEdit_FuncPosition->text().simplified().toDouble());//功能条位置
-   _testPaperModel.setFuncGrayThreshold(ui->txtFunThreshold->text().simplified().toInt());//功能线阈值
+   _testPaperModel.setFuncGrayThreshold(ui->txtFunThreshold->text().simplified().toDouble());//功能线阈值
    _testPaperModel.setFuncFindWidth(ui->txtFunWidth->text().simplified().toDouble());//功能线查找宽度
    _testPaperModel.setIsBlackPointDetect(ui->chkBlackSpot->isChecked());//是否开启黑点检测
-   _testPaperModel.setBlackPointDetectThreshold(ui->txtBlackSpotThreshold->text().simplified().toInt());//黑点检测阙值
+   _testPaperModel.setBlackPointDetectThreshold(ui->txtBlackSpotThreshold->text().simplified().toDouble());//黑点检测阙值
    _testPaperModel.setIsCutOff(ui->checkBox_CutOff->isChecked());// 是否有CufOff线
    _testPaperModel.setCutOffPosition(ui->lineEdit_CutOff_Position->text().simplified().toDouble());//CutOff位置
-   _testPaperModel.setCutOffThreshold(ui->txtCutOffThreshold->text().simplified().toInt());//CutOff线阈值
-   _testPaperModel.setCutOffValue(ui->txtCutOffValue->text().simplified().toInt());//CutOff灰度值;
+   _testPaperModel.setCutOffThreshold(ui->txtCutOffThreshold->text().simplified().toDouble());//CutOff线阈值
+   _testPaperModel.setCutOffValue(ui->txtCutOffValue->text().simplified().toDouble());//CutOff灰度值;
    _testPaperModel.setPaperShowAngle(ui->cmbRotate->currentData().toInt());//膜条展示旋转
-   _testPaperModel.setPaperBinarizationThreshold(ui->txtThreshold->text().simplified().toInt());//二值化阈值
-   _testPaperModel.setPaperBackgroundValue(ui->txtBackGround->text().simplified().toInt());//背景值
+   _testPaperModel.setPaperBinarizationThreshold(static_cast<int>(ui->txtThreshold->text().simplified().toDouble()));//二值化阈值
+   qDebug()<<"txtBackGround"<<ui->txtBackGround->text().simplified().toDouble();
+   _testPaperModel.setPaperBackgroundValue(ui->txtBackGround->text().simplified().toDouble());//背景值
    _testPaperModel.setItemFindWidth(ui->txtItemSearchWidth->text().simplified().toDouble());//指标查找宽度
    _testPaperModel.setAnalysisPercentOfHeight(ui->txtAnalyzeHeight->text().simplified().toInt());//分析高度区间比
    _testPaperModel.setAnalysisPercentOfWidth(ui->txtAnalyzeWidth->text().simplified().toInt());//分析宽度区间比
@@ -680,6 +681,7 @@ bool TestPaper::Save_TestPaper_Items()
         {
             ItemModel item;
             item.setIsNull(it.value().isNullArea?1:0);
+            item.setItemType(it.value().itemType);
             item.setCurveId(it.value().curve);
             item.setSegmentIndex(0);
             item.setRulesId(it.value().judgerule);

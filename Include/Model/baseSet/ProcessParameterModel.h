@@ -22,8 +22,6 @@ public:
         double _drainTime;
         // 试剂名
         QString _reagentName;
-        // 泵编号
-        int _pumpNo;
         // 试剂量
         double _reagentMl;
         // 对应蠕动泵是否回流
@@ -34,17 +32,15 @@ public:
             :_isDrainWaster(false)
             ,_drainTime(0)
             ,_reagentName("")
-            ,_pumpNo(1)
             ,_reagentMl(1)
             ,_isBackFlow(false)
             ,_backFlowMl(0)
         {}
         AddReagentStrt(const bool isDrainWaster,const double drainTime, const QString& name,
-                       const int pumpNo, const double ul,  const bool isBackFlow, const double backFlowMl)
+                       const double ul,  const bool isBackFlow, const double backFlowMl)
             :_isDrainWaster(isDrainWaster)
             ,_drainTime(drainTime)
             ,_reagentName(name)
-            ,_pumpNo(pumpNo)
             ,_reagentMl(ul)
             ,_isBackFlow(isBackFlow)
             ,_backFlowMl(backFlowMl)

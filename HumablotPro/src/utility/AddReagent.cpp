@@ -70,10 +70,13 @@ AddReagent::AddReagent(QWidget *parent)
             }
             // 设置专用试剂下拉框
             QVector<ReagentModel> reagentVect = ReagentDao::instance()->selectReagent(m_strCompany_ID.toInt());
+            QSet<QString> reagentNameSet = {};
             for(ReagentModel& reagent : reagentVect)
             {
                 if(reagent.getReagentType() == 0) continue; // 忽略通用试剂
-                ui.comboBox_ReagentName->addItem(reagent.getReagentName(), reagent.getID());
+                if(reagentNameSet.contains(reagent.getReagentName())) continue; // 已经包含忽略
+                reagentNameSet.insert(reagent.getReagentName());
+                ui.comboBox_ReagentName->addItem(reagent.getReagentName(), reagent.getReagentName());
             }
 
             if(m_bModify) // 修改
@@ -82,7 +85,7 @@ AddReagent::AddReagent(QWidget *parent)
                 int paperIndex = ui.comboBox_PaperName->findData(_reagent.getPaperId());
                 ui.comboBox_PaperName->setCurrentIndex(paperIndex);
                 // 设置试剂
-                int reagentIndex = ui.comboBox_ReagentName->findData(_reagent.getID());
+                int reagentIndex = ui.comboBox_ReagentName->findText(_reagent.getReagentName());
                 if(reagentIndex != -1)
                 {
                     ui.comboBox_ReagentName->setCurrentIndex(reagentIndex); // 设置试剂名称
@@ -193,6 +196,7 @@ void AddReagent::on_pushButton_Save_clicked()
     {
         for(ReagentModel& reagent : reagentVect)
         {
+            if(reagent.getID() == _reagent.getID()) continue; // 忽略自己
             if(reagent.getPumpNo() == pumpNo)
             {
                 MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1842"), MyMessageBox::Ok,"OK","");
@@ -203,6 +207,7 @@ void AddReagent::on_pushButton_Save_clicked()
     {
         for(ReagentModel& reagent : reagentVect)
         {
+            if(reagent.getID() == _reagent.getID()) continue; // 忽略自己
             if(reagent.getReagentType() == 0 && reagent.getPumpNo() == pumpNo)
             {
                 MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1843"), MyMessageBox::Ok,"OK","");
@@ -237,24 +242,25 @@ void AddReagent::on_pushButton_Save_clicked()
             return;
         }
     }
-    auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1278"), MyMessageBox::Ok|MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
-    if (ret == MyMessageBox::No)
-    {
+    // TODO::WangZ
+//    auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1278"), MyMessageBox::Ok|MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
+//    if (ret == MyMessageBox::No)
+//    {
         this->close();
-        return;
-    }
-    InstrumentStateModel *_InstrumentState(InstrumentStateModel::instance());
-    auto state = _InstrumentState->getMachineState();
-    if ((state.state == _InstrumentState->enumRuning) || (state.state == _InstrumentState->enumMaintain))
-    {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1711"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
-        return;
-    }
-    Instrument::instance()->closeSocket();
-    QString program = QCoreApplication::applicationFilePath();
-    QStringList arguments = QCoreApplication::arguments();
-    QProcess::startDetached(program, arguments);
-    QCoreApplication::instance()->quit();
+//        return;
+//    }
+//    InstrumentStateModel *_InstrumentState(InstrumentStateModel::instance());
+//    auto state = _InstrumentState->getMachineState();
+//    if ((state.state == _InstrumentState->enumRuning) || (state.state == _InstrumentState->enumMaintain))
+//    {
+//        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1711"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
+//        return;
+//    }
+//    Instrument::instance()->closeSocket();
+//    QString program = QCoreApplication::applicationFilePath();
+//    QStringList arguments = QCoreApplication::arguments();
+//    QProcess::startDetached(program, arguments);
+//    QCoreApplication::instance()->quit();
 }
 
 void AddReagent::on_pushButton_Cancel_clicked()

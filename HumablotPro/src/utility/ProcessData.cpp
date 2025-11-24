@@ -3,6 +3,7 @@
 #include "../comm/GlobalData.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
 #include <QListView>
+#include <QSet>
 #include "../Include/DAO/baseSet/ProcessDao.h"
 #include "../Include/DAO/baseSet/ProcessParameterDao.h"
 #include "../Include/DAO/reagent/ReagentDao.h"
@@ -30,8 +31,11 @@ ProcessData::ProcessData(QWidget *parent)
 
     ui.cmbStepType->clear();
     for(auto it:_actTypeVect)
+    {
         ui.cmbStepType->addItem(it);
+    }
     ui.cmbStepType->setView(new QListView(this));
+    ui.cmbStepGroup->setEditable(true);
 }
 
 ProcessData::~ProcessData()
@@ -40,6 +44,16 @@ ProcessData::~ProcessData()
 
 void ProcessData::SetUI(bool modify)
 {
+    // 设置group下拉选项
+    ui.cmbStepGroup->clear();
+    QList<QString> actGroupVect = ProcessParameterDao::instance()->getActionGroupNameVect(_processId.toInt());
+    for(auto it:actGroupVect)
+    {
+        ui.cmbStepGroup->addItem(it);
+    }
+    ui.cmbStepGroup->setView(new QListView(this));
+
+
     if(modify)
     {
         ProcessParameterModel model;
@@ -56,44 +70,49 @@ void ProcessData::SetUI(bool modify)
             return;
         }
         ui.cmbStepType->setCurrentText(actType);
+
         //调用接口,获取动作参数，请按界面顺序排列
         QVector<QString> txtDatas;
         QVector<QString> boxDatas;
-        ui.lineEdit->setText(model.getActName());
         if(actType == GlobalData::LoadLanguageInfo("K1771"))
         {
+            on_cmbStepType_currentIndexChanged(0);
             ProcessParameterModel::AddReagentStrt strt;
             model.getAddReagent(strt);
-            txtDatas.push_back(QString::number(strt._reagentMl));
-            txtDatas.push_back(QString::number(strt._drainTime));
-            txtDatas.push_back(QString::number(strt._backFlowMl));
+            txtDatas.push_back(QString::number(strt._reagentMl, 'f', 2));
+            txtDatas.push_back(QString::number(strt._drainTime, 'f', 1));
+            txtDatas.push_back(QString::number(strt._backFlowMl, 'f', 2));
             boxDatas.push_back(strt._reagentName);
-            boxDatas.push_back(QString::number(strt._pumpNo));
             boxDatas.push_back(strt._isDrainWaster?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
             boxDatas.push_back(strt._isBackFlow?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
         }else if(actType == GlobalData::LoadLanguageInfo("K1600"))
         {
+            on_cmbStepType_currentIndexChanged(1);
             ProcessParameterModel::SamplingStrt strt;
             model.getSampling(strt);
             txtDatas.push_back(QString::number(strt._sampleUl));
         }else if(actType == GlobalData::LoadLanguageInfo("K1826"))
         {
+            on_cmbStepType_currentIndexChanged(2);
             ProcessParameterModel::DrainingStrt strt;
             model.getDraining(strt);
             txtDatas.push_back(QString::number(strt._drainTime));
         }else if(actType == GlobalData::LoadLanguageInfo("K1827"))
         {
+            on_cmbStepType_currentIndexChanged(3);
             ProcessParameterModel::PausingStrt strt;
             model.getPausing(strt);
             txtDatas.push_back(strt._notifyMessage);
         }else if(actType == GlobalData::LoadLanguageInfo("K1828"))
         {
+            on_cmbStepType_currentIndexChanged(4);
             ProcessParameterModel::BedShakingStrt strt;
             model.getBedShaking(strt);
             txtDatas.push_back(QString::number(strt._shakeTime));
             txtDatas.push_back(QString::number(strt._bedTemperature));
         }else if(actType == GlobalData::LoadLanguageInfo("K1607"))
         {
+            on_cmbStepType_currentIndexChanged(5);
             ProcessParameterModel::DryingStrt strt;
             model.getDrying(strt);
             txtDatas.push_back(QString::number(strt._dryTime));
@@ -109,6 +128,14 @@ void ProcessData::SetUI(bool modify)
                                      GlobalData::LoadLanguageInfo("K1790"),
                                      GlobalData::LoadLanguageInfo("K1181"));
             return;
+        }
+        int stepGroupIndex = ui.cmbStepGroup->findText(model.getActName());
+        if(stepGroupIndex == -1)
+        {
+            ui.cmbStepGroup->setEditText(model.getActName());
+        }else
+        {
+            ui.cmbStepGroup->setCurrentIndex(stepGroupIndex);
         }
         int txtIdx = 0, boxIdx = 0;
         for(int i=0;i<_txtVect.count();i++)
@@ -138,11 +165,13 @@ void ProcessData::setBModify(bool bModify)
 
 void ProcessData::setStepId(const QString &stepId)
 {
+    qDebug()<<"setStepId"<<stepId;
     _stepId = stepId;//动作id
 }
 
 void ProcessData::setProcessId(const QString &processId)
 {
+    qDebug()<<"processId"<<processId;
     _processId = processId;//流程id
 }
 
@@ -170,15 +199,17 @@ void ProcessData::on_pushButton_Save_clicked()
     if(_currentSelectStep==0)
     {
         QString reagentName = boxVect[0];
-        int pumpNo = boxVect[1].toInt();
-        bool isDrainWaster = boxVect[2] == GlobalData::LoadLanguageInfo("K1700");
-        bool isBackFlow = boxVect[3] == GlobalData::LoadLanguageInfo("K1700");
-        double reagentMl = txtVect[0].toDouble();
-        double drainTime = txtVect[1].toInt();
+        bool isDrainWaster = boxVect[1] == GlobalData::LoadLanguageInfo("K1700");
+        bool isBackFlow = boxVect[2] == GlobalData::LoadLanguageInfo("K1700");
+        double reagentMl =  txtVect[0].toDouble();
+        reagentMl = reagentMl < 0.001 ? 0 : reagentMl;
+        double drainTime = txtVect[1].toDouble();
+        drainTime = drainTime < 0.01 ? 0 : drainTime;
         double backFlowMl = txtVect[2].toDouble();
-        ProcessParameterModel::AddReagentStrt strt(isDrainWaster, drainTime, reagentName, pumpNo, reagentMl, isBackFlow, backFlowMl);
+        backFlowMl = backFlowMl < 0.001 ? 0 : backFlowMl;
+        ProcessParameterModel::AddReagentStrt strt(isDrainWaster, drainTime, reagentName, reagentMl, isBackFlow, backFlowMl);
         model.setActCode(ProcessParameterModel::ADD_REAGENT_CODE);
-        model.setActName(ui.lineEdit->text());
+        model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
         QString parasStr =model.AddReagentToStr(strt);
         model.setParas(parasStr);
@@ -188,7 +219,7 @@ void ProcessData::on_pushButton_Save_clicked()
         double sampleUl = txtVect[0].toDouble();
         ProcessParameterModel::SamplingStrt strt(sampleUl);
         model.setActCode(ProcessParameterModel::SAMPLING_CODE);
-        model.setActName(ui.lineEdit->text());
+        model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
         QString parasStr =model.SamplingToStr(strt);
         model.setParas(parasStr);
@@ -198,7 +229,7 @@ void ProcessData::on_pushButton_Save_clicked()
         int drainTime = txtVect[0].toInt();
         ProcessParameterModel::DrainingStrt strt(drainTime);
         model.setActCode(ProcessParameterModel::DRAINING_CODE);
-        model.setActName(ui.lineEdit->text());
+        model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
         QString parasStr =model.drainingToStr(strt);
         model.setParas(parasStr);
@@ -208,7 +239,7 @@ void ProcessData::on_pushButton_Save_clicked()
         QString message = txtVect[0];
         ProcessParameterModel::PausingStrt strt(message);
         model.setActCode(ProcessParameterModel::PAUSING_CODE);
-        model.setActName(ui.lineEdit->text());
+        model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
         QString parasStr =model.PausingToStr(strt);
         model.setParas(parasStr);
@@ -219,7 +250,7 @@ void ProcessData::on_pushButton_Save_clicked()
         double bedTemperature = txtVect[1].toDouble();
         ProcessParameterModel::BedShakingStrt strt(shakeTime, bedTemperature);
         model.setActCode(ProcessParameterModel::BED_SHAKING_CODE);
-        model.setActName(ui.lineEdit->text());
+        model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
         QString parasStr =model.BedShakingToStr(strt);
         model.setParas(parasStr);
@@ -235,7 +266,7 @@ void ProcessData::on_pushButton_Save_clicked()
 
         ProcessParameterModel::DryingStrt strt(dryTime, fanLevel, fanTime, bedTemperature, shakeTime);
         model.setActCode(ProcessParameterModel::DRYING_CODE);
-        model.setActName(ui.lineEdit->text());
+        model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
         QString parasStr =model.dryingToStr(strt);
         model.setParas(parasStr);
@@ -263,6 +294,8 @@ void ProcessData::on_pushButton_Cancel_clicked()
 
 void ProcessData::on_cmbStepType_currentIndexChanged(int index)
 {
+    ui.cmbStepGroup->setCurrentIndex(-1);
+    qDebug()<<"on_cmbStepType_currentIndexChanged"<<index;
     _currentSelectStep = index;
     _txtVect.clear();
     ui.gridLayout->setContentsMargins(35,30,35,10);
@@ -301,55 +334,49 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
     QVector<ComboBoxData>boxVect;
     if(index==0) // 加试剂
     {
-        ui.lineEdit->setText(GlobalData::LoadLanguageInfo("K1771"));
         boxVect.clear();
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1772")+":",this),0,0,Qt::AlignRight);//选择试剂
         ReagentDao* dao = ReagentDao::instance();
         ProcessDao* processDao = ProcessDao::instance();
         ProcessModel processModel;
+        qDebug()<<"_processId"<<_processId;
         processDao->getModel(_processId.toInt(), processModel);
         int companyId = processModel.getCompanyId();
         QVector<ReagentModel> reagentVect = dao->selectReagent(companyId);
+        // 转为 QSet，自动去重
+        QSet<QString> reagentNameSet = {};
         for(const ReagentModel& model : reagentVect)
         {
+            if(reagentNameSet.contains(model.getReagentName())) continue;
+            reagentNameSet.insert(model.getReagentName());
             boxVect.push_back(ComboBoxData(model.getReagentName(), model.getReagentName()));
         }
         ui.gridLayout->addWidget(createBox(boxVect),0,1,1,3);
 
-        // 泵号
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("L1000"),this),1,0,Qt::AlignRight);// 泵号
-        boxVect.clear();
-        for(int i=1;i<=10;i++)
-        {
-            boxVect.push_back(ComboBoxData(QString::number(i),QString::number(i)));
-        }
-        ui.gridLayout->addWidget(createBox(boxVect),1,1,1,3);
-
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1773")+":",this),2,0,Qt::AlignRight);// 试剂量
-        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0,1000,2,this)),2,1,1,3);
-        ui.gridLayout->addWidget(new QLabel("ml",this),2,4);
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1773")+":",this),1,0,Qt::AlignRight);// 试剂量
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0,1000,2,this)),1,1,1,3);
+        ui.gridLayout->addWidget(new QLabel("ml",this),1,4);
 
         boxVect.clear();
         boxVect.push_back(ComboBoxData(GlobalData::LoadLanguageInfo("K1700"),GlobalData::LoadLanguageInfo("K1700")));
         boxVect.push_back(ComboBoxData(GlobalData::LoadLanguageInfo("K1701"),GlobalData::LoadLanguageInfo("K1701")));
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1775")+":",this),3,0,Qt::AlignRight);// 是否排废液
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1775")+":",this),2,0,Qt::AlignRight);// 是否排废液
+        ui.gridLayout->addWidget(createBox(boxVect),2,1);
+
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1774")+":",this),2,2,Qt::AlignRight); // 排废时间
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),2,3);
+        ui.gridLayout->addWidget(new QLabel("s",this),2,4);
+
+
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1143")+":",this),3,0,Qt::AlignRight);// 是否回流
         ui.gridLayout->addWidget(createBox(boxVect),3,1);
 
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1774")+":",this),3,2,Qt::AlignRight); // 排废时间
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),3,3);
-        ui.gridLayout->addWidget(new QLabel("s",this),3,4);
-
-
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1143")+":",this),4,0,Qt::AlignRight);// 是否回流
-        ui.gridLayout->addWidget(createBox(boxVect),4,1);
-
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1829")+":",this),4,2,Qt::AlignRight); // 回流体积
-        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0,5.0,2,this)),4,3);
-        ui.gridLayout->addWidget(new QLabel("ml",this),4,4);
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1829")+":",this),3,2,Qt::AlignRight); // 回流体积
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0,5.0,2,this)),3,3);
+        ui.gridLayout->addWidget(new QLabel("ml",this),3,4);
     }
     else if(index==1) // 加样本
     {
-        ui.lineEdit->setText(GlobalData::LoadLanguageInfo("K1600"));
         ui.gridLayout->setContentsMargins(30,100,30,0);
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1776")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),0,1);
@@ -357,7 +384,6 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
     }
     else if(index==2) // 排废液
     {
-        ui.lineEdit->setText(GlobalData::LoadLanguageInfo("K1826"));
         ui.gridLayout->setContentsMargins(30,100,30,0);
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1831")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),0,1);
@@ -365,15 +391,12 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
     }
     else if(index==3) // 暂停
     {
-        ui.lineEdit->setText(GlobalData::LoadLanguageInfo("K1827"));
         ui.gridLayout->setContentsMargins(30,100,30,0);
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1832")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(nullptr),0,1);
     }
     else if(index==4) // 孵育
     {
-        ui.lineEdit->setText(GlobalData::LoadLanguageInfo("K1828"));
-
         // 孵育时间
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1226")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),0,1);
@@ -386,8 +409,6 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
     }
     else if(index==5) // 干燥
     {
-        ui.lineEdit->setText(GlobalData::LoadLanguageInfo("K1607"));
-
         // 孵育总时间
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1781")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,10000,this)),0,1,1,3);
@@ -411,5 +432,18 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         // 孵育时间
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,10000,this)),2,3);
         ui.gridLayout->addWidget(new QLabel("s",this),2,4);
+    }
+    // 设置默认数据
+    for(auto obj:_txtVect)
+    {
+        if(obj->objectName().contains("txt"))
+        {
+            auto *line{static_cast<QLineEdit *>(obj)};
+            line->setText("0");
+        }else if(obj->objectName().contains("box"))
+        {
+            auto *box{static_cast<QComboBox *>(obj)};
+            box->setCurrentIndex(-1);
+        }
     }
 }

@@ -20,7 +20,7 @@ ProcessParameterModel::ProcessParameterModel()
     ,_actCode("")
     ,_paras("")
     ,_paramParseSuccess(false)
-    ,_addReagentStrt(false, 2000, "加试剂", 1, 100, false, 0)
+    ,_addReagentStrt(false, 2000, "加试剂", 100, false, 0)
     ,_bedShakingStrt(0,0)
     ,_drainingStrt(0)
     ,_pausingStrt("")
@@ -87,7 +87,6 @@ bool ProcessParameterModel::strToAddReagent(ProcessParameterModel::AddReagentStr
     if (document.isNull() ||(parse_error.error != QJsonParseError::NoError)) return false;
     auto obj = document.object();
     out._reagentName=obj.value("reagentName").toString();
-    out._pumpNo=obj.value("pumpNo").toInt();
     out._reagentMl=obj.value("reagentMl").toDouble();
     out._isBackFlow=obj.value("isBackFlow").toBool();
     out._backFlowMl=obj.value("backFlowMl").toDouble();
@@ -100,7 +99,6 @@ QString ProcessParameterModel::AddReagentToStr(const AddReagentStrt &strt)
 {
     QJsonObject obj;
     obj.insert("reagentName",strt._reagentName);
-    obj.insert("pumpNo", strt._pumpNo);
     obj.insert("reagentMl",strt._reagentMl);
     obj.insert("isBackFlow",strt._isBackFlow);
     obj.insert("backFlowMl",strt._backFlowMl);
@@ -370,54 +368,54 @@ QString ProcessParameterModel::toShowString()
         show+=_addReagentStrt._reagentName;
         show+=";";
         show+="试剂量:";
-        show+=QString::number(_addReagentStrt._reagentMl);
+        show+=QString::number(_addReagentStrt._reagentMl,'f', 2);
         show+="ml;";
         show+="排废液:";
         show+=_addReagentStrt._isDrainWaster?"是":"否";
         show+=";";
         show+="时间:";
-        show+=QString::number(_addReagentStrt._drainTime);
+        show+=QString::number(_addReagentStrt._drainTime, 'f', 1);
         show+="s;";
         show+="回流:";
         show+=_addReagentStrt._isBackFlow?"是":"否";
         show+=";";
         show+="体积:";
-        show+=QString::number(_addReagentStrt._backFlowMl);
+        show+=QString::number(_addReagentStrt._backFlowMl, 'f', 2);
         show+="ml;";
     }else if(_actCode == BED_SHAKING_CODE)
     {
         show+="孵育时间:";
-        show+=QString::number(_bedShakingStrt._shakeTime);
+        show+=QString::number(_bedShakingStrt._shakeTime, 'f', 1);
         show+="s;";
         show+="摇床温度:";
-        show+=QString::number(_bedShakingStrt._bedTemperature);
+        show+=QString::number(_bedShakingStrt._bedTemperature, 'f', 1);
         show+="℃;";
 
     }else if (_actCode == DRYING_CODE)
     {
         show+="干燥总时间:";
-        show+=QString::number(_dryingStrt._dryTime);
+        show+=QString::number(_dryingStrt._dryTime, 'f', 1);
         show+="s;";
         show+="风扇时间:";
-        show+=QString::number(_dryingStrt._fanTime);
+        show+=QString::number(_dryingStrt._fanTime, 'f', 1);
         show+="s;";
         show+="风扇等级:";
         show+=QString::number(_dryingStrt._fanLevel);
         show+="摇床时间:";
-        show+=QString::number(_dryingStrt._bedTime);
+        show+=QString::number(_dryingStrt._bedTime, 'f', 1);
         show+="s;";
         show+="摇床温度:";
-        show+=QString::number(_dryingStrt._bedTemperature);
+        show+=QString::number(_dryingStrt._bedTemperature, 'f', 1);
         show+="℃;";
     }else if(_actCode == SAMPLING_CODE)
     {
         show+="样本量:";
-        show+=QString::number(_samplingStrt._sampleUl);
+        show+=QString::number(_samplingStrt._sampleUl, 'f', 1);
         show+="ul;";
     }else if(_actCode == DRAINING_CODE)
     {
         show+="排废液时间:";
-        show+=QString::number(_drainingStrt._drainTime);
+        show+=QString::number(_drainingStrt._drainTime, 'f', 1);
         show+="s;";
 
     }else if(_actCode == PAUSING_CODE)
