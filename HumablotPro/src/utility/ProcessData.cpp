@@ -118,7 +118,7 @@ void ProcessData::SetUI(bool modify)
             txtDatas.push_back(QString::number(strt._dryTime));
             txtDatas.push_back(QString::number(strt._fanTime));
             txtDatas.push_back(QString::number(strt._bedTemperature));
-            txtDatas.push_back(QString::number(strt._bedTime));
+            txtDatas.push_back(QString::number(strt._heatTime));
             boxDatas.push_back(QString::number(strt._fanLevel));
         }
 

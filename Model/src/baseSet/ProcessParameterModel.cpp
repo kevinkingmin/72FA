@@ -210,7 +210,7 @@ bool ProcessParameterModel::strToDrying(ProcessParameterModel::DryingStrt& out, 
     out._dryTime=obj.value("dryTime").toDouble();
     out._fanTime=obj.value("fanTime").toDouble();
     out._fanLevel=obj.value("fanLevel").toInt();
-    out._bedTime=obj.value("bedTime").toDouble();
+    out._heatTime=obj.value("heatTime").toDouble();
     out._bedTemperature=obj.value("bedTemperature").toDouble();
     return true;
 }
@@ -221,7 +221,7 @@ QString ProcessParameterModel::dryingToStr(const DryingStrt &strt)
     obj.insert("dryTime",strt._dryTime);
     obj.insert("fanTime",strt._fanTime);
     obj.insert("fanLevel",strt._fanLevel);
-    obj.insert("bedTime",strt._bedTime);
+    obj.insert("heatTime",strt._heatTime);
     obj.insert("bedTemperature",strt._bedTemperature);
 
     QJsonDocument doc;
@@ -386,7 +386,7 @@ QString ProcessParameterModel::toShowString()
     {
         show+="孵育时间:";
         show+=QString::number(_bedShakingStrt._shakeTime, 'f', 1);
-        show+="s;";
+        show+="min;";
         show+="摇床温度:";
         show+=QString::number(_bedShakingStrt._bedTemperature, 'f', 1);
         show+="℃;";
@@ -395,15 +395,15 @@ QString ProcessParameterModel::toShowString()
     {
         show+="干燥总时间:";
         show+=QString::number(_dryingStrt._dryTime, 'f', 1);
-        show+="s;";
+        show+="min;";
         show+="风扇时间:";
         show+=QString::number(_dryingStrt._fanTime, 'f', 1);
-        show+="s;";
+        show+="min;";
         show+="风扇等级:";
         show+=QString::number(_dryingStrt._fanLevel);
-        show+="摇床时间:";
-        show+=QString::number(_dryingStrt._bedTime, 'f', 1);
-        show+="s;";
+        show+="加热时间:";
+        show+=QString::number(_dryingStrt._heatTime, 'f', 1);
+        show+="min;";
         show+="摇床温度:";
         show+=QString::number(_dryingStrt._bedTemperature, 'f', 1);
         show+="℃;";

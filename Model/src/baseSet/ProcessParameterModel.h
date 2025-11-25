@@ -75,21 +75,21 @@ public:
         double _fanTime;
         // 干燥温度
         double _bedTemperature;
-        // 风干等级
-        double _bedTime;
+        // 加热时间
+        double _heatTime;
         DryingStrt()
             :_dryTime(0)
             ,_fanLevel(0)
             ,_fanTime(0)
             ,_bedTemperature(0)
-            ,_bedTime(0)
+            ,_heatTime(0)
         {}
-        DryingStrt(const double dryTime, const int fanLevel, const double fanTime, const double bedTemperature, const double bedTime)
+        DryingStrt(const double dryTime, const int fanLevel, const double fanTime, const double bedTemperature, const double heatTime)
             :_dryTime(dryTime)
             ,_fanLevel(fanLevel)
             ,_fanTime(fanTime)
             ,_bedTemperature(bedTemperature)
-            ,_bedTime(bedTime)
+            ,_heatTime(heatTime)
         {}
     };
 

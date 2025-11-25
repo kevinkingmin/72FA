@@ -74,17 +74,16 @@ SystemSet::SystemSet(QWidget *parent)
     ui.comboBox_CompanyList->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192);min-height: 40px;}"));
     ui.comboBox_CompanyList->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192);min-height: 40px;}"));
 
-    connect(ui.comboBox_CompanyList,
-                &QComboBox::currentTextChanged,
-                this,
-                &SystemSet::onCompanyComboBoxChanged);    // 连接切换事件
+
     if (ui.comboBox_CompanyList->count() > 0)
     {
         //当前应用膜条公司名字
         QString PaperInfo = dao->SelectPaperInfo(&bResult);
         //选中单元格 第一行：
         ui.comboBox_CompanyList->setCurrentText(PaperInfo);
+        onCompanyComboBoxChanged(PaperInfo);
     }
+    connect(ui.comboBox_CompanyList,&QComboBox::currentTextChanged, this, &SystemSet::onCompanyComboBoxChanged);    // 连接切换事件
 
     // 设置流程样式
     ui.comboBox_run_sequence->setView(new QListView(this));
