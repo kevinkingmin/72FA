@@ -1521,9 +1521,7 @@ void TestSampleWidget::on_btnSet_clicked()
     mPause_flage = false;
     Global::g_pause_flage = 0;
     //把所有的样本信息插入到数据库
-    //auto selectMap = m_selectPDialog->getSeletedPGMap();
     selectProcessMap = m_selectPDialog->getSeletedPGMap();
-    QMap<int, QString>::iterator iter = selectProcessMap.begin();
     Global::g_run_or_maintenance_flage = 0;
 
     //这里用时较久
@@ -1539,12 +1537,13 @@ void TestSampleWidget::on_btnSet_clicked()
     //_instrument->testStart(m_listTest, selectMap);//启动测试
 
 
-    QList<QString> testIds;
-    for(auto i:m_listTest){
+    QVector<QString> testIds;
+    for(auto i:m_listTest)
+    {
         testIds.append(i->getTestId());
     }
     _instrState->setMachineState(InstrumentStateModel::enumRuning);
-    _instrument->testStart(testIds, selectProcessMap.keys().toVector().toList(),company_id_sz.toInt());//启动测试
+    _instrument->testStart(testIds, selectProcessMap.keys().toVector());//启动测试
     //qDeleteAll(m_errorAddSampleMap);
     m_errorAddSampleMap.clear();
     m_errorAddSampleMap1.clear();

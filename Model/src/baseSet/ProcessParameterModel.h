@@ -13,6 +13,7 @@ public:
     static const QString SAMPLING_CODE;
     static const QString DRAINING_CODE;
     static const QString PAUSING_CODE;
+    static const QString TAKE_PHOTO_CODE;
     // 加试剂
     struct AddReagentStrt
     {

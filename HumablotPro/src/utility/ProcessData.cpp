@@ -28,6 +28,8 @@ ProcessData::ProcessData(QWidget *parent)
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1827"));//暂停
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1828"));//孵育
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1607"));//干燥
+    _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1229"));//拍照
+
 
     ui.cmbStepType->clear();
     for(auto it:_actTypeVect)
@@ -120,6 +122,9 @@ void ProcessData::SetUI(bool modify)
             txtDatas.push_back(QString::number(strt._bedTemperature));
             txtDatas.push_back(QString::number(strt._heatTime));
             boxDatas.push_back(QString::number(strt._fanLevel));
+        }else if(actType == GlobalData::LoadLanguageInfo("K1607")) // 拍照
+        {
+            on_cmbStepType_currentIndexChanged(6);
         }
 
         if(_txtVect.count()>txtDatas.count()+boxDatas.count())
@@ -271,6 +276,11 @@ void ProcessData::on_pushButton_Save_clicked()
         QString parasStr =model.dryingToStr(strt);
         model.setParas(parasStr);
         model.setDrying(strt);
+    }else if(_currentSelectStep==6) // 拍照
+    {
+        model.setActCode(ProcessParameterModel::TAKE_PHOTO_CODE);
+        model.setActName(ui.cmbStepGroup->currentText());
+        model.setProcessId(_processId.toInt());
     }
 
 
@@ -432,6 +442,10 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         // 孵育时间
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,10000,this)),2,3);
         ui.gridLayout->addWidget(new QLabel("s",this),2,4);
+    }
+    else if(index==5) // 拍照
+    {
+
     }
     // 设置默认数据
     for(auto obj:_txtVect)

@@ -11,6 +11,7 @@ const QString ProcessParameterModel::DRYING_CODE = "L1903";
 const QString ProcessParameterModel::SAMPLING_CODE = "L1904";
 const QString ProcessParameterModel::DRAINING_CODE = "L1905";
 const QString ProcessParameterModel::PAUSING_CODE = "L1906";
+const QString ProcessParameterModel::TAKE_PHOTO_CODE = "L1907";
 
 ProcessParameterModel::ProcessParameterModel()
     :_id(0)
@@ -250,6 +251,9 @@ bool ProcessParameterModel::parsingParas()
     }else if(_actCode == PAUSING_CODE)
     {
         _paramParseSuccess = strToPausing(_pausingStrt, _paras);
+    }else if(_actCode == TAKE_PHOTO_CODE)
+    {
+        _paramParseSuccess = true;
     }
     return _paramParseSuccess;
 }
@@ -422,6 +426,8 @@ QString ProcessParameterModel::toShowString()
     {
         show+="暂停流程, 上报信息:";
         show+=_pausingStrt._notifyMessage;
+    }else if(_actCode == TAKE_PHOTO_CODE)
+    {
     }
     return show;
 }

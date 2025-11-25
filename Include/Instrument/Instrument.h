@@ -98,7 +98,7 @@ public:
     bool weeklyMaintenance(QList<uint8_t> pumpList);
     bool incubationByHand(uint16_t time);
     bool scanSampleCode(QString startPosition,QString endPosition);
-    bool testStart(QList<QString> sampleTestIds, QList<int> groupIds,const int companyId);
+    bool testStart(QVector<QString> sampleTestIds, QVector<int> groupIds);
     bool testPause();
     bool testStop();
     bool testContinue();
