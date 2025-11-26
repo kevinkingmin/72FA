@@ -59,22 +59,21 @@ TestPaper::~TestPaper()
 void TestPaper::initUI()
 {
     ui->lineEdit_Item_Number->setValidator(new QRegExpValidator(QRegExp("^[0-9]|[1-2][0-9]|30$"), this));
+    ui->lineEdit_TestItem_Number->setValidator(new QRegExpValidator(QRegExp("^[0-9]|[1-2][0-9]|30$"), this));
     auto doublReg{new QRegExpValidator(QRegExp("^(?:[1-9]\\d{0,3}|0)(?:\\.\\d{1,3})?$"), this)};
     ui->lineEdit_TestPaparLenght->setValidator(doublReg);
     ui->lineEdit_paper_head_length->setValidator(doublReg);
     ui->txtItemSpace->setValidator(doublReg);
     ui->txtItemWidth->setValidator(doublReg);
-    ui->lineEdit_FuncPosition->setValidator(doublReg);
-    auto intReg{new QIntValidator(0,9999,this)};
     ui->txtFunThreshold->setValidator(doublReg);
     ui->txtFunWidth->setValidator(doublReg);
     ui->txtBlackSpotThreshold->setValidator(doublReg);
-    ui->lineEdit_CutOff_Position->setValidator(doublReg);
     ui->txtCutOffThreshold->setValidator(doublReg);
     ui->txtCutOffValue->setValidator(doublReg);
     ui->txtThreshold->setValidator(doublReg);
     ui->txtBackGround->setValidator(doublReg);
     ui->txtItemSearchWidth->setValidator(doublReg);
+    ui->txtItemLineWidth->setValidator(doublReg);
     ui->txtAnalyzeHeight->setValidator(doublReg);
     ui->txtAnalyzeWidth->setValidator(doublReg);
     ui->txtPixDistance->setValidator(doublReg);
@@ -93,13 +92,13 @@ void TestPaper::initUI()
     ui->lblItemWidth->setText(GlobalData::LoadLanguageInfo("K1707"));
     ui->lblFunDirection->setText(GlobalData::LoadLanguageInfo("K1123"));
     ui->cmbFunDirection->setView(new QListView(this));
-    ui->lblFunPostion->setText(GlobalData::LoadLanguageInfo("K1119"));
+//    ui->lblFunPostion->setText(GlobalData::LoadLanguageInfo("K1119"));
     ui->lblFunThreshold->setText(GlobalData::LoadLanguageInfo("K1118"));
     ui->lblFunWidth->setText(GlobalData::LoadLanguageInfo("K1709"));
     ui->chkBlackSpot->setText(GlobalData::LoadLanguageInfo("K1710"));
     ui->lblBlackSpotThreshold->setText(GlobalData::LoadLanguageInfo("K1741"));
-    ui->checkBox_CutOff->setText(GlobalData::LoadLanguageInfo("K1117"));
-    ui->lblCutOffPos->setText(GlobalData::LoadLanguageInfo("K1048"));
+//    ui->checkBox_CutOff->setText(GlobalData::LoadLanguageInfo("K1117"));
+//    ui->lblCutOffPos->setText(GlobalData::LoadLanguageInfo("K1048"));
     ui->lblCutOffThreshold->setText(GlobalData::LoadLanguageInfo("K1116"));
     ui->lblCutOffValue->setText(GlobalData::LoadLanguageInfo("K1800"));
     ui->lblRotate->setText(GlobalData::LoadLanguageInfo("K1802"));
@@ -166,7 +165,6 @@ void TestPaper::initUI()
     ui->tbSegment->setShowGrid(true);
     ui->tbSegment->setColumnWidth(0,65);
     ui->tbSegment->setColumnWidth(2,165);
-    //ui->lineEdit_Item_Number->setPlaceholderText("       测试");
     QVector<JudgeRules> rules = JudgeDao::instance()->getAllRows();
     for(JudgeRules r:rules)
     {
@@ -192,7 +190,6 @@ void TestPaper::initUI()
 
 void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool isModify)
 {
-    qDebug()<<"set ui 01";
     if (paperId.isEmpty()) return;
     m_bModify=isModify;
     if(!isModify)
@@ -200,7 +197,6 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         _testPaperModel = TestPaperModel();
         return;
     }
-    qDebug()<<"set ui 01";
     _paperId = paperId;
     bool bResult;
     m_Company_ID = companyId;
@@ -210,7 +206,6 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
         return;
     }
-    qDebug()<<"set ui 02";
     _itemModelVect = ItemDao::instance()->selectItems(paperId.toInt());
     bool isSegmentPaper = _testPaperModel.getPaperType() == TestPaperModel::PAPER_TYPE_SEGMENT;
     ui->cmbCompany->setCurrentIndex(ui->cmbCompany->findData(m_Company_ID));//公司
@@ -218,22 +213,17 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
     ui->cmbPaperType->setCurrentIndex(ui->cmbPaperType->findData(segmentTag));
     ui->cmbProcess->setCurrentIndex(ui->cmbProcess->findData(QString::number(_testPaperModel.getProcessId())));
     ui->lineEdit_Item_Number->setText(QString::number(_testPaperModel.getTotalNumber()));
+    ui->lineEdit_TestItem_Number->setText(QString::number(_testPaperModel.getTestItemNumber()));
     ui->lineEdit_TestPaparName->setText(_testPaperModel.getPaperName());
     ui->lineEdit_TestPaparLenght->setText(QString::number(_testPaperModel.getPaperLenght(), 'f', 2));
     ui->lineEdit_paper_head_length->setText(QString::number(_testPaperModel.getIgnoreHeadLenght(), 'f', 2));
-    // TODO::宽度
-    ui->txtItemSpace->setText("");//调用接口
-    ui->txtItemWidth->setText(QString::number(_testPaperModel.getTestBlockWidth(), 'f', 2)); // 项目块宽度
     auto funDirection = _testPaperModel.getFuncFindDir()==0?"0":"1";//调用接口
     ui->cmbFunDirection->setCurrentIndex(ui->cmbFunDirection->findData(funDirection));
-    ui->lineEdit_FuncPosition->setText(QString::number(_testPaperModel.getFuncPosition(), 'f', 2));
     ui->txtFunThreshold->setText(QString::number(_testPaperModel.getFuncGrayThreshold(), 'f', 2));
     ui->txtFunWidth->setText(QString::number(_testPaperModel.getFuncFindWidth(), 'f', 2));//调用接口,功能线宽度
     bool isCheckBlackSpot=_testPaperModel.getIsBlackPointDetect();//调用接口,是否开启黑点检测
     ui->chkBlackSpot->setChecked(isCheckBlackSpot);
     ui->txtBlackSpotThreshold->setText(QString::number(_testPaperModel.getBlackPointDetectThreshold(), 'f', 2));//调用接口,黑点检测阙值
-    ui->checkBox_CutOff->setChecked(_testPaperModel.getIsCutOff());
-    ui->lineEdit_CutOff_Position->setText(QString::number(_testPaperModel.getCutOffPosition(), 'f', 2));
     ui->txtCutOffThreshold->setText(QString::number(_testPaperModel.getCutOffThreshold(), 'f', 2));//调用接口,CutOff线阈值
     ui->txtCutOffValue->setText(QString::number(_testPaperModel.getCutOffValue(), 'f', 2));
     auto angle=_testPaperModel.getPaperShowAngle()==0?"0":"180";//调用接口
@@ -241,6 +231,7 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
     ui->txtThreshold->setText(QString::number(_testPaperModel.getPaperBinarizationThreshold(), 'f', 2));
     ui->txtBackGround->setText(QString::number(_testPaperModel.getPaperBackgroundValue(), 'f', 2));
     ui->txtItemSearchWidth->setText(QString::number(_testPaperModel.getItemFindWidth(), 'f', 2));//调用接口,指标查找宽度
+    ui->txtItemLineWidth->setText(QString::number(_testPaperModel.getItemLineWidth(), 'f', 2));//调用接口,指标查找宽度
     ui->txtAnalyzeHeight->setText(QString::number(_testPaperModel.getAnalysisPercentOfHeight()));
     ui->txtAnalyzeWidth->setText(QString::number(_testPaperModel.getAnalysisPercentOfWidth()));//调用接口,分析宽度区间比
     ui->txtPixDistance->setText(QString::number(_testPaperModel.getPaperMmToPixel(), 'f', 2));//调用接口,像素距离百分比
@@ -249,10 +240,12 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
 
     uiCtlSet(ui->lineEdit_Item_Number->text().toInt());
     QVector<ItemModel>itemVect = ItemDao::instance()->selectItems(paperId.toInt());
-    qDebug()<<"set ui 03"<<paperId<<itemVect.count();
     if(!isSegmentPaper)
     {
-        qDebug()<<"set ui 04";
+        ui->txtItemSpace->setEnabled(false); // 项目块间距
+        ui->txtItemWidth->setEnabled(false); // 项目块宽度
+        ui->txtItemSpace->setText("0"); // 项目块间距
+        ui->txtItemWidth->setText("0"); // 项目块宽度
         for (int i = 0; i<itemVect.count();i++)
         {
             if(i>=m_gridItemCtl.itemCtlMap.count())
@@ -271,48 +264,51 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         }
         return;
     }
+    ui->txtItemSpace->setEnabled(true); // 项目快间距
+    ui->txtItemWidth->setEnabled(true); // 项目块宽度
+    ui->txtItemSpace->setText(QString::number(_testPaperModel.getTestBlockSpace(), 'f', 2));//调用接口
+    ui->txtItemWidth->setText(QString::number(_testPaperModel.getTestBlockWidth(), 'f', 2)); // 项目块宽度
 
-    qDebug()<<"set ui 05";
     // 根据膜条段分组
     QMap<int, QVector<ItemModel>> groupedBySem;
     for (const ItemModel& m : itemVect)
     {
         groupedBySem[m.getSegmentIndex()].append(m);
-        qDebug()<<"itemCount m.getSegmentIndex()"<<m.getItemName();
     }
+    int maxSemIdx = groupedBySem.lastKey();
     QVector<BlockData>blockVect;//调用接口,分段膜条所有的块数据
-    int idx = 0;
-    for (auto it = groupedBySem.begin(); it != groupedBySem.end(); ++it)
+    // 段id起始位置为1
+    for(int i = 1; i <= maxSemIdx; i++)
     {
         BlockData block;
-        block.serialNo = idx++;
-        block.itemCount = it.value().count();
+        block.serialNo = i;
+        block.itemCount = groupedBySem.keys().contains(i) ? groupedBySem[i].count() : 0;
         blockVect.push_back(block);
-        qDebug()<<"itemCount count"<<block.itemCount;
+        qDebug()<<"block.serialNo"<<i<<groupedBySem[i].count();
     }
     if(blockVect.count()>30)
     {
         eLog("vect count over limit");
         return;
     }
-    for(int i=1;i<=blockVect.count();i++)
+    for(BlockData& black : blockVect)
     {
-        auto it = m_gridBlockCtl.blockCtlMap.find(i);
+        auto it = m_gridBlockCtl.blockCtlMap.find(black.serialNo);
         if(it==m_gridBlockCtl.blockCtlMap.end())
         {
-            eLog("sgItemCtlMap data error,key:{}",i);
+            eLog("sgItemCtlMap data error,key:{}",black.serialNo);
             continue;
         }
-        auto &b=blockVect.at(i-1);
+        //auto &b=blockVect.at(i-1);
         auto ctl=it.value();
-        ctl.label->setText(QString::number(i));
-        if(i!=b.serialNo) eLog("error,i:{},serialNo:{}",i,b.serialNo);
+        ctl.label->setText(QString::number(black.serialNo));
+        //if(i!=b.serialNo) eLog("error,i:{},serialNo:{}",i,b.serialNo);
         //调用接口,块对应的项目数据
         QVector<BlockItemData> itemDataVect;
         QVector<ItemModel> itemVectBySem;
-        if(groupedBySem.contains(i))
+        if(groupedBySem.contains(black.serialNo))
         {
-            itemVectBySem = groupedBySem[i];
+            itemVectBySem = groupedBySem[black.serialNo];
         }
         for(ItemModel& model : itemVectBySem)
         {
@@ -327,12 +323,11 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
             itemDataVect.push_back(block);
         }
         auto count=itemDataVect.count();
-        qDebug()<<"count count"<<count;
         ctl.cmbItemCount->setCurrentText(QString::number(count));
-        auto itemCtlIt=m_blockItemCtlMap.find(i);
+        auto itemCtlIt=m_blockItemCtlMap.find(black.serialNo);
         if(itemCtlIt==m_blockItemCtlMap.end())
         {
-            eLog("data error,key:{}",i);
+            eLog("data error,key:{}",black.serialNo);
             continue;
         }
         int j=0;
@@ -348,7 +343,7 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
             detailCtl.cmbItemType->setCurrentIndex(detailCtl.cmbItemType->findData(item.itemType));
             detailCtl.itemNameEdit->setText(item.strItemName);
             detailCtl.checkBox->setChecked(item.ignore);
-            detailCtl.blockNo=i;
+            detailCtl.blockNo=black.serialNo;
             detailCtl.cmbRuleBox->setCurrentIndex(detailCtl.cmbRuleBox->findData(item.judgerule));
             detailCtl.cmbCurveBox->setCurrentIndex(detailCtl.cmbCurveBox->findData(item.curve));
             j++;
@@ -458,6 +453,7 @@ void TestPaper::slotCreatDetailRows(const QString &data)
     QVector<BlockItemCtl>detailVect{};
     QVector<BlockItemCtl> oldCtlVect{};
 	auto seqNo = sender()->objectName().toInt();
+    qDebug()<<"sender"<<seqNo;
     auto it=m_blockItemCtlMap.find(seqNo);
     if (it != m_blockItemCtlMap.end())
     {
@@ -533,8 +529,8 @@ void TestPaper::slotCreatDetailRows(const QString &data)
 // 保存
 void TestPaper::on_pushButton_Save_clicked()
 {
-    if(Save_TestPaper_Parameters() == false) return;
     if (Save_TestPaper_Items() == false) return;
+    if(Save_TestPaper_Parameters() == false) return;
 
     m_strMachineUID = Global::g_machine_no;
     bool bResult;
@@ -573,32 +569,62 @@ bool TestPaper::Save_TestPaper_Parameters()
     _testPaperModel.setCompanyId(ui->cmbCompany->currentData().toInt());//厂家
     _testPaperModel.setPaperType(ui->cmbPaperType->currentData().toInt());//膜条类型
     _testPaperModel.setProcessId(ui->cmbProcess->currentData().toInt());//实验流程
-    _testPaperModel.setTestItemNumber(ui->lineEdit_Item_Number->text().simplified().toInt());//项目数量
+    // 对于分段膜条是总项目段数, 对于连续模块是总条带数
+    _testPaperModel.setTotalNumber(ui->lineEdit_Item_Number->text().simplified().toInt());
     _testPaperModel.setPaperName(ui->lineEdit_TestPaparName->text().simplified());//膜条名称
     _testPaperModel.setPaperLenght(ui->lineEdit_TestPaparLenght->text().simplified().toDouble());//膜条长度
     _testPaperModel.setIgnoreHeadLenght(ui->lineEdit_paper_head_length->text().simplified().toDouble());//膜条头长度
-//   _testPaperModel. ui->txtItemSpace->text().simplified();//项目块间距
    _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
    _testPaperModel.setPaperShowAngle(ui->cmbFunDirection->currentData().toInt());//功能线查找方向
-   _testPaperModel.setFuncPosition(ui->lineEdit_FuncPosition->text().simplified().toDouble());//功能条位置
    _testPaperModel.setFuncGrayThreshold(ui->txtFunThreshold->text().simplified().toDouble());//功能线阈值
    _testPaperModel.setFuncFindWidth(ui->txtFunWidth->text().simplified().toDouble());//功能线查找宽度
    _testPaperModel.setIsBlackPointDetect(ui->chkBlackSpot->isChecked());//是否开启黑点检测
    _testPaperModel.setBlackPointDetectThreshold(ui->txtBlackSpotThreshold->text().simplified().toDouble());//黑点检测阙值
-   _testPaperModel.setIsCutOff(ui->checkBox_CutOff->isChecked());// 是否有CufOff线
-   _testPaperModel.setCutOffPosition(ui->lineEdit_CutOff_Position->text().simplified().toDouble());//CutOff位置
    _testPaperModel.setCutOffThreshold(ui->txtCutOffThreshold->text().simplified().toDouble());//CutOff线阈值
    _testPaperModel.setCutOffValue(ui->txtCutOffValue->text().simplified().toDouble());//CutOff灰度值;
    _testPaperModel.setPaperShowAngle(ui->cmbRotate->currentData().toInt());//膜条展示旋转
    _testPaperModel.setPaperBinarizationThreshold(static_cast<int>(ui->txtThreshold->text().simplified().toDouble()));//二值化阈值
-   qDebug()<<"txtBackGround"<<ui->txtBackGround->text().simplified().toDouble();
    _testPaperModel.setPaperBackgroundValue(ui->txtBackGround->text().simplified().toDouble());//背景值
    _testPaperModel.setItemFindWidth(ui->txtItemSearchWidth->text().simplified().toDouble());//指标查找宽度
+   _testPaperModel.setItemLineWidth(ui->txtItemLineWidth->text().simplified().toDouble());//指标线宽度
    _testPaperModel.setAnalysisPercentOfHeight(ui->txtAnalyzeHeight->text().simplified().toInt());//分析高度区间比
    _testPaperModel.setAnalysisPercentOfWidth(ui->txtAnalyzeWidth->text().simplified().toInt());//分析宽度区间比
    _testPaperModel.setPaperMmToPixel(ui->txtPixDistance->text().simplified().toDouble());//像素距离百分比
    _testPaperModel.setArticleNo(ui->txtArticleNo->text().simplified());//货号
    _testPaperModel.setPaperColorOnUi(ui->txtColorValue->text().simplified());//颜色值:
+
+   int inputItemCnt =ui->lineEdit_TestItem_Number->text().simplified().toInt();
+
+   int itemCnt = 0;
+   // 对于分段膜条
+   if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
+   {
+       _testPaperModel.setTestBlockSpace(ui->txtItemSpace->text().simplified().toDouble());//项目块间距
+       _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
+       for (auto it = m_blockAndItemDataMap.begin(); it != m_blockAndItemDataMap.end(); ++it)
+       {
+            for(BlockItemData& blockItem: it->itemDatas)
+            {
+                if(blockItem.itemType == 2) itemCnt++;
+            }
+       }
+   } else // 对于连续膜条
+   {
+       _testPaperModel.setTestBlockSpace(0);//项目块间距
+       _testPaperModel.setTestBlockWidth(0);//项目块宽度
+       for (auto it = m_itemDataMap.begin(); it != m_itemDataMap.end(); ++it)
+       {
+           if(it->itemType == 2) itemCnt++;
+       }
+   }
+   qDebug()<<"itemCnt"<<itemCnt<<inputItemCnt;
+   if(inputItemCnt != itemCnt)
+   {
+       MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1793"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
+       return false;
+   }
+   _testPaperModel.setTestItemNumber(itemCnt); // 设置测试项目数
+   qDebug()<<"itemCnt"<<itemCnt;
 
     bool result = false;
     if(m_bModify)
@@ -628,15 +654,16 @@ bool TestPaper::Save_TestPaper_Items()
     {
         getUIBlockAndItemData();
         auto count=ui->lineEdit_Item_Number->text().simplified().toInt();
-        if(m_blockAndItemDataMap.count()!=count)
-        {
-            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
-            return false;
-        }
+        qDebug()<<"Save_TestPaper_Items"<<m_blockAndItemDataMap.count()<<count;
+//        if(m_blockAndItemDataMap.count()!=count)
+//        {
+//            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+//            return false;
+//        }
         // 先删除在插入
         if(!ItemDao::instance()->deleteItems(_paperId.toInt()))
         {
-            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1844"),GlobalData::LoadLanguageInfo("K1181"));
             return false;
         }
         // 更新数据库
@@ -647,6 +674,7 @@ bool TestPaper::Save_TestPaper_Items()
             {
                 ItemModel item;
                 item.setSegmentIndex(it.value().blockData.serialNo);
+                item.setItemType(sub.itemType);
                 item.setIsNull(sub.ignore?1:0);
                 item.setCurveId(sub.curve);
                 item.setRulesId(sub.judgerule);
@@ -656,7 +684,7 @@ bool TestPaper::Save_TestPaper_Items()
                 item.setTestPaperID(_paperId.toInt());
                 if(!ItemDao::instance()->insert(item))
                 {
-                    QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+                    QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1844"),GlobalData::LoadLanguageInfo("K1181"));
                     return false;
                 }
             }
@@ -674,7 +702,7 @@ bool TestPaper::Save_TestPaper_Items()
 
         if(!ItemDao::instance()->deleteItems(_paperId.toInt()))
         {
-            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1844"),GlobalData::LoadLanguageInfo("K1181"));
             return false;
         }
         for (auto it = m_itemDataMap.begin(); it != m_itemDataMap.end(); ++it)
@@ -691,7 +719,7 @@ bool TestPaper::Save_TestPaper_Items()
             item.setTestPaperID(_paperId.toInt());
             if(!ItemDao::instance()->insert(item))
             {
-                QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
+                QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1844"),GlobalData::LoadLanguageInfo("K1181"));
                 return false;
             }
         }
@@ -710,14 +738,12 @@ void TestPaper::getAllItemControl()
     {
         if(glay==nullptr) return;
         headVect.clear();
-        qDebug()<<"row col count"<<glay->rowCount()<<glay->columnCount();
         for (int row = 0; row < glay->rowCount(); ++row)
         {
             Item_Control ctr;    
 			int k = 0;
             for (int col = 0; col < glay->columnCount(); ++col)
             {
-                qDebug()<<"row col"<<row<<col;
                 QLayoutItem *item =  glay->itemAtPosition(row, col);
                 if (item == nullptr) continue;
                 QWidget *widget = item->widget();
@@ -787,12 +813,12 @@ void TestPaper::getAllItemControl()
     };
 
     fun(ui->gridLayout_3,m_gridItemCtl.gridHead1);
-    qDebug()<<"fun 1";
     fun(ui->gridLayout_2,m_gridItemCtl.gridHead2);
-    qDebug()<<"fun 2";
     QVector<ComboxData> boxDatas{};
-    for(int i=1;i<=10;i++)
+    for(int i=0;i<=10;i++)
+    {
         boxDatas.push_back(ComboxData(QString::number(i),QString::number(i)));
+    }
     auto sgfun=[this,&boxDatas](const QGridLayout * glay,QVector<QLabel *>&headVect)
     {
         if(glay==nullptr)
@@ -839,9 +865,7 @@ void TestPaper::getAllItemControl()
         }
     };
     sgfun(ui->gridLayout,m_gridBlockCtl.gridHead1);
-    qDebug()<<"sgfun 1";
     sgfun(ui->gridLayout_6,m_gridBlockCtl.gridHead2);
-    qDebug()<<"sgfun 2";
 }
 
 void TestPaper::getUIItemData()
@@ -881,7 +905,9 @@ void TestPaper::getUIBlockAndItemData()
     auto &map=m_gridBlockCtl.blockCtlMap;
     for(auto &blockCtl:map)
     {
-        if(blockCtl.cmbItemCount->currentText().toInt()<=0) continue;
+        if(blockCtl.cmbItemCount->currentIndex()<0) continue;
+        qDebug()<<"cmbItemCount"<<blockCtl.cmbItemCount->currentIndex();
+        //if(blockCtl.cmbItemCount->currentText().toInt()<0) continue;
         BlockAndItemData blockItemData;
         BlockData bData;
         QVector<BlockItemData> bItemDatas{};
@@ -962,6 +988,8 @@ void TestPaper::uiCtlSet(const int itemCount)
     // 0为连续膜条 1为分段膜条
     if(data == TestPaperModel::PAPER_TYPE_SEGMENT)
     {
+        ui->txtItemWidth->setEnabled(true);
+        ui->txtItemSpace->setEnabled(true);
         ui->gridLayout_3->setContentsMargins(0,0,0,0);
         ui->lblItemNum->setText(GlobalData::LoadLanguageInfo("K1127"));
         m_gridItemCtl.hiddeAll();
@@ -972,6 +1000,8 @@ void TestPaper::uiCtlSet(const int itemCount)
     }
     else
     {
+        ui->txtItemWidth->setEnabled(false);
+        ui->txtItemSpace->setEnabled(false);
         ui->gridLayout_3->setContentsMargins(40,0,0,0);
         ui->lblItemNum->setText(GlobalData::LoadLanguageInfo("K1129"));
         m_gridBlockCtl.hiddeAll();

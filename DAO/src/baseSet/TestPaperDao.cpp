@@ -126,9 +126,9 @@ bool TestPaperDao::insert(TestPaperModel& model)
                   "TestPaparLenght,FuncPosition,CutoffPosition,FuncGrayThreshold,IsCutOff,"
                   "CutoffValue,CutoffGrayThreshold,ArticleNo,PaperColorOnUi,IsPaperHide,"
                   "FuncFindWidth,ItemLineWidth,PaperMmToPixel,PaperHeight,AnalysisPercentOfHeight,"
-                  "AnalysisPercentOfWidth,IgnoreHeadLenght,TestBlockWidth,FuncFindDir,PaperShowAngle,"
-                  "PaperSortIdxOnUi,PaperBinarizationThreshold,PaperBackgroundValue,BlackPointDetectThreshold,IsBlackPointDetect,"
-                  "ItemFindWidth, ProcessId) "
+                  "AnalysisPercentOfWidth,IgnoreHeadLenght,TestBlockWidth,TestBlockSpace, FuncFindDir,"
+                  "PaperShowAngle,PaperSortIdxOnUi,PaperBinarizationThreshold,PaperBackgroundValue,BlackPointDetectThreshold,"
+                  "IsBlackPointDetect,ItemFindWidth, ProcessId) "
                   "VALUES ("
                   "?, ?, ?, ?, ?, "
                   "?, ?, ?, ?, ?,"
@@ -136,7 +136,7 @@ bool TestPaperDao::insert(TestPaperModel& model)
                   "?, ?, ?, ?, ?,"
                   "?, ?, ?, ?, ?,"
                   "?, ?, ?, ?, ?,"
-                  "?, ?)");
+                  "?, ?, ?)");
     query.addBindValue(model.getPaperName());
     query.addBindValue(model.getPaperType());
     query.addBindValue(model.getCompanyId());
@@ -162,6 +162,7 @@ bool TestPaperDao::insert(TestPaperModel& model)
     query.addBindValue(model.getAnalysisPercentOfWidth());
     query.addBindValue(model.getIgnoreHeadLenght());
     query.addBindValue(model.getTestBlockWidth());
+    query.addBindValue(model.getTestBlockSpace());
     query.addBindValue(model.getFuncFindDir());
     query.addBindValue(model.getPaperShowAngle());
     query.addBindValue(model.getPaperSortIdxOnUi());
@@ -200,9 +201,9 @@ bool TestPaperDao::update(TestPaperModel& model)
                   "TestPaparLenght = ?,FuncPosition = ?,CutoffPosition = ?,FuncGrayThreshold = ?,IsCutOff = ?,"
                   "CutoffValue = ?,CutoffGrayThreshold = ?,ArticleNo = ?,PaperColorOnUi = ?,IsPaperHide = ?,"
                   "FuncFindWidth = ?,ItemLineWidth = ?,PaperMmToPixel = ?,PaperHeight = ?,AnalysisPercentOfHeight = ?,"
-                  "AnalysisPercentOfWidth = ?,IgnoreHeadLenght = ?,TestBlockWidth = ?,FuncFindDir = ?,PaperShowAngle = ?,"
-                  "PaperSortIdxOnUi = ?,PaperBinarizationThreshold = ?,PaperBackgroundValue = ?,BlackPointDetectThreshold = ?,IsBlackPointDetect = ?,"
-                  "ItemFindWidth = ?, ProcessId = ? WHERE ID = ?");
+                  "AnalysisPercentOfWidth = ?,IgnoreHeadLenght = ?,TestBlockWidth = ?,TestBlockSpace = ?,FuncFindDir = ?,"
+                  "PaperShowAngle = ?,PaperSortIdxOnUi = ?,PaperBinarizationThreshold = ?,PaperBackgroundValue = ?,BlackPointDetectThreshold = ?,"
+                  "IsBlackPointDetect = ?,ItemFindWidth = ?, ProcessId = ? WHERE ID = ?");
     query.addBindValue(model.getPaperName());
     query.addBindValue(model.getPaperType());
     query.addBindValue(model.getCompanyId());
@@ -228,6 +229,7 @@ bool TestPaperDao::update(TestPaperModel& model)
     query.addBindValue(model.getAnalysisPercentOfWidth());
     query.addBindValue(model.getIgnoreHeadLenght());
     query.addBindValue(model.getTestBlockWidth());
+    query.addBindValue(model.getTestBlockSpace());
     query.addBindValue(model.getFuncFindDir());
     query.addBindValue(model.getPaperShowAngle());
     query.addBindValue(model.getPaperSortIdxOnUi());
@@ -308,6 +310,7 @@ QVector<TestPaperModel> TestPaperDao::getModelFormQuery(QSqlQuery& query)
         model.setAnalysisPercentOfWidth(query.value("AnalysisPercentOfWidth").toInt());
         model.setIgnoreHeadLenght(query.value("IgnoreHeadLenght").toDouble());
         model.setTestBlockWidth(query.value("TestBlockWidth").toDouble());
+        model.setTestBlockSpace(query.value("TestBlockSpace").toDouble());
         model.setFuncFindDir(query.value("FuncFindDir").toInt());
         model.setPaperShowAngle(query.value("PaperShowAngle").toInt());
         model.setPaperSortIdxOnUi(query.value("PaperSortIdxOnUi").toInt());

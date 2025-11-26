@@ -129,7 +129,7 @@ K1121|颜色值|Color value
 K1122|毫米对应像素|Corresponding millimeter pixel
 K1125|次数|Time(s)
 K1128|膜条总长度|Total strip length
-K1129|项目数量|Number of items：
+K1129|条带数量|Number of lines：
 K1130|像素|Pixel
 K1131|项目名称|Item name
 K1132|空白|Blank
@@ -734,7 +734,7 @@ K1776|样本量|sample dosage
 K1123|功能线查找方向|
 K1124|二值化阈值|
 K1126|膜条头长度|
-K1127|项目块数量|
+K1127|膜条块数量|
 K1707|项目块宽度|
 K1708|项目块间距|
 K1709|功能线查找宽度|
@@ -806,6 +806,7 @@ K1840|通用试剂|General reagent
 K1841|专用试剂|Specific reagent
 K1842|通用试剂泵号不能重复!|
 K1843|专用试剂泵号不能与通用试剂重复!|
+K1844|保存数据失败!|Failed to save data!
 
 K9990|检测到多个条带|Multiple strips detected
 K9991|（检测到异常条带）|（Abnormal stripe detected）

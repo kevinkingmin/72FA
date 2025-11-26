@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>0</y>
-     <width>1711</width>
+     <width>1399</width>
      <height>851</height>
     </rect>
    </property>
@@ -170,241 +170,7 @@
            <property name="verticalSpacing">
             <number>5</number>
            </property>
-           <item row="1" column="10">
-            <widget class="QLabel" name="lblItemSearchWidth">
-             <property name="text">
-              <string>指标查找宽度:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="8">
-            <widget class="QLineEdit" name="txtCutOffValue"/>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLineEdit" name="lineEdit_Item_Number"/>
-           </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="lblItemSpace">
-             <property name="text">
-              <string>项目块间距:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="8">
-            <widget class="QComboBox" name="cmbRotate"/>
-           </item>
-           <item row="5" column="2">
-            <widget class="QLineEdit" name="txtItemWidth">
-             <property name="inputMask">
-              <string/>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="10">
-            <widget class="QLabel" name="lblPixDistance">
-             <property name="text">
-              <string>像素距离百分比:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="lblHeadLength">
-             <property name="text">
-              <string>膜条头长度:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="3">
-            <widget class="QLabel" name="label_70">
-             <property name="text">
-              <string>mm</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="11">
-            <widget class="QLineEdit" name="txtBackGround"/>
-           </item>
-           <item row="2" column="11">
-            <widget class="QLineEdit" name="txtAnalyzeHeight"/>
-           </item>
-           <item row="1" column="7">
-            <widget class="QLabel" name="lblCutOffPos">
-             <property name="text">
-              <string>CutOff位置:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLineEdit" name="lineEdit_TestPaparLenght"/>
-           </item>
-           <item row="1" column="14">
-            <widget class="QLineEdit" name="txtColorValue"/>
-           </item>
-           <item row="1" column="12">
-            <widget class="QLabel" name="label_59">
-             <property name="minimumSize">
-              <size>
-               <width>85</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>mm</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="5">
-            <widget class="QLineEdit" name="txtFunWidth"/>
-           </item>
-           <item row="1" column="4">
-            <widget class="QLabel" name="lblFunPostion">
-             <property name="text">
-              <string>功能条位置:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="7">
-            <widget class="QLabel" name="lblCutOffValue">
-             <property name="layoutDirection">
-              <enum>Qt::RightToLeft</enum>
-             </property>
-             <property name="text">
-              <string>CutOff灰度值:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="5">
-            <widget class="QLineEdit" name="txtBlackSpotThreshold"/>
-           </item>
-           <item row="2" column="5">
-            <widget class="QLineEdit" name="txtFunThreshold"/>
-           </item>
-           <item row="2" column="7">
-            <widget class="QLabel" name="lblCutOffThreshold">
-             <property name="layoutDirection">
-              <enum>Qt::RightToLeft</enum>
-             </property>
-             <property name="text">
-              <string>CutOff线阈值:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="QLineEdit" name="txtItemSpace">
-             <property name="inputMask">
-              <string/>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="10">
-            <widget class="QLabel" name="lblAnalyzeWidth">
-             <property name="text">
-              <string>分析宽度区间比:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="7">
-            <widget class="QLabel" name="lblRotate">
-             <property name="text">
-              <string>膜条展示旋转:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="3">
-            <widget class="QLabel" name="label_64">
-             <property name="minimumSize">
-              <size>
-               <width>85</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>mm</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="11">
-            <widget class="QLineEdit" name="txtPixDistance"/>
-           </item>
-           <item row="3" column="4">
-            <widget class="QLabel" name="lblFunWidth">
-             <property name="layoutDirection">
-              <enum>Qt::RightToLeft</enum>
-             </property>
-             <property name="text">
-              <string>功能线查找宽度:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QLabel" name="lblFunThreshold">
-             <property name="layoutDirection">
-              <enum>Qt::RightToLeft</enum>
-             </property>
-             <property name="text">
-              <string>功能线阈值:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="7" colspan="2">
-            <widget class="QCheckBox" name="checkBox_CutOff">
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
-             <property name="text">
-              <string> 是否有CufOff线</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
+           <item row="0" column="4">
             <widget class="QLabel" name="lblPaperLength">
              <property name="layoutDirection">
               <enum>Qt::RightToLeft</enum>
@@ -417,8 +183,57 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="5">
-            <widget class="QLineEdit" name="lineEdit_FuncPosition"/>
+           <item row="1" column="14">
+            <widget class="QLineEdit" name="txtColorValue"/>
+           </item>
+           <item row="4" column="9">
+            <widget class="QLabel" name="label_80">
+             <property name="text">
+              <string>%</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="lblCutOffThreshold">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>CutOff线阈值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="10">
+            <widget class="QLabel" name="lblRotate">
+             <property name="text">
+              <string>膜条展示旋转:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="7">
+            <widget class="QLabel" name="lblFunThreshold">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>功能线阈值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="8">
+            <widget class="QLineEdit" name="txtFunThreshold"/>
            </item>
            <item row="3" column="0">
             <spacer name="horizontalSpacer">
@@ -433,66 +248,13 @@
              </property>
             </spacer>
            </item>
-           <item row="0" column="16">
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="5" column="1">
-            <widget class="QLabel" name="lblItemWidth">
-             <property name="text">
-              <string>项目块宽度:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="3">
-            <widget class="QLabel" name="label_68">
-             <property name="text">
-              <string>mm</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="14">
-            <widget class="QLineEdit" name="txtArticleNo">
-             <property name="btnStyle" stdset="0">
-              <string>lineEditUserName</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="lblItemNum">
-             <property name="layoutDirection">
-              <enum>Qt::RightToLeft</enum>
-             </property>
-             <property name="text">
-              <string>项目数量:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="11">
-            <widget class="QLineEdit" name="txtItemSearchWidth"/>
+           <item row="3" column="5">
+            <widget class="QLineEdit" name="txtCutOffValue"/>
            </item>
            <item row="1" column="2">
-            <widget class="QLineEdit" name="lineEdit_TestPaparName"/>
+            <widget class="QLineEdit" name="lineEdit_Item_Number"/>
            </item>
-           <item row="0" column="4">
+           <item row="2" column="4">
             <widget class="QLabel" name="lblFunDirection">
              <property name="text">
               <string>功能线查找方向:</string>
@@ -502,33 +264,24 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="6">
-            <widget class="QLabel" name="label_43">
-             <property name="minimumSize">
-              <size>
-               <width>85</width>
-               <height>0</height>
-              </size>
-             </property>
+           <item row="1" column="8">
+            <widget class="QLineEdit" name="txtThreshold">
              <property name="text">
-              <string>mm  </string>
+              <string/>
              </property>
             </widget>
            </item>
-           <item row="1" column="9">
-            <widget class="QLabel" name="label_45">
-             <property name="minimumSize">
-              <size>
-               <width>85</width>
-               <height>0</height>
-              </size>
-             </property>
+           <item row="0" column="9">
+            <widget class="QLabel" name="label_79">
              <property name="text">
               <string>mm</string>
              </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
             </widget>
            </item>
-           <item row="3" column="2">
+           <item row="0" column="8">
             <widget class="QLineEdit" name="lineEdit_paper_head_length">
              <property name="inputMask">
               <string/>
@@ -538,97 +291,18 @@
              </property>
             </widget>
            </item>
-           <item row="5" column="8">
-            <widget class="QLineEdit" name="txtThreshold">
-             <property name="text">
-              <string/>
+           <item row="1" column="6">
+            <spacer name="horizontalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="lblPaperName">
-             <property name="text">
-              <string>膜条名称:</string>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>13</width>
+               <height>20</height>
+              </size>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="13">
-            <widget class="QLabel" name="lblArticleNo">
-             <property name="layoutDirection">
-              <enum>Qt::RightToLeft</enum>
-             </property>
-             <property name="text">
-              <string>货号:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="8">
-            <widget class="QLineEdit" name="txtCutOffThreshold"/>
-           </item>
-           <item row="3" column="11">
-            <widget class="QLineEdit" name="txtAnalyzeWidth"/>
-           </item>
-           <item row="1" column="13">
-            <widget class="QLabel" name="lblColorValue">
-             <property name="text">
-              <string>颜色值:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="5">
-            <widget class="QComboBox" name="cmbFunDirection"/>
-           </item>
-           <item row="5" column="7">
-            <widget class="QLabel" name="lblThreshold">
-             <property name="text">
-              <string>二值化阈值:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="10">
-            <widget class="QLabel" name="lblAnalyzeHeight">
-             <property name="text">
-              <string>分析高度区间比:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="10">
-            <widget class="QLabel" name="lblBackGround">
-             <property name="text">
-              <string>背景值:</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="8">
-            <widget class="QLineEdit" name="lineEdit_CutOff_Position"/>
-           </item>
-           <item row="4" column="4" colspan="2">
-            <widget class="QCheckBox" name="chkBlackSpot">
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
-             <property name="text">
-              <string>是否开启黑点检测</string>
-             </property>
-            </widget>
+            </spacer>
            </item>
            <item row="5" column="4">
             <widget class="QLabel" name="lblBlackSpotThreshold">
@@ -640,10 +314,161 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="15">
-            <widget class="QPushButton" name="pushButton_PickColor">
+           <item row="2" column="5">
+            <widget class="QComboBox" name="cmbFunDirection"/>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLineEdit" name="txtPixDistance"/>
+           </item>
+           <item row="1" column="13">
+            <widget class="QLabel" name="lblColorValue">
              <property name="text">
-              <string>选择</string>
+              <string>颜色值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <spacer name="horizontalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>13</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="13" colspan="3">
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <property name="spacing">
+              <number>10</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="label_77">
+               <property name="text">
+                <string>判读规则:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="rdRulesSingle">
+               <property name="text">
+                <string>单独设置</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">buttonGroup</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="rdRulesAllSet">
+               <property name="text">
+                <string>统一设置</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">buttonGroup</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLabel" name="lblTestItemNum">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>指标数量:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="QLineEdit" name="txtItemWidth">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QLineEdit" name="lineEdit_TestPaparLenght"/>
+           </item>
+           <item row="0" column="11">
+            <widget class="QLineEdit" name="txtArticleNo">
+             <property name="btnStyle" stdset="0">
+              <string>lineEditUserName</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="lblPaperName">
+             <property name="text">
+              <string>膜条名称:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="7">
+            <widget class="QLabel" name="lblThreshold">
+             <property name="text">
+              <string>二值化阈值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLineEdit" name="lineEdit_TestPaparName"/>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="lblItemWidth">
+             <property name="text">
+              <string>项目块最小宽度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="7">
+            <widget class="QLabel" name="lblItemSearchWidth">
+             <property name="text">
+              <string>指标查找宽度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
              </property>
             </widget>
            </item>
@@ -656,6 +481,78 @@
               <string>normalBtnRed</string>
              </property>
             </widget>
+           </item>
+           <item row="4" column="8">
+            <widget class="QLineEdit" name="txtAnalyzeWidth"/>
+           </item>
+           <item row="4" column="3">
+            <widget class="QLabel" name="label_68">
+             <property name="text">
+              <string>mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="10">
+            <widget class="QLabel" name="lblFunWidth">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>功能线查找宽度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="lblItemSpace">
+             <property name="text">
+              <string>项目块最小间距:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="7">
+            <widget class="QLabel" name="lblHeadLength">
+             <property name="text">
+              <string>膜条头长度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLabel" name="lblCutOffValue">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>CutOff灰度值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="9">
+            <spacer name="horizontalSpacer_10">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>13</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item row="3" column="13" colspan="3">
             <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -707,55 +604,232 @@
              </item>
             </layout>
            </item>
-           <item row="2" column="13" colspan="3">
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
-             <property name="spacing">
-              <number>10</number>
+           <item row="2" column="1">
+            <widget class="QLabel" name="lblPixDistance">
+             <property name="text">
+              <string>像素距离百分比:</string>
              </property>
-             <item>
-              <widget class="QLabel" name="label_77">
-               <property name="text">
-                <string>判读规则:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="rdRulesSingle">
-               <property name="text">
-                <string>单独设置</string>
-               </property>
-               <attribute name="buttonGroup">
-                <string notr="true">buttonGroup</string>
-               </attribute>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="rdRulesAllSet">
-               <property name="text">
-                <string>统一设置</string>
-               </property>
-               <attribute name="buttonGroup">
-                <string notr="true">buttonGroup</string>
-               </attribute>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_7">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="lblItemNum">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>项目数量:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="10">
+            <widget class="QLabel" name="lblAnalyzeHeight">
+             <property name="text">
+              <string>分析高度区间比:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="10">
+            <widget class="QLabel" name="lblItemLineWidth">
+             <property name="text">
+              <string>指标线宽度:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="12">
+            <widget class="QLabel" name="label_81">
+             <property name="text">
+              <string>%</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="15">
+            <widget class="QPushButton" name="pushButton_PickColor">
+             <property name="text">
+              <string>选择</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="3">
+            <widget class="QLabel" name="label_70">
+             <property name="text">
+              <string>mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="4" colspan="2">
+            <widget class="QCheckBox" name="chkBlackSpot">
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="text">
+              <string>是否开启黑点检测</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="11">
+            <widget class="QLineEdit" name="txtItemLineWidth"/>
+           </item>
+           <item row="0" column="12">
+            <spacer name="horizontalSpacer_11">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>13</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLineEdit" name="txtCutOffThreshold"/>
+           </item>
+           <item row="0" column="14">
+            <widget class="QLineEdit" name="txtBackGround"/>
+           </item>
+           <item row="1" column="11">
+            <widget class="QComboBox" name="cmbRotate"/>
+           </item>
+           <item row="4" column="7">
+            <widget class="QLabel" name="lblAnalyzeWidth">
+             <property name="text">
+              <string>分析宽度区间比:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="16">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="8">
+            <widget class="QLineEdit" name="txtItemSearchWidth"/>
+           </item>
+           <item row="0" column="6">
+            <widget class="QLabel" name="label_75">
+             <property name="text">
+              <string>mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="10">
+            <widget class="QLabel" name="lblArticleNo">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>货号:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="11">
+            <widget class="QLineEdit" name="txtAnalyzeHeight"/>
+           </item>
+           <item row="2" column="11">
+            <widget class="QLineEdit" name="txtFunWidth"/>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLineEdit" name="txtItemSpace">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="5">
+            <widget class="QLineEdit" name="lineEdit_TestItem_Number">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="13">
+            <widget class="QLabel" name="lblBackGround">
+             <property name="text">
+              <string>背景值:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="5">
+            <widget class="QLineEdit" name="txtBlackSpotThreshold">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="12">
+            <widget class="QLabel" name="label_82">
+             <property name="text">
+              <string>mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="12">
+            <widget class="QLabel" name="label_95">
+             <property name="text">
+              <string>mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="9">
+            <widget class="QLabel" name="label_96">
+             <property name="text">
+              <string>mm</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -2245,6 +2319,9 @@
       </item>
       <item>
        <widget class="QTableWidget" name="tbSegment">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>720</width>
@@ -2331,22 +2408,6 @@
      </layout>
     </item>
    </layout>
-  </widget>
-  <widget class="QLabel" name="lblG1ItemName_2">
-   <property name="geometry">
-    <rect>
-     <x>680</x>
-     <y>840</y>
-     <width>52</width>
-     <height>12</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>项目名称</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
