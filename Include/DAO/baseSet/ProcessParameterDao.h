@@ -28,6 +28,7 @@ public:
     QVector<ProcessParameterModel> selectModel(const int processId, const QString& actType);
     bool selectModel(int stepId, ProcessParameterModel& out);
     bool delectModel(int stepId);
+    bool delectModels(int processId);
     bool insert(ProcessParameterModel& model);
     bool update(int stepId, ProcessParameterModel& model);
     QList<QString> getActionGroupNameVect(int processId);

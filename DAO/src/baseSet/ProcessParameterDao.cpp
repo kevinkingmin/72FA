@@ -80,6 +80,16 @@ bool ProcessParameterDao::delectModel(int stepId)
     return true;
 }
 
+
+bool ProcessParameterDao::delectModels(int processId)
+{
+    QSqlQuery query;
+    if (DAO::createQuery(query) < 0) return false;
+    QString sqlStr = QString("DELETE FROM tprocess_parameter WHERE processId = %1;").arg(processId);
+    if (!query.exec(sqlStr)) return false;
+    return true;
+}
+
 QVector<ProcessParameterModel> ProcessParameterDao::getAllRows(int processId)
 {
     QSqlQuery query;

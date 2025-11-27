@@ -59,6 +59,16 @@ bool ProcessDao::getModel(const int processId, ProcessModel& out)
     return true;
 }
 
+// 根据删除对象
+bool ProcessDao::deleteModel(const int processId)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return false;
+    QString sqlStr = QString("DELETE FROM tprocess WHERE id = %1;").arg(processId);
+    if (!query.exec(sqlStr)) return false;
+    return true;
+}
+
 
 QVector<ProcessModel> ProcessDao::getModelsFromSystemSet()
 {
