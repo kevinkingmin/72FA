@@ -31,6 +31,8 @@ public:
     {
         // 试剂名
         QString _reagentName;
+        // 膜条名称
+        QString _paperName;
         // 泵编号
         int _pumpNo;
         // 试剂量
@@ -43,15 +45,17 @@ public:
         float _fillingMlSmall;
         ReagentInfoStrt()
             :_reagentName("")
+            ,_paperName("")
             ,_pumpNo(0)
             ,_reagentMl(0)
             ,_deadMl(0)
             ,_fillingMl(0)
             ,_fillingMlSmall(0)
         {}
-        ReagentInfoStrt(const QString& reagentName,const int pumpNo, const float reagentMl,
+        ReagentInfoStrt(const QString& reagentName, const QString& paperName, const int pumpNo, const float reagentMl,
                        const float deadMl, const float fillingMl, const float fillingMlSmall)
             :_reagentName(reagentName)
+            ,_paperName(paperName)
             ,_pumpNo(pumpNo)
             ,_reagentMl(reagentMl)
             ,_deadMl(deadMl)

@@ -17,6 +17,7 @@
 #include "../Utilities/log.h"
 #include "../DAO/Analysis/AnalysisUIDao.h"
 #include "../DAO/baseSet/SystemSetDao.h"
+#include "../DAO/baseSet/TestPaperDao.h"
 #include "src/comm/Global.h"
 #include <QApplication>
 #include <QMessageBox>
@@ -168,7 +169,8 @@ void PrepareReagentWidget::createPumpBtn()
 
         btn->setUpText(QString::number(i + 1)+ sz);//".位置");
         btn->setObjectName(QString::number(i+1));
-        btn->setReagentName("wz"+QString::number(i + 1));
+        btn->setReagentName("");
+        btn->setPaperName("");
         btn->setCheckable(true);
         btn->setBtnId(i);
         btn->setProperty("btnStyle","btnReagentPosStyle");
@@ -478,6 +480,7 @@ void PrepareReagentWidget::updateBtnByReagents()
             btn->setProperty(GlobalData::getPropertyName(),PumpPosState::enumFlush);
             btn->setPixPath(_pixPath+_flushFile);
             btn->setReagentName(info._reagentName);
+            btn->setPaperName(info._paperName);
             // 设置死体积
             double deadMl = static_cast<double>(info._deadMl);
             QString volumn = QString("%1 ml ").arg(QString::number(deadMl, 'f', 2));
@@ -649,7 +652,16 @@ void PrepareReagentWidget::showEvent(QShowEvent *e)
         float deadMl = config_set.value("PrepareReagent_"+QString::number(pumpNo), 0.0f).toFloat();
         if(!_pumpNoReagentMap.contains(pumpNo))
         {
-            _pumpNoReagentMap.insert(pumpNo, ReagentInfoStrt(it->getReagentName(), pumpNo, ml, deadMl, it->getFluidMeasure(), it->getFluidMeasureSmall()));
+            QString paperName = "";
+            if(it->getReagentType() == 1)
+            {
+                TestPaperModel paper;
+                if(TestPaperDao::instance()->getModel(it->getPaperId(), paper))
+                {
+                    paperName = paper.getPaperName();
+                }
+            }
+            _pumpNoReagentMap.insert(pumpNo, ReagentInfoStrt(it->getReagentName(), paperName, pumpNo, ml, deadMl, it->getFluidMeasure(), it->getFluidMeasureSmall()));
         }else
         {
             qWarning() << "Pump already assigned:" << pumpNo

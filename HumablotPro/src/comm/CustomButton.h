@@ -12,6 +12,8 @@ public:
     void setUpText(const QString &upText);
     void setReagentName(const QString &reagentName);
 	QString getReagentName();
+    void setPaperName(const QString &paperName);
+    QString getPaperName();
 	int getBtnId();
     void setVolumn(const QString &volumn);
     QString getVolumn() const;
@@ -30,6 +32,7 @@ private:
 	int _btn_id;
     QString _upText;
     QString _reagentName;
+    QString _paperName;
     QString _volumn;
     QString _timeText;
     QString _pixPath;    
@@ -37,6 +40,7 @@ private:
 	QLabel *_lblSpace;
     QLabel *_lblPix;
     QLabel *_lblReagent;
+    QLabel *_lblPaper;
     QLabel *_lblVolumn;
     QLabel *_lblTime;
     QVBoxLayout *m_vLay;
