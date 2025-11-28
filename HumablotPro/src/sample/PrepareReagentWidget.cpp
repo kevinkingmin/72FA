@@ -294,8 +294,6 @@ void PrepareReagentWidget::on_btnWash_clicked()
     auto state = m_instrState->getMachineState();
     m_system_liquid_finish = true;
     Global::g_run_or_maintenance_flage = 1;
-    //系统液灌注
-    //_instrument->maintain(eSystemLiquidWash);
     pumpList.clear();
     pumpList.append(10);
     _instrument->prepareReagent(pumpList,"max");
@@ -731,10 +729,9 @@ void PrepareReagentWidget::on_btnFlash_clicked()
     Global::g_run_or_maintenance_flage = 1;
 
     pumpList = map.keys();
-    // TODO::
-//    _instrument->prepareReagent(pumpList,"max");
-//    m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1717"));
-//    m_progressDialog->exec();
+    _instrument->prepareReagent(pumpList,"max");
+    m_progressDialog->setHead(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1717"));
+    m_progressDialog->exec();
 }
 
 // 更改系统液对应的图标
