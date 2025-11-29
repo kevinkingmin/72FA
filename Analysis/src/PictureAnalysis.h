@@ -4,12 +4,10 @@
 #include "opencv/cv.h"
 #include "opencv/highgui.h"
 #include <QPoint>
-#include <QVector>
-#include "../Include/Model/baseSet/TestPaperModel.h"
+#include<vector>
 
-// 测试项目, 不算功能条和cutoff条
 typedef struct {
-    //int testPaperId; // 膜条ID
+    int testPaperId; // 膜条ID
     QString itemName; // 项目名称
     int PositionNo; // 项目编号
     int curveId; // 标曲ID
@@ -18,16 +16,7 @@ typedef struct {
     int position; // 项目位置
     bool isNull; // 是否为空
     QString itemFullName; //项目全名
-}TestPaperItemParam;
-
-// 判读结果
-typedef struct {
-    double dItemGrayValue; // 灰度值
-    double dBackgroundGrayValue; // 背景值
-    double dItemResultOffset; // 结果偏移值
-    int dItemErrorCode; // 错误代码
-    double dItemGrayRatio; // 比值
-}TestPaperItemResult;
+}TestPaperItem;
 
 typedef struct {
     int companyId;
@@ -63,20 +52,18 @@ typedef struct {
     QString articleNo; // 货号
     int paperSortIdxOnUi; // UI上此膜条的排序
 
-    QVector<TestPaperItemParam> itemParams; // 子项目参数
-    QVector<TestPaperItemResult> itemResults; // 子项目判读结果
+    QList<TestPaperItem> items; // 子项目参数
 
-    //QString strTestItemName[32];
-    //bool isNullArea[32];
-    //double dItemPosition[32];
-    //int dItemNo[32];
-    //int dItemCurveId[32];
-
-//    double dItemGrayValue[32];
-//    double dBackgroundGrayValue[32];
-//    double dItemResultOffset[32];
-//    int dItemErrorCode[32];
-//    double dItemGrayRatio[32];
+    QString strTestItemName[32];
+    bool	isNullArea[32];
+    double dItemPosition[32];
+    int dItemNo[32];
+    int dItemCurveId[32];
+    double dItemGrayValue[32];
+    double dBackgroundGrayValue[32];
+    double dItemResultOffset[32];
+    int dItemErrorCode[32];
+    double dItemGrayRatio[32];
     QString solutionName;
     QString manageName;
     QString sampleId;
@@ -89,37 +76,29 @@ class  PictureAnalysis : public QObject
     Q_OBJECT
 
 public:
-    enum class Error
-    {
-        NoError = 0,
-        PictureNotFound = 1,
-        ItemAnalysisHeightError = 2,
-        PictureToGrayError = 3,
-
-    };
     PictureAnalysis(QObject *parent);
     ~PictureAnalysis();
     bool Analysis(QString test_project_name,QString file_path);
-    bool AnalysisOne(QString test_id,int paperId, QString sampleId, QString solution_name);
+    bool AnalysisOne(QString test_id,int paperId, QString sampleId, QString solution_name, QString patiant_name);
     int CalcImageItemWz(TestPaperParameter &testPaperParameterStruct,QString sampleId);
     int GetTestPaperImageWz(QString filePath,TestPaperParameter &testPaperParameterStruct,cv::OutputArray dst);
-    PictureAnalysis::Error CalcImageItemSegmentation(TestPaperModel &paper, QString testId);
-    PictureAnalysis::Error GetTestPaperImageSegmentation(QString& filePath, QString& testId, TestPaperModel &paper);
+    int CalcImageItemSegmentation(TestPaperParameter &testPaperParameterStruct, QString testId);
+    int GetTestPaperImageSegmentation(QString filePath,TestPaperParameter &testPaperParameterStruct);
     int CalcImageItemContinuous(TestPaperParameter &testPaperParameterStruct, QString testId);
     int GetTestPaperImageContinuous(QString filePath,TestPaperParameter &testPaperParameterStruct,cv::OutputArray dst);
 private:
     QString m_test_project_name;
     QString m_nSampleID;
     int m_nTestPaperID;
-//    int m_nControlThreshold = 0;
-//    int m_nCutOffThreshold = 0;
+    int m_nControlThreshold = 0;
+    int m_nCutOffThreshold = 0;
 
     int TestPaperSegmentationRotateCut(cv::Mat& srcMat, TestPaperParameter &testPaperParameterStruct,cv::OutputArray dstMat, cv::OutputArray dstThreshMat);
     int TestPaperSegmentationParse(cv::Mat& srcMat, cv::Mat& threshMat, TestPaperParameter &testPaperParameterStruct,std::vector<std::tuple<int,int>>& segCenter);
 
     QString CaculateResultText(double dItemGrayRatio,QString itemName,int paper_id,int error_code);
-    bool AnalysisOneSample(int paper_id,int company_id,QString testId, QString sampleId, QString solution_name);
-//    bool GetTestPaperParameter(TestPaperParameter &testPaperParameterStruct,int paper_id, int company_id);
+    bool AnalysisOneSample(int paper_id,int company_id,QString testId, QString sampleId, QString solution_name, QString patiant_name);
+    bool GetTestPaperParameter(TestPaperParameter &testPaperParameterStruct,int paper_id, int company_id);
     bool UpdateSampleAnalysisState(int nAnalysisState);
     bool SaveTestData(TestPaperParameter testPaperResult);
     int GetTestPaperImageCalcIndexWz(const cv::Mat& src, TestPaperParameter &testPaperParameterStruct,QList<int> lineStartArray, int lineLimit, int lineWidth);
