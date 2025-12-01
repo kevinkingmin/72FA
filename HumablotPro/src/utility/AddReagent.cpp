@@ -32,8 +32,8 @@ AddReagent::AddReagent(QWidget *parent)
     ui.label_pumpNo->setText(GlobalData::LoadLanguageInfo("K1514")); // 泵号
 
     ui.label_Company->setText(GlobalData::LoadLanguageInfo("K1761")); // 关联厂家
-    ui.label_SmallWash->setText(GlobalData::LoadLanguageInfo("K1138")); // 大充灌量
-    ui.label_BigWash->setText(GlobalData::LoadLanguageInfo("K1139")); // 小充灌量
+    ui.label_SmallWash->setText(GlobalData::LoadLanguageInfo("K1139")); // 大充灌量
+    ui.label_BigWash->setText(GlobalData::LoadLanguageInfo("K1138")); // 小充灌量
 
     ui.pushButton_Save->setText(GlobalData::LoadLanguageInfo("K1141")); // 保存
     ui.pushButton_Cancel->setText(GlobalData::LoadLanguageInfo("K1134")); // 取消

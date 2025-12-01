@@ -11,6 +11,8 @@ const QString ProcessParameterModel::DRYING_CODE = "L1903";
 const QString ProcessParameterModel::SAMPLING_CODE = "L1904";
 const QString ProcessParameterModel::DRAINING_CODE = "L1905";
 const QString ProcessParameterModel::PAUSING_CODE = "L1906";
+const QString ProcessParameterModel::TAKE_PHOTO_CODE = "L1907";
+const QString ProcessParameterModel::SAMPLE_NEEDLE_FILLING_CODE = "L1908";
 
 ProcessParameterModel::ProcessParameterModel()
     :_id(0)
@@ -210,8 +212,20 @@ bool ProcessParameterModel::strToDrying(ProcessParameterModel::DryingStrt& out, 
     out._dryTime=obj.value("dryTime").toDouble();
     out._fanTime=obj.value("fanTime").toDouble();
     out._fanLevel=obj.value("fanLevel").toInt();
-    out._bedTime=obj.value("bedTime").toDouble();
+    out._heatTime=obj.value("heatTime").toDouble();
     out._bedTemperature=obj.value("bedTemperature").toDouble();
+    return true;
+}
+
+bool ProcessParameterModel::strToSampleNeedleFilling(SampleNeedleFillingStrt &out, const QString &str)
+{
+    if(str.isNull() || str.isEmpty()) return false;
+    QJsonParseError parse_error;
+    QJsonDocument document = QJsonDocument::fromJson(str.toUtf8(), &parse_error);
+    if (document.isNull() ||(parse_error.error != QJsonParseError::NoError)) return false;
+    auto obj = document.object();
+    out._innerTime=obj.value("innerTime").toInt();
+    out._outerTime=obj.value("outerTime").toInt();
     return true;
 }
 
@@ -221,8 +235,20 @@ QString ProcessParameterModel::dryingToStr(const DryingStrt &strt)
     obj.insert("dryTime",strt._dryTime);
     obj.insert("fanTime",strt._fanTime);
     obj.insert("fanLevel",strt._fanLevel);
-    obj.insert("bedTime",strt._bedTime);
+    obj.insert("heatTime",strt._heatTime);
     obj.insert("bedTemperature",strt._bedTemperature);
+
+    QJsonDocument doc;
+    doc.setObject(obj);
+    QString jsonStr=doc.toJson(QJsonDocument::Compact);
+    return jsonStr;
+}
+
+QString ProcessParameterModel::sampleNeedleFillingToStr(const SampleNeedleFillingStrt &strt)
+{
+    QJsonObject obj;
+    obj.insert("innerTime",strt._innerTime);
+    obj.insert("outerTime",strt._outerTime);
 
     QJsonDocument doc;
     doc.setObject(obj);
@@ -250,6 +276,12 @@ bool ProcessParameterModel::parsingParas()
     }else if(_actCode == PAUSING_CODE)
     {
         _paramParseSuccess = strToPausing(_pausingStrt, _paras);
+    }else if(_actCode == TAKE_PHOTO_CODE)
+    {
+        _paramParseSuccess = true;
+    }else if(_actCode == SAMPLE_NEEDLE_FILLING_CODE)
+    {
+        _paramParseSuccess = strToSampleNeedleFilling(_sampleNeedleFillingStrt, _paras);
     }
     return _paramParseSuccess;
 }
@@ -355,6 +387,22 @@ void ProcessParameterModel::setDrying(const ProcessParameterModel::DryingStrt &s
     _paras = dryingToStr(strt);
 }
 
+
+bool ProcessParameterModel::getSampleNeedleFilling(SampleNeedleFillingStrt &out)
+{
+    if(!_paramParseSuccess || _actCode!=DRYING_CODE)
+    {
+        return false;
+    }
+    out = _sampleNeedleFillingStrt;
+    return true;
+}
+
+void ProcessParameterModel::setSampleNeedleFilling(const SampleNeedleFillingStrt &strt)
+{
+    _paras = sampleNeedleFillingToStr(strt);
+}
+
 // 界面显示的string
 QString ProcessParameterModel::toShowString()
 {
@@ -386,7 +434,7 @@ QString ProcessParameterModel::toShowString()
     {
         show+="孵育时间:";
         show+=QString::number(_bedShakingStrt._shakeTime, 'f', 1);
-        show+="s;";
+        show+="min;";
         show+="摇床温度:";
         show+=QString::number(_bedShakingStrt._bedTemperature, 'f', 1);
         show+="℃;";
@@ -395,15 +443,15 @@ QString ProcessParameterModel::toShowString()
     {
         show+="干燥总时间:";
         show+=QString::number(_dryingStrt._dryTime, 'f', 1);
-        show+="s;";
+        show+="min;";
         show+="风扇时间:";
         show+=QString::number(_dryingStrt._fanTime, 'f', 1);
-        show+="s;";
+        show+="min;";
         show+="风扇等级:";
         show+=QString::number(_dryingStrt._fanLevel);
-        show+="摇床时间:";
-        show+=QString::number(_dryingStrt._bedTime, 'f', 1);
-        show+="s;";
+        show+="加热时间:";
+        show+=QString::number(_dryingStrt._heatTime, 'f', 1);
+        show+="min;";
         show+="摇床温度:";
         show+=QString::number(_dryingStrt._bedTemperature, 'f', 1);
         show+="℃;";
@@ -422,6 +470,17 @@ QString ProcessParameterModel::toShowString()
     {
         show+="暂停流程, 上报信息:";
         show+=_pausingStrt._notifyMessage;
+    }else if(_actCode == SAMPLE_NEEDLE_FILLING_CODE)
+    {
+        show+="内针冲洗时间:";
+        show+=QString::number(_sampleNeedleFillingStrt._innerTime);
+        show+="s;";
+        show+="外针冲洗时间:";
+        show+=QString::number(_sampleNeedleFillingStrt._outerTime);
+        show+="s;";
+    }
+    else if(_actCode == TAKE_PHOTO_CODE)
+    {
     }
     return show;
 }

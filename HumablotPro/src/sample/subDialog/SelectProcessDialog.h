@@ -4,6 +4,7 @@
 #include "src/comm/BaseDialog.h"
 #include <QRegExpValidator>
 #include <QButtonGroup>
+#include "../Include/Model/baseSet/ProcessParameterModel.h"
 class InstrumentStateModel;
 
 namespace Ui {
@@ -38,6 +39,7 @@ private:
     Ui::SelectProcessDialog *ui;
     QRegExpValidator _StartPosReg;
     QVector<QPushButton*>m_btnVect;
+    QVector<ProcessParameterModel> _allProcessParameterVect;
     bool _isCloseBtn;//是否是点击关闭按钮
     InstrumentStateModel *_instrState;
 };

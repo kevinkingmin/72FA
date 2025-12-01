@@ -60,7 +60,7 @@ class TestPaper : public QDialog
         QComboBox *cmbItemType;
         QLineEdit *itemNameEdit;
         QCheckBox *checkBox;
-        int       blockNo;
+        int       blockNo; //第几块分段膜条
         QComboBox *cmbRuleBox;
         QComboBox *cmbCurveBox;
         bool      isNew;
@@ -227,8 +227,8 @@ class TestPaper : public QDialog
     // 分段膜条块设置
     struct BlockData
     {
-        int     serialNo;
-        int     itemCount;
+        int     serialNo; // 膜条段编号
+        int     itemCount; // 膜条段项目数量
         BlockData()
             :serialNo(0)
             ,itemCount(0)

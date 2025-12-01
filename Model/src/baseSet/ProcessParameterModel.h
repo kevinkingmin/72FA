@@ -13,6 +13,8 @@ public:
     static const QString SAMPLING_CODE;
     static const QString DRAINING_CODE;
     static const QString PAUSING_CODE;
+    static const QString TAKE_PHOTO_CODE;
+    static const QString SAMPLE_NEEDLE_FILLING_CODE;
     // 加试剂
     struct AddReagentStrt
     {
@@ -75,21 +77,21 @@ public:
         double _fanTime;
         // 干燥温度
         double _bedTemperature;
-        // 风干等级
-        double _bedTime;
+        // 加热时间
+        double _heatTime;
         DryingStrt()
             :_dryTime(0)
             ,_fanLevel(0)
             ,_fanTime(0)
             ,_bedTemperature(0)
-            ,_bedTime(0)
+            ,_heatTime(0)
         {}
-        DryingStrt(const double dryTime, const int fanLevel, const double fanTime, const double bedTemperature, const double bedTime)
+        DryingStrt(const double dryTime, const int fanLevel, const double fanTime, const double bedTemperature, const double heatTime)
             :_dryTime(dryTime)
             ,_fanLevel(fanLevel)
             ,_fanTime(fanTime)
             ,_bedTemperature(bedTemperature)
-            ,_bedTime(bedTime)
+            ,_heatTime(heatTime)
         {}
     };
 
@@ -131,6 +133,22 @@ public:
         {}
     };
 
+    //样本针充盈
+    struct SampleNeedleFillingStrt
+    {
+        // 内针充盈时间
+        int _innerTime;
+        // 外针充盈时间
+        int _outerTime;
+        SampleNeedleFillingStrt()
+            :_innerTime(3),
+            _outerTime(3)
+        {}
+        SampleNeedleFillingStrt(const int& innerTime, const int& outerTime)
+            :_innerTime(innerTime),_outerTime(outerTime)
+        {}
+    };
+
     ProcessParameterModel();
     int getId() const;
     void setId(int id);
@@ -168,6 +186,8 @@ public:
     bool getDrying(DryingStrt &out);
     void setDrying(const DryingStrt &strt);
 
+    bool getSampleNeedleFilling(SampleNeedleFillingStrt &out);
+    void setSampleNeedleFilling(const SampleNeedleFillingStrt &strt);
 
     bool parsingParas();
 
@@ -179,6 +199,7 @@ public:
     QString SamplingToStr(const SamplingStrt &strt);
     QString BedShakingToStr(const BedShakingStrt &strt);
     QString dryingToStr(const DryingStrt &strt);
+    QString sampleNeedleFillingToStr(const SampleNeedleFillingStrt &strt);
 private:
     bool strToAddReagent(AddReagentStrt& out, const QString &str);
     bool strToDraining(DrainingStrt& out, const QString &str);
@@ -186,6 +207,7 @@ private:
     bool strToSampling(SamplingStrt& out, const QString &str);
     bool strToBedShaking(BedShakingStrt& out, const QString &str);
     bool strToDrying(DryingStrt& out, const QString &str);
+    bool strToSampleNeedleFilling(SampleNeedleFillingStrt &out, const QString &str);
 
 private:
     int _id;
@@ -200,6 +222,7 @@ private:
     BedShakingStrt _bedShakingStrt;
     DrainingStrt _drainingStrt;
     PausingStrt _pausingStrt;
+    SampleNeedleFillingStrt _sampleNeedleFillingStrt;
     SamplingStrt _samplingStrt;
     DryingStrt _dryingStrt;
 };

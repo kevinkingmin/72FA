@@ -10,12 +10,14 @@
 CustomButton::CustomButton(QWidget *parent):QPushButton (parent)
   ,_upText("")
   ,_reagentName("")
+  ,_paperName("")
   ,_timeText("")
   ,_pixPath("")
 	,_btn_id(0)
   ,_lblUp(new QLabel(this))
   ,_lblPix(new QLabel(this))
   ,_lblReagent(new QLabel(this))
+  ,_lblPaper(new QLabel(this))
   ,_lblVolumn(new QLabel(this))
   ,_lblTime(new QLabel(this))
 	, _lblSpace(new QLabel(this))
@@ -35,6 +37,7 @@ void CustomButton::paintEvent(QPaintEvent *event)
 
     _lblUp->setText(_upText);
     _lblReagent->setText(_reagentName);
+    _lblPaper->setText(_paperName);
     _lblVolumn->setText(_volumn);
     _lblTime->setText(_timeText);
 	_lblSpace->setText("");
@@ -46,6 +49,7 @@ void CustomButton::paintEvent(QPaintEvent *event)
     _lblPix->setPixmap(pix);
     _lblUp->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     _lblReagent->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    _lblPaper->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     _lblVolumn->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     _lblTime->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
     _lblPix->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
@@ -55,6 +59,7 @@ void CustomButton::paintEvent(QPaintEvent *event)
 	m_vLay->addWidget(_lblSpace);
 	m_vLay->addWidget(_lblSpace);
     m_vLay->addWidget(_lblReagent);
+    m_vLay->addWidget(_lblPaper);
     m_vLay->addWidget(_lblVolumn);
     m_vLay->addWidget(_lblTime);
     m_vLay->setSpacing(SPACE);
@@ -117,6 +122,16 @@ QString CustomButton::getReagentName()
 	return _reagentName;
 }
 
+void CustomButton::setPaperName(const QString &paperName)
+{
+    _paperName = paperName;
+}
+
+QString CustomButton::getPaperName()
+{
+    return _paperName;
+}
+
 int CustomButton::getBtnId()
 {
 	return _btn_id;
@@ -157,6 +172,7 @@ void CustomButton::reset(const QString &pixPath)
 {
     //_upText="";
     _reagentName="";
+    _paperName="";
     _volumn="";
     _timeText="";
     _pixPath=pixPath;

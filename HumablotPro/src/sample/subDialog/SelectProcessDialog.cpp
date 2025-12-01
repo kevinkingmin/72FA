@@ -17,6 +17,7 @@ SelectProcessDialog::SelectProcessDialog(QWidget *parent) :
     ui(new Ui::SelectProcessDialog)
   ,_StartPosReg(QRegExp("^[1-9]$|^[1-6][0-9]$|^7[0-2]$"))
   ,m_btnVect{}
+  ,_allProcessParameterVect{}
   ,_isCloseBtn(false)
   ,_instrState(InstrumentStateModel::instance())
 {
@@ -97,17 +98,19 @@ void SelectProcessDialog::creatBtns()
     SystemSetModel systemSetModel;
     bResult = SystemSetDao::instance()->getModel(6, systemSetModel);
     ProcessParameterDao* processDao = ProcessParameterDao::instance();
-    QList<QString> processActionGroupList = processDao->getActionGroupNameVect(systemSetModel.getSaveSet());
-    for(int i = 0; i < processActionGroupList.count();i++)
-    {
-        fun(QString::number(i), processActionGroupList[i]);
-    }
+    int processId = systemSetModel.getSaveSet();
+    _allProcessParameterVect = processDao->getAllRows(processId);
+    QSet<QString> seen;  // 辅助去重
     bResult = SystemSetDao::instance()->getModel(20008, systemSetModel);
-    int is_camera_open = systemSetModel.getSaveSet()==1;
-    if (is_camera_open)
+    int isCameraOpen = systemSetModel.getSaveSet()==1;
+    for(ProcessParameterModel& processStep : _allProcessParameterVect)
     {
-        fun(QString::number(processActionGroupList.count()), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1608"));
+        if(seen.contains(processStep.getActName())) continue; // 过滤重复
+        if(!isCameraOpen && processStep.getActCode() == ProcessParameterModel::TAKE_PHOTO_CODE) continue; // 根据配置项过滤拍照功能
+        seen.insert(processStep.getActName());
+        fun(QString::number(processStep.getId()), processStep.getActName());
     }
+
 }
 
 void SelectProcessDialog::on_pushButtonClose_clicked()
@@ -154,11 +157,20 @@ void SelectProcessDialog::updateBtnState()
 QMap<int,QString> SelectProcessDialog::getSeletedPGMap()
 {
     QMap<int, QString>map;
+    int selectId = -1;
     for(auto it:m_btnVect)
     {
         if(!it->isChecked()) continue;
-        int id=it->objectName().toInt();
-        map.insert(id,it->text().simplified());
+        selectId = it->objectName().toInt();
+        break;
+    }
+    if(selectId == -1) return {};
+    for(ProcessParameterModel& processStep : _allProcessParameterVect)
+    {
+        if(processStep.getId() >= selectId)
+        {
+            map[processStep.getId()] = processStep.getActName();
+        }
     }
     return map;
 }

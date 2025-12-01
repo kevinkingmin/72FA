@@ -1017,7 +1017,7 @@ bool Instrument::testPause(){
     return sendBySocket(requestCommand);
 }
 
-bool Instrument::testStart(QList<QString> sampleTestIds, QList<int> groupIds, const int companyId)
+bool Instrument::testStart(QVector<QString> sampleTestIds, QVector<int> groupIds)
 {   
     QJsonObject jsonObject;
     QJsonArray sampleTestIdArray;

@@ -55,6 +55,7 @@ void ProcessDataList::setCurrentCompany(const QString &companyName, const QStrin
     if(ui.tbProcess->rowCount()>0)
     {
         ui.tbProcess->selectRow(0);
+        selectProcessRow(0);
     }
 }
 
@@ -128,9 +129,15 @@ void ProcessDataList::on_tbProcess_cellClicked()
     if(ui.tbProcess->rowCount()<=0) return;
     // 获取选中行
     int currentRow = ui.tbProcess->currentRow();
+    selectProcessRow(currentRow);
+}
+
+
+void ProcessDataList::selectProcessRow(int row)
+{
+    if(row<0) return;
     // 获取流程名称
-	currentRow = currentRow >= 0 ? currentRow : 0;
-    QString processName = ui.tbProcess->item(currentRow, 1)->text();
+    QString processName = ui.tbProcess->item(row, 1)->text();
     ui.tbProcessSteps->setRowCount(0);
     QVector<ProcessStep> processStepsVect;//调用接口,加载流程步骤
     ProcessParameterDao* dao = ProcessParameterDao::instance();
@@ -235,8 +242,9 @@ void ProcessDataList::on_btnDeleteProcess_clicked()
     int ret = QMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1801"), GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
     if (ret != 0)
         return;
-    QString deleteId=ui.tbProcess->item(intRow,2)->text();
+    int deleteId=ui.tbProcess->item(intRow,2)->text().toInt();
     //调用接口，删除流程
-
-   // ui.tbProcessSteps->setRowCount(0);
+    ProcessParameterDao::instance()->delectModels(deleteId);
+    ProcessDao::instance()->deleteModel(deleteId);
+    setCurrentCompany(m_companyName, m_companyId);
 }

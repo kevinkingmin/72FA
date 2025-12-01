@@ -28,6 +28,9 @@ ProcessData::ProcessData(QWidget *parent)
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1827"));//暂停
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1828"));//孵育
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1607"));//干燥
+    _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1229"));//拍照
+    _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1845"));//样本针充盈
+
 
     ui.cmbStepType->clear();
     for(auto it:_actTypeVect)
@@ -120,8 +123,18 @@ void ProcessData::SetUI(bool modify)
             txtDatas.push_back(QString::number(strt._dryTime));
             txtDatas.push_back(QString::number(strt._fanTime));
             txtDatas.push_back(QString::number(strt._bedTemperature));
-            txtDatas.push_back(QString::number(strt._bedTime));
+            txtDatas.push_back(QString::number(strt._heatTime));
             boxDatas.push_back(QString::number(strt._fanLevel));
+        }else if(actType == GlobalData::LoadLanguageInfo("K1607")) // 拍照
+        {
+            on_cmbStepType_currentIndexChanged(6);
+        }else if(actType == GlobalData::LoadLanguageInfo("K1845")) // 样本针充盈
+        {
+            on_cmbStepType_currentIndexChanged(7);
+            ProcessParameterModel::SampleNeedleFillingStrt strt;
+            model.getSampleNeedleFilling(strt);
+            txtDatas.push_back(QString::number(strt._innerTime));
+            txtDatas.push_back(QString::number(strt._outerTime));
         }
 
         if(_txtVect.count()>txtDatas.count()+boxDatas.count())
@@ -273,8 +286,23 @@ void ProcessData::on_pushButton_Save_clicked()
         QString parasStr =model.dryingToStr(strt);
         model.setParas(parasStr);
         model.setDrying(strt);
+    }else if(_currentSelectStep==6) // 拍照
+    {
+        model.setActCode(ProcessParameterModel::TAKE_PHOTO_CODE);
+        model.setActName(ui.cmbStepGroup->currentText());
+        model.setProcessId(_processId.toInt());
+    }else if(_currentSelectStep==7) // 样本针充盈
+    {
+        int innerTime = txtVect[0].toInt();
+        int outerTime = txtVect[1].toInt();
+        ProcessParameterModel::SampleNeedleFillingStrt strt(innerTime, outerTime);
+        model.setActCode(ProcessParameterModel::SAMPLE_NEEDLE_FILLING_CODE);
+        model.setActName(ui.cmbStepGroup->currentText());
+        model.setProcessId(_processId.toInt());
+        QString parasStr =model.sampleNeedleFillingToStr(strt);
+        model.setParas(parasStr);
+        model.setSampleNeedleFilling(strt);
     }
-
 
     ProcessParameterDao* dao = ProcessParameterDao::instance();
     if(m_bModify)
@@ -402,7 +430,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         // 孵育时间
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1226")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),0,1);
-        ui.gridLayout->addWidget(new QLabel("s",this),0,2);
+        ui.gridLayout->addWidget(new QLabel("min",this),0,2);
 
         // 孵育温度
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1778")+":",this),1,0,Qt::AlignRight);
@@ -414,6 +442,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         // 孵育总时间
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1781")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,10000,this)),0,1,1,3);
+        ui.gridLayout->addWidget(new QLabel("min",this),0,4);
 
         // 风扇转速
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1833")+":",this),1,0,Qt::AlignRight);
@@ -426,6 +455,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         // 风干时间
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1784")+":",this),1,2,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,10000,this)),1,3);
+        ui.gridLayout->addWidget(new QLabel("min",this),1,4);
 
         // 温度
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1785")+":",this),2,0,Qt::AlignRight);
@@ -433,7 +463,21 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1786")+":",this),2,2);
         // 孵育时间
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,10000,this)),2,3);
-        ui.gridLayout->addWidget(new QLabel("s",this),2,4);
+        ui.gridLayout->addWidget(new QLabel("min",this),2,4);
+    }
+    else if(index==6) // 拍照
+    {
+
+    }else if(index == 7) // 样本针充盈
+    {
+        // 内冲
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1846"),this),0,0,Qt::AlignRight);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,100,this)),0,1);
+        ui.gridLayout->addWidget(new QLabel("s",this),0,2);
+        // 外充
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1847"),this),0,3,Qt::AlignRight);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,100,this)),0,4);
+        ui.gridLayout->addWidget(new QLabel("s",this),0,5);
     }
     // 设置默认数据
     for(auto obj:_txtVect)

@@ -52,6 +52,9 @@ public:
     double getTestBlockWidth();
     void setTestBlockWidth(double testBlockWidth);
 
+    double getTestBlockSpace();
+    void setTestBlockSpace(double testBlockSpace);
+
     int getFuncFindDir();
     void setFuncFindDir(int funcFindDir);
 
@@ -124,14 +127,17 @@ private:
     int _companyId;
     QString	_paperName;
     int _paperType;
+    // 对于分段膜条是总项目段数, 对于连续模块是总条带数
     int _totalNumber;
+    // 测试项目数量
     int _testItemNumber;
     double _totalLenght;
     double _paperMmToPixel; // 毫米对应的像素点数
     double _ignoreHeadLenght; // 忽略的头长度
     double _paperLenght; // 模块长度
     double _paperHeight; // 膜条高度
-    double _testBlockWidth; // 分段膜条块的宽度
+    double _testBlockWidth; // 分段膜条块的最小宽度
+    double _testBlockSpace; // 分段膜条块的最小间距
     int _funcFindDir; // 功能线查找方向
     int _paperShowAngle; // 膜条显示角度
     double _funcPosition; // 功能线位置

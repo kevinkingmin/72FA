@@ -50,6 +50,7 @@ private slots:
     void on_back_Button_clicked();
     void on_btnAddProcess_clicked();
     void on_btnDeleteProcess_clicked();
+    void selectProcessRow(int row);
 signals:
     void sglBackSystemSet();
 private:

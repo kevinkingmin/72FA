@@ -166,8 +166,17 @@ double TestPaperModel::getTestBlockWidth()
 
 void TestPaperModel::setTestBlockWidth(double testBlockWidth)
 {
-
     _testBlockWidth = testBlockWidth;
+}
+
+double TestPaperModel::getTestBlockSpace()
+{
+    return _testBlockSpace;
+} // 分段膜条块的宽度
+
+void TestPaperModel::setTestBlockSpace(double testBlockSpace)
+{
+    _testBlockSpace = testBlockSpace;
 }
 
 int TestPaperModel::getFuncFindDir()
