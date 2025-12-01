@@ -59,7 +59,7 @@ public:
         RulesSetting->resize(1454, 798);
         layoutWidget = new QWidget(RulesSetting);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(460, 10, 821, 761));
+        layoutWidget->setGeometry(QRect(380, 10, 951, 761));
         horizontalLayout_5 = new QHBoxLayout(layoutWidget);
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setContentsMargins(11, 11, 11, 11);

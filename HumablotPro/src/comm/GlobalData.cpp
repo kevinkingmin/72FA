@@ -9,8 +9,8 @@
 
 
 QMap<ushort,QString> GlobalData::_mapSampleType({
-                                                    {1, tr("血清")},
-                                                    {2, tr("血浆")}
+                                                    {1, "K2007"},
+                                                    {2, "K2008"}
                                                 });
 
 QMap<int,QString> GlobalData::_mapSampleCupType({
@@ -66,7 +66,12 @@ QMap<ushort,QString> GlobalData::_mapIsUpload({
                                                  {0,tr("未上传")},
                                                  {1,tr("已上传")}
                                               });
-
+QMap<int, QString> GlobalData::_ageUnitMap({
+                                               {1,"K2009"},
+                                               {2,"K2010"},
+                                               {3,"K2011"},
+                                               {4,"K2012"},
+                                           });
 GlobalData::UGStuct GlobalData::_loginUser;
 QString GlobalData::_exePath("");
 QString GlobalData::_LoginName("");
@@ -263,6 +268,11 @@ bool GlobalData::reconnect()
     }
     m_tcpClient->reconnect();
 	return isNeedConnect;
+}
+
+QMap<int, QString> GlobalData::getAgeUnitMap()
+{
+    return _ageUnitMap;
 }
 
 

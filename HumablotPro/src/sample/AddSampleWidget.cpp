@@ -357,7 +357,7 @@ void AddSampleWidget::initUI()
     //ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Stretch);
     ui->tvSampleSet->setColumnWidth(0, 70);
     ui->tvSampleSet->setColumnWidth(1, 220);
-    ui->tvSampleSet->setColumnWidth(2, 160);
+    ui->tvSampleSet->setColumnWidth(2, 180);
     ui->tvSampleSet->setColumnWidth(4, 80);
     ui->tvSampleSet->setColumnWidth(5, 80);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(40);

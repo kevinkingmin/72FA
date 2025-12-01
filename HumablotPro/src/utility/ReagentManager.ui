@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1327</width>
+    <width>1670</width>
     <height>741</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ReagentManager</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>20</y>
-     <width>1301</width>
+     <width>1631</width>
      <height>711</height>
     </rect>
    </property>

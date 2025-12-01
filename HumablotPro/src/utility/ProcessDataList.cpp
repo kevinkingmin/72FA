@@ -20,6 +20,9 @@ ProcessDataList::ProcessDataList(QWidget *parent): QWidget(parent)
     ui.Add_Button->setText(GlobalData::LoadLanguageInfo("K1764"));
     ui.Modify_Button->setText(GlobalData::LoadLanguageInfo("K1765"));
     ui.Delete_Button->setText(GlobalData::LoadLanguageInfo("K1766"));
+    ui.btnAddProcess->setText(GlobalData::LoadLanguageInfo("K2024"));
+    ui.btnDeleteProcess->setText(GlobalData::LoadLanguageInfo("K2025"));
+    ui.back_Button->setText(GlobalData::LoadLanguageInfo("K2026"));
 }
 
 ProcessDataList::~ProcessDataList()

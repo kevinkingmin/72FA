@@ -26,7 +26,7 @@ QT_BEGIN_NAMESPACE
 class Ui_ReagentManager
 {
 public:
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QLabel *label;
     QHBoxLayout *horizontalLayout;
@@ -44,16 +44,16 @@ public:
     {
         if (ReagentManager->objectName().isEmpty())
             ReagentManager->setObjectName(QString::fromUtf8("ReagentManager"));
-        ReagentManager->resize(1327, 741);
-        widget = new QWidget(ReagentManager);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(10, 20, 1301, 711));
-        verticalLayout = new QVBoxLayout(widget);
+        ReagentManager->resize(1670, 741);
+        layoutWidget = new QWidget(ReagentManager);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 20, 1631, 711));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(120, 0, 100, 0);
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QString::fromUtf8("label"));
 
         verticalLayout->addWidget(label);
@@ -62,7 +62,7 @@ public:
         horizontalLayout->setSpacing(55);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, -1, 0, -1);
-        tableWidget_Company = new QTableWidget(widget);
+        tableWidget_Company = new QTableWidget(layoutWidget);
         if (tableWidget_Company->columnCount() < 1)
             tableWidget_Company->setColumnCount(1);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
@@ -71,7 +71,7 @@ public:
 
         horizontalLayout->addWidget(tableWidget_Company);
 
-        tableWidget_Reagent = new QTableWidget(widget);
+        tableWidget_Reagent = new QTableWidget(layoutWidget);
         if (tableWidget_Reagent->columnCount() < 8)
             tableWidget_Reagent->setColumnCount(8);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -101,7 +101,7 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        Delete_Button = new QPushButton(widget);
+        Delete_Button = new QPushButton(layoutWidget);
         Delete_Button->setObjectName(QString::fromUtf8("Delete_Button"));
 
         gridLayout->addWidget(Delete_Button, 0, 5, 1, 1);
@@ -110,12 +110,12 @@ public:
 
         gridLayout->addItem(horizontalSpacer, 0, 2, 1, 1);
 
-        Modify_Button = new QPushButton(widget);
+        Modify_Button = new QPushButton(layoutWidget);
         Modify_Button->setObjectName(QString::fromUtf8("Modify_Button"));
 
         gridLayout->addWidget(Modify_Button, 0, 3, 1, 1);
 
-        Add_Button = new QPushButton(widget);
+        Add_Button = new QPushButton(layoutWidget);
         Add_Button->setObjectName(QString::fromUtf8("Add_Button"));
 
         gridLayout->addWidget(Add_Button, 0, 1, 1, 1);

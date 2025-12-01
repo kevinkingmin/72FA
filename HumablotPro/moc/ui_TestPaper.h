@@ -422,7 +422,6 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QPushButton *pushButton_Cancel;
     QPushButton *pushButton_Save;
-    QLabel *lblG1ItemName_2;
     QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
 
@@ -430,10 +429,10 @@ public:
     {
         if (TestPaper->objectName().isEmpty())
             TestPaper->setObjectName(QString::fromUtf8("TestPaper"));
-        TestPaper->resize(1731, 870);
+        TestPaper->resize(1839, 870);
         layoutWidget = new QWidget(TestPaper);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 0, 1711, 851));
+        layoutWidget->setGeometry(QRect(10, 0, 1821, 851));
         verticalLayout_3 = new QVBoxLayout(layoutWidget);
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -515,7 +514,7 @@ public:
         gridLayout_4->setSpacing(6);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         gridLayout_4->setVerticalSpacing(5);
-        gridLayout_4->setContentsMargins(10, 5, 10, 0);
+        gridLayout_4->setContentsMargins(0, 5, 0, 0);
         lblItemSearchWidth = new QLabel(groupBox);
         lblItemSearchWidth->setObjectName(QString::fromUtf8("lblItemSearchWidth"));
         lblItemSearchWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
@@ -594,7 +593,7 @@ public:
 
         label_59 = new QLabel(groupBox);
         label_59->setObjectName(QString::fromUtf8("label_59"));
-        label_59->setMinimumSize(QSize(85, 0));
+        label_59->setMinimumSize(QSize(65, 0));
 
         gridLayout_4->addWidget(label_59, 1, 12, 1, 1);
 
@@ -652,7 +651,7 @@ public:
 
         label_64 = new QLabel(groupBox);
         label_64->setObjectName(QString::fromUtf8("label_64"));
-        label_64->setMinimumSize(QSize(85, 0));
+        label_64->setMinimumSize(QSize(65, 0));
         label_64->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         gridLayout_4->addWidget(label_64, 3, 3, 1, 1);
@@ -733,6 +732,7 @@ public:
 
         lineEdit_TestPaparName = new QLineEdit(groupBox);
         lineEdit_TestPaparName->setObjectName(QString::fromUtf8("lineEdit_TestPaparName"));
+        lineEdit_TestPaparName->setMinimumSize(QSize(100, 0));
 
         gridLayout_4->addWidget(lineEdit_TestPaparName, 1, 2, 1, 1);
 
@@ -744,13 +744,13 @@ public:
 
         label_43 = new QLabel(groupBox);
         label_43->setObjectName(QString::fromUtf8("label_43"));
-        label_43->setMinimumSize(QSize(85, 0));
+        label_43->setMinimumSize(QSize(65, 0));
 
         gridLayout_4->addWidget(label_43, 1, 6, 1, 1);
 
         label_45 = new QLabel(groupBox);
         label_45->setObjectName(QString::fromUtf8("label_45"));
-        label_45->setMinimumSize(QSize(85, 0));
+        label_45->setMinimumSize(QSize(65, 0));
 
         gridLayout_4->addWidget(label_45, 1, 9, 1, 1);
 
@@ -795,6 +795,8 @@ public:
 
         cmbFunDirection = new QComboBox(groupBox);
         cmbFunDirection->setObjectName(QString::fromUtf8("cmbFunDirection"));
+        cmbFunDirection->setMinimumSize(QSize(0, 0));
+        cmbFunDirection->setMaximumSize(QSize(16777215, 16777215));
 
         gridLayout_4->addWidget(cmbFunDirection, 0, 5, 1, 1);
 
@@ -2444,6 +2446,7 @@ public:
         horizontalLayout_6->addWidget(tbSegment);
 
         horizontalLayout_6->setStretch(0, 1);
+        horizontalLayout_6->setStretch(1, 1);
 
         verticalLayout_3->addLayout(horizontalLayout_6);
 
@@ -2469,10 +2472,6 @@ public:
         verticalLayout_3->addLayout(horizontalLayout_3);
 
         verticalLayout_3->setStretch(1, 1);
-        lblG1ItemName_2 = new QLabel(TestPaper);
-        lblG1ItemName_2->setObjectName(QString::fromUtf8("lblG1ItemName_2"));
-        lblG1ItemName_2->setGeometry(QRect(680, 840, 52, 12));
-        lblG1ItemName_2->setAlignment(Qt::AlignCenter);
 
         retranslateUi(TestPaper);
 
@@ -2659,7 +2658,6 @@ public:
         pushButton_Cancel->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "normalBtnGray", nullptr)));
         pushButton_Save->setText(QApplication::translate("TestPaper", "\344\277\235\345\255\230", nullptr));
         pushButton_Save->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "normalBtnRed", nullptr)));
-        lblG1ItemName_2->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\220\215\347\247\260", nullptr));
     } // retranslateUi
 
 };

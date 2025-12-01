@@ -39,6 +39,9 @@
     <ClCompile Include="src\baseSet\BedNoDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\baseSet\CompanyDao.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\baseSet\DepartmentDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,6 +52,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\baseSet\ItemDao.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\baseSet\JudgeDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\baseSet\ProcessDao.cpp">
@@ -82,6 +88,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\baseSet\SexDao.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\baseSet\StandardCurveDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\baseSet\SystemSetDao.cpp">
@@ -122,6 +131,9 @@
     <ClInclude Include="src\baseSet\BedNoDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\baseSet\CompanyDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\baseSet\DepartmentDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -132,6 +144,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\baseSet\ItemDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\baseSet\JudgeDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\baseSet\ProcessDao.h">
@@ -165,6 +180,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\baseSet\SexDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\baseSet\StandardCurveDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\baseSet\SystemSetDao.h">

@@ -36,6 +36,8 @@ ProcessData::ProcessData(QWidget *parent)
     }
     ui.cmbStepType->setView(new QListView(this));
     ui.cmbStepGroup->setEditable(true);
+    ui.lblStepType->setText(GlobalData::LoadLanguageInfo("K2022"));
+    ui.lblStepGroup->setText(GlobalData::LoadLanguageInfo("K2023"));
 }
 
 ProcessData::~ProcessData()

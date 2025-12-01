@@ -223,11 +223,11 @@ void ReagentManager::on_tableWidget_Company_cellClicked()
     ui.tableWidget_Reagent->hideColumn(2);
     ui.tableWidget_Reagent->hideColumn(3);
     ui.tableWidget_Reagent->hideColumn(4);
-    ui.tableWidget_Reagent->setColumnWidth(0, 250);
+    ui.tableWidget_Reagent->setColumnWidth(0, 255);
     ui.tableWidget_Reagent->setColumnWidth(1, 150);
-    ui.tableWidget_Reagent->setColumnWidth(5, 50);
-    ui.tableWidget_Reagent->setColumnWidth(6, 80);
-    ui.tableWidget_Reagent->setColumnWidth(7, 80);
+    ui.tableWidget_Reagent->setColumnWidth(5, 120);
+    ui.tableWidget_Reagent->setColumnWidth(6, 195);
+    ui.tableWidget_Reagent->setColumnWidth(7, 195);
 
 }
 

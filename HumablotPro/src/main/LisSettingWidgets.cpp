@@ -107,6 +107,7 @@ LisSettingWidgets::LisSettingWidgets(QWidget *parent)
     ui.pushButtonSend_2->setText(GlobalData::LoadLanguageInfo("K1749"));
     ui.pushButtonSend_3->setText(GlobalData::LoadLanguageInfo("K1750"));
     ui.pushButtonSend_4->setText(GlobalData::LoadLanguageInfo("K1748"));
+    ui.chkOneWay->setText(GlobalData::LoadLanguageInfo("K2003"));
 }
 
 void LisSettingWidgets::setTcpClient(TcpClient *tcpClient1)

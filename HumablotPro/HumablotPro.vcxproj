@@ -192,7 +192,6 @@
     <ClCompile Include="src\sample\PrepareReagentWidget.cpp" />
     <ClCompile Include="src\utility\ProcessData.cpp" />
     <ClCompile Include="src\utility\ProcessDataList.cpp" />
-    <ClCompile Include="src\utility\ProcessParaWidgets.cpp" />
     <ClCompile Include="src\main\subDialog\ProgressDialog.cpp" />
     <ClCompile Include="src\utility\maintain\PumpAutoCheckWidgets.cpp" />
     <ClCompile Include="src\utility\maintain\PumpCalibrateWidget.cpp" />
@@ -675,16 +674,6 @@
       
     </QtMoc>
     <QtMoc Include="src\utility\ProcessDataList.h">
-      
-      
-      
-      
-      
-      
-      
-      
-    </QtMoc>
-    <QtMoc Include="src\utility\ProcessParaWidgets.h">
       
       
       
@@ -1289,7 +1278,6 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
     
     
     
-    
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
@@ -1312,7 +1300,6 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">precompile.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    
     
     
     
@@ -1734,17 +1721,6 @@ echo #include "precompile.h"&gt;&gt;..\Include\Precomp\precompile.h.cpp</Command
       
     </QtUic>
     <QtUic Include="ui\utility\ProcessDataList.ui">
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    </QtUic>
-    <QtUic Include="src\utility\ProcessParaWidgets.ui">
       
       
       

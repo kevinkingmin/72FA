@@ -151,10 +151,12 @@ copy "$(TargetPath)" ..\Bin</Command>
     <ClCompile Include="src\Analysis\AnalysisDao.cpp" />
     <ClCompile Include="src\Analysis\AnalysisUIDao.cpp" />
     <ClCompile Include="src\baseSet\BedNoDao.cpp" />
+    <ClCompile Include="src\baseSet\CompanyDao.cpp" />
     <ClCompile Include="src\baseSet\DepartmentDao.cpp" />
     <ClCompile Include="src\baseSet\DiagnosisDao.cpp" />
     <ClCompile Include="src\baseSet\InstrumentParasSetDao.cpp" />
     <ClCompile Include="src\baseSet\ItemDao.cpp" />
+    <ClCompile Include="src\baseSet\JudgeDao.cpp" />
     <ClCompile Include="src\baseSet\ProcessDao.cpp" />
     <ClCompile Include="src\baseSet\ProcessParaDao.cpp" />
     <ClCompile Include="src\baseSet\ProcessParameterDao.cpp" />
@@ -166,6 +168,7 @@ copy "$(TargetPath)" ..\Bin</Command>
     <ClCompile Include="src\baseSet\SampleSenderDao.cpp" />
     <ClCompile Include="src\sample\SampleTestDao.cpp" />
     <ClCompile Include="src\baseSet\SexDao.cpp" />
+    <ClCompile Include="src\baseSet\StandardCurveDao.cpp" />
     <ClCompile Include="src\baseSet\SystemSetDao.cpp" />
     <ClCompile Include="src\baseSet\TestPaperDao.cpp" />
     <ClCompile Include="src\user\UserDao.cpp" />
@@ -180,10 +183,12 @@ copy "$(TargetPath)" ..\Bin</Command>
     <ClInclude Include="src\Analysis\AnalysisDao.h" />
     <ClInclude Include="src\Analysis\AnalysisUIDao.h" />
     <ClInclude Include="src\baseSet\BedNoDao.h" />
+    <ClInclude Include="src\baseSet\CompanyDao.h" />
     <ClInclude Include="src\baseSet\DepartmentDao.h" />
     <ClInclude Include="src\baseSet\DiagnosisDao.h" />
     <ClInclude Include="src\baseSet\InstrumentParasSetDao.h" />
     <ClInclude Include="src\baseSet\ItemDao.h" />
+    <ClInclude Include="src\baseSet\JudgeDao.h" />
     <ClInclude Include="src\baseSet\ProcessDao.h" />
     <ClInclude Include="src\baseSet\ProcessParaDao.h" />
     <ClInclude Include="src\baseSet\ProcessParameterDao.h" />
@@ -195,6 +200,7 @@ copy "$(TargetPath)" ..\Bin</Command>
     <ClInclude Include="src\baseSet\SampleSenderDao.h" />
     <ClInclude Include="src\sample\SampleTestDao.h" />
     <ClInclude Include="src\baseSet\SexDao.h" />
+    <ClInclude Include="src\baseSet\StandardCurveDao.h" />
     <ClInclude Include="src\baseSet\SystemSetDao.h" />
     <ClInclude Include="src\baseSet\TestPaperDao.h" />
     <ClInclude Include="src\user\UserDao.h" />
