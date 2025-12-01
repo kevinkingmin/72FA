@@ -640,7 +640,7 @@ bool TestPaper::Save_TestPaper_Items()
     if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
     {
         getUIBlockAndItemData();
-        auto count=ui->lineEdit_Item_Number->text().simplified().toInt();
+        auto count=ui->lineEdit_TestItem_Number->text().simplified().toInt();
         for (auto it = m_blockAndItemDataMap.begin(); it != m_blockAndItemDataMap.end(); ++it)
         {
              for(BlockItemData& blockItem: it->itemDatas)
@@ -670,10 +670,10 @@ bool TestPaper::Save_TestPaper_Items()
         // 更新数据库
         for (auto it = m_blockAndItemDataMap.begin(); it != m_blockAndItemDataMap.end(); ++it)
         {
-            int idx = 0; // 项目在段中的位置
+            int idx = 1; // 项目在段中的位置, 从1开始
             for(BlockItemData& sub:it.value().itemDatas)
             {
-                qDebug()<<"item"<<sub.strItemName;
+                qDebug()<<"item"<<sub.strItemName<<idx;
                 ItemModel item;
                 item.setSegmentIndex(it.value().blockData.serialNo);
                 item.setItemType(sub.itemType);
@@ -699,8 +699,8 @@ bool TestPaper::Save_TestPaper_Items()
         {
             if(it->itemType == 2) itemCnt++;
         }
-        auto count=ui->lineEdit_Item_Number->text().simplified().toInt();
-        if(m_itemDataMap.count()!=count)
+        auto count=ui->lineEdit_TestItem_Number->text().simplified().toInt();
+        if(count!=itemCnt)
         {
             QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
             return false;
