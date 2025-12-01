@@ -53,6 +53,14 @@ bool SystemSetDao::getModel(int id, SystemSetModel& out)
     return true;
 }
 
+bool SystemSetDao::getPicturePathRoot(QString& out)
+{
+    SystemSetModel systemSetting;
+    if(!getModel(3, systemSetting)) return false;
+    out = systemSetting.getSaveDes();
+    return true;
+}
+
 QVector<SystemSetModel> SystemSetDao::getAllRows()
 {
     QSqlQuery query;

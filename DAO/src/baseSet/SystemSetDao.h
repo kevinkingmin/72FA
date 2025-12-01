@@ -28,6 +28,7 @@ public:
     static SystemSetDao *instance();
     bool updateModel(SystemSetModel& model);
     bool getModel(int id, SystemSetModel& out);
+    bool getPicturePathRoot(QString& out);
     QVector<SystemSetModel>getAllRows();
 private:
 };

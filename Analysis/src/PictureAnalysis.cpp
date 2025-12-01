@@ -10,8 +10,14 @@
 #include"iostream"
 #include "../Include/DAO/Analysis/AnalysisDao.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "../Include/DAO/baseSet/SystemSetDao.h"
 #include "../Include/DAO/baseSet/JudgeDao.h"
 #include "../Include/Model/result/JudgeRules.h"
+#include "../Include/Model/baseSet/TestPaperModel.h"
+#include "../Include/Model/baseSet/ItemModel.h"
+#include "../Include/Model/baseSet/SystemSetModel.h"
+#include "../Include/DAO/baseSet/TestPaperDao.h"
+#include "../Include/DAO/baseSet/ItemDao.h"
 #include "../Include/Utilities/log.h"
 #include "Wave_Low_Top_Info.h"
 #include <opencv2/opencv.hpp>
@@ -57,13 +63,13 @@ bool PictureAnalysis::Analysis(QString sampleId,QString file_path)
     {
         m_nSampleID = SampleQuery.value("sampleNo").toString();//.toInt();
         m_nTestPaperID = SampleQuery.value("paperId").toInt();
-        AnalysisOneSample(m_nTestPaperID,1,file_path,"1","","");
+        AnalysisOneSample(m_nTestPaperID,1,file_path,"1","");
     }
     return true;
 }
 
 
-bool PictureAnalysis::AnalysisOne(QString test_id,int paperId,QString sampleId, QString solution_name, QString patiant_name)
+bool PictureAnalysis::AnalysisOne(QString test_id,int paperId,QString sampleId, QString solution_name)
 {
     bool bResult;
     auto dao = AnalysisDao::instance();
@@ -74,7 +80,7 @@ bool PictureAnalysis::AnalysisOne(QString test_id,int paperId,QString sampleId, 
     }
     int companyId = 1;
     companyId = dao->SelectCampanyId(&bResult).toInt();
-    bResult = AnalysisOneSample(paperId, companyId, test_id, sampleId, solution_name, patiant_name);
+    bResult = AnalysisOneSample(paperId, companyId, test_id, sampleId, solution_name);
     if (bResult == false)
     {
         return false;
@@ -82,18 +88,29 @@ bool PictureAnalysis::AnalysisOne(QString test_id,int paperId,QString sampleId, 
     return true;
 }
 
-bool PictureAnalysis::AnalysisOneSample(int paper_id,int company_id,QString testId, QString sampleId, QString solution_name, QString patiant_name)
+bool PictureAnalysis::AnalysisOneSample(int paper_id,int company_id,QString testId, QString sampleId, QString solution_name)
 {
-    TestPaperParameter testPaperParameterStruct;
-    if (GetTestPaperParameter(testPaperParameterStruct, paper_id, company_id) == false)
-        return false;
-    testPaperParameterStruct.sampleId = sampleId;
-    testPaperParameterStruct.Id=testId;
+   int resultCode = 0;
     m_nSampleID = sampleId;
-    int resultCode = 0;
+//    TestPaperParameter testPaperParameterStruct;
+    TestPaperModel testPaper;
+    if(!TestPaperDao::instance()->getModel(paper_id, testPaper)) return false;
+//    if (GetTestPaperParameter(testPaperParameterStruct, paper_id, company_id) == false) return false;
+//    testPaperParameterStruct.sampleId = sampleId;
+//    testPaperParameterStruct.Id=testId;
     // 根据不同的类型选择不同的方式
 //    dLog("company_id = " + std::to_string(company_id) + "type = " + std::to_string(testPaperParameterStruct.set_calculate_point));
 //    qDebug() << "company_id = " << company_id << "type = " << testPaperParameterStruct.set_calculate_point;
+    if(testPaper.getPaperType() == TestPaperModel::PAPER_TYPE_CONTINUOUS) // 连续膜条处理
+    {
+//        int code = CalcImageItemContinuous(testPaperParameterStruct, testId);
+//        resultCode = code;
+    }else
+    {
+        resultCode = CalcImageItemSegmentation(testPaperParameterStruct, testId);
+//        resultCode = code;
+    }
+/*
     if(company_id == 6)
     {// 艾康单独处理
         int code = CalcImageItemWz(testPaperParameterStruct, testId);
@@ -170,6 +187,7 @@ bool PictureAnalysis::AnalysisOneSample(int paper_id,int company_id,QString test
         if (SaveTestData(testPaperParameterStruct) == false)
             return false;
     }
+    */
     return true;
 }
 
@@ -271,88 +289,137 @@ bool PictureAnalysis::UpdateSampleAnalysisState(int nAnalysisState)
 
 }
 
-bool PictureAnalysis::GetTestPaperParameter(TestPaperParameter &testPaperParameterStruct,int paper_id, int company_id)
-{
-    bool bResult;
-    auto dao = AnalysisDao::instance();
-    QString strControlThreshold = dao->SelectControlThreshold(&bResult,paper_id,company_id);
-    m_nControlThreshold = strControlThreshold.toInt();
-    QString strCutOffThreshold = dao->SelectCutOffThreshold(&bResult, paper_id, company_id);
-    m_nCutOffThreshold = strCutOffThreshold.toInt();
-    auto TestPaperQuery = dao->SelectTestPaper(QString::number(paper_id), &bResult);
-    if (bResult == false)
-    {
-        return false;
-    }
-    testPaperParameterStruct.paperId = paper_id;
-    testPaperParameterStruct.articleNo = "调试批号";
-    testPaperParameterStruct.solutionName = "调试方案名";
-    testPaperParameterStruct.manageName = "调试操作员名称";
-    if (TestPaperQuery.next())
-    {
-        testPaperParameterStruct.companyId = TestPaperQuery.value("CompanyID").toInt();
-        testPaperParameterStruct.strTestPaperName = TestPaperQuery.value("PaperName").toString();
-        testPaperParameterStruct.paperType = TestPaperQuery.value("PaperType").toInt();
-        testPaperParameterStruct.nTotalNumber = TestPaperQuery.value("TotalNumber").toInt();
-        testPaperParameterStruct.nTestItemNumber = TestPaperQuery.value("ItemNumber").toInt();
-        testPaperParameterStruct.dTotalLenght = TestPaperQuery.value("TestPaperLenght").toDouble();
-        testPaperParameterStruct.paperHeight = TestPaperQuery.value("PaperHeight").toDouble();
-        testPaperParameterStruct.paperMmToPixel = TestPaperQuery.value("PaperMmToPixel").toDouble();
-        testPaperParameterStruct.ignoreHeadLenght = TestPaperQuery.value("IgnoreHeadLenght").toDouble();
-        testPaperParameterStruct.testBlockWidth = TestPaperQuery.value("TestBlockWidth").toDouble();
-        testPaperParameterStruct.funcFindDir = TestPaperQuery.value("FuncFindDir").toInt();
-        testPaperParameterStruct.funcPosition = TestPaperQuery.value("FuncPosition").toDouble();
-        testPaperParameterStruct.funcFindWidth = TestPaperQuery.value("FuncFindWidth").toDouble();
-        testPaperParameterStruct.funcGrayThreshold = TestPaperQuery.value("FuncGrayThreshold").toDouble();
-        testPaperParameterStruct.isBlackPointDetect = TestPaperQuery.value("IsBlackPointDetect").toInt() == 1;
-        testPaperParameterStruct.blackPointDetectThreshold = TestPaperQuery.value("BlackPointDetectThreshold").toDouble();
-        testPaperParameterStruct.isCutOff = TestPaperQuery.value("IsCutOff").toInt();
-        testPaperParameterStruct.cutOffPosition = TestPaperQuery.value("CutoffPosition").toDouble();
-        testPaperParameterStruct.cutOffValue = TestPaperQuery.value("CutoffValue").toDouble();
-        testPaperParameterStruct.cutOffThreshold = TestPaperQuery.value("CutOffGrayThreshold").toDouble();
-        testPaperParameterStruct.paperShowAngle = TestPaperQuery.value("PaperShowAngle").toInt();
-        testPaperParameterStruct.paperBinarizationThreshold = TestPaperQuery.value("PaperBinarizationThreshold").toInt();
-        testPaperParameterStruct.paperBackgroundValue = TestPaperQuery.value("PaperBackgroundValue").toDouble();
-        testPaperParameterStruct.itemFindWidth = TestPaperQuery.value("ItemFindWidth").toDouble();
-        testPaperParameterStruct.itemLineWidth = TestPaperQuery.value("ItemLineWidth").toDouble();
-        testPaperParameterStruct.analysisPercentOfWidth = TestPaperQuery.value("AnalysisPercentOfWidth").toInt();
-        testPaperParameterStruct.analysisPercentOfHeight = TestPaperQuery.value("AnalysisPercentOfHeight").toInt();
-        testPaperParameterStruct.paperColorOnUi = TestPaperQuery.value("PaperColorOnUi").toInt();
-        testPaperParameterStruct.isPaperHide = TestPaperQuery.value("IsPaperHide").toInt() == 1;
-        testPaperParameterStruct.articleNo = TestPaperQuery.value("ArticleNo").toString();
-        testPaperParameterStruct.paperSortIdxOnUi = TestPaperQuery.value("PaperSortIdxOnUi").toInt();
-    }
-    auto TestPaperItemQuery = dao->SelectTestPaperItems(QString::number(paper_id), &bResult);
-    if (bResult == false)
-    {
-        return false;
-    }
-    int index = 0;
-    testPaperParameterStruct.isNullArea[index] = 0;
-    testPaperParameterStruct.strTestItemName[index] = "FC";
-    testPaperParameterStruct.dItemNo[index] = 2;
-    testPaperParameterStruct.dItemPosition[index] = testPaperParameterStruct.funcPosition;
-    testPaperParameterStruct.dItemCurveId[index] = 0;
-    testPaperParameterStruct.dItemResultOffset[index] = 0;
-    index++;
-    testPaperParameterStruct.isNullArea[index] = 0;
-    testPaperParameterStruct.strTestItemName[index] = "Cut";
-    testPaperParameterStruct.dItemNo[index] = 2;
-    testPaperParameterStruct.dItemPosition[index] = testPaperParameterStruct.cutOffPosition;
-    testPaperParameterStruct.dItemCurveId[index] = 0;
-    testPaperParameterStruct.dItemResultOffset[index] = 0;
-    while (TestPaperItemQuery.next())
-    {
-        testPaperParameterStruct.isNullArea[index] = TestPaperItemQuery.value("IsNull").toInt();
-        testPaperParameterStruct.strTestItemName[index] = TestPaperItemQuery.value("itemName").toString();
-        testPaperParameterStruct.dItemPosition[index] = TestPaperItemQuery.value("position").toDouble();
-        testPaperParameterStruct.dItemNo[index] = TestPaperItemQuery.value("PositionNo").toInt();
-        testPaperParameterStruct.dItemCurveId[index] = TestPaperItemQuery.value("curveId").toInt();
-        testPaperParameterStruct.dItemResultOffset[index] = TestPaperItemQuery.value("resultOffset").toInt();
-        index++;
-    }
-    return true;
-}
+//bool PictureAnalysis::GetTestPaperParameter(TestPaperParameter &testPaperParameterStruct,int paper_id, int company_id)
+//{
+//    bool bResult;
+//    TestPaperModel testPaper;
+//    if(!TestPaperDao::instance()->getModel(paper_id, testPaper)) return false;
+
+//    testPaperParameterStruct.paperId = paper_id;
+//    testPaperParameterStruct.articleNo = testPaper.getArticleNo();
+
+//    testPaperParameterStruct.companyId = testPaper.getCompanyId();// TestPaperQuery.value("CompanyID").toInt();
+//    testPaperParameterStruct.strTestPaperName = testPaper.getPaperName();// TestPaperQuery.value("PaperName").toString();
+//    testPaperParameterStruct.paperType = testPaper.getPaperType();// TestPaperQuery.value("PaperType").toInt();
+//    testPaperParameterStruct.nTotalNumber = testPaper.getTotalNumber();// TestPaperQuery.value("TotalNumber").toInt();
+//    testPaperParameterStruct.nTestItemNumber = testPaper.getTestItemNumber();// TestPaperQuery.value("ItemNumber").toInt();
+//    testPaperParameterStruct.dTotalLenght = testPaper.getTotalLenght();// TestPaperQuery.value("TestPaperLenght").toDouble();
+//    testPaperParameterStruct.paperHeight = testPaper.getPaperHeight();// TestPaperQuery.value("PaperHeight").toDouble();
+//    testPaperParameterStruct.paperMmToPixel = testPaper.getPaperMmToPixel();// TestPaperQuery.value("PaperMmToPixel").toDouble();
+//    testPaperParameterStruct.ignoreHeadLenght = testPaper.getIgnoreHeadLenght();// TestPaperQuery.value("IgnoreHeadLenght").toDouble();
+//    testPaperParameterStruct.testBlockWidth = testPaper.getTestBlockWidth();// TestPaperQuery.value("TestBlockWidth").toDouble();
+//    testPaperParameterStruct.funcFindDir = testPaper.getFuncFindDir();// TestPaperQuery.value("FuncFindDir").toInt();
+////    testPaperParameterStruct.funcPosition = testPaper.get TestPaperQuery.value("FuncPosition").toDouble();
+//    testPaperParameterStruct.funcFindWidth = testPaper.getFuncFindWidth();// TestPaperQuery.value("FuncFindWidth").toDouble();
+//    testPaperParameterStruct.funcGrayThreshold = testPaper.getFuncGrayThreshold();// TestPaperQuery.value("FuncGrayThreshold").toDouble();
+//    testPaperParameterStruct.isBlackPointDetect = testPaper.getIsBlackPointDetect();// TestPaperQuery.value("IsBlackPointDetect").toInt() == 1;
+//    testPaperParameterStruct.blackPointDetectThreshold = testPaper.getBlackPointDetectThreshold();// TestPaperQuery.value("BlackPointDetectThreshold").toDouble();
+////    testPaperParameterStruct.isCutOff =  TestPaperQuery.value("IsCutOff").toInt();
+////    testPaperParameterStruct.cutOffPosition = TestPaperQuery.value("CutoffPosition").toDouble();
+//    testPaperParameterStruct.cutOffValue = testPaper.getCutOffValue();// TestPaperQuery.value("CutoffValue").toDouble();
+//    testPaperParameterStruct.cutOffThreshold = testPaper.getCutOffThreshold();// TestPaperQuery.value("CutOffGrayThreshold").toDouble();
+//    testPaperParameterStruct.paperShowAngle = testPaper.getPaperShowAngle();// TestPaperQuery.value("PaperShowAngle").toInt();
+//    testPaperParameterStruct.paperBinarizationThreshold = testPaper.getPaperBinarizationThreshold();// TestPaperQuery.value("PaperBinarizationThreshold").toInt();
+//    testPaperParameterStruct.paperBackgroundValue = TestPaperQuery.value("PaperBackgroundValue").toDouble();
+//    testPaperParameterStruct.itemFindWidth = TestPaperQuery.value("ItemFindWidth").toDouble();
+//    testPaperParameterStruct.itemLineWidth = TestPaperQuery.value("ItemLineWidth").toDouble();
+//    testPaperParameterStruct.analysisPercentOfWidth = TestPaperQuery.value("AnalysisPercentOfWidth").toInt();
+//    testPaperParameterStruct.analysisPercentOfHeight = TestPaperQuery.value("AnalysisPercentOfHeight").toInt();
+//    testPaperParameterStruct.paperColorOnUi = TestPaperQuery.value("PaperColorOnUi").toInt();
+//    testPaperParameterStruct.isPaperHide = TestPaperQuery.value("IsPaperHide").toInt() == 1;
+//    testPaperParameterStruct.articleNo = TestPaperQuery.value("ArticleNo").toString();
+//    testPaperParameterStruct.paperSortIdxOnUi = TestPaperQuery.value("PaperSortIdxOnUi").toInt();
+
+
+
+
+////    testPaperParameterStruct.solutionName = "调试方案名";
+////    testPaperParameterStruct.manageName = "调试操作员名称";
+
+
+
+
+
+
+////    auto dao = AnalysisDao::instance();
+////    QString strControlThreshold = dao->SelectControlThreshold(&bResult,paper_id,company_id);
+////    m_nControlThreshold = strControlThreshold.toInt();
+////    QString strCutOffThreshold = dao->SelectCutOffThreshold(&bResult, paper_id, company_id);
+////    m_nCutOffThreshold = strCutOffThreshold.toInt();
+////    auto TestPaperQuery = dao->SelectTestPaper(QString::number(paper_id), &bResult);
+//    if (bResult == false)
+//    {
+//        return false;
+//    }
+//    testPaperParameterStruct.paperId = paper_id;
+//    testPaperParameterStruct.articleNo = "调试批号";
+//    testPaperParameterStruct.solutionName = "调试方案名";
+//    testPaperParameterStruct.manageName = "调试操作员名称";
+//    if (TestPaperQuery.next())
+//    {
+//        testPaperParameterStruct.companyId = TestPaperQuery.value("CompanyID").toInt();
+//        testPaperParameterStruct.strTestPaperName = TestPaperQuery.value("PaperName").toString();
+//        testPaperParameterStruct.paperType = TestPaperQuery.value("PaperType").toInt();
+//        testPaperParameterStruct.nTotalNumber = TestPaperQuery.value("TotalNumber").toInt();
+//        testPaperParameterStruct.nTestItemNumber = TestPaperQuery.value("ItemNumber").toInt();
+//        testPaperParameterStruct.dTotalLenght = TestPaperQuery.value("TestPaperLenght").toDouble();
+//        testPaperParameterStruct.paperHeight = TestPaperQuery.value("PaperHeight").toDouble();
+//        testPaperParameterStruct.paperMmToPixel = TestPaperQuery.value("PaperMmToPixel").toDouble();
+//        testPaperParameterStruct.ignoreHeadLenght = TestPaperQuery.value("IgnoreHeadLenght").toDouble();
+//        testPaperParameterStruct.testBlockWidth = TestPaperQuery.value("TestBlockWidth").toDouble();
+//        testPaperParameterStruct.funcFindDir = TestPaperQuery.value("FuncFindDir").toInt();
+//        testPaperParameterStruct.funcPosition = TestPaperQuery.value("FuncPosition").toDouble();
+//        testPaperParameterStruct.funcFindWidth = TestPaperQuery.value("FuncFindWidth").toDouble();
+//        testPaperParameterStruct.funcGrayThreshold = TestPaperQuery.value("FuncGrayThreshold").toDouble();
+//        testPaperParameterStruct.isBlackPointDetect = TestPaperQuery.value("IsBlackPointDetect").toInt() == 1;
+//        testPaperParameterStruct.blackPointDetectThreshold = TestPaperQuery.value("BlackPointDetectThreshold").toDouble();
+//        testPaperParameterStruct.isCutOff = TestPaperQuery.value("IsCutOff").toInt();
+//        testPaperParameterStruct.cutOffPosition = TestPaperQuery.value("CutoffPosition").toDouble();
+//        testPaperParameterStruct.cutOffValue = TestPaperQuery.value("CutoffValue").toDouble();
+//        testPaperParameterStruct.cutOffThreshold = TestPaperQuery.value("CutOffGrayThreshold").toDouble();
+//        testPaperParameterStruct.paperShowAngle = TestPaperQuery.value("PaperShowAngle").toInt();
+//        testPaperParameterStruct.paperBinarizationThreshold = TestPaperQuery.value("PaperBinarizationThreshold").toInt();
+//        testPaperParameterStruct.paperBackgroundValue = TestPaperQuery.value("PaperBackgroundValue").toDouble();
+//        testPaperParameterStruct.itemFindWidth = TestPaperQuery.value("ItemFindWidth").toDouble();
+//        testPaperParameterStruct.itemLineWidth = TestPaperQuery.value("ItemLineWidth").toDouble();
+//        testPaperParameterStruct.analysisPercentOfWidth = TestPaperQuery.value("AnalysisPercentOfWidth").toInt();
+//        testPaperParameterStruct.analysisPercentOfHeight = TestPaperQuery.value("AnalysisPercentOfHeight").toInt();
+//        testPaperParameterStruct.paperColorOnUi = TestPaperQuery.value("PaperColorOnUi").toInt();
+//        testPaperParameterStruct.isPaperHide = TestPaperQuery.value("IsPaperHide").toInt() == 1;
+//        testPaperParameterStruct.articleNo = TestPaperQuery.value("ArticleNo").toString();
+//        testPaperParameterStruct.paperSortIdxOnUi = TestPaperQuery.value("PaperSortIdxOnUi").toInt();
+//    }
+//    auto TestPaperItemQuery = dao->SelectTestPaperItems(QString::number(paper_id), &bResult);
+//    if (bResult == false)
+//    {
+//        return false;
+//    }
+//    int index = 0;
+//    testPaperParameterStruct.isNullArea[index] = 0;
+//    testPaperParameterStruct.strTestItemName[index] = "FC";
+//    testPaperParameterStruct.dItemNo[index] = 2;
+//    testPaperParameterStruct.dItemPosition[index] = testPaperParameterStruct.funcPosition;
+//    testPaperParameterStruct.dItemCurveId[index] = 0;
+//    testPaperParameterStruct.dItemResultOffset[index] = 0;
+//    index++;
+//    testPaperParameterStruct.isNullArea[index] = 0;
+//    testPaperParameterStruct.strTestItemName[index] = "Cut";
+//    testPaperParameterStruct.dItemNo[index] = 2;
+//    testPaperParameterStruct.dItemPosition[index] = testPaperParameterStruct.cutOffPosition;
+//    testPaperParameterStruct.dItemCurveId[index] = 0;
+//    testPaperParameterStruct.dItemResultOffset[index] = 0;
+//    while (TestPaperItemQuery.next())
+//    {
+//        testPaperParameterStruct.isNullArea[index] = TestPaperItemQuery.value("IsNull").toInt();
+//        testPaperParameterStruct.strTestItemName[index] = TestPaperItemQuery.value("itemName").toString();
+//        testPaperParameterStruct.dItemPosition[index] = TestPaperItemQuery.value("position").toDouble();
+//        testPaperParameterStruct.dItemNo[index] = TestPaperItemQuery.value("PositionNo").toInt();
+//        testPaperParameterStruct.dItemCurveId[index] = TestPaperItemQuery.value("curveId").toInt();
+//        testPaperParameterStruct.dItemResultOffset[index] = TestPaperItemQuery.value("resultOffset").toInt();
+//        index++;
+//    }
+//    return true;
+//}
 
 /**
  * @brief 分段膜条处理
@@ -360,24 +427,28 @@ bool PictureAnalysis::GetTestPaperParameter(TestPaperParameter &testPaperParamet
  * @param testId
  * @return
  */
-int PictureAnalysis::CalcImageItemSegmentation(TestPaperParameter &testPaperParameterStruct, QString testId)
+PictureAnalysis::Error PictureAnalysis::CalcImageItemSegmentation(TestPaperModel &paper, QString testId)
 {
-    auto dao = AnalysisDao::instance();
+    Error err = Error::NoError;
     bool bResult = true;
-    // 获取要分析的膜条路径
-    QString piture_root_str = dao->SelectTestPicturesRootPath(&bResult);
-    QString strPathFileName_last = piture_root_str + "\\" + "original" + "\\" + testId + "" + ".png";
-
-    // 整张图片的处理
-    int code = GetTestPaperImageSegmentation(strPathFileName_last,testPaperParameterStruct);
-    if(code != 0)
+    SystemSetModel systemSetting;
+    bResult = SystemSetDao::instance()->getModel(3, systemSetting);
+    if(bResult)
     {
-        dLog("error code = " + std::to_string(code));
-        return (code == 3 || code == 4) ? 83 : 81;
+        return Error::PictureNotFound;
     }
+    // 整张图片的处理
+    err = GetTestPaperImageSegmentation(systemSetting.getSaveDes(), testId, paper);
+    // TODO::Wangz
+    return err;
+//    if(code != 0)
+//    {
+//        dLog("error code = " + std::to_string(code));
+//        return (code == 3 || code == 4) ? 83 : 81;
+//    }
 
-    dLog("error code = 88");
-    return 88;
+//    dLog("error code = 88");
+//    return 88;
 }
 
 /**
@@ -386,19 +457,23 @@ int PictureAnalysis::CalcImageItemSegmentation(TestPaperParameter &testPaperPara
  * 0 成功
  * 1:图片识别失败
  */
-int PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperParameter &testPaperParameterStruct,cv::OutputArray dstMat, cv::OutputArray dst_thresh_mat)
+PictureAnalysis::Error PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperModel &paper,cv::OutputArray dstMat, cv::OutputArray dst_thresh_mat)
 {
     bool bResult = false;
-    auto dao = AnalysisDao::instance();
+//    auto dao = AnalysisDao::instance();
     // 图片保存路径
-    QString path = dao->SelectTestPicturesRootPath(&bResult);
-    double mm_to_pixel= testPaperParameterStruct.paperMmToPixel;
+    QString path;
+    if(!SystemSetDao::instance()->getPicturePathRoot(path))
+    {
+        return Error::PictureNotFound;
+    }
+    double mm_to_pixel= paper.getPaperMmToPixel();
     // 段宽度
-    double segmentMinWidth = testPaperParameterStruct.testBlockWidth * mm_to_pixel;
+    double segmentMinWidth = paper.getTestBlockWidth() * mm_to_pixel;
     // 膜条高度
-    double totalHeigth = testPaperParameterStruct.paperHeight * mm_to_pixel;
+    double totalHeigth = paper.getPaperHeight() * mm_to_pixel;
     // 图片二值化阈值
-    int thresh = testPaperParameterStruct.paperBinarizationThreshold;
+    int thresh = paper.getPaperBinarizationThreshold();
     // 将反光区域处理
     cv::Mat lightMask;
     cv::threshold(srcMat, lightMask, 250, 255, cv::THRESH_BINARY);
@@ -442,7 +517,7 @@ int PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperPar
         cv::findContours(erodedMat, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
         if(contours.empty())
         {
-            return 1;
+            return Error::ContourNotFound;
         }
         // 将符合条件的轮廓合并为最大轮廓,这里的合并是为了更好的旋转
         vector<Point> all_points;
@@ -457,7 +532,7 @@ int PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperPar
         }
         if(all_points.empty())
         {
-            return 1;
+            return Error::ContourNotFound;
         }
         vector<Point> maxContour;
         convexHull(all_points, maxContour);
@@ -492,7 +567,7 @@ int PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperPar
         cv::findContours(rotedMat, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
         if(contours.empty())
         {
-            return 1;
+            return Error::ContourNotFound;
         }
         // 将符合条件的轮廓合并为最大轮廓,这里的合并是为了更好的旋转
         vector<Point> all_points;
@@ -507,7 +582,7 @@ int PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperPar
         }
         if(all_points.empty())
         {
-            return 1;
+            return Error::ContourNotFound;
         }
         vector<Point> maxContour;
         convexHull(all_points, maxContour);
@@ -616,24 +691,31 @@ int PictureAnalysis::TestPaperSegmentationRotateCut(cv::Mat& srcMat,TestPaperPar
  * 0:成功
  * 1:解析失败
  */
-int PictureAnalysis::TestPaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperParameter &testPaperParameterStruct, std::vector<std::tuple<int,int>>& segCenter)
+PictureAnalysis::Error PictureAnalysis::TestPaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperModel &paper, std::vector<std::tuple<int,int>>& segCenter)
 {
-    bool bResult = false;
-    auto dao = AnalysisDao::instance();
+//    bool bResult = false;
     // 图片保存路径
-    QString path = dao->SelectTestPicturesRootPath(&bResult);
-    double mm_to_pixel= testPaperParameterStruct.paperMmToPixel;
-    double segmentMinWidth = testPaperParameterStruct.testBlockWidth * mm_to_pixel;
-    int headWidth = static_cast<int>(testPaperParameterStruct.ignoreHeadLenght * mm_to_pixel);
-    double lineWidth = testPaperParameterStruct.itemLineWidth * mm_to_pixel;
+    QString path;
+    if(!SystemSetDao::instance()->getPicturePathRoot(path))
+    {
+        return Error::PictureNotFound;
+    }
+    double mm_to_pixel= paper.getPaperMmToPixel();//.paperMmToPixel;
+    double segmentMinWidth = paper.getTestBlockWidth() * mm_to_pixel;
+    int headWidth = static_cast<int>(paper.getIgnoreHeadLenght() * mm_to_pixel);
+    double lineWidth = paper.getItemLineWidth() * mm_to_pixel;
+    QVector<ItemModel> itemVect = ItemDao::instance()->selectItems(paper.getId());
+    if(itemVect.size() == 0)
+    {
+        return Error::ConfigError;
+    }
     // 共有多少线 = 总项目线+标记线+Cutoff线
-    int lineCnt = testPaperParameterStruct.nTotalNumber + 2;
+//    int lineCnt = itemVect.size();
     // 获取分段总数
-    int segCnt = testPaperParameterStruct.dItemNo[lineCnt - 1];
-
+    int segCnt = paper.getTotalNumber();
     if(srcMat.cols < headWidth)
     {
-        return 3;
+        return Error::ConfigError;
     }
 //    // 将反光区域处理
 //    cv::Mat threshMask;
@@ -677,7 +759,7 @@ int PictureAnalysis::TestPaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshM
         sort(contours.begin(), contours.end(), [](auto& a, auto& b) { return boundingRect(a).x < boundingRect(b).x; });
         if(contours.empty())
         {
-            return 3;
+            return Error::ContourNotFound;
         }
 
         // 子项目描边
@@ -768,7 +850,7 @@ int PictureAnalysis::TestPaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshM
     sort(contours.begin(), contours.end(), [](auto& a, auto& b) { return boundingRect(a).x < boundingRect(b).x; });
     if(contours.empty())
     {
-        return 1;
+        return Error::ContourNotFound;
     }
     vector<cv::Rect> segRects;
     bool need_merge = false;
@@ -806,7 +888,7 @@ int PictureAnalysis::TestPaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshM
     dLog("segRects.size() = " + std::to_string(segRects.size()) + "segCnt=" + std::to_string(segCnt));
     if(static_cast<int>(segRects.size()) != segCnt-1)
     {
-        return 1;
+        return Error::DetectSegmentCntError;
     }
     // 子项目描边
     for(auto& rect : segRects)
@@ -843,11 +925,11 @@ int PictureAnalysis::TestPaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshM
         }
         if(start < 0 || end < 0)
         {
-            return 1;
+            return Error::DetectSegmentCntError;
         }
         segCenter.push_back(std::make_tuple(rect.x + static_cast<int>((start+end)/2), end - start));
     }
-    return 0;
+    return Error::NoError;
 }
 
 /**
@@ -859,29 +941,30 @@ int PictureAnalysis::TestPaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshM
  * 1:参数设置失败
  * 2:图片解析失败
  */
-int PictureAnalysis::GetTestPaperImageSegmentation(QString filePath,TestPaperParameter &testPaperParameterStruct)
+PictureAnalysis::Error PictureAnalysis::GetTestPaperImageSegmentation(const QString& rootPath, const QString& testId, TestPaperModel& paper)
 {
-    int finalCode = 0;
+    //int finalCode = 0;
+    //auto dao = AnalysisDao::instance();
+
     bool bResult = false;
-    auto dao = AnalysisDao::instance();
-    QString path = dao->SelectTestPicturesRootPath(&bResult);
-    double mm_to_pixel= testPaperParameterStruct.paperMmToPixel;
-    double yPercent = testPaperParameterStruct.analysisPercentOfHeight / 100;
+    QString picturePath = rootPath + "\\" + "original" + "\\" + testId + "" + ".png";
+    double mmPixel= paper.getPaperMmToPixel();
+    double yPercent = paper.getAnalysisPercentOfHeight() / 100;
 
     if(yPercent > 1 || yPercent < 0.4)
     {
-        return 1;
+        return Error::ItemAnalysisHeightError;
     }
     // 读取图片并转换为灰度值
-    cv::Mat srcMat = cv::imread(filePath.toStdString(), CV_LOAD_IMAGE_GRAYSCALE);
+    cv::Mat srcMat = cv::imread(picturePath.toStdString(), CV_LOAD_IMAGE_GRAYSCALE);
     if(srcMat.empty())
     {
-        return 2;
+        return Error::PictureToGrayError;
     }
 
     cv::Mat grayMat;
     // 根据配置确定图片是否需要旋转
-    if(SrcImageNeedRotate180(testPaperParameterStruct))
+    if(SrcImageNeedRotate180(paper))
     {
         cv::rotate(srcMat, grayMat, cv::ROTATE_180);
     }
@@ -891,9 +974,11 @@ int PictureAnalysis::GetTestPaperImageSegmentation(QString filePath,TestPaperPar
     }
     // 剪切后的图片
     cv::Mat cutMat, cutThreshMat;
-    if(TestPaperSegmentationRotateCut(grayMat, testPaperParameterStruct, cutMat, cutThreshMat)!=0)
+    Error err = Error::NoError;
+    err = TestPaperSegmentationRotateCut(grayMat, paper, cutMat, cutThreshMat);
+    if(err != Error::NoError)
     {
-        return 2;
+        return err;
     }
     // 图片解析
     std::vector<std::tuple<int, int>> segCenter;
@@ -1028,9 +1113,9 @@ int PictureAnalysis::CalcImageItemContinuous(TestPaperParameter &testPaperParame
     return 88;
 }
 
-bool PictureAnalysis::SrcImageNeedRotate180(TestPaperParameter& self)
+bool PictureAnalysis::SrcImageNeedRotate180(TestPaperModel& paper)
 {
-    return self.paperShowAngle == 1;
+    return paper.getPaperShowAngle() == 1;
 }
 
 /**
