@@ -33,6 +33,8 @@ public:
         QString _reagentName;
         // 膜条名称
         QString _paperName;
+        // 膜条id
+        int _paperId;
         // 泵编号
         int _pumpNo;
         // 试剂量
@@ -46,16 +48,18 @@ public:
         ReagentInfoStrt()
             :_reagentName("")
             ,_paperName("")
+            ,_paperId(0)
             ,_pumpNo(0)
             ,_reagentMl(0)
             ,_deadMl(0)
             ,_fillingMl(0)
             ,_fillingMlSmall(0)
         {}
-        ReagentInfoStrt(const QString& reagentName, const QString& paperName, const int pumpNo, const float reagentMl,
+        ReagentInfoStrt(const QString& reagentName, const QString& paperName, const int _paperId, const int pumpNo, const float reagentMl,
                        const float deadMl, const float fillingMl, const float fillingMlSmall)
             :_reagentName(reagentName)
             ,_paperName(paperName)
+            ,_paperId(_paperId)
             ,_pumpNo(pumpNo)
             ,_reagentMl(reagentMl)
             ,_deadMl(deadMl)
@@ -104,7 +108,7 @@ private slots:
 public:
     void setSelectPDialog(SelectProcessDialog *selectPDialog);
     void createPumpBtn();
-    void ShowCountReagentDose(const ReagentInfoStrt& info);
+    void ShowCountReagentDose(const ReagentInfoStrt& info, const int cnt);
 
 	void CloseAllLight();
 
@@ -120,7 +124,7 @@ private:
     void updatePumpBtnByTest();
 //	QVector<PrepareReagentWidget::pReagent> GetReagentVect();
 
-    QVector<int> getPaperIds();
+    QSet<int> getPaperIds();
     void updateBtnByReagents();
 	void move_chk_position();
 
@@ -167,6 +171,8 @@ private:
     SelectProcessDialog *m_selectPDialog;
     // 测试列表
     QVector<ptrTest> m_listTest;
+    // 膜条id与对应的数量map
+    QMap<int, int> _paperIdTestCntMap;
     QVector<ProcessReagentModel> _processReagentVect;//试剂不重复，如里存在没有分配的泵，则会分配泵信息
 
     QString _emptyFile;
@@ -184,7 +190,8 @@ private:
 	QVector<uchar> getCheckBtn();
     // 位置checkbox的选中状态
 	QVector<uchar> mOutVect;
-    QMap<int, ReagentInfoStrt> _pumpNoReagentMap;
+    // 泵号与试剂对应关系
+    QMap<int, QVector<ReagentInfoStrt>> _pumpNoReagentMap;
 
 
 };

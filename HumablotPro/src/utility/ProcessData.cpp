@@ -29,7 +29,6 @@ ProcessData::ProcessData(QWidget *parent)
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1828"));//孵育
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1607"));//干燥
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1229"));//拍照
-    _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1845"));//样本针充盈
 
 
     ui.cmbStepType->clear();
@@ -90,12 +89,16 @@ void ProcessData::SetUI(bool modify)
             boxDatas.push_back(strt._reagentName);
             boxDatas.push_back(strt._isDrainWaster?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
             boxDatas.push_back(strt._isBackFlow?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
-        }else if(actType == GlobalData::LoadLanguageInfo("K1600"))
+        }else if(actType == GlobalData::LoadLanguageInfo("K1600")) // 加样本
         {
             on_cmbStepType_currentIndexChanged(1);
             ProcessParameterModel::SamplingStrt strt;
             model.getSampling(strt);
             txtDatas.push_back(QString::number(strt._sampleUl));
+            txtDatas.push_back(QString::number(strt._innerTime));
+            txtDatas.push_back(QString::number(strt._outerTime));
+            boxDatas.push_back(strt._isFilling?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
+
         }else if(actType == GlobalData::LoadLanguageInfo("K1826"))
         {
             on_cmbStepType_currentIndexChanged(2);
@@ -128,13 +131,6 @@ void ProcessData::SetUI(bool modify)
         }else if(actType == GlobalData::LoadLanguageInfo("K1607")) // 拍照
         {
             on_cmbStepType_currentIndexChanged(6);
-        }else if(actType == GlobalData::LoadLanguageInfo("K1845")) // 样本针充盈
-        {
-            on_cmbStepType_currentIndexChanged(7);
-            ProcessParameterModel::SampleNeedleFillingStrt strt;
-            model.getSampleNeedleFilling(strt);
-            txtDatas.push_back(QString::number(strt._innerTime));
-            txtDatas.push_back(QString::number(strt._outerTime));
         }
 
         if(_txtVect.count()>txtDatas.count()+boxDatas.count())
@@ -232,7 +228,11 @@ void ProcessData::on_pushButton_Save_clicked()
     }else if(_currentSelectStep==1)
     {
         double sampleUl = txtVect[0].toDouble();
-        ProcessParameterModel::SamplingStrt strt(sampleUl);
+        int innerTime = txtVect[1].toInt();
+        int outerTime = txtVect[2].toInt();
+        bool isFilling = boxVect[0] == GlobalData::LoadLanguageInfo("K1700");
+        qDebug()<<"innerTime"<<innerTime<<outerTime;
+        ProcessParameterModel::SamplingStrt strt(sampleUl, isFilling, innerTime, outerTime);
         model.setActCode(ProcessParameterModel::SAMPLING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
@@ -291,17 +291,6 @@ void ProcessData::on_pushButton_Save_clicked()
         model.setActCode(ProcessParameterModel::TAKE_PHOTO_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
-    }else if(_currentSelectStep==7) // 样本针充盈
-    {
-        int innerTime = txtVect[0].toInt();
-        int outerTime = txtVect[1].toInt();
-        ProcessParameterModel::SampleNeedleFillingStrt strt(innerTime, outerTime);
-        model.setActCode(ProcessParameterModel::SAMPLE_NEEDLE_FILLING_CODE);
-        model.setActName(ui.cmbStepGroup->currentText());
-        model.setProcessId(_processId.toInt());
-        QString parasStr =model.sampleNeedleFillingToStr(strt);
-        model.setParas(parasStr);
-        model.setSampleNeedleFilling(strt);
     }
 
     ProcessParameterDao* dao = ProcessParameterDao::instance();
@@ -325,7 +314,6 @@ void ProcessData::on_pushButton_Cancel_clicked()
 void ProcessData::on_cmbStepType_currentIndexChanged(int index)
 {
     ui.cmbStepGroup->setCurrentIndex(-1);
-    qDebug()<<"on_cmbStepType_currentIndexChanged"<<index;
     _currentSelectStep = index;
     _txtVect.clear();
     ui.gridLayout->setContentsMargins(35,30,35,10);
@@ -407,10 +395,24 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
     }
     else if(index==1) // 加样本
     {
-        ui.gridLayout->setContentsMargins(30,100,30,0);
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1776")+":",this),0,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),0,1);
-        ui.gridLayout->addWidget(new QLabel("ul",this),0,2);
+//        ui.gridLayout->setContentsMargins(30,100,30,0);
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1776")+":",this),0,0,Qt::AlignLeft);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),0,1,1,4);
+        ui.gridLayout->addWidget(new QLabel("ul",this),0,5);
+
+        boxVect.clear();
+        boxVect.push_back(ComboBoxData(GlobalData::LoadLanguageInfo("K1700"),GlobalData::LoadLanguageInfo("K1700")));
+        boxVect.push_back(ComboBoxData(GlobalData::LoadLanguageInfo("K1701"),GlobalData::LoadLanguageInfo("K1701")));
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1845")+":",this),1,0,1,2,Qt::AlignLeft);// 所有样本加完执行充盈
+        ui.gridLayout->addWidget(createBox(boxVect),1,2);
+        // 内冲
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1846"),this),2,0,Qt::AlignLeft);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,100,this)),2,1);
+        ui.gridLayout->addWidget(new QLabel("s",this),2,2);
+        // 外充
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1847"),this),2,3,Qt::AlignLeft);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,100,this)),2,4);
+        ui.gridLayout->addWidget(new QLabel("s",this),2,5);
     }
     else if(index==2) // 排废液
     {
@@ -468,17 +470,8 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
     else if(index==6) // 拍照
     {
 
-    }else if(index == 7) // 样本针充盈
-    {
-        // 内冲
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1846"),this),0,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,100,this)),0,1);
-        ui.gridLayout->addWidget(new QLabel("s",this),0,2);
-        // 外充
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1847"),this),0,3,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,100,this)),0,4);
-        ui.gridLayout->addWidget(new QLabel("s",this),0,5);
     }
+
     // 设置默认数据
     for(auto obj:_txtVect)
     {

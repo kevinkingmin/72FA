@@ -1602,7 +1602,10 @@ void MainWidget::on_btnCloseBeep1_clicked()
     //OnAction_CloseBeep();
     // TODO::WangZ
 //    qDebug() << "close bee wz";
-//    QString folderPath = "D:/HumablotProFiles/TestPictures/original";
+//    SystemSetModel systemSetting;
+//    SystemSetDao::instance()->getModel(3, systemSetting);
+//    QString folderPath = systemSetting.getSaveDes()+ "\\" + "original" ;
+//    qDebug() << "folderPath" << folderPath;
 //    QDir dir(folderPath);
 //    dir.setFilter(QDir::Files);
 //    QFileInfoList fileInfoList = dir.entryInfoList();

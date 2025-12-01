@@ -37,7 +37,7 @@ QMap<int, int> ProcessParaBLL::getIncubationTime(QVector<int> pGroupIds)
 }
 
 // 根据配置的流程, 获取泵号试剂名称与体积的QMap
-QMap<int, std::tuple<QString, double>> ProcessParaBLL::getUnitReagentMl(const int processId, QVector<int> paperIdVect)
+QMap<int, std::tuple<QString, double>> ProcessParaBLL::getUnitReagentMl(const int processId, QSet<int> paperIdVect)
 {
     QMap<int, std::tuple<QString, double>> rtnMap;
     QVector<ProcessParameterModel> processModelVect = _dao->selectModel(processId, ProcessParameterModel::ADD_REAGENT_CODE);
@@ -74,7 +74,7 @@ QMap<int, std::tuple<QString, double>> ProcessParaBLL::getUnitReagentMl(const in
 
 std::tuple<int, double> ProcessParaBLL::getUnitReagentMl(const int processId, const int paperId, const QString& reagentName)
 {
-    QVector<int> paperIdVect = {paperId};
+    QSet<int> paperIdVect = {paperId};
     QMap<int, std::tuple<QString, double>> reagentNameVolMap = getUnitReagentMl(processId, paperIdVect);
     for (int key : reagentNameVolMap.keys())
     {

@@ -102,17 +102,18 @@ void PrepareReagentWidget::setSelectPDialog(SelectProcessDialog *selectPDialog)
     m_selectPDialog = selectPDialog;
 }
 //显示试剂总用量
-void PrepareReagentWidget::ShowCountReagentDose(const ReagentInfoStrt& info)
+void PrepareReagentWidget::ShowCountReagentDose(const ReagentInfoStrt& info, const int cnt)
 {
-    int test_count = m_listTest.size();
+    int test_count = _paperIdTestCntMap[info._paperId];
     std::map<int, int> countMap;
     for (const auto& obj : m_listTest)
     {
         countMap[obj->getPaperId()]++;
     }
-    float volume = test_count * info._reagentMl;
-    volume = test_count * volume;
+    float volume = info._reagentMl;
+    volume = test_count * volume * cnt;
     volume += info._deadMl;
+
     double need_volumn = static_cast<double>(volume);
     QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1085");
     QString str = "";
@@ -207,10 +208,11 @@ void PrepareReagentWidget::changeIcon(const QString &fileName, PumpPosState stat
             btn->setPixPath(_pixPath+fileName);
             btn->setChecked(false);
             auto pumpNo = btn->objectName().toInt();
-
             if(_pumpNoReagentMap.contains(pumpNo))
             {
-                ushort volumeUl = static_cast<ushort>(_pumpNoReagentMap[pumpNo]._fillingMl * 1000);
+                QVector<ReagentInfoStrt>& reagentInfoVect = _pumpNoReagentMap[pumpNo];
+                if(reagentInfoVect.size() == 0) continue;
+                ushort volumeUl = static_cast<ushort>(reagentInfoVect[0]._fillingMl * 1000);
                 map.insert(pumpNo, volumeUl);
                 if (state == PumpPosState::enumDelay)
                 {
@@ -442,14 +444,14 @@ void PrepareReagentWidget::updatePumpBtnByTest()
     on_chk_1_toggled(false);
 }
 
-QVector<int> PrepareReagentWidget::getPaperIds()
+QSet<int> PrepareReagentWidget::getPaperIds()
 {
-    QVector<int>paperIds{};
+    QSet<int>paperIds{};
     for(auto it:m_listTest)
     {
         if(!paperIds.contains(it->getPaperId()))
         {
-            paperIds.push_back(it->getPaperId());
+            paperIds.insert(it->getPaperId());
         }
     }
     return paperIds;
@@ -467,13 +469,15 @@ void PrepareReagentWidget::updateBtnByReagents()
         auto pumpNo=btn->objectName().toInt();
         if(_pumpNoReagentMap.contains(pumpNo))
         {
-            const ReagentInfoStrt& info = _pumpNoReagentMap[pumpNo];
+            QVector<ReagentInfoStrt>& reagentInfoVect = _pumpNoReagentMap[pumpNo];
+            if(reagentInfoVect.size() == 0) continue;
+            const ReagentInfoStrt& info = reagentInfoVect[0];
             if(pumpNo > 10 || pumpNo < 1) continue;
             auto btn=reinterpret_cast<CustomButton*>(btns[pumpNo-1]);
             btn->reset(_pixPath+_emptyFile);
             btn->setProperty(GlobalData::getPropertyName(),PumpPosState::enumEmpty);
             btn->setLblPixSize(128, 64);
-            ShowCountReagentDose(info);
+            ShowCountReagentDose(info, reagentInfoVect.size());
             btn->setCheckable(true);
             btn->setProperty(GlobalData::getPropertyName(),PumpPosState::enumFlush);
             btn->setPixPath(_pixPath+_flushFile);
@@ -509,6 +513,11 @@ QVector<ProcessReagentModel> PrepareReagentWidget::getProcessReagentVect() const
 void PrepareReagentWidget::setListTest(const QVector<ptrTest> &listTest)
 {
     m_listTest = listTest;
+    _paperIdTestCntMap.clear();
+    for (const auto& test : listTest)
+    {
+        _paperIdTestCntMap[test->getPaperId()]++;
+    }
 }
 
 void PrepareReagentWidget::move_chk_position()
@@ -628,11 +637,11 @@ void PrepareReagentWidget::showEvent(QShowEvent *e)
         SystemSetDao::instance()->getModel(5, systemSetting);
         companyId = systemSetting.getSaveSet();
     }
-    QVector<int> paperIdVect = getPaperIds();
+    QSet<int> paperIdSet = getPaperIds();
     // 单个测试需要使用的试剂名 泵号 试剂用量
-    QMap<int, std::tuple<QString, double>> reagentVolumeMap = ProcessParaBLL().getUnitReagentMl(processId, paperIdVect);
+    QMap<int, std::tuple<QString, double>> reagentVolumeMap = ProcessParaBLL().getUnitReagentMl(processId, paperIdSet);
     // 根据公司及泵号获取对应实际
-    QVector<ReagentBLL::ptrModel> reagentModelVect = ReagentBLL().getReagent(companyId, reagentVolumeMap.keys().toSet());
+    QVector<ReagentBLL::ptrModel> reagentModelVect = ReagentBLL().getReagent(companyId, reagentVolumeMap.keys().toSet(), paperIdSet);
     QString exe_path = QCoreApplication::applicationDirPath() + "/PrepareReagent.ini";
     QSettings config_set(exe_path, QSettings::IniFormat);
     config_set.beginGroup("Add");
@@ -650,22 +659,21 @@ void PrepareReagentWidget::showEvent(QShowEvent *e)
         float deadMl = config_set.value("PrepareReagent_"+QString::number(pumpNo), 0.0f).toFloat();
         if(!_pumpNoReagentMap.contains(pumpNo))
         {
-            QString paperName = "";
-            if(it->getReagentType() == 1)
-            {
-                TestPaperModel paper;
-                if(TestPaperDao::instance()->getModel(it->getPaperId(), paper))
-                {
-                    paperName = paper.getPaperName();
-                }
-            }
-            _pumpNoReagentMap.insert(pumpNo, ReagentInfoStrt(it->getReagentName(), paperName, pumpNo, ml, deadMl, it->getFluidMeasure(), it->getFluidMeasureSmall()));
-        }else
-        {
-            qWarning() << "Pump already assigned:" << pumpNo
-                       << "Current reagent:" << reagentName
-                       << "(Previous reagent will be kept)";
+            QVector<ReagentInfoStrt> reagentInfoVect = {};
+            _pumpNoReagentMap[pumpNo] = reagentInfoVect;
         }
+        QString paperName = "";
+        int paperId = 0;
+        if(it->getReagentType() == 1)
+        {
+            TestPaperModel paper;
+            if(TestPaperDao::instance()->getModel(it->getPaperId(), paper))
+            {
+                paperName = paper.getPaperName();
+                paperId = paper.getId();
+            }
+        }
+        _pumpNoReagentMap[pumpNo].push_back(ReagentInfoStrt(it->getReagentName(), paperName, paperId, pumpNo, ml, deadMl, it->getFluidMeasure(), it->getFluidMeasureSmall()));
     }
     updatePumpBtnByTest();
     // 禁用下一步点击事件
@@ -695,7 +703,9 @@ void PrepareReagentWidget::on_btnFlash_clicked()
             {
                 continue;
             }
-            ushort volume = static_cast<ushort>(_pumpNoReagentMap[pumpNo]._fillingMl * 1000);
+            QVector<ReagentInfoStrt>& reagentInfoVect = _pumpNoReagentMap[pumpNo];
+            if(reagentInfoVect.size() == 0) continue;
+            ushort volume = static_cast<ushort>(reagentInfoVect[0]._fillingMl * 1000);
             map.insert(pumpNo, volume);
             m_finish_map.insert(pumpNo, 0);
 

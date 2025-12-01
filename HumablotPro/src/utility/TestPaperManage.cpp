@@ -372,7 +372,7 @@ void TestPaperManage::on_Add_Button_clicked()
 		return;
 	}
     TestPaper testPaper(this);
-    testPaper.Set_UI(_selectPaperId, m_strCompany_ID, false);
+    testPaper.Set_UI("", m_strCompany_ID, false);
     testPaper.exec();
 }
 
