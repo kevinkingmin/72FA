@@ -92,13 +92,13 @@ void TestPaper::initUI()
     ui->lblItemWidth->setText(GlobalData::LoadLanguageInfo("K1707"));
     ui->lblFunDirection->setText(GlobalData::LoadLanguageInfo("K1123"));
     ui->cmbFunDirection->setView(new QListView(this));
-//    ui->lblFunPostion->setText(GlobalData::LoadLanguageInfo("K1119"));
+    //ui->lblFunPostion->setText(GlobalData::LoadLanguageInfo("K1119"));
     ui->lblFunThreshold->setText(GlobalData::LoadLanguageInfo("K1118"));
     ui->lblFunWidth->setText(GlobalData::LoadLanguageInfo("K1709"));
     ui->chkBlackSpot->setText(GlobalData::LoadLanguageInfo("K1710"));
     ui->lblBlackSpotThreshold->setText(GlobalData::LoadLanguageInfo("K1741"));
-//    ui->checkBox_CutOff->setText(GlobalData::LoadLanguageInfo("K1117"));
-//    ui->lblCutOffPos->setText(GlobalData::LoadLanguageInfo("K1048"));
+    //ui->checkBox_CutOff->setText(GlobalData::LoadLanguageInfo("K1117"));
+    //ui->lblCutOffPos->setText(GlobalData::LoadLanguageInfo("K1844"));
     ui->lblCutOffThreshold->setText(GlobalData::LoadLanguageInfo("K1116"));
     ui->lblCutOffValue->setText(GlobalData::LoadLanguageInfo("K1800"));
     ui->lblRotate->setText(GlobalData::LoadLanguageInfo("K1802"));
@@ -143,6 +143,8 @@ void TestPaper::initUI()
     ui->lblG4ItemCount->setText(GlobalData::LoadLanguageInfo("K1797"));
     ui->pushButton_Save->setText(GlobalData::LoadLanguageInfo("K1038"));
     ui->pushButton_Cancel->setText(GlobalData::LoadLanguageInfo("K1134"));
+    ui->lblTestItemNum->setText(GlobalData::LoadLanguageInfo("K1797"));
+    ui->lblItemLineWidth->setText(GlobalData::LoadLanguageInfo("K1799"));
 
     ui->tbSegment->verticalHeader()->setVisible(false);
     QStringList headerString;
@@ -164,7 +166,11 @@ void TestPaper::initUI()
     ui->tbSegment->setAlternatingRowColors(true);
     ui->tbSegment->setShowGrid(true);
     ui->tbSegment->setColumnWidth(0,65);
-    ui->tbSegment->setColumnWidth(2,165);
+    ui->tbSegment->setColumnWidth(1,125);
+    ui->tbSegment->setColumnWidth(2,155);
+    ui->tbSegment->setColumnWidth(4,155);
+    ui->tbSegment->setColumnWidth(5,135);
+    //ui->lineEdit_Item_Number->setPlaceholderText("       测试");
     QVector<JudgeRules> rules = JudgeDao::instance()->getAllRows();
     for(JudgeRules r:rules)
     {

@@ -428,17 +428,17 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QPushButton *pushButton_Cancel;
     QPushButton *pushButton_Save;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QDialog *TestPaper)
     {
         if (TestPaper->objectName().isEmpty())
             TestPaper->setObjectName(QString::fromUtf8("TestPaper"));
-        TestPaper->resize(1731, 870);
+        TestPaper->resize(1846, 870);
         layoutWidget = new QWidget(TestPaper);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 0, 1399, 851));
+        layoutWidget->setGeometry(QRect(10, 0, 1831, 851));
         verticalLayout_3 = new QVBoxLayout(layoutWidget);
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
@@ -517,10 +517,9 @@ public:
         verticalLayout->addWidget(line);
 
         gridLayout_4 = new QGridLayout();
-        gridLayout_4->setSpacing(6);
+        gridLayout_4->setSpacing(5);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        gridLayout_4->setVerticalSpacing(5);
-        gridLayout_4->setContentsMargins(10, 5, 10, 0);
+        gridLayout_4->setContentsMargins(0, 5, 0, 0);
         lblPaperLength = new QLabel(groupBox);
         lblPaperLength->setObjectName(QString::fromUtf8("lblPaperLength"));
         lblPaperLength->setLayoutDirection(Qt::RightToLeft);
@@ -591,6 +590,7 @@ public:
 
         label_79 = new QLabel(groupBox);
         label_79->setObjectName(QString::fromUtf8("label_79"));
+        label_79->setMinimumSize(QSize(55, 0));
         label_79->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         gridLayout_4->addWidget(label_79, 0, 9, 1, 1);
@@ -724,6 +724,7 @@ public:
 
         label_68 = new QLabel(groupBox);
         label_68->setObjectName(QString::fromUtf8("label_68"));
+        label_68->setMinimumSize(QSize(55, 0));
         label_68->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         gridLayout_4->addWidget(label_68, 4, 3, 1, 1);
@@ -877,6 +878,7 @@ public:
 
         label_75 = new QLabel(groupBox);
         label_75->setObjectName(QString::fromUtf8("label_75"));
+        label_75->setMinimumSize(QSize(55, 0));
         label_75->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         gridLayout_4->addWidget(label_75, 0, 6, 1, 1);
@@ -930,6 +932,7 @@ public:
 
         label_95 = new QLabel(groupBox);
         label_95->setObjectName(QString::fromUtf8("label_95"));
+        label_95->setMinimumSize(QSize(55, 0));
         label_95->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         gridLayout_4->addWidget(label_95, 2, 12, 1, 1);
@@ -2482,6 +2485,7 @@ public:
         horizontalLayout_6->addWidget(tbSegment);
 
         horizontalLayout_6->setStretch(0, 1);
+        horizontalLayout_6->setStretch(1, 1);
 
         verticalLayout_3->addLayout(horizontalLayout_6);
 

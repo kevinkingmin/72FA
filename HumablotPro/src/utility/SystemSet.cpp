@@ -57,6 +57,10 @@ SystemSet::SystemSet(QWidget *parent)
     ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));
     ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));
 
+    ui.comboBox_waste_liquid_tank_enable_2->clear();
+    ui.comboBox_waste_liquid_tank_enable_2->addItem(GlobalData::LoadLanguageInfo("K1701"));
+    ui.comboBox_waste_liquid_tank_enable_2->addItem(GlobalData::LoadLanguageInfo("K1700"));
+
     // 设置公司
     CompanyDao* companyDao = CompanyDao::instance();
     QVector<CompanyModel> companyModels = companyDao->getAllRows();
@@ -346,6 +350,9 @@ SystemSet::SystemSet(QWidget *parent)
     ui.label_55->setText(sz);
     ui.pushButtonPara->setVisible(true);
 
+    ui.label_29->setText(GlobalData::LoadLanguageInfo("K2001"));
+    ui.label_56->setText(GlobalData::LoadLanguageInfo("K2002"));
+    ui.pushButtonPara->setText(GlobalData::LoadLanguageInfo("K1762"));
 }
 
 SystemSet::~SystemSet()

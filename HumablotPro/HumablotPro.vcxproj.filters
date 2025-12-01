@@ -196,9 +196,6 @@
     <ClCompile Include="src\utility\ProcessDataList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\utility\ProcessParaWidgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main\subDialog\ProgressDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -507,9 +504,6 @@
     <QtMoc Include="src\utility\ProcessDataList.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="src\utility\ProcessParaWidgets.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="src\main\subDialog\ProgressDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -734,7 +728,6 @@
     
     
     
-    
     <CustomBuild Include="moc\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -744,7 +737,6 @@
     <ClCompile Include="..\Include\Precomp\precompile.h.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    
     
     
     
@@ -910,9 +902,6 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui\utility\ProcessDataList.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="src\utility\ProcessParaWidgets.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui\main\subDialog\ProgressDialog.ui">

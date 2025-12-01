@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1650</width>
+    <width>1705</width>
     <height>776</height>
    </rect>
   </property>
@@ -16,9 +16,9 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>50</x>
      <y>50</y>
-     <width>1471</width>
+     <width>1611</width>
      <height>681</height>
     </rect>
    </property>
@@ -40,74 +40,13 @@
     </property>
     <item>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_15">
-        <property name="text">
-         <string>泵校准下限值：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QLabel" name="label_26">
-        <property name="text">
-         <string>1-10ml</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="4">
-       <widget class="QLabel" name="label_18">
-        <property name="text">
-         <string>蜂鸣器声音使能：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_14">
-        <property name="text">
-         <string>周维护泵充灌量：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>测试图像保存根目录：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="6">
-       <widget class="QLabel" name="label_41">
-        <property name="text">
-         <string>mm</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="1">
+      <item row="11" column="2">
        <widget class="QLineEdit" name="lineEdit_system_wash_volume_3"/>
       </item>
-      <item row="11" column="2">
-       <widget class="QLabel" name="label_33">
-        <property name="text">
-         <string>1-5ml</string>
-        </property>
-       </widget>
+      <item row="6" column="6">
+       <widget class="QComboBox" name="comboBox_CompanyList"/>
       </item>
-      <item row="0" column="4">
+      <item row="0" column="5">
        <widget class="QLabel" name="label_6">
         <property name="text">
          <string>测试报告保存根目录：</string>
@@ -117,65 +56,33 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="2">
-       <widget class="QLabel" name="label_27">
-        <property name="text">
-         <string>300-700ul</string>
+      <item row="8" column="5">
+       <widget class="QLabel" name="label_19">
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
         </property>
-       </widget>
-      </item>
-      <item row="4" column="5">
-       <widget class="QComboBox" name="comboBox_aspirate_sample">
-        <item>
-         <property name="text">
-          <string>打开</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>关闭</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="10" column="2">
-       <widget class="QLabel" name="label_32">
         <property name="text">
-         <string>1-5ml</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="4">
-       <widget class="QLabel" name="label_28">
-        <property name="text">
-         <string>语言选择：</string>
+         <string>废液桶使能：</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="6" column="6">
-       <widget class="QPushButton" name="pushButtonPara">
-        <property name="text">
-         <string>流程设置</string>
-        </property>
-        <property name="btnStyle" stdset="0">
-         <string>normalBtnRed</string>
-        </property>
-       </widget>
+      <item row="6" column="2">
+       <widget class="QLineEdit" name="lineEdit_between_two_drops_of_pump"/>
       </item>
-      <item row="10" column="4">
-       <widget class="QLabel" name="label_56">
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_29">
         <property name="text">
-         <string>拍照功能：</string>
+         <string>打印报告标题：</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="3" column="4">
+      <item row="3" column="5">
        <widget class="QLabel" name="label_8">
         <property name="text">
          <string>时序选择：</string>
@@ -185,57 +92,11 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
-       <widget class="QLineEdit" name="lineEdit_monthly_maintenance_pump_calibration"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_16">
-        <property name="text">
-         <string>月维护浸泡时间：</string>
+      <item row="7" column="6">
+       <widget class="QComboBox" name="comboBox_beep_enable">
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_week_finish_time"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_17">
-        <property name="text">
-         <string>周维护浸泡时间：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="label_24">
-        <property name="text">
-         <string>5-240分钟</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string>系统液充灌体积：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLineEdit" name="lineEdit_between_two_drops_of_pump"/>
-      </item>
-      <item row="10" column="1">
-       <widget class="QLineEdit" name="lineEdit_system_wash_volume_2"/>
-      </item>
-      <item row="10" column="5">
-       <widget class="QComboBox" name="comboBox_waste_liquid_tank_enable_2">
         <item>
          <property name="text">
           <string>否</string>
@@ -248,57 +109,7 @@
         </item>
        </widget>
       </item>
-      <item row="3" column="2">
-       <widget class="QLabel" name="label_25">
-        <property name="text">
-         <string>1-10ml</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QLineEdit" name="lineEdit_between_two_drops_of_pump_max"/>
-      </item>
-      <item row="5" column="4">
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string>样本针吐样液位探测选择：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="5">
-       <widget class="QComboBox" name="comboBox_waste_liquid_tank_enable">
-        <item>
-         <property name="text">
-          <string>否</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>是</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLineEdit" name="lineEdit_week_filling_volume"/>
-      </item>
-      <item row="9" column="1">
-       <widget class="QLineEdit" name="lineEdit_system_wash_volume"/>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="label_22">
-        <property name="text">
-         <string>关机排空液量：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="5">
+      <item row="2" column="6">
        <widget class="QComboBox" name="comboBox_language">
         <item>
          <property name="text">
@@ -317,7 +128,270 @@
         </item>
        </widget>
       </item>
-      <item row="5" column="5">
+      <item row="11" column="1">
+       <widget class="QLabel" name="label_23">
+        <property name="text">
+         <string>泵回流指定液量：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="lineEdit_week_finish_time"/>
+      </item>
+      <item row="9" column="7">
+       <widget class="QLabel" name="label_41">
+        <property name="text">
+         <string>mm</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
+       <widget class="QLineEdit" name="lineEdit_between_two_drops_of_pump_max"/>
+      </item>
+      <item row="2" column="5">
+       <widget class="QLabel" name="label_28">
+        <property name="text">
+         <string>语言选择：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>泵校准上限值：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="4">
+       <widget class="QLabel" name="label_34">
+        <property name="minimumSize">
+         <size>
+          <width>88</width>
+          <height>10</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QLineEdit" name="lineEdit_monthly_maintenance_pump_calibration"/>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="label_14">
+        <property name="text">
+         <string>周维护泵充灌量：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="1">
+       <widget class="QLabel" name="label_12">
+        <property name="text">
+         <string>系统液清洗体积：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="8" column="6">
+       <widget class="QComboBox" name="comboBox_waste_liquid_tank_enable">
+        <item>
+         <property name="text">
+          <string>否</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>是</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="9" column="5">
+       <widget class="QLabel" name="label_55">
+        <property name="text">
+         <string>毫米对应像素：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="2">
+       <widget class="QLineEdit" name="lineEdit_system_wash_volume_2"/>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>5-240分钟</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>系统液充灌体积：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="3">
+       <widget class="QLabel" name="label_30">
+        <property name="text">
+         <string>1-5ml</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="label_24">
+        <property name="text">
+         <string>5-240分钟</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="5">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>样本针吸样液位探测选择：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="5">
+       <widget class="QLabel" name="label_18">
+        <property name="text">
+         <string>蜂鸣器声音使能：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLineEdit" name="lineEdit_month_filling_volume"/>
+      </item>
+      <item row="9" column="2">
+       <widget class="QLineEdit" name="lineEdit_system_wash_volume"/>
+      </item>
+      <item row="5" column="3">
+       <widget class="QLabel" name="label_27">
+        <property name="text">
+         <string>300-700ul</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="label_16">
+        <property name="text">
+         <string>月维护浸泡时间：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="3">
+       <widget class="QLabel" name="label_33">
+        <property name="text">
+         <string>1-5ml</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="5">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>当前使用的膜条所属公司：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLineEdit" name="lineEdit_week_filling_volume"/>
+      </item>
+      <item row="10" column="6">
+       <widget class="QComboBox" name="comboBox_waste_liquid_tank_enable_2">
+        <item>
+         <property name="text">
+          <string>否</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>是</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLineEdit" name="lineEdit_month_finish_time"/>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="label_13">
+        <property name="text">
+         <string>月维护泵充灌量：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="label_21">
+        <property name="text">
+         <string>月维护泵校准量：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="label_17">
+        <property name="text">
+         <string>周维护浸泡时间：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="6">
        <widget class="QComboBox" name="comboBox_vomit">
         <item>
          <property name="text">
@@ -331,103 +405,14 @@
         </item>
        </widget>
       </item>
-      <item row="9" column="2">
-       <widget class="QLabel" name="label_31">
+      <item row="10" column="3">
+       <widget class="QLabel" name="label_32">
         <property name="text">
          <string>1-5ml</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>5-240分钟</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_29">
-        <property name="text">
-         <string>打印报告标题：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="4">
-       <widget class="QLabel" name="label_19">
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="text">
-         <string>废液桶使能：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>泵校准上限值：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="4">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>当前使用的膜条所属公司：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="4">
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>样本针吸样液位探测选择：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="4">
-       <widget class="QLabel" name="label_55">
-        <property name="text">
-         <string>毫米对应像素：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="label_23">
-        <property name="text">
-         <string>泵回流指定液量：</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="lineEdit_month_finish_time"/>
-      </item>
-      <item row="8" column="1">
-       <widget class="QLineEdit" name="lineEdit_system_filling_volume"/>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="lineEdit_month_filling_volume"/>
-      </item>
-      <item row="0" column="1" colspan="2">
+      <item row="0" column="2" colspan="2">
        <widget class="QLineEdit" name="txtReportTitle">
         <property name="minimumSize">
          <size>
@@ -437,74 +422,71 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="2">
-       <widget class="QLabel" name="label_30">
+      <item row="3" column="3">
+       <widget class="QLabel" name="label_25">
         <property name="text">
-         <string>1-5ml</string>
+         <string>1-10ml</string>
         </property>
        </widget>
       </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="label_12">
+      <item row="1" column="6" colspan="3">
+       <widget class="QLineEdit" name="lineEdit_RootPathPicture"/>
+      </item>
+      <item row="5" column="5">
+       <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>系统液清洗体积：</string>
+         <string>样本针吐样液位探测选择：</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="6" column="5">
-       <widget class="QComboBox" name="comboBox_CompanyList"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_13">
+      <item row="4" column="3">
+       <widget class="QLabel" name="label_26">
         <property name="text">
-         <string>月维护泵充灌量：</string>
+         <string>1-10ml</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="1">
+       <widget class="QLabel" name="label_22">
+        <property name="text">
+         <string>关机排空液量：</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="3" column="5">
+      <item row="4" column="6">
+       <widget class="QComboBox" name="comboBox_aspirate_sample">
+        <item>
+         <property name="text">
+          <string>打开</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>关闭</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="3" column="6">
        <widget class="QComboBox" name="comboBox_run_sequence"/>
       </item>
-      <item row="9" column="5">
-       <widget class="QLineEdit" name="lineEdit_Weight">
+      <item row="6" column="1">
+       <widget class="QLabel" name="label_15">
         <property name="text">
-         <string>18.481</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_21">
-        <property name="text">
-         <string>月维护泵校准量：</string>
+         <string>泵校准下限值：</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
-      <item row="7" column="5">
-       <widget class="QComboBox" name="comboBox_beep_enable">
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <item>
-         <property name="text">
-          <string>否</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>是</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="5" column="7">
+      <item row="5" column="8">
        <widget class="QLabel" name="label_36">
         <property name="minimumSize">
          <size>
@@ -517,22 +499,66 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="5" colspan="3">
+      <item row="9" column="6">
+       <widget class="QLineEdit" name="lineEdit_Weight">
+        <property name="text">
+         <string>18.481</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="3">
+       <widget class="QLabel" name="label_31">
+        <property name="text">
+         <string>1-5ml</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="5">
+       <widget class="QLabel" name="label_56">
+        <property name="text">
+         <string>拍照功能：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6" colspan="3">
        <widget class="QLineEdit" name="lineEdit_RootPathReport"/>
       </item>
-      <item row="1" column="5" colspan="3">
-       <widget class="QLineEdit" name="lineEdit_RootPathPicture"/>
+      <item row="1" column="5">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>测试图像保存根目录：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
       </item>
-      <item row="6" column="3">
-       <widget class="QLabel" name="label_34">
-        <property name="minimumSize">
+      <item row="8" column="2">
+       <widget class="QLineEdit" name="lineEdit_system_filling_volume"/>
+      </item>
+      <item row="8" column="9">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
          <size>
-          <width>88</width>
-          <height>10</height>
+          <width>40</width>
+          <height>20</height>
          </size>
         </property>
+       </spacer>
+      </item>
+      <item row="6" column="7" colspan="2">
+       <widget class="QPushButton" name="pushButtonPara">
         <property name="text">
-         <string/>
+         <string>流程设置</string>
+        </property>
+        <property name="btnStyle" stdset="0">
+         <string>normalBtnRed</string>
         </property>
        </widget>
       </item>

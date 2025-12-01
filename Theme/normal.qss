@@ -15,6 +15,11 @@ QLabel{
    height: 24px;
 }
 
+#TestPaper #cmbFunDirection,#lineEdit_TestPaparName
+{
+   min-width: 85px;
+}
+
 QComboBox{
     border-style:none;
     background-color:transparent;
@@ -62,7 +67,7 @@ QComboBox::down-arrow:on{
     border-image: url(:/images/buttonIcon/arrow_down.png);
 }
 QComboBox::drop-down{
-   background:transparent; 
+   background:transparent;
    padding-right:10px;
 }
 QScrollBar::handle:vertical {

@@ -142,7 +142,8 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
     ui.label_3->setText(GlobalData::LoadLanguageInfo("K1153"));
     ui.pushButtonQuery->setText(GlobalData::LoadLanguageInfo("K1154"));
     ui.pushButton->setText(GlobalData::LoadLanguageInfo("K1155"));
-
+    ui.btnSampleInfo->setText(GlobalData::LoadLanguageInfo("K2000"));
+    ui.btnDelete->setText(GlobalData::LoadLanguageInfo("K1140"));
     if (page_size_database == "")
     {
         ui.lineEditRowsPerPage->setText("24");

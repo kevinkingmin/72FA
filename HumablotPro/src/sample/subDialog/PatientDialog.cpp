@@ -41,6 +41,21 @@ PatientDialog::PatientDialog(QWidget *parent) :
     ui->cmbBedNo->setValidator(&_regLISValid);
     ui->cmbDepartmentName->setValidator(&_regLISValid);
     ui->cmbSampleSender->setValidator(&_regLISValid);
+    ui->label_2->setText(GlobalData::LoadLanguageInfo("K2004"));//病人信息
+    ui->label->setText(GlobalData::LoadLanguageInfo("K2005"));
+    ui->label_3->setText(GlobalData::LoadLanguageInfo("K1051"));
+    ui->label_4->setText(GlobalData::LoadLanguageInfo("K1052"));
+    ui->label_5->setText(GlobalData::LoadLanguageInfo("K1053"));
+    ui->label_6->setText(GlobalData::LoadLanguageInfo("K2006"));
+    ui->label_8->setText(GlobalData::LoadLanguageInfo("K2013"));
+    ui->label_9->setText(GlobalData::LoadLanguageInfo("K2014"));
+    ui->label_10->setText(GlobalData::LoadLanguageInfo("K2015"));
+    ui->label_11->setText(GlobalData::LoadLanguageInfo("K2016"));
+    ui->label_12->setText(GlobalData::LoadLanguageInfo("K2017"));
+    ui->label_13->setText(GlobalData::LoadLanguageInfo("K2018"));
+    ui->label_14->setText(GlobalData::LoadLanguageInfo("K2019"));
+    ui->label_15->setText(GlobalData::LoadLanguageInfo("K2020"));
+    ui->label_16->setText(GlobalData::LoadLanguageInfo("K2021"));
 }
 
 PatientDialog::~PatientDialog()
@@ -61,14 +76,15 @@ void PatientDialog::initUIControl()
     ui->cmbAgeUnitID->clear();
     ui->cmbSexID->clear();
     ui->cmbBloodType->clear();
-    for(auto it:AgeUnitBLL().getAllRows())
-        ui->cmbAgeUnitID->addItem(it->getAgeName(),it->getID());
+    auto ageUnitMap=GlobalData::getAgeUnitMap();
+    for(auto it=ageUnitMap.begin();it!=ageUnitMap.end();it++)
+        ui->cmbAgeUnitID->addItem(GlobalData::LoadLanguageInfo(it.value()),it.key());
     auto sexMap=GlobalData::mapSexType();
     for(auto it=sexMap.begin();it!=sexMap.end();it++)
         ui->cmbSexID->addItem(it.value(),it.key());    
     auto bloodMap=GlobalData::mapSampleType();
     for(auto it=bloodMap.begin();it!=bloodMap.end();it++)
-        ui->cmbBloodType->addItem(it.value(),it.key());
+        ui->cmbBloodType->addItem(GlobalData::LoadLanguageInfo(it.value()),it.key());
 
     ui->cmbDepartmentName->setText("");
     ui->cmbSampleSender->setText("");

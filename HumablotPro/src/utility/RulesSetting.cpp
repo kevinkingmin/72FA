@@ -229,6 +229,7 @@ void RulesSetting::initTbRuleItem()
         ui.tbRuleItem->setHorizontalHeader(new QHeaderView(Qt::Horizontal,this));
         headerString << "NO"<<GlobalData::LoadLanguageInfo("K1187")
                      << GlobalData::LoadLanguageInfo("K1215");
+        ui.tbRuleItem->setColumnWidth(1,225);
         ui.tbRuleItem->setColumnHidden(2,false);
     }
     ui.tbRuleItem->setHorizontalHeaderLabels(headerString);

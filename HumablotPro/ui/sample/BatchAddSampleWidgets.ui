@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1408</width>
-    <height>692</height>
+    <height>702</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
       <x>560</x>
       <y>90</y>
       <width>821</width>
-      <height>521</height>
+      <height>541</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -123,7 +123,7 @@
       <x>20</x>
       <y>350</y>
       <width>511</width>
-      <height>261</height>
+      <height>281</height>
      </rect>
     </property>
     <property name="title">
@@ -132,8 +132,8 @@
     <widget class="QLineEdit" name="lineEditSampleEndIndex">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>120</y>
+       <x>240</x>
+       <y>110</y>
        <width>161</width>
        <height>31</height>
       </rect>
@@ -145,8 +145,8 @@
     <widget class="QCheckBox" name="checkBox">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>158</y>
+       <x>240</x>
+       <y>148</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -161,9 +161,9 @@
     <widget class="QPushButton" name="pushButtonAdd">
      <property name="geometry">
       <rect>
-       <x>350</x>
-       <y>174</y>
-       <width>151</width>
+       <x>280</x>
+       <y>220</y>
+       <width>191</width>
        <height>41</height>
       </rect>
      </property>
@@ -178,8 +178,8 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>40</y>
-       <width>131</width>
+       <y>30</y>
+       <width>201</width>
        <height>181</height>
       </rect>
      </property>
@@ -245,8 +245,8 @@
     <widget class="QLineEdit" name="lineEditSampleStartIndex">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>80</y>
+       <x>240</x>
+       <y>70</y>
        <width>161</width>
        <height>31</height>
       </rect>
@@ -258,8 +258,8 @@
     <widget class="QLineEdit" name="lineEditSampleNo">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>40</y>
+       <x>240</x>
+       <y>30</y>
        <width>161</width>
        <height>31</height>
       </rect>
@@ -271,8 +271,8 @@
     <widget class="QLineEdit" name="lineEditPaperEndIndex">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>192</y>
+       <x>240</x>
+       <y>182</y>
        <width>161</width>
        <height>31</height>
       </rect>

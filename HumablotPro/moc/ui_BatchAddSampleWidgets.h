@@ -69,7 +69,7 @@ public:
     {
         if (BatchAddSampleWidgetsClass->objectName().isEmpty())
             BatchAddSampleWidgetsClass->setObjectName(QString::fromUtf8("BatchAddSampleWidgetsClass"));
-        BatchAddSampleWidgetsClass->resize(1408, 692);
+        BatchAddSampleWidgetsClass->resize(1408, 702);
         centralWidget = new QWidget(BatchAddSampleWidgetsClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         horizontalLayoutWidget = new QWidget(centralWidget);
@@ -94,7 +94,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
         tvSampleSet->setHorizontalHeaderItem(4, __qtablewidgetitem4);
         tvSampleSet->setObjectName(QString::fromUtf8("tvSampleSet"));
-        tvSampleSet->setGeometry(QRect(560, 90, 821, 521));
+        tvSampleSet->setGeometry(QRect(560, 90, 821, 541));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::MinimumExpanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -122,20 +122,20 @@ public:
 
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(20, 350, 511, 261));
+        groupBox->setGeometry(QRect(20, 350, 511, 281));
         lineEditSampleEndIndex = new QLineEdit(groupBox);
         lineEditSampleEndIndex->setObjectName(QString::fromUtf8("lineEditSampleEndIndex"));
-        lineEditSampleEndIndex->setGeometry(QRect(160, 120, 161, 31));
+        lineEditSampleEndIndex->setGeometry(QRect(240, 110, 161, 31));
         checkBox = new QCheckBox(groupBox);
         checkBox->setObjectName(QString::fromUtf8("checkBox"));
-        checkBox->setGeometry(QRect(160, 158, 101, 31));
+        checkBox->setGeometry(QRect(240, 148, 101, 31));
         checkBox->setChecked(false);
         pushButtonAdd = new QPushButton(groupBox);
         pushButtonAdd->setObjectName(QString::fromUtf8("pushButtonAdd"));
-        pushButtonAdd->setGeometry(QRect(350, 174, 151, 41));
+        pushButtonAdd->setGeometry(QRect(280, 220, 191, 41));
         layoutWidget1 = new QWidget(groupBox);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(20, 40, 131, 181));
+        layoutWidget1->setGeometry(QRect(20, 30, 201, 181));
         gridLayout = new QGridLayout(layoutWidget1);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -175,13 +175,13 @@ public:
 
         lineEditSampleStartIndex = new QLineEdit(groupBox);
         lineEditSampleStartIndex->setObjectName(QString::fromUtf8("lineEditSampleStartIndex"));
-        lineEditSampleStartIndex->setGeometry(QRect(160, 80, 161, 31));
+        lineEditSampleStartIndex->setGeometry(QRect(240, 70, 161, 31));
         lineEditSampleNo = new QLineEdit(groupBox);
         lineEditSampleNo->setObjectName(QString::fromUtf8("lineEditSampleNo"));
-        lineEditSampleNo->setGeometry(QRect(160, 40, 161, 31));
+        lineEditSampleNo->setGeometry(QRect(240, 30, 161, 31));
         lineEditPaperEndIndex = new QLineEdit(groupBox);
         lineEditPaperEndIndex->setObjectName(QString::fromUtf8("lineEditPaperEndIndex"));
-        lineEditPaperEndIndex->setGeometry(QRect(160, 192, 161, 31));
+        lineEditPaperEndIndex->setGeometry(QRect(240, 182, 161, 31));
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         groupBox_2->setGeometry(QRect(20, 20, 511, 311));

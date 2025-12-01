@@ -35,10 +35,10 @@ public:
         AddCompany->resize(639, 299);
         label = new QLabel(AddCompany);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(50, 150, 101, 21));
+        label->setGeometry(QRect(40, 150, 141, 21));
         lineEdit_Name = new QLineEdit(AddCompany);
         lineEdit_Name->setObjectName(QString::fromUtf8("lineEdit_Name"));
-        lineEdit_Name->setGeometry(QRect(170, 140, 411, 31));
+        lineEdit_Name->setGeometry(QRect(190, 140, 391, 31));
         pushButton_Save = new QPushButton(AddCompany);
         pushButton_Save->setObjectName(QString::fromUtf8("pushButton_Save"));
         pushButton_Save->setGeometry(QRect(490, 220, 75, 31));

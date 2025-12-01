@@ -75,6 +75,8 @@ public:
     static void setTcpClient(TcpClient *tcpClient);
 
     static bool reconnect();
+    static QMap<int, QString> getAgeUnitMap();
+
 private:
     static QMap<ushort,QString>_mapSampleType;
     static QMap<int,QString>_mapSampleCupType;
@@ -86,6 +88,7 @@ private:
     static QMap<ushort,QString>_mapMechanism;    
     static QMap<ushort,QString>_mapTestState;
     static QMap<ushort,QString>_mapIsUpload;
+    static QMap<int, QString> _ageUnitMap;
     static UGStuct _loginUser;
     static QString _exePath;
     static QString _propertyName;

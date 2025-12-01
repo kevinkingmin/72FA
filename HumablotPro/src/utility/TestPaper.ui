@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1731</width>
+    <width>1846</width>
     <height>870</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>0</y>
-     <width>1399</width>
+     <width>1831</width>
      <height>851</height>
     </rect>
    </property>
@@ -156,18 +156,18 @@
          <item>
           <layout class="QGridLayout" name="gridLayout_4">
            <property name="leftMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
            <property name="topMargin">
             <number>5</number>
            </property>
            <property name="rightMargin">
-            <number>10</number>
+            <number>0</number>
            </property>
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <property name="verticalSpacing">
+           <property name="spacing">
             <number>5</number>
            </property>
            <item row="0" column="4">
@@ -273,6 +273,12 @@
            </item>
            <item row="0" column="9">
             <widget class="QLabel" name="label_79">
+             <property name="minimumSize">
+              <size>
+               <width>55</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="text">
               <string>mm</string>
              </property>
@@ -487,6 +493,12 @@
            </item>
            <item row="4" column="3">
             <widget class="QLabel" name="label_68">
+             <property name="minimumSize">
+              <size>
+               <width>55</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="text">
               <string>mm</string>
              </property>
@@ -737,6 +749,12 @@
            </item>
            <item row="0" column="6">
             <widget class="QLabel" name="label_75">
+             <property name="minimumSize">
+              <size>
+               <width>55</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="text">
               <string>mm</string>
              </property>
@@ -813,6 +831,12 @@
            </item>
            <item row="2" column="12">
             <widget class="QLabel" name="label_95">
+             <property name="minimumSize">
+              <size>
+               <width>55</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="text">
               <string>mm</string>
              </property>
@@ -839,7 +863,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,0">
+     <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="1,1">
       <property name="topMargin">
        <number>0</number>
       </property>
@@ -2414,7 +2438,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

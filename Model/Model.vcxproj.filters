@@ -39,6 +39,9 @@
     <ClCompile Include="src\baseSet\CommonType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\baseSet\CompanyModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\baseSet\DepartmentModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,6 +99,9 @@
     <ClCompile Include="src\baseSet\SexModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\baseSet\StandaryCurveModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\baseSet\SystemSetModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -131,6 +137,9 @@
     <ClInclude Include="src\baseSet\CommonType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\baseSet\CompanyModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\baseSet\DepartmentModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -152,15 +161,6 @@
     <ClInclude Include="src\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\baseSet\ProcessAddReagentModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\baseSet\ProcessCleaningModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\baseSet\ProcessDryingModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\baseSet\ProcessModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -170,19 +170,10 @@
     <ClInclude Include="src\baseSet\ProcessParameterModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\baseSet\ProcessPausingModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\reagent\ProcessReagentModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\baseSet\ProcessSamplingModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\baseSet\ProcessStepModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\baseSet\ProcessWettingModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\reagent\ReagentModel.h">
@@ -207,6 +198,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\baseSet\SexModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\baseSet\StandaryCurveModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\baseSet\SystemSetModel.h">
