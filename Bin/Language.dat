@@ -133,7 +133,7 @@ K1125|次数|Time(s)
 K1126|膜条头：|Strip head
 K1127|分析区百分比：|Percentage of analysis area
 K1128|膜条总长度|Total strip length
-K1129|项目数量|Number of items：
+K1129|条带数量|Number of lines：
 K1130|像素|Pixel
 K1131|项目名称|Item name
 K1132|空白|Blank
@@ -816,7 +816,10 @@ K1840|通用试剂|General reagent
 K1841|专用试剂|Specific reagent
 K1842|通用试剂泵号不能重复!|
 K1843|专用试剂泵号不能与通用试剂重复!|
-K1844|Cutoff线位置|Cutoff Position
+K1844|保存数据失败!|Failed to save data!
+K1845|样本针充盈|
+K1846|内针充盈:|
+K1847|外针充盈:|
 K2000|样本信息|Sample information
 K2001|打印报告标题|Report title
 K2002|拍照功能|Camera function
@@ -844,6 +847,7 @@ K2023|步骤组:|
 K2024|新增流程|
 K2025|删除流程|
 K2026|返回|
+K2027|Cutoff线位置|Cutoff Position
 K9990|检测到多个条带|Multiple strips detected
 K9991|（检测到异常条带）|（Abnormal stripe detected）
 K9992|（检测到异常条带）|（Abnormal stripe detected）
