@@ -181,23 +181,20 @@ void TestPaper::initUI()
     m_itemTypeCmbDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1807"), QString::number(ItemModel::ITEM_TYPE_FUNC)));
     m_itemTypeCmbDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1837"), QString::number(ItemModel::ITEM_TYPE_CUTOFF)));
     m_itemTypeCmbDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1808"), QString::number(ItemModel::ITEM_TYPE_ITEM)));
-    qDebug()<<"create 1";
     getAllItemControl();
-    qDebug()<<"create 1";
     initComboBox();
-    qDebug()<<"create 1";
 }
 
 void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool isModify)
 {
-    if (paperId.isEmpty()) return;
     m_bModify=isModify;
-    _paperId = paperId;
     if(!isModify)
     {
         _testPaperModel = TestPaperModel();
         return;
     }
+    qDebug()<<"paperId"<<paperId;
+    _paperId = paperId;
     bool bResult;
     m_Company_ID = companyId;
     bResult = TestPaperDao::instance()->getModel(paperId.toInt(), _testPaperModel);//接口调用,获取膜条数据
@@ -207,11 +204,6 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         return;
     }
     _itemModelVect = ItemDao::instance()->selectItems(paperId.toInt());
-    if (_itemModelVect.size() == 0)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
-        return;
-    }
     bool isSegmentPaper = _testPaperModel.getPaperType() == TestPaperModel::PAPER_TYPE_SEGMENT;
     ui->cmbCompany->setCurrentIndex(ui->cmbCompany->findData(m_Company_ID));//公司
     auto segmentTag = isSegmentPaper ? "1" : "0";
@@ -273,7 +265,11 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
     ui->txtItemWidth->setEnabled(true); // 项目块宽度
     ui->txtItemSpace->setText(QString::number(_testPaperModel.getTestBlockSpace(), 'f', 2));//调用接口
     ui->txtItemWidth->setText(QString::number(_testPaperModel.getTestBlockWidth(), 'f', 2)); // 项目块宽度
-
+    if (_itemModelVect.size() == 0)
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
+        return;
+    }
     // 根据膜条段分组
     QMap<int, QVector<ItemModel>> groupedBySem;
     for (const ItemModel& m : itemVect)
@@ -599,10 +595,16 @@ bool TestPaper::Save_TestPaper_Parameters()
    _testPaperModel.setPaperColorOnUi(ui->txtColorValue->text().simplified());//颜色值:
 
    int inputItemCnt =ui->lineEdit_TestItem_Number->text().simplified().toInt();
-
    _testPaperModel.setTestItemNumber(inputItemCnt); // 设置测试项目数
-//   qDebug()<<"itemCnt"<<itemCnt;
-
+   if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
+   {
+       _testPaperModel.setTestBlockSpace(ui->txtItemSpace->text().simplified().toDouble());//项目块间距
+       _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
+   }else
+   {
+       _testPaperModel.setTestBlockSpace(0);//项目块间距
+       _testPaperModel.setTestBlockWidth(0);//项目块宽度
+   }
     bool result = false;
     if(m_bModify)
     {
@@ -613,13 +615,13 @@ bool TestPaper::Save_TestPaper_Parameters()
     {
         //调用接口,新增
         result = TestPaperDao::instance()->insert(_testPaperModel);
+        _paperId = QString::number(_testPaperModel.getId());
     }
-    if(result)
-    {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1378"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
-    }else
+    qDebug()<<"result"<<result;
+    if(!result)
     {
         MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1301"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
+        return false;
     }
     return true;
 }
@@ -627,39 +629,25 @@ bool TestPaper::Save_TestPaper_Parameters()
 //调用接口,保存膜条项目
 bool TestPaper::Save_TestPaper_Items()
 {
+    int itemCnt = 0;
+    qDebug()<<"ui->cmbPaperType->currentData().toInt()"<<ui->cmbPaperType->currentData().toInt();
     if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
     {
         getUIBlockAndItemData();
         auto count=ui->lineEdit_Item_Number->text().simplified().toInt();
-
-       int itemCnt = 0;
-       // 对于分段膜条
-       if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
-       {
-           _testPaperModel.setTestBlockSpace(ui->txtItemSpace->text().simplified().toDouble());//项目块间距
-           _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
-           for (auto it = m_blockAndItemDataMap.begin(); it != m_blockAndItemDataMap.end(); ++it)
-           {
-                for(BlockItemData& blockItem: it->itemDatas)
-                {
-                    if(blockItem.itemType == 2) itemCnt++;
-                }
-           }
-       } else // 对于连续膜条
-       {
-           _testPaperModel.setTestBlockSpace(0);//项目块间距
-           _testPaperModel.setTestBlockWidth(0);//项目块宽度
-           for (auto it = m_itemDataMap.begin(); it != m_itemDataMap.end(); ++it)
-           {
-               if(it->itemType == 2) itemCnt++;
-           }
-       }
-       qDebug()<<"itemCnt"<<itemCnt<<count;
-       if(count != itemCnt)
-       {
-           MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1793"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
-           return false;
-       }
+        for (auto it = m_blockAndItemDataMap.begin(); it != m_blockAndItemDataMap.end(); ++it)
+        {
+             for(BlockItemData& blockItem: it->itemDatas)
+             {
+                 if(blockItem.itemType == 2) itemCnt++;
+             }
+        }
+        qDebug()<<"itemCnt"<<itemCnt<<count;
+        if(count != itemCnt)
+        {
+            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1793"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
+            return false;
+        }
 
         qDebug()<<"Save_TestPaper_Items"<<m_blockAndItemDataMap.count()<<count;
 //        if(m_blockAndItemDataMap.count()!=count)
@@ -679,6 +667,7 @@ bool TestPaper::Save_TestPaper_Items()
             int idx = 0; // 项目在段中的位置
             for(BlockItemData& sub:it.value().itemDatas)
             {
+                qDebug()<<"item"<<sub.strItemName;
                 ItemModel item;
                 item.setSegmentIndex(it.value().blockData.serialNo);
                 item.setItemType(sub.itemType);
@@ -700,6 +689,10 @@ bool TestPaper::Save_TestPaper_Items()
     else
     {
         getUIItemData();
+        for (auto it = m_itemDataMap.begin(); it != m_itemDataMap.end(); ++it)
+        {
+            if(it->itemType == 2) itemCnt++;
+        }
         auto count=ui->lineEdit_Item_Number->text().simplified().toInt();
         if(m_itemDataMap.count()!=count)
         {
@@ -731,6 +724,7 @@ bool TestPaper::Save_TestPaper_Items()
             }
         }
     }
+    MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1378"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
     return true;
 }
 

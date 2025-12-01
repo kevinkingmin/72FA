@@ -424,6 +424,8 @@ QString ProcessParameterModel::toShowString()
         show+=QString::number(_samplingStrt._sampleUl, 'f', 1);
         show+="ul;";
         show+="是否样本充盈:";
+        show+=_samplingStrt._isFilling?"是":"否";        
+        show+=";";
         show+="内针冲洗时间:";
         show+=QString::number(_samplingStrt._innerTime);
         show+="s;";

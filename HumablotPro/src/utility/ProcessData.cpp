@@ -29,7 +29,6 @@ ProcessData::ProcessData(QWidget *parent)
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1828"));//孵育
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1607"));//干燥
     _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1229"));//拍照
-    _actTypeVect.push_back(GlobalData::LoadLanguageInfo("K1845"));//样本针充盈
 
 
     ui.cmbStepType->clear();
