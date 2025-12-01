@@ -160,6 +160,23 @@ QVector<ReagentBLL::ptrModel> ReagentBLL::getReagent(const int companyId, const 
     return result;
 }
 
+
+QVector<ReagentBLL::ptrModel> ReagentBLL::getReagent(const int companyId, const QSet<int>& pumpNoSet, QSet<int>& paperIdVect)
+{
+    if(pumpNoSet.isEmpty()) return {};
+    QVector<ReagentBLL::ptrModel> allRows = _dao->getAllRows();
+    QVector<ReagentBLL::ptrModel> result;
+    for (const auto& reagent : allRows)
+    {
+        if(reagent->getCompanyID() != companyId || (reagent->getReagentType() == 1 && !paperIdVect.contains(reagent->getPaperId()))) continue;
+        if(pumpNoSet.contains(reagent->getPumpNo()))
+        {
+            result.push_back(reagent);
+        }
+    }
+    return result;
+}
+
 ReagentBLL::ptrModel ReagentBLL::getReagent(const int& rId)
 {
     auto reagent = getRowById(rId);

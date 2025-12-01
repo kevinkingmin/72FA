@@ -21,6 +21,7 @@ public:
     ptrModel getReagent(const int &rid, const int &paperId, const int companyId);
     QVector<ptrModel> getReagent(const QSet<QString>& reagentNameVect);
     QVector<ptrModel> getReagent(const int companyId, const QSet<int>& pumpNoSet);
+    QVector<ptrModel> getReagent(const int companyId, const QSet<int>& pumpNoSet, QSet<int>& paperIdVect);
     ptrModel getReagent(const QString& reagentName);
     ptrModel getReagent(const int& rid);
 private:
