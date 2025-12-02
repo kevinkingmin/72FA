@@ -328,16 +328,28 @@ void TestPaperModel::setItemLineWidth(double itemLineWidth)
 int TestPaperModel::getAnalysisPercentOfHeight()
 {
     return _analysisPercentOfHeight;
-} // 高度分析百分比
+}
+
+double TestPaperModel::getAnalysisPercentOfHeightDouble()
+{
+    return 1.0*_analysisPercentOfHeight/100;
+}
+
+// 高度分析百分比
 void TestPaperModel::setAnalysisPercentOfHeight(int analysisPercentOfHeight)
 {
 
     _analysisPercentOfHeight = analysisPercentOfHeight;
 }
+double TestPaperModel::getAnalysisPercentOfWidthDouble()
+{
+    return 1.0*_analysisPercentOfWidth/1000;
+}
 int TestPaperModel::getAnalysisPercentOfWidth()
 {
     return _analysisPercentOfWidth;
-} // 宽度分析百分比
+}
+// 宽度分析百分比
 void TestPaperModel::setAnalysisPercentOfWidth(int analysisPercentOfWidth)
 {
 

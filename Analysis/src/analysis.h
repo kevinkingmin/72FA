@@ -14,7 +14,7 @@ public:
 
 	QString m_test_project_name;
 	bool AnalysisMothed(QString test_project_name,QString file_path);
-	bool AnalysisMothed(QString testId,int paperId, QString sampleId, QString solution_name, QString patiant_name);
+    bool AnalysisMothed(QString testId,int paperId, QString sampleId);
     bool AnalysisMothed_wz(QString inputPath,QString fileName);
 };
 

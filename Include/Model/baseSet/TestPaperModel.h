@@ -100,9 +100,11 @@ public:
     double getItemLineWidth();
     void setItemLineWidth(double itemLineWidth);
 
+    double getAnalysisPercentOfHeightDouble();
     int getAnalysisPercentOfHeight();
     void setAnalysisPercentOfHeight(int analysisPercentOfHeight);
 
+    double getAnalysisPercentOfWidthDouble();
     int getAnalysisPercentOfWidth();
     void setAnalysisPercentOfWidth(int analysisPercentOfWidth);
 

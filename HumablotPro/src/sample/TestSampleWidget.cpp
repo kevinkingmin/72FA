@@ -170,7 +170,7 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
 			int company_info = dao->SelectTargetValue(&bResult, "5").toInt();
             for(auto test:m_listTest)
             {
-                bool ret = m_analysis.AnalysisMothed(test->getTestId(), test->getPaperId(), test->getTestId(),test->getSolutionName(),test->getPatientName());
+                bool ret = m_analysis.AnalysisMothed(test->getTestId(), test->getPaperId(), test->getTestId());
                 if(ret & isUploadLis)
                 {                    
                     emit sglUploadLIS(test->getTestId(),company_info);
@@ -1410,7 +1410,7 @@ void TestSampleWidget::SaveTestResult(QVector<std::tuple<ptrSample, QVector<ptrT
             Sleep(1000);
             //m_cameraControl.CreateOneImage(sample_id, paper_id, pic_file_name);
             pic_file_path_list.push_back(pic_file_name);
-            m_analysis.AnalysisMothed(pic_file_name,paper_id, sample_id,"","");
+            m_analysis.AnalysisMothed(pic_file_name,paper_id, sample_id);
         }
         i++;
     }

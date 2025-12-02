@@ -85,7 +85,7 @@ void RunPaperPosThread::run()
 			m_cameraControl.CreateOneImage(test_id, paper_id, pic_file_name);
 			pic_file_path_list.push_back(pic_file_name);
 			//todo
-            m_analysis.AnalysisMothed(pic_file_name, paper_id, test_id, solution_name, patiant_name);
+            m_analysis.AnalysisMothed(pic_file_name, paper_id, test_id);
 			i++;      
 		}
 	}
