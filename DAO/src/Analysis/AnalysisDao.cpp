@@ -371,15 +371,13 @@ bool AnalysisDao::InsertTestData(
                                  QString paper_id,
                                  QString articleNo,
                                  QString manageName,
-                                 QString sampleNo,
                                  QString strSampleID,
-                                 QString strTestPaper_ID,
                                  QString strItemName,
                                  QString strPosition,
                                  QString strGrayValue,
                                  QString strRatioToCut,
                                  QString strDiagnosis,
-                                 QString strTestDateTime, QString solution_name, QString patiant_name,int error_code)
+                                 QString strTestDateTime, int error_code)
 {
     QSqlQuery query;
     if(DAO::createQuery(query)<0)
@@ -419,7 +417,7 @@ bool AnalysisDao::InsertTestData(
     return bResult;
 }
 
-bool AnalysisDao::UpdateSampleAnalysisState(QString sampleNo, QString testId, QString strTestPaper_ID, QString strAnalysisState, QString strTestDateTime)
+bool AnalysisDao::UpdateSampleAnalysisState(QString& testId, QString& strAnalysisState)
 {
     QSqlQuery query;
     if(DAO::createQuery(query)<0)

@@ -29,6 +29,14 @@ public:
     bool updateModel(SystemSetModel& model);
     bool getModel(int id, SystemSetModel& out);
     bool getPicturePathRoot(QString& out);
+    // 送检者名称
+    QString getSubmitter();
+    // 检验者名称
+    QString getTester();
+    // 审核者名称
+    QString getVerifier();
+
+    QString getDefaultProcessName();
     QVector<SystemSetModel>getAllRows();
 private:
 };
