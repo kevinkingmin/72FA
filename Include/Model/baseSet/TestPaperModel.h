@@ -49,6 +49,9 @@ public:
     double getPaperHeight();
     void setPaperHeight(double paperHeight);
 
+    // 获取膜条分析高度
+    double getAnalysisPaperHeight();
+
     double getTestBlockWidth();
     void setTestBlockWidth(double testBlockWidth);
 
@@ -76,9 +79,6 @@ public:
     double getBlackPointDetectThreshold();
     void setBlackPointDetectThreshold(double blackPointDetectThreshold);
 
-    bool getIsCutOff();
-    void setIsCutOff(bool isCutOff);
-
     double getCutOffThreshold();
     void setCutOffThreshold(double cutOffThreshold);
 
@@ -100,9 +100,14 @@ public:
     double getItemLineWidth();
     void setItemLineWidth(double itemLineWidth);
 
+    // 获取分析线宽度
+    double getItemAnalysisWidth();
+
+    double getAnalysisPercentOfHeightDouble();
     int getAnalysisPercentOfHeight();
     void setAnalysisPercentOfHeight(int analysisPercentOfHeight);
 
+    double getAnalysisPercentOfWidthDouble();
     int getAnalysisPercentOfWidth();
     void setAnalysisPercentOfWidth(int analysisPercentOfWidth);
 
@@ -145,7 +150,6 @@ private:
     double _funcGrayThreshold; // 功能线灰度阈值
     bool _isBlackPointDetect; // 是否开启黑点检测
     double _blackPointDetectThreshold;// 黑点检测阈值
-    bool _isCutOff;
     double _cutOffThreshold;
     double _cutOffPosition;
     double _cutOffValue;

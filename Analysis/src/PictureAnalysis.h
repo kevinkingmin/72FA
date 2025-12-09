@@ -4,104 +4,124 @@
 #include "opencv/cv.h"
 #include "opencv/highgui.h"
 #include <QPoint>
-#include<vector>
-
-typedef struct {
-    int testPaperId; // 膜条ID
-    QString itemName; // 项目名称
-    int PositionNo; // 项目编号
-    int curveId; // 标曲ID
-    int rulesId; // 规则ID
-    double resultOffset; // 结果补偿
-    int position; // 项目位置
-    bool isNull; // 是否为空
-    QString itemFullName; //项目全名
-}TestPaperItem;
-
-typedef struct {
-    int companyId;
-    QString	strTestPaperName;
-    int paperType;
-    int nTotalNumber;
-    int nTestItemNumber;
-    double dTotalLenght;
-    double paperMmToPixel; // 毫米对应的像素点数
-    double ignoreHeadLenght; // 忽略的头长度
-    double paperLenght; // 模块长度
-    double paperHeight; // 膜条高度
-    double testBlockWidth; // 分段膜条块的宽度
-    int funcFindDir; // 功能线查找方向
-    int paperShowAngle; // 膜条显示角度
-    double funcPosition; // 功能线位置
-    double funcFindWidth; // 功能线查找宽度
-    double funcGrayThreshold; // 功能线灰度阈值
-    bool isBlackPointDetect; // 是否开启黑点检测
-    double blackPointDetectThreshold;// 黑点检测阈值
-    bool isCutOff;
-    double cutOffThreshold;
-    double cutOffPosition;
-    double cutOffValue;
-    int paperBinarizationThreshold; // 二值化阈值
-    double paperBackgroundValue; // 膜条背景值
-    double itemFindWidth; // 项目查找宽度
-    double itemLineWidth; // 指标线宽
-    int analysisPercentOfHeight; // 高度分析百分比
-    int analysisPercentOfWidth; // 宽度分析百分比
-    int paperColorOnUi; // UI上显示的颜色
-    bool isPaperHide; // UI上是否显示此膜条
-    QString articleNo; // 货号
-    int paperSortIdxOnUi; // UI上此膜条的排序
-
-    QList<TestPaperItem> items; // 子项目参数
-
-    QString strTestItemName[32];
-    bool	isNullArea[32];
-    double dItemPosition[32];
-    int dItemNo[32];
-    int dItemCurveId[32];
-    double dItemGrayValue[32];
-    double dBackgroundGrayValue[32];
-    double dItemResultOffset[32];
-    int dItemErrorCode[32];
-    double dItemGrayRatio[32];
-    QString solutionName;
-    QString manageName;
-    QString sampleId;
-    int paperId;
-    QString Id;
-}TestPaperParameter, *LPTestPaperParameter;
+#include <QVector>
+#include "../Include/Model/baseSet/TestPaperModel.h"
+#include "../Include/Model/baseSet/ItemModel.h"
 
 class  PictureAnalysis : public QObject
 {
     Q_OBJECT
 
 public:
+    enum class Error
+    {
+        NoError = 0,
+        ConfigError=1, // 配置参数错误
+        PictureNotFound=2, // 图片为找到
+        ItemAnalysisHeightError=3, // 解析高度参数
+        PictureToGrayError=4, // 转灰图片失败
+        ContourNotFound=5, // 轮廓未找到
+        DetectSegmentCntError=6, // 段检测错误
+        DetectBlackPoint=7, // 检测到黑点
+        FuncLineError=8, // 功能线异常
+        CutOffLineError=9, // CutOff线异常
+        ItemConfigError=10, // CutOff线异常
+        ItemLineDetectError=11, // 项目线检测异常
+        SegmentSetError=12, // 段设置错误
+        DetectPictureSizeError=13, // 图像大小检测失败
+    };
+
+    // 判读结果
+    struct TestPaperItemResult {
+        double grayValue; // 灰度值
+        double backgroundGrayValue; // 背景值
+        Error errorCode; // 错误代码
+        double grayRatio; // 比值
+        int lineCenter; // 条带中心位置
+        int lineWidth; // 条带宽度
+        TestPaperItemResult()
+            :grayValue(0)
+            ,backgroundGrayValue(0)
+            ,errorCode(Error::NoError)
+            ,grayRatio(0)
+            ,lineCenter(0)
+            ,lineWidth(0)
+        {}
+    };
+
+    // 判读的段信息
+    struct TestPaperSegmentResult
+    {
+        double _center; // 中心
+        double _width; // 宽度
+        TestPaperSegmentResult()
+        :_center(0)
+        ,_width(0)
+        {}
+        TestPaperSegmentResult(double center, double width)
+            :_center(center)
+            ,_width(width)
+        {}
+    };
+
+    struct TestPaperStrt{
+        TestPaperModel paperParam; // 膜条参数
+        QVector<ItemModel> itemParamVect; // 子项目参数
+        QVector<TestPaperItemResult> itemResultVect; // 子项目判读结果
+        QVector<TestPaperSegmentResult> segmentResultVect; // 保存判读后的段信息
+        QString sampleId; //标本id
+        QString testId; // 测试id
+        QString pictureRootPath; // 图片保存跟路径
+        QString picturePath; // 图片文件路径
+        QString pictureAnalysisPath; // 图片分析后保存的路径
+        bool hasCutOff;
+        TestPaperStrt()
+            :paperParam()
+            ,itemParamVect()
+            ,itemResultVect()
+            ,segmentResultVect()
+            ,sampleId("0")
+            ,testId("0")
+            ,pictureRootPath("")
+            ,picturePath("")
+            ,pictureAnalysisPath("")
+            ,hasCutOff(false)
+        {}
+    };
+
     PictureAnalysis(QObject *parent);
     ~PictureAnalysis();
     bool Analysis(QString test_project_name,QString file_path);
-    bool AnalysisOne(QString test_id,int paperId, QString sampleId, QString solution_name, QString patiant_name);
-    int CalcImageItemWz(TestPaperParameter &testPaperParameterStruct,QString sampleId);
-    int GetTestPaperImageWz(QString filePath,TestPaperParameter &testPaperParameterStruct,cv::OutputArray dst);
-    int CalcImageItemSegmentation(TestPaperParameter &testPaperParameterStruct, QString testId);
-    int GetTestPaperImageSegmentation(QString filePath,TestPaperParameter &testPaperParameterStruct);
-    int CalcImageItemContinuous(TestPaperParameter &testPaperParameterStruct, QString testId);
-    int GetTestPaperImageContinuous(QString filePath,TestPaperParameter &testPaperParameterStruct,cv::OutputArray dst);
+    bool AnalysisOne(QString test_id,int paperId, QString sampleId);
+//    int CalcImageItemWz(TestPaperStrt &testPaperParameterStruct,QString sampleId);
+//    int GetTestPaperImageWz(QString filePath,TestPaperStrt &testPaperParameterStruct,cv::OutputArray dst);
+//    Error GetTestPaperImageSegmentation(TestPaperStrt &paper);
 private:
-    QString m_test_project_name;
-    QString m_nSampleID;
-    int m_nTestPaperID;
-    int m_nControlThreshold = 0;
-    int m_nCutOffThreshold = 0;
+    // 分段膜条处理
+    Error SegmentPaperHandle(TestPaperStrt &paper);
+    // 分段膜条旋转裁切
+    Error SegmentPaperRotateCut(cv::Mat& srcMat, TestPaperStrt &paper,cv::OutputArray dstMat, cv::OutputArray dstThreshMat);
+    // 膜条段解析
+    Error PaperSegmentationParse(cv::Mat& srcMat, cv::Mat& threshMat, TestPaperStrt &paper);
+    // 分段膜条项目解析
+    Error SegmentPaperItemParse(cv::Mat& cutMat, TestPaperStrt &paper);
 
-    int TestPaperSegmentationRotateCut(cv::Mat& srcMat, TestPaperParameter &testPaperParameterStruct,cv::OutputArray dstMat, cv::OutputArray dstThreshMat);
-    int TestPaperSegmentationParse(cv::Mat& srcMat, cv::Mat& threshMat, TestPaperParameter &testPaperParameterStruct,std::vector<std::tuple<int,int>>& segCenter);
+    // 连续膜条处理
+    Error ContinuousPaperHandle(TestPaperStrt &paper);
+    // 连续膜条旋转剪切
+    Error ContinuousPaperRotateCut(TestPaperStrt &paper,cv::OutputArray dst);
+    // 连续膜条项目解析
+    Error ContinuousPaperItemParse(const cv::Mat& src, TestPaperStrt &paper);
+    // 单项目解析
+    Error OneItemParse(const cv::Mat& srcMat, TestPaperItemResult& result, int lineWidth, int bgDiff);
+    // 图像旋转
+    bool SrcImageNeedRotate180(TestPaperModel& paper);
 
-    QString CaculateResultText(double dItemGrayRatio,QString itemName,int paper_id,int error_code);
-    bool AnalysisOneSample(int paper_id,int company_id,QString testId, QString sampleId, QString solution_name, QString patiant_name);
-    bool GetTestPaperParameter(TestPaperParameter &testPaperParameterStruct,int paper_id, int company_id);
-    bool UpdateSampleAnalysisState(int nAnalysisState);
-    bool SaveTestData(TestPaperParameter testPaperResult);
-    int GetTestPaperImageCalcIndexWz(const cv::Mat& src, TestPaperParameter &testPaperParameterStruct,QList<int> lineStartArray, int lineLimit, int lineWidth);
-    int GetTestOneItemCalcIndexWz(const cv::Mat& srcMat, std::tuple<int,int,double,double>& result, int lineWidth, int bgDiff);
-    bool SrcImageNeedRotate180(TestPaperParameter& self);
+    QString CaculateResultText(double dItemGrayRatio,QString itemName,int paper_id);
+    bool isExistCutoffLine(TestPaperStrt& paper);
+    bool AnalysisOneSample(int paper_id, QString testId, QString sampleId);
+//    bool GetTestPaperParameter(TestPaperParameter &testPaperParameterStruct,int paper_id, int company_id);
+    bool UpdateSampleAnalysisState(TestPaperStrt& paper, Error error);
+    bool SaveTestData(TestPaperStrt& paper);
+
 };

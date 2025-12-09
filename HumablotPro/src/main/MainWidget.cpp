@@ -1601,31 +1601,36 @@ void MainWidget::on_btnCloseBeep1_clicked()
     _instr->shutdownBee();
     //OnAction_CloseBeep();
     // TODO::WangZ
-//    qDebug() << "close bee wz";
-//    SystemSetModel systemSetting;
-//    SystemSetDao::instance()->getModel(3, systemSetting);
-//    QString folderPath = systemSetting.getSaveDes()+ "\\" + "original" ;
-//    qDebug() << "folderPath" << folderPath;
-//    QDir dir(folderPath);
-//    dir.setFilter(QDir::Files);
-//    QFileInfoList fileInfoList = dir.entryInfoList();
-//    foreach (QFileInfo fileInfo, fileInfoList)
-//    {
-//        QString fileFullName = fileInfo.fileName();
-//        QString fileName = fileFullName.left(fileFullName.lastIndexOf('.'));
-//        // 在这里处理获取到的图片名称
-//        qDebug() << "图片名称：" << fileName;
-//        // 开始图片分析
-//        Analysis m_analysis;
-//        int code = m_analysis.AnalysisMothed(fileName,930,fileName, "solutionName","");
-//        if(code == 0)
-//        {
-//            qDebug() << "success ";
-//        }else
-//        {
-//            qDebug() << "fail " << code;
-//        }
-//    }
+    qDebug() << "close bee wz";
+    SystemSetModel systemSetting;
+    SystemSetDao::instance()->getModel(3, systemSetting);
+    QString folderPath;
+    if(!SystemSetDao::instance()->getPicturePathRoot(folderPath))
+    {
+        return;
+    }
+    folderPath = folderPath + "\\" + "original" ;
+    qDebug() << "folderPath" << folderPath;
+    QDir dir(folderPath);
+    dir.setFilter(QDir::Files);
+    QFileInfoList fileInfoList = dir.entryInfoList();
+    foreach (QFileInfo fileInfo, fileInfoList)
+    {
+        QString fileFullName = fileInfo.fileName();
+        QString fileName = fileFullName.left(fileFullName.lastIndexOf('.'));
+        // 在这里处理获取到的图片名称
+        qDebug() << "图片名称：" << fileName;
+        // 开始图片分析
+        Analysis m_analysis;
+        bool code = m_analysis.AnalysisMothed(fileName, 930, fileName);
+        if(code)
+        {
+            qDebug() << "success ";
+        }else
+        {
+            qDebug() << "fail " << code;
+        }
+    }
 }
 
 //处理窗口关闭

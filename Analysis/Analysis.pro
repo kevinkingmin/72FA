@@ -48,8 +48,12 @@ DESTDIR+=../Lib
 
 win32{
     PRECOMPILED_HEADER+= $$PWD\\..\\Include\\Precomp\\precompile.h
+    QMAKE_POST_LINK += xcopy \"$$PWD\\src\\*.h\" \
+        \"$$PWD\\..\\Include\\Analysis\\\" /y &
+
     LIBS+=../Lib/DAO.lib \
-          ../Lib/Utilities.lib
+          ../Lib/Utilities.lib \
+          ../Lib/Model.lib
 
     CONFIG(debug, debug|release) {
         LIBS += ../lib/OpenCV/opencv_world340d.lib
@@ -61,5 +65,3 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
-
-

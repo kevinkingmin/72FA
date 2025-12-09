@@ -779,7 +779,7 @@ bool AnalysisUIDao::InsertTestPaper(TestPaperModel& paper)
           +","+QString::number(paper.getIgnoreHeadLenght(),'f',2)+","+QString::number(paper.getTestBlockWidth(),'f',2);
     strSql += ","+QString::number(paper.getFuncFindDir())+","+QString::number(paper.getFuncPosition(),'f',2)+ ","+QString::number(paper.getFuncFindWidth(),'f',2)
            +","+QString::number(paper.getFuncGrayThreshold(),'f',2)+","+QString::number(paper.getIsBlackPointDetect()?1:0);
-    strSql += ","+QString::number(paper.getBlackPointDetectThreshold(),'f',2)+","+QString::number(paper.getIsCutOff()?1:0)+ ","+QString::number(paper.getCutOffThreshold(),'f',2)
+    strSql += ","+QString::number(paper.getBlackPointDetectThreshold(),'f',2)+","+QString::number(0)+ ","+QString::number(paper.getCutOffThreshold(),'f',2)
             +","+QString::number(paper.getCutOffValue(),'f',2)+","+QString::number(paper.getPaperShowAngle());
     strSql += "',"+ QString::number(paper.getPaperBinarizationThreshold())+","+QString::number(paper.getPaperBackgroundValue(),'f',2)+","+ QString::number(paper.getItemFindWidth(),'f',2)
             +","+ QString::number(paper.getItemLineWidth(),'f',2)+","+QString::number(paper.getAnalysisPercentOfHeight());
@@ -903,7 +903,7 @@ bool AnalysisUIDao::UpdateTestPaper(QString strID, TestPaperModel& paper)
             ",FuncGrayThreshold="+QString::number(paper.getFuncGrayThreshold(),'f',2)+
             ",IsBlackPointDetect="+QString::number(paper.getIsBlackPointDetect()?1:0)+
             ",BlackPointDetectThreshold="+QString::number(paper.getBlackPointDetectThreshold(),'f',2)+
-            ",IsCutOff="+QString::number(paper.getIsCutOff()?1:0) +
+            ",IsCutOff="+QString::number(0) +
             ",CutoffGrayThreshold="+QString::number(paper.getCutOffThreshold(),'f',2)+
             ",CutoffValue="+QString::number(paper.getCutOffValue(),'f',2)+
             ",PaperShowAngle="+QString::number(paper.getPaperShowAngle())+
@@ -951,7 +951,6 @@ bool AnalysisUIDao::QueryTestPaper(QString paper_id, TestPaperModel& paper)
         paper.setFuncGrayThreshold(TestPaperQuery.value("FuncGrayThreshold").toDouble());
         paper.setIsBlackPointDetect(TestPaperQuery.value("IsBlackPointDetect").toInt() == 1);
         paper.setBlackPointDetectThreshold(TestPaperQuery.value("BlackPointDetectThreshold").toDouble());
-        paper.setIsCutOff(TestPaperQuery.value("IsCutOff").toInt());
         paper.setCutOffPosition(TestPaperQuery.value("CutoffPosition").toDouble());
         paper.setCutOffValue(TestPaperQuery.value("CutoffValue").toDouble());
         paper.setCutOffThreshold(TestPaperQuery.value("CutOffGrayThreshold").toDouble());

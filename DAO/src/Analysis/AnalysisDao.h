@@ -45,22 +45,15 @@ public:
         QString paper_id,
         QString articleNo,
         QString manageName,
-        QString sampleNo,
         QString strSampleID,
-        QString strTestPaper_ID,
         QString strItemName,
         QString strPosition,
         QString strGrayValue,
         QString strRatioToCut,
         QString strDiagnosis,
-        QString strTestDateTime, QString solution_name, QString patiant_name,int error_code);
+        QString strTestDateTime, int error_code);
 
-    bool UpdateSampleAnalysisState(
-        QString sampleNo,
-        QString strSampleID,
-        QString strTestPaper_ID,
-        QString strAnalysisState,
-        QString strTestDateTime);
+    bool UpdateSampleAnalysisState(QString& testId, QString& strAnalysisState);
 
     //插入左右位置记录表中
     bool Insert_tresult_left_right_pixp(QString testId,int position_index, int left, int right,QString projectName, int top, int height);

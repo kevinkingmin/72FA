@@ -27,7 +27,6 @@ TestPaperModel::TestPaperModel()
     ,_funcGrayThreshold(200)
     ,_isBlackPointDetect(0)
     ,_blackPointDetectThreshold(10)
-    ,_isCutOff(0)
     ,_cutOffThreshold(0)
     ,_cutOffPosition(0)
     ,_cutOffValue(120)
@@ -159,6 +158,12 @@ void TestPaperModel::setPaperHeight(double paperHeight)
     _paperHeight = paperHeight;
 }
 
+
+double TestPaperModel::getAnalysisPaperHeight()
+{
+    return _paperHeight * _analysisPercentOfHeight / 100;
+}
+
 double TestPaperModel::getTestBlockWidth()
 {
     return _testBlockWidth;
@@ -255,15 +260,6 @@ void TestPaperModel::setBlackPointDetectThreshold(double blackPointDetectThresho
     _blackPointDetectThreshold = blackPointDetectThreshold;
 }
 
-bool TestPaperModel::getIsCutOff()
-{
-    return _isCutOff;
-}
-void TestPaperModel::setIsCutOff(bool isCutOff)
-{
-
-    _isCutOff = isCutOff;
-}
 double TestPaperModel::getCutOffThreshold()
 {
     return _cutOffThreshold;
@@ -325,19 +321,37 @@ void TestPaperModel::setItemLineWidth(double itemLineWidth)
 
     _itemLineWidth = itemLineWidth;
 }
+
+double TestPaperModel::getItemAnalysisWidth()
+{
+    return _itemLineWidth * getAnalysisPercentOfWidthDouble();
+}
+
 int TestPaperModel::getAnalysisPercentOfHeight()
 {
     return _analysisPercentOfHeight;
-} // 高度分析百分比
+}
+
+double TestPaperModel::getAnalysisPercentOfHeightDouble()
+{
+    return 1.0*_analysisPercentOfHeight/100;
+}
+
+// 高度分析百分比
 void TestPaperModel::setAnalysisPercentOfHeight(int analysisPercentOfHeight)
 {
 
     _analysisPercentOfHeight = analysisPercentOfHeight;
 }
+double TestPaperModel::getAnalysisPercentOfWidthDouble()
+{
+    return 1.0*_analysisPercentOfWidth/100;
+}
 int TestPaperModel::getAnalysisPercentOfWidth()
 {
     return _analysisPercentOfWidth;
-} // 宽度分析百分比
+}
+// 宽度分析百分比
 void TestPaperModel::setAnalysisPercentOfWidth(int analysisPercentOfWidth)
 {
 

@@ -119,8 +119,10 @@ void TestPaper::initUI()
     ui->label_78->setText(GlobalData::LoadLanguageInfo("K1794"));
     ui->rdCurveSingle->setText(GlobalData::LoadLanguageInfo("K1795"));
     ui->rdCurveAllSet->setText(GlobalData::LoadLanguageInfo("K1796"));
-    ui->rdRulesAllSet->setChecked(true);
-    ui->rdCurveAllSet->setChecked(true);
+    ui->rdRulesAllSet->setChecked(false);
+    ui->rdCurveAllSet->setChecked(false);
+    ui->rdRulesSingle->setChecked(true);
+    ui->rdCurveSingle->setChecked(true);
     ui->pushButton_Set->setText(GlobalData::LoadLanguageInfo("K1115"));
 
 
@@ -209,6 +211,10 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
         return;
     }
+    ui->rdRulesAllSet->setChecked(false);
+    ui->rdCurveAllSet->setChecked(false);
+    ui->rdRulesSingle->setChecked(true);
+    ui->rdCurveSingle->setChecked(true);
     _itemModelVect = ItemDao::instance()->selectItems(paperId.toInt());
     bool isSegmentPaper = _testPaperModel.getPaperType() == TestPaperModel::PAPER_TYPE_SEGMENT;
     ui->cmbCompany->setCurrentIndex(ui->cmbCompany->findData(m_Company_ID));//公司
@@ -264,6 +270,7 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
             ctl.combo_box_rule->setCurrentIndex(ctl.combo_box_rule->findData(QString::number(itemVect[i].getRulesId())));
             //调用接口 ,定标曲线
             ctl.cmbCurve->setCurrentIndex(ctl.cmbCurve->findData(QString::number(itemVect[i].getCurveId())));
+            qDebug()<<"combo_box_rule"<<QString::number(itemVect[i].getRulesId())<<QString::number(itemVect[i].getCurveId());
         }
         return;
     }

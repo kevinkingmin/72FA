@@ -53,6 +53,47 @@ bool SystemSetDao::getModel(int id, SystemSetModel& out)
     return true;
 }
 
+bool SystemSetDao::getPicturePathRoot(QString& out)
+{
+    SystemSetModel systemSetting;
+    if(!getModel(3, systemSetting)) return false;
+    out = systemSetting.getSaveDes();
+    return true;
+}
+
+QString SystemSetDao::getSubmitter()
+{
+    SystemSetModel systemSetting;
+    if(!getModel(20011, systemSetting)) return "None";
+    QString temp = systemSetting.getSaveDes();
+    return temp.isEmpty()?"None":temp;
+}
+// 检验者名称
+QString SystemSetDao::getTester()
+{
+    SystemSetModel systemSetting;
+    if(!getModel(20012, systemSetting)) return "None";
+    QString temp = systemSetting.getSaveDes();
+    return temp.isEmpty()?"None":temp;
+}
+
+// 审核者名称
+QString SystemSetDao::getVerifier()
+{
+    SystemSetModel systemSetting;
+    if(!getModel(20013, systemSetting)) return "None";
+    QString temp = systemSetting.getSaveDes();
+    return temp.isEmpty()?"None":temp;
+}
+
+QString SystemSetDao::getDefaultProcessName()
+{
+    SystemSetModel systemSetting;
+    if(!getModel(6, systemSetting)) return "None";
+    QString temp = systemSetting.getSaveDes();
+    return temp.isEmpty()?"None":temp;
+}
+
 QVector<SystemSetModel> SystemSetDao::getAllRows()
 {
     QSqlQuery query;

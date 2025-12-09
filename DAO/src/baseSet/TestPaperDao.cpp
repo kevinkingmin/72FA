@@ -147,7 +147,7 @@ bool TestPaperDao::insert(TestPaperModel& model)
     query.addBindValue(model.getFuncPosition());
     query.addBindValue(model.getCutOffPosition());
     query.addBindValue(model.getFuncGrayThreshold());
-    query.addBindValue(model.getIsCutOff());
+    query.addBindValue(0);
 
     query.addBindValue(model.getCutOffValue());
     query.addBindValue(model.getCutOffThreshold());
@@ -214,7 +214,7 @@ bool TestPaperDao::update(TestPaperModel& model)
     query.addBindValue(model.getFuncPosition());
     query.addBindValue(model.getCutOffPosition());
     query.addBindValue(model.getFuncGrayThreshold());
-    query.addBindValue(model.getIsCutOff());
+    query.addBindValue(0);
 
     query.addBindValue(model.getCutOffValue());
     query.addBindValue(model.getCutOffThreshold());
@@ -296,7 +296,6 @@ QVector<TestPaperModel> TestPaperDao::getModelFormQuery(QSqlQuery& query)
         model.setFuncPosition(query.value("FuncPosition").toDouble());
         model.setCutOffPosition(query.value("CutoffPosition").toDouble());
         model.setFuncGrayThreshold(query.value("FuncGrayThreshold").toDouble());
-        model.setIsCutOff(query.value("IsCutOff").toInt());
         model.setCutOffValue(query.value("CutoffValue").toDouble());
         model.setCutOffThreshold(query.value("CutoffGrayThreshold").toDouble());
         model.setArticleNo(query.value("ArticleNo").toString());
