@@ -909,8 +909,15 @@ PictureAnalysis::Error PictureAnalysis::ContinuousPaperRotateCut(TestPaperStrt &
     int thresh = paperParam.getPaperBinarizationThreshold();
     double yPercent = paperParam.getAnalysisPercentOfHeightDouble();
     double totalHeight = paperParam.getPaperHeight() * mmPixel;
-    double lineWidth = paperParam.getItemLineWidth() * mmPixel;
-    if(yPercent > 1 || yPercent < 0.4)
+    double totalLenght = paperParam.getTotalLenght() * mmPixel;
+    double paperHeight = paperParam.getPaperHeight() * mmPixel;
+    // 是否超出设定值判定函数
+    auto isOutOfRange = [](double value, double min, double max)
+    {
+        return value < min || value > max;
+    };
+
+    if(isOutOfRange(yPercent, 0.4, 1))
     {
         return Error::ConfigError;
     }
@@ -1036,11 +1043,10 @@ PictureAnalysis::Error PictureAnalysis::ContinuousPaperRotateCut(TestPaperStrt &
         // 保存二值化后的图像
         QString edgePath = paper.pictureAnalysisPath + paper.sampleId + "-edgePath.png";
         cv::imwrite(edgePath.toStdString(), edgeMat);
-        double totalLenght = paperParam.getTotalLenght() * mmPixel;
-        double paperHeight = paperParam.getPaperHeight() * mmPixel;
-        if(edgeMat.cols < totalLenght * 0.9 || edgeMat.rows < paperHeight * 0.9)
+        if(isOutOfRange(edgeMat.cols, totalLenght * 0.9, totalLenght * 1.2) ||
+                isOutOfRange(edgeMat.rows, paperHeight * 0.9, paperHeight*1.5))
         {
-            return Error::ContourNotFound;
+            return Error::DetectPictureSizeError;
         }
     }
 
@@ -1113,7 +1119,7 @@ PictureAnalysis::Error PictureAnalysis::ContinuousPaperRotateCut(TestPaperStrt &
     cv::Mat croppedMat = grayRotMat(croppedEdge);
     int reEdgeStart = 0;
     if(croppedMat.cols < 50) return Error::ContourNotFound;
-    // 修正腐蚀参数
+    // 修正膨胀参数
     for(int i = 0; i < 50-3;i++)
     {
         cv::Rect roi(i, 0, 3, croppedMat.rows);
@@ -1124,14 +1130,22 @@ PictureAnalysis::Error PictureAnalysis::ContinuousPaperRotateCut(TestPaperStrt &
             break;
         }
     }
-    cv::Rect reroi(reEdgeStart, 0, croppedMat.cols-reEdgeStart, croppedMat.rows);
-    cv::Mat reCroppedMat = croppedMat(reroi);
+
     //剪裁后的图片保存
     cv::Mat drawMat = grayRotMat(cv::Rect(edge.x+reEdgeStart, edge.y, edge.width-reEdgeStart, edge.height));
     QString drawPath = paper.pictureAnalysisPath + paper.sampleId + ".png";
     cv::imwrite(drawPath.toStdString(), drawMat);
+    if(isOutOfRange(drawMat.cols, totalLenght * 0.9, totalLenght * 1.2) ||
+            isOutOfRange(drawMat.rows, paperHeight * 0.9, paperHeight*1.2))
+    {
+        return Error::DetectPictureSizeError;
+    }
+
+    cv::Rect reroi(reEdgeStart, 0, croppedMat.cols-reEdgeStart, croppedMat.rows);
+    cv::Mat reCroppedMat = croppedMat(reroi);
     // 将处理后的对象传递出去
     reCroppedMat.copyTo(dst);
+
     return Error::NoError;
 }
 
@@ -1224,6 +1238,7 @@ PictureAnalysis::Error PictureAnalysis::ContinuousPaperItemParse(const cv::Mat& 
         result.errorCode = Error::NoError;
         result.grayValue = markMatGray;
         result.lineCenter = markLineLimitStart + target_rect.x + target_rect.width/2;
+        result.lineWidth = target_rect.width;
         result.backgroundGrayValue = 255;
         paper.itemResultVect.push_back(result);
     }

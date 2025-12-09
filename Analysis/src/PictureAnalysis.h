@@ -28,6 +28,7 @@ public:
         ItemConfigError=10, // CutOff线异常
         ItemLineDetectError=11, // 项目线检测异常
         SegmentSetError=12, // 段设置错误
+        DetectPictureSizeError=13, // 图像大小检测失败
     };
 
     // 判读结果
