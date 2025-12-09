@@ -67,6 +67,19 @@ QVector<TestPaperModel> TestPaperDao::getProcessEnablePapers(int processId)
     return getModelFormQuery(query);
 }
 
+
+QVector<TestPaperModel> TestPaperDao::getCompanyProcessEnablePapers(QString companyId, int processId)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return {};
+
+    query.prepare("SELECT * FROM t_testpaper where ProcessId = ? and CompanyID = ? and IsPaperHide = 0");
+    query.addBindValue(processId);
+    query.addBindValue(companyId);
+    if(!query.exec()) return {};
+    return getModelFormQuery(query);
+}
+
 // 获取所有行
 QVector<TestPaperModel> TestPaperDao::getCompanyPapers(QString companyId)
 {
@@ -114,6 +127,7 @@ bool TestPaperDao::getModel(const int paperId, TestPaperModel& out)
     QVector<TestPaperModel> vect = getModelFormQuery(query);
     if(vect.isEmpty()) return false;
     out = std::move(vect.first());
+    qDebug()<<"paperId"<<paperId<<out.getPaperLenght();
     return true;
 }
 

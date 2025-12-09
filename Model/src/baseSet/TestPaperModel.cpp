@@ -14,7 +14,6 @@ TestPaperModel::TestPaperModel()
     ,_paperType(0)
     ,_totalNumber(1)
     ,_testItemNumber(1)
-    ,_totalLenght(60)
     ,_paperMmToPixel(14.3)
     ,_ignoreHeadLenght(0)
     ,_paperLenght(1)
@@ -102,16 +101,6 @@ int TestPaperModel::getTestItemNumber()
 void TestPaperModel::setTestItemNumber(int testItemNumber)
 {
     _testItemNumber = testItemNumber;
-}
-
-double TestPaperModel::getTotalLenght()
-{
-    return _totalLenght;
-}
-
-void TestPaperModel::setTotalLenght(double totalLenght)
-{
-    _totalLenght = totalLenght;
 }
 
 double TestPaperModel::getPaperMmToPixel()

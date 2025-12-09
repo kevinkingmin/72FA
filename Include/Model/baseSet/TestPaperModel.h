@@ -34,9 +34,6 @@ public:
     int getTestItemNumber();
     void setTestItemNumber(int testItemNumber);
 
-    double getTotalLenght();
-    void setTotalLenght(double totalLenght);
-
     double getPaperMmToPixel();
     void setPaperMmToPixel(double paperMmToPixel);
 
@@ -136,7 +133,6 @@ private:
     int _totalNumber;
     // 测试项目数量
     int _testItemNumber;
-    double _totalLenght;
     double _paperMmToPixel; // 毫米对应的像素点数
     double _ignoreHeadLenght; // 忽略的头长度
     double _paperLenght; // 模块长度

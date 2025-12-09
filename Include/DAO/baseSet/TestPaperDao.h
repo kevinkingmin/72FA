@@ -34,6 +34,7 @@ public:
     QVector<TestPaperModel> getCompanyEnablePapers(QString companyId);
     QVector<TestPaperModel> getProcessPapers(int processId);
     QVector<TestPaperModel> getProcessEnablePapers(int processId);
+    QVector<TestPaperModel> getCompanyProcessEnablePapers(QString companyId, int processId);
     QVector<QString> getAllNames();
     bool getModel(const int paperId, TestPaperModel& out);
     bool insert(TestPaperModel& model);

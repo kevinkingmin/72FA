@@ -53,9 +53,7 @@ public:
 	//结果数据表中总数量
 	QString SelectTotalNumber(int paper_id, QString start_time, QString end_time);
 	//取得最大,最小pkid号
-	QString SelectMaxPkid(int paper_id,QString start_time,QString end_time);
-
-	QString SelectMinPkid();
+    int SelectMaxPkid(int paper_id,QString start_time,QString end_time);
 
 	//整理pkid
 	QSqlQuery ReNewPkid(bool *bResult);

@@ -161,7 +161,7 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
     {
         // 选中的流程id
         int processId = systemModel.getSaveSet();
-        QVector<TestPaperModel> paperModelVect = TestPaperDao::instance()->getProcessEnablePapers(processId);
+        QVector<TestPaperModel> paperModelVect = TestPaperDao::instance()->getCompanyProcessEnablePapers(QString::number(company_id), processId);
         for(TestPaperModel& paper:paperModelVect)
         {
             m_PaperinfoMap.insert(paper.getId(), paper.getPaperName());

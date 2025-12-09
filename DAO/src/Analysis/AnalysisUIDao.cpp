@@ -940,7 +940,7 @@ bool AnalysisUIDao::QueryTestPaper(QString paper_id, TestPaperModel& paper)
         paper.setPaperType(TestPaperQuery.value("PaperType").toInt());
         paper.setTotalNumber(TestPaperQuery.value("TotalNumber").toInt());
         paper.setTestItemNumber(TestPaperQuery.value("ItemNumber").toInt());
-        paper.setTotalLenght(TestPaperQuery.value("TestPaperLenght").toDouble());
+        paper.setPaperLenght(TestPaperQuery.value("TestPaperLenght").toDouble());
         paper.setPaperHeight(TestPaperQuery.value("PaperHeight").toDouble());
         paper.setPaperMmToPixel(TestPaperQuery.value("PaperMmToPixel").toDouble());
         paper.setIgnoreHeadLenght(TestPaperQuery.value("IgnoreHeadLenght").toDouble());
@@ -1754,27 +1754,24 @@ QSqlQuery AnalysisUIDao::SelectSamplesByQuery(QString start_time, QString end_ti
     QString strSql;
     strSql = "";
     query.setForwardOnly(true);
-    QString max_pkid = 0;//; SelectMaxPkid();
     if (project_name == "全部" || project_name == "全部all"|| project_name == "all" || project_name == "全部en" || project_name == "All" || project_name == "All " || project_name == " All ")
     {
         strSql = "select * from tsample A,t_testpaper B where  (A.stateFlag=88 or A.stateFlag=82 or A.stateFlag=81 or A.stateFlag=83 or A.stateFlag=1 or A.stateFlag=2 or A.stateFlag=0)  and A.paperId = B.ID   and A.createDay>='" + start_time + "' and A.createDay<'" + end_time + "'     ";
-        max_pkid = SelectMaxPkid(0, start_time, end_time);
+        m_count_i = SelectMaxPkid(0, start_time, end_time);
     }
     else
     {
         strSql = "select * from tsample A,t_testpaper B where   (A.stateFlag=88 or A.stateFlag=82 or A.stateFlag=81 or A.stateFlag=83 or A.stateFlag=1 or A.stateFlag=2 or A.stateFlag=0)  and A.paperId = B.ID   and B.ID='" + project_name + "'  and A.createDay>='" + start_time + "' and A.createDay<'" + end_time + "'    ";
         int project_name1 = project_name.toInt();
-        max_pkid = SelectMaxPkid(project_name1, start_time, end_time);
+        m_count_i = SelectMaxPkid(project_name1, start_time, end_time);
     }
 
     int number_i = 0;
     number_i = one_page_number * (page_index-1);
-    m_count_i = 0;
-    m_count_i = max_pkid.toInt();
     int page_size = 0;
     page_size = m_count_i - number_i;
 
-    if (max_pkid.toInt() <= one_page_number)
+    if (m_count_i <= one_page_number)
     {
         strSql = QString("%1    %3  LIMIT  %2 ,%4").arg(strSql).arg(0).arg("   ORDER BY createDay DESC , paperPos ASC   ").arg(one_page_number);
     }
@@ -1881,72 +1878,31 @@ QString  AnalysisUIDao::SelectTotalNumber(int paper_id, QString start_time, QStr
 }
 
 //取得最大,最小pkid号
-QString  AnalysisUIDao::SelectMaxPkid(int paper_id, QString start_time, QString end_time)
+int AnalysisUIDao::SelectMaxPkid(int paper_id, QString start_time, QString end_time)
 {
-    bool *bResult;
     QString strTargetValue;
     QSqlQuery query;
     if (DAO::createQuery(query) < 0)
     {
-        *bResult = false;
-        return "";
+        return 0;
     }
-
-    QString sql = "";
     if (paper_id == 0)
     {
-        sql = QString("select count(*) AS max_pkid from tsample A,t_testpaper B where  (A.stateFlag=88 or A.stateFlag=81 or A.stateFlag=82 or A.stateFlag=83 or A.stateFlag=1 or A.stateFlag=2 or A.stateFlag=0)  and A.paperId = B.ID   and  createDay>='" + start_time + "' and createDay<'" + end_time + "'  ");
+        query.prepare("select count(*) AS total_count from tsample where createDay>=? and createDay<?");
+        query.addBindValue(start_time);
+        query.addBindValue(end_time);
     }
     else
     {
-        sql = QString("select count(*)  AS max_pkid from tsample   A,t_testpaper B where (A.stateFlag=88 or A.stateFlag=81 or A.stateFlag=82 or A.stateFlag=83 or A.stateFlag=1 or A.stateFlag=2 or A.stateFlag=0) and  A.paperId = B.ID   and   paperId=%1 and  createDay>='" + start_time + "' and createDay<'" + end_time + "' ").arg(paper_id);
+        query.prepare("select count(*) AS total_count from tsample where paperId=? and  createDay>=? and createDay<?");
+        query.addBindValue(paper_id);
+        query.addBindValue(start_time);
+        query.addBindValue(end_time);
     }
 
-    *bResult = query.exec(sql);
-    if (*bResult == false)
-        return "";
-    if (query.next())
-    {
-        strTargetValue = query.value("max_pkid").toString();
-    }
-    else
-    {
-        *bResult = false;
-        return "";
-    }
-
-    return strTargetValue;
+    if(!query.exec()) return 0;
+    return query.next()?query.value("total_count").toInt():0;
 }
-
-QString  AnalysisUIDao::SelectMinPkid()
-{
-    bool *bResult;
-    QString strTargetValue;
-    QSqlQuery query;
-    if (DAO::createQuery(query) < 0)
-    {
-        *bResult = false;
-        return "";
-    }
-
-    QString sql = "";
-    sql = "select MIN(pkid) AS min_pkid from tsample ";
-    *bResult = query.exec(sql);
-    if (*bResult == false)
-        return "";
-    if (query.next())
-    {
-        strTargetValue = query.value("min_pkid").toString();
-    }
-    else
-    {
-        *bResult = false;
-        return "";
-    }
-    return strTargetValue;
-}
-
-
 
 QSqlQuery AnalysisUIDao::SelectSamples2(QString strProjectName, QString strTestPaper_ID, bool *bResult)
 {
