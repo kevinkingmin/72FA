@@ -35,14 +35,12 @@ public:
     struct TestPaperItemResult {
         double grayValue; // 灰度值
         double backgroundGrayValue; // 背景值
-        Error errorCode; // 错误代码
         double grayRatio; // 比值
         int lineCenter; // 条带中心位置
         int lineWidth; // 条带宽度
         TestPaperItemResult()
             :grayValue(0)
             ,backgroundGrayValue(0)
-            ,errorCode(Error::NoError)
             ,grayRatio(0)
             ,lineCenter(0)
             ,lineWidth(0)

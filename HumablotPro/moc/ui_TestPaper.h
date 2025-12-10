@@ -52,80 +52,83 @@ public:
     QSpacerItem *horizontalSpacer_4;
     QFrame *line;
     QGridLayout *gridLayout_4;
-    QLabel *lblPaperLength;
-    QLineEdit *txtColorValue;
-    QLabel *label_80;
-    QLabel *lblCutOffThreshold;
-    QLabel *lblRotate;
-    QLabel *lblFunThreshold;
-    QLineEdit *txtFunThreshold;
     QSpacerItem *horizontalSpacer;
-    QLineEdit *txtCutOffValue;
-    QLineEdit *lineEdit_Item_Number;
-    QLabel *lblFunDirection;
-    QLineEdit *txtThreshold;
-    QLabel *label_79;
-    QLineEdit *lineEdit_paper_head_length;
+    QLabel *lblBackGround;
+    QLabel *lblItemSpace;
+    QLineEdit *lineEdit_TestPaparLenght;
+    QLineEdit *txtArticleNo;
     QSpacerItem *horizontalSpacer_9;
-    QLabel *lblBlackSpotThreshold;
-    QComboBox *cmbFunDirection;
-    QLineEdit *txtPixDistance;
+    QLabel *lblFunDirection;
+    QLineEdit *lineEdit_TestItem_Number;
+    QLineEdit *txtFunWidth;
+    QLabel *label_75;
+    QPushButton *pushButton_PickColor;
+    QLabel *lblFunWidth;
+    QLabel *label_96;
+    QLabel *lblPaperLength;
+    QLineEdit *txtItemSearchWidth;
+    QLineEdit *txtItemSpace;
+    QLabel *lblItemSearchWidth;
+    QLabel *lblItemWidth;
     QLabel *lblColorValue;
-    QSpacerItem *horizontalSpacer_8;
+    QLineEdit *txtFunThreshold;
+    QLabel *label_95;
+    QCheckBox *chkBlackSpot;
+    QLineEdit *txtAnalyzeWidth;
+    QSpacerItem *horizontalSpacer_2;
+    QLabel *label_81;
+    QLabel *lblRotate;
+    QLabel *lblTestItemNum;
+    QLineEdit *txtItemWidth;
+    QLabel *label_70;
+    QLineEdit *txtBackGround;
+    QLabel *lblPaperName;
+    QLineEdit *txtCutOffValue;
+    QLabel *label_82;
+    QLabel *label_68;
+    QLabel *lblCutOffThreshold;
+    QLabel *lblThreshold;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_77;
     QRadioButton *rdRulesSingle;
     QRadioButton *rdRulesAllSet;
     QSpacerItem *horizontalSpacer_7;
-    QLabel *lblTestItemNum;
-    QLineEdit *txtItemWidth;
-    QLineEdit *lineEdit_TestPaparLenght;
-    QLineEdit *txtArticleNo;
-    QLabel *lblPaperName;
-    QLabel *lblThreshold;
-    QLineEdit *lineEdit_TestPaparName;
-    QLabel *lblItemWidth;
-    QLabel *lblItemSearchWidth;
-    QPushButton *pushButton_Set;
-    QLineEdit *txtAnalyzeWidth;
-    QLabel *label_68;
-    QLabel *lblFunWidth;
-    QLabel *lblItemSpace;
-    QLabel *lblHeadLength;
-    QLabel *lblCutOffValue;
-    QSpacerItem *horizontalSpacer_10;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_78;
     QRadioButton *rdCurveSingle;
     QRadioButton *rdCurveAllSet;
     QSpacerItem *horizontalSpacer_6;
+    QLineEdit *txtThreshold;
+    QLineEdit *txtColorValue;
     QLabel *lblPixDistance;
-    QLabel *lblItemNum;
-    QLabel *lblAnalyzeHeight;
-    QLabel *lblItemLineWidth;
-    QLabel *label_81;
-    QPushButton *pushButton_PickColor;
-    QLabel *label_70;
-    QCheckBox *chkBlackSpot;
+    QLabel *lblCutOffValue;
     QLineEdit *txtItemLineWidth;
-    QSpacerItem *horizontalSpacer_11;
+    QLabel *lblFunThreshold;
+    QLabel *lblBlackSpotThreshold;
+    QLineEdit *txtPixDistance;
+    QSpacerItem *horizontalSpacer_8;
     QLineEdit *txtCutOffThreshold;
-    QLineEdit *txtBackGround;
-    QComboBox *cmbRotate;
-    QLabel *lblAnalyzeWidth;
-    QSpacerItem *horizontalSpacer_2;
-    QLineEdit *txtItemSearchWidth;
-    QLabel *label_75;
-    QLabel *lblArticleNo;
-    QLineEdit *txtAnalyzeHeight;
-    QLineEdit *txtFunWidth;
-    QLineEdit *txtItemSpace;
-    QLineEdit *lineEdit_TestItem_Number;
-    QLabel *lblBackGround;
     QLineEdit *txtBlackSpotThreshold;
-    QLabel *label_82;
-    QLabel *label_95;
-    QLabel *label_96;
+    QLineEdit *lineEdit_Item_Number;
+    QLabel *lblAnalyzeHeight;
+    QPushButton *pushButton_Set;
+    QLabel *lblHeadLength;
+    QLineEdit *lineEdit_TestPaparName;
+    QLineEdit *txtAnalyzeHeight;
+    QLabel *lblArticleNo;
+    QSpacerItem *horizontalSpacer_10;
+    QLabel *lblItemNum;
+    QLabel *label_80;
+    QLabel *lblAnalyzeWidth;
+    QComboBox *cmbFunLineFindDirection;
+    QLabel *lblItemLineWidth;
+    QLineEdit *lineEdit_paper_head_length;
+    QComboBox *cmbPaperRotate;
+    QLabel *label_79;
+    QSpacerItem *horizontalSpacer_11;
+    QLabel *label_97;
+    QLabel *lblPaperLength_2;
+    QLineEdit *lineEdit_TestPaparHeight;
     QHBoxLayout *horizontalLayout_6;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents_2;
@@ -428,8 +431,8 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QPushButton *pushButton_Cancel;
     QPushButton *pushButton_Save;
-    QButtonGroup *buttonGroup_2;
     QButtonGroup *buttonGroup;
+    QButtonGroup *buttonGroup_2;
 
     void setupUi(QDialog *TestPaper)
     {
@@ -520,6 +523,78 @@ public:
         gridLayout_4->setSpacing(5);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         gridLayout_4->setContentsMargins(0, 5, 0, 0);
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer, 3, 0, 1, 1);
+
+        lblBackGround = new QLabel(groupBox);
+        lblBackGround->setObjectName(QString::fromUtf8("lblBackGround"));
+        lblBackGround->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblBackGround, 0, 13, 1, 1);
+
+        lblItemSpace = new QLabel(groupBox);
+        lblItemSpace->setObjectName(QString::fromUtf8("lblItemSpace"));
+        lblItemSpace->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblItemSpace, 4, 1, 1, 1);
+
+        lineEdit_TestPaparLenght = new QLineEdit(groupBox);
+        lineEdit_TestPaparLenght->setObjectName(QString::fromUtf8("lineEdit_TestPaparLenght"));
+
+        gridLayout_4->addWidget(lineEdit_TestPaparLenght, 0, 5, 1, 1);
+
+        txtArticleNo = new QLineEdit(groupBox);
+        txtArticleNo->setObjectName(QString::fromUtf8("txtArticleNo"));
+
+        gridLayout_4->addWidget(txtArticleNo, 5, 8, 1, 1);
+
+        horizontalSpacer_9 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_9, 1, 6, 1, 1);
+
+        lblFunDirection = new QLabel(groupBox);
+        lblFunDirection->setObjectName(QString::fromUtf8("lblFunDirection"));
+        lblFunDirection->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblFunDirection, 2, 4, 1, 1);
+
+        lineEdit_TestItem_Number = new QLineEdit(groupBox);
+        lineEdit_TestItem_Number->setObjectName(QString::fromUtf8("lineEdit_TestItem_Number"));
+        lineEdit_TestItem_Number->setEnabled(true);
+
+        gridLayout_4->addWidget(lineEdit_TestItem_Number, 1, 5, 1, 1);
+
+        txtFunWidth = new QLineEdit(groupBox);
+        txtFunWidth->setObjectName(QString::fromUtf8("txtFunWidth"));
+
+        gridLayout_4->addWidget(txtFunWidth, 2, 11, 1, 1);
+
+        label_75 = new QLabel(groupBox);
+        label_75->setObjectName(QString::fromUtf8("label_75"));
+        label_75->setMinimumSize(QSize(55, 0));
+        label_75->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_75, 0, 6, 1, 1);
+
+        pushButton_PickColor = new QPushButton(groupBox);
+        pushButton_PickColor->setObjectName(QString::fromUtf8("pushButton_PickColor"));
+
+        gridLayout_4->addWidget(pushButton_PickColor, 1, 15, 1, 1);
+
+        lblFunWidth = new QLabel(groupBox);
+        lblFunWidth->setObjectName(QString::fromUtf8("lblFunWidth"));
+        lblFunWidth->setLayoutDirection(Qt::RightToLeft);
+        lblFunWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblFunWidth, 2, 10, 1, 1);
+
+        label_96 = new QLabel(groupBox);
+        label_96->setObjectName(QString::fromUtf8("label_96"));
+        label_96->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_96, 3, 9, 1, 1);
+
         lblPaperLength = new QLabel(groupBox);
         lblPaperLength->setObjectName(QString::fromUtf8("lblPaperLength"));
         lblPaperLength->setLayoutDirection(Qt::RightToLeft);
@@ -527,16 +602,121 @@ public:
 
         gridLayout_4->addWidget(lblPaperLength, 0, 4, 1, 1);
 
-        txtColorValue = new QLineEdit(groupBox);
-        txtColorValue->setObjectName(QString::fromUtf8("txtColorValue"));
+        txtItemSearchWidth = new QLineEdit(groupBox);
+        txtItemSearchWidth->setObjectName(QString::fromUtf8("txtItemSearchWidth"));
 
-        gridLayout_4->addWidget(txtColorValue, 1, 14, 1, 1);
+        gridLayout_4->addWidget(txtItemSearchWidth, 3, 8, 1, 1);
 
-        label_80 = new QLabel(groupBox);
-        label_80->setObjectName(QString::fromUtf8("label_80"));
-        label_80->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        txtItemSpace = new QLineEdit(groupBox);
+        txtItemSpace->setObjectName(QString::fromUtf8("txtItemSpace"));
+        txtItemSpace->setEnabled(false);
 
-        gridLayout_4->addWidget(label_80, 4, 9, 1, 1);
+        gridLayout_4->addWidget(txtItemSpace, 4, 2, 1, 1);
+
+        lblItemSearchWidth = new QLabel(groupBox);
+        lblItemSearchWidth->setObjectName(QString::fromUtf8("lblItemSearchWidth"));
+        lblItemSearchWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblItemSearchWidth, 3, 7, 1, 1);
+
+        lblItemWidth = new QLabel(groupBox);
+        lblItemWidth->setObjectName(QString::fromUtf8("lblItemWidth"));
+        lblItemWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblItemWidth, 5, 1, 1, 1);
+
+        lblColorValue = new QLabel(groupBox);
+        lblColorValue->setObjectName(QString::fromUtf8("lblColorValue"));
+        lblColorValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblColorValue, 1, 13, 1, 1);
+
+        txtFunThreshold = new QLineEdit(groupBox);
+        txtFunThreshold->setObjectName(QString::fromUtf8("txtFunThreshold"));
+
+        gridLayout_4->addWidget(txtFunThreshold, 2, 8, 1, 1);
+
+        label_95 = new QLabel(groupBox);
+        label_95->setObjectName(QString::fromUtf8("label_95"));
+        label_95->setMinimumSize(QSize(55, 0));
+        label_95->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_95, 2, 12, 1, 1);
+
+        chkBlackSpot = new QCheckBox(groupBox);
+        chkBlackSpot->setObjectName(QString::fromUtf8("chkBlackSpot"));
+        chkBlackSpot->setLayoutDirection(Qt::LeftToRight);
+
+        gridLayout_4->addWidget(chkBlackSpot, 4, 4, 1, 2);
+
+        txtAnalyzeWidth = new QLineEdit(groupBox);
+        txtAnalyzeWidth->setObjectName(QString::fromUtf8("txtAnalyzeWidth"));
+
+        gridLayout_4->addWidget(txtAnalyzeWidth, 4, 8, 1, 1);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_2, 0, 16, 1, 1);
+
+        label_81 = new QLabel(groupBox);
+        label_81->setObjectName(QString::fromUtf8("label_81"));
+        label_81->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_81, 4, 12, 1, 1);
+
+        lblRotate = new QLabel(groupBox);
+        lblRotate->setObjectName(QString::fromUtf8("lblRotate"));
+        lblRotate->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblRotate, 1, 10, 1, 1);
+
+        lblTestItemNum = new QLabel(groupBox);
+        lblTestItemNum->setObjectName(QString::fromUtf8("lblTestItemNum"));
+        lblTestItemNum->setLayoutDirection(Qt::RightToLeft);
+        lblTestItemNum->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblTestItemNum, 1, 4, 1, 1);
+
+        txtItemWidth = new QLineEdit(groupBox);
+        txtItemWidth->setObjectName(QString::fromUtf8("txtItemWidth"));
+        txtItemWidth->setEnabled(false);
+
+        gridLayout_4->addWidget(txtItemWidth, 5, 2, 1, 1);
+
+        label_70 = new QLabel(groupBox);
+        label_70->setObjectName(QString::fromUtf8("label_70"));
+        label_70->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_70, 5, 3, 1, 1);
+
+        txtBackGround = new QLineEdit(groupBox);
+        txtBackGround->setObjectName(QString::fromUtf8("txtBackGround"));
+
+        gridLayout_4->addWidget(txtBackGround, 0, 14, 1, 1);
+
+        lblPaperName = new QLabel(groupBox);
+        lblPaperName->setObjectName(QString::fromUtf8("lblPaperName"));
+        lblPaperName->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblPaperName, 0, 1, 1, 1);
+
+        txtCutOffValue = new QLineEdit(groupBox);
+        txtCutOffValue->setObjectName(QString::fromUtf8("txtCutOffValue"));
+
+        gridLayout_4->addWidget(txtCutOffValue, 3, 5, 1, 1);
+
+        label_82 = new QLabel(groupBox);
+        label_82->setObjectName(QString::fromUtf8("label_82"));
+        label_82->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_82, 3, 12, 1, 1);
+
+        label_68 = new QLabel(groupBox);
+        label_68->setObjectName(QString::fromUtf8("label_68"));
+        label_68->setMinimumSize(QSize(55, 0));
+        label_68->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(label_68, 4, 3, 1, 1);
 
         lblCutOffThreshold = new QLabel(groupBox);
         lblCutOffThreshold->setObjectName(QString::fromUtf8("lblCutOffThreshold"));
@@ -545,90 +725,11 @@ public:
 
         gridLayout_4->addWidget(lblCutOffThreshold, 3, 1, 1, 1);
 
-        lblRotate = new QLabel(groupBox);
-        lblRotate->setObjectName(QString::fromUtf8("lblRotate"));
-        lblRotate->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        lblThreshold = new QLabel(groupBox);
+        lblThreshold->setObjectName(QString::fromUtf8("lblThreshold"));
+        lblThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_4->addWidget(lblRotate, 1, 10, 1, 1);
-
-        lblFunThreshold = new QLabel(groupBox);
-        lblFunThreshold->setObjectName(QString::fromUtf8("lblFunThreshold"));
-        lblFunThreshold->setLayoutDirection(Qt::RightToLeft);
-        lblFunThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblFunThreshold, 2, 7, 1, 1);
-
-        txtFunThreshold = new QLineEdit(groupBox);
-        txtFunThreshold->setObjectName(QString::fromUtf8("txtFunThreshold"));
-
-        gridLayout_4->addWidget(txtFunThreshold, 2, 8, 1, 1);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer, 3, 0, 1, 1);
-
-        txtCutOffValue = new QLineEdit(groupBox);
-        txtCutOffValue->setObjectName(QString::fromUtf8("txtCutOffValue"));
-
-        gridLayout_4->addWidget(txtCutOffValue, 3, 5, 1, 1);
-
-        lineEdit_Item_Number = new QLineEdit(groupBox);
-        lineEdit_Item_Number->setObjectName(QString::fromUtf8("lineEdit_Item_Number"));
-
-        gridLayout_4->addWidget(lineEdit_Item_Number, 1, 2, 1, 1);
-
-        lblFunDirection = new QLabel(groupBox);
-        lblFunDirection->setObjectName(QString::fromUtf8("lblFunDirection"));
-        lblFunDirection->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblFunDirection, 2, 4, 1, 1);
-
-        txtThreshold = new QLineEdit(groupBox);
-        txtThreshold->setObjectName(QString::fromUtf8("txtThreshold"));
-
-        gridLayout_4->addWidget(txtThreshold, 1, 8, 1, 1);
-
-        label_79 = new QLabel(groupBox);
-        label_79->setObjectName(QString::fromUtf8("label_79"));
-        label_79->setMinimumSize(QSize(55, 0));
-        label_79->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(label_79, 0, 9, 1, 1);
-
-        lineEdit_paper_head_length = new QLineEdit(groupBox);
-        lineEdit_paper_head_length->setObjectName(QString::fromUtf8("lineEdit_paper_head_length"));
-
-        gridLayout_4->addWidget(lineEdit_paper_head_length, 0, 8, 1, 1);
-
-        horizontalSpacer_9 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_9, 1, 6, 1, 1);
-
-        lblBlackSpotThreshold = new QLabel(groupBox);
-        lblBlackSpotThreshold->setObjectName(QString::fromUtf8("lblBlackSpotThreshold"));
-        lblBlackSpotThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblBlackSpotThreshold, 5, 4, 1, 1);
-
-        cmbFunDirection = new QComboBox(groupBox);
-        cmbFunDirection->setObjectName(QString::fromUtf8("cmbFunDirection"));
-
-        gridLayout_4->addWidget(cmbFunDirection, 2, 5, 1, 1);
-
-        txtPixDistance = new QLineEdit(groupBox);
-        txtPixDistance->setObjectName(QString::fromUtf8("txtPixDistance"));
-
-        gridLayout_4->addWidget(txtPixDistance, 2, 2, 1, 1);
-
-        lblColorValue = new QLabel(groupBox);
-        lblColorValue->setObjectName(QString::fromUtf8("lblColorValue"));
-        lblColorValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblColorValue, 1, 13, 1, 1);
-
-        horizontalSpacer_8 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_8, 0, 3, 1, 1);
+        gridLayout_4->addWidget(lblThreshold, 1, 7, 1, 1);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(10);
@@ -660,105 +761,6 @@ public:
 
         gridLayout_4->addLayout(horizontalLayout_5, 2, 13, 1, 3);
 
-        lblTestItemNum = new QLabel(groupBox);
-        lblTestItemNum->setObjectName(QString::fromUtf8("lblTestItemNum"));
-        lblTestItemNum->setLayoutDirection(Qt::RightToLeft);
-        lblTestItemNum->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblTestItemNum, 1, 4, 1, 1);
-
-        txtItemWidth = new QLineEdit(groupBox);
-        txtItemWidth->setObjectName(QString::fromUtf8("txtItemWidth"));
-        txtItemWidth->setEnabled(false);
-
-        gridLayout_4->addWidget(txtItemWidth, 5, 2, 1, 1);
-
-        lineEdit_TestPaparLenght = new QLineEdit(groupBox);
-        lineEdit_TestPaparLenght->setObjectName(QString::fromUtf8("lineEdit_TestPaparLenght"));
-
-        gridLayout_4->addWidget(lineEdit_TestPaparLenght, 0, 5, 1, 1);
-
-        txtArticleNo = new QLineEdit(groupBox);
-        txtArticleNo->setObjectName(QString::fromUtf8("txtArticleNo"));
-
-        gridLayout_4->addWidget(txtArticleNo, 0, 11, 1, 1);
-
-        lblPaperName = new QLabel(groupBox);
-        lblPaperName->setObjectName(QString::fromUtf8("lblPaperName"));
-        lblPaperName->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblPaperName, 0, 1, 1, 1);
-
-        lblThreshold = new QLabel(groupBox);
-        lblThreshold->setObjectName(QString::fromUtf8("lblThreshold"));
-        lblThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblThreshold, 1, 7, 1, 1);
-
-        lineEdit_TestPaparName = new QLineEdit(groupBox);
-        lineEdit_TestPaparName->setObjectName(QString::fromUtf8("lineEdit_TestPaparName"));
-
-        gridLayout_4->addWidget(lineEdit_TestPaparName, 0, 2, 1, 1);
-
-        lblItemWidth = new QLabel(groupBox);
-        lblItemWidth->setObjectName(QString::fromUtf8("lblItemWidth"));
-        lblItemWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblItemWidth, 5, 1, 1, 1);
-
-        lblItemSearchWidth = new QLabel(groupBox);
-        lblItemSearchWidth->setObjectName(QString::fromUtf8("lblItemSearchWidth"));
-        lblItemSearchWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblItemSearchWidth, 3, 7, 1, 1);
-
-        pushButton_Set = new QPushButton(groupBox);
-        pushButton_Set->setObjectName(QString::fromUtf8("pushButton_Set"));
-
-        gridLayout_4->addWidget(pushButton_Set, 4, 15, 2, 1);
-
-        txtAnalyzeWidth = new QLineEdit(groupBox);
-        txtAnalyzeWidth->setObjectName(QString::fromUtf8("txtAnalyzeWidth"));
-
-        gridLayout_4->addWidget(txtAnalyzeWidth, 4, 8, 1, 1);
-
-        label_68 = new QLabel(groupBox);
-        label_68->setObjectName(QString::fromUtf8("label_68"));
-        label_68->setMinimumSize(QSize(55, 0));
-        label_68->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(label_68, 4, 3, 1, 1);
-
-        lblFunWidth = new QLabel(groupBox);
-        lblFunWidth->setObjectName(QString::fromUtf8("lblFunWidth"));
-        lblFunWidth->setLayoutDirection(Qt::RightToLeft);
-        lblFunWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblFunWidth, 2, 10, 1, 1);
-
-        lblItemSpace = new QLabel(groupBox);
-        lblItemSpace->setObjectName(QString::fromUtf8("lblItemSpace"));
-        lblItemSpace->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblItemSpace, 4, 1, 1, 1);
-
-        lblHeadLength = new QLabel(groupBox);
-        lblHeadLength->setObjectName(QString::fromUtf8("lblHeadLength"));
-        lblHeadLength->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblHeadLength, 0, 7, 1, 1);
-
-        lblCutOffValue = new QLabel(groupBox);
-        lblCutOffValue->setObjectName(QString::fromUtf8("lblCutOffValue"));
-        lblCutOffValue->setLayoutDirection(Qt::RightToLeft);
-        lblCutOffValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblCutOffValue, 3, 4, 1, 1);
-
-        horizontalSpacer_10 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_10, 1, 9, 1, 1);
-
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(10);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
@@ -789,11 +791,109 @@ public:
 
         gridLayout_4->addLayout(horizontalLayout_4, 3, 13, 1, 3);
 
+        txtThreshold = new QLineEdit(groupBox);
+        txtThreshold->setObjectName(QString::fromUtf8("txtThreshold"));
+
+        gridLayout_4->addWidget(txtThreshold, 1, 8, 1, 1);
+
+        txtColorValue = new QLineEdit(groupBox);
+        txtColorValue->setObjectName(QString::fromUtf8("txtColorValue"));
+
+        gridLayout_4->addWidget(txtColorValue, 1, 14, 1, 1);
+
         lblPixDistance = new QLabel(groupBox);
         lblPixDistance->setObjectName(QString::fromUtf8("lblPixDistance"));
         lblPixDistance->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         gridLayout_4->addWidget(lblPixDistance, 2, 1, 1, 1);
+
+        lblCutOffValue = new QLabel(groupBox);
+        lblCutOffValue->setObjectName(QString::fromUtf8("lblCutOffValue"));
+        lblCutOffValue->setLayoutDirection(Qt::RightToLeft);
+        lblCutOffValue->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblCutOffValue, 3, 4, 1, 1);
+
+        txtItemLineWidth = new QLineEdit(groupBox);
+        txtItemLineWidth->setObjectName(QString::fromUtf8("txtItemLineWidth"));
+
+        gridLayout_4->addWidget(txtItemLineWidth, 3, 11, 1, 1);
+
+        lblFunThreshold = new QLabel(groupBox);
+        lblFunThreshold->setObjectName(QString::fromUtf8("lblFunThreshold"));
+        lblFunThreshold->setLayoutDirection(Qt::RightToLeft);
+        lblFunThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblFunThreshold, 2, 7, 1, 1);
+
+        lblBlackSpotThreshold = new QLabel(groupBox);
+        lblBlackSpotThreshold->setObjectName(QString::fromUtf8("lblBlackSpotThreshold"));
+        lblBlackSpotThreshold->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblBlackSpotThreshold, 5, 4, 1, 1);
+
+        txtPixDistance = new QLineEdit(groupBox);
+        txtPixDistance->setObjectName(QString::fromUtf8("txtPixDistance"));
+
+        gridLayout_4->addWidget(txtPixDistance, 2, 2, 1, 1);
+
+        horizontalSpacer_8 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_8, 0, 3, 1, 1);
+
+        txtCutOffThreshold = new QLineEdit(groupBox);
+        txtCutOffThreshold->setObjectName(QString::fromUtf8("txtCutOffThreshold"));
+
+        gridLayout_4->addWidget(txtCutOffThreshold, 3, 2, 1, 1);
+
+        txtBlackSpotThreshold = new QLineEdit(groupBox);
+        txtBlackSpotThreshold->setObjectName(QString::fromUtf8("txtBlackSpotThreshold"));
+        txtBlackSpotThreshold->setEnabled(true);
+
+        gridLayout_4->addWidget(txtBlackSpotThreshold, 5, 5, 1, 1);
+
+        lineEdit_Item_Number = new QLineEdit(groupBox);
+        lineEdit_Item_Number->setObjectName(QString::fromUtf8("lineEdit_Item_Number"));
+
+        gridLayout_4->addWidget(lineEdit_Item_Number, 1, 2, 1, 1);
+
+        lblAnalyzeHeight = new QLabel(groupBox);
+        lblAnalyzeHeight->setObjectName(QString::fromUtf8("lblAnalyzeHeight"));
+        lblAnalyzeHeight->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblAnalyzeHeight, 4, 10, 1, 1);
+
+        pushButton_Set = new QPushButton(groupBox);
+        pushButton_Set->setObjectName(QString::fromUtf8("pushButton_Set"));
+
+        gridLayout_4->addWidget(pushButton_Set, 4, 15, 2, 1);
+
+        lblHeadLength = new QLabel(groupBox);
+        lblHeadLength->setObjectName(QString::fromUtf8("lblHeadLength"));
+        lblHeadLength->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblHeadLength, 0, 10, 1, 1);
+
+        lineEdit_TestPaparName = new QLineEdit(groupBox);
+        lineEdit_TestPaparName->setObjectName(QString::fromUtf8("lineEdit_TestPaparName"));
+
+        gridLayout_4->addWidget(lineEdit_TestPaparName, 0, 2, 1, 1);
+
+        txtAnalyzeHeight = new QLineEdit(groupBox);
+        txtAnalyzeHeight->setObjectName(QString::fromUtf8("txtAnalyzeHeight"));
+
+        gridLayout_4->addWidget(txtAnalyzeHeight, 4, 11, 1, 1);
+
+        lblArticleNo = new QLabel(groupBox);
+        lblArticleNo->setObjectName(QString::fromUtf8("lblArticleNo"));
+        lblArticleNo->setLayoutDirection(Qt::RightToLeft);
+        lblArticleNo->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_4->addWidget(lblArticleNo, 5, 7, 1, 1);
+
+        horizontalSpacer_10 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_10, 1, 9, 1, 1);
 
         lblItemNum = new QLabel(groupBox);
         lblItemNum->setObjectName(QString::fromUtf8("lblItemNum"));
@@ -802,64 +902,11 @@ public:
 
         gridLayout_4->addWidget(lblItemNum, 1, 1, 1, 1);
 
-        lblAnalyzeHeight = new QLabel(groupBox);
-        lblAnalyzeHeight->setObjectName(QString::fromUtf8("lblAnalyzeHeight"));
-        lblAnalyzeHeight->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        label_80 = new QLabel(groupBox);
+        label_80->setObjectName(QString::fromUtf8("label_80"));
+        label_80->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout_4->addWidget(lblAnalyzeHeight, 4, 10, 1, 1);
-
-        lblItemLineWidth = new QLabel(groupBox);
-        lblItemLineWidth->setObjectName(QString::fromUtf8("lblItemLineWidth"));
-        lblItemLineWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(lblItemLineWidth, 3, 10, 1, 1);
-
-        label_81 = new QLabel(groupBox);
-        label_81->setObjectName(QString::fromUtf8("label_81"));
-        label_81->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(label_81, 4, 12, 1, 1);
-
-        pushButton_PickColor = new QPushButton(groupBox);
-        pushButton_PickColor->setObjectName(QString::fromUtf8("pushButton_PickColor"));
-
-        gridLayout_4->addWidget(pushButton_PickColor, 1, 15, 1, 1);
-
-        label_70 = new QLabel(groupBox);
-        label_70->setObjectName(QString::fromUtf8("label_70"));
-        label_70->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(label_70, 5, 3, 1, 1);
-
-        chkBlackSpot = new QCheckBox(groupBox);
-        chkBlackSpot->setObjectName(QString::fromUtf8("chkBlackSpot"));
-        chkBlackSpot->setLayoutDirection(Qt::LeftToRight);
-
-        gridLayout_4->addWidget(chkBlackSpot, 4, 4, 1, 2);
-
-        txtItemLineWidth = new QLineEdit(groupBox);
-        txtItemLineWidth->setObjectName(QString::fromUtf8("txtItemLineWidth"));
-
-        gridLayout_4->addWidget(txtItemLineWidth, 3, 11, 1, 1);
-
-        horizontalSpacer_11 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_11, 0, 12, 1, 1);
-
-        txtCutOffThreshold = new QLineEdit(groupBox);
-        txtCutOffThreshold->setObjectName(QString::fromUtf8("txtCutOffThreshold"));
-
-        gridLayout_4->addWidget(txtCutOffThreshold, 3, 2, 1, 1);
-
-        txtBackGround = new QLineEdit(groupBox);
-        txtBackGround->setObjectName(QString::fromUtf8("txtBackGround"));
-
-        gridLayout_4->addWidget(txtBackGround, 0, 14, 1, 1);
-
-        cmbRotate = new QComboBox(groupBox);
-        cmbRotate->setObjectName(QString::fromUtf8("cmbRotate"));
-
-        gridLayout_4->addWidget(cmbRotate, 1, 11, 1, 1);
+        gridLayout_4->addWidget(label_80, 4, 9, 1, 1);
 
         lblAnalyzeWidth = new QLabel(groupBox);
         lblAnalyzeWidth->setObjectName(QString::fromUtf8("lblAnalyzeWidth"));
@@ -867,81 +914,56 @@ public:
 
         gridLayout_4->addWidget(lblAnalyzeWidth, 4, 7, 1, 1);
 
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        cmbFunLineFindDirection = new QComboBox(groupBox);
+        cmbFunLineFindDirection->setObjectName(QString::fromUtf8("cmbFunLineFindDirection"));
 
-        gridLayout_4->addItem(horizontalSpacer_2, 0, 16, 1, 1);
+        gridLayout_4->addWidget(cmbFunLineFindDirection, 2, 5, 1, 1);
 
-        txtItemSearchWidth = new QLineEdit(groupBox);
-        txtItemSearchWidth->setObjectName(QString::fromUtf8("txtItemSearchWidth"));
+        lblItemLineWidth = new QLabel(groupBox);
+        lblItemLineWidth->setObjectName(QString::fromUtf8("lblItemLineWidth"));
+        lblItemLineWidth->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_4->addWidget(txtItemSearchWidth, 3, 8, 1, 1);
+        gridLayout_4->addWidget(lblItemLineWidth, 3, 10, 1, 1);
 
-        label_75 = new QLabel(groupBox);
-        label_75->setObjectName(QString::fromUtf8("label_75"));
-        label_75->setMinimumSize(QSize(55, 0));
-        label_75->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        lineEdit_paper_head_length = new QLineEdit(groupBox);
+        lineEdit_paper_head_length->setObjectName(QString::fromUtf8("lineEdit_paper_head_length"));
 
-        gridLayout_4->addWidget(label_75, 0, 6, 1, 1);
+        gridLayout_4->addWidget(lineEdit_paper_head_length, 0, 11, 1, 1);
 
-        lblArticleNo = new QLabel(groupBox);
-        lblArticleNo->setObjectName(QString::fromUtf8("lblArticleNo"));
-        lblArticleNo->setLayoutDirection(Qt::RightToLeft);
-        lblArticleNo->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        cmbPaperRotate = new QComboBox(groupBox);
+        cmbPaperRotate->setObjectName(QString::fromUtf8("cmbPaperRotate"));
 
-        gridLayout_4->addWidget(lblArticleNo, 0, 10, 1, 1);
+        gridLayout_4->addWidget(cmbPaperRotate, 1, 11, 1, 1);
 
-        txtAnalyzeHeight = new QLineEdit(groupBox);
-        txtAnalyzeHeight->setObjectName(QString::fromUtf8("txtAnalyzeHeight"));
+        label_79 = new QLabel(groupBox);
+        label_79->setObjectName(QString::fromUtf8("label_79"));
+        label_79->setMinimumSize(QSize(55, 0));
+        label_79->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout_4->addWidget(txtAnalyzeHeight, 4, 11, 1, 1);
+        gridLayout_4->addWidget(label_79, 0, 9, 1, 1);
 
-        txtFunWidth = new QLineEdit(groupBox);
-        txtFunWidth->setObjectName(QString::fromUtf8("txtFunWidth"));
+        horizontalSpacer_11 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_4->addWidget(txtFunWidth, 2, 11, 1, 1);
+        gridLayout_4->addItem(horizontalSpacer_11, 1, 12, 1, 1);
 
-        txtItemSpace = new QLineEdit(groupBox);
-        txtItemSpace->setObjectName(QString::fromUtf8("txtItemSpace"));
-        txtItemSpace->setEnabled(false);
+        label_97 = new QLabel(groupBox);
+        label_97->setObjectName(QString::fromUtf8("label_97"));
+        label_97->setMinimumSize(QSize(55, 0));
+        label_97->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout_4->addWidget(txtItemSpace, 4, 2, 1, 1);
+        gridLayout_4->addWidget(label_97, 0, 12, 1, 1);
 
-        lineEdit_TestItem_Number = new QLineEdit(groupBox);
-        lineEdit_TestItem_Number->setObjectName(QString::fromUtf8("lineEdit_TestItem_Number"));
-        lineEdit_TestItem_Number->setEnabled(true);
+        lblPaperLength_2 = new QLabel(groupBox);
+        lblPaperLength_2->setObjectName(QString::fromUtf8("lblPaperLength_2"));
+        lblPaperLength_2->setLayoutDirection(Qt::RightToLeft);
+        lblPaperLength_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_4->addWidget(lineEdit_TestItem_Number, 1, 5, 1, 1);
+        gridLayout_4->addWidget(lblPaperLength_2, 0, 7, 1, 1);
 
-        lblBackGround = new QLabel(groupBox);
-        lblBackGround->setObjectName(QString::fromUtf8("lblBackGround"));
-        lblBackGround->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        lineEdit_TestPaparHeight = new QLineEdit(groupBox);
+        lineEdit_TestPaparHeight->setObjectName(QString::fromUtf8("lineEdit_TestPaparHeight"));
 
-        gridLayout_4->addWidget(lblBackGround, 0, 13, 1, 1);
-
-        txtBlackSpotThreshold = new QLineEdit(groupBox);
-        txtBlackSpotThreshold->setObjectName(QString::fromUtf8("txtBlackSpotThreshold"));
-        txtBlackSpotThreshold->setEnabled(true);
-
-        gridLayout_4->addWidget(txtBlackSpotThreshold, 5, 5, 1, 1);
-
-        label_82 = new QLabel(groupBox);
-        label_82->setObjectName(QString::fromUtf8("label_82"));
-        label_82->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(label_82, 3, 12, 1, 1);
-
-        label_95 = new QLabel(groupBox);
-        label_95->setObjectName(QString::fromUtf8("label_95"));
-        label_95->setMinimumSize(QSize(55, 0));
-        label_95->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(label_95, 2, 12, 1, 1);
-
-        label_96 = new QLabel(groupBox);
-        label_96->setObjectName(QString::fromUtf8("label_96"));
-        label_96->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
-
-        gridLayout_4->addWidget(label_96, 3, 9, 1, 1);
+        gridLayout_4->addWidget(lineEdit_TestPaparHeight, 0, 8, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout_4);
@@ -2526,56 +2548,58 @@ public:
         lblPaperType->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\347\261\273\345\236\213", nullptr));
         labela_3->setText(QString());
         lblProcess->setText(QApplication::translate("TestPaper", "\345\256\236\351\252\214\346\265\201\347\250\213", nullptr));
-        lblPaperLength->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\351\225\277\345\272\246:", nullptr));
-        label_80->setText(QApplication::translate("TestPaper", "%", nullptr));
-        lblCutOffThreshold->setText(QApplication::translate("TestPaper", "CutOff\347\272\277\351\230\210\345\200\274:", nullptr));
-        lblRotate->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\261\225\347\244\272\346\227\213\350\275\254:", nullptr));
-        lblFunThreshold->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\347\272\277\351\230\210\345\200\274:", nullptr));
+        lblBackGround->setText(QApplication::translate("TestPaper", "\350\203\214\346\231\257\345\200\274:", nullptr));
+        lblItemSpace->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\235\227\346\234\200\345\260\217\351\227\264\350\267\235:", nullptr));
+        txtArticleNo->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "lineEditUserName", nullptr)));
         lblFunDirection->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\347\272\277\346\237\245\346\211\276\346\226\271\345\220\221:", nullptr));
-        txtThreshold->setText(QString());
-        label_79->setText(QApplication::translate("TestPaper", "mm", nullptr));
-        lineEdit_paper_head_length->setInputMask(QString());
-        lineEdit_paper_head_length->setText(QString());
-        lblBlackSpotThreshold->setText(QApplication::translate("TestPaper", "\351\273\221\347\202\271\346\243\200\346\265\213\351\230\231\345\200\274:", nullptr));
+        label_75->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        pushButton_PickColor->setText(QApplication::translate("TestPaper", "\351\200\211\346\213\251", nullptr));
+        lblFunWidth->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\347\272\277\346\237\245\346\211\276\345\256\275\345\272\246:", nullptr));
+        label_96->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        lblPaperLength->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\351\225\277\345\272\246:", nullptr));
+        txtItemSpace->setInputMask(QString());
+        txtItemSpace->setText(QString());
+        lblItemSearchWidth->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\346\237\245\346\211\276\345\256\275\345\272\246:", nullptr));
+        lblItemWidth->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\235\227\346\234\200\345\260\217\345\256\275\345\272\246:", nullptr));
         lblColorValue->setText(QApplication::translate("TestPaper", "\351\242\234\350\211\262\345\200\274:", nullptr));
-        label_77->setText(QApplication::translate("TestPaper", "\345\210\244\350\257\273\350\247\204\345\210\231:", nullptr));
-        rdRulesSingle->setText(QApplication::translate("TestPaper", "\345\215\225\347\213\254\350\256\276\347\275\256", nullptr));
-        rdRulesAllSet->setText(QApplication::translate("TestPaper", "\347\273\237\344\270\200\350\256\276\347\275\256", nullptr));
+        label_95->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        chkBlackSpot->setText(QApplication::translate("TestPaper", "\346\230\257\345\220\246\345\274\200\345\220\257\351\273\221\347\202\271\346\243\200\346\265\213", nullptr));
+        label_81->setText(QApplication::translate("TestPaper", "%", nullptr));
+        lblRotate->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\261\225\347\244\272\346\227\213\350\275\254:", nullptr));
         lblTestItemNum->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\346\225\260\351\207\217:", nullptr));
         txtItemWidth->setInputMask(QString());
         txtItemWidth->setText(QString());
-        txtArticleNo->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "lineEditUserName", nullptr)));
+        label_70->setText(QApplication::translate("TestPaper", "mm", nullptr));
         lblPaperName->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\220\215\347\247\260:", nullptr));
-        lblThreshold->setText(QApplication::translate("TestPaper", "\344\272\214\345\200\274\345\214\226\351\230\210\345\200\274:", nullptr));
-        lblItemWidth->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\235\227\346\234\200\345\260\217\345\256\275\345\272\246:", nullptr));
-        lblItemSearchWidth->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\346\237\245\346\211\276\345\256\275\345\272\246:", nullptr));
-        pushButton_Set->setText(QApplication::translate("TestPaper", "\350\256\276\347\275\256", nullptr));
-        pushButton_Set->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "normalBtnRed", nullptr)));
+        label_82->setText(QApplication::translate("TestPaper", "mm", nullptr));
         label_68->setText(QApplication::translate("TestPaper", "mm", nullptr));
-        lblFunWidth->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\347\272\277\346\237\245\346\211\276\345\256\275\345\272\246:", nullptr));
-        lblItemSpace->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\345\235\227\346\234\200\345\260\217\351\227\264\350\267\235:", nullptr));
-        lblHeadLength->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\244\264\351\225\277\345\272\246:", nullptr));
-        lblCutOffValue->setText(QApplication::translate("TestPaper", "CutOff\347\201\260\345\272\246\345\200\274:", nullptr));
+        lblCutOffThreshold->setText(QApplication::translate("TestPaper", "CutOff\347\272\277\351\230\210\345\200\274:", nullptr));
+        lblThreshold->setText(QApplication::translate("TestPaper", "\344\272\214\345\200\274\345\214\226\351\230\210\345\200\274:", nullptr));
+        label_77->setText(QApplication::translate("TestPaper", "\345\210\244\350\257\273\350\247\204\345\210\231:", nullptr));
+        rdRulesSingle->setText(QApplication::translate("TestPaper", "\345\215\225\347\213\254\350\256\276\347\275\256", nullptr));
+        rdRulesAllSet->setText(QApplication::translate("TestPaper", "\347\273\237\344\270\200\350\256\276\347\275\256", nullptr));
         label_78->setText(QApplication::translate("TestPaper", "\345\256\232\346\240\207\346\233\262\347\272\277:", nullptr));
         rdCurveSingle->setText(QApplication::translate("TestPaper", "\345\215\225\347\213\254\350\256\276\347\275\256", nullptr));
         rdCurveAllSet->setText(QApplication::translate("TestPaper", "\347\273\237\344\270\200\350\256\276\347\275\256", nullptr));
+        txtThreshold->setText(QString());
         lblPixDistance->setText(QApplication::translate("TestPaper", "\345\203\217\347\264\240\350\267\235\347\246\273\347\231\276\345\210\206\346\257\224:", nullptr));
-        lblItemNum->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\346\225\260\351\207\217:", nullptr));
+        lblCutOffValue->setText(QApplication::translate("TestPaper", "CutOff\347\201\260\345\272\246\345\200\274:", nullptr));
+        lblFunThreshold->setText(QApplication::translate("TestPaper", "\345\212\237\350\203\275\347\272\277\351\230\210\345\200\274:", nullptr));
+        lblBlackSpotThreshold->setText(QApplication::translate("TestPaper", "\351\273\221\347\202\271\346\243\200\346\265\213\351\230\231\345\200\274:", nullptr));
         lblAnalyzeHeight->setText(QApplication::translate("TestPaper", "\345\210\206\346\236\220\351\253\230\345\272\246\345\214\272\351\227\264\346\257\224:", nullptr));
-        lblItemLineWidth->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\347\272\277\345\256\275\345\272\246:", nullptr));
-        label_81->setText(QApplication::translate("TestPaper", "%", nullptr));
-        pushButton_PickColor->setText(QApplication::translate("TestPaper", "\351\200\211\346\213\251", nullptr));
-        label_70->setText(QApplication::translate("TestPaper", "mm", nullptr));
-        chkBlackSpot->setText(QApplication::translate("TestPaper", "\346\230\257\345\220\246\345\274\200\345\220\257\351\273\221\347\202\271\346\243\200\346\265\213", nullptr));
-        lblAnalyzeWidth->setText(QApplication::translate("TestPaper", "\345\210\206\346\236\220\345\256\275\345\272\246\345\214\272\351\227\264\346\257\224:", nullptr));
-        label_75->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        pushButton_Set->setText(QApplication::translate("TestPaper", "\350\256\276\347\275\256", nullptr));
+        pushButton_Set->setProperty("btnStyle", QVariant(QApplication::translate("TestPaper", "normalBtnRed", nullptr)));
+        lblHeadLength->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\345\244\264\351\225\277\345\272\246:", nullptr));
         lblArticleNo->setText(QApplication::translate("TestPaper", "\350\264\247\345\217\267:", nullptr));
-        txtItemSpace->setInputMask(QString());
-        txtItemSpace->setText(QString());
-        lblBackGround->setText(QApplication::translate("TestPaper", "\350\203\214\346\231\257\345\200\274:", nullptr));
-        label_82->setText(QApplication::translate("TestPaper", "mm", nullptr));
-        label_95->setText(QApplication::translate("TestPaper", "mm", nullptr));
-        label_96->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        lblItemNum->setText(QApplication::translate("TestPaper", "\351\241\271\347\233\256\346\225\260\351\207\217:", nullptr));
+        label_80->setText(QApplication::translate("TestPaper", "%", nullptr));
+        lblAnalyzeWidth->setText(QApplication::translate("TestPaper", "\345\210\206\346\236\220\345\256\275\345\272\246\345\214\272\351\227\264\346\257\224:", nullptr));
+        lblItemLineWidth->setText(QApplication::translate("TestPaper", "\346\214\207\346\240\207\347\272\277\345\256\275\345\272\246:", nullptr));
+        lineEdit_paper_head_length->setInputMask(QString());
+        lineEdit_paper_head_length->setText(QString());
+        label_79->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        label_97->setText(QApplication::translate("TestPaper", "mm", nullptr));
+        lblPaperLength_2->setText(QApplication::translate("TestPaper", "\350\206\234\346\235\241\351\253\230\345\272\246:", nullptr));
         checkBox_8->setText(QString());
         checkBox_14->setText(QString());
         checkBox_15->setText(QString());

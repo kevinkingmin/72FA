@@ -62,6 +62,7 @@ void TestPaper::initUI()
     ui->lineEdit_TestItem_Number->setValidator(new QRegExpValidator(QRegExp("^[0-9]|[1-2][0-9]|30$"), this));
     auto doublReg{new QRegExpValidator(QRegExp("^(?:[1-9]\\d{0,3}|0)(?:\\.\\d{1,3})?$"), this)};
     ui->lineEdit_TestPaparLenght->setValidator(doublReg);
+    ui->lineEdit_TestPaparHeight->setValidator(doublReg);
     ui->lineEdit_paper_head_length->setValidator(doublReg);
     ui->txtItemSpace->setValidator(doublReg);
     ui->txtItemWidth->setValidator(doublReg);
@@ -91,7 +92,7 @@ void TestPaper::initUI()
     ui->lblItemSpace->setText(GlobalData::LoadLanguageInfo("K1708"));
     ui->lblItemWidth->setText(GlobalData::LoadLanguageInfo("K1707"));
     ui->lblFunDirection->setText(GlobalData::LoadLanguageInfo("K1123"));
-    ui->cmbFunDirection->setView(new QListView(this));
+    ui->cmbFunLineFindDirection->setView(new QListView(this));
     //ui->lblFunPostion->setText(GlobalData::LoadLanguageInfo("K1119"));
     ui->lblFunThreshold->setText(GlobalData::LoadLanguageInfo("K1118"));
     ui->lblFunWidth->setText(GlobalData::LoadLanguageInfo("K1709"));
@@ -102,7 +103,7 @@ void TestPaper::initUI()
     ui->lblCutOffThreshold->setText(GlobalData::LoadLanguageInfo("K1116"));
     ui->lblCutOffValue->setText(GlobalData::LoadLanguageInfo("K1800"));
     ui->lblRotate->setText(GlobalData::LoadLanguageInfo("K1802"));
-    ui->cmbRotate->setView(new QListView(this));
+    ui->cmbPaperRotate->setView(new QListView(this));
     ui->lblThreshold->setText(GlobalData::LoadLanguageInfo("K1124"));
     ui->lblBackGround->setText(GlobalData::LoadLanguageInfo("K1705"));
     ui->lblItemSearchWidth->setText(GlobalData::LoadLanguageInfo("K1803"));
@@ -225,9 +226,10 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
     ui->lineEdit_TestItem_Number->setText(QString::number(_testPaperModel.getTestItemNumber()));
     ui->lineEdit_TestPaparName->setText(_testPaperModel.getPaperName());
     ui->lineEdit_TestPaparLenght->setText(QString::number(_testPaperModel.getPaperLenght(), 'f', 2));
+    ui->lineEdit_TestPaparHeight->setText(QString::number(_testPaperModel.getPaperHeight(), 'f', 2));
     ui->lineEdit_paper_head_length->setText(QString::number(_testPaperModel.getIgnoreHeadLenght(), 'f', 2));
-    auto funDirection = _testPaperModel.getFuncFindDir()==0?"0":"1";//调用接口
-    ui->cmbFunDirection->setCurrentIndex(ui->cmbFunDirection->findData(funDirection));
+    auto funDirection = _testPaperModel.getFuncFindDir() == TestPaperModel::PAPER_FUNC_FIND_DIR_HEAD?"0":"1";//调用接口
+    ui->cmbFunLineFindDirection->setCurrentIndex(ui->cmbFunLineFindDirection->findData(funDirection));
     ui->txtFunThreshold->setText(QString::number(_testPaperModel.getFuncGrayThreshold(), 'f', 2));
     ui->txtFunWidth->setText(QString::number(_testPaperModel.getFuncFindWidth(), 'f', 2));//调用接口,功能线宽度
     bool isCheckBlackSpot=_testPaperModel.getIsBlackPointDetect();//调用接口,是否开启黑点检测
@@ -236,7 +238,7 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
     ui->txtCutOffThreshold->setText(QString::number(_testPaperModel.getCutOffThreshold(), 'f', 2));//调用接口,CutOff线阈值
     ui->txtCutOffValue->setText(QString::number(_testPaperModel.getCutOffValue(), 'f', 2));
     auto angle=_testPaperModel.getPaperShowAngle()==0?"0":"180";//调用接口
-    ui->cmbRotate->setCurrentIndex(ui->cmbRotate->findData(angle));
+    ui->cmbPaperRotate->setCurrentIndex(ui->cmbPaperRotate->findData(angle));
     ui->txtThreshold->setText(QString::number(_testPaperModel.getPaperBinarizationThreshold(), 'f', 2));
     ui->txtBackGround->setText(QString::number(_testPaperModel.getPaperBackgroundValue(), 'f', 2));
     ui->txtItemSearchWidth->setText(QString::number(_testPaperModel.getItemFindWidth(), 'f', 2));//调用接口,指标查找宽度
@@ -587,16 +589,17 @@ bool TestPaper::Save_TestPaper_Parameters()
     _testPaperModel.setTotalNumber(ui->lineEdit_Item_Number->text().simplified().toInt());
     _testPaperModel.setPaperName(ui->lineEdit_TestPaparName->text().simplified());//膜条名称
     _testPaperModel.setPaperLenght(ui->lineEdit_TestPaparLenght->text().simplified().toDouble());//膜条长度
+    _testPaperModel.setPaperHeight(ui->lineEdit_TestPaparHeight->text().simplified().toDouble());//膜条高度
     _testPaperModel.setIgnoreHeadLenght(ui->lineEdit_paper_head_length->text().simplified().toDouble());//膜条头长度
    _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
-   _testPaperModel.setPaperShowAngle(ui->cmbFunDirection->currentData().toInt());//功能线查找方向
+   _testPaperModel.setFuncFindDir(ui->cmbFunLineFindDirection->currentData().toInt());//功能线查找方向
    _testPaperModel.setFuncGrayThreshold(ui->txtFunThreshold->text().simplified().toDouble());//功能线阈值
    _testPaperModel.setFuncFindWidth(ui->txtFunWidth->text().simplified().toDouble());//功能线查找宽度
    _testPaperModel.setIsBlackPointDetect(ui->chkBlackSpot->isChecked());//是否开启黑点检测
    _testPaperModel.setBlackPointDetectThreshold(ui->txtBlackSpotThreshold->text().simplified().toDouble());//黑点检测阙值
    _testPaperModel.setCutOffThreshold(ui->txtCutOffThreshold->text().simplified().toDouble());//CutOff线阈值
    _testPaperModel.setCutOffValue(ui->txtCutOffValue->text().simplified().toDouble());//CutOff灰度值;
-   _testPaperModel.setPaperShowAngle(ui->cmbRotate->currentData().toInt());//膜条展示旋转
+   _testPaperModel.setPaperShowAngle(ui->cmbPaperRotate->currentData().toInt());//膜条展示旋转
    _testPaperModel.setPaperBinarizationThreshold(static_cast<int>(ui->txtThreshold->text().simplified().toDouble()));//二值化阈值
    _testPaperModel.setPaperBackgroundValue(ui->txtBackGround->text().simplified().toDouble());//背景值
    _testPaperModel.setItemFindWidth(ui->txtItemSearchWidth->text().simplified().toDouble());//指标查找宽度
@@ -785,7 +788,7 @@ void TestPaper::getAllItemControl()
                 else if(col==2)
                 {
                     ctr.lineEdit_Name=static_cast<QLineEdit *>(widget);
-                    ui->lineEdit_Position_1->setValidator(new QRegExpValidator(QRegExp("[0-9.]+"), this));
+                    ui->lineEdit_Position_1->setValidator(new QRegExpValidator(QRegExp("^[+-]?(?:[0-9]+|[0-9]*\\.[0-9]+|\\.[0-9]+)$"), this));
                 }
                 else if(col==3)
                 {
@@ -976,14 +979,14 @@ void TestPaper::initComboBox()
     boxDatas.clear();
     boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1813"),QString::number(TestPaperModel::PAPER_FUNC_FIND_DIR_HEAD)));
     boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1814"),QString::number(TestPaperModel::PAPER_FUNC_FIND_DIR_TAIL)));
-    setComBoBoxData(ui->cmbFunDirection,boxDatas);
-    ui->cmbFunDirection->setCurrentText(GlobalData::LoadLanguageInfo("K1813"));
+    setComBoBoxData(ui->cmbFunLineFindDirection,boxDatas);
+    ui->cmbFunLineFindDirection->setCurrentText(GlobalData::LoadLanguageInfo("K1813"));
 
     boxDatas.clear();
     boxDatas.push_back(ComboxData("0°", QString::number(TestPaperModel::PAPER_SHOW_DRAGE_0)));
     boxDatas.push_back(ComboxData("180°",QString::number(TestPaperModel::PAPER_SHOW_DRAGE_180)));
-    setComBoBoxData(ui->cmbRotate,boxDatas);
-    ui->cmbRotate->setCurrentText("0°");
+    setComBoBoxData(ui->cmbPaperRotate,boxDatas);
+    ui->cmbPaperRotate->setCurrentText("0°");
 }
 
 void TestPaper::setComBoBoxData(QComboBox *cmb, const QVector<ComboxData> &datas)

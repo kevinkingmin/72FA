@@ -27,6 +27,7 @@
 #include "../Include/Instrument/Instrument.h"
 #include "src/sample/subDialog/PatientDialog.h"
 #include "../Include/Analysis/analysis.h"
+#include "../Include/Analysis/PictureAnalysis.h"
 #include "../Include/BLL/sample/SampleBLL.h"
 #define PAGESIZE 27
 
@@ -2111,6 +2112,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
     ui.tableWidget->setSelectionMode(QAbstractItemView::SingleSelection); //设置选择膜式，选择单行
     ui.tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);	//列表不可编辑
 
+    qDebug()<<"Show_UI_Data1";
     const QString VSCROLLBAR_STYLE2 =
         "QScrollBar:vertical {margin: 13px 0px 13px 0px;background-color: rgb(255, 255, 255, 100); border: 0px; width: 55px;}\
              .QScrollBar::handle:vertical {background-color:  rgb(122, 122, 122, 122); width: 55px; }\
@@ -2128,7 +2130,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
     QString strValue;
     QString strRel;
     QString strItemName;
-    int error_code = 0;
+//    int error_code = 0;
 
     double dRatioToCut;
     QString testResult = "";
@@ -2136,7 +2138,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
     QString pic_name = "";
     //DB中取Testitems表数据
     bool bResult = true;
-    int stateFlag = 88;
     auto dao = AnalysisUIDao::instance();
     QString sampleNo = "";
     int nTestPaperID = 0;
@@ -2238,7 +2239,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             count_txt = QString(sz1 + "：%1," + sz2 + " %2 " + sz3 + "%3" + sz4 + "。").arg(test_count1).arg(totalPages + 1).arg(m_currentPage);
         }
     }
-    ui.labelCount->setText(count_txt);//text(count_txt);
+    ui.labelCount->setText(count_txt);
     ui.lineEditPageIndex->setText(QString("%1").arg(m_currentPage));
     auto SampleQuery = dao->SelectSamplesByQuery(start_time, end_time, paper_name_query, m_test_project_name, &bResult, m_rowsPerPage, page_index);
     if (bResult == false)
@@ -2247,10 +2248,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
         return;
     }
     int test_count = 0;
-    int error_number = 0;
-
-    int error_number_cut_off = 0;
-    int error_number_fun = 0;
     QString pkid = "";
     while (SampleQuery.next())
     {
@@ -2258,9 +2255,8 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
         sampleNo = SampleQuery.value("sampleNo").toString();
         paper_name = SampleQuery.value("PaperName").toString();
         pic_name = SampleQuery.value("testId").toString();
-        stateFlag = SampleQuery.value("stateFlag").toInt();
+        int stateFlag = SampleQuery.value("stateFlag").toInt();
         pkid = SampleQuery.value("pkid").toString();
-        error_code = 0;
 
         QTableWidgetItem *itemcheck = new QTableWidgetItem();
         //设置此checkbox属性，Unchecked是不选中，如果要选中改成Qt::checked
@@ -2282,13 +2278,13 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             addContent(row, 5, GlobalData::LoadLanguageInfo("K1261"));//"异常");
             addContent(row, 6, GlobalData::LoadLanguageInfo("K1686"));//"未知");
 
-            if (stateFlag == 81)
+            if (stateFlag == static_cast<int>(PictureAnalysis::Error::FuncLineError))
             {
                 addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"),4);// "功能线异常，未识别膜条");
-            }else if(stateFlag==82)
+            }else if(stateFlag==static_cast<int>(PictureAnalysis::Error::CutOffLineError))
             {
                 addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
-            }else if(stateFlag == 83){
+            }else if(stateFlag == static_cast<int>(PictureAnalysis::Error::ItemLineDetectError)){
                 addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
             }
             else if(stateFlag == 1)
@@ -2315,7 +2311,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             QFont font("Microsoft YaHei", 7);
             QFontMetrics fm(font);
             int pixelsHigh = fm.height();//字体高度
-            int nRowHeight = pixelsHigh;//行高度
             QPixmap pixBig;
             pixBig.load(strPath + "\\" + pic_name + ".png");  //图片路径
             int w1 = pixBig.width();
@@ -2331,226 +2326,34 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             h1 = m_height;
             QString strSampleID = sampleNo;
             QString strTestPaper_ID = QString::number(nTestPaperID);
-            auto TestDataQuery = dao->SelectTestData(pic_name, strSampleID, strTestPaper_ID, &bResult);
 
             int lis_Status1 = 0;
-            if (bResult == false)
+            auto TestDataQuery = dao->SelectTestData(pic_name, &bResult);
+            strRel = "";
+            while (TestDataQuery.next())
             {
-                if (stateFlag == 81)
+                strItemName = TestDataQuery.value("projectName").toString();
+                dRatioToCut = TestDataQuery.value("cutGrayValue").toDouble();
+                paperId = TestDataQuery.value("paperId").toInt();
+                lis_Status = TestDataQuery.value("sendLisFlag").toInt();
+                testResult = TestDataQuery.value("testResult").toString();
+
+                if (lis_Status == 3)
                 {
-                    addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"),4);//"功能线异常，未识别膜条");
+                    lis_Status1++;
                 }
-                else if (stateFlag == 82)
+                //新的显示方式
+                if (strItemName != "FC" && strItemName != "Cut")
                 {
-                    addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
-                }else if(stateFlag == 83){
-                    addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
-                }
-                else if (stateFlag == 1)
-                {
-                    addContent(row, 7, GlobalData::LoadLanguageInfo("K1689"));//"未完成检测");
-                }
-                else
-                {
-                    addContent(row, 7, GlobalData::LoadLanguageInfo("K1690"));//"无结果");
-                }
-            }
-            else
-            {
-                strRel = "";
-                lis_Status1 = 0;
-                error_code = 0;
-                while (TestDataQuery.next())
-                {
-                    strItemName = TestDataQuery.value("projectName").toString();
-                    dRatioToCut = TestDataQuery.value("cutGrayValue").toDouble();
-                    paperId = TestDataQuery.value("paperId").toInt();
-                    lis_Status = TestDataQuery.value("sendLisFlag").toInt();
-                    int error_code1 = TestDataQuery.value("error_code").toInt();
-                    testResult = TestDataQuery.value("testResult").toString();
-                    if (strItemName == "FC" )
+                    if (!testResult.contains('+'))
                     {
-                        if (error_code1 == 10002 || error_code1 == 10003 )
-                        {
-                            error_number_fun++;
-                        }
-                    }
-
-                    if (strItemName == "Cut" )
-                    {
-                        if (error_code1 == 10002 || error_code1 == 10003)
-                        {
-                            error_number_cut_off++;
-                        }
-                    }
-
-                    if (error_code1 == 9990 || error_code1 == 10003)
-                    {
-                        error_number++;
-                    }
-
-                    if (error_code1 > 0)
-                    {
-                        error_code = error_code1;
-                    }
-                    if (error_code > 0 && error_code != 10002 )
-                    {
-                        if (error_code == 10003)
-                        {
-                        }
-                        else
-                        {
-                            need_change_bg_color = true;
-                        }
-
-                    }
-
-                    if (lis_Status == 3)
-                    {
-                        lis_Status1++;
-                    }
-                    int pkid = TestDataQuery.value("pkid").toInt();
-                    //新的显示方式
-                    if (strItemName != "FC" && strItemName != "Cut")
-                    {
-                        if (error_code1 == 10002)
-                        {
-                            testResult = "-";
-                        }
-
-                        if (error_code1 == 10003)
-                        {
-                            testResult = "o";
-                        }
-
-                        if (strItemName != "FC" && strItemName != "Cut")
-                        {
-                            if (testResult != "-" && testResult != "--" && testResult != "o")
-                            {
-                                strRel += strItemName;
-                                strRel += "(";
-                                strRel += testResult;
-                                strRel += ")  ";
-                            }
-                        }
-                        else
-                        {
-                            if (strItemName == "Cut")
-                            {
-                                if (error_code == 10002 || error_code == 10003)
-                                {
-                                    need_change_bg_color_cut_fun = true;
-                                }
-                            }
-
-                            if (strItemName == "FC")
-                            {
-                                if (error_code == 10002 || error_code == 10003)
-                                {
-                                    need_change_bg_color_fun = true;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (strItemName != "FC" && strItemName != "Cut")
-                        {
-                            if (testResult != "-" && testResult != "--" && testResult != "o")
-                            {
-                                strRel += strItemName;
-                                strRel += "(";
-                                strRel += testResult;
-                                strRel += ")  ";
-                            }
-                        }
-                        else
-                        {
-                            if (strItemName == "Cut")
-                            {
-                                if (error_code == 10002 || error_code == 10003)
-                                {
-                                    need_change_bg_color_cut_fun = true;
-
-                                }
-                            }if (strItemName == "FC")
-                            {
-                                if (error_code == 10002 || error_code == 10003)
-                                {
-                                    need_change_bg_color_fun = true;
-                                }
-                            }
-
-                        }
+                        strRel += strItemName;
+                        strRel += "(";
+                        strRel += testResult;
+                        strRel += ")  ";
                     }
                 }
                 strValue = strRel;
-                if (strRel == "")
-                {
-                    if (stateFlag == 81)
-                    {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"), 4);//"功能线异常，未识别膜条");
-                    }
-                    else if (stateFlag == 82)
-                    {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"), 4);//"Cutoff值异常");
-                    }else if(stateFlag == 83){
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
-                    }
-                    else if (need_change_bg_color_fun)
-                    {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"), 4);//"功能线异常，未识别膜条！");
-                    }
-                    else if (need_change_bg_color_cut_fun)
-                    {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"), 4);//"Cutoff线异常！");
-                    }
-                    else
-                    {
-                        if (error_number_fun >0|| error_number_cut_off>0 || error_number>0)
-                        {
-                            addContent(row, 7, GlobalData::LoadLanguageInfo("K1683"), 4);//"无阳性结果！");
-                        }
-                        else
-                        {
-                            addContent(row, 7, GlobalData::LoadLanguageInfo("K1683"),0);//"无阳性结果！");
-                        }
-                    }
-                }
-                else
-                {
-                    if (stateFlag == 81)
-                    {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"),4);//"功能线异常，未识别膜条");
-                    }
-                    else if (stateFlag == 82)
-                    {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
-                    }
-                    else if(stateFlag == 83)
-                    {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
-                    }
-                    else if (need_change_bg_color_fun)
-                    {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"), 4);//"功能线异常，未识别膜条！");
-                    }
-                    else if(need_change_bg_color_cut_fun)
-                    {
-                        addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"), 4);//"Cutoff线异常！");
-                    }
-                    else
-                    {
-                        if (error_number_fun > 0 || error_number_cut_off > 0 || error_number > 0)
-                        {
-                            addContent(row, 7, strValue,4);
-                        }
-                        else
-                        {
-                            addContent(row, 7, strValue,0);
-                        }
-                    }
-                }
             }
 
             if (lis_Status1 > 1)
@@ -2579,10 +2382,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             need_change_bg_color_cut_fun = false;
             need_change_bg_color_fun = false;
             test_count++;
-            error_code = 0;
-            error_number = 0;
-            error_number_cut_off = 0;
-            error_number_fun = 0;
             strItemName = "";
             strRel = "";
         }
