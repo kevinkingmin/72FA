@@ -334,9 +334,9 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut(cv::Mat& srcMat, T
     // 融合图像（仅替换过曝区域）
     srcMat.copyTo(black_area, ~lightMask);  // 反转掩膜
     srcMat = black_area.clone();
-    // 保存的分析图片
+    /* 保存的分析图片
     QString lightPath = paper.pictureAnalysisPath + paper.sampleId + "-nolight.png";
-    cv::imwrite(lightPath.toStdString(), srcMat);
+    cv::imwrite(lightPath.toStdString(), srcMat);*/
 
     cv::Mat threshMat;
     cv::threshold(srcMat, threshMat, thresh, 255, THRESH_BINARY);
@@ -496,9 +496,9 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut(cv::Mat& srcMat, T
         double cutHeight = totalHeigth * yPercent;
         cv::Rect lastEdge(maxRect.x, static_cast<int>(yCenter - cutHeight / 2), maxRect.width, static_cast<int>(cutHeight));
         cv::Mat croppedMat = grayRotMat(lastEdge);
-        /*剪裁后的图片保存
+        //剪裁后的图片保存
         QString croppedPath = paper.pictureAnalysisPath + paper.sampleId + ".png";
-        cv::imwrite(croppedPath.toStdString().data(), croppedMat);*/
+        cv::imwrite(croppedPath.toStdString().data(), croppedMat);
     }
     {
         // 裁剪并保存
