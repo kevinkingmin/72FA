@@ -237,8 +237,6 @@ void TestResultDataOneType::InitTableWidget_Data()//初始化状态列表
 		QString strTestPaper_ID = QString::number(nTestPaperID);
         auto TestDataQuery = dao->SelectTestData(
 			pic_name,
-			strSampleID,
-			strTestPaper_ID,
 			&bResult);
 		if (bResult == false)
 		{

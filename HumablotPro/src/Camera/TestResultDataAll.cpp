@@ -2328,7 +2328,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             QString strTestPaper_ID = QString::number(nTestPaperID);
 
             int lis_Status1 = 0;
-            auto TestDataQuery = dao->SelectTestData(pic_name, strSampleID, strTestPaper_ID, &bResult);
+            auto TestDataQuery = dao->SelectTestData(pic_name, &bResult);
             strRel = "";
             while (TestDataQuery.next())
             {
