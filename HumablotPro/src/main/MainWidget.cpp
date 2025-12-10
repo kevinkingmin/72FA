@@ -1622,7 +1622,7 @@ void MainWidget::on_btnCloseBeep1_clicked()
         qDebug() << "图片名称：" << fileName;
         // 开始图片分析
         Analysis m_analysis;
-        bool code = m_analysis.AnalysisMothed(fileName, 955, fileName);
+        bool code = m_analysis.AnalysisMothed(fileName, 19, fileName);
         if(code)
         {
             qDebug() << "success ";

@@ -38,12 +38,14 @@ public:
         double grayRatio; // 比值
         int lineCenter; // 条带中心位置
         int lineWidth; // 条带宽度
+        QString qualitativeResult; // 最终的定性结果
         TestPaperItemResult()
             :grayValue(0)
             ,backgroundGrayValue(0)
             ,grayRatio(0)
             ,lineCenter(0)
             ,lineWidth(0)
+            ,qualitativeResult("")
         {}
     };
 
@@ -115,7 +117,7 @@ private:
     // 图像旋转
     bool SrcImageNeedRotate180(TestPaperModel& paper);
 
-    QString CaculateResultText(double dItemGrayRatio,QString itemName,int paper_id);
+    QString CaculateResultText(double dItemGrayRatio,const int ruleId);
     bool isExistCutoffLine(TestPaperStrt& paper);
     bool AnalysisOneSample(int paper_id, QString testId, QString sampleId);
 //    bool GetTestPaperParameter(TestPaperParameter &testPaperParameterStruct,int paper_id, int company_id);

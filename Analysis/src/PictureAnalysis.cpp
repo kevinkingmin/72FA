@@ -163,7 +163,7 @@ bool PictureAnalysis::AnalysisOneSample(int paperId, QString testId, QString sam
             result.grayRatio = 1;
         }else
         {
-            if(paper.hasCutOff)
+            if(!paper.hasCutOff)
             {
                 double settingBackgroundValue = paperParam.getPaperBackgroundValue();
                 result.grayValue = 1.0 * result.grayValue / result.backgroundGrayValue * settingBackgroundValue;
@@ -179,7 +179,9 @@ bool PictureAnalysis::AnalysisOneSample(int paperId, QString testId, QString sam
             {
                 result.grayRatio = curve_obj.Calc(curveParameter, c1) + item.getResultOffset();
             }
+            result.qualitativeResult = CaculateResultText(result.grayRatio, item.getRulesId());
         }
+        qDebug() << "final result " << result.grayValue<<result.backgroundGrayValue << result.backgroundGrayValue-result.grayValue << result.grayRatio<<result.qualitativeResult;
     }
     //根据灰度值计算结果写到数据库
     if (!SaveTestData(paper)) return false;
@@ -223,7 +225,6 @@ bool PictureAnalysis::SaveTestData(TestPaperStrt& paper)
         {
             strRatioToCut = QString::number(result.grayRatio, 'f', 2);
         }
-        QString strDiagnosis = CaculateResultText(result.grayRatio, strItemName, paper_id.toInt());
         bResult = dao->InsertTestData(
                     solutionName,
                     paper.sampleId,
@@ -235,7 +236,7 @@ bool PictureAnalysis::SaveTestData(TestPaperStrt& paper)
                     strPosition,
                     strGrayValue,
                     strRatioToCut,
-                    strDiagnosis,
+                    result.qualitativeResult,
                     strTestDateTime, 0);
         if (bResult == false)
         {
@@ -1452,10 +1453,10 @@ PictureAnalysis::Error PictureAnalysis::OneItemParse(const cv::Mat& srcMat, Test
 }
 
 
-QString PictureAnalysis::CaculateResultText(double dItemGrayRatio, QString itemName, int paper_id)
+QString PictureAnalysis::CaculateResultText(double dItemGrayRatio, const int ruleId)
 {
     QString testResult = "";
-    QMap<double, QString> mapJudgeRules = JudgeDao::instance()->getJudgeValueMap(itemName, paper_id);
+    QMap<double, QString> mapJudgeRules = JudgeDao::instance()->getJudgeValueMap(ruleId);
     QList<double> key_list;
     QList<QString> value_list;
     QMap<double, QString>::Iterator it = mapJudgeRules.begin();
