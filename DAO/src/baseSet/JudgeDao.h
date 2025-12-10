@@ -28,6 +28,7 @@ public:
     bool update(JudgeRules& model);
     bool deleteModel(int id);
     QMap<double, QString> getJudgeValueMap(const QString itemName, const int paperId);
+    QMap<double, QString> getJudgeValueMap(const int ruleId);
 private:
 };
 

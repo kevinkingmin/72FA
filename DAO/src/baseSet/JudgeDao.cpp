@@ -122,11 +122,36 @@ QMap<double, QString> JudgeDao::getJudgeValueMap(const QString itemName, const i
 {
     QSqlQuery query;
     if(DAO::createQuery(query)<0) return {};
-    QString sqlStr = QString("select * from t_judge_rules where RulesId = (select RulesId from titem where itemName = '%1' and TestPaperID =%2 LIMIT 1) order by GrayValue asc")
+    QString sqlStr = QString("select * from t_judge_rules where pkid = (select RulesId from titem where itemName = '%1' and TestPaperID =%2 LIMIT 1)")
             .arg(itemName)
             .arg(paperId);
     if(!query.exec(sqlStr)) return {};
 
+    QMap<double, QString> mapJudgeRules;
+    if (!query.next()) return {};
+    JudgeRules model;
+    model.setpkid(query.value("pkid").toInt());
+    model.setRuleName(query.value("ruleName").toString());
+    QString parameterStr = query.value("Parameter").toString();
+    if(!model.strToParameter(parameterStr))
+    {
+        return {};
+    }
+    for(JudgeRules::ParameterStrt& p : model.getParameter())
+    {
+        mapJudgeRules.insert(p._v, p._k);
+    }
+    return mapJudgeRules;
+}
+
+
+QMap<double, QString> JudgeDao::getJudgeValueMap(const int ruleId)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return {};
+    query.prepare("select * from t_judge_rules where pkid = ?");
+    query.addBindValue(ruleId);
+    if(!query.exec()) return {};
     QMap<double, QString> mapJudgeRules;
     if (!query.next()) return {};
     JudgeRules model;
