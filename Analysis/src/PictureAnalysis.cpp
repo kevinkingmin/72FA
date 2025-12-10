@@ -110,6 +110,7 @@ bool PictureAnalysis::AnalysisOneSample(int paperId, QString testId, QString sam
     paper.pictureRootPath = pictureRootPath + "/";
     paper.pictureAnalysisPath = paper.pictureRootPath + "/" + "analysised" + "/";
     paper.picturePath = paper.pictureRootPath + "/" + "original" + "/" + paper.testId + "" + ".png";
+    paper.itemResultVect.resize(paper.itemParamVect.size());// 为每个item预先生成一个默认结果
 
     if(paperParam.getPaperType() == TestPaperModel::PAPER_TYPE_CONTINUOUS) // 连续膜条处理
     {
@@ -130,10 +131,6 @@ bool PictureAnalysis::AnalysisOneSample(int paperId, QString testId, QString sam
     }
     qDebug()<<"resultCode="<<static_cast<int>(resultCode);
     UpdateSampleAnalysisState(paper, resultCode);
-    if (resultCode != Error::NoError)
-    {
-        return false;
-    }
     double cutoffGray = paper.hasCutOff ? paper.itemResultVect[1].grayValue : paperParam.getCutOffValue();
     QMap<int, StandardCurveParameter> curveMap;
     standard_curve curve_obj(nullptr);
@@ -170,7 +167,7 @@ bool PictureAnalysis::AnalysisOneSample(int paperId, QString testId, QString sam
             }
             double a_item = 0, b_cut = 0, c1 = 0;
             a_item = qLn((result.grayValue < 1 ? 1 : result.grayValue) / 255);
-            b_cut = qLn(cutoffGray < 1 ? 1 : cutoffGray  / 255);
+            b_cut = qLn((cutoffGray < 1 ? 1 : cutoffGray)  / 255);
             c1 =  a_item/ b_cut;
             if(std::isnan(c1) || std::isinf(c1))
             {
@@ -804,6 +801,7 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperItemParse(cv::Mat& cutMat, T
     bool bResult = false;
     bool ignoreHead = paperParam.getIgnoreHeadLenght() > 0; // 很关键, 头部文字会干扰分段
     double mmPixel= paperParam.getPaperMmToPixel();
+    int resultIdx = 0;
     for (int segmentIndex : itemsBySegment.keys())
     {
         const QVector<ItemModel>& itemVectOnSegment = itemsBySegment[segmentIndex];
@@ -817,8 +815,12 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperItemParse(cv::Mat& cutMat, T
 
         for(const ItemModel& item:itemVectOnSegment)
         {
-            paper.itemResultVect.push_back(TestPaperItemResult());
-            TestPaperItemResult& itemResult = paper.itemResultVect.back(); // 结果计算
+            if(resultIdx >= paper.itemResultVect.count())
+            {
+                err = err == Error::NoError ? Error::SegmentSetError : err;
+                continue;
+            }
+            TestPaperItemResult& itemResult = paper.itemResultVect[resultIdx++]; // 结果计算
             if(segmentIndex < 1)
             {
                 err = err == Error::NoError ? Error::SegmentSetError : err;
@@ -1204,14 +1206,15 @@ PictureAnalysis::Error PictureAnalysis::ContinuousPaperItemParse(const cv::Mat& 
     // 从头端开始查找
     if(paperParam.getFuncFindDir() == TestPaperModel::PAPER_FUNC_FIND_DIR_HEAD)
     {
-        markLineLimitStart = positionList[0] - funcLineLimit;
-        if(markLineLimitStart < 0 || markLineLimitStart+funcLineLimit>=srcMat.cols)
+        markLineLimitStart = positionList[0] - funcLineLimit/2;
+        markLineLimitStart = markLineLimitStart < 0 ? 0:markLineLimitStart;
+        if(markLineLimitStart+funcLineLimit>=srcMat.cols)
         {
             return Error::ConfigError;
         }
     }else
     {
-        markLineLimitStart = srcMat.cols + positionList[0] - funcLineLimit;
+        markLineLimitStart = srcMat.cols + positionList[0] - funcLineLimit/2;
 //        qDebug()<<"markLineLimitStart"<<markLineLimitStart<<srcMat.cols<<positionList[0]<<funcLineLimit;
         if(markLineLimitStart < 0 || markLineLimitStart+funcLineLimit>=srcMat.cols)
         {
@@ -1223,71 +1226,47 @@ PictureAnalysis::Error PictureAnalysis::ContinuousPaperItemParse(const cv::Mat& 
     cv::Rect roi(markLineLimitStart, 0, funcLineLimit, srcMat.rows);
     markLimitMat = srcMat(roi);
 
-    /*保存二值化后的图片
-    QString path1 = paper.pictureAnalysisPath + paper.sampleId + "marklimitThresh.png";
-    cv::imwrite(path1.toStdString(), markLimitMat);*/
-
-    // 反向二值化
-    cv::Mat thresh;
-    cv::threshold(markLimitMat, thresh, paperParam.getPaperBinarizationThreshold(), 255, cv::THRESH_BINARY_INV+cv::THRESH_OTSU);
-    /*
-    QString path2 = paper.pictureAnalysisPath + paper.sampleId + "-marklimitThresh.png";
-    cv::imwrite(path2.toStdString(), thresh);*/
-
-    // 查找轮廓
-    std::vector<std::vector<cv::Point>> contours;
-    cv::findContours(thresh, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-    if (contours.empty())
-    {
-        return Error::ContourNotFound;
-    }
-    //  计算每个轮廓区域的灰度均值
-    int minGrayContourIdx = -1;
-    double markMatGray = 255;
-    for (uint i = 0; i < contours.size(); i++)
-    {
-        cv::Rect rect = cv::boundingRect(contours[i]);
-
-//        qDebug()<<"rect"<<rect.width<<lineWidth;
-        // 跳过过小区域（避免噪声干扰）
-        if (rect.width < lineWidth*0.5) continue;
-        cv::Mat roi = markLimitMat(rect);
-        double meanGray = cv::mean(roi)[0];
-        if(meanGray < markMatGray)
-        {
-            markMatGray = meanGray;
-            minGrayContourIdx = static_cast<int>(i);
-        }
-    }
-//    qDebug()<<"minGrayContourIdx"<<minGrayContourIdx<<markMatGray;
-   if (minGrayContourIdx < 0 || markMatGray > paperParam.getFuncGrayThreshold())
-    {
-        return Error::FuncLineError;
-    }
-    cv::Rect target_rect = cv::boundingRect(contours[static_cast<size_t>(minGrayContourIdx)]);
-    {
-        // 功能线 解析结果保存
-        TestPaperItemResult result;
-        result.grayValue = markMatGray;
-        result.lineCenter = markLineLimitStart + target_rect.x + target_rect.width/2;
-        result.lineWidth = target_rect.width;
-        result.backgroundGrayValue = 255;
-        paper.itemResultVect.push_back(result);
-    }
-
-    //保存标记线图片
+    /*保存标记线图片
     cv::Mat cloneMat = markLimitMat.clone();
-    cv::rectangle(cloneMat, target_rect, cv::Scalar(255,255,255), 2);
-    /*
     QString path3 = paper.pictureAnalysisPath + paper.sampleId + "-marklimit.png";
     cv::imwrite(path3.toStdString(), cloneMat);*/
 
+    //  计算每个轮廓区域的灰度均值
+    double markMatGray = 255;
+    cv::Rect markRect;
+    for (int i = 0; i < markLimitMat.cols - lineWidth; i++)
+    {
+        cv::Rect tempRect(i, 0, lineWidth, markLimitMat.rows);
+        cv::Mat tempMat = markLimitMat(tempRect);
+        double meanGray = cv::mean(tempMat)[0];
+        if(meanGray < markMatGray)
+        {
+            markRect = tempRect;
+            markMatGray = meanGray;
+        }
+    }
+   if (markMatGray > paperParam.getFuncGrayThreshold())
+    {
+        return Error::FuncLineError;
+    }
+   /*保存标记线图片
+   cv::rectangle(cloneMat, markRect, cv::Scalar(255,255,255), 2);
+   QString path4 = paper.pictureAnalysisPath + paper.sampleId + "-marklimit1.png";
+   cv::imwrite(path4.toStdString(), cloneMat);*/
+   {
+        // 功能线 解析结果保存
+        TestPaperItemResult& result = paper.itemResultVect[0];
+        result.grayValue = markMatGray;
+        result.lineCenter = markLineLimitStart + markRect.x + markRect.width/2;
+        result.lineWidth = markRect.width;
+        result.backgroundGrayValue = 255;
+    }
+
     // 标记线中心点在膜条中的位置
-    markLineXCenter = markLineLimitStart + target_rect.x + target_rect.width/2;
+    markLineXCenter = markLineLimitStart + markRect.x + markRect.width/2;
     for(int i = 1; i < lineCenterRelArraySize; i++)
     {
-        paper.itemResultVect.push_back(TestPaperItemResult());
-        TestPaperItemResult& result = paper.itemResultVect.back();
+        TestPaperItemResult& result = paper.itemResultVect[i];
         // 项目范围线的起始点
         int limitStart = markLineXCenter + positionList[i] - lineLimit/2;
         cv::Rect roi(limitStart, 0,  lineLimit, srcMat.rows );
