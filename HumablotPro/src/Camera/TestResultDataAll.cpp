@@ -221,17 +221,6 @@ void TestResultDataAll::Show_UI_Data(QString sz)
 {
     InitTableWidget(sz, m_currentPage);//初始化状态列表
     m_query_condition1 = sz;
-
-
-
-    //const QString VSCROLLBAR_STYLE33 =
-    //	"QTableWidget::item:checked{\
-    //background - color: rgb(255, 0, 255, 255);\
-    //color: rgb(0, 255, 255, 255);\
-    //}";
-
-    //ui.tableWidget->setStyleSheet(VSCROLLBAR_STYLE33);
-
 }
 
 void TestResultDataAll::populateTable(int page) {
@@ -2277,24 +2266,6 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             addContent(row, 3, paper_name);
             addContent(row, 5, GlobalData::LoadLanguageInfo("K1261"));//"异常");
             addContent(row, 6, GlobalData::LoadLanguageInfo("K1686"));//"未知");
-
-            if (stateFlag == static_cast<int>(PictureAnalysis::Error::FuncLineError))
-            {
-                addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"),4);// "功能线异常，未识别膜条");
-            }else if(stateFlag==static_cast<int>(PictureAnalysis::Error::CutOffLineError))
-            {
-                addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
-            }else if(stateFlag == static_cast<int>(PictureAnalysis::Error::ItemLineDetectError)){
-                addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
-            }
-            else if(stateFlag == 1)
-            {
-                addContent(row, 7, GlobalData::LoadLanguageInfo("K1689"));//"未完成检测");
-            }
-            else
-            {
-                addContent(row, 7, GlobalData::LoadLanguageInfo("K1690"));//"无结果");
-            }
         }
         else
         {
@@ -2345,7 +2316,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
                 //新的显示方式
                 if (strItemName != "FC" && strItemName != "Cut")
                 {
-                    if (!testResult.contains('+'))
+                    if (testResult.contains('+'))
                     {
                         strRel += strItemName;
                         strRel += "(";
@@ -2356,11 +2327,33 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
                 strValue = strRel;
             }
 
+            if (stateFlag == static_cast<int>(PictureAnalysis::Error::FuncLineError))
+            {
+                addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"),4);// "功能线异常，未识别膜条");
+            }else if(stateFlag==static_cast<int>(PictureAnalysis::Error::CutOffLineError))
+            {
+                addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
+            }else if(stateFlag == static_cast<int>(PictureAnalysis::Error::ItemLineDetectError)){
+                addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
+            }
+            else if(stateFlag == 1)
+            {
+                addContent(row, 7, GlobalData::LoadLanguageInfo("K1689"));//"未完成检测");
+            }
+            else
+            {
+                if(strValue == "")
+                {
+                    addContent(row, 7, GlobalData::LoadLanguageInfo("K1683"), 4);//无阳性结果
+                }else
+                {
+                    addContent(row, 7, strValue, 0);
+                }
+            }
             if (lis_Status1 > 1)
             {
                 lis_Status = 3;
             }
-
             if (lis_Status == 1)
             {
                 addContent(row, 6, GlobalData::LoadLanguageInfo("K1682"));//"等待上传");
