@@ -154,10 +154,8 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
 			int tmp_item_number = item_number + 1;
 			strItemName = TestDataQuery.value("projectName").toString();
             strItemName = strItemName.replace("\n", "");
-			dRatioToCut = TestDataQuery.value("cutGrayValue").toDouble();
-			int error_code = TestDataQuery.value("error_code").toInt();
-			double tgv = TestDataQuery.value("testGrayValue").toDouble();
-			error_code = TestDataQuery.value("error_code").toInt();
+            dRatioToCut = TestDataQuery.value("cutGrayValue").toDouble();
+            double tgv = TestDataQuery.value("testGrayValue").toDouble();
             testResult = TestDataQuery.value("testResult").toString();
 			pkid= TestDataQuery.value("pkid").toString();
 			if (tgv > 255)
@@ -209,127 +207,23 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
                 strRel = testResult;
 			}
 
-			if (error_code == 10002)
-			{
-				if (strItemName == "FC" || strItemName == "Cut")
-				{
-					strRel = "\\";
-				}
-				else
-				{
-					strRel = "-";
-				}
-			}
-
-			if (error_code == 10003)
-			{
-				if (strItemName == "FC" || strItemName == "Cut")
-				{
-					strRel = "\\";
-				}
-				else
-				{
-					strRel = "o";
-				}
-			}
 			QTableWidgetItem *item_resut = new QTableWidgetItem(strRel);
             item_resut->setTextAlignment(Qt::AlignCenter);
 			tableWidget->setItem(item_number, 2, item_resut);
 
-			if (error_code >0 && error_code != 10002 )
-			{
-				if (error_code == 10003)
-				{
-                    QString gray_value_str = QString("%1").arg(testGrayValue.toDouble());
-					QTableWidgetItem *item = new QTableWidgetItem(gray_value_str);
-					tableWidget->setItem(item_number, 3, item);
-                    item->setTextAlignment(Qt::AlignCenter);
-                    tableWidget->item(item_number, 3)->setBackground(Qt::red);
-				}
-				else
-				{
-                    QString gray_value_str = QString("%1").arg(testGrayValue.toDouble());
-					QTableWidgetItem *item = new QTableWidgetItem(gray_value_str);
-                    item->setTextAlignment(Qt::AlignCenter);
-					tableWidget->setItem(item_number, 3, item);
-				}
-
-			}else
-			{
-                QString gray_value_str = QString("%1").arg(testGrayValue.toDouble());
-				QTableWidgetItem *item = new QTableWidgetItem(gray_value_str);
-				tableWidget->setItem(item_number, 3, item);
-                item->setTextAlignment(Qt::AlignCenter);
-                tableWidget->item(item_number, 3)->setBackground(Qt::red);
-			}
+            QString gray_value_str = QString("%1").arg(testGrayValue.toDouble());
+            QTableWidgetItem *item = new QTableWidgetItem(gray_value_str);
+            item->setTextAlignment(Qt::AlignCenter);
+            tableWidget->setItem(item_number, 3, item);
 
 			QTableWidgetItem *item4 = new QTableWidgetItem(i_text);
             item4->setTextAlignment(Qt::AlignCenter);
 			tableWidget->setItem(item_number, 4, item4);
 			QString error_code_str = "";
 
-			switch (error_code)
-			{
-			case 0:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K1703"));
-				break;
-			case 9990:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9990"));
-				break;
-			case 9991:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9991"));
-				break;
-			case 9992:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9992"));
-				break;
-			case 9993:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9993"));
-				break;
-			case 9994:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9994"));
-				break;
-			case 9995:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9995"));
-				break;
-			case 9996:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9996"));
-				break;
-			case 9997:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9997"));
-				break;
-			case 9998:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9998"));
-				break;
-			case 9999:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K9999"));
-				break;
-			case 10000:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K10000"));
-				break;
-			case 10001:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K10001"));
-				break;
-			case 10002:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K10002"));
-				break;
-			case 10003:
-                error_code_str = QString(GlobalData::LoadLanguageInfo("K10003"));
-				break;
-			default:
-				error_code_str = QString("");
-				break;
-			}
-
 			QTableWidgetItem *item5 = new QTableWidgetItem(error_code_str);
             item5->setTextAlignment(Qt::AlignCenter);
-			if (error_code == 10003 || error_code==9990)
-			{
-                item5->setForeground(QColor(246, 180, 4));
-			}
-			else
-			{
-                item5->setBackground(Qt::gray);
-			}
+            item5->setBackground(Qt::gray);
 			tableWidget->setItem(item_number, 5, item5);
 			item_number++;
 		}
