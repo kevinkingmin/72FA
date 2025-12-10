@@ -70,7 +70,7 @@
       <WarningLevel>Level3</WarningLevel>
     <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
-      <AdditionalDependencies>..\Lib\DAO.lib;..\Lib\Utilities.lib;..\lib\OpenCV\opencv_world340.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\Lib\DAO.lib;..\Lib\Utilities.lib;..\Lib\Model.lib;..\lib\OpenCV\opencv_world340.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -91,8 +91,10 @@
       <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;ANALYSIS_LIBRARY;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy "$(TargetPath)" ..\Bin</Command>
-      <Message>Copy Analysis.dll to ..\Bin</Message>
+      <Command>xcopy ".\src\*.h" ".\..\Include\Analysis\" /y &amp;
+if errorlevel 1 goto VCEnd
+copy "$(TargetPath)" ..\Bin</Command>
+      <Message>xcopy ".\src\*.h" ".\..\Include\Analysis\" /y &amp;Copy Analysis.dll to ..\Bin</Message>
     </PostBuildEvent>
   <QtMoc><CompilerFlavor>msvc</CompilerFlavor><Include>./moc/moc_predefs.h</Include><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><DynamicSource>output</DynamicSource><QtMocDir>moc</QtMocDir><QtMocFileName>moc_%(Filename).cpp</QtMocFileName></QtMoc></ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,7 +120,7 @@
       <WarningLevel>Level3</WarningLevel>
     <MultiProcessorCompilation>true</MultiProcessorCompilation></ClCompile>
     <Link>
-      <AdditionalDependencies>..\Lib\DAO.lib;..\Lib\Utilities.lib;..\lib\OpenCV\opencv_world340d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\Lib\DAO.lib;..\Lib\Utilities.lib;..\Lib\Model.lib;..\lib\OpenCV\opencv_world340d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -138,8 +140,10 @@
       <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;ANALYSIS_LIBRARY;QT_DEPRECATED_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <PostBuildEvent>
-      <Command>copy "$(TargetPath)" ..\Bin</Command>
-      <Message>Copy Analysis.dll to ..\Bin</Message>
+      <Command>xcopy ".\src\*.h" ".\..\Include\Analysis\" /y &amp;
+if errorlevel 1 goto VCEnd
+copy "$(TargetPath)" ..\Bin</Command>
+      <Message>xcopy ".\src\*.h" ".\..\Include\Analysis\" /y &amp;Copy Analysis.dll to ..\Bin</Message>
     </PostBuildEvent>
   <QtMoc><CompilerFlavor>msvc</CompilerFlavor><Include>./moc/moc_predefs.h</Include><ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription><DynamicSource>output</DynamicSource><QtMocDir>moc</QtMocDir><QtMocFileName>moc_%(Filename).cpp</QtMocFileName></QtMoc></ItemDefinitionGroup>
   <ItemGroup>

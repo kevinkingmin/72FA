@@ -197,7 +197,7 @@ MainWidget::MainWidget(QWidget *parent/*=0*/, int iFlage,QString userName)
     GlobalData::setTcpClient(m_tcpClient);
     // TODO::WangZ 暂时取消
 	// GlobalData::reconnect();
-    // m_sampleWidget->setTcpClient(m_tcpClient);
+     m_sampleWidget->setTcpClient(m_tcpClient);
     _mTestResultDataAll->setTcpClient(m_tcpClient);
     _ui->leftMenuWidget->setVisible(false);
     _ui->btnMonthMaintain->setVisible(false);
