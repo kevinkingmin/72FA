@@ -42,7 +42,7 @@ public:
         AboutUsWidgetsClass->resize(1548, 708);
         groupBox_2 = new QGroupBox(AboutUsWidgetsClass);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(580, 130, 861, 141));
+        groupBox_2->setGeometry(QRect(580, 20, 861, 141));
         label_2 = new QLabel(groupBox_2);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(20, 75, 831, 31));
@@ -55,7 +55,7 @@ public:
         label_3->setAlignment(Qt::AlignCenter);
         groupBox_3 = new QGroupBox(AboutUsWidgetsClass);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(580, 290, 861, 151));
+        groupBox_3->setGeometry(QRect(580, 180, 861, 151));
         label_5 = new QLabel(groupBox_3);
         label_5->setObjectName(QString::fromUtf8("label_5"));
         label_5->setGeometry(QRect(21, 80, 831, 21));
@@ -68,7 +68,7 @@ public:
         label_4->setGeometry(QRect(0, 50, 861, 16));
         groupBox_4 = new QGroupBox(AboutUsWidgetsClass);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
-        groupBox_4->setGeometry(QRect(580, 460, 861, 211));
+        groupBox_4->setGeometry(QRect(580, 350, 861, 211));
         label_7 = new QLabel(groupBox_4);
         label_7->setObjectName(QString::fromUtf8("label_7"));
         label_7->setGeometry(QRect(21, 90, 831, 21));

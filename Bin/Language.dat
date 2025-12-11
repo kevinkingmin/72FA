@@ -2,8 +2,8 @@
 KTitle|HumaBlot 72FA 全自动免疫印迹仪|HumaBlot 72FA
 K1001|欢迎登录|Welcome
 KCampany|北京胡曼智造科技有限责任公司|Beijing HumaDX Tech Co., Ltd.
-KVersion|版本：V1.0.0.7 alpha   @2024/5/7|Version: V1.0.0.7 alpha  @April 7, 2024
-K1249|软件完整版本：V1.0.0.7|Full software version: V1.0.0.7
+KVersion|版本：1.1.0.0   @2025/11/1|Version:1.1.0.0  @Nov 1, 2025
+K1249|软件完整版本：1.1.0.0|Full software version:1.1.0.0
 K1002|立刻登录|Sign in
 K1003|    退出|    Exit
 K1004|用户名|User name
@@ -252,7 +252,7 @@ K1244|下限值：|Lower limit:
 K1245|上限值：|Upper limit:
 K1246|发布版本|Released version
 K1247|完整版本|Full version
-K1248|软件发布版本：V1|Released software version: V1
+K1248|软件发布版本：1|Released software version: 1
 K1250|模块名称|Module name
 K1251|机器序号|Device No.
 K1252|操作内容|Operation contents
@@ -361,7 +361,7 @@ K1353|用户名已经存在|The user name has already existed
 K1354|不能删除admin!|No authority to delete admin!
 K1355|样本编号长度不能大于20!|The length of sample number cannot exceed 20!
 K1356|样本编号不能有中文符号!|Sample number cannot contain any Chinese symbol!
-K1357|病人名字长度不能大于20!|The length of patient name cannot exceed 20!
+K1357|病人名字长度不能大于100!|The length of patient name cannot exceed 100!
 K1358|年龄不能小于0!|Age cannot be less than 0!
 K1359|年龄不能大于150!|Age cannot be more than 150!
 K1360|批号长度不能大于15!|The length of lot number cannot exceed 15!

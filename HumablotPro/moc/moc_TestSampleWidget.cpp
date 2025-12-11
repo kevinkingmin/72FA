@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_TestSampleWidget_t {
-    QByteArrayData data[45];
-    char stringdata0[568];
+    QByteArrayData data[46];
+    char stringdata0[573];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -72,10 +72,11 @@ QT_MOC_LITERAL(37, 456, 4), // "slot"
 QT_MOC_LITERAL(38, 461, 4), // "step"
 QT_MOC_LITERAL(39, 466, 4), // "code"
 QT_MOC_LITERAL(40, 471, 4), // "time"
-QT_MOC_LITERAL(41, 476, 24), // "slotDetectionPauseResult"
-QT_MOC_LITERAL(42, 501, 27), // "slotDetectionContinueResult"
-QT_MOC_LITERAL(43, 529, 23), // "slotDetectionStopResult"
-QT_MOC_LITERAL(44, 553, 14) // "slotTestFinish"
+QT_MOC_LITERAL(41, 476, 4), // "hint"
+QT_MOC_LITERAL(42, 481, 24), // "slotDetectionPauseResult"
+QT_MOC_LITERAL(43, 506, 27), // "slotDetectionContinueResult"
+QT_MOC_LITERAL(44, 534, 23), // "slotDetectionStopResult"
+QT_MOC_LITERAL(45, 558, 14) // "slotTestFinish"
 
     },
     "TestSampleWidget\0preper_save\0\0"
@@ -91,7 +92,7 @@ QT_MOC_LITERAL(44, 553, 14) // "slotTestFinish"
     "stepId\0index\0isSucess\0stepName\0"
     "slotIsStepSuc\0ret\0slotDetectionStartResult\0"
     "MessageType\0sample\0slot\0step\0code\0"
-    "time\0slotDetectionPauseResult\0"
+    "time\0hint\0slotDetectionPauseResult\0"
     "slotDetectionContinueResult\0"
     "slotDetectionStopResult\0slotTestFinish"
 };
@@ -130,11 +131,11 @@ static const uint qt_meta_data_TestSampleWidget[] = {
       25,    1,  156,    2, 0x0a /* Public */,
       27,    4,  159,    2, 0x0a /* Public */,
       32,    1,  168,    2, 0x0a /* Public */,
-      34,    6,  171,    2, 0x0a /* Public */,
-      41,    1,  184,    2, 0x0a /* Public */,
-      42,    1,  187,    2, 0x0a /* Public */,
-      43,    1,  190,    2, 0x0a /* Public */,
-      44,    0,  193,    2, 0x0a /* Public */,
+      34,    7,  171,    2, 0x0a /* Public */,
+      42,    1,  186,    2, 0x0a /* Public */,
+      43,    1,  189,    2, 0x0a /* Public */,
+      44,    1,  192,    2, 0x0a /* Public */,
+      45,    0,  195,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -156,7 +157,7 @@ static const uint qt_meta_data_TestSampleWidget[] = {
     QMetaType::Void, QMetaType::Int,   26,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Bool, QMetaType::QString,   28,   29,   30,   31,
     QMetaType::Void, QMetaType::Int,   33,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   35,   36,   37,   38,   39,   40,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   35,   36,   37,   38,   39,   40,   41,
     QMetaType::Void, QMetaType::QString,   39,
     QMetaType::Void, QMetaType::QString,   39,
     QMetaType::Void, QMetaType::QString,   39,
@@ -188,7 +189,7 @@ void TestSampleWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 14: _t->slotAlarmInfo((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 15: _t->slotHandleStepDetail((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4]))); break;
         case 16: _t->slotIsStepSuc((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 17: _t->slotDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6]))); break;
+        case 17: _t->slotDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7]))); break;
         case 18: _t->slotDetectionPauseResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 19: _t->slotDetectionContinueResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 20: _t->slotDetectionStopResult((*reinterpret_cast< QString(*)>(_a[1]))); break;

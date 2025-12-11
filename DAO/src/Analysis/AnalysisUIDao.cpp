@@ -499,7 +499,7 @@ QString AnalysisUIDao::selectDataBaseVersion(bool *bResult)
     return strTargetValue;
 }
 
-QString AnalysisUIDao::createLISData(const QString &testId, const int companyId)
+QString AnalysisUIDao::createLISData(const QString &testId, const int companyId, bool removeSpace)
 {
     QString query_sql = QString("SELECT tsample.pkid,tsample.Id,tsample.testId,tsample.sampleNo,"
 		                         "tsample.samplePos,tsample.paperId,tsample.paperPos,tsample.barcode,"
@@ -524,18 +524,30 @@ QString AnalysisUIDao::createLISData(const QString &testId, const int companyId)
     int paperId(0);
     QString MSH = SelectTargetValueDes(&bResult, "9999");
     MSH=MSH.isEmpty()?"MSH |^ |||||":MSH;
+    if(removeSpace)
+        MSH.remove(' ');
     while (TestDataQuery.next())
     {
         QString id = TestDataQuery.value("sampleNo").toString();
+        QString seqNo = TestDataQuery.value("barcode").toString();
         if (iii_count == 0)
         {
-            send_sz += QString("%1"+MSH+" %2 || OUL ^ R22 |  | P | 2.5.1 ||| AL | AL || ASCII |||%3").arg(QChar(0x0B)).arg(id).arg(QChar(0x0D));
-            send_sz += QString("PID | %1 |||||| %1 | 0 ||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D));//"PID | " + List[0].SampleNo + " |||||| " + List[0].SampleNo + " | 0 |||||||||||||||||||||||" + getstringforbyte(0x0D);
-            send_sz += QString("OBR | 4 | %1  | 4 | E - LAB ^ ES - 480 | N | %1 | %1  ||||||||| ||||  |||||||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D));//"OBR | 4 | " + List[0].SampleNo + " | 4 | E - LAB ^ ES - 480 | N | " + List[0].SampleNo + " | " + List[0].SampleNo + " ||||||||| ||||  ||||||||||||||||||||||||||||" + getstringforbyte(0x0D);
+            if(removeSpace)
+            {
+                send_sz += QString("%1"+MSH+"%2||OUL^R22||P|2.5.1|||AL|AL||ASCII|||%3").arg(QChar(0x0B)).arg(id).arg(QChar(0x0D));
+                send_sz += QString("PID|%1|%3|||||%1|0|||||||||||||||||||||||%2").arg(id).arg(QChar(0x0D)).arg(seqNo);//"PID | " + List[0].SampleNo + " |||||| " + List[0].SampleNo + " | 0 |||||||||||||||||||||||" + getstringforbyte(0x0D);
+                send_sz += QString("OBR|4|%1|4|E - LAB ^ ES - 480|N|%1|%1|%3|||||||||||||||||||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D)).arg(testId);//"OBR | 4 | " + List[0].SampleNo + " | 4 | E - LAB ^ ES - 480 | N | " + List[0].SampleNo + " | " + List[0].SampleNo + " ||||||||| ||||  ||||||||||||||||||||||||||||" + getstringforbyte(0x0D);
+            }
+            else
+            {
+                send_sz += QString("%1"+MSH+" %2 || OUL ^ R22 |  | P | 2.5.1 ||| AL | AL || ASCII |||%3").arg(QChar(0x0B)).arg(id).arg(QChar(0x0D));
+                send_sz += QString("PID | %1 |%3||||| %1 | 0 ||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D)).arg(seqNo);//"PID | " + List[0].SampleNo + " |||||| " + List[0].SampleNo + " | 0 |||||||||||||||||||||||" + getstringforbyte(0x0D);
+                send_sz += QString("OBR | 4 | %1  | 4 | E - LAB ^ ES - 480 | N | %1 | %1  |%3|||||||| ||||  |||||||||||||||||||||||||||| %2").arg(id).arg(QChar(0x0D)).arg(testId);//"OBR | 4 | " + List[0].SampleNo + " | 4 | E - LAB ^ ES - 480 | N | " + List[0].SampleNo + " | " + List[0].SampleNo + " ||||||||| ||||  ||||||||||||||||||||||||||||" + getstringforbyte(0x0D);
+            }
         }
 		if (paperId != TestDataQuery.value("paperId").toInt())
 		{
-            paperId = TestDataQuery.value("paperId").toInt();
+			paperId = TestDataQuery.value("paperId").toInt();
 		}
         QString projectName = TestDataQuery.value("projectName").toString();
         QString cutGrayValue = convetItemCutValue(companyId, projectName,TestDataQuery.value("cutGrayValue").toDouble());
@@ -543,12 +555,18 @@ QString AnalysisUIDao::createLISData(const QString &testId, const int companyId)
         QString testTime = TestDataQuery.value("testTime").toString();
         QString testResult = TestDataQuery.value("testResult").toString();
         double testGrayValue = TestDataQuery.value("testGrayValue").toDouble();
-        send_sz += QString("OBX | |NM|%1||%2|F%3||%4 |%5||| F ||| BetchNo || Admin || HumaBlot 72FA  | %6").arg(testTime).arg(projectName).arg(testResult).arg(testGrayValue).arg(cutGrayValue).arg(QChar(0x0D)); //"OBX | " + "" + "|NM|" + s.TestTime + "||" + s.ProjectName + "|F" + s.TestResult + "||" + s.TestGrayValue + " |||| F ||| 批号 || Admin || HumaBlot 72FA  | " + "" + "" + getstringforbyte(0x0D);
+        if(removeSpace)
+            send_sz += QString("OBX||NM|%1||%2|F%3||%4|%5|||F|||BetchNo||Admin||HumaBlot 72FA|%6").arg(testTime).arg(projectName).arg(testResult).arg(testGrayValue).arg(cutGrayValue).arg(QChar(0x0D)); //"OBX|"+ ""+ "|NM|" + s.TestTime + "||" + s.ProjectName + "|F" + s.TestResult + "||" + s.TestGrayValue + " |||| F ||| 批号 || Admin || HumaBlot 72FA  | " + "" + "" + getstringforbyte(0x0D);
+        else
+           send_sz += QString("OBX | |NM|%1||%2|F%3||%4 |%5||| F ||| BetchNo || Admin || HumaBlot 72FA  | %6").arg(testTime).arg(projectName).arg(testResult).arg(testGrayValue).arg(cutGrayValue).arg(QChar(0x0D)); //"OBX | " + "" + "|NM|" + s.TestTime + "||" + s.ProjectName + "|F" + s.TestResult + "||" + s.TestGrayValue + " |||| F ||| 批号 || Admin || HumaBlot 72FA  | " + "" + "" + getstringforbyte(0x0D);
         iii_count++;
     }
-    query_sql = QString("update tsample_test set sendLisFlag=3 where Id = '%1' ").arg(testId);
-    SelectRecord(&bResult, query_sql);
-    if (send_sz.isEmpty() || !bResult)
+	if (!send_sz.isEmpty())
+	{
+		query_sql = QString("update tsample_test set sendLisFlag=3 where Id = '%1' ").arg(testId);
+		SelectRecord(&bResult, query_sql);
+	}
+    if (!bResult)
         return "";
     send_sz += QString("%1%2").arg(QChar(0x1C)).arg(QChar(0x0D));
     return send_sz;

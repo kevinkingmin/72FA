@@ -323,7 +323,7 @@ void SampleWidget::on_btnNext_clicked()
 			//m_preview_wash_flage = 0; 无延时充灌
 			m_testSampleWidget->m_preview_wash_flage = 0;
 		}
-
+		Instrument::instance()->needFillPumps(m_prepareReagent->m_preview_wash_map);
 		m_testSampleWidget->m_Enzyme_number = m_prepareReagent->m_Enzyme_number;
 		m_prepareReagent->m_Enzyme_number = 1;
     }

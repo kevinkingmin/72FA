@@ -1,4 +1,4 @@
-#include "..\include\precomp\precompile.h"
+ï»¿#include "..\include\precomp\precompile.h"
 #include "AboutUsWidgets.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
 #include "src/comm/GlobalData.h"
@@ -27,6 +27,7 @@ AboutUsWidgets::AboutUsWidgets(QWidget *parent)
 	sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1673");
 	ui.label_11->setText(sz1);
 	connect(_instrument, &Instrument::sglIsStepSuc, this, &AboutUsWidgets::slotIsStepSuc);
+    ui.groupBox_2->setVisible(false);
     //_instrument->inquireMachineNo();
     //_instrument->inquire_main_controller_version();
 }
@@ -43,7 +44,7 @@ void AboutUsWidgets::slotIsStepSuc(int ret)
 	{
         int hardware_version = 0;//= _instrument->get_maincontroller_hardware_version();
 		/**
-		 * @brief »ñÈ¡Ö÷¿Ø°åÈí¼þ¼þ°æ±¾ºÅ
+		 * @brief èŽ·å–ä¸»æŽ§æ¿è½¯ä»¶ä»¶ç‰ˆæœ¬å·
 		 */
         int software_version =0;// _instrument->get_maincontroller_software_version();
 		QString sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1670") + QString::number(hardware_version);

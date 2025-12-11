@@ -106,7 +106,7 @@ public:
 		QString SelectTargetValueDesByType(bool *bResult, QString condition, int type);
 		QVector<QString> SelectAllCreateDay(bool *bResult);
         QString selectDataBaseVersion(bool *bResult);
-        QString  createLISData(const QString &testId, const int companyId);
+        QString  createLISData(const QString &testId, const int companyId,bool removeSpace);
 		int getPaperItemCountBySampleId(const int pkid);
         QSqlRecord getSampleByPkid(const int pkid,bool &ret);
         bool updateTestResult(const QVector<QVector<QString>> &testResult);

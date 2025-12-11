@@ -48,7 +48,7 @@ PrepareReagentWidget::PrepareReagentWidget(QWidget *parent) :
     createPumpBtn();
 //    ui->pushButtonSmall->setVisible(false);
     ui->label_4->setVisible(false);
-    ui->btnDelay->hide();
+    //ui->btnDelay->hide();
     m_postion_map.clear();
     m_postion_map.insert(1, 0);
     m_postion_map.insert(2, 0);

@@ -6,13 +6,10 @@
 #include "../Include/Model/baseSet/SystemSetModel.h"
 #include <QMessageBox>
 #include "src/main/subDialog/MyMessageBox.h"
-
 #include "../../comm/GlobalData.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
 #include "../Include/DAO/baseSet/SystemSetDao.h"
 #include "../Include/DAO/baseSet/TestPaperDao.h"
-
-
 #include <QApplication>
 #include <QTableView>
 #include <QStandardItemModel>
@@ -74,8 +71,8 @@ AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 	articleNo.paperId = 6;
 	articleNo.id = 6;
 
-    sz = GlobalData::LoadLanguageInfo("K1054");
-	articleNo.field = sz;// tr("批号");
+    sz = GlobalData::LoadLanguageInfo("K1767");
+    articleNo.field = sz;// tr("序号");
 
 	_headVect.push_back(articleNo);
 
@@ -242,7 +239,7 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 		{
 		case 1:
 			sample_no = value.toString();
-			if (sample_no.length() > 20)
+            if (sample_no.length() > 20)
 			{
                 MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1355"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 				_vect[row].sampleNo = "";
@@ -272,7 +269,7 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 		}
         case 3:
 		{
-			if (value.toString().length() > 20)
+            if (value.toString().length() > 100)
 			{
                 MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1357"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 				_vect[row].patientName = "";

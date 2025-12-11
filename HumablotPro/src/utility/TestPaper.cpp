@@ -86,6 +86,7 @@ void TestPaper::initUI()
     ui->lblProcess->setText(GlobalData::LoadLanguageInfo("K1792"));
     ui->cmbProcess->setView(new QListView(this));
 
+    ui->txtArticleNo->setMaxLength(15);
     ui->lblPaperName->setText(GlobalData::LoadLanguageInfo("K1100"));
     ui->lblPaperLength->setText(GlobalData::LoadLanguageInfo("K1128"));
     ui->lblHeadLength->setText(GlobalData::LoadLanguageInfo("K1126"));
