@@ -177,8 +177,8 @@ public:
         verticalLayout->addLayout(gridLayout);
 
         tableWidget = new QTableWidget(TestResultDataAll);
-        if (tableWidget->columnCount() < 9)
-            tableWidget->setColumnCount(9);
+        if (tableWidget->columnCount() < 10)
+            tableWidget->setColumnCount(10);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
@@ -197,6 +197,8 @@ public:
         tableWidget->setHorizontalHeaderItem(7, __qtablewidgetitem7);
         QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(8, __qtablewidgetitem8);
+        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(9, __qtablewidgetitem9);
         tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
 
         verticalLayout->addWidget(tableWidget);
@@ -312,23 +314,25 @@ public:
         pushButtonPrintA->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));
         label->setText(QApplication::translate("TestResultDataAll", "\345\274\200\345\247\213\346\227\266\351\227\264\357\274\232", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("TestResultDataAll", "\346\230\257\345\220\246\351\200\211\344\270\255", nullptr));
+        ___qtablewidgetitem->setText(QApplication::translate("TestResultDataAll", "\351\200\211\346\213\251", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
         ___qtablewidgetitem1->setText(QApplication::translate("TestResultDataAll", "\346\265\213\350\257\225\347\274\226\345\217\267", nullptr));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
         ___qtablewidgetitem2->setText(QApplication::translate("TestResultDataAll", "\346\240\267\346\234\254\347\274\226\345\217\267", nullptr));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QApplication::translate("TestResultDataAll", "\346\243\200\346\265\213\347\261\273\345\236\213", nullptr));
+        ___qtablewidgetitem3->setText(QApplication::translate("TestResultDataAll", "\345\272\217\345\217\267", nullptr));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("TestResultDataAll", "\345\255\220\346\243\200\346\265\213", nullptr));
+        ___qtablewidgetitem4->setText(QApplication::translate("TestResultDataAll", "\346\243\200\346\265\213\347\261\273\345\236\213", nullptr));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QApplication::translate("TestResultDataAll", "\345\233\276\345\203\217", nullptr));
+        ___qtablewidgetitem5->setText(QApplication::translate("TestResultDataAll", "\345\255\220\346\243\200\346\265\213", nullptr));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QApplication::translate("TestResultDataAll", "LIS\347\212\266\346\200\201", nullptr));
+        ___qtablewidgetitem6->setText(QApplication::translate("TestResultDataAll", "\345\233\276\345\203\217", nullptr));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
-        ___qtablewidgetitem7->setText(QApplication::translate("TestResultDataAll", "\345\210\244\350\257\273\347\273\223\346\236\234", nullptr));
+        ___qtablewidgetitem7->setText(QApplication::translate("TestResultDataAll", "LIS\347\212\266\346\200\201", nullptr));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(8);
-        ___qtablewidgetitem8->setText(QApplication::translate("TestResultDataAll", "pkid", nullptr));
+        ___qtablewidgetitem8->setText(QApplication::translate("TestResultDataAll", "\345\210\244\350\257\273\347\273\223\346\236\234", nullptr));
+        QTableWidgetItem *___qtablewidgetitem9 = tableWidget->horizontalHeaderItem(9);
+        ___qtablewidgetitem9->setText(QApplication::translate("TestResultDataAll", "pkid", nullptr));
         labelCount->setText(QApplication::translate("TestResultDataAll", "\347\273\237\350\256\241\357\274\232", nullptr));
         btnSampleInfo->setText(QApplication::translate("TestResultDataAll", "\346\240\267\346\234\254\344\277\241\346\201\257", nullptr));
         btnSampleInfo->setProperty("btnStyle", QVariant(QApplication::translate("TestResultDataAll", "normalBtnpink", nullptr)));

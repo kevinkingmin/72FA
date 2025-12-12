@@ -452,6 +452,7 @@ void Instrument::needFillPumps(QMap<int, ushort> pumpMap)
     for(int i=0;i<16;i++){
         requestFrame[1007+i]=md5[i];
     }
+    dLog("prepare reagent");
     requestFrame[1023] = end;
     sendBySocket(requestFrame);
     return;

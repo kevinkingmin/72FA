@@ -223,7 +223,7 @@
       <widget class="QTableWidget" name="tableWidget">
        <column>
         <property name="text">
-         <string>是否选中</string>
+         <string>选择</string>
         </property>
        </column>
        <column>
@@ -234,6 +234,11 @@
        <column>
         <property name="text">
          <string>样本编号</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>序号</string>
         </property>
        </column>
        <column>

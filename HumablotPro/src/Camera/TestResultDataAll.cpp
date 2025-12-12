@@ -51,21 +51,23 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
 
     QStringList headerString;
     QString sz1 = GlobalData::LoadLanguageInfo("K1156");//是否选中
-    QString sz = GlobalData::LoadLanguageInfo("K1163");//是否选中
-    QString sz2 = GlobalData::LoadLanguageInfo("K1157");
-    QString sz3 = GlobalData::LoadLanguageInfo("K1158");
-    QString sz4 = GlobalData::LoadLanguageInfo("K1159");
-    QString sz5 = GlobalData::LoadLanguageInfo("K1160");
-    QString sz6 = GlobalData::LoadLanguageInfo("K1161");
-    QString sz7= GlobalData::LoadLanguageInfo("K1162");
+    QString sz2 = GlobalData::LoadLanguageInfo("K1163");
+    QString sz3 = GlobalData::LoadLanguageInfo("K1157");
+    QString sz4=GlobalData::LoadLanguageInfo("K1767");
+    QString sz5 = GlobalData::LoadLanguageInfo("K1158");
+    QString sz6 = GlobalData::LoadLanguageInfo("K1159");
+    QString sz7 = GlobalData::LoadLanguageInfo("K1160");
+    QString sz8 = GlobalData::LoadLanguageInfo("K1161");
+    QString sz9= GlobalData::LoadLanguageInfo("K1162");
 
-    headerString << sz1 << sz2 << sz << sz3 << sz4 << sz5 << sz6 << sz7;
+    headerString << sz1 << sz2 << sz3 <<sz4 << sz5 << sz6 << sz7 << sz8 << sz9;
     ui.tableWidget->setHorizontalHeaderLabels(headerString);
 
     //隔行变色
     ui.tableWidget->setAlternatingRowColors(true);
     //去掉网格线
-    ui.tableWidget->setShowGrid(false);
+    ui.tableWidget->setShowGrid(true);
+	ui.tableWidget->setColumnHidden(ui.tableWidget->columnCount()-1,true);
     //SET @auto_id = 0;
     //UPDATE tsample SET pkid = (@auto_id : = @auto_id + 1);
     //ALTER TABLE tsample AUTO_INCREMENT = 1;
@@ -1004,7 +1006,7 @@ void TestResultDataAll::drawTableC(QPainter *painter, int no)
     //QRectF r{ m_startx, m_top,228,87 };
     painter->drawImage(QRect(m_startx, m_top - 10, 110, 43), img);
     painter->setPen(QPen(Qt::black, 5, Qt::SolidLine));
-    QString prject_name = ui.tableWidget->item(0, 3)->text();
+    QString prject_name = ui.tableWidget->item(0, 4)->text();
     painter->drawText(QRect(m_startx + 10, m_top + 50, m_width1, m_titleHeight), Qt::AlignLeft, QString("%1").arg(prject_name));
     painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
     //painter->setFont(QFont("宋体", 20));
@@ -1061,7 +1063,7 @@ void TestResultDataAll::drawTableC(QPainter *painter, int no)
             test_Id = ui.tableWidget->item(i, 1)->text();
             result_data = dao->GetTestResultByTestId(test_Id);//ui.tableWidget->item(i, 7)->text();
             sample_id = ui.tableWidget->item(i, 2)->text();
-            project_name = ui.tableWidget->item(i, 3)->text();
+            project_name = ui.tableWidget->item(i, 4)->text();
             //m_PrintDataList.append(test_Id + "|" + result_data + "|" + project_name + "|" + sample_id);
             //pixBig.load(strPath + "\\" + QString::number(nSampleID) + +"_" + QString::number(nTestPaperID) + ".png");  //图片路径
             pixBig.load(strPath + "\\" + test_Id + ".png");  //图片路径
@@ -1252,7 +1254,7 @@ void TestResultDataAll::drawTable(QPainter *painter, int no, const int pagesize)
     QImage img(":/images/buttonIcon/printlogo1.png");
     painter->drawImage(QRect(m_startx, m_top-10, 110, 43), img);
     painter->setPen(QPen(Qt::black, 5, Qt::SolidLine));
-    QString prject_name = ui.tableWidget->item(printIndexs.first(), 3)->text();
+    QString prject_name = ui.tableWidget->item(printIndexs.first(), 4)->text();
     painter->drawText(QRect(m_startx+10, m_top+50, m_width1, m_titleHeight), Qt::AlignLeft, QString("%1").arg(prject_name));
     painter->setPen(QPen(Qt::black, 2, Qt::SolidLine));
     painter->drawText(QRect(m_startx, m_top, m_width1, m_titleHeight), Qt::AlignRight, QString("%1   \r\n  HumaBlot 72FA").arg(dateTime));
@@ -1308,7 +1310,7 @@ void TestResultDataAll::drawTable(QPainter *painter, int no, const int pagesize)
             auto dao = AnalysisUIDao::instance();
 			auto SampleTests = dao->SelectSamplesByTestId(test_Id);
             sample_id = ui.tableWidget->item(index, 2)->text();
-            project_name = ui.tableWidget->item(index, 3)->text();
+            project_name = ui.tableWidget->item(index, 4)->text();
             pixBig.load(strPath + "\\" + test_Id + ".png");  //图片路径
             x1 = m_startx;
             y1 = m_starty + m_titleHeight + m_rowHeight * rowNo;
@@ -1504,6 +1506,7 @@ void TestResultDataAll::SavePdfA()
     int iii = 0;
     auto pm = SystemSetBLL().getRowById(5);
     int companyId = pm.isNull() ? 1 : pm->getSaveSet();
+    int pkCol=ui.tableWidget->columnCount()-1;
     for (int i = 0; i < ui.tableWidget->rowCount(); i++)
     {
         bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
@@ -1511,8 +1514,8 @@ void TestResultDataAll::SavePdfA()
         {
             test_Id = ui.tableWidget->item(i, 1)->text();
             sample_id = ui.tableWidget->item(i, 2)->text();
-            project_name = ui.tableWidget->item(i, 3)->text();
-            pkid = ui.tableWidget->item(i, 8)->text().simplified().toInt();
+            project_name = ui.tableWidget->item(i, 4)->text();
+            pkid = ui.tableWidget->item(i, pkCol)->text().simplified().toInt();
             painter.setPen(Qt::black);
             bool bResult = true;
             auto dao = AnalysisUIDao::instance();
@@ -1574,7 +1577,7 @@ void TestResultDataAll::SavePdfB()
             test_Id = ui.tableWidget->item(i, 1)->text();
             result_data = dao->GetTestResultByTestId(test_Id);//ui.tableWidget->item(i, 7)->text();
             sample_id = ui.tableWidget->item(i, 2)->text();
-            project_name = ui.tableWidget->item(i, 3)->text();
+            project_name = ui.tableWidget->item(i, 4)->text();
             painter.setPen(Qt::black);
             bool bResult = true;
             auto dao = AnalysisUIDao::instance();
@@ -1645,15 +1648,15 @@ bool TestResultDataAll::getPrintIndexs(const bool isSamePaper)
     if (!isSamePaper)
         return true;
 
-    QString paperName{ ui.tableWidget->item(m_printIndexs.first(), 3)->text() };
-    int pkId{ ui.tableWidget->item(m_printIndexs.first(), 8)->text().toInt() };
+    QString paperName{ ui.tableWidget->item(m_printIndexs.first(), 4)->text() };
+    int pkId{ ui.tableWidget->item(m_printIndexs.first(), ui.tableWidget->columnCount()-1)->text().toInt() };
     m_itemCount = AnalysisUIDao::instance()->getPaperItemCountBySampleId(pkId);
     for (auto index : m_printIndexs)
     {
-        if (paperName != ui.tableWidget->item(index, 3)->text())
+        if (paperName != ui.tableWidget->item(index, 4)->text())
         {
             m_itemCount = 0;
-            QString str = QString("概述操作，只能选择一个项目,当前选择的项目有：%1,%2").arg(paperName).arg(ui.tableWidget->item(index, 3)->text());
+            QString str = QString("概述操作，只能选择一个项目,当前选择的项目有：%1,%2").arg(paperName).arg(ui.tableWidget->item(index, 4)->text());
             MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1271"), str, MyMessageBox::Ok, "OK", "");
             return false;
         }
@@ -1666,13 +1669,14 @@ QVector<QString> TestResultDataAll::getPDFTestIds(int & companyId)
 	m_all_page_number = 0;
     _pkidVect.clear();
     QVector<QString>outVect{};
+    int pkcol=ui.tableWidget->columnCount()-1;
 	for (int i = 0; i < ui.tableWidget->rowCount(); i++)
 	{
 		bool selectRow = ui.tableWidget->item(i, 0)->checkState();//isItemSelected(ui.tableWidget->item(i, 7));
 		if (selectRow)
 		{
 			m_all_page_number++;
-            _pkidVect.push_back(ui.tableWidget->item(i, 8)->text().toInt());
+            _pkidVect.push_back(ui.tableWidget->item(i, pkcol)->text().toInt());
             outVect.push_back(ui.tableWidget->item(i, 1)->text());
 		}
 	}
@@ -1693,6 +1697,7 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
     //printOnePageA(&painter, test_Id, result_data, sample_id, project_name);
     int iii = 0;
     auto pm = SystemSetBLL().getRowById(5);
+    int pkcol=ui.tableWidget->columnCount()-1;
     int companyId = pm.isNull() ? 1 : pm->getSaveSet();
     for (int i = 0; i < ui.tableWidget->rowCount(); i++)
     {
@@ -1702,8 +1707,8 @@ void TestResultDataAll::printDocumentA(QPrinter *printer)
             test_Id = ui.tableWidget->item(i, 1)->text() ;
             result_data = dao->GetTestResultByTestId(test_Id);//ui.tableWidget->item(i, 7)->text();
             sample_id = ui.tableWidget->item(i, 2)->text();
-            project_name = ui.tableWidget->item(i, 3)->text();
-            pkid= ui.tableWidget->item(i, 8)->text().simplified().toInt();
+            project_name = ui.tableWidget->item(i, 4)->text();
+            pkid= ui.tableWidget->item(i, pkcol)->text().simplified().toInt();
             painter.begin(printer);
             painter.setPen(Qt::black);
 
@@ -1801,11 +1806,7 @@ void TestResultDataAll::addContent(int row, int column, QString content, int nCo
     //黄色
     if (nColor == 4)
         item->setForeground(QBrush(QColor(246, 180, 4)));
-    ui.tableWidget->setItem(row, column, item);
-    if (column == 8)
-    {
-        ui.tableWidget->hideColumn(8);
-    }
+    ui.tableWidget->setItem(row, column, item);    
 }
 
 void TestResultDataAll::on_tableWidget_cellClicked(int row, int column)
@@ -2237,7 +2238,9 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
         return;
     }
     int test_count = 0;
+    int pkcol=ui.tableWidget->columnCount()-1;
     QString pkid = "";
+	ui.tableWidget->setColumnWidth(0, 66);
     while (SampleQuery.next())
     {
         ui.tableWidget->insertRow(row);
@@ -2258,14 +2261,15 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
         ui.tableWidget->setColumnWidth(2, 160);
         //样本编号
         addContent(row, 2, sampleNo);
-        addContent(row, 8, pkid);
+        addContent(row,3,SampleQuery.value("barcode").toString());
+        addContent(row, pkcol, pkid);
         //检测类型
         auto TestPaperQuery = dao->SelectTestPaper(pic_name, &bResult);
         if (bResult == false)
         {
-            addContent(row, 3, paper_name);
-            addContent(row, 5, GlobalData::LoadLanguageInfo("K1261"));//"异常");
-            addContent(row, 6, GlobalData::LoadLanguageInfo("K1686"));//"未知");
+            addContent(row, 4, paper_name);
+            addContent(row, 6, GlobalData::LoadLanguageInfo("K1261"));//"异常");
+            addContent(row, 7, GlobalData::LoadLanguageInfo("K1686"));//"未知");
         }
         else
         {
@@ -2275,9 +2279,9 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
                 strValue = TestPaperQuery.value("PaperName").toString();
             }
 
-            ui.tableWidget->setColumnWidth(3, 120);
-            addContent(row, 3, paper_name);
-            ui.tableWidget->setColumnHidden(4, true);
+            ui.tableWidget->setColumnWidth(4, 120);
+            addContent(row, 4, paper_name);
+            ui.tableWidget->setColumnHidden(5, true);
             //列表中显示图片
             QFont font("Microsoft YaHei", 7);
             QFontMetrics fm(font);
@@ -2291,8 +2295,8 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             label1->setScaledContents(true);//设置图片适应label
             label1->resize(600, 35);
             label1->setPixmap(pix);
-            ui.tableWidget->setColumnWidth(5, 600);
-            ui.tableWidget->setCellWidget(row, 5, label1);//显示label
+            ui.tableWidget->setColumnWidth(6, 600);
+            ui.tableWidget->setCellWidget(row, 6, label1);//显示label
             w1 = m_width / 10;
             h1 = m_height;
             QString strSampleID = sampleNo;
@@ -2329,25 +2333,25 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
 
             if (stateFlag == static_cast<int>(PictureAnalysis::Error::FuncLineError))
             {
-                addContent(row, 7, GlobalData::LoadLanguageInfo("K1687"),4);// "功能线异常，未识别膜条");
+                addContent(row, 8, GlobalData::LoadLanguageInfo("K1687"),4);// "功能线异常，未识别膜条");
             }else if(stateFlag==static_cast<int>(PictureAnalysis::Error::CutOffLineError))
             {
-                addContent(row, 7, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
+                addContent(row, 8, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
             }else if(stateFlag == static_cast<int>(PictureAnalysis::Error::ItemLineDetectError)){
-                addContent(row, 7, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
+                addContent(row, 8, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
             }
             else if(stateFlag == 1)
             {
-                addContent(row, 7, GlobalData::LoadLanguageInfo("K1689"));//"未完成检测");
+                addContent(row, 8, GlobalData::LoadLanguageInfo("K1689"));//"未完成检测");
             }
             else
             {
                 if(strValue == "")
                 {
-                    addContent(row, 7, GlobalData::LoadLanguageInfo("K1683"), 4);//无阳性结果
+                    addContent(row, 8, GlobalData::LoadLanguageInfo("K1683"), 4);//无阳性结果
                 }else
                 {
-                    addContent(row, 7, strValue, 0);
+                    addContent(row, 8, strValue, 0);
                 }
             }
             if (lis_Status1 > 1)
@@ -2356,20 +2360,20 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             }
             if (lis_Status == 1)
             {
-                addContent(row, 6, GlobalData::LoadLanguageInfo("K1682"));//"等待上传");
+                addContent(row, 7, GlobalData::LoadLanguageInfo("K1682"));//"等待上传");
             }
             else if (lis_Status == 2)
             {
-                addContent(row, 6, GlobalData::LoadLanguageInfo("K1684"));//"上传中");
+                addContent(row, 7, GlobalData::LoadLanguageInfo("K1684"));//"上传中");
             }
 
             else if (lis_Status == 3)
             {
-                addContent(row, 6, GlobalData::LoadLanguageInfo("K1685"));//"已完成");
+                addContent(row, 7, GlobalData::LoadLanguageInfo("K1685"));//"已完成");
             }
             else
             {
-                addContent(row, 6, GlobalData::LoadLanguageInfo("K1686"));//"未知");
+                addContent(row, 7, GlobalData::LoadLanguageInfo("K1686"));//"未知");
             }
             need_change_bg_color = false;
             need_change_bg_color_cut_fun = false;
