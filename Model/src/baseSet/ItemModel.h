@@ -10,6 +10,9 @@ public:
     static const int ITEM_TYPE_CUTOFF;
     static const int ITEM_TYPE_ITEM;
 
+    static const QString FC_NAME;
+    static const QString CUTOFF_NAME;
+
     ItemModel();
     int getID() const;
     void setID(const int &ID);
@@ -18,10 +21,9 @@ public:
     void setTestPaperID(int TestPaperID);
 
     QString getItemName() const;
-    void setItemName(const QString &itemName);
+    void setItemName(const int itemType, const QString &itemName);
 
     int getItemType() const;
-    void setItemType(int itemType);
 
     int getSegmentIndex() const;
     void setSegmentIndex(int segmentIndex);

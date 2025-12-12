@@ -202,10 +202,13 @@ TestResultDetailDialog::TestResultDetailDialog(QString testIda,QString sample_no
             item_dRatioToCut->setTextAlignment(Qt::AlignCenter);
 			tableWidget->setItem(item_number, 1, item_dRatioToCut);
 
-			if (strItemName != "FC" && strItemName != "Cut")
+            if (strItemName == "FC" || strItemName == "Cut")
 			{
+                strRel = "\\";
+            }else
+            {
                 strRel = testResult;
-			}
+            }
 
 			QTableWidgetItem *item_resut = new QTableWidgetItem(strRel);
             item_resut->setTextAlignment(Qt::AlignCenter);
@@ -393,32 +396,6 @@ void TestResultDetailDialog::paintRequestedHandler(QPrinter *printerPixmap)
 	pPdfPainter->setPen(QColor(0, 0, 0));
 	delete pPdfPainter;
 
-}
-
-QString TestResultDetailDialog::CaculateResultText(double dItemGrayRatio)
-{
-	QString resultText = "";
-	if (dItemGrayRatio <= 0.8)
-	{
-		resultText = "-";
-	}
-	if (dItemGrayRatio > 0.8 && dItemGrayRatio <= 1.2)
-	{
-		resultText = "O";
-	}
-	if (dItemGrayRatio > 1.2 && dItemGrayRatio <= 2.5)
-	{
-		resultText = "+";
-	}
-	if (dItemGrayRatio > 2.5 && dItemGrayRatio <= 4)
-	{
-		resultText = "++";
-	}
-	if (dItemGrayRatio > 4)
-	{
-		resultText = "+++";
-	}
-    return resultText;
 }
 
 void TestResultDetailDialog::OnClickModifyOneTestResult()

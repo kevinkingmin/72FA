@@ -22,7 +22,6 @@ class TestResultDetailDialog : public QDialog
 public:
     TestResultDetailDialog(QString, QString,QWidget *parent);
     ~TestResultDetailDialog();
-    QString CaculateResultText(double dItemGrayRatio);
 signals:
     void sglUpdateUI();
     //void UpdateTestResultTableSignal(QString testId);

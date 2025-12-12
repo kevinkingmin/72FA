@@ -202,10 +202,7 @@ bool PictureAnalysis::SaveTestData(TestPaperStrt& paper)
         TestPaperItemResult& result = paper.itemResultVect[i];
         QString paper_id = QString::number(paper.paperParam.getId());
         QString articleNo = paper.paperParam.getArticleNo();
-        QString strItemName;
-        if(item.getItemType() == 0) strItemName = "FC";
-        else if(item.getItemType() == 1) strItemName = "Cut";
-        else strItemName = item.getItemName();
+        QString strItemName = item.getItemName();
         QString strPosition = QString::number(result.lineCenter);
         if(result.grayValue < 0.01)
         {

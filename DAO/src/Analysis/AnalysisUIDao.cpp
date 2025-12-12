@@ -1102,14 +1102,7 @@ QSqlQuery AnalysisUIDao::SelectTestDataByTestId(QString testId,bool *bResult)
         return query;
     }
     QString strSql;
-    //strSql = "select * from tsample_test where  projectName<>'' and  Id='" + testId + "'";
     strSql = "select DISTINCT A.pkid, A.*, B.left_pix_position, B.right_pix_position, B.top, B.height from tsample_test A, tresult_left_right_pixp B where  A.projectName<>'' and  A.Id = '" + testId + "' and B.test_id = '" + testId + "' and A.projectName = B.projectName";
-    //strSql = "select * from tsample where ProjectName = '";
-    //strSql += strProjectName;
-    //strSql += "' and SampleID = ";
-    //strSql += strSampleID;
-    //strSql += " and TestPaper_ID = ";
-    //strSql += strTestPaper_ID;
     *bResult = query.exec(strSql);
     return query;
 }

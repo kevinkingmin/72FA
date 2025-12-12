@@ -5,6 +5,10 @@ const int ItemModel::ITEM_TYPE_FUNC = 0; // 功能线
 const int ItemModel::ITEM_TYPE_CUTOFF = 1; // cutoff线
 const int ItemModel::ITEM_TYPE_ITEM = 2; // 项目线
 
+
+const QString ItemModel::FC_NAME = "FC";
+const QString ItemModel::CUTOFF_NAME = "Cut";
+
 ItemModel::ItemModel():
     _ID(0)
     ,_TestPaperID(0)
@@ -43,22 +47,36 @@ void ItemModel::setTestPaperID(int TestPaperID)
 
 QString ItemModel::getItemName() const
 {
+    if(_itemType == ItemModel::ITEM_TYPE_FUNC)
+    {
+        return ItemModel::FC_NAME;
+    }else if(_itemType == ItemModel::ITEM_TYPE_CUTOFF)
+    {
+        return ItemModel::CUTOFF_NAME;
+    }
     return _itemName;
 }
 
-void ItemModel::setItemName(const QString &itemName)
+void ItemModel::setItemName(int itemType, const QString &itemName)
 {
-    _itemName = itemName;
+    if(itemType == ItemModel::ITEM_TYPE_FUNC)
+    {
+        _itemType = itemType;
+        _itemName = ItemModel::FC_NAME;
+    }else if(itemType == ItemModel::ITEM_TYPE_CUTOFF)
+    {
+        _itemType = itemType;
+        _itemName = ItemModel::CUTOFF_NAME;
+    }else
+    {
+        _itemName = itemName;
+        _itemType = ItemModel::ITEM_TYPE_ITEM;
+    }
 }
 
 int ItemModel::getItemType() const
 {
     return _itemType;
-}
-
-void ItemModel::setItemType(int itemType)
-{
-    _itemType = itemType;
 }
 
 int ItemModel::getSegmentIndex() const

@@ -28,8 +28,8 @@ QVector<ItemModel> ItemDao::selectItems(int paper_id)
         ItemModel tr;
 		tr.setID(query.value("ID").toInt());
 		tr.setTestPaperID(query.value("TestPaperID").toInt());
-        tr.setItemName(query.value("itemName").toString());
-        tr.setItemType(query.value("itemType").toInt());
+        int itemType = query.value("itemType").toInt();
+        tr.setItemName(itemType, query.value("itemName").toString());
         tr.setSegmentIndex(query.value("segmentIndex").toInt());
 		tr.setPositionNo(query.value("PositionNo").toInt());
         tr.setPosition(query.value("position").toDouble());

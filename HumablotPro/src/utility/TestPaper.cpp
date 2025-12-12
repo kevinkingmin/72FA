@@ -687,13 +687,12 @@ bool TestPaper::Save_TestPaper_Items()
                 qDebug()<<"item"<<sub.strItemName<<idx;
                 ItemModel item;
                 item.setSegmentIndex(it.value().blockData.serialNo);
-                item.setItemType(sub.itemType);
                 item.setIsNull(sub.ignore?1:0);
                 item.setCurveId(sub.curve);
                 item.setRulesId(sub.judgerule);
                 item.setPositionNo(idx++);
                 item.setPosition(0);
-                item.setItemName(sub.strItemName);
+                item.setItemName(sub.itemType, sub.strItemName);
                 item.setTestPaperID(_paperId.toInt());
                 if(!ItemDao::instance()->insert(item))
                 {
@@ -726,13 +725,12 @@ bool TestPaper::Save_TestPaper_Items()
         {
             ItemModel item;
             item.setIsNull(it.value().isNullArea?1:0);
-            item.setItemType(it.value().itemType);
             item.setCurveId(it.value().curve);
             item.setSegmentIndex(0);
             item.setRulesId(it.value().judgerule);
             item.setPositionNo(it.value().serialNo);
             item.setPosition(it.value().position);
-            item.setItemName(it.value().strItemName);
+            item.setItemName(it.value().itemType, it.value().strItemName);
             item.setTestPaperID(_paperId.toInt());
             if(!ItemDao::instance()->insert(item))
             {
