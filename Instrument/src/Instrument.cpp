@@ -423,7 +423,7 @@ void Instrument::needFillPumps(QMap<int, ushort> pumpMap)
     QJsonArray array;
     for(auto pumpNum:pumpMap.keys())
     {
-        array.append(pumpNum+1);
+        array.append(pumpNum);
     }
     jsonObject.insert("pumpNo",array);
     QJsonDocument doc(jsonObject);
