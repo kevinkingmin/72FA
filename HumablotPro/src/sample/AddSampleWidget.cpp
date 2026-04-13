@@ -327,7 +327,7 @@ void AddSampleWidget::initUI()
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(2, 100);
 
-    ui->tvSampleSet->setItemDelegateForColumn(2,new ComboxDelegate(this));
+    ui->tvSampleSet->setItemDelegateForColumn(3,new ComboxDelegate(this));
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Fixed);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(3, 80);
@@ -342,7 +342,7 @@ void AddSampleWidget::initUI()
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(4, 80);
 
-    ui->tvSampleSet->setItemDelegateForColumn(4, new ComboxDelegate(this));
+    ui->tvSampleSet->setItemDelegateForColumn(5, new ComboxDelegate(this));
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(5, 60);
@@ -369,14 +369,18 @@ void AddSampleWidget::initUI()
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Fixed);
+    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
+    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Fixed);
     //ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Stretch);
     ui->tvSampleSet->setColumnWidth(0, 70);
-    ui->tvSampleSet->setColumnWidth(1, 220);
-    ui->tvSampleSet->setColumnWidth(2, 180);
-    ui->tvSampleSet->setColumnWidth(4, 80);
+    ui->tvSampleSet->setColumnWidth(1, 190);
+    ui->tvSampleSet->setColumnWidth(2, 160);
+    ui->tvSampleSet->setColumnWidth(3, 160);
+    ui->tvSampleSet->setColumnWidth(4, 185);
     ui->tvSampleSet->setColumnWidth(5, 80);
+    ui->tvSampleSet->setColumnWidth(6, 80);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(40);
     //隔行变色
     ui->tvSampleSet->setAlternatingRowColors(true);

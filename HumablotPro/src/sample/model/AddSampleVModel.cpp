@@ -39,42 +39,40 @@ AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 	sampleNo.field = sz;//tr("样本编号");
 	_headVect.push_back(sampleNo);
 
+    HeadStrc articleNo;
+    articleNo.paperId = 2;
+    articleNo.id = 2;
+    sz = GlobalData::LoadLanguageInfo("K1054");
+    articleNo.field = sz;// tr("批号");
+    _headVect.push_back(articleNo);
+
 	HeadStrc cupType;
-	cupType.paperId = 2;
-	cupType.id = 2;
+    cupType.paperId = 3;
+    cupType.id = 3;
     sz = GlobalData::LoadLanguageInfo("K1050");
 	cupType.field = sz;//tr("试管型号");
 	_headVect.push_back(cupType);
 
 	HeadStrc patientName;
-	patientName.paperId = 3;
-	patientName.id = 3;
+    patientName.paperId = 4;
+    patientName.id = 4;
     sz = GlobalData::LoadLanguageInfo("K1051");
 	patientName.field = sz;//tr("病人姓名");
 	_headVect.push_back(patientName);
 
 	HeadStrc sexID;
-	sexID.paperId = 4;
-	sexID.id = 4;
+    sexID.paperId = 5;
+    sexID.id = 5;
     sz = GlobalData::LoadLanguageInfo("K1052");
 	sexID.field = sz;// tr("性别");
 	_headVect.push_back(sexID);
 
 	HeadStrc age;
-	age.paperId = 5;
-	age.id = 5;
+    age.paperId = 6;
+    age.id = 6;
     sz = GlobalData::LoadLanguageInfo("K1053");
 	age.field = sz;// tr("年龄");
 	_headVect.push_back(age);
-
-	HeadStrc articleNo;
-	articleNo.paperId = 6;
-	articleNo.id = 6;
-
-    sz = GlobalData::LoadLanguageInfo("K1767");
-    articleNo.field = sz;// tr("序号");
-
-	_headVect.push_back(articleNo);
 
 
     auto pm = SystemSetBLL().getRowById(6);
@@ -141,23 +139,17 @@ QVariant AddSampleVModel::data(const QModelIndex &index, int role) const
 
 	if (Qt::TextAlignmentRole == role)
 	{
-		//if (column > 2)
-		//return  QVariant(Qt::AlignHCenter | Qt::AlignBottom);
-		//return QVariant(Qt::AlignLeft | Qt::AlignVCenter);
 		return QVariant(Qt::AlignHCenter | Qt::AlignVCenter);
 	}
 	else if (Qt::TextColorRole == role)
 	{
-		//if (column > 2)
-		//	return QColor(0, 0, 255);
 	}
 	if (_vect.count() <= row)
 		return QVariant();
     auto m = _vect.at(row);
 
 	if (Qt::DisplayRole == role || Qt::EditRole == role)
-	{
-		//if (_vect.count() > row && column < _headVect.count() - 1)
+    {
 		if (_vect.count() > row && column < _headVect.count())
 		{
 			if (column == 0)
@@ -165,22 +157,15 @@ QVariant AddSampleVModel::data(const QModelIndex &index, int role) const
 			else if (column == 1)
                 return m.sampleNo;
 			else if (column == 2)
+                return m.articleNo;
+            else if (column == 3)
                 return m.cupTypeText;
-			else if (column == 3)
+            else if (column == 4)
 				return m.patientName;
-			else if (column == 4)
-			{
+            else if (column == 5)
 				return m.sexIDText;
-				// 获取本行性别数据
-				//int gender = m.sexID;
-				// 如果性别为 true，则返回字符串 "男"，否则返回 "女"
-				//return gender==1 ? tr("男") : tr("女");
-				//return m.sexID;
-			}
-			else if (column == 5)
+            else if (column == 6)
 				return m.age;
-			else if (column == 6)
-				return m.articleNo;
 			else if (column > _headVect.count() - m_paper_number-1)
 			{
 				auto map = m.paperCheckedCountMap;
@@ -225,8 +210,8 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 {
 	int row = index.row();
 	int column = index.column();
-	QString sample_no = "";
-	auto regExp = QRegExp("[a-zA-Z0-9]*");
+    QString sample_no = "";
+    auto regExp = QRegExp("[a-zA-Z0-9_-]*");
 
 	if (!index.isValid())
 	{
@@ -257,19 +242,29 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 				//_vect[row].sampleNo = value.toString();
 			}
 			break;
-		case 2:
+        case 2:
+        {
+            if (value.toString().length() > 15)
+            {
+                MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1360"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+                _vect[row].articleNo = "";
+            }
+            else
+            {
+                _vect[row].articleNo = value.toString();
+            }
+            break;
+        }
+        case 3:
 		{
 			auto arr = value.toString().split(',');
 			_vect[row].cupTypeText = arr[0];
 			_vect[row].cupType = arr[1].toInt();
-
-			//_vect[row].articleNo = "2ssddd";// value.toString();
-			//_vect[row].articleNo = arr[2];
 			break;
 		}
-        case 3:
+        case 4:
 		{
-            if (value.toString().length() > 100)
+            if (value.toString().length() > 20)
 			{
                 MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1357"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 				_vect[row].patientName = "";
@@ -281,14 +276,14 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 			break;
 		}
 
-		case 4:
+        case 5:
 		{
 			auto arr1 = value.toString().split(',');
 			_vect[row].sexIDText = arr1[0];
 			_vect[row].sexID = arr1[1].toInt();
 			break;
 		}
-		case 5:
+        case 6:
 			if (value.toInt() < 0)
 			{
                 MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1358"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
@@ -306,19 +301,6 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 			}
 
 			break;
-		case 6:
-			if (value.toString().length() > 15)
-			{
-                MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1360"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
-				_vect[row].articleNo = "";
-			}
-			else
-			{
-				_vect[row].articleNo = value.toString();
-			}
-
-			break;
-
 		default:
 			break;
 		}

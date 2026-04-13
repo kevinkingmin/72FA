@@ -53,7 +53,7 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
     QString sz1 = GlobalData::LoadLanguageInfo("K1156");//是否选中
     QString sz2 = GlobalData::LoadLanguageInfo("K1163");
     QString sz3 = GlobalData::LoadLanguageInfo("K1157");
-    QString sz4=GlobalData::LoadLanguageInfo("K1767");
+    QString sz4=GlobalData::LoadLanguageInfo("K1054");//序号
     QString sz5 = GlobalData::LoadLanguageInfo("K1158");
     QString sz6 = GlobalData::LoadLanguageInfo("K1159");
     QString sz7 = GlobalData::LoadLanguageInfo("K1160");
@@ -110,14 +110,7 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
     QDateTime dateTime = QDateTime::currentDateTime();
     QDateTime dateTime2 = dateTime.addSecs(3600 * 24);
     QDateTime dateTime3 = dateTime.addSecs(-3600 * 24*7);
-    //QStringList listT = dateTime2.toString("yyyy:MM:dd").split(':');
-    //ui.dateEdit_2->setTime(QTime(listT[0].toInt(), listT[1].toInt(), listT[2].toInt() + 1));
-    //ui.dateEdit_2->setMaximumDate(QDate::currentDate().addDays(365));  // +365天
-    //ui.dateEdit_2->setDisplayFormat("yyyy/MM/dd HH:mm:ss");  // 设置显示格式
-    //ui.dateEdit_2->setSelectedSection(QDateTimeEdit::DaySection);  // 设置所选部分
     ui.dateEdit_2->setDateTime(dateTime2);
-
-
     ui.dateEdit->setDateTime(dateTime3);
 
     m_startx = 20;

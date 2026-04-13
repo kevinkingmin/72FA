@@ -58,7 +58,7 @@ K1050|试管型号|Sample tube model
 K1051|病人姓名|Patient name
 K1052|性别|Gender
 K1053|年龄|Age
-K1054|批号|Batch No.
+K1054|序号|Serial Number
 K1055|      膜条起始位置设置|      Strip start position setting
 K1056|托盘位置|Tray position
 K1057|开始位置|Start position
@@ -725,6 +725,10 @@ K1757|请确认加样完成?|Please confirm that the sample addition is completed?
 K1758|关闭报警声|close alarm
 K1759|打印成功|Printing successful
 K1760|打印失败|Printing failed
+D0001|请盖上孵育盘盖子,仪器已暂停!|
+D0002|请取下孵育盘盖子,仪器已暂停!|
+D0003|请确认已放上盖子!!|
+D0004|请确认已取下盖子!!|
 K1761|关联厂家|MFG/MFR
 K1762|流程设置|Editing Process
 K1763|当前选择厂家|MFG/MFR
