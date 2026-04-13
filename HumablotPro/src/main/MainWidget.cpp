@@ -327,6 +327,12 @@ void MainWidget::killTimerLs(int timeId)
 // 在YourClass中创建一个槽函数来响应选项卡切换信号
 void MainWidget::onTabChanged(int index)
 {
+    QString tabName = _ui->tabWidget->tabText(index);
+    qDebug() << "已切换到标签页:" << index << tabName;
+    if(tabName == GlobalData::LoadLanguageInfo("K1020") && _systemSet != nullptr)
+    {
+        _systemSet->company_data_refalsh();
+    }
     // 在这里添加处理选项卡切换时的代码
     ChangWidgetsStartStatus();
 }
@@ -622,6 +628,7 @@ int MainWidget::checkWidgetIndex(MainWidget::MENUITEMID id)
 {
     _ui->stackedWidget->setCurrentIndex(STACK_PAGE_MENU);
     auto count=_ui->tabWidget->count();
+    qDebug()<<"checkWidgetIndex count"<<count;
     if(count==0)
         return -1;
     bool b=false;
@@ -798,6 +805,10 @@ void MainWidget::createEditMenu()
     m_pToolBar->addWidget(fileButton4);
 }
 
+/**
+ * @brief MainWidget::createApplicationMenu
+ * 主页中维护按钮, 下拉按钮
+ */
 void MainWidget::createApplicationMenu()
 {
     QMenu* menu = new QMenu(STR_MAINMENU_APPLICATION,this);
@@ -1315,6 +1326,10 @@ void MainWidget::slotSoftClose(bool isSuccess)
         qApp->quit();
 }
 
+/**
+ * @brief MainWidget::on_pBtnClose_clicked
+ * 主液面关闭软件的X按钮
+ */
 void MainWidget::on_pBtnClose_clicked()
 {
     QMessageBox messageBox;
@@ -1329,31 +1344,10 @@ void MainWidget::on_pBtnClose_clicked()
     messageBox.exec();
 
     if (messageBox.clickedButton() == yesButton) {
-        // 用户点击了 "Yes" 按钮
-        //qDebug() << "User clicked Yes";
-
-        //actionClick(MENU_ID_APPLICATION_PIPEWASHEMPTY, STR_MENU_PIPE_WASH_EMPTY, _PipeWashEmptyingWidgets);
         actionClick(MENU_ID_APPLICATION_PIPEWASHEMPTY, GlobalData::LoadLanguageInfo("K1332"), _PipeWashEmptyingWidgets);
     }
     else if (messageBox.clickedButton() == noButton) {
-        /*_instr->setBuzzleOnOff(0x00);
-                Sleep(150);
-                _instr->valveControl(1, 0x00);
-                Sleep(150);
-                _instr->valveControl(2, 0x00);
-                Sleep(150);
-                _instr->valveControl(3, 0x00);
-                Sleep(150);
-                _instr->valveControl(11, 0x00);
-                Sleep(150);
-                _instr->valveControl(12, 0x00);
-                Sleep(150);
-                _instr->valveControl(13, 0x00);
-                Sleep(150);
-                _instr->valveControl(14, 0x00);
-                Sleep(150);*/
         QVector<uchar> motorAddressVect;
-
         motorAddressVect.insert(0, 0x01);
         motorAddressVect.insert(1, 0x02);
         motorAddressVect.insert(2, 0x03);
@@ -1369,40 +1363,6 @@ void MainWidget::on_pBtnClose_clicked()
         motorAddressVect.insert(12, 0x0D);
         motorAddressVect.insert(13, 0x0E);
         motorAddressVect.insert(14, 0x0F);
-
-        /*_instr->motorStop(motorAddressVect);
-                Sleep(200);
-
-                _instr->lightControl(0x00, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x01, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x02, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x03, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x04, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x05, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x06, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x07, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x08, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x09, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x0A, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x0B, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x0C, 0x00);
-                Sleep(150);
-                //_instr->lightControl(0x13, 0x00);
-                //Sleep(150);
-                _instr->fanControl(0x00, 0x00);
-                Sleep(150);*/
         _instr->closeSocket();
         qApp->exit(0);
     }
@@ -1421,22 +1381,6 @@ void MainWidget::on_pBtnClose_clicked()
     else
     {
         Sleep(150);
-        /*_instr->setBuzzleOnOff(0x00);
-                Sleep(150);
-                _instr->valveControl(1, 0x00);
-                Sleep(150);
-                _instr->valveControl(2, 0x00);
-                Sleep(150);
-                _instr->valveControl(3, 0x00);
-                Sleep(150);
-                _instr->valveControl(11, 0x00);
-                Sleep(150);
-                _instr->valveControl(12, 0x00);
-                Sleep(150);
-                _instr->valveControl(13, 0x00);
-                Sleep(150);
-                _instr->valveControl(14, 0x00);*/
-        Sleep(150);
         QVector<uchar> motorAddressVect;
 
         motorAddressVect.insert(0, 0x01);
@@ -1454,38 +1398,6 @@ void MainWidget::on_pBtnClose_clicked()
         motorAddressVect.insert(12, 0x0D);
         motorAddressVect.insert(12, 0x0E);
         motorAddressVect.insert(12, 0x0F);
-        /*_instr->motorStop(motorAddressVect);
-                Sleep(200);
-
-                _instr->lightControl(0x00,0x00);
-                Sleep(150);
-                _instr->lightControl(0x01, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x02, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x03, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x04, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x05, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x06, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x07, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x08, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x09, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x0A, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x0B, 0x00);
-                Sleep(150);
-                _instr->lightControl(0x0C, 0x00);
-                Sleep(150);
-                _instr->fanControl(0x00, 0x00);
-                Sleep(150);*/
-        //_instr->controlHeat(22, false);
         qApp->quit();
     }
 }
@@ -1505,34 +1417,6 @@ void MainWidget::on_btnRunState_clicked()
 {
 
 }
-
-/*void MainWidget::on_btnInit_clicked()
-{
-    //Global::g_OpenCoverStatus = 2;
-    if (Global::g_OpenCoverStatus != 5)
-    {
-        //_instr->inquireSensorState();
-        mActiveQuery = 2;
-    }
-    //return;
-    auto m = _InstrumentState->getMachineState();
-    if(!m.canInit)
-    {
-        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1334"), MyMessageBox::Yes, GlobalData::LoadLanguageInfo("K1181"),"");
-        return;
-    }
-    auto ret= MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1335"), MyMessageBox::Yes | MyMessageBox::No, GlobalData::LoadLanguageInfo("K1181"), GlobalData::LoadLanguageInfo("K1134"));
-    if(ret != 0)
-        return;
-    //_instr->maintain(eStartUpCheck);
-    //清空内容清空内存
-    QVector<QString> pNullVector;  //局部变量
-    mCheckInfoVector.clear();
-    mCheckInfoVector.swap(pNullVector);
-
-    mOpenSoftwareInitFlage = 1;
-    autoSelfCheck();
-}*/
 
 void MainWidget::on_btnReturnMain_clicked()
 {
@@ -1662,19 +1546,16 @@ void MainWidget::removeSubTab(int index)
 
 void MainWidget::OnAction_SystemSet()
 {
-    //actionClick(MENU_ID_SYSTEMSET,STR_MENU_SYSTEMSET,new SystemSet(this));
     actionClick(MENU_ID_SYSTEMSET, GlobalData::LoadLanguageInfo("K1020"), _systemSet);
 }
 
 void MainWidget::OnAction_MagicManage()
 {
-    //actionClick(MENU_ID_MAGIC,STR_MENU_MAGIC,new TestPaperManage(this));
     actionClick(MENU_ID_MAGIC, GlobalData::LoadLanguageInfo("K1015"), new TestPaperManage(this));
 }
 
 void MainWidget::OnAction_ReagentManager()
 {
-    //actionClick(MENU_ID_REAGENT,STR_MENU_REAGENT,new ReagentManager(this));
     actionClick(MENU_ID_REAGENT, GlobalData::LoadLanguageInfo("K1016"), new ReagentManager(this));
 }
 

@@ -9,6 +9,7 @@ class SystemSet : public QWidget
 public:
 	SystemSet(QWidget *parent = Q_NULLPTR);
 	~SystemSet();
+    void company_data_refalsh();
 private:
 	Ui::SystemSet ui;
 signals:

@@ -384,6 +384,29 @@ void SystemSet::on_pushButton_Test_clicked()
 
 }
 
+
+void SystemSet::company_data_refalsh()
+{
+    auto dao = AnalysisUIDao::instance();
+    // 设置公司
+    CompanyDao* companyDao = CompanyDao::instance();
+    QVector<CompanyModel> companyModels = companyDao->getAllRows();
+    for (CompanyModel& model : companyModels)
+    {
+        QString itemName = model.getName();
+        ui.comboBox_CompanyList->addItem(itemName, QString::number(model.getId()));
+    }
+    bool bResult = false;
+    if (ui.comboBox_CompanyList->count() > 0)
+    {
+        //当前应用膜条公司名字
+        QString PaperInfo = dao->SelectPaperInfo(&bResult);
+        //选中单元格 第一行：
+        ui.comboBox_CompanyList->setCurrentText(PaperInfo);
+        onCompanyComboBoxChanged(PaperInfo);
+    }
+}
+
 void SystemSet::on_pushButtonPara_clicked()
 {
     emit sglProcessAction(ui.comboBox_CompanyList->currentText(),ui.comboBox_CompanyList->currentData().toString());

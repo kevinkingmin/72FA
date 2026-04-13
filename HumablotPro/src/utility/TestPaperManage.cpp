@@ -441,6 +441,8 @@ void TestPaperManage::on_Enable_Button_clicked()
 // 膜条参数导入
 void TestPaperManage::on_Inport_Button_clicked() 
 {
+
+    MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1263"), MyMessageBox::Ok, "OK", "");
 //	if (m_strCompany_ID.length() == 0)
 //    {
 //		MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1265"), MyMessageBox::Ok, "OK", "");
@@ -694,6 +696,7 @@ void TestPaperManage::on_Inport_Button_clicked()
 
 void TestPaperManage::on_Export_Button_clicked()
 {
+    MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1263"), MyMessageBox::Ok, "OK", "");
 //	if (m_strCompany_ID.length() == 0)
 //	{
 //		//QMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), "请先选择膜条厂家!", QMessageBox::Ok);
