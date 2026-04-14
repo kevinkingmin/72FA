@@ -725,6 +725,10 @@ K1757|请确认加样完成?|Please confirm that the sample addition is completed?
 K1758|关闭报警声|close alarm
 K1759|打印成功|Printing successful
 K1760|打印失败|Printing failed
+K1900|错误原因|Error cause
+K1901|其他原因|Other causes
+K1902|柱塞泵堵针|The pump is blocked
+K1903|液面探测失败|Liquid level detection failed
 D0001|请盖上孵育盘盖子,仪器已暂停!|
 D0002|请取下孵育盘盖子,仪器已暂停!|
 D0003|请确认已放上盖子!!|
@@ -959,8 +963,8 @@ L1072|电机以0速度转动失败！|Failed to rotate the motor at 0 speed!
 L1073|恢复电机维持电流失败|Failed to restore the motor holding current
 L1074|保持力矩、刹车释放、温控失败|Failed to hold torque, release brake and control temperature
 L1075|蠕动泵校准失败|Failed to calibrate peristaltic pump
-L1076|扫码成功|Code scanned successfully
-L1077|没有此指示灯地址|No address of this indicator
+L1076|柱塞泵检测失败|The pump detection failed
+L1077|柱塞泵堵针|The pump is blocked
 L1078|电机地址不对|Incorrect motor address
 L1079|阀地址不对|Incorrect valve address
 L1080|充灌类型错误|Incorrect filling type
