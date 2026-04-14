@@ -272,6 +272,7 @@ void Instrument::analysisFrame(){
         QString arrStr=GetLanguageClsBLL::getlangValue("K1756")+"!\n\n";
         QString samplDsc=GetLanguageClsBLL::getlangValue("K1382");
         QString posDsc=GetLanguageClsBLL::getlangValue("K1383");
+        QString errCause = GetLanguageClsBLL::getlangValue("K1761");
         for(auto it:arr)
         {
             auto obj=it.toObject();
@@ -279,9 +280,19 @@ void Instrument::analysisFrame(){
             s=(s.length()==2?s:"0"+s);
             QString p=obj.value("p").toString();
             p=(p.length()==2?p:"0"+p);
+            QString err = obj.value("e").toString();
+            QString errMsg = GetLanguageClsBLL::getlangValue("K1762"); // 其他原因
+            if(err == "1")
+            {
+                errMsg = GetLanguageClsBLL::getlangValue("K1763"); // 柱塞泵堵针
+            }else if(err == "2")
+            {
+                errMsg = GetLanguageClsBLL::getlangValue("K1764"); // 液面探测失败
+            }
 
             arrStr+=(samplDsc+s+"    ");
-            arrStr+=(posDsc+p+"\r\n");
+            arrStr+=(posDsc+p+"    ");
+            arrStr+=(errCause+":"+errMsg+"\r\n");
         }
         dLog("AddSampleFailed");
         emit sglAddSampleFailed(arrStr);
