@@ -29,17 +29,19 @@ public:
     QTableWidget *tableWidget_TestPaper;
     QWidget *layoutWidget;
     QGridLayout *gridLayout;
-    QSpacerItem *horizontalSpacer_2;
-    QPushButton *Add_Button;
-    QPushButton *Modify_Button;
-    QPushButton *Disable_Button;
-    QSpacerItem *horizontalSpacer;
-    QPushButton *Inport_Button;
-    QPushButton *Enable_Button;
-    QSpacerItem *horizontalSpacer_3;
     QSpacerItem *horizontalSpacer_6;
+    QPushButton *Add_Button;
+    QPushButton *Delete_Button;
+    QSpacerItem *horizontalSpacer_3;
     QPushButton *Export_Button;
     QSpacerItem *horizontalSpacer_7;
+    QPushButton *Modify_Button;
+    QPushButton *Disable_Button;
+    QPushButton *Inport_Button;
+    QSpacerItem *horizontalSpacer;
+    QSpacerItem *horizontalSpacer_2;
+    QPushButton *Enable_Button;
+    QSpacerItem *horizontalSpacer_8;
     QWidget *layoutWidget1;
     QGridLayout *gridLayout_2;
     QPushButton *Down_Sort_Button_3;
@@ -85,14 +87,32 @@ public:
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        horizontalSpacer_2 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        horizontalSpacer_6 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer_2, 0, 3, 1, 1);
+        gridLayout->addItem(horizontalSpacer_6, 0, 7, 1, 1);
 
         Add_Button = new QPushButton(layoutWidget);
         Add_Button->setObjectName(QString::fromUtf8("Add_Button"));
 
         gridLayout->addWidget(Add_Button, 0, 4, 1, 1);
+
+        Delete_Button = new QPushButton(layoutWidget);
+        Delete_Button->setObjectName(QString::fromUtf8("Delete_Button"));
+
+        gridLayout->addWidget(Delete_Button, 0, 13, 1, 1);
+
+        horizontalSpacer_3 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_3, 0, 5, 1, 1);
+
+        Export_Button = new QPushButton(layoutWidget);
+        Export_Button->setObjectName(QString::fromUtf8("Export_Button"));
+
+        gridLayout->addWidget(Export_Button, 0, 2, 1, 1);
+
+        horizontalSpacer_7 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_7, 0, 10, 1, 1);
 
         Modify_Button = new QPushButton(layoutWidget);
         Modify_Button->setObjectName(QString::fromUtf8("Modify_Button"));
@@ -104,36 +124,27 @@ public:
 
         gridLayout->addWidget(Disable_Button, 0, 8, 1, 1);
 
-        horizontalSpacer = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer, 0, 1, 1, 1);
-
         Inport_Button = new QPushButton(layoutWidget);
         Inport_Button->setObjectName(QString::fromUtf8("Inport_Button"));
 
         gridLayout->addWidget(Inport_Button, 0, 0, 1, 1);
 
+        horizontalSpacer = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer, 0, 1, 1, 1);
+
+        horizontalSpacer_2 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_2, 0, 3, 1, 1);
+
         Enable_Button = new QPushButton(layoutWidget);
         Enable_Button->setObjectName(QString::fromUtf8("Enable_Button"));
 
-        gridLayout->addWidget(Enable_Button, 0, 10, 1, 1);
+        gridLayout->addWidget(Enable_Button, 0, 11, 1, 1);
 
-        horizontalSpacer_3 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        horizontalSpacer_8 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer_3, 0, 5, 1, 1);
-
-        horizontalSpacer_6 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_6, 0, 7, 1, 1);
-
-        Export_Button = new QPushButton(layoutWidget);
-        Export_Button->setObjectName(QString::fromUtf8("Export_Button"));
-
-        gridLayout->addWidget(Export_Button, 0, 2, 1, 1);
-
-        horizontalSpacer_7 = new QSpacerItem(20, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer_7, 0, 9, 1, 1);
+        gridLayout->addItem(horizontalSpacer_8, 0, 12, 1, 1);
 
         layoutWidget1 = new QWidget(TestPaperManage);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
@@ -179,6 +190,10 @@ public:
         ___qtablewidgetitem5->setText(QApplication::translate("TestPaperManage", "\346\230\257\345\220\246\345\220\257\347\224\250", nullptr));
         Add_Button->setText(QApplication::translate("TestPaperManage", "\350\277\275\345\212\240", nullptr));
         Add_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
+        Delete_Button->setText(QApplication::translate("TestPaperManage", "\345\210\240\351\231\244", nullptr));
+        Delete_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
+        Export_Button->setText(QApplication::translate("TestPaperManage", "\345\257\274\345\207\272", nullptr));
+        Export_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
         Modify_Button->setText(QApplication::translate("TestPaperManage", "\344\277\256\346\224\271", nullptr));
         Modify_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
         Disable_Button->setText(QApplication::translate("TestPaperManage", "\344\270\215\345\220\257\347\224\250", nullptr));
@@ -187,8 +202,6 @@ public:
         Inport_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
         Enable_Button->setText(QApplication::translate("TestPaperManage", "\345\220\257\347\224\250", nullptr));
         Enable_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
-        Export_Button->setText(QApplication::translate("TestPaperManage", "\345\257\274\345\207\272", nullptr));
-        Export_Button->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnpink", nullptr)));
         Down_Sort_Button_3->setText(QString());
         Down_Sort_Button_3->setProperty("btnStyle", QVariant(QApplication::translate("TestPaperManage", "normalBtnxia", nullptr)));
         Up_Sort_Button_2->setText(QString());

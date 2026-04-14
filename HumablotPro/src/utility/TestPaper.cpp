@@ -79,6 +79,28 @@ void TestPaper::initUI()
     ui->txtAnalyzeWidth->setValidator(doublReg);
     ui->txtPixDistance->setValidator(doublReg);
 
+    // 将待验证的输入框缓存
+    m_requiredWidgets << ui-> lineEdit_TestPaparName // 膜条名称
+                      << ui->lineEdit_TestPaparLenght // 膜条总长度
+                      << ui->lineEdit_TestPaparHeight // 膜条总高度
+                      << ui->lineEdit_paper_head_length // 膜条头长度
+                      << ui->txtBackGround // 背景值
+                      << ui->lineEdit_Item_Number // 条带数量
+                      << ui->lineEdit_TestItem_Number // 指标数量
+                      << ui->txtThreshold // 二值化阈值
+                      << ui->txtColorValue // 颜色值
+                      << ui->txtPixDistance //像素距离比
+                      << ui->txtFunThreshold // 功能先阈值
+                      << ui->txtFunWidth // 功能线查找宽度
+                      << ui->txtCutOffThreshold // cutoff阈值
+                      << ui->txtCutOffValue // cutoff灰度值
+                      << ui->txtItemSearchWidth // 指标查找宽度
+                      << ui->txtItemLineWidth // 指标宽度
+                      << ui->txtAnalyzeHeight // 分析高度百分比
+                      << ui->txtAnalyzeWidth // 分析宽度百分比
+                      << ui->txtBlackSpotThreshold // 黑点检测阈值
+                      << ui->txtArticleNo; //货号
+
     ui->lblCompany->setText(GlobalData::LoadLanguageInfo("K1791"));
     ui->cmbCompany->setView(new QListView(this));
     ui->lblPaperType->setText(GlobalData::LoadLanguageInfo("K1554"));
@@ -520,23 +542,29 @@ void TestPaper::slotCreatDetailRows(const QString &data)
             ctl.itemNameEdit->setText(itemName);
 
             ctl.cmbItemType = new QComboBox(this);
+            ctl.cmbItemType->blockSignals(true); // 阻塞信号
             ctl.cmbItemType->setView(new QListView(ctl.cmbItemType));
             setComBoBoxData(ctl.cmbItemType, m_itemTypeCmbDatas);
             ctl.cmbItemType->setCurrentIndex(typeIndex);
+            ctl.cmbItemType->blockSignals(false); // 恢复信号
 
             ctl.checkBox = new QCheckBox(this);
             ctl.checkBox->setChecked(ignoreChecked);
 
             ctl.cmbRuleBox = new QComboBox(this);
+            ctl.cmbRuleBox->blockSignals(true); // 阻塞信号
             ctl.cmbRuleBox->setView(new QListView(ctl.cmbRuleBox));
             setComBoBoxData(ctl.cmbRuleBox, m_ruleCmbDatas);
             ctl.cmbRuleBox->setCurrentIndex(ruleIndex);
+            ctl.cmbRuleBox->blockSignals(false); // 恢复信号
             connect(ctl.cmbRuleBox,SIGNAL(currentIndexChanged(int)),this,SLOT(slotRightCmbRuleDataSet(int)),Qt::UniqueConnection);
 
             ctl.cmbCurveBox = new QComboBox(this);
+            ctl.cmbCurveBox->blockSignals(true); // 阻塞信号
             ctl.cmbCurveBox->setView(new QListView(ctl.cmbCurveBox));
             setComBoBoxData(ctl.cmbCurveBox, m_curveCmbDatas);
             ctl.cmbCurveBox->setCurrentIndex(curveIndex);
+            ctl.cmbCurveBox->blockSignals(false); // 恢复信号
             connect(ctl.cmbCurveBox,SIGNAL(currentIndexChanged(int)),this,SLOT(slotRightCurveDataSet(int)),Qt::UniqueConnection);
         }
     }
@@ -546,8 +574,36 @@ void TestPaper::slotCreatDetailRows(const QString &data)
 // 保存
 void TestPaper::on_pushButton_Save_clicked()
 {
-    if(Save_TestPaper_Parameters() == false) return;
-    if (Save_TestPaper_Items() == false) return;
+    int parsePaperState = Parse_TestPaper_Parameters();
+    if(parsePaperState == 1)
+    {
+        qDebug()<<"t1";
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
+        return;
+    }else if(parsePaperState == 2)
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1910"), MyMessageBox::Ok,"OK","");
+        return;
+    }
+    int parseItemState = Parse_TestPaper_Items();
+    if(parseItemState == 1)
+    {
+        qDebug()<<"t2";
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
+        return;
+    }else if(parseItemState == 2)
+    {
+        qDebug()<<"t3";
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1793"), MyMessageBox::Ok,"OK","");
+        return;
+    }
+    if(!(Save_TestPaper_Parameters() && Save_TestPaper_Items()))
+    {
+        qDebug()<<"t4";
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
+        return;
+    }
+    MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1378"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
 
     m_strMachineUID = Global::g_machine_no;
     bool bResult;
@@ -571,80 +627,86 @@ void TestPaper::on_pushButton_Save_clicked()
         this->close();
         return;
     }
-
-    // 或者   aApp->closeAllWindows(); TODO::
-//    Instrument::instance()->closeSocket();
-//    QString program = QCoreApplication::applicationFilePath();
-//    QStringList arguments = QCoreApplication::arguments();
-//    QProcess::startDetached(program, arguments);
-//    QCoreApplication::instance()->quit();
+    Instrument::instance()->closeSocket();
+    QString program = QCoreApplication::applicationFilePath();
+    QStringList arguments = QCoreApplication::arguments();
+    QProcess::startDetached(program, arguments);
+    QCoreApplication::instance()->quit();
 }
 
-//调用接口,保存膜条参数
-bool TestPaper::Save_TestPaper_Parameters()
+
+/**
+ * @brief TestPaper::解析界面参数
+ * @return true解析成功 false解析失败
+ */
+int TestPaper::Parse_TestPaper_Parameters()
 {
+    // 为所有必填控件添加实时验证
+    for (QLineEdit* w : m_requiredWidgets)
+    {
+        if(w->text().trimmed().isEmpty())
+        {
+            return 1;
+        }
+    }
+    int paperType = ui->cmbPaperType->currentData().toInt();
+    // 分段膜条多验证两个参数
+    if(paperType == TestPaperModel::PAPER_TYPE_SEGMENT)
+    {
+        if(ui->txtItemSpace->text().trimmed().isEmpty() || ui->txtItemWidth->text().trimmed().isEmpty())
+        {
+            return 1;
+        }
+    }
+    QString paperName = ui->lineEdit_TestPaparName->text().simplified(); //膜条名称
+    if(TestPaperDao::instance()->getModel(paperName, _testPaperModel))
+    {
+        return 2;
+    }
     _testPaperModel.setCompanyId(ui->cmbCompany->currentData().toInt());//厂家
     _testPaperModel.setPaperType(ui->cmbPaperType->currentData().toInt());//膜条类型
     _testPaperModel.setProcessId(ui->cmbProcess->currentData().toInt());//实验流程
     // 对于分段膜条是总项目段数, 对于连续模块是总条带数
     _testPaperModel.setTotalNumber(ui->lineEdit_Item_Number->text().simplified().toInt());
-    _testPaperModel.setPaperName(ui->lineEdit_TestPaparName->text().simplified());//膜条名称
+    _testPaperModel.setPaperName(paperName);//膜条名称
     _testPaperModel.setPaperLenght(ui->lineEdit_TestPaparLenght->text().simplified().toDouble());//膜条长度
     _testPaperModel.setPaperHeight(ui->lineEdit_TestPaparHeight->text().simplified().toDouble());//膜条高度
     _testPaperModel.setIgnoreHeadLenght(ui->lineEdit_paper_head_length->text().simplified().toDouble());//膜条头长度
-   _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
-   _testPaperModel.setFuncFindDir(ui->cmbFunLineFindDirection->currentData().toInt());//功能线查找方向
-   _testPaperModel.setFuncGrayThreshold(ui->txtFunThreshold->text().simplified().toDouble());//功能线阈值
-   _testPaperModel.setFuncFindWidth(ui->txtFunWidth->text().simplified().toDouble());//功能线查找宽度
-   _testPaperModel.setIsBlackPointDetect(ui->chkBlackSpot->isChecked());//是否开启黑点检测
-   _testPaperModel.setBlackPointDetectThreshold(ui->txtBlackSpotThreshold->text().simplified().toDouble());//黑点检测阙值
-   _testPaperModel.setCutOffThreshold(ui->txtCutOffThreshold->text().simplified().toDouble());//CutOff线阈值
-   _testPaperModel.setCutOffValue(ui->txtCutOffValue->text().simplified().toDouble());//CutOff灰度值;
-   _testPaperModel.setPaperShowAngle(ui->cmbPaperRotate->currentData().toInt());//膜条展示旋转
-   _testPaperModel.setPaperBinarizationThreshold(static_cast<int>(ui->txtThreshold->text().simplified().toDouble()));//二值化阈值
-   _testPaperModel.setPaperBackgroundValue(ui->txtBackGround->text().simplified().toDouble());//背景值
-   _testPaperModel.setItemFindWidth(ui->txtItemSearchWidth->text().simplified().toDouble());//指标查找宽度
-   _testPaperModel.setItemLineWidth(ui->txtItemLineWidth->text().simplified().toDouble());//指标线宽度
-   _testPaperModel.setAnalysisPercentOfHeight(ui->txtAnalyzeHeight->text().simplified().toInt());//分析高度区间比
-   _testPaperModel.setAnalysisPercentOfWidth(ui->txtAnalyzeWidth->text().simplified().toInt());//分析宽度区间比
-   _testPaperModel.setPaperMmToPixel(ui->txtPixDistance->text().simplified().toDouble());//像素距离百分比
-   _testPaperModel.setArticleNo(ui->txtArticleNo->text().simplified());//货号
-   _testPaperModel.setPaperColorOnUi(ui->txtColorValue->text().simplified());//颜色值:
+    _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
+    _testPaperModel.setFuncFindDir(ui->cmbFunLineFindDirection->currentData().toInt());//功能线查找方向
+    _testPaperModel.setFuncGrayThreshold(ui->txtFunThreshold->text().simplified().toDouble());//功能线阈值
+    _testPaperModel.setFuncFindWidth(ui->txtFunWidth->text().simplified().toDouble());//功能线查找宽度
+    _testPaperModel.setIsBlackPointDetect(ui->chkBlackSpot->isChecked());//是否开启黑点检测
+    _testPaperModel.setBlackPointDetectThreshold(ui->txtBlackSpotThreshold->text().simplified().toDouble());//黑点检测阙值
+    _testPaperModel.setCutOffThreshold(ui->txtCutOffThreshold->text().simplified().toDouble());//CutOff线阈值
+    _testPaperModel.setCutOffValue(ui->txtCutOffValue->text().simplified().toDouble());//CutOff灰度值;
+    _testPaperModel.setPaperShowAngle(ui->cmbPaperRotate->currentData().toInt());//膜条展示旋转
+    _testPaperModel.setPaperBinarizationThreshold(static_cast<int>(ui->txtThreshold->text().simplified().toDouble()));//二值化阈值
+    _testPaperModel.setPaperBackgroundValue(ui->txtBackGround->text().simplified().toDouble());//背景值
+    _testPaperModel.setItemFindWidth(ui->txtItemSearchWidth->text().simplified().toDouble());//指标查找宽度
+    _testPaperModel.setItemLineWidth(ui->txtItemLineWidth->text().simplified().toDouble());//指标线宽度
+    _testPaperModel.setAnalysisPercentOfHeight(ui->txtAnalyzeHeight->text().simplified().toInt());//分析高度区间比
+    _testPaperModel.setAnalysisPercentOfWidth(ui->txtAnalyzeWidth->text().simplified().toInt());//分析宽度区间比
+    _testPaperModel.setPaperMmToPixel(ui->txtPixDistance->text().simplified().toDouble());//像素距离百分比
+    _testPaperModel.setArticleNo(ui->txtArticleNo->text().simplified());//货号
+    _testPaperModel.setPaperColorOnUi(ui->txtColorValue->text().simplified());//颜色值:
 
-   int inputItemCnt =ui->lineEdit_TestItem_Number->text().simplified().toInt();
-   _testPaperModel.setTestItemNumber(inputItemCnt); // 设置测试项目数
-   if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
-   {
+    int inputItemCnt =ui->lineEdit_TestItem_Number->text().simplified().toInt();
+    _testPaperModel.setTestItemNumber(inputItemCnt); // 设置测试项目数
+    if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
+    {
        _testPaperModel.setTestBlockSpace(ui->txtItemSpace->text().simplified().toDouble());//项目块间距
        _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
-   }else
-   {
+    }else
+    {
        _testPaperModel.setTestBlockSpace(0);//项目块间距
        _testPaperModel.setTestBlockWidth(0);//项目块宽度
-   }
-    bool result = false;
-    if(m_bModify)
-    {
-        //调用接口,修改
-        result = TestPaperDao::instance()->update(_testPaperModel);
     }
-    else
-    {
-        //调用接口,新增
-        result = TestPaperDao::instance()->insert(_testPaperModel);
-        _paperId = QString::number(_testPaperModel.getId());
-    }
-    qDebug()<<"result"<<result;
-    if(!result)
-    {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1301"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
-        return false;
-    }
-    return true;
+    return 0;
 }
 
 //调用接口,保存膜条项目
-bool TestPaper::Save_TestPaper_Items()
+int TestPaper::Parse_TestPaper_Items()
 {
     int itemCnt = 0;
     qDebug()<<"ui->cmbPaperType->currentData().toInt()"<<ui->cmbPaperType->currentData().toInt();
@@ -662,20 +724,52 @@ bool TestPaper::Save_TestPaper_Items()
         qDebug()<<"itemCnt"<<itemCnt<<count;
         if(count != itemCnt)
         {
-            MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1793"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
-            return false;
+            return 2;
         }
-
         qDebug()<<"Save_TestPaper_Items"<<m_blockAndItemDataMap.count()<<count;
-//        if(m_blockAndItemDataMap.count()!=count)
-//        {
-//            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
-//            return false;
-//        }
+    }
+    else
+    {
+        getUIItemData();
+        for (auto it = m_itemDataMap.begin(); it != m_itemDataMap.end(); ++it)
+        {
+            if(it->itemType == 2) itemCnt++;
+        }
+        auto count=ui->lineEdit_TestItem_Number->text().simplified().toInt();
+        if(count!=itemCnt)
+        {
+            return 2;
+        }
+    }
+    return 0;
+}
+
+//调用接口,保存膜条参数
+bool TestPaper::Save_TestPaper_Parameters()
+{
+    bool result = false;
+    if(m_bModify)
+    {
+        //调用接口,修改
+        result = TestPaperDao::instance()->update(_testPaperModel);
+    }
+    else
+    {
+        //调用接口,新增
+        result = TestPaperDao::instance()->insert(_testPaperModel);
+        _paperId = QString::number(_testPaperModel.getId());
+    }
+    return result;
+}
+
+//调用接口,保存膜条项目
+bool TestPaper::Save_TestPaper_Items()
+{
+    if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
+    {
         // 先删除在插入
         if(!ItemDao::instance()->deleteItems(_paperId.toInt()))
         {
-            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1844"),GlobalData::LoadLanguageInfo("K1181"));
             return false;
         }
         // 更新数据库
@@ -696,7 +790,6 @@ bool TestPaper::Save_TestPaper_Items()
                 item.setTestPaperID(_paperId.toInt());
                 if(!ItemDao::instance()->insert(item))
                 {
-                    QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1844"),GlobalData::LoadLanguageInfo("K1181"));
                     return false;
                 }
             }
@@ -704,21 +797,8 @@ bool TestPaper::Save_TestPaper_Items()
     }
     else
     {
-        getUIItemData();
-        for (auto it = m_itemDataMap.begin(); it != m_itemDataMap.end(); ++it)
-        {
-            if(it->itemType == 2) itemCnt++;
-        }
-        auto count=ui->lineEdit_TestItem_Number->text().simplified().toInt();
-        if(count!=itemCnt)
-        {
-            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1793"),GlobalData::LoadLanguageInfo("K1181"));
-            return false;
-        }
-
         if(!ItemDao::instance()->deleteItems(_paperId.toInt()))
         {
-            QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1844"),GlobalData::LoadLanguageInfo("K1181"));
             return false;
         }
         for (auto it = m_itemDataMap.begin(); it != m_itemDataMap.end(); ++it)
@@ -734,12 +814,10 @@ bool TestPaper::Save_TestPaper_Items()
             item.setTestPaperID(_paperId.toInt());
             if(!ItemDao::instance()->insert(item))
             {
-                QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1844"),GlobalData::LoadLanguageInfo("K1181"));
                 return false;
             }
         }
     }
-    MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1378"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
     return true;
 }
 
@@ -887,32 +965,40 @@ void TestPaper::getAllItemControl()
 void TestPaper::getUIItemData()
 {
     m_itemDataMap.clear();
+    qDebug()<<"m_gridItemCtl.itemCtlMap"<<m_gridItemCtl.itemCtlMap.count();
 	int i = 1;
     for(auto it:m_gridItemCtl.itemCtlMap)
     {
-        if(!it.lineEdit_Name->isVisible())
-            return;
-
-        if(it.lineEdit_Name->text().simplified().isEmpty() && !it.checkBox->isChecked())
-            continue;
-
         TestPaper_Item itemData;
-		itemData.serialNo = it.label->text().simplified().toInt();
-        itemData.curve=it.cmbCurve->currentData().toInt();
-        itemData.itemType=it.combo_item_type->currentData().toInt();
-        itemData.position=it.lineEdit_Position->text().simplified().toDouble();
-		itemData.isNullArea = it.checkBox->isChecked();
-		itemData.judgerule = it.combo_box_rule->currentData().toInt();
-		itemData.strItemName = it.lineEdit_Name->text().simplified();
-        if(itemData.isNullArea)
+        itemData.serialNo = it.label->text().simplified().toInt();
+        itemData.isNullArea = it.checkBox->isChecked();
+        // 如果未选中空白
+        if(!it.checkBox->isChecked())
+        {
+            if(it.combo_item_type->currentIndex() < 0 ||
+                    it.combo_box_rule->currentIndex() < 0 ||
+                    it.cmbCurve->currentIndex() < 0 ||
+                    it.lineEdit_Name->text().simplified().isEmpty() ||
+                    it.lineEdit_Position->text().simplified().isEmpty())
+            {
+                break;
+            }
+            itemData.curve=it.cmbCurve->currentData().toInt();
+            itemData.itemType=it.combo_item_type->currentData().toInt();
+            itemData.position=it.lineEdit_Position->text().simplified().toDouble();
+            itemData.judgerule = it.combo_box_rule->currentData().toInt();
+            itemData.strItemName = it.lineEdit_Name->text().simplified();
+        }else
         {
             itemData.strItemName = "";
             itemData.position = 0;
         }
+
         qDebug()<<"getUIItemData"<<itemData.serialNo<<itemData.curve<<itemData.itemType<<itemData.position<<itemData.isNullArea<<itemData.judgerule<<itemData.strItemName;
         m_itemDataMap.insert(i,itemData);
 		i++;
     }
+    qDebug()<<"m_gridItemCtl.itemCtlMap"<<m_gridItemCtl.itemCtlMap.count();
 }
 
 void TestPaper::getUIBlockAndItemData()
@@ -921,9 +1007,7 @@ void TestPaper::getUIBlockAndItemData()
     auto &map=m_gridBlockCtl.blockCtlMap;
     for(auto &blockCtl:map)
     {
-        if(blockCtl.cmbItemCount->currentIndex()<0) continue;
-        qDebug()<<"cmbItemCount"<<blockCtl.cmbItemCount->currentIndex();
-        //if(blockCtl.cmbItemCount->currentText().toInt()<0) continue;
+        if(blockCtl.cmbItemCount->currentIndex()<0) break;
         BlockAndItemData blockItemData;
         BlockData bData;
         QVector<BlockItemData> bItemDatas{};
@@ -940,6 +1024,13 @@ void TestPaper::getUIBlockAndItemData()
         auto &vect=itemIt.value();
         for(auto &itemCtl:vect)
         {
+            if(itemCtl.cmbCurveBox->currentIndex() < 0 ||
+                    itemCtl.cmbItemType->currentIndex() < 0 ||
+                    itemCtl.cmbRuleBox->currentIndex() < 0 ||
+                    itemCtl.itemNameEdit->text().trimmed().isEmpty())
+            {
+                break;
+            }
             BlockItemData itemData;
             itemData.serialNo=itemCtl.serialNo;
             itemData.curve=itemCtl.cmbCurveBox->currentData().toInt();
@@ -990,12 +1081,14 @@ void TestPaper::initComboBox()
 
 void TestPaper::setComBoBoxData(QComboBox *cmb, const QVector<ComboxData> &datas)
 {
-    if(cmb==nullptr)
-        return;
-    cmb->clear();
-    cmb->addItem("","");
-    for(auto data:datas)
-        cmb->addItem(data.cmbText,data.cmbData);
+    if (!cmb) return;
+    cmb->blockSignals(true);      // 1. 阻塞信号，防止填充时触发业务槽函数
+    cmb->clear();                 // clear() 后 currentIndex() 自动变为 -1
+    for (const auto& data : datas) {
+        cmb->addItem(data.cmbText, data.cmbData);
+    }
+    cmb->blockSignals(false);     // 2. 恢复信号
+    cmb->setCurrentIndex(-1);     // 3. 强制回到“未选择”状态，与校验逻辑一致
 }
 
 void TestPaper::uiCtlSet(const int itemCount)

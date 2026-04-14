@@ -286,6 +286,8 @@ protected:
 //    void closeEvent(QCloseEvent *event) override;
 private:
     void initUI();
+    int Parse_TestPaper_Items();
+    int Parse_TestPaper_Parameters();
     bool Save_TestPaper_Items();
     bool Save_TestPaper_Parameters();
     void getAllItemControl();
@@ -324,4 +326,6 @@ private:
     QString                         m_Company_ID;
     TestPaperModel                  _testPaperModel;
     QVector<ItemModel>              _itemModelVect;
+    // 缓存需要的输入框
+    QList<QLineEdit*> m_requiredWidgets;
 };

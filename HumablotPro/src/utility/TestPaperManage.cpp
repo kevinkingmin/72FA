@@ -11,6 +11,8 @@
 #include "src/main/subDialog/MyMessageBox.h"
 #include "../comm/GlobalData.h"
 #include "../Include/DAO/baseSet/CompanyDao.h"
+#include "../Include/DAO/baseSet/ItemDao.h"
+#include "../Include/DAO/baseSet/TestPaperDao.h"
 
 TestPaperManage::TestPaperManage(QWidget *parent)
 	: QWidget(parent)
@@ -30,6 +32,7 @@ TestPaperManage::TestPaperManage(QWidget *parent)
     ui.Modify_Button->setText(GlobalData::LoadLanguageInfo("K1109")); //修改
     ui.Enable_Button->setText(GlobalData::LoadLanguageInfo("K1104")); // 启用
     ui.Disable_Button->setText(GlobalData::LoadLanguageInfo("K1105")); // 不启用
+    ui.Delete_Button->setText(GlobalData::LoadLanguageInfo("K1140")); // 删除
 	//ui.tableWidget_TestPaper->hideColumn(3);
 }
 
@@ -353,14 +356,20 @@ void TestPaperManage::on_Delete_Company_Button_clicked()
 	dao->SelectRecord(&bResult, sql1_log);
 	int nRes = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1274"), MyMessageBox::Yes| MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
 	if (nRes == MyMessageBox::Yes)
-	{
-		//删除公司
+    {
+        TestPaperDao* paperDao = TestPaperDao::instance();
+        ItemDao* itemDao = ItemDao::instance();
+        QVector<TestPaperModel> paperVec = paperDao->getCompanyPapers(m_strCompany_ID);
+        for(TestPaperModel& paper : paperVec)
+        {
+            paperDao->deleteById(paper.getId());
+            itemDao->deleteItems(paper.getId());
+        }
         CompanyDao* companyDao = CompanyDao::instance();
-        companyDao->deleteModel(m_strCompany_ID.toInt());
+        int companyId = m_strCompany_ID.toInt();
+        //删除公司
+        companyDao->deleteModel(companyId);
 		InitCompanyTableWidget();
-	}
-	else
-	{
 	}
 }
 
@@ -424,6 +433,23 @@ void TestPaperManage::enablePaper(bool enable)
     QString sql1_log = QString("insert into t_operate_log(model_name,machine_id,operate_content,user_name)values('%1','%2','%3','%4')").arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1664")).arg(m_strMachineUID).arg(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1140")).arg(GlobalData::getLoginName1());
     auto dao1 = AnalysisUIDao::instance();
     dao1->SelectRecord(&bResult, sql1_log);
+}
+
+// 膜条禁用
+void TestPaperManage::on_Delete_Button_clicked()
+{
+    auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1259"), GlobalData::LoadLanguageInfo("K1713"), MyMessageBox::Ok| MyMessageBox::No,tr("YES"), tr("NO"));
+    if (ret == MyMessageBox::No)
+    {
+        this->close();
+        return;
+    }
+    bool bResult;
+    // 删除膜条
+    bResult = TestPaperDao::instance()->deleteById(_selectPaperId.toInt());
+    // 删除对应项目
+    ItemDao::instance()->deleteItems(_selectPaperId.toInt());
+    on_tableWidget_Company_cellClicked();
 }
 
 // 膜条禁用

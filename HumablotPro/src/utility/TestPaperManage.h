@@ -31,6 +31,7 @@ private slots:
 	void on_Add_Button_clicked();
 	void on_Modify_Button_clicked();
     void on_Disable_Button_clicked();
+    void on_Delete_Button_clicked();
     void on_Enable_Button_clicked();
 	void on_Export_Button_clicked();
 	void on_Inport_Button_clicked();

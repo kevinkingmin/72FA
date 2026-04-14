@@ -37,6 +37,13 @@ public:
     QVector<TestPaperModel> getCompanyProcessEnablePapers(QString companyId, int processId);
     QVector<QString> getAllNames();
     bool getModel(const int paperId, TestPaperModel& out);
+    /**
+     * @brief 根据膜条名称查询膜条, 返回第一个结果
+     * @param paperName 膜条名称
+     * @param out 查询到的结果
+     * @return true查询到结果 false未查询到结果
+     */
+    bool getModel(const QString paperName, TestPaperModel& out);
     bool insert(TestPaperModel& model);
     bool update(TestPaperModel& model);
     bool enableAndUpdate(const int paperId, const bool enable);

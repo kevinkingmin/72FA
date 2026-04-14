@@ -86,8 +86,8 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="3">
-     <spacer name="horizontalSpacer_2">
+    <item row="0" column="7">
+     <spacer name="horizontalSpacer_6">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -112,56 +112,10 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="6">
-     <widget class="QPushButton" name="Modify_Button">
+    <item row="0" column="13">
+     <widget class="QPushButton" name="Delete_Button">
       <property name="text">
-       <string>修改</string>
-      </property>
-      <property name="btnStyle" stdset="0">
-       <string>normalBtnpink</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="8">
-     <widget class="QPushButton" name="Disable_Button">
-      <property name="text">
-       <string>不启用</string>
-      </property>
-      <property name="btnStyle" stdset="0">
-       <string>normalBtnpink</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="Inport_Button">
-      <property name="text">
-       <string>导入</string>
-      </property>
-      <property name="btnStyle" stdset="0">
-       <string>normalBtnpink</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="10">
-     <widget class="QPushButton" name="Enable_Button">
-      <property name="text">
-       <string>启用</string>
+       <string>删除</string>
       </property>
       <property name="btnStyle" stdset="0">
        <string>normalBtnpink</string>
@@ -170,22 +124,6 @@
     </item>
     <item row="0" column="5">
      <spacer name="horizontalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="7">
-     <spacer name="horizontalSpacer_6">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -210,8 +148,96 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="9">
+    <item row="0" column="10">
      <spacer name="horizontalSpacer_7">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="6">
+     <widget class="QPushButton" name="Modify_Button">
+      <property name="text">
+       <string>修改</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="8">
+     <widget class="QPushButton" name="Disable_Button">
+      <property name="text">
+       <string>不启用</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="Inport_Button">
+      <property name="text">
+       <string>导入</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="3">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="11">
+     <widget class="QPushButton" name="Enable_Button">
+      <property name="text">
+       <string>启用</string>
+      </property>
+      <property name="btnStyle" stdset="0">
+       <string>normalBtnpink</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="12">
+     <spacer name="horizontalSpacer_8">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>

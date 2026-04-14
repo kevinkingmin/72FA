@@ -96,16 +96,16 @@ K1088|提示信息|Prompt information
 K1089|提示描述信息|Prompt description information
 K1090|略去用盖子保护|Skip the protection with cover
 K1091|当前进度|Current progress
-K1092|步骤结束时间  |Step end time  
-K1093|暂停时间  |Time out  
-K1094|方案总共用时  |Total protocol time  
-K1095|预期完成时间  |Estimated completion time  
-K1096|显示  |Display  
-K1097|步骤  |Step  
-K1098|膜条厂家选择  |Select strip manufacturers  
-K1099|公司名称  |Company name  
-K1100|膜条名称|Strip name  
-K1101|货号|Item No. 
+K1092|步骤结束时间  |Step end time
+K1093|暂停时间  |Time out
+K1094|方案总共用时  |Total protocol time
+K1095|预期完成时间  |Estimated completion time
+K1096|显示  |Display
+K1097|步骤  |Step
+K1098|膜条厂家选择  |Select strip manufacturers
+K1099|公司名称  |Company name
+K1100|膜条名称|Strip name
+K1101|货号|Item No.
 K1102|排序|Ranking
 K1103|是否启用|Enable or not
 K1104|启用|Enable
@@ -169,8 +169,8 @@ K1161|LIS状态|LIS status
 K1162|判读结果|Judgment results
 K1163|样本编号|Sample No.
 K1164|统计|Statistics
-K1165|共 |Page 
-K1166|页,当前在第|of 
+K1165|共 |Page
+K1166|页,当前在第|of
 K1167|页|pages
 K1168|每页行数|Number of lines per page
 K1169|设定|Setting
@@ -386,11 +386,11 @@ K1378|保存成功|Saved successfully
 K1379|获取项目信息失败|Failed to acquire item information.
 K1380|无样本数据，请设置样本相关信息|No sample data, please set sample related information
 K1381|样本缺少膜条信息，是否继续？|The sample has no strip information, are you sure to continue?
-K1382|样本位置: |Sample location:  
-K1383|膜条位置: |Location No.:   
+K1382|样本位置: |Sample location:
+K1383|膜条位置: |Location No.:
 K1384|无测试膜条信息,请给样本选择相应的膜条|No test strip information, please select a corresponding strip for the sample
-K1385|当前测试数: |Current number of tests: 
-K1386|大于机器最大测试量: |Greater than the maximum test capacity of the device: 
+K1385|当前测试数: |Current number of tests:
+K1386|大于机器最大测试量: |Greater than the maximum test capacity of the device:
 K1387|当前查找不到膜条信息，请重启软件或联系售后|Currently cannot find strip information, please restart the software or contact our after-sales service staff!
 K1388|请确认是否误选膜条或样本编号未填写。|Please confirm whether you select the wrong strip or fail to fill in the sample number.
 K1389|膜条位置设置错误，请重试！！|Incorrect strip location setting, please try again!!
@@ -422,11 +422,11 @@ K1414|请选择要进行延时充灌的位置！|Please select the location for delayed fillin
 K1415|获取试剂失败|Failed to obtain reagent
 K1416|当前不足以支撑本次测试，某些试剂不能分配到对应泵！|Not enough to support this test, some reagents cannot be dispensed to the corresponding pump!
 K1417|给未设置试剂位的试剂设置位置失败|Fail to set a position for the reagent that has not been assigned a reagent position
-K1418|获取试剂失败:膜条: |Failed to obtain reagent: Strip: 
-K1419|未添加关联试剂信息，请到试剂管理窗口添加！！ |Associated reagent information is not added, please add in the reagent management window!! 
-K1420|不同试剂使用相同泵号不能同时检测，请到试剂管理重新设置试剂对应泵号！请返回重新编辑检验列表。 |The same pump number used for different reagents cannot be tested at the same time, please reset the pump number corresponding to reagents in the reagent management window! Please turn back and re-edit the test list. 
-K1421|不同试剂使用相同泵号不能同时检测，请到试剂管理重新设置试剂对应泵号！ |The same pump number used for different reagents cannot be tested at the same time, please reset the pump number corresponding to reagents in the reagent management window! 
-K1422|请选择要进行试剂准备的位置！ |Please select the location for reagent preparation! 
+K1418|获取试剂失败:膜条: |Failed to obtain reagent: Strip:
+K1419|未添加关联试剂信息，请到试剂管理窗口添加！！ |Associated reagent information is not added, please add in the reagent management window!!
+K1420|不同试剂使用相同泵号不能同时检测，请到试剂管理重新设置试剂对应泵号！请返回重新编辑检验列表。 |The same pump number used for different reagents cannot be tested at the same time, please reset the pump number corresponding to reagents in the reagent management window! Please turn back and re-edit the test list.
+K1421|不同试剂使用相同泵号不能同时检测，请到试剂管理重新设置试剂对应泵号！ |The same pump number used for different reagents cannot be tested at the same time, please reset the pump number corresponding to reagents in the reagent management window!
+K1422|请选择要进行试剂准备的位置！ |Please select the location for reagent preparation!
 K1423|是否要取消本次测试？|Do you want to cancel this test?
 K1424|检验完成！|Test completed!
 K1425|异常退出！|Abnormal exit!
@@ -501,7 +501,7 @@ K1542|删除试剂数据失败|Failed to delete reagent data
 K1543|检索样本管数据失败!|Failed to retrieve the sample tube data!
 K1544|请先选择样本管!|Please select a sample tube first!
 K1545|删除样本管数据失败|Failed to delete sample tube data
-K1546|导出试管文件成功！|Exported sample tube file successfully! 
+K1546|导出试管文件成功！|Exported sample tube file successfully!
 K1547|追加试管数据失败！|Failed to append sample tube data!
 K1548|更新试管数据失败|Failed to update sample tube data
 K1549|导入试管文件成功|Imported sample tube file successfully
@@ -776,7 +776,7 @@ K1795|单独设置|Individual setting
 K1796|统一设置|Unified setting
 K1797|指标数量|Number of parameters
 K1798|指标起始位置|Parameter start position
-K1799|指标间距|Parameter spacing
+K1799|指标线宽度|Parameter width
 K1800|CutOff灰度值|CutOff gray value
 K1801|请确定是否删除所选择的数据？删除后不可恢复！|Are you sure you want to delete the selected data? It cannot be recovered after deletion!
 K1802|膜条展示旋转|Strip display rotation
@@ -824,6 +824,7 @@ K1844|保存数据失败!|Failed to save data!
 K1845|所有样本加完执行针充盈|
 K1846|内针充盈:|
 K1847|外针充盈:|
+K1910|膜条名称不能重复!|Names must be unique!
 K2000|样本信息|Sample information
 K2001|打印报告标题|Report title
 K2002|拍照功能|Camera function
@@ -1092,7 +1093,7 @@ L1143|回流(抗体液)|Backflow (Secondary antibody)
 0x9064|蠕动泵校准时Z轴电机第二次运动至废液槽高度位置复位光耦有效|When peristaltic pump is calibrated, the Z-axis motor moves to the height position of waste liquid tank for the second time and the reset optical coupler is valid
 0x9065|蠕动泵校准时Z轴电机第三次运动至复位位置复位光耦无效|When peristaltic pump is calibrated, the Z-axis motor moves to the reset position for the third time and the reset optical coupler is invalid
 0x9066|蠕动泵校准时Y轴电机第二次运动至废液槽触发抽废液位置时编码器差值超48步以上|When peristaltic pump is calibrated and the Y-axis motor moves to the location of waste liquid tank and triggers the pumping of waste liquid for the second time, the encoder difference exceeds 48 steps
-0x9067|蠕动泵校准时Y轴电机第二次运动至废液槽触发抽废液位置补偿运动后编码器差值超48步以上|When peristaltic pump is calibrated, the encoder difference exceeds 48 steps after the Y-axis motor moves to the location of waste liquid tank and triggers the pumping of waste liquid for compensation 
+0x9067|蠕动泵校准时Y轴电机第二次运动至废液槽触发抽废液位置补偿运动后编码器差值超48步以上|When peristaltic pump is calibrated, the encoder difference exceeds 48 steps after the Y-axis motor moves to the location of waste liquid tank and triggers the pumping of waste liquid for compensation
 0x9068|蠕动泵校准时Y轴电机第二次运动至样本针清洗位置时编码器差值超48步以上|When peristaltic pump is calibrated and the Y-axis motor moves to the sampling needle cleaning position for the second time, the encoder difference exceeds 48 steps
 0x9069|蠕动泵校准时Y轴电机第二次运动至样本针清洗位置补偿运动后编码器差值超48步以上|When peristaltic pump is calibrated, the encoder difference exceeds 48 steps after the Y-axis motor moves to the sampling needle cleaning position for the second time for compensation
 0x9070|膜条拍照时Z轴电机运动至复位位置复位光耦无效|When the strip is photographed, the Z-axis motor moves to the reset position and the reset optical coupler is invalid

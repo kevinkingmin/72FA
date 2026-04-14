@@ -131,6 +131,21 @@ bool TestPaperDao::getModel(const int paperId, TestPaperModel& out)
     return true;
 }
 
+
+bool TestPaperDao::getModel(const QString paperName, TestPaperModel& out)
+{
+    QSqlQuery query;
+    if(DAO::createQuery(query)<0) return false;
+    query.prepare("SELECT * FROM t_testpaper WHERE PaperName = ?");
+    query.addBindValue(paperName);
+    if(!query.exec()) return false;
+    QVector<TestPaperModel> vect = getModelFormQuery(query);
+    if(vect.isEmpty()) return false;
+    out = std::move(vect.first());
+    return true;
+}
+
+
 bool TestPaperDao::insert(TestPaperModel& model)
 {
     QSqlQuery query;
