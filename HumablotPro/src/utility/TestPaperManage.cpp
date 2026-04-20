@@ -193,7 +193,7 @@ void TestPaperManage::on_tableWidget_Company_cellClicked()
 		/*设置让某个单元格或某行选中*/
 		//选中单元格 第一行：
 		ui.tableWidget_TestPaper->setCurrentCell(0, 0, QItemSelectionModel::Select);
-	}
+    }
 }
 void TestPaperManage::on_Up_Sort_Button_2_clicked()
 {
@@ -435,13 +435,17 @@ void TestPaperManage::enablePaper(bool enable)
     dao1->SelectRecord(&bResult, sql1_log);
 }
 
-// 膜条禁用
+// 膜条删除
 void TestPaperManage::on_Delete_Button_clicked()
 {
+    if (_selectPaperId.length() == 0)
+    {
+        QMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"),GlobalData::LoadLanguageInfo("K1407"),GlobalData::LoadLanguageInfo("K1181"));
+        return;
+    }
     auto ret = MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1259"), GlobalData::LoadLanguageInfo("K1713"), MyMessageBox::Ok| MyMessageBox::No,tr("YES"), tr("NO"));
     if (ret == MyMessageBox::No)
     {
-        this->close();
         return;
     }
     bool bResult;
@@ -449,6 +453,7 @@ void TestPaperManage::on_Delete_Button_clicked()
     bResult = TestPaperDao::instance()->deleteById(_selectPaperId.toInt());
     // 删除对应项目
     ItemDao::instance()->deleteItems(_selectPaperId.toInt());
+    _selectPaperId = "";
     on_tableWidget_Company_cellClicked();
 }
 

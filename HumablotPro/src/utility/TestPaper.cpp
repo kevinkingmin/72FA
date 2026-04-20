@@ -75,9 +75,21 @@ void TestPaper::initUI()
     ui->txtBackGround->setValidator(doublReg);
     ui->txtItemSearchWidth->setValidator(doublReg);
     ui->txtItemLineWidth->setValidator(doublReg);
-    ui->txtAnalyzeHeight->setValidator(doublReg);
-    ui->txtAnalyzeWidth->setValidator(doublReg);
     ui->txtPixDistance->setValidator(doublReg);
+
+    auto percentReg{new QRegExpValidator(QRegExp(R"(^(0|[1-9]\d?|100)?$)"), this)};
+    ui->txtAnalyzeHeight->setValidator(percentReg);
+    ui->txtAnalyzeWidth->setValidator(percentReg);
+    // 禁止手动输入, 只能选择
+    ui->txtColorValue->setReadOnly(true);
+
+    auto grayReg{new QRegExpValidator(QRegExp(R"(^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])?$)"), this)};
+    ui->txtBackGround->setValidator(grayReg); // 背景值
+    ui->txtThreshold->setValidator(grayReg); // 二值化阈值
+    ui->txtCutOffThreshold->setValidator(grayReg); // cutoff阈值
+    ui->txtCutOffValue->setValidator(grayReg); // cutoff灰度值
+    ui->txtBlackSpotThreshold->setValidator(grayReg); // 黑点检测阈值
+    ui->txtFunThreshold->setValidator(grayReg); // 功能先阈值
 
     // 将待验证的输入框缓存
     m_requiredWidgets << ui-> lineEdit_TestPaparName // 膜条名称
@@ -1172,7 +1184,8 @@ void TestPaper::slotCmbCompanyTextChanged(const QString &text)
     //text 为厂家名称，根据厂家名称获取实验流程接口
     QString currentData=ui->cmbCompany->currentData().toString();//厂家ID
     ProcessDao* dao = ProcessDao::instance();
-    QVector<ProcessModel> processVect = dao->getAllRows();
+    // 只选择与本厂家相关的膜条ID
+    QVector<ProcessModel> processVect = dao->getModels(ui->cmbCompany->currentData().toInt());
     QVector<ComboxData> boxDatas;
     //调用接口,实验流程
     for(ProcessModel &model : processVect)
