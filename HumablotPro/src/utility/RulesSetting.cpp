@@ -31,8 +31,8 @@ RulesSetting::RulesSetting(QWidget *parent)
     m_strMachineUID = "";
     //QRegExpValidator* validator = new QRegExpValidator(QRegExp("[-+]?[0-9]*\\.?[0-9]+"), ui.lineEditGrayValue);
     ui.label->setText(GlobalData::LoadLanguageInfo("K1022"));
-    ui.btnRule->setText(GlobalData::LoadLanguageInfo("K1133"));
-    ui.btnCurve->setText(GlobalData::LoadLanguageInfo("K1821"));
+    ui.btnRule->setText(GlobalData::LoadLanguageInfo("K1133")); // 判读规则
+    ui.btnCurve->setText(GlobalData::LoadLanguageInfo("K1821")); // 标准曲线
     ui.btnAddRule->setText(GlobalData::LoadLanguageInfo("K1820"));
     ui.btnDeleteRule->setText(GlobalData::LoadLanguageInfo("K1822"));
     ui.btnAddItem->setText(GlobalData::LoadLanguageInfo("K1819"));
@@ -55,6 +55,7 @@ void RulesSetting::tbRuleLoadData()
         int row = 0;
         for(JudgeRules& r : rules)
         {
+            // ui.tbRule左侧名称栏
             ui.tbRule->insertRow(row);
             addRuleContent(row, 0, r.getRuleName());
             addRuleContent(row, 1, QString::number(r.getpkid()));
@@ -80,16 +81,18 @@ void RulesSetting::tbRuleLoadData()
     }
 }
 
+/**
+ * @brief 加载右侧数据
+ * @param id
+ */
 void RulesSetting::tbRuleItemLoadData(const QString &id)
 {
     bool bResult = true;
-    qDebug()<<"tbRuleItemLoadData m_isRule"<<m_isRule;
-    if(m_isRule)//调用接口,规则数据(目前用的是老的接口)
+    if(m_isRule)
     {
         ui.tbRuleItem->setRowCount(0);
         JudgeDao* judgeDao = JudgeDao::instance();
         bResult = judgeDao->getModel(id.toInt(), _ruleModel);
-        qDebug()<<"tbRuleItemLoadData m_isRule"<<_ruleModel.parameterToStr();
         if (bResult == false)
         {
             MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1263"), MyMessageBox::Ok,"OK","");
@@ -166,27 +169,36 @@ void RulesSetting::createHeadBox()
         m_cmbBox = nullptr;
         m_lable = nullptr;
     }
-    m_layWidget=new QLabel;
+    m_layWidget=new QLabel(this);
     m_hLay=new QHBoxLayout(m_layWidget);
     m_cmbBox=new QComboBox(m_layWidget);
     m_cmbBox->setObjectName("titleCmb");
-    m_cmbBox->setView(new  QListView(this));
+    m_cmbBox->setView(new QListView(m_cmbBox));
     m_lable=new QLabel(m_layWidget);
     m_lable->setObjectName("titleLbl");
-    setStyleSheet("#titleCmb{background-color: white;} #titleLbl{color:white;}");
-    m_cmbBox->addItem(GlobalData::LoadLanguageInfo("K1816"),"1");
-    m_cmbBox->addItem(GlobalData::LoadLanguageInfo("K1817"),"2");
+    // 样式表建议提取到外部或只设置一次
+    m_layWidget->setStyleSheet("#titleCmb{background-color: white;} #titleLbl{color:white;}");
+
+    m_cmbBox->addItem(GlobalData::LoadLanguageInfo("K1816"),0);//线性拟合
+    m_cmbBox->addItem(GlobalData::LoadLanguageInfo("K1817"),1);//四参数拟合
     m_cmbBox->setCurrentText(GlobalData::LoadLanguageInfo("K1816"));
-    m_lable->setText(GlobalData::LoadLanguageInfo("K1818"));
+    m_lable->setText(GlobalData::LoadLanguageInfo("K1818")); // 拟合方式
+
     m_hLay->addItem(new QSpacerItem(20, 1, QSizePolicy::Expanding, QSizePolicy::Minimum));
     m_hLay->addWidget(m_lable);
     m_hLay->addWidget(m_cmbBox);
     m_hLay->addItem(new QSpacerItem(20, 1, QSizePolicy::Expanding, QSizePolicy::Minimum));
     m_layWidget->setLayout(m_hLay);
-    disconnect(m_cmbBox, SIGNAL(currentIndexChanged(int)), this, SLOT(slotFitCurveChanged(int)));
-    connect(m_cmbBox,SIGNAL(currentIndexChanged(int)),this,SLOT(slotFitCurveChanged(int)),Qt::UniqueConnection);
+    // 断开该信号的所有连接（谨慎使用！）
+    disconnect(m_cmbBox, QOverload<int>::of(&QComboBox::currentIndexChanged), nullptr, nullptr);
+    // 再连接新槽
+    connect(m_cmbBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &RulesSetting::slotFitCurveChanged);
 }
 
+/**
+ * @brief 左侧表格
+ */
 void RulesSetting::initTbRule()
 {
     QHeaderView* headerView = ui.tbRule->verticalHeader();
@@ -204,6 +216,9 @@ void RulesSetting::initTbRule()
     ui.tbRule->setShowGrid(true);
 }
 
+/**
+ * @brief 左侧表格选项
+ */
 void RulesSetting::initTbRuleItem()
 {
     ui.btnAddItem->setVisible(m_isRule);
@@ -217,6 +232,7 @@ void RulesSetting::initTbRuleItem()
     QStringList headerString;
     if(!m_isRule)
     {
+        // 标曲设置
         createHeadBox();
         auto head = new CustomHeaderView(1, Qt::Horizontal,this);
         head->setWidgetObject(m_layWidget);
@@ -226,9 +242,10 @@ void RulesSetting::initTbRuleItem()
     }
     else
     {
+        // 规则设置
         ui.tbRuleItem->setHorizontalHeader(new QHeaderView(Qt::Horizontal,this));
-        headerString << "NO"<<GlobalData::LoadLanguageInfo("K1187")
-                     << GlobalData::LoadLanguageInfo("K1215");
+        headerString << "NO"<<GlobalData::LoadLanguageInfo("K1187")//权限组名
+                     << GlobalData::LoadLanguageInfo("K1215"); //显示字符
         ui.tbRuleItem->setColumnWidth(1,225);
         ui.tbRuleItem->setColumnHidden(2,false);
     }
@@ -238,6 +255,10 @@ void RulesSetting::initTbRuleItem()
     ui.tbRuleItem->horizontalHeader()->setVisible(true);
 }
 
+/**
+ * @brief 加载UI
+ * @param isRule 是否是规则
+ */
 void RulesSetting::loadUIData(const bool isRule)
 {
     m_isRule=isRule;
@@ -303,44 +324,56 @@ void RulesSetting::getNumStr(QString &str)
     str=str.left(str.length()-i)+numStr;
 }
 
+/**
+ * @brief 更新标曲相关参数
+ */
 void RulesSetting::AddFitCurveItem()
 {
-    if(m_isRule || m_isCurveData)
-        return;
-    auto fitType=m_cmbBox->currentData().toInt();
-    int rowCount=2;
-    if(fitType==2) rowCount=4;
-    while (ui.tbRuleItem->rowCount()>rowCount)
+    if (m_isRule || m_isCurveData) return;
+    constexpr int LinearParams = 2;    // 线性拟合参数个数
+    constexpr int FourParams = 4;      // 四参数拟合参数个数
+    static const QStringList paramNames = {"a", "b", "c", "d"};  // 参数名表
+    int fitType = m_cmbBox ? m_cmbBox->currentData().toInt() : 1;
+    int targetRows = (fitType == 1) ? FourParams : LinearParams;
+    QVector<double> paramValues;
+    if(fitType == _curveModel.getCurveType())
     {
-        ui.tbRuleItem->removeRow(rowCount);
-    }
-    for(int i=ui.tbRuleItem->rowCount();i<rowCount;i++)
+        paramValues = _curveModel.getDataGroup();
+    }else
     {
-        ui.tbRuleItem->insertRow(i);
-        switch (i)
-        {
-        case 0:
-            addRuleItemContent(i,0,"a");
-            break;
-        case 1:
-            addRuleItemContent(i,0,"b");
-            break;
-        case 2:
-            addRuleItemContent(i,0,"c");
-            break;
-        case 3:
-            addRuleItemContent(i,0,"d");
-            break;
-        }
-        addRuleItemContent(i, 1, "0");
+        paramValues = {0, 0, 0, 0};
     }
+
+    auto *table = ui.tbRuleItem;
+    table->setUpdatesEnabled(false);  //  禁用更新，避免闪烁
+    table->setRowCount(targetRows);   // Qt 会自动添加/移除多余行
+    // 批量填充数据
+    for (int row = 0; row < targetRows; ++row) {
+        // 第一列：参数名 (a/b/c/d)
+        auto *nameItem = new QTableWidgetItem(paramNames.value(row, ""));
+        nameItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable);  // 只读
+        table->setItem(row, 0, nameItem);
+
+        // 第二列：默认值 "0"
+        QString value = paramValues.length() > row ? QString::number(paramValues[row]) : "0";
+        auto *valueItem = new QTableWidgetItem(value);
+        valueItem->setTextAlignment(Qt::AlignCenter);  // 居中对齐
+        table->setItem(row, 1, valueItem);
+    }
+    table->setUpdatesEnabled(true);
 }
 
+/**
+ * @brief 判读规则的按钮点击事件
+ */
 void RulesSetting::on_btnRule_clicked()
 {
     loadUIData(true);
 }
 
+/**
+ * @brief 标准曲线的按钮点击事件
+ */
 void RulesSetting::on_btnCurve_clicked()
 {
     loadUIData(false);
@@ -398,6 +431,10 @@ void RulesSetting::on_btnAddRule_clicked()
     ui.tbRule->selectRow(ui.tbRule->rowCount()-1);
 }
 
+/**
+ * @brief 左侧栏item的点击事件
+ * @param index 点击的序列
+ */
 void RulesSetting::on_tbRule_clicked(const QModelIndex &index)
 {
     if(!index.isValid())
@@ -547,34 +584,4 @@ void RulesSetting::on_btnDelete_clicked()
     if (ret != 0) return;
 	QString id = item->text();
 	ui.tbRuleItem->removeRow(row);
-}
-
-void RulesSetting::on_tbRuleItem_itemChanged(QTableWidgetItem *item)
-{
-    if(item == nullptr || item->column() != 1)
-        return;
-    bool b=true;
-    item->text().toDouble(&b);
-    if(b)
-        return;
-    item->setText("");
-}
-
-void RulesSetting::on_tbRule_itemChanged(QTableWidgetItem *item)
-{
-	if (item == nullptr || item->column() != 0)
-		return;
-	auto nItem = ui.tbRule->item(item->row(), 1);
-	if (nItem == nullptr)
-		return;
-    QString id= nItem->text();
-    QString strName=item->text();
-    if(m_isRule)//调用接口，保存修改的数据，规则
-    {
-
-    }
-    else//调用接口，保存修改的数据，曲线
-    {
-
-    }
 }

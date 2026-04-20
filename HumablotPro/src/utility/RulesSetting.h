@@ -39,8 +39,6 @@ private slots:
     void on_btnSaveItem_clicked();
     void on_btnDelete_clicked();
     void slotFitCurveChanged(int index);
-    void on_tbRuleItem_itemChanged(QTableWidgetItem *item);
-    void on_tbRule_itemChanged(QTableWidgetItem *item);
 
 private:
     Ui::RulesSetting   ui;
@@ -52,6 +50,8 @@ private:
     QLabel             *m_lable;
     bool               m_isRule;
     bool               m_isCurveData;
+    // 当前的曲线数据
     StandaryCurveModel _curveModel;
+    // 当前的规则数据
     JudgeRules _ruleModel;
 };
