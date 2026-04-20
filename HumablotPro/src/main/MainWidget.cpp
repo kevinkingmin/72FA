@@ -1544,18 +1544,39 @@ void MainWidget::removeSubTab(int index)
     emit sglReActiveMainWindow();
 }
 
+/**
+ * @brief 系统设置
+ */
 void MainWidget::OnAction_SystemSet()
 {
+    auto state = _InstrumentState->getMachineState();
+    if(state.state == _InstrumentState->enumRuning || state.state == _InstrumentState->enumPause)
+    {
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+        return;
+    }
     actionClick(MENU_ID_SYSTEMSET, GlobalData::LoadLanguageInfo("K1020"), _systemSet);
 }
 
 void MainWidget::OnAction_MagicManage()
 {
+    auto state = _InstrumentState->getMachineState();
+    if(state.state == _InstrumentState->enumRuning || state.state == _InstrumentState->enumPause)
+    {
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+        return;
+    }
     actionClick(MENU_ID_MAGIC, GlobalData::LoadLanguageInfo("K1015"), new TestPaperManage(this));
 }
 
 void MainWidget::OnAction_ReagentManager()
 {
+    auto state = _InstrumentState->getMachineState();
+    if(state.state == _InstrumentState->enumRuning || state.state == _InstrumentState->enumPause)
+    {
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+        return;
+    }
     actionClick(MENU_ID_REAGENT, GlobalData::LoadLanguageInfo("K1016"), new ReagentManager(this));
 }
 
@@ -1592,6 +1613,12 @@ void MainWidget::OnAction_Camera()
 void MainWidget::OnAction_RulesSetting()
 {
     //actionClick(MENU_ID_RULESETTING, STR_RULES_SETTING, new RulesSetting(this));
+    auto state = _InstrumentState->getMachineState();
+    if(state.state == _InstrumentState->enumRuning || state.state == _InstrumentState->enumPause)
+    {
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+        return;
+    }
     actionClick(MENU_ID_RULESETTING, GlobalData::LoadLanguageInfo("K1022"), new RulesSetting(this));
 }
 
@@ -1852,7 +1879,12 @@ void MainWidget::OnAction_editTupe()
 
 void MainWidget::OnAction_applicationLogin()
 {
-    //actionClick(MENU_ID_APPLICATION_LOGING,STR_MENU_APPLICATION_LOGIN,nullptr);
+    auto state = _InstrumentState->getMachineState();
+    if(state.state == _InstrumentState->enumRuning || state.state == _InstrumentState->enumPause)
+    {
+        MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1340"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
+        return;
+    }
     emit sglLogout();
 }
 

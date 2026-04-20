@@ -229,13 +229,6 @@ void PrepareReagentWidget::changeIcon(const QString &fileName, PumpPosState stat
             }
         }
     }
-    if (map.isEmpty())
-    {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"),
-                                  state ==PumpPosState::enumReady ? GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1412") : GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1414"),
-                                  MyMessageBox::Ok,GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-        return;
-    }
 
     int finish_count = 0;
     int key_value = 0;
