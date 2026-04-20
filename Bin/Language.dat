@@ -825,6 +825,10 @@ K1845|所有样本加完执行针充盈|
 K1846|内针充盈:|
 K1847|外针充盈:|
 K1910|膜条名称不能重复!|Names must be unique!
+K1911|选中项次参数不匹配!|Parameter mismatch for selected item
+K1912|试剂量最少为100微升!|Minimum reagent volume: 100 μL
+K1913|步骤所在组不可为空!|The group for this step cannot be empty!
+K1914|请选择试剂!|Please select a reagent.!
 K2000|样本信息|Sample information
 K2001|打印报告标题|Report title
 K2002|拍照功能|Camera function
@@ -849,8 +853,8 @@ K2020|诊    断|
 K2021|备    注|
 K2022|选择新增步骤:|
 K2023|步骤组:|
-K2024|新增流程|
-K2025|删除流程|
+K2024|新增流程|Add Process
+K2025|删除流程|Delete Process
 K2026|返回|
 K2027|Cutoff线位置|Cutoff Position
 K9990|检测到多个条带|Multiple strips detected

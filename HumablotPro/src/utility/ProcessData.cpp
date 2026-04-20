@@ -10,6 +10,7 @@
 #include "../Include/Model/reagent/ReagentModel.h"
 #include "../Include/Model/baseSet/ProcessModel.h"
 #include "../Include/Model/baseSet/ProcessParameterModel.h"
+#include "src/main/subDialog/MyMessageBox.h"
 
 ProcessData::ProcessData(QWidget *parent)
     : QDialog(parent)
@@ -38,8 +39,8 @@ ProcessData::ProcessData(QWidget *parent)
     }
     ui.cmbStepType->setView(new QListView(this));
     ui.cmbStepGroup->setEditable(true);
-    ui.lblStepType->setText(GlobalData::LoadLanguageInfo("K2022"));
-    ui.lblStepGroup->setText(GlobalData::LoadLanguageInfo("K2023"));
+    ui.lblStepType->setText(GlobalData::LoadLanguageInfo("K2022")); // 新增步骤
+    ui.lblStepGroup->setText(GlobalData::LoadLanguageInfo("K2023")); // 步骤组
 }
 
 ProcessData::~ProcessData()
@@ -165,6 +166,7 @@ void ProcessData::SetUI(bool modify)
         }
     } else
     {
+        ui.cmbStepType->setCurrentIndex(0);
         on_cmbStepType_currentIndexChanged(0);
     }
 }
@@ -204,20 +206,42 @@ void ProcessData::on_pushButton_Save_clicked()
         }
     }
 
-    qDebug()<<"on_pushButton_Save_clicked"<<_currentSelectStep;
+    if(ui.cmbStepGroup->currentText().isEmpty())
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1913"), MyMessageBox::Ok,"OK","");
+        return;
+    }
+
     ProcessParameterModel model;
     model.setActType(ui.cmbStepType->currentText());
     if(_currentSelectStep==0)
     {
         QString reagentName = boxVect[0];
-        bool isDrainWaster = boxVect[1] == GlobalData::LoadLanguageInfo("K1700");
-        bool isBackFlow = boxVect[2] == GlobalData::LoadLanguageInfo("K1700");
+        if(reagentName.isEmpty())
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1914"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+
         double reagentMl =  txtVect[0].toDouble();
         reagentMl = reagentMl < 0.001 ? 0 : reagentMl;
+        if(reagentMl < 0.1)
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1912"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+
+        bool isDrainWaster = boxVect[1] == GlobalData::LoadLanguageInfo("K1700");
+        bool isBackFlow = boxVect[2] == GlobalData::LoadLanguageInfo("K1700");
         double drainTime = txtVect[1].toDouble();
         drainTime = drainTime < 0.01 ? 0 : drainTime;
         double backFlowMl = txtVect[2].toDouble();
         backFlowMl = backFlowMl < 0.001 ? 0 : backFlowMl;
+        if((isDrainWaster && drainTime < 0.01) || (isBackFlow && backFlowMl < 0.001))
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1911"), MyMessageBox::Ok,"OK","");
+            return;
+        }
         ProcessParameterModel::AddReagentStrt strt(isDrainWaster, drainTime, reagentName, reagentMl, isBackFlow, backFlowMl);
         model.setActCode(ProcessParameterModel::ADD_REAGENT_CODE);
         model.setActName(ui.cmbStepGroup->currentText());

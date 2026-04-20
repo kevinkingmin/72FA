@@ -589,7 +589,6 @@ void TestPaper::on_pushButton_Save_clicked()
     int parsePaperState = Parse_TestPaper_Parameters();
     if(parsePaperState == 1)
     {
-        qDebug()<<"t1";
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }else if(parsePaperState == 2)
@@ -600,18 +599,15 @@ void TestPaper::on_pushButton_Save_clicked()
     int parseItemState = Parse_TestPaper_Items();
     if(parseItemState == 1)
     {
-        qDebug()<<"t2";
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }else if(parseItemState == 2)
     {
-        qDebug()<<"t3";
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1793"), MyMessageBox::Ok,"OK","");
         return;
     }
     if(!(Save_TestPaper_Parameters() && Save_TestPaper_Items()))
     {
-        qDebug()<<"t4";
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
         return;
     }

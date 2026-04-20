@@ -35,7 +35,12 @@ void AddProcess::setStrCompany_ID(const QString &strCompany_ID)
 //调用接口,保存流程名称
 void AddProcess::on_pushButton_Save_clicked()
 {
-    QString processName = ui.lineEdit_Name->text();//流程名称
+    QString processName = ui.lineEdit_Name->text().trimmed();//流程名称
+    if(processName.isEmpty())
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1301"), MyMessageBox::Ok,"OK","");
+        return;
+    }
     int companyId = m_strCompany_ID.toInt();
     ProcessDao* dao = ProcessDao::instance();
     dao->insert(companyId, processName);
