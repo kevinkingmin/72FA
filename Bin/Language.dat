@@ -824,11 +824,19 @@ K1844|保存数据失败!|Failed to save data!
 K1845|所有样本加完执行针充盈|
 K1846|内针充盈:|
 K1847|外针充盈:|
-K1910|膜条名称不能重复!|Names must be unique!
-K1911|选中项次参数不匹配!|Parameter mismatch for selected item
-K1912|试剂量最少为100微升!|Minimum reagent volume: 100 μL
-K1913|步骤所在组不可为空!|The group for this step cannot be empty!
+K1910|膜条名称不能重复!|Names must be unique!|
+K1911|选中项次参数不匹配!|Parameter mismatch for selected item|
+K1912|试剂量最少为100微升!|Minimum reagent volume: 100 μL|
+K1913|步骤所在组不可为空!|The group for this step cannot be empty!|
 K1914|请选择试剂!|Please select a reagent.!
+K1915|样本量不得少于5微升!|Sample volume must be at least 5 μL.|
+K1916|内充和外冲时间不得少于1秒!|Internal fill and external flush time must be at least 1 second.!
+K1917|孵育时间范围0.1min~100min!|Incubation time range: 0.1~100 min!|
+K1918|孵育温度范围10~70°C!|Incubation temperature range: 10~70 °C!|
+K1919|请输入暂停信息!|Please enter pause information.!|
+K1920|风扇转速等级范围1~5!|Fan speed: Level 1–5!|
+K1921|风干时间和震荡时间要小于总干燥时间!|Air-drying time and shaking time must each be less than the total drying time.!|
+
 K2000|样本信息|Sample information
 K2001|打印报告标题|Report title
 K2002|拍照功能|Camera function

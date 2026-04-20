@@ -252,10 +252,21 @@ void ProcessData::on_pushButton_Save_clicked()
     }else if(_currentSelectStep==1)
     {
         double sampleUl = txtVect[0].toDouble();
+        if(sampleUl < 5)
+        {// 样本量不得少于5微升
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1915"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+
         int innerTime = txtVect[1].toInt();
         int outerTime = txtVect[2].toInt();
+        if(innerTime < 1.0 || outerTime < 1.0)
+        {// 内充和外冲时间不得少于1秒
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1916"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+
         bool isFilling = boxVect[0] == GlobalData::LoadLanguageInfo("K1700");
-        qDebug()<<"innerTime"<<innerTime<<outerTime;
         ProcessParameterModel::SamplingStrt strt(sampleUl, isFilling, innerTime, outerTime);
         model.setActCode(ProcessParameterModel::SAMPLING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
@@ -266,6 +277,11 @@ void ProcessData::on_pushButton_Save_clicked()
     }else if(_currentSelectStep==2)
     {
         int drainTime = txtVect[0].toInt();
+        if(drainTime < 1)
+        {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1911"), MyMessageBox::Ok,"OK","");
+            return;
+        }
         ProcessParameterModel::DrainingStrt strt(drainTime);
         model.setActCode(ProcessParameterModel::DRAINING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
@@ -276,6 +292,11 @@ void ProcessData::on_pushButton_Save_clicked()
     }else if(_currentSelectStep==3)
     {
         QString message = txtVect[0];
+        if(message.trimmed().isEmpty())
+        {// 请输入暂停信息
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1919"), MyMessageBox::Ok,"OK","");
+            return;
+        }
         ProcessParameterModel::PausingStrt strt(message);
         model.setActCode(ProcessParameterModel::PAUSING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
@@ -286,7 +307,18 @@ void ProcessData::on_pushButton_Save_clicked()
     }else if(_currentSelectStep==4)
     {
         int shakeTime = txtVect[0].toInt();
+        if(shakeTime < 0.1 || shakeTime > 1000)
+        {// 孵育时间范围0.1min~100min
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1917"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+
         double bedTemperature = txtVect[1].toDouble();
+        if(bedTemperature < 10 || bedTemperature > 70)
+        {// 孵育温度范围10~70摄氏度
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1918"), MyMessageBox::Ok,"OK","");
+            return;
+        }
         ProcessParameterModel::BedShakingStrt strt(shakeTime, bedTemperature);
         model.setActCode(ProcessParameterModel::BED_SHAKING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
@@ -300,8 +332,29 @@ void ProcessData::on_pushButton_Save_clicked()
         int fanTime = txtVect[1].toInt();
         double bedTemperature = txtVect[2].toDouble();
         int shakeTime = txtVect[3].toInt();
-
         int fanLevel = boxVect[0].toInt();
+        if(bedTemperature < 10 || bedTemperature > 70)
+        {// 孵育温度范围10~70摄氏度
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1918"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+        if(fanLevel < 1)
+        {// 风扇转速1~5
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1920"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+        if(dryTime < 0.1 || fanTime < 0.1 || shakeTime < 0.1)
+        {
+            // 时间不得小于0.1min
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1917"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+        if(fanTime > dryTime || shakeTime > dryTime)
+        {
+            // 风干时间和震荡时间要小于总干燥时间
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1921"), MyMessageBox::Ok,"OK","");
+            return;
+        }
 
         ProcessParameterModel::DryingStrt strt(dryTime, fanLevel, fanTime, bedTemperature, shakeTime);
         model.setActCode(ProcessParameterModel::DRYING_CODE);
@@ -369,7 +422,10 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         QLineEdit *edit=new QLineEdit(this);
         edit->setObjectName("txt");
         if(v!=nullptr)
+        {
             edit->setValidator(v);
+            edit->setText("");
+        }
         _txtVect.push_back(edit);
         return edit;
     };
@@ -455,7 +511,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
     {
         // 孵育时间
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1226")+":",this),0,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),0,1);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),0,1);
         ui.gridLayout->addWidget(new QLabel("min",this),0,2);
 
         // 孵育温度
@@ -480,7 +536,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(createBox(boxVect),1,1);
         // 风干时间
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1784")+":",this),1,2,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,10000,this)),1,3);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1,10000,1,this)),1,3);
         ui.gridLayout->addWidget(new QLabel("min",this),1,4);
 
         // 温度
@@ -488,7 +544,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(createEdit(new QDoubleValidator(10.0, 70.0, 1, this)),2,1);
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1786")+":",this),2,2);
         // 孵育时间
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,10000,this)),2,3);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1,10000,1,this)),2,3);
         ui.gridLayout->addWidget(new QLabel("min",this),2,4);
     }
     else if(index==6) // 拍照
