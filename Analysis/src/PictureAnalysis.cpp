@@ -303,6 +303,25 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperHandle(TestPaperStrt &paper)
 }
 
 /**
+ * @brief 将范围外的颜色全部设置为黑色
+ * @param src
+ * @param roi
+ */
+void PictureAnalysis::maskOutsideRect(cv::Mat& src, const cv::Rect& roi) {
+    // 确保 ROI 在图像范围内
+    cv::Rect safeRoi = roi & cv::Rect(0, 0, src.cols, src.rows);
+
+    // 创建全黑图像（与 src 同尺寸、同类型）
+    cv::Mat black = cv::Mat::zeros(src.size(), src.type());
+
+    // 将 ROI 区域从 src 复制到 black 中
+    src(safeRoi).copyTo(black(safeRoi));
+
+    // 替换原图
+    src = black;
+}
+
+/**
  * @brief 分段膜条旋转操作并剪切
  * @return 错误码
  * 0 成功
@@ -321,6 +340,12 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut(cv::Mat& srcMat, T
     // 将反光区域处理
     cv::Mat lightMask;
     cv::threshold(srcMat, lightMask, 250, 255, cv::THRESH_BINARY);
+    // 按照物理设计切图, 膜条只可能在这个范围
+    cv::Rect positionEdge(static_cast<int>(srcMat.cols * 0.08), static_cast<int>(srcMat.rows*0.25),
+                      static_cast<int>(srcMat.cols*0.8), static_cast<int>(srcMat.rows*0.5));
+    maskOutsideRect(srcMat, positionEdge);
+    /*QString postionPath = paper.pictureAnalysisPath + paper.sampleId + "-position.png";
+    cv::imwrite(postionPath.toStdString(), srcMat);*/
      // 消除噪声点
     cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5));
     cv::morphologyEx(lightMask, lightMask, cv::MORPH_CLOSE, kernel);
@@ -368,7 +393,7 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut(cv::Mat& srcMat, T
             cv::Rect rect = cv::boundingRect(contour);
 //            qDebug()<<"rect"<<rect.width<<rect.height<<segmentMinWidth<<totalHeigth;
             // TODO::WANGZ
-            if (rect.width < segmentMinWidth*0.15 || rect.height < totalHeigth/3*2)
+            if (rect.width < segmentMinWidth/3*2 || rect.height < totalHeigth/3*2)
             {
                 continue;
             }
@@ -547,9 +572,8 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,c
     double segmentMinWidth = paperParam.getTestBlockWidth() * mmPixel;
     int headWidth = static_cast<int>(paperParam.getIgnoreHeadLenght() * mmPixel);
     double lineWidth = paperParam.getItemLineWidth() * mmPixel;
-    bool ignoreHead = paperParam.getIgnoreHeadLenght() > 0;
     // 获取分段总数
-    int segCnt = ignoreHead ? paperParam.getTotalNumber() - 1 : paperParam.getTotalNumber();
+    int segCnt = paperParam.getTotalNumber();
     if(srcMat.cols < headWidth)
     {
 //        qDebug()<<"headWidth"<<srcMat.cols<<headWidth;
@@ -695,10 +719,12 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,c
     vector<cv::Rect> segRects;
     bool need_merge = false;
     cv::Rect wait_merge_rect;
+    uint contourIdx = 0;
     for (auto& contour : contours)
     {
+        contourIdx++;
         cv::Rect rect = cv::boundingRect(contour);
-//        qDebug()<<"rect.width = " << rect.width << "segmengMinWidth=" << segmentMinWidth << "height="<<rect.height << "rows="<<srcMat.rows;
+        //qDebug()<<"rect.width = " << rect.width << "segmengMinWidth=" << segmentMinWidth << "height="<<rect.height << "rows="<<srcMat.rows;
         if (rect.width < segmentMinWidth * 0.3 || rect.height < srcMat.rows * 0.3)
         {
             continue;
@@ -712,9 +738,12 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,c
                 inflateMat(rect).setTo(cv::Scalar(255,255,255));
             }else
             {
-                wait_merge_rect = rect;
-                need_merge = true;
-                continue;
+                if(contourIdx != contours.size())
+                {
+                    wait_merge_rect = rect;
+                    need_merge = true;
+                    continue;
+                }
             }
         }
         need_merge = false;
@@ -736,7 +765,7 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,c
         cv::Mat mat = srcMat(rect);
         // 总平均值作为阈值
         double thresh = cv::mean(mat)[0];
-        double start = -1, end = -1;
+        double start = 0, end = mat.cols-1;
         // 左右描边
         //按照3个像素的宽度，精细底端位置
         for(int i = 0; i < mat.cols / 2 - 3;i++)
@@ -763,11 +792,6 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,c
                 break;
             }
         }
-        if(start < 0 || end < 0)
-        {
-            return Error::DetectSegmentCntError;
-        }
-
         paper.segmentResultVect.push_back(TestPaperSegmentResult(rect.x + static_cast<int>((start+end)/2), end - start));
     }
     return Error::NoError;
@@ -796,7 +820,6 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperItemParse(cv::Mat& cutMat, T
     int blackDetectThreshold = paperParam.getIsBlackPointDetect() ? static_cast<int>(paperParam.getBlackPointDetectThreshold()) : 0;
     auto dao = AnalysisDao::instance();
     bool bResult = false;
-    bool ignoreHead = paperParam.getIgnoreHeadLenght() > 0; // 很关键, 头部文字会干扰分段
     double mmPixel= paperParam.getPaperMmToPixel();
     int resultIdx = 0;
     for (int segmentIndex : itemsBySegment.keys())
@@ -804,7 +827,7 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperItemParse(cv::Mat& cutMat, T
         const QVector<ItemModel>& itemVectOnSegment = itemsBySegment[segmentIndex];
         int itemCntOnSegment = itemVectOnSegment.size();
         if(itemCntOnSegment == 0) continue;
-        int segNo =  ignoreHead ? segmentIndex - 2 : segmentIndex - 1;
+        int segNo = segmentIndex - 1;
         if(segNo < 0) continue;
         int center = static_cast<int>(paper.segmentResultVect[segNo]._center);
         int totalScanWidth = static_cast<int>(paper.segmentResultVect[segNo]._width * 0.9);

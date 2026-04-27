@@ -97,6 +97,8 @@ public:
 //    int GetTestPaperImageWz(QString filePath,TestPaperStrt &testPaperParameterStruct,cv::OutputArray dst);
 //    Error GetTestPaperImageSegmentation(TestPaperStrt &paper);
 private:
+
+    void maskOutsideRect(cv::Mat& src, const cv::Rect& roi);
     // 分段膜条处理
     Error SegmentPaperHandle(TestPaperStrt &paper);
     // 分段膜条旋转裁切

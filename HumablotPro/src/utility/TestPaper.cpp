@@ -667,7 +667,7 @@ int TestPaper::Parse_TestPaper_Parameters()
         }
     }
     QString paperName = ui->lineEdit_TestPaparName->text().simplified(); //膜条名称
-    if(TestPaperDao::instance()->getModel(paperName, _testPaperModel))
+    if(!m_bModify && TestPaperDao::instance()->getModel(paperName, _testPaperModel))
     {
         return 2;
     }
