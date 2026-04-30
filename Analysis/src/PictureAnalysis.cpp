@@ -142,6 +142,13 @@ bool PictureAnalysis::AnalysisOneSample(int paperId, QString testId, QString sam
             continue;
         }
         TestPaperItemResult& result = paper.itemResultVect[i];
+        if(resultCode != Error::NoError)
+        {
+            result.grayValue = 0;
+            result.grayRatio = 0;
+            result.qualitativeResult = "-";
+            continue;
+        }
         StandardCurveParameter curveParameter;
         int curveId = paper.itemParamVect[i].getCurveId();
         if(!curveMap.contains(curveId))
@@ -605,9 +612,9 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,c
 
 
     // 腐蚀操作
-    cv::Mat eroded_kernel = getStructuringElement(MORPH_RECT, Size(1, threshMat.rows));
-    cv::Mat erodedMat;
-    erode(threshMat, erodedMat, eroded_kernel);
+    //cv::Mat eroded_kernel = getStructuringElement(MORPH_RECT, Size(1, threshMat.rows));
+    cv::Mat erodedMat = threshMat.clone();
+    //erode(threshMat, erodedMat, eroded_kernel);
     /*保存腐蚀后的图片
         QString erodedPath = path;
         erodedPath = erodedPath + +"/" + "analysised" + "/" + paper.sampleId + "-eroded1.png";
@@ -745,7 +752,14 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,c
                     continue;
                 }
             }
+        }else
+        {
+            if(need_merge)
+            {
+                segRects.push_back(wait_merge_rect);
+            }
         }
+        qDebug()<<"11rect.width = " << rect.width << "segmengMinWidth=" << segmentMinWidth << "height="<<rect.height << "rows="<<srcMat.rows;
         need_merge = false;
         segRects.push_back(rect);
     }
@@ -754,7 +768,7 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,c
     inflatePath1 = inflatePath1 + +"/" + "analysised" + "/" + paper.sampleId + "-inflate2.png";
     cv::imwrite(inflatePath1.toStdString(), inflateMat);*/
 
-//    dLog("segRects.size() = " + std::to_string(segRects.size()) + "segCnt=" + std::to_string(segCnt));
+    dLog("segRects.size() = " + std::to_string(segRects.size()) + "segCnt=" + std::to_string(segCnt));
     if(static_cast<int>(segRects.size()) != segCnt)
     {
         return Error::DetectSegmentCntError;

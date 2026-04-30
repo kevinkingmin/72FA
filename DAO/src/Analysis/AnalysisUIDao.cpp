@@ -1218,12 +1218,12 @@ QSqlQuery AnalysisUIDao::SelectSamplesByQuery(QString start_time, QString end_ti
     query.setForwardOnly(true);
     if (project_name == "全部" || project_name == "全部all"|| project_name == "all" || project_name == "全部en" || project_name == "All" || project_name == "All " || project_name == " All ")
     {
-        strSql = "select * from tsample A,t_testpaper B where  (A.stateFlag=88 or A.stateFlag=82 or A.stateFlag=81 or A.stateFlag=83 or A.stateFlag=1 or A.stateFlag=2 or A.stateFlag=0)  and A.paperId = B.ID   and A.createDay>='" + start_time + "' and A.createDay<'" + end_time + "'     ";
+        strSql = "select * from tsample A,t_testpaper B where A.paperId = B.ID   and A.createDay>='" + start_time + "' and A.createDay<'" + end_time + "'     ";
         m_count_i = SelectMaxPkid(0, start_time, end_time);
     }
     else
     {
-        strSql = "select * from tsample A,t_testpaper B where   (A.stateFlag=88 or A.stateFlag=82 or A.stateFlag=81 or A.stateFlag=83 or A.stateFlag=1 or A.stateFlag=2 or A.stateFlag=0)  and A.paperId = B.ID   and B.ID='" + project_name + "'  and A.createDay>='" + start_time + "' and A.createDay<'" + end_time + "'    ";
+        strSql = "select * from tsample A,t_testpaper B where A.paperId = B.ID   and B.ID='" + project_name + "'  and A.createDay>='" + start_time + "' and A.createDay<'" + end_time + "'    ";
         int project_name1 = project_name.toInt();
         m_count_i = SelectMaxPkid(project_name1, start_time, end_time);
     }

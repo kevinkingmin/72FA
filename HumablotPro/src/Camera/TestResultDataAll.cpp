@@ -51,8 +51,8 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
 
     QStringList headerString;
     QString sz1 = GlobalData::LoadLanguageInfo("K1156");//是否选中
-    QString sz2 = GlobalData::LoadLanguageInfo("K1163");
-    QString sz3 = GlobalData::LoadLanguageInfo("K1157");
+    QString sz2 = GlobalData::LoadLanguageInfo("K1163");//样本编号
+    QString sz3 = GlobalData::LoadLanguageInfo("K1157");//测试编号
     QString sz4=GlobalData::LoadLanguageInfo("K1054");//序号
     QString sz5 = GlobalData::LoadLanguageInfo("K1158");
     QString sz6 = GlobalData::LoadLanguageInfo("K1159");
@@ -2323,19 +2323,21 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
                 }
                 strValue = strRel;
             }
-
-            if (stateFlag == static_cast<int>(PictureAnalysis::Error::FuncLineError))
+            if(stateFlag != static_cast<int>(PictureAnalysis::Error::NoError))
             {
-                addContent(row, 8, GlobalData::LoadLanguageInfo("K1687"),4);// "功能线异常，未识别膜条");
-            }else if(stateFlag==static_cast<int>(PictureAnalysis::Error::CutOffLineError))
-            {
-                addContent(row, 8, GlobalData::LoadLanguageInfo("K1688"),4);//"Cutoff值异常");
-            }else if(stateFlag == static_cast<int>(PictureAnalysis::Error::ItemLineDetectError)){
-                addContent(row, 8, GlobalData::LoadLanguageInfo("K16881"), 4);//"检测线异常");
-            }
-            else if(stateFlag == 1)
-            {
-                addContent(row, 8, GlobalData::LoadLanguageInfo("K1689"));//"未完成检测");
+                if(stateFlag==static_cast<int>(PictureAnalysis::Error::CutOffLineError))
+                {
+                    addContent(row, 8, GlobalData::LoadLanguageInfo("K1688")+QString::number(stateFlag), 4);//Cutoff线异常
+                }else if(stateFlag == static_cast<int>(PictureAnalysis::Error::ItemLineDetectError) ||
+                         stateFlag == static_cast<int>(PictureAnalysis::Error::DetectBlackPoint)){
+                    addContent(row, 8, GlobalData::LoadLanguageInfo("K16881") + QString::number(stateFlag), 4);//检测线周围存在污渍
+                }else if(stateFlag == static_cast<int>(PictureAnalysis::Error::DetectSegmentCntError)){
+                    addContent(row, 8, GlobalData::LoadLanguageInfo("K1922") + QString::number(stateFlag), 4);// 分段识别错误
+                }
+                else
+                {
+                    addContent(row, 8, GlobalData::LoadLanguageInfo("K1687")+ QString::number(stateFlag), 4);//功能线异常
+                }
             }
             else
             {

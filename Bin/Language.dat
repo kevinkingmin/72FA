@@ -840,6 +840,7 @@ K1918|孵育温度范围10~70°C!|Incubation temperature range: 10~70 °C!|
 K1919|请输入暂停信息!|Please enter pause information.!|
 K1920|风扇转速等级范围1~5!|Fan speed: Level 1–5!|
 K1921|风干时间和震荡时间要小于总干燥时间!|Air-drying time and shaking time must each be less than the total drying time.!|
+K1922|分段识别错误!|Segmentation Recognition Error!|
 
 K2000|样本信息|Sample information
 K2001|打印报告标题|Report title
