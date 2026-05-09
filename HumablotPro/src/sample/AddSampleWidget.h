@@ -116,6 +116,7 @@ private:
     QMap<SampleStrc,QVector<int>> _samplePaperIdMap;
     SetFirstPaperPosDialog *_setPaperPosDialog;
     QVector<ptrTest>_listTestData;
+    // TODO::获取膜条开始位置和总数量
     QVector<std::tuple<ptrSample,QVector<ptrTest>>> _sampleTestTpVect;
     RepeatSetDialog *_repeatSetDialog;
     FromLisByIntervalWidgets *_mFromLisByIntervalWidgets;

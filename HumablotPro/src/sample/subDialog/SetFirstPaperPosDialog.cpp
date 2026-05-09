@@ -18,8 +18,8 @@ SetFirstPaperPosDialog::SetFirstPaperPosDialog(QWidget *parent) :
 	bool bResult;
 	g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
     ui->setupUi(this);
-    ui->txtStartPos->setValidator(&_StartPosReg);
-	ui->txtStartSlot->setVisible(false);
+    ui->txtStartPos->setValidator(&_StartPosReg); // 开始的位置
+    ui->txtStartSlot->setVisible(false); // 开始的托盘
 	ui->txtStartPos->setVisible(false);
 	QString sz = GlobalData::LoadLanguageInfo(g_language_type, "K1055");
 	ui->label_2->setText(sz);

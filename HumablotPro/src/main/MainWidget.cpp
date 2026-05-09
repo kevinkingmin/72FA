@@ -1483,9 +1483,9 @@ void MainWidget::on_btnCloseBeep1_clicked()
     //  iLog("wangzhen");
 
 
-    _instr->shutdownBee();
+    //_instr->shutdownBee();
     //OnAction_CloseBeep();
-    /* TODO::WangZ
+    // TODO::WangZ
     qDebug() << "close bee wz";
     SystemSetModel systemSetting;
     SystemSetDao::instance()->getModel(3, systemSetting);
@@ -1507,7 +1507,7 @@ void MainWidget::on_btnCloseBeep1_clicked()
         qDebug() << "图片名称：" << fileName;
         // 开始图片分析
         Analysis m_analysis;
-        bool code = m_analysis.AnalysisMothed(fileName, 29, fileName);
+        bool code = m_analysis.AnalysisMothed(fileName, 960, fileName);
         if(code)
         {
             qDebug() << "success ";
@@ -1515,7 +1515,7 @@ void MainWidget::on_btnCloseBeep1_clicked()
         {
             qDebug() << "fail " << code;
         }
-    }*/
+    }
 }
 
 //处理窗口关闭

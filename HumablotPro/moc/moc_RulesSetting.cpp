@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_RulesSetting_t {
-    QByteArrayData data[17];
-    char stringdata0[293];
+    QByteArrayData data[13];
+    char stringdata0[222];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -43,11 +43,7 @@ QT_MOC_LITERAL(8, 111, 24), // "on_btnDeleteRule_clicked"
 QT_MOC_LITERAL(9, 136, 21), // "on_btnAddItem_clicked"
 QT_MOC_LITERAL(10, 158, 22), // "on_btnSaveItem_clicked"
 QT_MOC_LITERAL(11, 181, 20), // "on_btnDelete_clicked"
-QT_MOC_LITERAL(12, 202, 19), // "slotFitCurveChanged"
-QT_MOC_LITERAL(13, 222, 25), // "on_tbRuleItem_itemChanged"
-QT_MOC_LITERAL(14, 248, 17), // "QTableWidgetItem*"
-QT_MOC_LITERAL(15, 266, 4), // "item"
-QT_MOC_LITERAL(16, 271, 21) // "on_tbRule_itemChanged"
+QT_MOC_LITERAL(12, 202, 19) // "slotFitCurveChanged"
 
     },
     "RulesSetting\0on_btnRule_clicked\0\0"
@@ -55,8 +51,7 @@ QT_MOC_LITERAL(16, 271, 21) // "on_tbRule_itemChanged"
     "on_tbRule_clicked\0QModelIndex\0index\0"
     "on_btnDeleteRule_clicked\0on_btnAddItem_clicked\0"
     "on_btnSaveItem_clicked\0on_btnDelete_clicked\0"
-    "slotFitCurveChanged\0on_tbRuleItem_itemChanged\0"
-    "QTableWidgetItem*\0item\0on_tbRule_itemChanged"
+    "slotFitCurveChanged"
 };
 #undef QT_MOC_LITERAL
 
@@ -66,7 +61,7 @@ static const uint qt_meta_data_RulesSetting[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -74,17 +69,15 @@ static const uint qt_meta_data_RulesSetting[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   69,    2, 0x08 /* Private */,
-       3,    0,   70,    2, 0x08 /* Private */,
-       4,    0,   71,    2, 0x08 /* Private */,
-       5,    1,   72,    2, 0x08 /* Private */,
-       8,    0,   75,    2, 0x08 /* Private */,
-       9,    0,   76,    2, 0x08 /* Private */,
-      10,    0,   77,    2, 0x08 /* Private */,
-      11,    0,   78,    2, 0x08 /* Private */,
-      12,    1,   79,    2, 0x08 /* Private */,
-      13,    1,   82,    2, 0x08 /* Private */,
-      16,    1,   85,    2, 0x08 /* Private */,
+       1,    0,   59,    2, 0x08 /* Private */,
+       3,    0,   60,    2, 0x08 /* Private */,
+       4,    0,   61,    2, 0x08 /* Private */,
+       5,    1,   62,    2, 0x08 /* Private */,
+       8,    0,   65,    2, 0x08 /* Private */,
+       9,    0,   66,    2, 0x08 /* Private */,
+      10,    0,   67,    2, 0x08 /* Private */,
+      11,    0,   68,    2, 0x08 /* Private */,
+      12,    1,   69,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -96,8 +89,6 @@ static const uint qt_meta_data_RulesSetting[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    7,
-    QMetaType::Void, 0x80000000 | 14,   15,
-    QMetaType::Void, 0x80000000 | 14,   15,
 
        0        // eod
 };
@@ -117,8 +108,6 @@ void RulesSetting::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 6: _t->on_btnSaveItem_clicked(); break;
         case 7: _t->on_btnDelete_clicked(); break;
         case 8: _t->slotFitCurveChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: _t->on_tbRuleItem_itemChanged((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
-        case 10: _t->on_tbRule_itemChanged((*reinterpret_cast< QTableWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -153,13 +142,13 @@ int RulesSetting::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 11;
+        _id -= 9;
     }
     return _id;
 }

@@ -194,16 +194,33 @@ void Instrument::analysisFrame(){
 
     }else if(code==detectionStartCommand){
         QJsonObject obj = doc.object();
-        QString sample = obj.value("sample").toString();
-        QString step = obj.value("step").toString();
-        QString slot = obj.value("slot").toString();
-        QString code = obj.value("resultCode").toString();
-        QString time = obj.value("time").toString();
+        QString resultCode = obj.value("ResultCode").toString();
         QString messageType = obj.value("messageType").toString();
-        QString hint="";
-        if(!obj.value("hint").isNull())
-            hint = obj.value("hint").toString();
-        emit sglDetectionStartResult(messageType,sample,slot,step,code,time,hint);
+        emit sglDetectionStartResult(resultCode, messageType);
+
+    }else if(code == getStepReportCommand){
+        QJsonObject obj = doc.object();
+        int stepId = obj.value("stepId").toInt();
+        bool isStartMessage = obj.value("isStartMessage").toBool();
+        QString actType = obj.value("messageType").toString();
+        QString actName = obj.value("messageType").toString();
+        int shakeBedIndex = obj.value("messageType").toInt();
+        bool success = obj.value("messageType").toBool();
+        emit sglStepStateResult(stepId, isStartMessage, shakeBedIndex, actName, actType, success);
+    }else if(code == getSamplingReportCommand){
+        QJsonObject obj = doc.object();
+        int stepId = obj.value("stepId").toInt();
+        QString actType = obj.value("messageType").toString();
+        QString actName = obj.value("messageType").toString();
+        int shakeBedIndex = obj.value("messageType").toInt();
+        int samplePosition = obj.value("samplePosition").toInt();
+        int paperPosition = obj.value("paperPosition").toInt();
+        bool success = obj.value("messageType").toBool();
+        emit sglSignalSamplingResult(stepId, shakeBedIndex, actName, actType, samplePosition, paperPosition, success);
+    }else if(code == getPauseReportCommand){
+        QJsonObject obj = doc.object();
+        QString hint = obj.value("hint").toString();
+        emit sglPausingResult(hint);
     }else if(code==detectionPauseCommand){
         QJsonObject obj = doc.object();
         QStringList keys = obj.keys();

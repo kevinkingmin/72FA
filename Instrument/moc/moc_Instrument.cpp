@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Instrument_t {
-    QByteArrayData data[69];
-    char stringdata0[977];
+    QByteArrayData data[73];
+    char stringdata0[1083];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -83,23 +83,27 @@ QT_MOC_LITERAL(48, 642, 16), // "sglPipWashResult"
 QT_MOC_LITERAL(49, 659, 20), // "sglPipFlowbackResult"
 QT_MOC_LITERAL(50, 680, 23), // "sglDetectionStartResult"
 QT_MOC_LITERAL(51, 704, 11), // "messageType"
-QT_MOC_LITERAL(52, 716, 6), // "sample"
-QT_MOC_LITERAL(53, 723, 4), // "slot"
-QT_MOC_LITERAL(54, 728, 4), // "step"
-QT_MOC_LITERAL(55, 733, 4), // "time"
-QT_MOC_LITERAL(56, 738, 4), // "hint"
-QT_MOC_LITERAL(57, 743, 23), // "sglDetectionPauseResult"
-QT_MOC_LITERAL(58, 767, 26), // "sglDetectionContinueResult"
-QT_MOC_LITERAL(59, 794, 22), // "sglDetectionStopResult"
-QT_MOC_LITERAL(60, 817, 23), // "sglPrepareReagentResult"
-QT_MOC_LITERAL(61, 841, 16), // "sglOnTemperature"
-QT_MOC_LITERAL(62, 858, 23), // "sglScanSampleCodeResult"
-QT_MOC_LITERAL(63, 882, 10), // "resultData"
-QT_MOC_LITERAL(64, 893, 16), // "sglPrintPDFState"
-QT_MOC_LITERAL(65, 910, 18), // "sglAddSampleFailed"
-QT_MOC_LITERAL(66, 929, 14), // "connected_SLOT"
-QT_MOC_LITERAL(67, 944, 17), // "disconnected_SLOT"
-QT_MOC_LITERAL(68, 962, 14) // "readyRead_Slot"
+QT_MOC_LITERAL(52, 716, 18), // "sglStepStateResult"
+QT_MOC_LITERAL(53, 735, 14), // "isStartMessage"
+QT_MOC_LITERAL(54, 750, 13), // "shakeBedIndex"
+QT_MOC_LITERAL(55, 764, 9), // "isSuccess"
+QT_MOC_LITERAL(56, 774, 23), // "sglSignalSamplingResult"
+QT_MOC_LITERAL(57, 798, 14), // "samplePosition"
+QT_MOC_LITERAL(58, 813, 13), // "paperPosition"
+QT_MOC_LITERAL(59, 827, 16), // "sglPausingResult"
+QT_MOC_LITERAL(60, 844, 4), // "hint"
+QT_MOC_LITERAL(61, 849, 23), // "sglDetectionPauseResult"
+QT_MOC_LITERAL(62, 873, 26), // "sglDetectionContinueResult"
+QT_MOC_LITERAL(63, 900, 22), // "sglDetectionStopResult"
+QT_MOC_LITERAL(64, 923, 23), // "sglPrepareReagentResult"
+QT_MOC_LITERAL(65, 947, 16), // "sglOnTemperature"
+QT_MOC_LITERAL(66, 964, 23), // "sglScanSampleCodeResult"
+QT_MOC_LITERAL(67, 988, 10), // "resultData"
+QT_MOC_LITERAL(68, 999, 16), // "sglPrintPDFState"
+QT_MOC_LITERAL(69, 1016, 18), // "sglAddSampleFailed"
+QT_MOC_LITERAL(70, 1035, 14), // "connected_SLOT"
+QT_MOC_LITERAL(71, 1050, 17), // "disconnected_SLOT"
+QT_MOC_LITERAL(72, 1068, 14) // "readyRead_Slot"
 
     },
     "Instrument\0sglDataArrive\0\0datas\0"
@@ -122,8 +126,11 @@ QT_MOC_LITERAL(68, 962, 14) // "readyRead_Slot"
     "sglShutdownMaintenResult\0sglWeekMaintenResult\0"
     "sglSystemPipWashResult\0sglPipWashResult\0"
     "sglPipFlowbackResult\0sglDetectionStartResult\0"
-    "messageType\0sample\0slot\0step\0time\0"
-    "hint\0sglDetectionPauseResult\0"
+    "messageType\0sglStepStateResult\0"
+    "isStartMessage\0shakeBedIndex\0isSuccess\0"
+    "sglSignalSamplingResult\0samplePosition\0"
+    "paperPosition\0sglPausingResult\0hint\0"
+    "sglDetectionPauseResult\0"
     "sglDetectionContinueResult\0"
     "sglDetectionStopResult\0sglPrepareReagentResult\0"
     "sglOnTemperature\0sglScanSampleCodeResult\0"
@@ -139,54 +146,57 @@ static const uint qt_meta_data_Instrument[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      38,   14, // methods
+      41,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      35,       // signalCount
+      38,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  204,    2, 0x06 /* Public */,
-       4,    0,  207,    2, 0x06 /* Public */,
-       5,    1,  208,    2, 0x06 /* Public */,
-       7,    2,  211,    2, 0x06 /* Public */,
-      10,    1,  216,    2, 0x06 /* Public */,
-      12,    1,  219,    2, 0x06 /* Public */,
-      14,    4,  222,    2, 0x06 /* Public */,
-      18,    1,  231,    2, 0x06 /* Public */,
-      20,    3,  234,    2, 0x06 /* Public */,
-      24,    4,  241,    2, 0x06 /* Public */,
-      26,    1,  250,    2, 0x06 /* Public */,
-      28,    1,  253,    2, 0x06 /* Public */,
-      30,    2,  256,    2, 0x06 /* Public */,
-      32,    2,  261,    2, 0x06 /* Public */,
-      35,    2,  266,    2, 0x06 /* Public */,
-      37,    1,  271,    2, 0x06 /* Public */,
-      38,    1,  274,    2, 0x06 /* Public */,
-      40,    1,  277,    2, 0x06 /* Public */,
-      42,    1,  280,    2, 0x06 /* Public */,
-      43,    1,  283,    2, 0x06 /* Public */,
-      44,    1,  286,    2, 0x06 /* Public */,
-      45,    1,  289,    2, 0x06 /* Public */,
-      46,    1,  292,    2, 0x06 /* Public */,
-      47,    1,  295,    2, 0x06 /* Public */,
-      48,    1,  298,    2, 0x06 /* Public */,
-      49,    1,  301,    2, 0x06 /* Public */,
-      50,    7,  304,    2, 0x06 /* Public */,
-      57,    1,  319,    2, 0x06 /* Public */,
-      58,    1,  322,    2, 0x06 /* Public */,
-      59,    1,  325,    2, 0x06 /* Public */,
-      60,    1,  328,    2, 0x06 /* Public */,
-      61,    1,  331,    2, 0x06 /* Public */,
-      62,    1,  334,    2, 0x06 /* Public */,
-      64,    1,  337,    2, 0x06 /* Public */,
-      65,    1,  340,    2, 0x06 /* Public */,
+       1,    1,  219,    2, 0x06 /* Public */,
+       4,    0,  222,    2, 0x06 /* Public */,
+       5,    1,  223,    2, 0x06 /* Public */,
+       7,    2,  226,    2, 0x06 /* Public */,
+      10,    1,  231,    2, 0x06 /* Public */,
+      12,    1,  234,    2, 0x06 /* Public */,
+      14,    4,  237,    2, 0x06 /* Public */,
+      18,    1,  246,    2, 0x06 /* Public */,
+      20,    3,  249,    2, 0x06 /* Public */,
+      24,    4,  256,    2, 0x06 /* Public */,
+      26,    1,  265,    2, 0x06 /* Public */,
+      28,    1,  268,    2, 0x06 /* Public */,
+      30,    2,  271,    2, 0x06 /* Public */,
+      32,    2,  276,    2, 0x06 /* Public */,
+      35,    2,  281,    2, 0x06 /* Public */,
+      37,    1,  286,    2, 0x06 /* Public */,
+      38,    1,  289,    2, 0x06 /* Public */,
+      40,    1,  292,    2, 0x06 /* Public */,
+      42,    1,  295,    2, 0x06 /* Public */,
+      43,    1,  298,    2, 0x06 /* Public */,
+      44,    1,  301,    2, 0x06 /* Public */,
+      45,    1,  304,    2, 0x06 /* Public */,
+      46,    1,  307,    2, 0x06 /* Public */,
+      47,    1,  310,    2, 0x06 /* Public */,
+      48,    1,  313,    2, 0x06 /* Public */,
+      49,    1,  316,    2, 0x06 /* Public */,
+      50,    1,  319,    2, 0x06 /* Public */,
+      52,    4,  322,    2, 0x06 /* Public */,
+      56,    5,  331,    2, 0x06 /* Public */,
+      59,    1,  342,    2, 0x06 /* Public */,
+      61,    1,  345,    2, 0x06 /* Public */,
+      62,    1,  348,    2, 0x06 /* Public */,
+      63,    1,  351,    2, 0x06 /* Public */,
+      64,    1,  354,    2, 0x06 /* Public */,
+      65,    1,  357,    2, 0x06 /* Public */,
+      66,    1,  360,    2, 0x06 /* Public */,
+      68,    1,  363,    2, 0x06 /* Public */,
+      69,    1,  366,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      66,    0,  343,    2, 0x08 /* Private */,
-      67,    0,  344,    2, 0x08 /* Private */,
-      68,    0,  345,    2, 0x08 /* Private */,
+      70,    0,  369,    2, 0x08 /* Private */,
+      71,    0,  370,    2, 0x08 /* Private */,
+      72,    0,  371,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QByteArray,    3,
@@ -215,13 +225,16 @@ static const uint qt_meta_data_Instrument[] = {
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   51,   52,   53,   54,   31,   55,   56,
+    QMetaType::Void, QMetaType::QString,   51,
+    QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::Int, QMetaType::Bool,   15,   53,   54,   55,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Bool,   15,   54,   57,   58,   55,
+    QMetaType::Void, QMetaType::QString,   60,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::Float,   31,
-    QMetaType::Void, QMetaType::QByteArray,   63,
+    QMetaType::Void, QMetaType::QByteArray,   67,
     QMetaType::Void, QMetaType::Int,   19,
     QMetaType::Void, QMetaType::QString,   36,
 
@@ -265,18 +278,21 @@ void Instrument::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 23: _t->sglSystemPipWashResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 24: _t->sglPipWashResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 25: _t->sglPipFlowbackResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 26: _t->sglDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7]))); break;
-        case 27: _t->sglDetectionPauseResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 28: _t->sglDetectionContinueResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 29: _t->sglDetectionStopResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 30: _t->sglPrepareReagentResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 31: _t->sglOnTemperature((*reinterpret_cast< float(*)>(_a[1]))); break;
-        case 32: _t->sglScanSampleCodeResult((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 33: _t->sglPrintPDFState((*reinterpret_cast< const int(*)>(_a[1]))); break;
-        case 34: _t->sglAddSampleFailed((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 35: _t->connected_SLOT(); break;
-        case 36: _t->disconnected_SLOT(); break;
-        case 37: _t->readyRead_Slot(); break;
+        case 26: _t->sglDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 27: _t->sglStepStateResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< bool(*)>(_a[4]))); break;
+        case 28: _t->sglSignalSamplingResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4])),(*reinterpret_cast< bool(*)>(_a[5]))); break;
+        case 29: _t->sglPausingResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 30: _t->sglDetectionPauseResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 31: _t->sglDetectionContinueResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 32: _t->sglDetectionStopResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 33: _t->sglPrepareReagentResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 34: _t->sglOnTemperature((*reinterpret_cast< float(*)>(_a[1]))); break;
+        case 35: _t->sglScanSampleCodeResult((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 36: _t->sglPrintPDFState((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 37: _t->sglAddSampleFailed((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 38: _t->connected_SLOT(); break;
+        case 39: _t->disconnected_SLOT(); break;
+        case 40: _t->readyRead_Slot(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -464,65 +480,86 @@ void Instrument::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
         {
-            using _t = void (Instrument::*)(QString , QString , QString , QString , QString , QString , QString );
+            using _t = void (Instrument::*)(QString );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglDetectionStartResult)) {
                 *result = 26;
                 return;
             }
         }
         {
-            using _t = void (Instrument::*)(QString );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglDetectionPauseResult)) {
+            using _t = void (Instrument::*)(int , bool , int , bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglStepStateResult)) {
                 *result = 27;
                 return;
             }
         }
         {
-            using _t = void (Instrument::*)(QString );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglDetectionContinueResult)) {
+            using _t = void (Instrument::*)(int , int , int , int , bool );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglSignalSamplingResult)) {
                 *result = 28;
                 return;
             }
         }
         {
             using _t = void (Instrument::*)(QString );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglDetectionStopResult)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglPausingResult)) {
                 *result = 29;
                 return;
             }
         }
         {
             using _t = void (Instrument::*)(QString );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglPrepareReagentResult)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglDetectionPauseResult)) {
                 *result = 30;
+                return;
+            }
+        }
+        {
+            using _t = void (Instrument::*)(QString );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglDetectionContinueResult)) {
+                *result = 31;
+                return;
+            }
+        }
+        {
+            using _t = void (Instrument::*)(QString );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglDetectionStopResult)) {
+                *result = 32;
+                return;
+            }
+        }
+        {
+            using _t = void (Instrument::*)(QString );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglPrepareReagentResult)) {
+                *result = 33;
                 return;
             }
         }
         {
             using _t = void (Instrument::*)(float );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglOnTemperature)) {
-                *result = 31;
+                *result = 34;
                 return;
             }
         }
         {
             using _t = void (Instrument::*)(QByteArray );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglScanSampleCodeResult)) {
-                *result = 32;
+                *result = 35;
                 return;
             }
         }
         {
             using _t = void (Instrument::*)(const int );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglPrintPDFState)) {
-                *result = 33;
+                *result = 36;
                 return;
             }
         }
         {
             using _t = void (Instrument::*)(const QString & );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglAddSampleFailed)) {
-                *result = 34;
+                *result = 37;
                 return;
             }
         }
@@ -558,13 +595,13 @@ int Instrument::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 38)
+        if (_id < 41)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 38;
+        _id -= 41;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 38)
+        if (_id < 41)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 38;
+        _id -= 41;
     }
     return _id;
 }
@@ -751,66 +788,87 @@ void Instrument::sglPipFlowbackResult(QString _t1)
 }
 
 // SIGNAL 26
-void Instrument::sglDetectionStartResult(QString _t1, QString _t2, QString _t3, QString _t4, QString _t5, QString _t6, QString _t7)
+void Instrument::sglDetectionStartResult(QString _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)), const_cast<void*>(reinterpret_cast<const void*>(&_t7)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 26, _a);
 }
 
 // SIGNAL 27
-void Instrument::sglDetectionPauseResult(QString _t1)
+void Instrument::sglStepStateResult(int _t1, bool _t2, int _t3, bool _t4)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
     QMetaObject::activate(this, &staticMetaObject, 27, _a);
 }
 
 // SIGNAL 28
-void Instrument::sglDetectionContinueResult(QString _t1)
+void Instrument::sglSignalSamplingResult(int _t1, int _t2, int _t3, int _t4, bool _t5)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)) };
     QMetaObject::activate(this, &staticMetaObject, 28, _a);
 }
 
 // SIGNAL 29
-void Instrument::sglDetectionStopResult(QString _t1)
+void Instrument::sglPausingResult(QString _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 29, _a);
 }
 
 // SIGNAL 30
-void Instrument::sglPrepareReagentResult(QString _t1)
+void Instrument::sglDetectionPauseResult(QString _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 30, _a);
 }
 
 // SIGNAL 31
-void Instrument::sglOnTemperature(float _t1)
+void Instrument::sglDetectionContinueResult(QString _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 31, _a);
 }
 
 // SIGNAL 32
-void Instrument::sglScanSampleCodeResult(QByteArray _t1)
+void Instrument::sglDetectionStopResult(QString _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 32, _a);
 }
 
 // SIGNAL 33
-void Instrument::sglPrintPDFState(const int _t1)
+void Instrument::sglPrepareReagentResult(QString _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 33, _a);
 }
 
 // SIGNAL 34
-void Instrument::sglAddSampleFailed(const QString & _t1)
+void Instrument::sglOnTemperature(float _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 34, _a);
+}
+
+// SIGNAL 35
+void Instrument::sglScanSampleCodeResult(QByteArray _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 35, _a);
+}
+
+// SIGNAL 36
+void Instrument::sglPrintPDFState(const int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 36, _a);
+}
+
+// SIGNAL 37
+void Instrument::sglAddSampleFailed(const QString & _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 37, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

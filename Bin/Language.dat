@@ -841,6 +841,8 @@ K1919|请输入暂停信息!|Please enter pause information.!|
 K1920|风扇转速等级范围1~5!|Fan speed: Level 1–5!|
 K1921|风干时间和震荡时间要小于总干燥时间!|Air-drying time and shaking time must each be less than the total drying time.!|
 K1922|分段识别错误!|Segmentation Recognition Error!|
+K1923|摇床|Bed|
+K1924|槽位|Slot|
 
 K2000|样本信息|Sample information
 K2001|打印报告标题|Report title
@@ -865,11 +867,12 @@ K2019|审核医生|
 K2020|诊    断|
 K2021|备    注|
 K2022|选择新增步骤:|
-K2023|步骤组:|
+K2023|步骤组:|Group:|
 K2024|新增流程|Add Process
 K2025|删除流程|Delete Process
 K2026|返回|
 K2027|Cutoff线位置|Cutoff Position
+K2028|开始执行|Start
 K9990|检测到多个条带|Multiple strips detected
 K9991|（检测到异常条带）|（Abnormal stripe detected）
 K9992|（检测到异常条带）|（Abnormal stripe detected）

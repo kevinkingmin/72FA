@@ -153,13 +153,12 @@ private:
 	bool createDir();
 private:
     Ui::TestSampleWidget *ui;
-    QVector<ptrTest> m_listTest;
+    QVector<ptrTest> m_listTest;  // 存放每个项目的信息, 从界面设置传进来的
     SelectProcessDialog *m_selectPDialog;
     QTimer *_timer;
-    QTime startTime;
     QTime stepTime;//阶段起始时间点
     QTime stepTimeTotal;//阶段预计总用时
-    QTime pauseTime;
+//    QTime pauseTime;
     QVector<CustomLabel *> _lblPaperVect;
     QVector<CustomerPumpStateLable *> _lblPumpVect;
     QVector<std::tuple<ptrSample,QVector<ptrTest>>> _sampleTestTpVect;
@@ -194,7 +193,31 @@ public slots:
     void slotAlarmInfo(int alarmFlage);
     void slotHandleStepDetail(int stepId, int index, bool isSucess, const QString &stepName);
     void slotIsStepSuc(int ret);
-    void slotDetectionStartResult(QString MessageType,QString sample,QString slot,QString step,QString code,QString time,QString hint);
+    void slotDetectionStartResult(QString resultCode, QString MessageType);
+    /**
+     * @brief 步骤执行上报状态
+     * @param stepId 在数据库中的id
+     * @param isStartMessage:是否为开始
+     * @param shakeBedIndex:摇床 1:bed1 2:bed2 3:bed1+bed2
+     * @param isSuccess 是否执行成功
+     */
+    void slotStepStateResult(int stepId, bool isStartMessage, int shakeBedIndex, QString actGroup, QString act, bool isSuccess);
+
+    /**
+     * @brief 单个样本执行上报状态
+     * @param stepId 在数据库中的id
+     * @param shakeBedIndex:摇床 1:bed1 2:bed2
+     * @param samplePosition: 样本位置
+     * @param paperPosition 膜槽位置
+     * @param isSuccess 是否执行成功
+     */
+    void slotSignalSamplingResult(int stepId, int shakeBedIndex, QString actGroup, QString act, int samplePosition, int paperPosition, bool isSuccess);
+
+    /**
+     * @brief 暂停上报状态
+     * @param hint 暂停信息
+     */
+    void slotPausingResult(QString hint);
     void slotDetectionPauseResult(QString code);
     void slotDetectionContinueResult(QString code);
     void slotDetectionStopResult(QString code);

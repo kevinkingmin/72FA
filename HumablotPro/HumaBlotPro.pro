@@ -128,6 +128,7 @@ SOURCES += \
         src/utility/TubeManage.cpp \
         src/utility/UtilityWidget.cpp \
         src/utility/WelcomWidgets.cpp \
+        src/utility/calcexecutetime.cpp \
         src/utility/maintain/SystemLiquidPipeWashWidgets.cpp \
         src/utility/maintain/PipeRefluxWidgets.cpp \
         src/utility/maintain/PipeWashEmptyingWidgets.cpp \
@@ -230,6 +231,7 @@ HEADERS += \
         src/utility/TestPaperManage.h \
         src/utility/TubeManage.h \
         src/utility/UtilityWidget.h \
+        src/utility/calcexecutetime.h \
         src/utility/maintain/SystemLiquidPipeWashWidgets.h \
         src/utility/maintain/PipeWashEmptyingWidgets.h \
         src/utility/maintain/PipeRefluxWidgets.h \

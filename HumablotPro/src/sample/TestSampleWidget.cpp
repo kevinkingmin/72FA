@@ -41,6 +41,8 @@
 #include <QtConcurrent/QtConcurrent>
 #include "../Include/BLL/baseSet/SystemSetBLL.h"
 #include "../Include/Model/baseSet/SystemSetModel.h"
+#include "src/utility/calcexecutetime.h"
+#include "../Include/DAO/baseSet/SystemSetDao.h"
 #define PROPERTY "lbl"
 QString TestSampleWidget::_imgPath(":/images/indicate/");
 QString TestSampleWidget::_readyFileName("indicateSelect.png");
@@ -70,12 +72,11 @@ TestSampleWidget::TestSampleWidget(PrepareReagentDialog * dialog, QWidget *paren
     bool bResult;
     g_language_type = dao->SelectTargetValueDes(&bResult, "20005");
     initUI();
-    //m_run_paper_pos_thread = new RunPaperPosThread();
-    //connect(this, SIGNAL(preper_save(TestSampleWidget *)), m_run_paper_pos_thread, SLOT(getaddress(TestSampleWidget *)));//链接信号和槽
-    //connect(m_run_paper_pos_thread, SIGNAL(UpdateSignal(int)),this, SLOT(UpdateSlot(int)));
-    //connect(_instrument, &Instrument::sglAlarmInfo, this, &TestSampleWidget::slotAlarmInfo);
-    //connect(_instrument, &Instrument::sglHandleStepDetail, this, &TestSampleWidget::slotHandleStepDetail);
-    //connect(_instrument, &Instrument::sglIsStepSuc, this, &TestSampleWidget::slotIsStepSuc);
+
+    connect(_instrument, &Instrument::sglStepStateResult, this, &TestSampleWidget::slotStepStateResult,Qt::QueuedConnection);
+    connect(_instrument, &Instrument::sglSignalSamplingResult, this, &TestSampleWidget::slotSignalSamplingResult,Qt::QueuedConnection);
+    connect(_instrument, &Instrument::sglPausingResult, this, &TestSampleWidget::slotPausingResult,Qt::QueuedConnection);
+
     connect(_instrument, &Instrument::sglDetectionStartResult, this, &TestSampleWidget::slotDetectionStartResult,Qt::QueuedConnection);
     connect(_instrument, &Instrument::sglDetectionPauseResult, this, &TestSampleWidget::slotDetectionPauseResult);
     connect(_instrument, &Instrument::sglDetectionContinueResult,this, &TestSampleWidget::slotDetectionContinueResult);
@@ -92,6 +93,9 @@ TestSampleWidget::TestSampleWidget(PrepareReagentDialog * dialog, QWidget *paren
         }
         m_tcpClient->sendData(send_sz);
     },Qt::QueuedConnection);
+    // 初始化timer, 并连接信号槽
+    _timer = new QTimer(this);
+    connect(_timer, &QTimer::timeout, this, &TestSampleWidget::slotUpdateTime);
     ui->lblStep->setVisible(false);
     ui->subStepsWidget->setVisible(false);
 
@@ -106,51 +110,151 @@ void TestSampleWidget::setProgressDialog(ProgressDialog *progressDialog){
 }
 
 void TestSampleWidget::slotUpdateTime(){
-    QTime current=QTime::currentTime();
-    int t = this->startTime.msecsTo(current);
-    QTime showTime(0,0,0,0);
-    showTime=showTime.addMSecs(t);
-    ui->lblSolutionEnd->setText(showTime.toString("HH:mm:ss"));
+    CalcExecuteTime& time_executer = CalcExecuteTime::instance();
+    QString totalSolution = time_executer.formatTotalSolutionMs();
+    ui->lblSolutionEnd->setText(totalSolution); // 方案总用时
     if (_instrState->getMachineState().state == _instrState->enumPause)
     {
-        t = this->pauseTime.msecsTo(current);
-        QTime showTime(0,0,0,0);
-        showTime=showTime.addMSecs(t);
-        ui->lblPause->setText(showTime.toString("HH:mm:ss"));
+        QString totalPause = time_executer.formatTotalPausedMs();
+        ui->lblPause->setText(totalPause); // 暂停时间
         return;
     }
-
-//    t = this->stepTime.msecsTo(current);
-//    showTime = stepTimeTotal.addMSecs(-t);
-//    if(showTime.toString("HH:mm:ss")<stepTimeTotal.toString("HH:mm:ss")){
-//        ui->lblPlainEnd->setText(showTime.toString("HH:mm:ss"));
-//    }
 }
 void TestSampleWidget::slotTestFinish(){
     ui->lblPlainEnd->setText("00:00:00:00");
-	_instrState->setMachineState(InstrumentStateModel::enumStandby);
+    _instrState->setMachineState(InstrumentStateModel::enumStandby);
     MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1424"),MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
 }
 
-void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sample,QString slot,QString step,QString code,QString time, QString hint){
+/**
+ * @brief 步骤执行上报状态
+ * @param stepId 在数据库中的id
+ * @param isStartMessage:是否为开始
+ * @param shakeBedIndex:摇床 1:bed1 2:bed2 3:bed1+bed2
+ * @param isSuccess 是否执行成功
+ */
+void TestSampleWidget::slotStepStateResult(int stepId, bool isStartMessage, int shakeBedIndex, QString actGroup, QString act, bool isSuccess)
+{
+    QMutexLocker lock(&_lock);
+    QString group = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K2023");//步骤组:
+    QString step = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1087");//步骤
+    QString bed = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1923");//摇床
+    QString status = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1702");//状态
+
+    QDateTime timeNow = QDateTime::currentDateTime();
+    QString msg;
+    if(isStartMessage)
+    {
+        QString start = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K2028");//开始执行
+        msg = tr("[%1] %2 %3:%4, %5:%6, %7:%8")
+                .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
+                .arg(shakeBedIndex == 3? "" : "["+bed+QString::number(shakeBedIndex)+"]")
+                .arg(group)
+                .arg(actGroup)
+                .arg(step)
+                .arg(act)
+                .arg(status)
+                .arg(start);
+    }else
+    {
+        QString success = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1029");//执行成功
+        QString failure = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1030");//执行失败
+        msg = tr("[%1] %2 %3:%4, %5:%6, %7:%8")
+                .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
+                .arg(shakeBedIndex == 3? "" : "["+bed+QString::number(shakeBedIndex)+"]")
+                .arg(group)
+                .arg(actGroup)
+                .arg(step)
+                .arg(act)
+                .arg(status)
+                .arg(isSuccess?success:failure);
+    }
+    ui->textBrowser_2->append(msg);
+    // 更新预期完成时间
+    ui->lblPlainEnd->setText(CalcExecuteTime::instance().getEstimatedCompletionTime(stepId)); // 预期完成时间
+}
+
+/**
+ * @brief 单个样本执行上报状态
+ * @param stepId 在数据库中的id
+ * @param shakeBedIndex:摇床 1:bed1 2:bed2
+ * @param samplePosition: 样本位置
+ * @param paperPosition 膜槽位置
+ * @param isSuccess 是否执行成功
+ */
+void TestSampleWidget::slotSignalSamplingResult(int stepId, int shakeBedIndex, QString actGroup, QString act, int samplePosition, int paperPosition, bool isSuccess)
+{
+    QString group = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1068");//样本位
+    QString slot = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1924");//槽位
+    QString sample = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K2023");//步骤组:
+    QString step = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1087");//步骤
+    QString bed = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1923");//摇床
+    QString status = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1702");//状态
+    QString success = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1029");//执行成功
+    QString failure = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1030");//执行失败
+
+    QDateTime timeNow = QDateTime::currentDateTime();
+    ui->textBrowser_2->append(tr("[%1] [%2] %3:%4, %5:%6, %7:%8, %9:%10, %11:%12")
+                              .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
+                              .arg(shakeBedIndex)
+                              .arg(sample)
+                              .arg(samplePosition)
+                              .arg(slot)
+                              .arg(paperPosition)
+                              .arg(group)
+                              .arg(actGroup)
+                              .arg(step)
+                              .arg(act)
+                              .arg(status)
+                              .arg(isSuccess?success:failure));
+}
+
+/**
+ * @brief 暂停上报状态
+ * @param hint 暂停信息
+ */
+void TestSampleWidget::slotPausingResult(QString hint)
+{
+    QMutexLocker lock(&_lock);
+     auto strHint="\n\n\n"+GlobalData::LoadLanguageInfo(hint);
+     _alarmDialg->msgText(strHint,true);
+     _alarmDialg->setAlignCenter();
+     _alarmDialg->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
+     _alarmDialg->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
+     QString confireStr=GlobalData::LoadLanguageInfo("D0003");
+     if(hint=="D0002")
+         confireStr=GlobalData::LoadLanguageInfo("D0004");
+     _alarmDialg->setConfirmMsgText("\n"+confireStr+"\t\t\n");
+     _alarmDialg->exec();
+     _instrument->shutdownBee();
+     _instrument->testContinue();
+}
+
+void TestSampleWidget::slotDetectionStartResult(QString resultCode, QString messageType)
+{
 	QMutexLocker lock(&_lock);
 	if(messageType=="1"){//开始
-        ui->progressBar->setRange(0, 0);
-        ui->progressBar->setVisible(true);
-        if(_timer==nullptr){
-            _timer=new QTimer;
+        if(m_listTest.size() > 0)
+        {
+            ui->progressBar->setRange(0, 0);
+            ui->progressBar->setVisible(true);
+            _timer->start(1000);
+            // 开启时间计算
+            qint32 start_pos = m_listTest.first()->getSlotPos();
+            qint32 end_pos = m_listTest.last()->getSlotPos();
+            qint32 bed1_cnt = start_pos > 36 ? 0 : 36 - start_pos + 1;
+            qint32 bed2_cnt = end_pos <= 36 ? 0 : end_pos - 36;
+            int processId = SystemSetDao::instance()->getProcessId();
+            CalcExecuteTime::instance().solutionStart(processId, bed1_cnt, bed2_cnt);
+            ui->lblSolutionEnd->setText("00:00:00:00");
         }
-        startTime = QTime::currentTime();
-        ui->lblSolutionEnd->setText("00:00:00:00");
-        connect(_timer,SIGNAL(timeout()),this,SLOT(slotUpdateTime()));
-        _timer->start(1000);
     }else if(messageType=="2"){//结果
         ui->progressBar->setVisible(false);
 		if (_timer != nullptr)
 			_timer->stop();
         //QString result = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1029");
-        if(code!="0"){
-            QString result= GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code);
+        if(resultCode!="0"){
+            QString result= GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), resultCode);
             MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), result,MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
             return;
         }
@@ -181,64 +285,18 @@ void  TestSampleWidget::slotDetectionStartResult(QString messageType, QString sa
             _instrState->setMachineState(InstrumentStateModel::enumStandby);
             emit testFinish();
 		});
-    }else if(messageType=="3"){//阶段信息
-        QString result = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1029");
-        QDateTime timeNow = QDateTime::currentDateTime();
-        if(sample.isNull()||sample.isEmpty()){
-            ui->textBrowser_2->append(tr("[%1] 步骤：%2, 结果：%3")
-                                      .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
-                                      .arg(step).arg(result));
-        }else{
-            ui->textBrowser_2->append(tr("[%1] 样本：%2, 槽位：%3, 步骤：%4, 结果：%5")
-                                      .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
-                                      .arg(sample)
-                                      .arg(slot)
-                                      .arg(step)
-                                      .arg(result));
-        }
-    }else if(messageType=="5"){//阶段信息
-        QString result = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1030");
-        QDateTime timeNow = QDateTime::currentDateTime();
-        if(sample.isNull()||sample.isEmpty()){
-            ui->textBrowser_2->append(tr("[%1] 步骤：%2, 结果：%3")
-                                      .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
-                                      .arg(step).arg(result));
-        }else{
-            ui->textBrowser_2->append(tr("[%1] 样本：%2, 槽位：%3, 步骤：%4, 结果：%5")
-                                      .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
-                                      .arg(sample)
-                                      .arg(slot)
-                                      .arg(step)
-                                      .arg(result));
-        }
-    }
-    else if(messageType=="4"){//时间更新
-        ui->lblPlainEnd->setText(time);
-        stepTime = QTime::currentTime();
-        stepTimeTotal = QTime::fromString(time, "HH:mm:ss");
-    }
-	else if(messageType=="7")
-    {
-         auto strHint="\n\n\n"+GlobalData::LoadLanguageInfo(hint);
-         _alarmDialg->msgText(strHint,true);
-         _alarmDialg->setAlignCenter();
-         _alarmDialg->setFstBtnTest(GlobalData::LoadLanguageInfo("K1181"));
-         _alarmDialg->setSndBtnTest(GlobalData::LoadLanguageInfo("K1758"));
-         QString confireStr=GlobalData::LoadLanguageInfo("D0003");
-         if(hint=="D0002")
-             confireStr=GlobalData::LoadLanguageInfo("D0004");
-         _alarmDialg->setConfirmMsgText("\n"+confireStr+"\t\t\n");
-         _alarmDialg->exec();
-         _instrument->shutdownBee();
-         _instrument->testContinue();
     }
 }
 
+/**
+ * @brief TestSampleWidget::slotDetectionPauseResult
+ * @param code
+ */
 void  TestSampleWidget::slotDetectionPauseResult(QString code){
     if(code=="0"){
         _instrState->setMachineState(InstrumentStateModel::enumPause);
         ui->lblPause->setText("00:00:00:00");
-        pauseTime = QTime::currentTime();
+        CalcExecuteTime::instance().solutionPause();
     }else{
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }
@@ -248,6 +306,7 @@ void  TestSampleWidget::slotDetectionContinueResult(QString code){
     if(code=="0"){
         ui->lblPause->setText("00:00:00:00");
         _instrState->setMachineState(InstrumentStateModel::enumRuning);
+        CalcExecuteTime::instance().solutionResume();
     }else{
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
     }
@@ -261,6 +320,7 @@ void  TestSampleWidget::slotDetectionStopResult(QString code){
         _timer->stop();
         m_progressDialog->done(1);
         emit testStop();
+        CalcExecuteTime::instance().solutionStop();
         //m_sampleWidget->ReturnSampleEdit();
     }else{
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
@@ -1540,7 +1600,7 @@ void TestSampleWidget::on_btnSet_clicked()
     selectProcessMap = m_selectPDialog->getSeletedPGMap();
     Global::g_run_or_maintenance_flage = 0;
 
-    //这里用时较久
+    //这里用时较久,TODO::
     bool b = SampleBLL().insertModel(_sampleTestTpVect);
     if (!b)
     {

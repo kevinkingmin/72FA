@@ -37,6 +37,7 @@ public:
     QString getVerifier();
 
     QString getDefaultProcessName();
+    int getProcessId();
     QVector<SystemSetModel>getAllRows();
 private:
 };

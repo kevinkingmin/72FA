@@ -1266,6 +1266,8 @@ bool AddSampleWidget::nextAction()
     createSampleTestData(testMap,listTestData);
     sortTestData(listTestData);
     setTestDataSlotPos(startPos,totalTest);
+    // TODO::
+    qDebug() << "startPos"<<startPos<<"totalTest"<<totalTest;
     return true;
 }
 

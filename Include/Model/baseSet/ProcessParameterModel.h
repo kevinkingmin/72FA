@@ -160,6 +160,9 @@ public:
     QString getParas();
     void setParas(QString &str);
 
+    int getExecuteTime();
+    void setExecuteTime(int executeTime);
+
     bool getAddReagent(AddReagentStrt &out);
     void setAddReagent(const AddReagentStrt &strt);
 
@@ -203,6 +206,7 @@ private:
     QString _actName;
     QString _actCode;
     QString _paras;
+    int _executeTime;
     bool _paramParseSuccess;
 
     AddReagentStrt _addReagentStrt;

@@ -94,6 +94,13 @@ QString SystemSetDao::getDefaultProcessName()
     return temp.isEmpty()?"None":temp;
 }
 
+int SystemSetDao::getProcessId()
+{
+    SystemSetModel systemSetting;
+    if(!getModel(6, systemSetting)) return -1;
+    return systemSetting.getSaveSet();
+}
+
 QVector<SystemSetModel> SystemSetDao::getAllRows()
 {
     QSqlQuery query;

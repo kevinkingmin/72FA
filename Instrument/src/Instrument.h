@@ -130,6 +130,9 @@ public:
     int16_t getLiquidStateCommand = 0x0102;//获取液位信息  系统液/废液 报警 取消报警
     int16_t frameResponeCommand = 0x0200;//消息收到响应
     int16_t getPDFReportCommand = 0x0015;//打印PDF
+    int16_t getStepReportCommand = 0x0050;//步骤执行
+    int16_t getSamplingReportCommand = 0x0051;//加样结束
+    int16_t getPauseReportCommand = 0x0052;//暂停
     int16_t addSampleFailed = 0x0170;//加样失败
     int16_t delayFill=0x0016;
     int getUnitReagentVolumn(int companyId, int paperId, int reagentId);
@@ -296,7 +299,32 @@ signals:
 
     void sglPipFlowbackResult(QString code);
 
-    void sglDetectionStartResult(QString messageType,QString sample,QString slot,QString step,QString code,QString time,QString hint);
+    void sglDetectionStartResult(QString resultCode, QString messageType);
+
+    /**
+     * @brief 步骤执行上报状态
+     * @param stepId 在数据库中的id
+     * @param isStartMessage:是否为开始
+     * @param shakeBedIndex:摇床 1:bed1 2:bed2 3:bed1+bed2
+     * @param isSuccess 是否执行成功
+     */
+    void sglStepStateResult(int stepId, bool isStartMessage, int shakeBedIndex,QString actGroup, QString act, bool isSuccess);
+
+    /**
+     * @brief 单个样本执行上报状态
+     * @param stepId 在数据库中的id
+     * @param shakeBedIndex:摇床 1:bed1 2:bed2
+     * @param samplePosition: 样本位置
+     * @param paperPosition 膜槽位置
+     * @param isSuccess 是否执行成功
+     */
+    void sglSignalSamplingResult(int stepId, int shakeBedIndex, QString actGroup, QString act, int samplePosition, int paperPosition, bool isSuccess);
+
+    /**
+     * @brief 暂停上报状态
+     * @param hint 暂停信息
+     */
+    void sglPausingResult(QString hint);
 
     void sglDetectionPauseResult(QString code);
 

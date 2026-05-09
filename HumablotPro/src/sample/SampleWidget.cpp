@@ -23,6 +23,7 @@
 #include <QTextStream>
 #include <QFile>
 #include "src/main/subDialog/MyMessageBox.h"
+#include "../Include/Model/sample/SampleTestModel.h"
 
 SampleWidget::SampleWidget(QWidget *parent) :
     QWidget(parent),
@@ -245,7 +246,7 @@ void SampleWidget::on_btnNext_clicked()
 {
     auto count=ui->sampleStackPage->count();
     auto index=ui->sampleStackPage->currentIndex();
-    if(index==STACK_ADD_SAMPLE)
+    if(index==STACK_ADD_SAMPLE)// 点击完选择托盘后执行此分支
     {
         if(!m_addSampleWidget->nextAction())//添加样本 点击
             return;

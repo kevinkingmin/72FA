@@ -20,6 +20,7 @@ ProcessParameterModel::ProcessParameterModel()
     ,_actName("")
     ,_actCode("")
     ,_paras("")
+    ,_executeTime(1000)
     ,_paramParseSuccess(false)
     ,_addReagentStrt(false, 2000, "加试剂", 100, false, 0)
     ,_bedShakingStrt(0,0)
@@ -275,6 +276,17 @@ void ProcessParameterModel::setParas(QString &str)
 {
     _paras = str;
 }
+
+int ProcessParameterModel::getExecuteTime()
+{
+    return _executeTime;
+}
+
+void ProcessParameterModel::setExecuteTime(int executeTime)
+{
+    _executeTime = executeTime;
+}
+
 
 bool ProcessParameterModel::getAddReagent(ProcessParameterModel::AddReagentStrt &out)
 {
