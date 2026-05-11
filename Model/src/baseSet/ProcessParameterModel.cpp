@@ -21,13 +21,13 @@ ProcessParameterModel::ProcessParameterModel()
     ,_actCode("")
     ,_paras("")
     ,_paramParseSuccess(false)
-    ,_addReagentStrt(false, 2000, "加试剂", 100, false, 0, 1000)
-    ,_bedShakingStrt(0,0, 1000)
-    ,_drainingStrt(0, 1000)
+    ,_addReagentStrt(false, 2000, "加试剂", 100, false, 0, 3)
+    ,_bedShakingStrt(0,0, 100)
+    ,_drainingStrt(0, 600)
     ,_pausingStrt("")
     ,_samplingStrt()
-    ,_dryingStrt(1000, 2, 1000, 37, 1000, 1000)
-    ,_takePhotoStrt(1000)
+    ,_dryingStrt(1000, 2, 1000, 37, 1000, 3)
+    ,_takePhotoStrt(5)
 {
 }
 
@@ -95,7 +95,7 @@ bool ProcessParameterModel::strToAddReagent(ProcessParameterModel::AddReagentStr
     out._isDrainWaster=obj.value("isDrainWaster").toBool();
     out._drainTime=obj.value("drainTime").toDouble();
     QJsonValue timeVal = obj.value("estimatedTime");
-    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
+    out._estimatedTime = timeVal.isUndefined() ? 3 : timeVal.toInt();
     return true;
 }
 
@@ -125,7 +125,7 @@ bool ProcessParameterModel::strToDraining(ProcessParameterModel::DrainingStrt& o
     auto obj = document.object();
     out._drainTime=obj.value("drainTime").toDouble();
     QJsonValue timeVal = obj.value("estimatedTime");
-    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
+    out._estimatedTime = timeVal.isUndefined() ? 3 : timeVal.toInt();
     return true;
 }
 
@@ -175,7 +175,7 @@ bool ProcessParameterModel::strToSampling(ProcessParameterModel::SamplingStrt& o
     out._innerTime = obj.value("innerTime").toInt(3);
     out._outerTime = obj.value("outerTime").toInt(3);
     QJsonValue timeVal = obj.value("estimatedTime");
-    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
+    out._estimatedTime = timeVal.isUndefined() ? 15 : timeVal.toInt();
     return true;
 }
 QString ProcessParameterModel::SamplingToStr(const SamplingStrt &strt)
@@ -203,7 +203,7 @@ bool ProcessParameterModel::strToBedShaking(ProcessParameterModel::BedShakingStr
     out._shakeTime=obj.value("shakeTime").toDouble();
     out._bedTemperature=obj.value("bedTemperature").toDouble();
     QJsonValue timeVal = obj.value("estimatedTime");
-    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
+    out._estimatedTime = timeVal.isUndefined() ? 600 : timeVal.toInt();
     return true;
 }
 
@@ -233,7 +233,7 @@ bool ProcessParameterModel::strToDrying(ProcessParameterModel::DryingStrt& out, 
     out._heatTime=obj.value("heatTime").toDouble();
     out._bedTemperature=obj.value("bedTemperature").toDouble();
     QJsonValue timeVal = obj.value("estimatedTime");
-    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
+    out._estimatedTime = timeVal.isUndefined() ? 600 : timeVal.toInt();
     return true;
 }
 
@@ -262,7 +262,7 @@ bool ProcessParameterModel::strToTaskPhoto(ProcessParameterModel::TakePictureStr
     if (document.isNull() ||(parse_error.error != QJsonParseError::NoError)) return false;
     auto obj = document.object();
     QJsonValue timeVal = obj.value("estimatedTime");
-    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
+    out._estimatedTime = timeVal.isUndefined() ? 10 : timeVal.toInt();
     return true;
 }
 
@@ -482,6 +482,9 @@ QString ProcessParameterModel::toShowString()
         show+="体积:";
         show+=QString::number(_addReagentStrt._backFlowMl, 'f', 2);
         show+="ml;";
+        show+="预计时间:";
+        show+=QString::number(_addReagentStrt._estimatedTime);
+        show+="s;";
     }else if(_actCode == BED_SHAKING_CODE)
     {
         show+="孵育时间:";
@@ -490,6 +493,9 @@ QString ProcessParameterModel::toShowString()
         show+="摇床温度:";
         show+=QString::number(_bedShakingStrt._bedTemperature, 'f', 1);
         show+="℃;";
+        show+="预计时间:";
+        show+=QString::number(_bedShakingStrt._estimatedTime);
+        show+="s;";
 
     }else if (_actCode == DRYING_CODE)
     {
@@ -507,6 +513,9 @@ QString ProcessParameterModel::toShowString()
         show+="摇床温度:";
         show+=QString::number(_dryingStrt._bedTemperature, 'f', 1);
         show+="℃;";
+        show+="预计时间:";
+        show+=QString::number(_dryingStrt._estimatedTime);
+        show+="s;";
     }else if(_actCode == SAMPLING_CODE)
     {
         show+="样本量:";
@@ -521,10 +530,16 @@ QString ProcessParameterModel::toShowString()
         show+="外针冲洗时间:";
         show+=QString::number(_samplingStrt._outerTime);
         show+="s;";
+        show+="预计时间:";
+        show+=QString::number(_samplingStrt._estimatedTime);
+        show+="s;";
     }else if(_actCode == DRAINING_CODE)
     {
         show+="排废液时间:";
         show+=QString::number(_drainingStrt._drainTime, 'f', 1);
+        show+="s;";
+        show+="预计时间:";
+        show+=QString::number(_drainingStrt._estimatedTime);
         show+="s;";
 
     }else if(_actCode == PAUSING_CODE)
@@ -534,6 +549,9 @@ QString ProcessParameterModel::toShowString()
     }
     else if(_actCode == TAKE_PHOTO_CODE)
     {
+        show+="预计时间:";
+        show+=QString::number(_takePhotoStrt._estimatedTime);
+        show+="s;";
     }
     return show;
 }

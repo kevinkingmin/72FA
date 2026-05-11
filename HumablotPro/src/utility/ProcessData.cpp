@@ -122,6 +122,7 @@ void ProcessData::SetUI(bool modify)
             model.getBedShaking(strt);
             txtDatas.push_back(QString::number(strt._shakeTime));
             txtDatas.push_back(QString::number(strt._bedTemperature));
+            qDebug()<<"bt"<<QString::number(strt._bedTemperature);
             txtDatas.push_back(QString::number(strt._estimatedTime));
         }else if(actType == GlobalData::LoadLanguageInfo("K1607")) // 干燥
         {
@@ -134,7 +135,7 @@ void ProcessData::SetUI(bool modify)
             txtDatas.push_back(QString::number(strt._heatTime));
             txtDatas.push_back(QString::number(strt._estimatedTime));
             boxDatas.push_back(QString::number(strt._fanLevel));
-        }else if(actType == GlobalData::LoadLanguageInfo("K1607")) // 拍照
+        }else if(actType == GlobalData::LoadLanguageInfo("K1608")) // 拍照
         {
             on_cmbStepType_currentIndexChanged(6);
             ProcessParameterModel::TakePictureStrt strt;
@@ -493,7 +494,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
 
         // 预计耗时
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),4,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),4,1,1,3);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 100, this)),4,1);
         ui.gridLayout->addWidget(new QLabel("s",this),4,4);
     }
     else if(index==1) // 加样本
@@ -518,7 +519,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel("s",this),2,5);
         // 预计耗时
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),3,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),3,1,1,4);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 100, this)),3,1);
         ui.gridLayout->addWidget(new QLabel("s",this),3,5);
     }
     else if(index==2) // 排废液
@@ -529,7 +530,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel("s",this),0,2);
         // 预计耗时
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),1,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),1,1);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 100, this)),1,1);
         ui.gridLayout->addWidget(new QLabel("s",this),1,2);
     }
     else if(index==3) // 暂停
@@ -537,10 +538,6 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->setContentsMargins(30,100,30,0);
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1832")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(nullptr),0,1);
-        // 预计耗时
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),1,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),1,1);
-        ui.gridLayout->addWidget(new QLabel("s",this),1,2);
     }
     else if(index==4) // 孵育
     {
@@ -555,7 +552,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel("℃",this),1,2);
         // 预计耗时
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),2,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),2,1);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 600000, this)),2,1);
         ui.gridLayout->addWidget(new QLabel("s",this),2,2);
     }
     else if(index==5) // 干燥
@@ -587,14 +584,14 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel("min",this),2,4);
         // 预计耗时
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),3,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),3,1,1,3);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 600000, this)),3,1);
         ui.gridLayout->addWidget(new QLabel("s",this),3,4);
     }
     else if(index==6) // 拍照
     {
         // 预计耗时
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),0,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),0,1);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 100, this)),0,1);
         ui.gridLayout->addWidget(new QLabel("s",this),0,2);
     }
 

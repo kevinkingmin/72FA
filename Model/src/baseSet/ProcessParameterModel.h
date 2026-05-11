@@ -38,7 +38,7 @@ public:
             ,_reagentMl(1)
             ,_isBackFlow(false)
             ,_backFlowMl(0)
-            ,_estimatedTime(1000)
+            ,_estimatedTime(3)
         {}
         AddReagentStrt(const bool isDrainWaster,const double drainTime, const QString& name,
                        const double ul,  const bool isBackFlow, const double backFlowMl, const int extimatedTime)
@@ -64,7 +64,7 @@ public:
         BedShakingStrt()
             :_shakeTime(0)
             ,_bedTemperature(0)
-            ,_estimatedTime(1000)
+            ,_estimatedTime(600)
         {}
         BedShakingStrt(const double shakeTime, const double bedTemperature, const int extimatedTime)
             :_shakeTime(shakeTime)
@@ -94,7 +94,7 @@ public:
             ,_fanTime(0)
             ,_bedTemperature(0)
             ,_heatTime(0)
-            ,_estimatedTime(1000)
+            ,_estimatedTime(600)
         {}
         DryingStrt(const double dryTime, const int fanLevel, const double fanTime, const double bedTemperature, const double heatTime, const int extimatedTime)
             :_dryTime(dryTime)
@@ -123,7 +123,7 @@ public:
             ,_isFilling(false)
             ,_innerTime(3)
             ,_outerTime(3)
-            ,_estimatedTime(1000)
+            ,_estimatedTime(15)
         {}
         SamplingStrt(const double sampleUl, const bool isFilling, const int& innerTime, const int& outerTime, const int extimatedTime)
             :_sampleUl(sampleUl)
@@ -143,7 +143,7 @@ public:
         int _estimatedTime;
         DrainingStrt()
             :_drainTime(0)
-            ,_estimatedTime(1000)
+            ,_estimatedTime(3)
         {}
         DrainingStrt(const double drainTime, const int extimatedTime)
             :_drainTime(drainTime)
@@ -170,7 +170,7 @@ public:
         // 预计耗时
         int _estimatedTime;
         TakePictureStrt()
-            :_estimatedTime(1000)
+            :_estimatedTime(10)
         {}
         TakePictureStrt(const int estimatedTime)
             :_estimatedTime(estimatedTime)
