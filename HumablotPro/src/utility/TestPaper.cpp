@@ -176,7 +176,7 @@ void TestPaper::initUI()
     ui->lblG2Rules->setText(GlobalData::LoadLanguageInfo("K1133"));
     ui->lblG2Curves->setText(GlobalData::LoadLanguageInfo("K1794"));
 
-    ui->lblG3ItemCount->setText(GlobalData::LoadLanguageInfo("K1797"));
+    ui->lblG3ItemCount->setText(GlobalData::LoadLanguageInfo("K1129"));
 
     ui->lblG4ItemCount->setText(GlobalData::LoadLanguageInfo("K1797"));
     ui->pushButton_Save->setText(GlobalData::LoadLanguageInfo("K1038"));
