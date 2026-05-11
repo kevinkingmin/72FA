@@ -282,12 +282,15 @@ void Instrument::analysisFrame(){
             p=(p.length()==2?p:"0"+p);
             QString err = obj.value("e").toString();
             QString errMsg = GetLanguageClsBLL::getlangValue("K1901"); // 其他原因
-            if(err == "1")
+            if(err == "2")
             {
                 errMsg = GetLanguageClsBLL::getlangValue("K1902"); // 柱塞泵堵针
-            }else if(err == "2")
+            }else if(err == "3")
             {
                 errMsg = GetLanguageClsBLL::getlangValue("K1903"); // 液面探测失败
+            }else if(err == "4")
+            {
+                errMsg = GetLanguageClsBLL::getlangValue("K1904"); // 样本量不足
             }
 
             arrStr+=(samplDsc+s+"    ");
