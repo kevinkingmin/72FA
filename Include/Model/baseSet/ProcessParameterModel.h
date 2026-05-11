@@ -29,6 +29,8 @@ public:
         bool _isBackFlow;
         // 回流体积
         double _backFlowMl;
+        // 预计耗时
+        int _estimatedTime;
         AddReagentStrt()
             :_isDrainWaster(false)
             ,_drainTime(0)
@@ -36,15 +38,17 @@ public:
             ,_reagentMl(1)
             ,_isBackFlow(false)
             ,_backFlowMl(0)
+            ,_estimatedTime(1000)
         {}
         AddReagentStrt(const bool isDrainWaster,const double drainTime, const QString& name,
-                       const double ul,  const bool isBackFlow, const double backFlowMl)
+                       const double ul,  const bool isBackFlow, const double backFlowMl, const int extimatedTime)
             :_isDrainWaster(isDrainWaster)
             ,_drainTime(drainTime)
             ,_reagentName(name)
             ,_reagentMl(ul)
             ,_isBackFlow(isBackFlow)
             ,_backFlowMl(backFlowMl)
+            ,_estimatedTime(extimatedTime)
         {}
     };
 
@@ -55,13 +59,17 @@ public:
         double _shakeTime;
         // 摇床温度
         double _bedTemperature;
+        // 预计耗时
+        int _estimatedTime;
         BedShakingStrt()
             :_shakeTime(0)
             ,_bedTemperature(0)
+            ,_estimatedTime(1000)
         {}
-        BedShakingStrt(const double shakeTime, const double bedTemperature)
+        BedShakingStrt(const double shakeTime, const double bedTemperature, const int extimatedTime)
             :_shakeTime(shakeTime)
             ,_bedTemperature(bedTemperature)
+            ,_estimatedTime(extimatedTime)
         {}
     };
 
@@ -78,19 +86,23 @@ public:
         double _bedTemperature;
         // 加热时间
         double _heatTime;
+        // 预计耗时
+        int _estimatedTime;
         DryingStrt()
             :_dryTime(0)
             ,_fanLevel(0)
             ,_fanTime(0)
             ,_bedTemperature(0)
             ,_heatTime(0)
+            ,_estimatedTime(1000)
         {}
-        DryingStrt(const double dryTime, const int fanLevel, const double fanTime, const double bedTemperature, const double heatTime)
+        DryingStrt(const double dryTime, const int fanLevel, const double fanTime, const double bedTemperature, const double heatTime, const int extimatedTime)
             :_dryTime(dryTime)
             ,_fanLevel(fanLevel)
             ,_fanTime(fanTime)
             ,_bedTemperature(bedTemperature)
             ,_heatTime(heatTime)
+            ,_estimatedTime(extimatedTime)
         {}
     };
 
@@ -104,14 +116,21 @@ public:
         int _innerTime;
         // 外针充盈时间
         int _outerTime;
+        // 预计耗时
+        int _estimatedTime;
         SamplingStrt()
             :_sampleUl(0)
             ,_isFilling(false)
             ,_innerTime(3)
             ,_outerTime(3)
+            ,_estimatedTime(1000)
         {}
-        SamplingStrt(const double sampleUl, const bool isFilling, const int& innerTime, const int& outerTime)
-            :_sampleUl(sampleUl),_isFilling(isFilling), _innerTime(innerTime), _outerTime(outerTime)
+        SamplingStrt(const double sampleUl, const bool isFilling, const int& innerTime, const int& outerTime, const int extimatedTime)
+            :_sampleUl(sampleUl)
+            ,_isFilling(isFilling)
+            , _innerTime(innerTime)
+            , _outerTime(outerTime)
+            ,_estimatedTime(extimatedTime)
         {}
     };
 
@@ -120,11 +139,15 @@ public:
     {
         // 抽干时间
         double _drainTime;
+        // 预计耗时
+        int _estimatedTime;
         DrainingStrt()
             :_drainTime(0)
+            ,_estimatedTime(1000)
         {}
-        DrainingStrt(const double drainTime)
+        DrainingStrt(const double drainTime, const int extimatedTime)
             :_drainTime(drainTime)
+            ,_estimatedTime(extimatedTime)
         {}
     };
 
@@ -138,6 +161,19 @@ public:
         {}
         PausingStrt(const QString& notifyMessage)
             :_notifyMessage(notifyMessage)
+        {}
+    };
+
+    //拍照
+    struct TakePictureStrt
+    {
+        // 预计耗时
+        int _estimatedTime;
+        TakePictureStrt()
+            :_estimatedTime(1000)
+        {}
+        TakePictureStrt(const int estimatedTime)
+            :_estimatedTime(estimatedTime)
         {}
     };
 
@@ -160,9 +196,6 @@ public:
     QString getParas();
     void setParas(QString &str);
 
-    int getExecuteTime();
-    void setExecuteTime(int executeTime);
-
     bool getAddReagent(AddReagentStrt &out);
     void setAddReagent(const AddReagentStrt &strt);
 
@@ -181,6 +214,10 @@ public:
     bool getDrying(DryingStrt &out);
     void setDrying(const DryingStrt &strt);
 
+
+    void setTakePhoto(const ProcessParameterModel::TakePictureStrt &strt);
+    bool getTakePhoto(ProcessParameterModel::TakePictureStrt &out);
+
     bool parsingParas();
 
     QString toShowString();
@@ -191,6 +228,8 @@ public:
     QString SamplingToStr(const SamplingStrt &strt);
     QString BedShakingToStr(const BedShakingStrt &strt);
     QString dryingToStr(const DryingStrt &strt);
+    QString takePhotoToStr(const TakePictureStrt &strt);
+    int getEstimatedTime();
 private:
     bool strToAddReagent(AddReagentStrt& out, const QString &str);
     bool strToDraining(DrainingStrt& out, const QString &str);
@@ -198,6 +237,7 @@ private:
     bool strToSampling(SamplingStrt& out, const QString &str);
     bool strToBedShaking(BedShakingStrt& out, const QString &str);
     bool strToDrying(DryingStrt& out, const QString &str);
+    bool strToTaskPhoto(ProcessParameterModel::TakePictureStrt& out, const QString &str);
 
 private:
     int _id;
@@ -206,7 +246,6 @@ private:
     QString _actName;
     QString _actCode;
     QString _paras;
-    int _executeTime;
     bool _paramParseSuccess;
 
     AddReagentStrt _addReagentStrt;
@@ -215,6 +254,7 @@ private:
     PausingStrt _pausingStrt;
     SamplingStrt _samplingStrt;
     DryingStrt _dryingStrt;
+    TakePictureStrt _takePhotoStrt;
 };
 
 #endif // PROCESSPARAMODEL_H

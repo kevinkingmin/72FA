@@ -79,7 +79,7 @@ void ProcessData::SetUI(bool modify)
         //调用接口,获取动作参数，请按界面顺序排列
         QVector<QString> txtDatas;
         QVector<QString> boxDatas;
-        if(actType == GlobalData::LoadLanguageInfo("K1771"))
+        if(actType == GlobalData::LoadLanguageInfo("K1771"))//加试剂
         {
             on_cmbStepType_currentIndexChanged(0);
             ProcessParameterModel::AddReagentStrt strt;
@@ -87,6 +87,7 @@ void ProcessData::SetUI(bool modify)
             txtDatas.push_back(QString::number(strt._reagentMl, 'f', 2));
             txtDatas.push_back(QString::number(strt._drainTime, 'f', 1));
             txtDatas.push_back(QString::number(strt._backFlowMl, 'f', 2));
+            txtDatas.push_back(QString::number(strt._estimatedTime));
             boxDatas.push_back(strt._reagentName);
             boxDatas.push_back(strt._isDrainWaster?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
             boxDatas.push_back(strt._isBackFlow?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
@@ -98,28 +99,31 @@ void ProcessData::SetUI(bool modify)
             txtDatas.push_back(QString::number(strt._sampleUl));
             txtDatas.push_back(QString::number(strt._innerTime));
             txtDatas.push_back(QString::number(strt._outerTime));
+            txtDatas.push_back(QString::number(strt._estimatedTime));
             boxDatas.push_back(strt._isFilling?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
 
-        }else if(actType == GlobalData::LoadLanguageInfo("K1826"))
+        }else if(actType == GlobalData::LoadLanguageInfo("K1826"))// 排废液
         {
             on_cmbStepType_currentIndexChanged(2);
             ProcessParameterModel::DrainingStrt strt;
             model.getDraining(strt);
             txtDatas.push_back(QString::number(strt._drainTime));
-        }else if(actType == GlobalData::LoadLanguageInfo("K1827"))
+            txtDatas.push_back(QString::number(strt._estimatedTime));
+        }else if(actType == GlobalData::LoadLanguageInfo("K1827"))//暂停
         {
             on_cmbStepType_currentIndexChanged(3);
             ProcessParameterModel::PausingStrt strt;
             model.getPausing(strt);
             txtDatas.push_back(strt._notifyMessage);
-        }else if(actType == GlobalData::LoadLanguageInfo("K1828"))
+        }else if(actType == GlobalData::LoadLanguageInfo("K1828")) // 孵育
         {
             on_cmbStepType_currentIndexChanged(4);
             ProcessParameterModel::BedShakingStrt strt;
             model.getBedShaking(strt);
             txtDatas.push_back(QString::number(strt._shakeTime));
             txtDatas.push_back(QString::number(strt._bedTemperature));
-        }else if(actType == GlobalData::LoadLanguageInfo("K1607"))
+            txtDatas.push_back(QString::number(strt._estimatedTime));
+        }else if(actType == GlobalData::LoadLanguageInfo("K1607")) // 干燥
         {
             on_cmbStepType_currentIndexChanged(5);
             ProcessParameterModel::DryingStrt strt;
@@ -128,10 +132,14 @@ void ProcessData::SetUI(bool modify)
             txtDatas.push_back(QString::number(strt._fanTime));
             txtDatas.push_back(QString::number(strt._bedTemperature));
             txtDatas.push_back(QString::number(strt._heatTime));
+            txtDatas.push_back(QString::number(strt._estimatedTime));
             boxDatas.push_back(QString::number(strt._fanLevel));
         }else if(actType == GlobalData::LoadLanguageInfo("K1607")) // 拍照
         {
             on_cmbStepType_currentIndexChanged(6);
+            ProcessParameterModel::TakePictureStrt strt;
+            model.getTakePhoto(strt);
+            txtDatas.push_back(QString::number(strt._estimatedTime));
         }
 
         if(_txtVect.count()>txtDatas.count()+boxDatas.count())
@@ -236,13 +244,14 @@ void ProcessData::on_pushButton_Save_clicked()
         double drainTime = txtVect[1].toDouble();
         drainTime = drainTime < 0.01 ? 0 : drainTime;
         double backFlowMl = txtVect[2].toDouble();
+        int estimatedTime = txtVect[3].toInt();
         backFlowMl = backFlowMl < 0.001 ? 0 : backFlowMl;
         if((isDrainWaster && drainTime < 0.01) || (isBackFlow && backFlowMl < 0.001))
         {
             MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1911"), MyMessageBox::Ok,"OK","");
             return;
         }
-        ProcessParameterModel::AddReagentStrt strt(isDrainWaster, drainTime, reagentName, reagentMl, isBackFlow, backFlowMl);
+        ProcessParameterModel::AddReagentStrt strt(isDrainWaster, drainTime, reagentName, reagentMl, isBackFlow, backFlowMl, estimatedTime);
         model.setActCode(ProcessParameterModel::ADD_REAGENT_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
@@ -266,8 +275,9 @@ void ProcessData::on_pushButton_Save_clicked()
             return;
         }
 
+        int estimatedTime = txtVect[3].toInt();
         bool isFilling = boxVect[0] == GlobalData::LoadLanguageInfo("K1700");
-        ProcessParameterModel::SamplingStrt strt(sampleUl, isFilling, innerTime, outerTime);
+        ProcessParameterModel::SamplingStrt strt(sampleUl, isFilling, innerTime, outerTime, estimatedTime);
         model.setActCode(ProcessParameterModel::SAMPLING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
@@ -282,7 +292,8 @@ void ProcessData::on_pushButton_Save_clicked()
             MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1911"), MyMessageBox::Ok,"OK","");
             return;
         }
-        ProcessParameterModel::DrainingStrt strt(drainTime);
+        int estimatedTime = txtVect[1].toInt();
+        ProcessParameterModel::DrainingStrt strt(drainTime, estimatedTime);
         model.setActCode(ProcessParameterModel::DRAINING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
@@ -319,7 +330,8 @@ void ProcessData::on_pushButton_Save_clicked()
             MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1918"), MyMessageBox::Ok,"OK","");
             return;
         }
-        ProcessParameterModel::BedShakingStrt strt(shakeTime, bedTemperature);
+        int estimatedTime = txtVect[2].toInt();
+        ProcessParameterModel::BedShakingStrt strt(shakeTime, bedTemperature, estimatedTime);
         model.setActCode(ProcessParameterModel::BED_SHAKING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
@@ -356,7 +368,8 @@ void ProcessData::on_pushButton_Save_clicked()
             return;
         }
 
-        ProcessParameterModel::DryingStrt strt(dryTime, fanLevel, fanTime, bedTemperature, shakeTime);
+        int estimatedTime = txtVect[4].toInt();
+        ProcessParameterModel::DryingStrt strt(dryTime, fanLevel, fanTime, bedTemperature, shakeTime, estimatedTime);
         model.setActCode(ProcessParameterModel::DRYING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
@@ -365,9 +378,14 @@ void ProcessData::on_pushButton_Save_clicked()
         model.setDrying(strt);
     }else if(_currentSelectStep==6) // 拍照
     {
+        int estimatedTime = txtVect[0].toInt();
+        ProcessParameterModel::TakePictureStrt strt(estimatedTime);
         model.setActCode(ProcessParameterModel::TAKE_PHOTO_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
+        QString parasStr =model.takePhotoToStr(strt);
+        model.setParas(parasStr);
+        model.setTakePhoto(strt);
     }
 
     ProcessParameterDao* dao = ProcessParameterDao::instance();
@@ -472,6 +490,11 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1829")+":",this),3,2,Qt::AlignRight); // 回流体积
         ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0,5.0,2,this)),3,3);
         ui.gridLayout->addWidget(new QLabel("ml",this),3,4);
+
+        // 预计耗时
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),4,0,Qt::AlignRight);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),4,1,1,3);
+        ui.gridLayout->addWidget(new QLabel("s",this),4,4);
     }
     else if(index==1) // 加样本
     {
@@ -493,6 +516,10 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1847"),this),2,3,Qt::AlignLeft);
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,100,this)),2,4);
         ui.gridLayout->addWidget(new QLabel("s",this),2,5);
+        // 预计耗时
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),3,0,Qt::AlignRight);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),3,1,1,4);
+        ui.gridLayout->addWidget(new QLabel("s",this),3,5);
     }
     else if(index==2) // 排废液
     {
@@ -500,12 +527,20 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1831")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),0,1);
         ui.gridLayout->addWidget(new QLabel("s",this),0,2);
+        // 预计耗时
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),1,0,Qt::AlignRight);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),1,1);
+        ui.gridLayout->addWidget(new QLabel("s",this),1,2);
     }
     else if(index==3) // 暂停
     {
         ui.gridLayout->setContentsMargins(30,100,30,0);
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1832")+":",this),0,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(nullptr),0,1);
+        // 预计耗时
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),1,0,Qt::AlignRight);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),1,1);
+        ui.gridLayout->addWidget(new QLabel("s",this),1,2);
     }
     else if(index==4) // 孵育
     {
@@ -518,6 +553,10 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1778")+":",this),1,0,Qt::AlignRight);
         ui.gridLayout->addWidget(createEdit(new QDoubleValidator(10.0,70.0,1,this)),1,1);
         ui.gridLayout->addWidget(new QLabel("℃",this),1,2);
+        // 预计耗时
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),2,0,Qt::AlignRight);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),2,1);
+        ui.gridLayout->addWidget(new QLabel("s",this),2,2);
     }
     else if(index==5) // 干燥
     {
@@ -546,10 +585,17 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         // 孵育时间
         ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1,10000,1,this)),2,3);
         ui.gridLayout->addWidget(new QLabel("min",this),2,4);
+        // 预计耗时
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),3,0,Qt::AlignRight);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),3,1,1,3);
+        ui.gridLayout->addWidget(new QLabel("s",this),3,4);
     }
     else if(index==6) // 拍照
     {
-
+        // 预计耗时
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),0,0,Qt::AlignRight);
+        ui.gridLayout->addWidget(createEdit(new QDoubleValidator(0.1, 1000.0, 1,this)),0,1);
+        ui.gridLayout->addWidget(new QLabel("s",this),0,2);
     }
 
     // 设置默认数据

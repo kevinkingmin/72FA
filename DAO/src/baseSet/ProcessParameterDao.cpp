@@ -38,7 +38,6 @@ bool ProcessParameterDao::selectModel(int stepId, ProcessParameterModel& out)
         out.setActType(query.value("actType").toString());
         out.setActName(query.value("actName").toString());
         out.setActCode(query.value("actCode").toString());
-        out.setExecuteTime(query.value("executeTime").toInt());
         paras=query.value("paras").toString();
         out.setParas(paras);
 
@@ -64,7 +63,6 @@ QVector<ProcessParameterModel> ProcessParameterDao::selectModel(const int proces
         model.setActType(query.value("actType").toString());
         model.setActName(query.value("actName").toString());
         model.setActCode(query.value("actCode").toString());
-        model.setExecuteTime(query.value("executeTime").toInt());
         paras=query.value("paras").toString();
         model.setParas(paras);
         model.parsingParas();
@@ -109,7 +107,6 @@ QVector<ProcessParameterModel> ProcessParameterDao::getAllRows(int processId)
         model.setActType(query.value("actType").toString());
         model.setActName(query.value("actName").toString());
         model.setActCode(query.value("actCode").toString());
-        model.setExecuteTime(query.value("executeTime").toInt());
         paras=query.value("paras").toString();
         model.setParas(paras);
         tempVect.push_back(model);
@@ -122,13 +119,12 @@ bool ProcessParameterDao::insert(ProcessParameterModel& model)
     QSqlQuery query;
     if (DAO::createQuery(query) < 0) return false;
 
-    QString sqlStr = QString("INSERT INTO tprocess_parameter (processId, actType, actName, actCode, paras, executeTime) VALUES (%1, '%2', '%3','%4','%5', %6)")
+    QString sqlStr = QString("INSERT INTO tprocess_parameter (processId, actType, actName, actCode, paras) VALUES (%1, '%2', '%3','%4','%5')")
             .arg(model.getProcessId())
             .arg(model.getActType())
             .arg(model.getActName())
             .arg(model.getActCode())
-            .arg(model.getParas())
-            .arg(model.getExecuteTime());
+            .arg(model.getParas());
     if(!query.exec(sqlStr)) return false;
     return true;
 }
@@ -138,13 +134,12 @@ bool ProcessParameterDao::update(int stepId, ProcessParameterModel& model)
     QSqlQuery query;
     if (DAO::createQuery(query) < 0) return false;
 
-    QString sqlStr = QString("UPDATE tprocess_parameter set processId = %1, actType='%2', actName='%3', actCode='%4', paras='%5', executeTime=%6 where id = %7")
+    QString sqlStr = QString("UPDATE tprocess_parameter set processId = %1, actType='%2', actName='%3', actCode='%4', paras='%5' where id = %6")
             .arg(model.getProcessId())
             .arg(model.getActType())
             .arg(model.getActName())
             .arg(model.getActCode())
             .arg(model.getParas())
-            .arg(model.getExecuteTime())
             .arg(stepId);
     if(!query.exec(sqlStr)) return false;
     return true;

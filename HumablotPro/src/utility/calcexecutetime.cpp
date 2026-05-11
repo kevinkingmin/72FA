@@ -207,11 +207,11 @@ int CalcExecuteTime::reloadCalcExecuteTime(const int processId, int bed1ItemCnt,
 
     int timeSum = 0;          // 当前累积的非Shaking/Drying/Photo指令的时间总和
     long currentSegmentStartId = 0; // 当前累积段的起始步骤ID
-
     for (ProcessParameterModel& model : processVect)
     {
+        int execTime = model.getEstimatedTime();
+        model.parsingParas();
         QString actCode = model.getActCode();
-        int execTime = model.getExecuteTime();
         long modelId = model.getId();
 
         // 1. 暂停指令：跳过，不消耗时间，不改变状态

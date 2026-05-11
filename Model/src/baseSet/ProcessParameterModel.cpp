@@ -20,14 +20,14 @@ ProcessParameterModel::ProcessParameterModel()
     ,_actName("")
     ,_actCode("")
     ,_paras("")
-    ,_executeTime(1000)
     ,_paramParseSuccess(false)
-    ,_addReagentStrt(false, 2000, "加试剂", 100, false, 0)
-    ,_bedShakingStrt(0,0)
-    ,_drainingStrt(0)
+    ,_addReagentStrt(false, 2000, "加试剂", 100, false, 0, 1000)
+    ,_bedShakingStrt(0,0, 1000)
+    ,_drainingStrt(0, 1000)
     ,_pausingStrt("")
     ,_samplingStrt()
-    ,_dryingStrt(1000, 2, 1000, 37, 1000)
+    ,_dryingStrt(1000, 2, 1000, 37, 1000, 1000)
+    ,_takePhotoStrt(1000)
 {
 }
 
@@ -94,6 +94,8 @@ bool ProcessParameterModel::strToAddReagent(ProcessParameterModel::AddReagentStr
     out._backFlowMl=obj.value("backFlowMl").toDouble();
     out._isDrainWaster=obj.value("isDrainWaster").toBool();
     out._drainTime=obj.value("drainTime").toDouble();
+    QJsonValue timeVal = obj.value("estimatedTime");
+    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
     return true;
 }
 
@@ -106,6 +108,7 @@ QString ProcessParameterModel::AddReagentToStr(const AddReagentStrt &strt)
     obj.insert("backFlowMl",strt._backFlowMl);
     obj.insert("isDrainWaster",strt._isDrainWaster);
     obj.insert("drainTime",strt._drainTime);
+    obj.insert("estimatedTime", strt._estimatedTime);
 
     QJsonDocument doc;
     doc.setObject(obj);
@@ -121,6 +124,8 @@ bool ProcessParameterModel::strToDraining(ProcessParameterModel::DrainingStrt& o
     if (document.isNull() ||(parse_error.error != QJsonParseError::NoError)) return false;
     auto obj = document.object();
     out._drainTime=obj.value("drainTime").toDouble();
+    QJsonValue timeVal = obj.value("estimatedTime");
+    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
     return true;
 }
 
@@ -128,6 +133,7 @@ QString ProcessParameterModel::drainingToStr(const DrainingStrt &strt)
 {
     QJsonObject obj;
     obj.insert("drainTime",strt._drainTime);
+    obj.insert("estimatedTime", strt._estimatedTime);
 
     QJsonDocument doc;
     doc.setObject(obj);
@@ -168,6 +174,8 @@ bool ProcessParameterModel::strToSampling(ProcessParameterModel::SamplingStrt& o
     out._isFilling = obj.value("isFilling").toBool(false);
     out._innerTime = obj.value("innerTime").toInt(3);
     out._outerTime = obj.value("outerTime").toInt(3);
+    QJsonValue timeVal = obj.value("estimatedTime");
+    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
     return true;
 }
 QString ProcessParameterModel::SamplingToStr(const SamplingStrt &strt)
@@ -177,6 +185,7 @@ QString ProcessParameterModel::SamplingToStr(const SamplingStrt &strt)
     obj.insert("isFilling", strt._isFilling);
     obj.insert("innerTime", strt._innerTime);
     obj.insert("outerTime", strt._outerTime);
+    obj.insert("estimatedTime", strt._estimatedTime);
 
     QJsonDocument doc;
     doc.setObject(obj);
@@ -193,6 +202,8 @@ bool ProcessParameterModel::strToBedShaking(ProcessParameterModel::BedShakingStr
     auto obj = document.object();
     out._shakeTime=obj.value("shakeTime").toDouble();
     out._bedTemperature=obj.value("bedTemperature").toDouble();
+    QJsonValue timeVal = obj.value("estimatedTime");
+    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
     return true;
 }
 
@@ -201,6 +212,7 @@ QString ProcessParameterModel::BedShakingToStr(const BedShakingStrt &strt)
     QJsonObject obj;
     obj.insert("shakeTime",strt._shakeTime);
     obj.insert("bedTemperature",strt._bedTemperature);
+    obj.insert("estimatedTime", strt._estimatedTime);
 
     QJsonDocument doc;
     doc.setObject(obj);
@@ -220,6 +232,8 @@ bool ProcessParameterModel::strToDrying(ProcessParameterModel::DryingStrt& out, 
     out._fanLevel=obj.value("fanLevel").toInt();
     out._heatTime=obj.value("heatTime").toDouble();
     out._bedTemperature=obj.value("bedTemperature").toDouble();
+    QJsonValue timeVal = obj.value("estimatedTime");
+    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
     return true;
 }
 
@@ -231,11 +245,68 @@ QString ProcessParameterModel::dryingToStr(const DryingStrt &strt)
     obj.insert("fanLevel",strt._fanLevel);
     obj.insert("heatTime",strt._heatTime);
     obj.insert("bedTemperature",strt._bedTemperature);
+    obj.insert("estimatedTime", strt._estimatedTime);
 
     QJsonDocument doc;
     doc.setObject(obj);
     QString jsonStr=doc.toJson(QJsonDocument::Compact);
     return jsonStr;
+}
+
+
+bool ProcessParameterModel::strToTaskPhoto(ProcessParameterModel::TakePictureStrt& out, const QString &str)
+{
+    if(str.isNull() || str.isEmpty()) return false;
+    QJsonParseError parse_error;
+    QJsonDocument document = QJsonDocument::fromJson(str.toUtf8(), &parse_error);
+    if (document.isNull() ||(parse_error.error != QJsonParseError::NoError)) return false;
+    auto obj = document.object();
+    QJsonValue timeVal = obj.value("estimatedTime");
+    out._estimatedTime = timeVal.isUndefined() ? 1000 : timeVal.toInt();
+    return true;
+}
+
+QString ProcessParameterModel::takePhotoToStr(const TakePictureStrt &strt)
+{
+    QJsonObject obj;
+    obj.insert("estimatedTime", strt._estimatedTime);
+    QJsonDocument doc;
+    doc.setObject(obj);
+    QString jsonStr=doc.toJson(QJsonDocument::Compact);
+    return jsonStr;
+}
+
+
+int ProcessParameterModel::getEstimatedTime()
+{
+    if(!_paramParseSuccess)
+    {
+        parsingParas();
+    }
+    if(_actCode == ADD_REAGENT_CODE)
+    {
+        return _addReagentStrt._estimatedTime;
+    }else if(_actCode == BED_SHAKING_CODE)
+    {
+        return _bedShakingStrt._estimatedTime;
+    }else if (_actCode == DRYING_CODE)
+    {
+        return _dryingStrt._estimatedTime;
+    }else if(_actCode == SAMPLING_CODE)
+    {
+        return _samplingStrt._estimatedTime;
+    }else if(_actCode == DRAINING_CODE)
+    {
+        return _dryingStrt._estimatedTime;
+    }else if(_actCode == PAUSING_CODE)
+    {
+        return 0;
+    }else if(_actCode == TAKE_PHOTO_CODE)
+    {
+        return _takePhotoStrt._estimatedTime;
+    }
+
+    return 0;
 }
 
 bool ProcessParameterModel::parsingParas()
@@ -260,7 +331,7 @@ bool ProcessParameterModel::parsingParas()
         _paramParseSuccess = strToPausing(_pausingStrt, _paras);
     }else if(_actCode == TAKE_PHOTO_CODE)
     {
-        _paramParseSuccess = true;
+        _paramParseSuccess = strToTaskPhoto(_takePhotoStrt, _paras);
     }
 
     return _paramParseSuccess;
@@ -275,16 +346,6 @@ QString ProcessParameterModel::getParas()
 void ProcessParameterModel::setParas(QString &str)
 {
     _paras = str;
-}
-
-int ProcessParameterModel::getExecuteTime()
-{
-    return _executeTime;
-}
-
-void ProcessParameterModel::setExecuteTime(int executeTime)
-{
-    _executeTime = executeTime;
 }
 
 
@@ -376,6 +437,22 @@ bool ProcessParameterModel::getDrying(ProcessParameterModel::DryingStrt &out)
 void ProcessParameterModel::setDrying(const ProcessParameterModel::DryingStrt &strt)
 {
     _paras = dryingToStr(strt);
+}
+
+
+bool ProcessParameterModel::getTakePhoto(ProcessParameterModel::TakePictureStrt &out)
+{
+    if(!_paramParseSuccess || _actCode!=TAKE_PHOTO_CODE)
+    {
+        return false;
+    }
+    out = _takePhotoStrt;
+    return true;
+}
+
+void ProcessParameterModel::setTakePhoto(const ProcessParameterModel::TakePictureStrt &strt)
+{
+    _paras = takePhotoToStr(strt);
 }
 
 // 界面显示的string
