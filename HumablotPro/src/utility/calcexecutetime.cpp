@@ -44,11 +44,9 @@ void CalcExecuteTime::solutionResume()
     {
         // 1. 获取本次暂停段的耗时
         qint64 elapsedSegment = m_pauseTimer.elapsed();
-        // 2. 累加到总耗时中
-        m_pausedMs += elapsedSegment;
-        // 3. 标记为运行
+        // 2. 标记为运行
         m_state = MachineState::Running;
-        qDebug() << "Timer Paused. Segment:" << elapsedSegment << "ms, Total Accumulated:" << m_pausedMs << "ms";
+        qDebug() << "Timer Paused. Segment:" << elapsedSegment << "ms";
     }
 }
 
@@ -106,7 +104,6 @@ void CalcExecuteTime::timerReset() {
     m_state = MachineState::Idle;
     m_solutionTimer.invalidate();
     m_pauseTimer.invalidate();
-    m_pausedMs = 0;
     qDebug() << "Timer Reset";
 }
 
@@ -150,9 +147,9 @@ qint64 CalcExecuteTime::getTotalPausedMs() const
 {
     QMutexLocker locker(&m_mutex);
     if (m_state == MachineState::Paused) {
-        return m_pausedMs + m_pauseTimer.elapsed();
+        return m_pauseTimer.elapsed();
     } else {
-        return m_pausedMs;
+        return 0;
     }
 }
 
@@ -163,7 +160,7 @@ qint64 CalcExecuteTime::getTotalPausedMs() const
 qint64 CalcExecuteTime::getTotalSolutionMs() const
 {
     QMutexLocker locker(&m_mutex);
-    if(m_state != MachineState::Running) return 0;
+    if(m_state == MachineState::Idle) return 0;
     return m_solutionTimer.elapsed();
 }
 

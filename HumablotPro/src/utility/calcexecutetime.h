@@ -121,7 +121,6 @@ private:
     QMap<int, int> m_data;// 按插入顺序: (key, value)
     mutable QMutex m_mutex;// 互斥锁
     MachineState m_state = MachineState::Idle;// 流程运行状态
-    qint64 m_pausedMs = 0;// 之前所有暂停段的累计耗时
     QElapsedTimer m_pauseTimer;// 用于测量暂停时间
     QElapsedTimer m_solutionTimer;// 用于测量方案运行时间
 };

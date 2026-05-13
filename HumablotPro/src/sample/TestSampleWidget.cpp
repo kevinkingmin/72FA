@@ -121,7 +121,7 @@ void TestSampleWidget::slotUpdateTime(){
     }
 }
 void TestSampleWidget::slotTestFinish(){
-    ui->lblPlainEnd->setText("00:00:00:00");
+    ui->lblPlainEnd->setText("00:00:00");
     _instrState->setMachineState(InstrumentStateModel::enumStandby);
     MyMessageBox::information(this, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1424"),MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"), "");
 }
@@ -246,7 +246,7 @@ void TestSampleWidget::slotDetectionStartResult(QString resultCode, QString mess
             qint32 bed2_cnt = end_pos <= 36 ? 0 : end_pos - 36;
             int processId = SystemSetDao::instance()->getProcessId();
             CalcExecuteTime::instance().solutionStart(processId, bed1_cnt, bed2_cnt);
-            ui->lblSolutionEnd->setText("00:00:00:00");
+            ui->lblSolutionEnd->setText("00:00:00");
         }
     }else if(messageType=="2"){//结果
         ui->progressBar->setVisible(false);
@@ -295,7 +295,7 @@ void TestSampleWidget::slotDetectionStartResult(QString resultCode, QString mess
 void  TestSampleWidget::slotDetectionPauseResult(QString code){
     if(code=="0"){
         _instrState->setMachineState(InstrumentStateModel::enumPause);
-        ui->lblPause->setText("00:00:00:00");
+        ui->lblPause->setText("00:00:00");
         CalcExecuteTime::instance().solutionPause();
     }else{
         MyMessageBox::warning(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), code), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
@@ -304,7 +304,7 @@ void  TestSampleWidget::slotDetectionPauseResult(QString code){
 
 void  TestSampleWidget::slotDetectionContinueResult(QString code){
     if(code=="0"){
-        ui->lblPause->setText("00:00:00:00");
+        ui->lblPause->setText("00:00:00");
         _instrState->setMachineState(InstrumentStateModel::enumRuning);
         CalcExecuteTime::instance().solutionResume();
     }else{
@@ -1500,13 +1500,6 @@ void TestSampleWidget::on_btnPause_clicked()
     if(state.state!=InstrumentStateModel::enumRuning){
         return;
     }
-    /*int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1260"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1432"), MyMessageBox::Ok | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
-    if (ret != MyMessageBox::Ok)
-    {
-        return;
-    }
-    Global::g_pause_flage = 1;
-    mPause_flage = true;*/
     int ret = MyMessageBox::question(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1260"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1432"), MyMessageBox::Ok | MyMessageBox::No, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1134"));
     if (ret == MyMessageBox::Ok)
     {
@@ -1562,24 +1555,6 @@ void TestSampleWidget::on_btnSet_clicked()
     bool bResult;
     QString company_id_sz = dao->SelectSaveSetById(&bResult, 5);
 
-    if (mOpenCoverAlarmTip != 2)
-    {
-        //_instrument->inquireSensorState();
-    }
-
-
-    /*if (!state.canRun)
-    {
-        MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1433"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"),"");
-        return;
-    }
-
-    if (state.state == InstrumentStateModel::enumRuning)
-    {
-        //_instrument->setIsPause(true);
-        //暂停开始计算
-        mPause_flage = true;
-    }*/
     //阶段选择
     if (Global::g_pause_flage != 1)
     {
@@ -1588,7 +1563,6 @@ void TestSampleWidget::on_btnSet_clicked()
         if (m_selectPDialog->getIsCloseBtn())
         {
             mPause_flage = false;
-            //_instrument->setIsPause(false);
             return;
         }
     }
