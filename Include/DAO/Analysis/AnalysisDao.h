@@ -54,9 +54,8 @@ public:
         QString strTestDateTime, int error_code);
 
     bool UpdateSampleAnalysisState(QString& testId, QString& strAnalysisState);
-
     //插入左右位置记录表中
-    bool Insert_tresult_left_right_pixp(QString testId,int position_index, int left, int right,QString projectName, int top, int height);
+    bool InsertOrUpdate_tresult_left_right_pixp(QString testId,int position_index, int left, int right,QString projectName, int top, int height);
     int GetTestBacthMax();
     QSqlQuery SelectStandardCurveParameter(QString curveIdStr, bool *bResult);
 };

@@ -336,34 +336,63 @@ QSqlQuery AnalysisDao::SelectSamples2(QString strProjectName, QString strTestPap
     return query;
 }
 
-bool AnalysisDao::Insert_tresult_left_right_pixp(QString testId, int position_index, int left, int right,QString projectName,int top, int height)
+bool AnalysisDao::InsertOrUpdate_tresult_left_right_pixp(QString testId, int position_index, int left, int right, QString projectName, int top, int height)
 {
     QSqlQuery query;
-    if (DAO::createQuery(query) < 0)
-    {
+    if (DAO::createQuery(query) < 0) {
+        qWarning() << "Failed to create query";
         return false;
     }
-    QString strSql;
-    strSql =
-        "insert into tresult_left_right_pixp (test_id,left_pix_position,right_pix_position,position_index,top,height,projectName) values ('";
-    strSql += testId;
-    strSql += "',";
-    strSql += QString::number(left);
-    strSql += ",";
-    strSql += QString::number(right);
-    strSql += ",";
-    strSql += QString::number(position_index);
-    strSql += ",";
-    strSql += QString::number(top);
-    strSql += ",";
-    strSql += QString::number(height);
-    strSql += ",'";
-    strSql += projectName;
-    strSql += "')";
-    bool bResult = query.exec(strSql);
-    return bResult;
-}
+    // 1. 先查询是否存在
+    query.prepare("SELECT pkid FROM tresult_left_right_pixp WHERE test_id = :tid AND projectName = :tName LIMIT 1");
+    query.bindValue(":tid", testId);
+    query.bindValue(":tName", projectName);
+    if(!query.exec()) {
+        qWarning() << "Failed to create query1";
+        return false;
+    }
 
+    if (!query.next()) { // 插入
+        QString strSql = "INSERT INTO tresult_left_right_pixp "
+                         "(test_id, left_pix_position, right_pix_position, position_index, top, height, projectName) "
+                         "VALUES (:testId, :left, :right, :positionIndex, :top, :height, :projectName)";
+        query.prepare(strSql);
+        query.bindValue(":testId", testId);
+        query.bindValue(":left", left);
+        query.bindValue(":right", right);
+        query.bindValue(":positionIndex", position_index);
+        query.bindValue(":top", top);
+        query.bindValue(":height", height);
+        query.bindValue(":projectName", projectName);
+        if(!query.exec()){
+            qWarning() << "Failed to create query2";
+            return false;
+        }
+    }else // 更新
+    {
+        QString strSql = "UPDATE tresult_left_right_pixp SET "
+                         "left_pix_position = :left, "
+                         "right_pix_position = :right, "
+                         "top = :top, "
+                         "height = :height, "
+                         "position_index = :position_index "
+                         "WHERE test_id = :testId AND projectName = :projectName";
+
+        query.prepare(strSql);
+        query.bindValue(":left", left);
+        query.bindValue(":right", right);
+        query.bindValue(":top", top);
+        query.bindValue(":height", height);
+        query.bindValue(":position_index", position_index);
+        query.bindValue(":testId", testId);
+        query.bindValue(":projectName", projectName);
+        if(!query.exec()){
+            qWarning() << "Failed to create query3";
+            return false;
+        }
+    }
+    return true;
+}
 
 bool AnalysisDao::InsertTestData(
                                  QString strSolutionName,

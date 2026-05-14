@@ -862,7 +862,7 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperItemParse(cv::Mat& cutMat, T
             }
             int positionNo = item.getPositionNo() - 1;
             // 项目范围线的起始点
-            int limitStart = static_cast<int>(center - totalScanWidth/2 + (itemCntOnSegment - positionNo - 1) * itemScanWidth);
+            int limitStart = static_cast<int>(center - totalScanWidth/2 + positionNo * itemScanWidth);
             int limitWidth = itemScanWidth;
             cv::Rect calcRect(limitStart, 0,  limitWidth, cutMat.rows);
             cv::Mat calMat = cutMat(calcRect);
@@ -891,7 +891,7 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperItemParse(cv::Mat& cutMat, T
             cv::Rect roi1(limitStart, 0, limitWidth, 2);
             cv::rectangle(drawMat, roi1, cv::Scalar(0,0,0), 2);
             // 插入位置信息
-            bResult = dao->Insert_tresult_left_right_pixp(paper.testId, static_cast<int>(itemIdx), limitStart, limitStart+limitWidth, item.getItemName(), 0, 2 );
+            bResult = dao->InsertOrUpdate_tresult_left_right_pixp(paper.testId, static_cast<int>(itemIdx), limitStart, limitStart+limitWidth, item.getItemName(), 0, 2 );
         }
     }
     // 保存最终的分析图片
@@ -1336,13 +1336,13 @@ PictureAnalysis::Error PictureAnalysis::ContinuousPaperItemParse(const cv::Mat& 
             int width = static_cast<int>(lineLimit * 1.5);
             cv::Rect roi1(xstart, 0, width, 2);
             cv::rectangle(drawMat, roi1, cv::Scalar(0,0,0), 2);
-            bResult = dao->Insert_tresult_left_right_pixp(paper.sampleId, 0, xstart, xstart+width, itemName, 0,2 );
+            bResult = dao->InsertOrUpdate_tresult_left_right_pixp(paper.sampleId, 0, xstart, xstart+width, itemName, 0,2 );
         }else
         {
             int xstart = markLineXCenter + positionList[static_cast<int>(i)] - lineLimit/2;
             cv::Rect roi1(xstart, 0, lineLimit, 2);
             cv::rectangle(drawMat, roi1, cv::Scalar(0,0,0), 2);
-            bResult = dao->Insert_tresult_left_right_pixp(paper.sampleId, 0, xstart, xstart+lineLimit, itemName, 0,2 );
+            bResult = dao->InsertOrUpdate_tresult_left_right_pixp(paper.sampleId, 0, xstart, xstart+lineLimit, itemName, 0,2 );
         }
     }
 
