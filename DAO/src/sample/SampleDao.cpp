@@ -201,7 +201,7 @@ bool SampleDao::insertModel(QVector<std::tuple<ptrModel ,QVector<ptrTest>>>tps)
 	int test_batch_max = dao1->GetTestBacthMax();
 	test_batch_max += 1;
 
-    if(id<=0 || testId<=0)
+    if(id<=0)
         return false;
 
     QSqlQuery query;
@@ -223,10 +223,8 @@ bool SampleDao::insertModel(QVector<std::tuple<ptrModel ,QVector<ptrTest>>>tps)
 			for (auto &it : testVect)
 			{
 				QString id_1 = "";
-				id_1 = QString("%1").arg(id);
-				//pSample->setId(id + i);
-				pSample->setId(id_1);
-				//pSample->setId(id + i);
+                id_1 = QString("%1").arg(id);
+                pSample->setId(id_1);
 				int paper_id = 0;
 				QString test_id = "";
 				int paper_pos = 0;
@@ -265,13 +263,9 @@ bool SampleDao::insertModel(QVector<std::tuple<ptrModel ,QVector<ptrTest>>>tps)
 			}
 		}
 		else //就是一个样本对应一个膜条的情况
-		{
-			//pSample->setId(id + i);
-			//int paper_id = 0;
-			//QString test_id = "";
+        {
 			QString id_1 = "";
-			id_1 = QString("%1").arg(id);
-			//pSample->setId(id + i);
+            id_1 = QString("%1").arg(id);
 			pSample->setId(id_1);
 			int paper_id = 0;
 			QString test_id = "";

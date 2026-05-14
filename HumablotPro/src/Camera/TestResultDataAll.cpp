@@ -51,8 +51,8 @@ TestResultDataAll::TestResultDataAll(QWidget *parent)
 
     QStringList headerString;
     QString sz1 = GlobalData::LoadLanguageInfo("K1156");//是否选中
-    QString sz2 = GlobalData::LoadLanguageInfo("K1163");//样本编号
-    QString sz3 = GlobalData::LoadLanguageInfo("K1157");//测试编号
+    QString sz2 = GlobalData::LoadLanguageInfo("K1157");//测试编号
+    QString sz3 = GlobalData::LoadLanguageInfo("K1163");//样本编号
     QString sz4=GlobalData::LoadLanguageInfo("K1054");//序号
     QString sz5 = GlobalData::LoadLanguageInfo("K1158");
     QString sz6 = GlobalData::LoadLanguageInfo("K1159");
@@ -2343,7 +2343,7 @@ void TestResultDataAll::InitTableWidget(QString sz, int page_index)//初始化�
             {
                 if(strValue == "")
                 {
-                    addContent(row, 8, GlobalData::LoadLanguageInfo("K1683"), 4);//无阳性结果
+                    addContent(row, 8, GlobalData::LoadLanguageInfo("K1683"), 0);//无阳性结果
                 }else
                 {
                     addContent(row, 8, strValue, 0);

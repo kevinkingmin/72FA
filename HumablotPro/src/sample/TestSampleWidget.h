@@ -75,7 +75,8 @@ private slots:
     void on_btnSubBody_clicked();
     void slotCurrentGroupIdChanged(int groupId,int realTime);
     void slotAlarmInfo1(QString alarm_info,QString code_type);
-
+    // 生成TestId
+    void create_test_id();
 
     void on_btnStop_clicked();
 

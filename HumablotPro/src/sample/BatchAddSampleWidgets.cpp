@@ -624,7 +624,7 @@ void BatchAddSampleWidgets::SaveSample()
 	int test_batch_max = dao1->GetTestBacthMax();
 	test_batch_max = 1;
 
-	for (size_t i = 0; i < m_BatchSampleList.size(); i++)
+    for (int i = 0; i < m_BatchSampleList.size(); i++)
 	{
 		QString paper_name = m_BatchSampleList[i].getPaperName();
 		int key = m_PaperinfoMap.key(paper_name);

@@ -1303,9 +1303,6 @@ void AddSampleWidget::createSampleTestData(QMap<SampleStrc,QVector<int>>testMap,
         //psample->setPaperPos(2);
         for(auto pid:tvect)
         {
-            QString testId = "";
-            testId.sprintf("%d", testIndex);
-            testId = strTestDateTime + testId;
             ptrTest test(new SampleTestModel);
             QString sampleNo = k.sampleNo;//.toInt();//样本的位置
             test->setSampleId(sampleNo);
@@ -1317,7 +1314,6 @@ void AddSampleWidget::createSampleTestData(QMap<SampleStrc,QVector<int>>testMap,
             test->setManageName(author);
             test->setCupType(k.cupType);
             test->setArticleNo(k.articleNo);
-            test->setTestId(testId);
             testVect.push_back(test);
             listTestData.push_back(test);
             testIndex++;

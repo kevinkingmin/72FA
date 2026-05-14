@@ -1522,6 +1522,26 @@ void TestSampleWidget::deleteFilesInDirectory() {
     }
 }
 
+void TestSampleWidget::create_test_id()
+{
+    QDateTime now = QDateTime::currentDateTime();
+    QString testIdHead = now.toString("yyyyMMddHHmmss");
+    // 更新test_id
+    for(auto tp:_sampleTestTpVect)
+    {
+        auto pSample = std::get<0>(tp);
+        auto testVect = std::get<1>(tp);
+        for (auto &it : testVect)
+        {
+            it->setTestId(testIdHead+QString::number(it->getSlotPos()));
+        }
+    }
+    for(auto test:m_listTest)
+    {
+        test->setTestId(testIdHead+QString::number(test->getSlotPos()));
+    }
+}
+
 //开始检测流程
 void TestSampleWidget::on_btnSet_clicked()
 {
@@ -1573,8 +1593,8 @@ void TestSampleWidget::on_btnSet_clicked()
     //把所有的样本信息插入到数据库
     selectProcessMap = m_selectPDialog->getSeletedPGMap();
     Global::g_run_or_maintenance_flage = 0;
-
-    //这里用时较久,TODO::
+    create_test_id();
+    //这里用时较久
     bool b = SampleBLL().insertModel(_sampleTestTpVect);
     if (!b)
     {
