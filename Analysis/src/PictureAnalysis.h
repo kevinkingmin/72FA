@@ -103,8 +103,14 @@ private:
     Error SegmentPaperHandle(TestPaperStrt &paper);
     // 分段膜条旋转裁切
     Error SegmentPaperRotateCut(cv::Mat& srcMat, TestPaperStrt &paper,cv::OutputArray dstMat, cv::OutputArray dstThreshMat);
+    Error SegmentPaperRotateCut1(cv::Mat& srcMat, TestPaperStrt &paper, cv::OutputArray dstMat, cv::OutputArray dst_thresh_mat);
+
     // 膜条段解析
     Error PaperSegmentationParse(cv::Mat& srcMat, cv::Mat& threshMat, TestPaperStrt &paper);
+    Error PaperSegmentationParse1(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperStrt &paper);
+    std::vector<std::vector<cv::Rect>> groupRectsByHorizontalSpan(const std::vector<cv::Rect>& rects, int span);
+    cv::Rect mergeRectsByScore(const cv::Mat& src, const std::vector<cv::Rect>& rects, int blockWidth, int paperBinarizationThresh);
+    std::vector<cv::Rect> SegmentationContourFind(const cv::Mat& srcMat, const cv::Mat& threshMat, TestPaperStrt &paper, const QString& path);
     // 分段膜条项目解析
     Error SegmentPaperItemParse(cv::Mat& cutMat, TestPaperStrt &paper);
 
