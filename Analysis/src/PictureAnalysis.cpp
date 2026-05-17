@@ -740,9 +740,9 @@ std::vector<cv::Rect> PictureAnalysis::findTopKBlocks(
                 // 约束 1: 索引不重叠
                 if (prevCand.endIdx >= currCand.startIdx) continue;
 
-                // 约束 2: 几何间距 >= minGap
-//                int gap = currCand.rect.x - (prevCand.rect.x + prevCand.rect.width);
-//                if (gap < minGap) continue;
+//                 约束 2: 几何间距 >= minGap
+                int gap = currCand.rect.x - (prevCand.rect.x + prevCand.rect.width);
+                if (gap < minGap) continue;
 
                 // 如果前一个状态不可达，跳过
                 if (dp[m-1][prev] < 0) continue;
