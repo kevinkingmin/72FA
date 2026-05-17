@@ -341,31 +341,6 @@ QSqlQuery AnalysisUIDao::SelectAll_tsystemset(bool *bResult, QString sql)
     return query;
 }
 
-QString AnalysisUIDao::SelectControlThreshold(bool *bResult)
-{
-    QString strControlThreshold;
-    QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-    {
-        *bResult = false;
-        return "";
-    }
-
-    *bResult = query.exec("select * from tsystemset where id = 1 ");
-    if (*bResult == false)
-        return "";
-    if (query.next())
-    {
-        strControlThreshold = query.value("saveDes").toString();
-    }
-    else
-    {
-        *bResult = false;
-        return "";
-    }
-    return strControlThreshold;
-}
-
 
 //获取值
 QString AnalysisUIDao::SelectTargetValue(bool *bResult, QString condition)

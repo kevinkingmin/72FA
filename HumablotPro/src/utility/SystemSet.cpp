@@ -30,7 +30,6 @@ SystemSet::SystemSet(QWidget *parent)
     ui.lineEdit_week_finish_time->setValidator(validator);
     ui.lineEdit_RootPathReport->setEnabled(true);
     ui.lineEdit_RootPathPicture->setEnabled(true);
-    QString strControlThreshold = dao->SelectControlThreshold(&bResult);
     QString strCutOffThreshold = dao->SelectCutOffThreshold(&bResult);
     QString strRootPathPicture = dao->SelectTestPicturesRootPath(&bResult);
     ui.lineEdit_RootPathPicture->setText(strRootPathPicture);
@@ -52,6 +51,12 @@ SystemSet::SystemSet(QWidget *parent)
     ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));
     ui.comboBox_beep_enable->addItem(GlobalData::LoadLanguageInfo("K1700"));
 
+
+    //设置语言
+    ui.comboBox_language->clear();
+    ui.comboBox_language->addItem("中文", 1);
+    ui.comboBox_language->addItem("EN", 2);
+
     // 废液桶 使能 1、去使能为 0”
     ui.comboBox_waste_liquid_tank_enable->clear();
     ui.comboBox_waste_liquid_tank_enable->addItem(GlobalData::LoadLanguageInfo("K1701"));
@@ -60,6 +65,11 @@ SystemSet::SystemSet(QWidget *parent)
     ui.comboBox_waste_liquid_tank_enable_2->clear();
     ui.comboBox_waste_liquid_tank_enable_2->addItem(GlobalData::LoadLanguageInfo("K1701"));
     ui.comboBox_waste_liquid_tank_enable_2->addItem(GlobalData::LoadLanguageInfo("K1700"));
+
+
+    ui.comboBox_picture_analysis_enable->clear();
+    ui.comboBox_picture_analysis_enable->addItem(GlobalData::LoadLanguageInfo("K1701"),0);
+    ui.comboBox_picture_analysis_enable->addItem(GlobalData::LoadLanguageInfo("K1700"),1);
 
     // 设置公司
     CompanyDao* companyDao = CompanyDao::instance();
@@ -102,11 +112,33 @@ SystemSet::SystemSet(QWidget *parent)
         int pkid = all_system_set_para.value("id").toInt();
         if (pkid == 20005) // 设置语言
         {
-            int saveSet = all_system_set_para.value("saveDes").toInt();
-            ui.comboBox_language->setCurrentIndex(saveSet);
+            int saveSet = all_system_set_para.value("saveSet").toInt();
+            if(saveSet < 1) saveSet = 1;
+            else if(saveSet > 2) saveSet = 2;
+            int index = ui.comboBox_language->findData(saveSet);
+            if (index != -1) {
+                ui.comboBox_language->setCurrentIndex(index);
+            } else {
+                ui.comboBox_language->setCurrentIndex(0);
+            }
             ui.comboBox_language->setView(new QListView(this));
             ui.comboBox_language->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192); min-height: 40px;}"));
             ui.comboBox_language->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192); min-height: 40px;}"));
+        }
+        else if (pkid == 1)
+        {
+            //图片解析调试是否开启: 1 表示开启 其他表示关闭
+            int saveSet = all_system_set_para.value("saveSet").toInt();
+            saveSet = saveSet == 1 ? 1 : 0;
+            int index = ui.comboBox_picture_analysis_enable->findData(saveSet);
+            if (index != -1) {
+                ui.comboBox_picture_analysis_enable->setCurrentIndex(index);
+            } else {
+                ui.comboBox_picture_analysis_enable->setCurrentIndex(0);
+            }
+            ui.comboBox_picture_analysis_enable->setView(new  QListView(this));
+            ui.comboBox_picture_analysis_enable->setStyleSheet(QString("QComboBox QAbstractItemView {background: rgb(192,192,192); min-height: 40px;}"));
+            ui.comboBox_picture_analysis_enable->setStyleSheet(QString("QComboBox QAbstractItemView::item {background: rgb(192,192,192); min-height: 40px;}"));
         }
         else if (pkid == 20) //系统液充灌体积
         {
@@ -143,14 +175,6 @@ SystemSet::SystemSet(QWidget *parent)
             //25	50		月维护泵校准
             int saveSet = all_system_set_para.value("saveSet").toInt();
             ui.lineEdit_monthly_maintenance_pump_calibration->setText(QString::number(saveSet));
-        }
-        else if (pkid == 26)
-        {
-            //26	500	1000	泵校准两次下降最大差值
-            int saveSet = all_system_set_para.value("saveSet").toInt();
-            ui.lineEdit_between_two_drops_of_pump->setText(QString::number(saveSet));
-            int saveSet1 = all_system_set_para.value("saveDes").toInt();
-            ui.lineEdit_between_two_drops_of_pump_max->setText(QString::number(saveSet1));
         }
         else if (pkid == 27)
         {
@@ -274,12 +298,6 @@ SystemSet::SystemSet(QWidget *parent)
     QRegExpValidator* validator4 = new QRegExpValidator(QRegExp("^(3[0-9]{2}|[4-6][0-9]{3}|700)$"), ui.lineEdit_monthly_maintenance_pump_calibration);
     ui.lineEdit_monthly_maintenance_pump_calibration->setValidator(validator4);
 
-    QRegExpValidator* validator5 = new QRegExpValidator(QRegExp("^\\d*$"), ui.lineEdit_between_two_drops_of_pump);
-    ui.lineEdit_between_two_drops_of_pump->setValidator(validator5);
-
-    QRegExpValidator* validator6 = new QRegExpValidator(QRegExp("^\\d*$"), ui.lineEdit_between_two_drops_of_pump_max);
-    ui.lineEdit_between_two_drops_of_pump_max->setValidator(validator6);
-
     QRegExpValidator* validator7 = new QRegExpValidator(QRegExp("^[1-5]$"), ui.lineEdit_system_filling_volume);
     ui.lineEdit_system_filling_volume->setValidator(validator7);
 
@@ -304,8 +322,6 @@ SystemSet::SystemSet(QWidget *parent)
     ui.label_21->setText(sz);
     sz = GlobalData::LoadLanguageInfo("K1193");
     ui.label_15->setText(sz);
-    sz = GlobalData::LoadLanguageInfo("K1194");
-    ui.label_4->setText(sz);
     sz = GlobalData::LoadLanguageInfo("K1195");
     ui.label_11->setText(sz);
     sz = GlobalData::LoadLanguageInfo("K1196");
@@ -368,9 +384,6 @@ void SystemSet::on_pushButton_Test_clicked()
 
     ui.lineEdit_monthly_maintenance_pump_calibration->setText("500");
 
-    ui.lineEdit_between_two_drops_of_pump->setText("5000");
-    ui.lineEdit_between_two_drops_of_pump_max->setText("7000");
-
     ui.lineEdit_system_filling_volume->setText("3");
     ui.lineEdit_system_wash_volume->setText("3");
 
@@ -417,8 +430,6 @@ void SystemSet::on_pushButton_Save_clicked()
 //    auto dao = AnalysisUIDao::instance();
     SystemSetModel setModel;
     bool bResult = false;
-    QString value_set = ui.lineEdit_between_two_drops_of_pump->text();
-    QString value_des = ui.lineEdit_between_two_drops_of_pump_max->text();
 
     // 周维护浸泡时间
     int week_finish_time = ui.lineEdit_week_finish_time->text().toInt();
@@ -477,18 +488,6 @@ void SystemSet::on_pushButton_Save_clicked()
         ui.lineEdit_monthly_maintenance_pump_calibration->setFocus();
         return;
     }
-    get_value = ui.lineEdit_between_two_drops_of_pump->text().toInt();
-    if (get_value == 0)
-    {
-        ui.lineEdit_between_two_drops_of_pump->setFocus();
-        return;
-    }
-    get_value = ui.lineEdit_between_two_drops_of_pump_max->text().toInt();
-    if (get_value == 0)
-    {
-        ui.lineEdit_between_two_drops_of_pump_max->setFocus();
-        return;
-    }
     get_value = ui.lineEdit_system_filling_volume->text().toInt();
     if (get_value == 0)
     {
@@ -511,14 +510,6 @@ void SystemSet::on_pushButton_Save_clicked()
     if (get_value == 0)
     {
         ui.lineEdit_system_wash_volume_3->setFocus();
-        return;
-    }
-
-
-    if (value_set.toInt() > value_des.toInt())
-    {
-        ui.lineEdit_between_two_drops_of_pump->setFocus();
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1289"), MyMessageBox::Ok,"OK","");
         return;
     }
 
@@ -558,8 +549,7 @@ void SystemSet::on_pushButton_Save_clicked()
     //	语言
     setModel.setId(20005);
     setModel.setSaveDes(ui.comboBox_language->currentText());
-    setModel.setSaveSet(value_set == "EN"?2:1);
-    value_set = ui.comboBox_language->currentText();
+    setModel.setSaveSet(ui.comboBox_language->currentData().toInt());
     bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)
     {
@@ -567,6 +557,8 @@ void SystemSet::on_pushButton_Save_clicked()
         return;
     }
 
+    QString value_set;
+    QString value_des;
     value_set = ui.comboBox_run_sequence->currentText();
     int processId = ui.comboBox_run_sequence->currentData().toInt();
     setModel.setId(6);
@@ -652,6 +644,16 @@ void SystemSet::on_pushButton_Save_clicked()
     //4	0	D:\HumablotProFiles\Reports	测试报告保存根目录
     //5	1	human	当前使用的膜条所属公司
 
+    setModel.setId(1);
+    setModel.setSaveDes(ui.comboBox_picture_analysis_enable->currentText());
+    setModel.setSaveSet(ui.comboBox_picture_analysis_enable->currentData().toInt());
+    bResult = SystemSetDao::instance()->updateModel(setModel);
+    if (bResult == false)
+    {
+        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok, "OK", "");
+        return;
+    }
+
     //23	200	200, 200, 200	周维护泵充灌
     value_set = QString("%1").arg(ui.lineEdit_week_filling_volume->text().toInt() * 1000);
     setModel.setId(23);
@@ -668,19 +670,6 @@ void SystemSet::on_pushButton_Save_clicked()
     value_set = ui.lineEdit_monthly_maintenance_pump_calibration->text();
     setModel.setId(25);
     setModel.setSaveDes(value_set);
-    setModel.setSaveSet(value_set.toInt());
-    bResult = SystemSetDao::instance()->updateModel(setModel);
-    if (bResult == false)
-    {
-        MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"), GlobalData::LoadLanguageInfo("K1283"), MyMessageBox::Ok,"OK","");
-        return;
-    }
-
-    //26	500	1000	泵校准两次下降最大差值
-    value_set = ui.lineEdit_between_two_drops_of_pump->text();
-    value_des = ui.lineEdit_between_two_drops_of_pump_max->text();
-    setModel.setId(26);
-    setModel.setSaveDes(value_des);
     setModel.setSaveSet(value_set.toInt());
     bResult = SystemSetDao::instance()->updateModel(setModel);
     if (bResult == false)

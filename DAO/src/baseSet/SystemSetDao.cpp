@@ -53,6 +53,32 @@ bool SystemSetDao::getModel(int id, SystemSetModel& out)
     return true;
 }
 
+/**
+ * @brief 获取图片解析调试功能
+ * @param out
+ * @return
+ */
+bool SystemSetDao::getPictureAnalysisDebug(SystemSetModel& out)
+{
+    return getModel(1, out);
+}
+
+/**
+ * @brief 获取图片解析调试功能
+ * @param out
+ * @return
+ */
+bool SystemSetDao::getPictureAnalysisDebug()
+{
+    SystemSetModel out;
+    if(!getModel(1, out))
+    {
+        return false;
+    }
+    return out.getSaveSet() == 1;
+}
+
+
 bool SystemSetDao::getPicturePathRoot(QString& out)
 {
     SystemSetModel systemSetting;

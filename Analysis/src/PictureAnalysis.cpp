@@ -294,19 +294,19 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperHandle(TestPaperStrt &paper)
     }
     // 剪切后的图片, 剪裁后经过二值化的图片对象
     cv::Mat cutMat, cutThreshMat;
-    Error err = SegmentPaperRotateCut1(grayMat, paper, cutMat, cutThreshMat);
+    Error err = SegmentPaperRotateCut(grayMat, paper, cutMat, cutThreshMat);
     if(err != Error::NoError)
     {
         return err;
     }
     // 段解析
-    err = PaperSegmentationParse1(cutMat, cutThreshMat, paper);
+    err = PaperSegmentationParse(cutMat, cutThreshMat, paper);
     if(err != Error::NoError)
     {
         return err;
     }
     // 解析子项目
-    return Error::NoError;//SegmentPaperItemParse(cutMat, paper);
+    return SegmentPaperItemParse(cutMat, paper);
 }
 
 /**
@@ -335,8 +335,9 @@ void PictureAnalysis::maskOutsideRect(cv::Mat& src, const cv::Rect& roi) {
  * 0 成功
  * 1:图片识别失败
  */
-PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut1(cv::Mat& srcMat, TestPaperStrt &paper, cv::OutputArray dstMat, cv::OutputArray dst_thresh_mat)
+PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut(cv::Mat& srcMat, TestPaperStrt &paper, cv::OutputArray dstMat, cv::OutputArray dst_thresh_mat)
 {
+    bool pictureAnalysisDebug = SystemSetDao::instance()->getPictureAnalysisDebug();
     TestPaperModel& paperParam = paper.paperParam;
     double mmPixel= paperParam.getPaperMmToPixel();
     // 段宽度
@@ -349,10 +350,11 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut1(cv::Mat& srcMat, 
     cv::Rect positionEdge(static_cast<int>(srcMat.cols * 0.08), static_cast<int>(srcMat.rows*0.25),
                       static_cast<int>(srcMat.cols*0.8), static_cast<int>(srcMat.rows*0.5));
     maskOutsideRect(srcMat, positionEdge);
-
-    QString postionPath = paper.pictureAnalysisPath + paper.sampleId + "-position.png";
-    cv::imwrite(postionPath.toStdString(), srcMat);
-
+    if(pictureAnalysisDebug)
+    {
+        QString postionPath = paper.pictureAnalysisPath + paper.sampleId + "-position.png";
+        cv::imwrite(postionPath.toStdString(), srcMat);
+    }
     // 将反光区域处理
     cv::Mat lightMask;
     cv::threshold(srcMat, lightMask, 250, 255, cv::THRESH_BINARY);
@@ -367,25 +369,33 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut1(cv::Mat& srcMat, 
     // 融合图像（仅替换过曝区域）
     noExposureMat.setTo(cv::Scalar(0, 0, 0), lightMask);
     noExposureMat.copyTo(black_area, ~lightMask);  // 反转掩膜
-    // 保存的分析图片
-    QString lightPath = paper.pictureAnalysisPath + paper.sampleId + "-nolight.png";
-    cv::imwrite(lightPath.toStdString(), noExposureMat);
+    if(pictureAnalysisDebug)
+    {
+        // 保存的分析图片
+        QString lightPath = paper.pictureAnalysisPath + paper.sampleId + "-nolight.png";
+        cv::imwrite(lightPath.toStdString(), noExposureMat);
+    }
 
     cv::Mat threshMat;
     cv::threshold(noExposureMat, threshMat, thresh, 255, THRESH_BINARY);
-    // 保存二值化后的图像
+    if(pictureAnalysisDebug)
+    {
         // 保存二值化后的图像
         QString threshPath = paper.pictureAnalysisPath + paper.sampleId + "-thresh.png";
         cv::imwrite(threshPath.toStdString(), threshMat);
+    }
 
     Mat erodedMat;
     {
         // 腐蚀
         Mat eroded_kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
         erode(threshMat, erodedMat, eroded_kernel);
-        //保存腐蚀后的图片
+        if(pictureAnalysisDebug)
+        {
+            //保存腐蚀后的图片
             QString erodedPath = paper.pictureAnalysisPath + paper.sampleId + "-eroded.png";
             cv::imwrite(erodedPath.toStdString(), erodedMat);
+        }
 
     }
     cv::Mat rotedMat;
@@ -420,9 +430,12 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut1(cv::Mat& srcMat, 
         convexHull(all_points, maxContour);
         cv::Rect maxRect = cv::boundingRect(maxContour);
         cv::Mat maxRectMat = erodedMat(maxRect);
-        //保存膨胀后圈出的轮廓
+        if(pictureAnalysisDebug)
+        {
+            //保存膨胀后圈出的轮廓
             QString maxRectPath = paper.pictureAnalysisPath + paper.sampleId + "-maxRect.png";
             cv::imwrite(maxRectPath.toStdString(), maxRectMat);
+        }
 
         // 计算最小外接旋转矩形
         cv::RotatedRect rotatedRect = cv::minAreaRect(maxContour);
@@ -469,14 +482,16 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut1(cv::Mat& srcMat, 
         convexHull(all_points, maxContour);
         maxRect = cv::boundingRect(maxContour);
         maxRectMat = rotedMat(maxRect);
-        //保存膨胀后圈出的轮廓
+        if(pictureAnalysisDebug)
+        {
+            //保存膨胀后圈出的轮廓
             QString maxRectPath = paper.pictureAnalysisPath + paper.sampleId + "-maxRect1.png";
             cv::imwrite(maxRectPath.toStdString(), maxRectMat);
+        }
 
     }
 
     // 灰度图像也做相同旋转，与二值化的图像保持一致
-
     cv::Mat saveRotMat;
     cv::warpAffine(srcMat, saveRotMat, rotMat, bbox.size(), cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(0,0,0)); // 黑色填充边缘
 
@@ -486,9 +501,12 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut1(cv::Mat& srcMat, 
     // 开始去噪声，仅对上下边界，目的是精细化边界位置
     int top = -1, bottom = -1;
     cv::Mat maxGrayMat = grayRotMat(maxRect);
-    //  保存灰度图片
-    QString maxGrayMatPath = paper.pictureAnalysisPath + paper.sampleId + "-maxGrayMat.png";
-    cv::imwrite(maxGrayMatPath.toStdString(), maxGrayMat);
+    if(pictureAnalysisDebug)
+    {
+        //  保存灰度图片
+        QString maxGrayMatPath = paper.pictureAnalysisPath + paper.sampleId + "-maxGrayMat.png";
+        cv::imwrite(maxGrayMatPath.toStdString(), maxGrayMat);
+    }
 
     double edgeThresh = cv::mean(maxGrayMat)[0];
 //    qDebug()<<"edgeThresh = "<<edgeThresh;
@@ -553,9 +571,12 @@ PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut1(cv::Mat& srcMat, 
         croppedMat.copyTo(dstMat);
         //
         cv::Mat croppedMat1 = rotedMat(lastEdge);
-        //剪裁后的图片保存
-        QString croppedPath1 = paper.pictureAnalysisPath + paper.sampleId + "-1.png";
-        cv::imwrite(croppedPath1.toStdString(), croppedMat1);
+        if(pictureAnalysisDebug)
+        {
+            //剪裁后的图片保存
+            QString croppedPath1 = paper.pictureAnalysisPath + paper.sampleId + "-1.png";
+            cv::imwrite(croppedPath1.toStdString(), croppedMat1);
+        }
 
         croppedMat1.copyTo(dst_thresh_mat);
     }
@@ -796,14 +817,12 @@ std::vector<cv::Rect> PictureAnalysis::findTopKBlocks(
 
 
 /**
- * @brief 在宽度约束内寻找平均“得分”最高的矩形组合
- * @param src
- * @param rects
- * @param blockWidth
+ * @brief 查找轮廓, 并根据轮廓灰度均值切分轮廓
  * @return
  */
 std::vector<cv::Rect> PictureAnalysis::SegmentationContourFind(const cv::Mat& srcMat, const cv::Mat& threshMat, TestPaperStrt &paper, const QString& path)
 {
+    bool pictureAnalysisDebug = SystemSetDao::instance()->getPictureAnalysisDebug();
     TestPaperModel& paperParam = paper.paperParam;
     double mmPixel= paperParam.getPaperMmToPixel();
     int lineWidth = static_cast<int>(paperParam.getItemLineWidth() * mmPixel);
@@ -829,23 +848,9 @@ std::vector<cv::Rect> PictureAnalysis::SegmentationContourFind(const cv::Mat& sr
             qDebug()<<"contours"<<rect.height<<srcMat.rows<<rect.width<<lineWidth;
             continue;
         }
-//        cv::Mat roi1 = srcMat(rect);
-//        double ratio = static_cast<double>(cv::countNonZero(roi1 > 15)) / roi1.total();
-//        qDebug()<<"ratio"<<ratio;
         cv::rectangle(contourMarkMat1, rect, cv::Scalar(255,0,0), 1);
-//        double max = 0;
         if(rect.width < lineWidth) continue;
-//        int scan =std::max(rect.width/3, lineWidth);
-//        // 找轮廓在线宽范围内的最大值
-//        for(int i = 0; i < rect.width - scan; i++)
-//        {
-//            cv::Rect tempRoi(rect.x + i, rect.y, scan, rect.height);
-//            cv::Mat roi1 = srcMat(tempRoi);
-//            double ratio = static_cast<double>(cv::countNonZero(roi1 > paperParam.getPaperBinarizationThreshold())) / roi1.total();
-//            double temp = cv::mean(roi1)[0];
-//            if(max < temp && ratio > 0.99) max = temp;
-//        }
-        int cut_thresh = static_cast<int>(cv::mean(srcMat(rect))[0]*0.8);//static_cast<int>(max * 0.8);
+        int cut_thresh = static_cast<int>(cv::mean(srcMat(rect))[0]*0.8);
         qDebug()<<"cut_thresh"<<cut_thresh;
         int recordX = 0;
         int startX = 0;
@@ -880,13 +885,16 @@ std::vector<cv::Rect> PictureAnalysis::SegmentationContourFind(const cv::Mat& sr
             cv::rectangle(contourMarkMat2, refinedRect, cv::Scalar(255,0,0), 1);
         }
     }
-    QString inflatePath1 = path;
-    inflatePath1 = inflatePath1 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat1.png";
-    cv::imwrite(inflatePath1.toStdString(), contourMarkMat1);
+    if(pictureAnalysisDebug)
+    {
+        QString inflatePath1 = path;
+        inflatePath1 = inflatePath1 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat1.png";
+        cv::imwrite(inflatePath1.toStdString(), contourMarkMat1);
 
-    QString inflatePath2 = path;
-    inflatePath2 = inflatePath2 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat2.png";
-    cv::imwrite(inflatePath2.toStdString(), contourMarkMat2);
+        QString inflatePath2 = path;
+        inflatePath2 = inflatePath2 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat2.png";
+        cv::imwrite(inflatePath2.toStdString(), contourMarkMat2);
+    }
     return last_rects;
 }
 
@@ -899,8 +907,9 @@ std::vector<cv::Rect> PictureAnalysis::SegmentationContourFind(const cv::Mat& sr
  * 0:成功
  * 1:解析失败
  */
-PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse1(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperStrt &paper)
+PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperStrt &paper)
 {
+    bool pictureAnalysisDebug = SystemSetDao::instance()->getPictureAnalysisDebug();
     TestPaperModel& paperParam = paper.paperParam;
     // 图片二值化阈值
     int paperBinarizationThresh = paperParam.getPaperBinarizationThreshold();
@@ -919,7 +928,6 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse1(cv::Mat& srcMat,
     int segmentMinWidth = static_cast<int>(paperParam.getTestBlockWidth() * mmPixel);
     int segmentMinSpan = static_cast<int>(1.2 * mmPixel);//paperParam.getTestBlockSpace()
     int headWidth = static_cast<int>(paperParam.getIgnoreHeadLenght() * mmPixel);
-    int lineWidth = static_cast<int>(paperParam.getItemLineWidth() * mmPixel);
     // 获取分段总数
     int segCnt = paperParam.getTotalNumber();
     if(srcMat.cols < headWidth)
@@ -932,29 +940,15 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse1(cv::Mat& srcMat,
     // 将头设置为黑色
     targetRegion.setTo(cv::Scalar(0));
     //
-    QString noHeadPath = path;
-    noHeadPath = noHeadPath + +"/" + "analysised" + "/" + paper.sampleId + "-nohead.png";
-    cv::imwrite(noHeadPath.toStdString(), threshMat);
+    if(pictureAnalysisDebug)
+    {
+        QString noHeadPath = path;
+        noHeadPath = noHeadPath + +"/" + "analysised" + "/" + paper.sampleId + "-nohead.png";
+        cv::imwrite(noHeadPath.toStdString(), threshMat);
+    }
 
+    // 查找轮廓
     auto last_rects = SegmentationContourFind(srcMat, threshMat, paper, path);
-//    cv::Rect imgBounds(0, 0, srcMat.cols, srcMat.rows);
-//    cv::Mat contourMarkMat2_1 = srcMat.clone();
-//    vector<cv::Rect> last_rects;
-//    for(auto & re : find_rects)
-//    {
-//        cv::Rect safeRoi = re & imgBounds;
-//        cv::Mat roi = srcMat(safeRoi);
-//        double ratio = static_cast<double>(cv::countNonZero(roi > paperBinarizationThresh)) / roi.total();
-//        qDebug()<<"ratio2"<<ratio;
-//        if(ratio > 0.9 && re.width > segmentMinWidth/5)
-//        {
-//            cv::rectangle(contourMarkMat2_1, re, cv::Scalar(255,0,0), 1);
-//            last_rects.push_back(re);
-//        }
-//    }
-//    QString inflatePath2_1 = path;
-//    inflatePath2_1 = inflatePath2_1 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat2_1.png";
-//    cv::imwrite(inflatePath2_1.toStdString(), contourMarkMat2_1);
 
     // 将块间距小于指定值的进行分组
     // 轮廓合并
@@ -963,660 +957,15 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse1(cv::Mat& srcMat,
     for(const auto& merge:mergeRects)
     {
         cv::rectangle(contourMarkMat3, merge, cv::Scalar(255,0,0), 1);
+        paper.segmentResultVect.push_back(TestPaperSegmentResult(merge.x + merge.width/2, merge.width));
     }
-    QString inflatePath3 = path;
-    inflatePath3 = inflatePath3 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat3.png";
-    cv::imwrite(inflatePath3.toStdString(), contourMarkMat3);
-
-
-
-
-
-//        // 子轮廓描边
-//        // 目的将所有轮廓的左右两边按照矩形的形态修正
-//        for(auto& contour : contours)
-//        {
-//            cv::Rect rect = cv::boundingRect(contour);
-//            if(rect.height < threshMat.rows * 0.75 || rect.width < lineWidth)
-//            {
-//                qDebug()<<"contours"<<rect.height<<threshMat.rows<<rect.width<<lineWidth;
-//                continue;
-//            }
-//            int left = rect.x, right = rect.x + rect.width;
-//            bool leftFound = false, rightFound = false;
-//            // 左右描边, 从中心到两边扫描
-//            //按照3个像素的宽度，精细底端位置
-//            for(int i = 0; i < rect.width; i++)
-//            {
-//                if(!leftFound) {
-//                    int startX = rect.x - lineWidth + i;
-//                    if(startX < 0) {
-//                        startX = 0;
-//                    }
-//                    cv::Rect roi(startX, rect.y, 3, rect.height);
-//                    roi = roi & cv::Rect(0, 0, srcMat.cols, srcMat.rows); // 安全裁剪
-//                    if(roi.width > 0 && roi.height > 0) {
-//                        double avg = cv::mean(srcMat(roi))[0];
-//                        if(avg > paperBinarizationThresh) {
-//                            left = startX;
-//                            leftFound = true;
-//                        }
-//                    }
-
-//                }
-//                // 右侧扫描
-//                if(!rightFound) {
-//                    int startX = rect.x + rect.width + lineWidth - 3 - i;
-//                    if(startX < 0) {
-//                        startX = 0;
-//                    }
-//                    cv::Rect roi(startX, rect.y, 3, rect.height);
-//                    roi = roi & cv::Rect(0, 0, srcMat.cols, srcMat.rows); // 安全裁剪
-//                    if(roi.width > 0 && roi.height > 0) {
-//                        double avg = cv::mean(srcMat(roi))[0];
-//                        if(avg > paperBinarizationThresh) {
-//                            right = startX+3;
-//                            rightFound = true;
-//                        }
-//                    }
-
-//                }
-//                // 两侧均定位完成，提前退出
-//                if(leftFound && rightFound) break;
-//            }
-//            // 安全兜底：防止极端情况导致 right <= left
-//            if(right <= left) right = left + 1;
-//        }
-//    }
-
-//    // 膨胀
-//    int inflatePixel = static_cast<int>(mmPixel)+3;
-////    qDebug()<<"inflatePixel"<<inflatePixel;
-//    cv::Mat inflateMat;
-//    cv::Mat dilate_kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(inflatePixel,threshMat.rows/3));
-//    cv::dilate(erodedMat, inflateMat, dilate_kernel);
-
-//    /*保存膨胀后的图片
-//        QString inflatePath = path;
-//        inflatePath = inflatePath + +"/" + "analysised" + "/" + paper.sampleId + "-inflate1.png";
-//        cv::imwrite(inflatePath.toStdString(), inflateMat);*/
-
-//    // 轮廓识别 分段 排序
-//    std::vector<std::vector<cv::Point>> contours;
-//    cv::findContours(inflateMat, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-//    sort(contours.begin(), contours.end(), [](auto& a, auto& b) { return boundingRect(a).x < boundingRect(b).x; });
-//    if(contours.empty())
-//    {
-//        return Error::ContourNotFound;
-//    }
-//    vector<cv::Rect> segRects;
-//    bool need_merge = false;
-//    cv::Rect wait_merge_rect;
-//    uint contourIdx = 0;
-//    for (auto& contour : contours)
-//    {
-//        contourIdx++;
-//        cv::Rect rect = cv::boundingRect(contour);
-//        //qDebug()<<"rect.width = " << rect.width << "segmengMinWidth=" << segmentMinWidth << "height="<<rect.height << "rows="<<srcMat.rows;
-//        if (rect.width < segmentMinWidth * 0.3 || rect.height < srcMat.rows * 0.3)
-//        {
-//            continue;
-//        }
-//        if (rect.width < segmentMinWidth * 0.8 || rect.height < srcMat.rows * 0.8)
-//        {
-//            if(need_merge)
-//            {
-//                rect.width = rect.x + rect.width - wait_merge_rect.x;
-//                rect.x = wait_merge_rect.x;
-//                inflateMat(rect).setTo(cv::Scalar(255,255,255));
-//            }else
-//            {
-//                if(contourIdx != contours.size())
-//                {
-//                    wait_merge_rect = rect;
-//                    need_merge = true;
-//                    continue;
-//                }
-//            }
-//        }else
-//        {
-//            if(need_merge)
-//            {
-//                segRects.push_back(wait_merge_rect);
-//            }
-//        }
-//        qDebug()<<"11rect.width = " << rect.width << "segmengMinWidth=" << segmentMinWidth << "height="<<rect.height << "rows="<<srcMat.rows;
-//        need_merge = false;
-//        segRects.push_back(rect);
-//    }
-//    /*保存膨胀后的图片
-//    QString inflatePath1 = path;
-//    inflatePath1 = inflatePath1 + +"/" + "analysised" + "/" + paper.sampleId + "-inflate2.png";
-//    cv::imwrite(inflatePath1.toStdString(), inflateMat);*/
-
-//    dLog("segRects.size() = " + std::to_string(segRects.size()) + "segCnt=" + std::to_string(segCnt));
-//    if(static_cast<int>(segRects.size()) != segCnt)
-//    {
-//        return Error::DetectSegmentCntError;
-//    }
-//    // 子项目描边
-//    for(auto& rect : segRects)
-//    {
-//        cv::Mat mat = srcMat(rect);
-//        // 总平均值作为阈值
-//        double thresh = cv::mean(mat)[0];
-//        double start = 0, end = mat.cols-1;
-//        // 左右描边
-//        //按照3个像素的宽度，精细底端位置
-//        for(int i = 0; i < mat.cols / 2 - 3;i++)
-//        {
-//            double avg = 0;
-//            cv::Rect roi(i, 0, 3, mat.rows);
-//            cv::Mat tempMat = mat(roi);
-//            avg = cv::mean(tempMat)[0];
-//            if(avg >= thresh)
-//            {
-//                start = i;
-//                break;
-//            }
-//        }
-//        for(int i = 0; i < mat.cols / 2 - 3;i++)
-//        {
-//            double avg = 0;
-//            cv::Rect roi(mat.cols - i - 3,  0, 3, mat.rows);
-//            cv::Mat tempMat = mat(roi);
-//            avg = cv::mean(tempMat)[0];
-//            if(avg >= thresh)
-//            {
-//                end = mat.cols - i;
-//                break;
-//            }
-//        }
-//        paper.segmentResultVect.push_back(TestPaperSegmentResult(rect.x + static_cast<int>((start+end)/2), end - start));
-
-    return Error::NoError;
-}
-
-/**
- * @brief 分段膜条旋转操作并剪切
- * @return 错误码
- * 0 成功
- * 1:图片识别失败
- */
-PictureAnalysis::Error PictureAnalysis::SegmentPaperRotateCut(cv::Mat& srcMat, TestPaperStrt &paper, cv::OutputArray dstMat, cv::OutputArray dst_thresh_mat)
-{
-    TestPaperModel& paperParam = paper.paperParam;
-    double mmPixel= paperParam.getPaperMmToPixel();
-    // 段宽度
-    double segmentMinWidth = paperParam.getTestBlockWidth() * mmPixel;
-    // 膜条高度
-    double totalHeigth = paperParam.getPaperHeight() * mmPixel;
-    // 图片二值化阈值
-    int thresh = paperParam.getPaperBinarizationThreshold();
-    // 将反光区域处理
-    cv::Mat lightMask;
-    cv::threshold(srcMat, lightMask, 250, 255, cv::THRESH_BINARY);
-    // 按照物理设计切图, 膜条只可能在这个范围
-    cv::Rect positionEdge(static_cast<int>(srcMat.cols * 0.08), static_cast<int>(srcMat.rows*0.25),
-                      static_cast<int>(srcMat.cols*0.8), static_cast<int>(srcMat.rows*0.5));
-    maskOutsideRect(srcMat, positionEdge);
-    /*QString postionPath = paper.pictureAnalysisPath + paper.sampleId + "-position.png";
-    cv::imwrite(postionPath.toStdString(), srcMat);*/
-     // 消除噪声点
-    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5));
-    cv::morphologyEx(lightMask, lightMask, cv::MORPH_CLOSE, kernel);
-    // 创建黑色替代区域
-    cv::Mat black_area = cv::Mat::zeros(srcMat.size(), srcMat.type());
-    // 融合图像（仅替换过曝区域）
-    srcMat.copyTo(black_area, ~lightMask);  // 反转掩膜
-    srcMat = black_area.clone();
-    /* 保存的分析图片
-    QString lightPath = paper.pictureAnalysisPath + paper.sampleId + "-nolight.png";
-    cv::imwrite(lightPath.toStdString(), srcMat);*/
-
-    cv::Mat threshMat;
-    cv::threshold(srcMat, threshMat, thresh, 255, THRESH_BINARY);
-    /* 保存二值化后的图像
-        // 保存二值化后的图像
-        QString threshPath = paper.pictureAnalysisPath + paper.sampleId + "-thresh.png";
-        cv::imwrite(threshPath.toStdString(), threshMat);*/
-
-    Mat erodedMat;
+    if(pictureAnalysisDebug)
     {
-        // 腐蚀
-        Mat eroded_kernel = getStructuringElement(MORPH_RECT, Size(3, 3));
-        erode(threshMat, erodedMat, eroded_kernel);
-        /*保存腐蚀后的图片
-            QString erodedPath = paper.pictureAnalysisPath + paper.sampleId + "-eroded.png";
-            cv::imwrite(erodedPath.toStdString(), erodedMat);*/
-
-    }
-    cv::Mat rotedMat;
-    cv::Mat rotMat;
-    cv::Rect bbox;
-    {
-        // 旋转
-        std::vector<std::vector<cv::Point>> contours;
-        cv::findContours(erodedMat, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-        if(contours.empty())
-        {
-            return Error::ContourNotFound;
-        }
-        // 将符合条件的轮廓合并为最大轮廓,这里的合并是为了更好的旋转
-        vector<Point> all_points;
-        for (auto& contour : contours)
-        {
-            cv::Rect rect = cv::boundingRect(contour);
-//            qDebug()<<"rect"<<rect.width<<rect.height<<segmentMinWidth<<totalHeigth;
-            // TODO::WANGZ
-            if (rect.width < segmentMinWidth/3*2 || rect.height < totalHeigth/3*2)
-            {
-                continue;
-            }
-            all_points.insert(all_points.end(), contour.begin(), contour.end());
-        }
-        if(all_points.empty())
-        {
-            return Error::ContourNotFound;
-        }
-        vector<Point> maxContour;
-        convexHull(all_points, maxContour);
-        cv::Rect maxRect = cv::boundingRect(maxContour);
-        cv::Mat maxRectMat = erodedMat(maxRect);
-        /*保存膨胀后圈出的轮廓
-            QString maxRectPath = paper.pictureAnalysisPath + paper.sampleId + "-maxRect.png";
-            cv::imwrite(maxRectPath.toStdString(), maxRectMat);*/
-
-        // 计算最小外接旋转矩形
-        cv::RotatedRect rotatedRect = cv::minAreaRect(maxContour);
-        float angle = rotatedRect.angle;
-        // 角度修正逻辑（OpenCV角度定义特殊）
-        if (rotatedRect.size.width < rotatedRect.size.height) {
-            angle += 90.0f;
-        }
-        cv::Point2f center(threshMat.cols/2.0f, threshMat.rows/2.0f);
-        rotMat = cv::getRotationMatrix2D(center, static_cast<double>(angle), 1.0);
-        // 旋转图像并计算新画布尺寸
-        bbox = cv::RotatedRect(center, threshMat.size(), angle).boundingRect();
-        rotMat.at<double>(0,2) += (bbox.width/2.0 - static_cast<double>(center.x));
-        rotMat.at<double>(1,2) += (bbox.height/2.0 - static_cast<double>(center.y));
-        // 旋转形成新图像
-        cv::warpAffine(threshMat, rotedMat, rotMat, bbox.size(), cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(0,0,0)); // 黑色填充边缘
-    }
-    cv::Rect maxRect;
-    cv::Mat maxRectMat;
-    {
-        // 识别最大轮廓
-        std::vector<std::vector<cv::Point>> contours;
-        cv::findContours(rotedMat, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-        if(contours.empty())
-        {
-            return Error::ContourNotFound;
-        }
-        // 将符合条件的轮廓合并为最大轮廓,这里的合并是为了更好的旋转
-        vector<Point> all_points;
-        for (auto& contour : contours)
-        {
-            cv::Rect rect = cv::boundingRect(contour);
-            if (rect.width < segmentMinWidth*0.15 || rect.height < totalHeigth/3*2)
-            {
-                continue;
-            }
-            all_points.insert(all_points.end(), contour.begin(), contour.end());
-        }
-        if(all_points.empty())
-        {
-            return Error::ContourNotFound;
-        }
-        vector<Point> maxContour;
-        convexHull(all_points, maxContour);
-        maxRect = cv::boundingRect(maxContour);
-        maxRectMat = rotedMat(maxRect);
-        /*保存膨胀后圈出的轮廓
-            QString maxRectPath = paper.pictureAnalysisPath + paper.sampleId + "-maxRect1.png";
-            cv::imwrite(maxRectPath.toStdString(), maxRectMat);*/
-
+        QString inflatePath3 = path;
+        inflatePath3 = inflatePath3 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat3.png";
+        cv::imwrite(inflatePath3.toStdString(), contourMarkMat3);
     }
 
-    // 灰度图像也做相同旋转，与二值化的图像保持一致
-    cv::Mat grayRotMat;
-    cv::warpAffine(srcMat, grayRotMat, rotMat, bbox.size(), cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(0,0,0)); // 黑色填充边缘
-
-    // 开始去噪声，仅对上下边界，目的是精细化边界位置
-    int top = -1, bottom = -1;
-    cv::Mat maxGrayMat = grayRotMat(maxRect);
-    /*  保存灰度图片
-    QString maxGrayMatPath = paper.pictureAnalysisPath + paper.sampleId + "-maxGrayMat.png";
-    cv::imwrite(maxGrayMatPath.toStdString(), maxGrayMat);*/
-
-    double edgeThresh = cv::mean(maxGrayMat)[0];
-//    qDebug()<<"edgeThresh = "<<edgeThresh;
-    // 描边去噪
-    //按照3个像素的宽度，精细上端位置
-    for(int i = 0; i < maxGrayMat.rows-3;i++)
-    {
-        double avg = 0;
-        cv::Rect roi(0, i, maxGrayMat.cols, 3);
-        cv::Mat tempMat = maxGrayMat(roi);
-        avg = cv::mean(tempMat)[0];
-        if(avg >= edgeThresh)
-        {
-            top = i;
-            break;
-        }
-    }
-    //按照3个像素的宽度，精细底端位置
-    for(int i = 0; i < maxGrayMat.rows - 3;i++)
-    {
-        double avg = 0;
-        cv::Rect roi(0,  maxGrayMat.rows - i - 3, maxGrayMat.cols,  3);
-        cv::Mat tempMat = maxGrayMat(roi);
-        avg = cv::mean(tempMat)[0];
-        if(avg >= edgeThresh)
-        {
-            bottom = maxGrayMat.rows - i;
-            break;
-        }
-    }
-//    qDebug()<<"top = "<<top << "bottom = " << bottom << "totalHeight = "<<totalHeigth;
-    if(top < 0 || bottom < 0 || bottom - top < totalHeigth * 0.5)
-    {
-        return Error::ContourNotFound;
-    }
-//    qDebug() << edgeThresh << top << bottom;
-
-    {
-        // 剪裁膜条并保存
-        double yPercent = 1;
-        double yCenter = maxRect.y + top + (bottom - top)/2;
-        double cutHeight = totalHeigth * yPercent;
-        cv::Rect lastEdge(maxRect.x, static_cast<int>(yCenter - cutHeight / 2), maxRect.width, static_cast<int>(cutHeight));
-        cv::Mat croppedMat = grayRotMat(lastEdge);
-        //剪裁后的图片保存
-        QString croppedPath = paper.pictureAnalysisPath + paper.sampleId + ".png";
-        cv::imwrite(croppedPath.toStdString().data(), croppedMat);
-    }
-    {
-        // 裁剪并保存
-        double yPercent = paperParam.getAnalysisPercentOfHeightDouble();
-        double yCenter = maxRect.y + top + (bottom - top)/2;
-        double cutHeight = totalHeigth * yPercent;
-        cv::Rect lastEdge(maxRect.x, static_cast<int>(yCenter - cutHeight / 2), maxRect.width, static_cast<int>(cutHeight));
-        cv::Mat croppedMat = grayRotMat(lastEdge);
-//        std::string croppedPath = path.toStdString();
-//        //剪裁后的图片保存
-//        croppedPath = croppedPath +"\\" + "analysised" + "\\" + testPaperParameterStruct.sampleId.toStdString().data() + ".png";
-//        cv::imwrite(croppedPath, croppedMat);
-
-        // 将处理后的对象传递出去
-        croppedMat.copyTo(dstMat);
-        //
-        cv::Mat croppedMat1 = rotedMat(lastEdge);
-        /*剪裁后的图片保存
-        QString croppedPath1 = paper.pictureAnalysisPath + paper.sampleId + "-1.png";
-        cv::imwrite(croppedPath1.toStdString(), croppedMat1);*/
-
-        croppedMat1.copyTo(dst_thresh_mat);
-    }
-    return Error::NoError;
-}
-
-/**
- * @brief 片段解析,目的解析出膜条段
- * @param srcMat 需要解析的图片
- * @param testPaperParameterStruct 参数
- * @param segCenter 解析后返回的数据 <0>表示段中心 <1>表示段宽度
- * @return 错误码
- * 0:成功
- * 1:解析失败
- */
-PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperStrt &paper)
-{
-    TestPaperModel& paperParam = paper.paperParam;
-    QVector<ItemModel>& itemVect = paper.itemParamVect;
-    if(itemVect.size() == 0)
-    {
-        return Error::ItemConfigError;
-    }
-    // 图片保存路径
-    QString path;
-    if(!SystemSetDao::instance()->getPicturePathRoot(path))
-    {
-        return Error::PictureNotFound;
-    }
-    double mmPixel= paperParam.getPaperMmToPixel();
-    double segmentMinWidth = paperParam.getTestBlockWidth() * mmPixel;
-    int headWidth = static_cast<int>(paperParam.getIgnoreHeadLenght() * mmPixel);
-    double lineWidth = paperParam.getItemLineWidth() * mmPixel;
-    // 获取分段总数
-    int segCnt = paperParam.getTotalNumber();
-    if(srcMat.cols < headWidth)
-    {
-//        qDebug()<<"headWidth"<<srcMat.cols<<headWidth;
-        return Error::ConfigError;
-    }
-//    // 将反光区域处理
-//    cv::Mat threshMask;
-//    cv::threshold(srcMat, threshMask, 250, 255, cv::THRESH_BINARY);
-//     // 消除噪声点
-//    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5,5));
-//    cv::morphologyEx(threshMask, threshMask, cv::MORPH_CLOSE, kernel);
-//    // 创建黑色替代区域
-//    cv::Mat black_area = cv::Mat::zeros(srcMat.size(), srcMat.type());
-//    // 融合图像（仅替换过曝区域）
-//    srcMat.copyTo(black_area, ~threshMask);  // 反转掩膜
-//    srcMat = black_area.clone();
-    /* 保存的分析图片
-    std::string lightPath = path.toStdString() +"\\" + "analysised" + "\\" + testPaperParameterStruct.sampleId.toStdString().data() + "-nolight.png";
-    cv::imwrite(lightPath, srcMat);
-    */
-    // 处理头
-    cv::Mat targetRegion = threshMat.colRange(0, headWidth);
-    // 将头设置为黑色
-    targetRegion.setTo(cv::Scalar(0));
-    /*
-    QString noHeadPath = path;
-    noHeadPath = noHeadPath + +"/" + "analysised" + "/" + paper.sampleId + "-nohead.png";
-    cv::imwrite(noHeadPath.toStdString(), threshMat);*/
-
-
-    // 腐蚀操作
-    //cv::Mat eroded_kernel = getStructuringElement(MORPH_RECT, Size(1, threshMat.rows));
-    cv::Mat erodedMat = threshMat.clone();
-    //erode(threshMat, erodedMat, eroded_kernel);
-    /*保存腐蚀后的图片
-        QString erodedPath = path;
-        erodedPath = erodedPath + +"/" + "analysised" + "/" + paper.sampleId + "-eroded1.png";
-        cv::imwrite(erodedPath.toStdString(), erodedMat);*/
-
-    {
-        // 查找轮廓
-        std::vector<std::vector<Point>> contours;
-        std::vector<std::vector<Point>> last_contours;
-        findContours(erodedMat, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-        sort(contours.begin(), contours.end(), [](auto& a, auto& b) { return boundingRect(a).x < boundingRect(b).x; });
-        if(contours.empty())
-        {
-            return Error::ContourNotFound;
-        }
-
-        // 子项目描边
-        for(auto& contour : contours)
-        {
-            cv::Rect rect = cv::boundingRect(contour);
-            cv::Mat mat = erodedMat(rect);
-            if(rect.height < erodedMat.rows * 0.5 || rect.width < lineWidth * 0.5)
-            {
-//                qDebug()<<"contours"<<rect.height<<erodedMat.rows<<rect.width<<lineWidth;
-                // 用黑色填充
-                mat.setTo(cv::Scalar(0,0,0));
-            }
-            else
-            {
-                // 总平均值作为阈值
-                double thresh = 200;
-                int idx = 0;
-                int state = 0;
-                // 左右描边
-                //按照3个像素的宽度
-                for(int i = 0; i < mat.cols;i++)
-                {
-                    double avg = 0;
-                    cv::Rect roi(i, 0, 1, mat.rows);
-                    avg = cv::mean(mat(roi))[0];
-                    if(state == 0)
-                    {// 在黑色区域
-                        if(avg > thresh)
-                        {// 检测到转白，全部设为黑色
-                            cv::Rect roi(idx, 0, i - idx + 1, mat.rows);
-                            mat(roi).setTo(cv::Scalar(0,0,0));
-                            state = 1;
-                            idx = i;
-                        }
-                    }else
-                    {// 在白色区域
-                        if(avg < thresh)
-                        {// 检测到黑色
-                            if(i - idx < lineWidth*0.5)
-                            {// 白色区域超过一定宽度
-                                cv::Rect roi(idx, 0, i - idx + 1, mat.rows);
-                                mat(roi).setTo(cv::Scalar(0,0,0));
-                            }
-                            state = 0;
-                            idx = i;
-                        }
-                    }
-                    if(i == mat.cols - 1 && state == 0)
-                    {
-                        cv::Rect roi(idx, 0, i - idx + 1, mat.rows);
-                        mat(roi).setTo(cv::Scalar(0,0,0));
-                    }
-                }
-            }
-        }
-//        // 创建掩膜并填充目标轮廓区域
-//        Mat mask = Mat::zeros(erodedMat.size(), CV_8UC1);
-//        double areaThresh = mm_to_pixel * srcMat.rows * lineWidth * 0.8;
-//        for(uint i = 0; i < contours.size(); i++)
-//        {
-//            if(cv::contourArea(contours[i]) < areaThresh)
-//            {
-//                drawContours(mask, contours, static_cast<int>(i), Scalar(255), FILLED);
-//            }
-//        }
-//        erodedMat.setTo(Scalar(0), mask);
-      /* 保存腐蚀后的图片
-        QString erodedPath = path;
-        erodedPath = erodedPath + +"/" + "analysised" + "/" + paper.sampleId + "-eroded2.png";
-        cv::imwrite(erodedPath.toStdString(), erodedMat);*/
-
-    }
-
-    // 膨胀
-    int inflatePixel = static_cast<int>(mmPixel)+3;
-//    qDebug()<<"inflatePixel"<<inflatePixel;
-    cv::Mat inflateMat;
-    cv::Mat dilate_kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(inflatePixel,threshMat.rows/3));
-    cv::dilate(erodedMat, inflateMat, dilate_kernel);
-
-    /*保存膨胀后的图片
-        QString inflatePath = path;
-        inflatePath = inflatePath + +"/" + "analysised" + "/" + paper.sampleId + "-inflate1.png";
-        cv::imwrite(inflatePath.toStdString(), inflateMat);*/
-
-    // 轮廓识别 分段 排序
-    std::vector<std::vector<cv::Point>> contours;
-    cv::findContours(inflateMat, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-    sort(contours.begin(), contours.end(), [](auto& a, auto& b) { return boundingRect(a).x < boundingRect(b).x; });
-    if(contours.empty())
-    {
-        return Error::ContourNotFound;
-    }
-    vector<cv::Rect> segRects;
-    bool need_merge = false;
-    cv::Rect wait_merge_rect;
-    uint contourIdx = 0;
-    for (auto& contour : contours)
-    {
-        contourIdx++;
-        cv::Rect rect = cv::boundingRect(contour);
-        //qDebug()<<"rect.width = " << rect.width << "segmengMinWidth=" << segmentMinWidth << "height="<<rect.height << "rows="<<srcMat.rows;
-        if (rect.width < segmentMinWidth * 0.3 || rect.height < srcMat.rows * 0.3)
-        {
-            continue;
-        }
-        if (rect.width < segmentMinWidth * 0.8 || rect.height < srcMat.rows * 0.8)
-        {
-            if(need_merge)
-            {
-                rect.width = rect.x + rect.width - wait_merge_rect.x;
-                rect.x = wait_merge_rect.x;
-                inflateMat(rect).setTo(cv::Scalar(255,255,255));
-            }else
-            {
-                if(contourIdx != contours.size())
-                {
-                    wait_merge_rect = rect;
-                    need_merge = true;
-                    continue;
-                }
-            }
-        }else
-        {
-            if(need_merge)
-            {
-                segRects.push_back(wait_merge_rect);
-            }
-        }
-        qDebug()<<"11rect.width = " << rect.width << "segmengMinWidth=" << segmentMinWidth << "height="<<rect.height << "rows="<<srcMat.rows;
-        need_merge = false;
-        segRects.push_back(rect);
-    }
-    /*保存膨胀后的图片
-    QString inflatePath1 = path;
-    inflatePath1 = inflatePath1 + +"/" + "analysised" + "/" + paper.sampleId + "-inflate2.png";
-    cv::imwrite(inflatePath1.toStdString(), inflateMat);*/
-
-    dLog("segRects.size() = " + std::to_string(segRects.size()) + "segCnt=" + std::to_string(segCnt));
-    if(static_cast<int>(segRects.size()) != segCnt)
-    {
-        return Error::DetectSegmentCntError;
-    }
-    // 子项目描边
-    for(auto& rect : segRects)
-    {
-        cv::Mat mat = srcMat(rect);
-        // 总平均值作为阈值
-        double thresh = cv::mean(mat)[0];
-        double start = 0, end = mat.cols-1;
-        // 左右描边
-        //按照3个像素的宽度，精细底端位置
-        for(int i = 0; i < mat.cols / 2 - 3;i++)
-        {
-            double avg = 0;
-            cv::Rect roi(i, 0, 3, mat.rows);
-            cv::Mat tempMat = mat(roi);
-            avg = cv::mean(tempMat)[0];
-            if(avg >= thresh)
-            {
-                start = i;
-                break;
-            }
-        }
-        for(int i = 0; i < mat.cols / 2 - 3;i++)
-        {
-            double avg = 0;
-            cv::Rect roi(mat.cols - i - 3,  0, 3, mat.rows);
-            cv::Mat tempMat = mat(roi);
-            avg = cv::mean(tempMat)[0];
-            if(avg >= thresh)
-            {
-                end = mat.cols - i;
-                break;
-            }
-        }
-        paper.segmentResultVect.push_back(TestPaperSegmentResult(rect.x + static_cast<int>((start+end)/2), end - start));
-    }
     return Error::NoError;
 }
 

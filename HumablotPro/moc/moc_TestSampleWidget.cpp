@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_TestSampleWidget_t {
-    QByteArrayData data[46];
-    char stringdata0[573];
+    QByteArrayData data[54];
+    char stringdata0[721];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -52,31 +52,39 @@ QT_MOC_LITERAL(17, 223, 8), // "realTime"
 QT_MOC_LITERAL(18, 232, 14), // "slotAlarmInfo1"
 QT_MOC_LITERAL(19, 247, 10), // "alarm_info"
 QT_MOC_LITERAL(20, 258, 9), // "code_type"
-QT_MOC_LITERAL(21, 268, 18), // "on_btnStop_clicked"
-QT_MOC_LITERAL(22, 287, 10), // "UpdateSlot"
-QT_MOC_LITERAL(23, 298, 3), // "num"
-QT_MOC_LITERAL(24, 302, 14), // "slotUpdateTime"
-QT_MOC_LITERAL(25, 317, 13), // "slotAlarmInfo"
-QT_MOC_LITERAL(26, 331, 10), // "alarmFlage"
-QT_MOC_LITERAL(27, 342, 20), // "slotHandleStepDetail"
-QT_MOC_LITERAL(28, 363, 6), // "stepId"
-QT_MOC_LITERAL(29, 370, 5), // "index"
-QT_MOC_LITERAL(30, 376, 8), // "isSucess"
-QT_MOC_LITERAL(31, 385, 8), // "stepName"
-QT_MOC_LITERAL(32, 394, 13), // "slotIsStepSuc"
-QT_MOC_LITERAL(33, 408, 3), // "ret"
-QT_MOC_LITERAL(34, 412, 24), // "slotDetectionStartResult"
-QT_MOC_LITERAL(35, 437, 11), // "MessageType"
-QT_MOC_LITERAL(36, 449, 6), // "sample"
-QT_MOC_LITERAL(37, 456, 4), // "slot"
-QT_MOC_LITERAL(38, 461, 4), // "step"
-QT_MOC_LITERAL(39, 466, 4), // "code"
-QT_MOC_LITERAL(40, 471, 4), // "time"
-QT_MOC_LITERAL(41, 476, 4), // "hint"
-QT_MOC_LITERAL(42, 481, 24), // "slotDetectionPauseResult"
-QT_MOC_LITERAL(43, 506, 27), // "slotDetectionContinueResult"
-QT_MOC_LITERAL(44, 534, 23), // "slotDetectionStopResult"
-QT_MOC_LITERAL(45, 558, 14) // "slotTestFinish"
+QT_MOC_LITERAL(21, 268, 14), // "create_test_id"
+QT_MOC_LITERAL(22, 283, 18), // "on_btnStop_clicked"
+QT_MOC_LITERAL(23, 302, 10), // "UpdateSlot"
+QT_MOC_LITERAL(24, 313, 3), // "num"
+QT_MOC_LITERAL(25, 317, 14), // "slotUpdateTime"
+QT_MOC_LITERAL(26, 332, 13), // "slotAlarmInfo"
+QT_MOC_LITERAL(27, 346, 10), // "alarmFlage"
+QT_MOC_LITERAL(28, 357, 20), // "slotHandleStepDetail"
+QT_MOC_LITERAL(29, 378, 6), // "stepId"
+QT_MOC_LITERAL(30, 385, 5), // "index"
+QT_MOC_LITERAL(31, 391, 8), // "isSucess"
+QT_MOC_LITERAL(32, 400, 8), // "stepName"
+QT_MOC_LITERAL(33, 409, 13), // "slotIsStepSuc"
+QT_MOC_LITERAL(34, 423, 3), // "ret"
+QT_MOC_LITERAL(35, 427, 24), // "slotDetectionStartResult"
+QT_MOC_LITERAL(36, 452, 10), // "resultCode"
+QT_MOC_LITERAL(37, 463, 11), // "MessageType"
+QT_MOC_LITERAL(38, 475, 19), // "slotStepStateResult"
+QT_MOC_LITERAL(39, 495, 14), // "isStartMessage"
+QT_MOC_LITERAL(40, 510, 13), // "shakeBedIndex"
+QT_MOC_LITERAL(41, 524, 8), // "actGroup"
+QT_MOC_LITERAL(42, 533, 3), // "act"
+QT_MOC_LITERAL(43, 537, 9), // "isSuccess"
+QT_MOC_LITERAL(44, 547, 24), // "slotSignalSamplingResult"
+QT_MOC_LITERAL(45, 572, 14), // "samplePosition"
+QT_MOC_LITERAL(46, 587, 13), // "paperPosition"
+QT_MOC_LITERAL(47, 601, 17), // "slotPausingResult"
+QT_MOC_LITERAL(48, 619, 4), // "hint"
+QT_MOC_LITERAL(49, 624, 24), // "slotDetectionPauseResult"
+QT_MOC_LITERAL(50, 649, 4), // "code"
+QT_MOC_LITERAL(51, 654, 27), // "slotDetectionContinueResult"
+QT_MOC_LITERAL(52, 682, 23), // "slotDetectionStopResult"
+QT_MOC_LITERAL(53, 706, 14) // "slotTestFinish"
 
     },
     "TestSampleWidget\0preper_save\0\0"
@@ -86,14 +94,18 @@ QT_MOC_LITERAL(45, 558, 14) // "slotTestFinish"
     "on_btnSet_clicked\0slotLblClick\0pos\0"
     "on_btnSubBody_clicked\0slotCurrentGroupIdChanged\0"
     "groupId\0realTime\0slotAlarmInfo1\0"
-    "alarm_info\0code_type\0on_btnStop_clicked\0"
-    "UpdateSlot\0num\0slotUpdateTime\0"
-    "slotAlarmInfo\0alarmFlage\0slotHandleStepDetail\0"
-    "stepId\0index\0isSucess\0stepName\0"
-    "slotIsStepSuc\0ret\0slotDetectionStartResult\0"
-    "MessageType\0sample\0slot\0step\0code\0"
-    "time\0hint\0slotDetectionPauseResult\0"
-    "slotDetectionContinueResult\0"
+    "alarm_info\0code_type\0create_test_id\0"
+    "on_btnStop_clicked\0UpdateSlot\0num\0"
+    "slotUpdateTime\0slotAlarmInfo\0alarmFlage\0"
+    "slotHandleStepDetail\0stepId\0index\0"
+    "isSucess\0stepName\0slotIsStepSuc\0ret\0"
+    "slotDetectionStartResult\0resultCode\0"
+    "MessageType\0slotStepStateResult\0"
+    "isStartMessage\0shakeBedIndex\0actGroup\0"
+    "act\0isSuccess\0slotSignalSamplingResult\0"
+    "samplePosition\0paperPosition\0"
+    "slotPausingResult\0hint\0slotDetectionPauseResult\0"
+    "code\0slotDetectionContinueResult\0"
     "slotDetectionStopResult\0slotTestFinish"
 };
 #undef QT_MOC_LITERAL
@@ -104,7 +116,7 @@ static const uint qt_meta_data_TestSampleWidget[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      22,   14, // methods
+      26,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -112,30 +124,34 @@ static const uint qt_meta_data_TestSampleWidget[] = {
        5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  124,    2, 0x06 /* Public */,
-       4,    0,  127,    2, 0x06 /* Public */,
-       5,    0,  128,    2, 0x06 /* Public */,
-       6,    0,  129,    2, 0x06 /* Public */,
-       7,    2,  130,    2, 0x06 /* Public */,
+       1,    1,  144,    2, 0x06 /* Public */,
+       4,    0,  147,    2, 0x06 /* Public */,
+       5,    0,  148,    2, 0x06 /* Public */,
+       6,    0,  149,    2, 0x06 /* Public */,
+       7,    2,  150,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      10,    0,  135,    2, 0x08 /* Private */,
-      11,    0,  136,    2, 0x08 /* Private */,
-      12,    1,  137,    2, 0x08 /* Private */,
-      14,    0,  140,    2, 0x08 /* Private */,
-      15,    2,  141,    2, 0x08 /* Private */,
-      18,    2,  146,    2, 0x08 /* Private */,
-      21,    0,  151,    2, 0x08 /* Private */,
-      22,    1,  152,    2, 0x0a /* Public */,
-      24,    0,  155,    2, 0x0a /* Public */,
-      25,    1,  156,    2, 0x0a /* Public */,
-      27,    4,  159,    2, 0x0a /* Public */,
-      32,    1,  168,    2, 0x0a /* Public */,
-      34,    7,  171,    2, 0x0a /* Public */,
-      42,    1,  186,    2, 0x0a /* Public */,
-      43,    1,  189,    2, 0x0a /* Public */,
-      44,    1,  192,    2, 0x0a /* Public */,
-      45,    0,  195,    2, 0x0a /* Public */,
+      10,    0,  155,    2, 0x08 /* Private */,
+      11,    0,  156,    2, 0x08 /* Private */,
+      12,    1,  157,    2, 0x08 /* Private */,
+      14,    0,  160,    2, 0x08 /* Private */,
+      15,    2,  161,    2, 0x08 /* Private */,
+      18,    2,  166,    2, 0x08 /* Private */,
+      21,    0,  171,    2, 0x08 /* Private */,
+      22,    0,  172,    2, 0x08 /* Private */,
+      23,    1,  173,    2, 0x0a /* Public */,
+      25,    0,  176,    2, 0x0a /* Public */,
+      26,    1,  177,    2, 0x0a /* Public */,
+      28,    4,  180,    2, 0x0a /* Public */,
+      33,    1,  189,    2, 0x0a /* Public */,
+      35,    2,  192,    2, 0x0a /* Public */,
+      38,    6,  197,    2, 0x0a /* Public */,
+      44,    7,  210,    2, 0x0a /* Public */,
+      47,    1,  225,    2, 0x0a /* Public */,
+      49,    1,  228,    2, 0x0a /* Public */,
+      51,    1,  231,    2, 0x0a /* Public */,
+      52,    1,  234,    2, 0x0a /* Public */,
+      53,    0,  237,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    2,
@@ -152,15 +168,19 @@ static const uint qt_meta_data_TestSampleWidget[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Int,   16,   17,
     QMetaType::Void, QMetaType::QString, QMetaType::QString,   19,   20,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   23,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   26,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Bool, QMetaType::QString,   28,   29,   30,   31,
-    QMetaType::Void, QMetaType::Int,   33,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   35,   36,   37,   38,   39,   40,   41,
-    QMetaType::Void, QMetaType::QString,   39,
-    QMetaType::Void, QMetaType::QString,   39,
-    QMetaType::Void, QMetaType::QString,   39,
+    QMetaType::Void, QMetaType::Int,   24,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   27,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Bool, QMetaType::QString,   29,   30,   31,   32,
+    QMetaType::Void, QMetaType::Int,   34,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   36,   37,
+    QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   29,   39,   40,   41,   42,   43,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::Int, QMetaType::Bool,   29,   40,   41,   42,   45,   46,   43,
+    QMetaType::Void, QMetaType::QString,   48,
+    QMetaType::Void, QMetaType::QString,   50,
+    QMetaType::Void, QMetaType::QString,   50,
+    QMetaType::Void, QMetaType::QString,   50,
     QMetaType::Void,
 
        0        // eod
@@ -183,17 +203,21 @@ void TestSampleWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 8: _t->on_btnSubBody_clicked(); break;
         case 9: _t->slotCurrentGroupIdChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 10: _t->slotAlarmInfo1((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 11: _t->on_btnStop_clicked(); break;
-        case 12: _t->UpdateSlot((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 13: _t->slotUpdateTime(); break;
-        case 14: _t->slotAlarmInfo((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 15: _t->slotHandleStepDetail((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4]))); break;
-        case 16: _t->slotIsStepSuc((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 17: _t->slotDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< QString(*)>(_a[7]))); break;
-        case 18: _t->slotDetectionPauseResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 19: _t->slotDetectionContinueResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 20: _t->slotDetectionStopResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 21: _t->slotTestFinish(); break;
+        case 11: _t->create_test_id(); break;
+        case 12: _t->on_btnStop_clicked(); break;
+        case 13: _t->UpdateSlot((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->slotUpdateTime(); break;
+        case 15: _t->slotAlarmInfo((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 16: _t->slotHandleStepDetail((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4]))); break;
+        case 17: _t->slotIsStepSuc((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 18: _t->slotDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 19: _t->slotStepStateResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< bool(*)>(_a[6]))); break;
+        case 20: _t->slotSignalSamplingResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< int(*)>(_a[5])),(*reinterpret_cast< int(*)>(_a[6])),(*reinterpret_cast< bool(*)>(_a[7]))); break;
+        case 21: _t->slotPausingResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 22: _t->slotDetectionPauseResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 23: _t->slotDetectionContinueResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 24: _t->slotDetectionStopResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 25: _t->slotTestFinish(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -276,13 +300,13 @@ int TestSampleWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 22)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 22;
+        _id -= 26;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 22)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 22;
+        _id -= 26;
     }
     return _id;
 }

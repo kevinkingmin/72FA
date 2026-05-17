@@ -33,8 +33,7 @@ public:
 	int SelectLisPort(bool *bResult);
     QSqlQuery SelectLisInfos(bool *bResult);
 	QString SelectTestPicturesRootPath(bool *bResult);
-	QString SelectTestReportsRootPath(bool *bResult);
-	QString SelectControlThreshold(bool *bResult);
+    QString SelectTestReportsRootPath(bool *bResult);
 	//周、月维护完成时间
 	QString SelectMaintenanceFinishTime(bool *bResult,int id);
 	QString SelectCutOffThreshold(bool *bResult);

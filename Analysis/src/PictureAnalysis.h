@@ -102,12 +102,10 @@ private:
     // 分段膜条处理
     Error SegmentPaperHandle(TestPaperStrt &paper);
     // 分段膜条旋转裁切
-    Error SegmentPaperRotateCut(cv::Mat& srcMat, TestPaperStrt &paper,cv::OutputArray dstMat, cv::OutputArray dstThreshMat);
-    Error SegmentPaperRotateCut1(cv::Mat& srcMat, TestPaperStrt &paper, cv::OutputArray dstMat, cv::OutputArray dst_thresh_mat);
+    Error SegmentPaperRotateCut(cv::Mat& srcMat, TestPaperStrt &paper, cv::OutputArray dstMat, cv::OutputArray dst_thresh_mat);
 
     // 膜条段解析
-    Error PaperSegmentationParse(cv::Mat& srcMat, cv::Mat& threshMat, TestPaperStrt &paper);
-    Error PaperSegmentationParse1(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperStrt &paper);
+    Error PaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperStrt &paper);
     std::vector<std::vector<cv::Rect>> groupRectsByHorizontalSpan(const std::vector<cv::Rect>& rects, int span);
     std::vector<cv::Rect> findTopKBlocks(
         const cv::Mat& src,
