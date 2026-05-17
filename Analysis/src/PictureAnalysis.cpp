@@ -608,66 +608,190 @@ std::vector<std::vector<cv::Rect>> PictureAnalysis::groupRectsByHorizontalSpan(c
     return groups;
 }
 
+struct BlockCandidate {
+    size_t startIdx;     // 原始 rects 起始索引
+    size_t endIdx;       // 原始 rects 结束索引
+    cv::Rect rect;    // 合并后的几何矩形
+    double score;     // 综合得分
+
+    // 用于 DP 回溯
+    int prevBestIdx;  // 前一个最佳块的索引
+};
+
 /**
- * @brief 在宽度约束内寻找平均“得分”最高的矩形组合
+ * @brief 基于滑动窗口/区间DP的思想
+    预处理：计算每个原始矩形的得分。
+    生成候选块：只保留那些宽度在 [minWidth, maxWidth] 范围内的连续子序列作为“候选块”。记录它们的起始索引、结束索引、合并后的 Rect 和平均分。
+    选择最佳组合：
+    如果只需要 1 个块：直接取平均分最高的候选块。
+    如果需要 2 个块：遍历所有合法的“左块”，然后在它右侧寻找不重叠且满足 blockSpan 间距的“右块”，求两者得分之和的最大值。
  * @param src
  * @param rects
  * @param blockWidth
  * @return
  */
-cv::Rect PictureAnalysis::mergeRectsByScore(const cv::Mat& src, const std::vector<cv::Rect>& rects, int blockWidth, int paperBinarizationThresh)
+
+
+std::vector<cv::Rect> PictureAnalysis::findTopKBlocks(
+    const cv::Mat& src,
+    const std::vector<cv::Rect>& sortedRects,
+    size_t K,                // 目标块数量，例如 13
+    int expectedBlockWidth,
+    int minGap,           // 块之间的最小间距
+    int binarizationThresh)
 {
-    double minWidth = blockWidth * 0.8;
-    double maxWidth = blockWidth * 1.2;
-    if (rects.empty()) return cv::Rect();
-    if (rects.size() == 1) return rects[0];
-    const cv::Rect& first = rects.front();
-    const cv::Rect& last  = rects.back();
-    int totalWidth = last.x + last.width - first.x;
-    if(totalWidth < minWidth)
-    {
-        return cv::Rect(first.x, first.y, totalWidth, first.height);
-    }
+    std::vector<cv::Rect> results;
+    if (sortedRects.empty() || K <= 0) return results;
 
-    vector<double> scoreVect;
-    scoreVect.reserve(rects.size());
+    size_t N = sortedRects.size();
+
+    // 2. 预计算每个矩形的密度得分 (0.0 ~ 1.0)
+    std::vector<double> densityScores(N, 0.0);
     cv::Rect imgBounds(0, 0, src.cols, src.rows);
-    for (const auto& r : rects) {
-        cv::Rect safeRoi = r & imgBounds;
-        if (safeRoi.empty()) { scoreVect.push_back(0.0); continue; }
-
-        cv::Mat roi = src(safeRoi);
-        double ratio = static_cast<double>(cv::countNonZero(roi > paperBinarizationThresh)) / roi.total();
-        qDebug()<<"ratio"<<ratio;
-        scoreVect.push_back(ratio);
-    }
-    // 前缀和数组，将区间求和
-    std::vector<double> prefixSum(scoreVect.size() + 1, 0.0);
-    for (size_t k = 0; k < scoreVect.size(); ++k) {
-        prefixSum[k+1] = prefixSum[k] + scoreVect[k];
+    for (size_t i = 0; i < N; ++i) {
+        cv::Rect roi = sortedRects[i] & imgBounds;
+        if (roi.area() > 0) {
+            cv::Mat sub = src(roi);
+            double nonZero = cv::countNonZero(sub > binarizationThresh);
+            densityScores[i] = nonZero / static_cast<double>(sub.total());
+        }
     }
 
-    cv::Rect bestMerge = rects[0];
-    double maxScore = -1.0; // 初始化为-1，确保全0得分也能正确更新
-    for (size_t i = 0; i < rects.size(); ++i) {
-        for (size_t j = rects.size() - 1; j > i; --j) {
-            int spanWidth = rects[j].x + rects[j].width - rects[i].x;
-            qDebug()<<"width"<<minWidth<<maxWidth<<spanWidth;
-            if (spanWidth >= minWidth && spanWidth < maxWidth) {
-                // 计算 [i, j] 区间平均分
-                double avgScore = (prefixSum[j+1] - prefixSum[i]) / static_cast<double>(j - i + 1);
+    // 3. 生成所有合法的“候选块”
+    // 合法定义：宽度在 [0.8*W, 1.2*W] 之间，且由连续的 rects 组成
+    std::vector<BlockCandidate> candidates;
+    double minWidth = expectedBlockWidth * 0.8;
+    double maxWidth = expectedBlockWidth * 1.2;
 
-                if (avgScore > maxScore) {
-                    maxScore = avgScore;
-                    // 正确计算合并矩形的 Y 和 Height，确保完全覆盖
-                    int mergeY = std::min(rects[i].y, rects[j].y);
-                    int mergeH = std::max(rects[i].y + rects[i].height, rects[j].y + rects[j].height) - mergeY;
-                    bestMerge = cv::Rect(rects[i].x, mergeY, spanWidth, mergeH);
+    for (size_t i = 0; i < N; ++i) {
+        int minX = sortedRects[i].x;
+        int maxX = sortedRects[i].x + sortedRects[i].width;
+        int minY = sortedRects[i].y;
+        int maxY = sortedRects[i].y + sortedRects[i].height;
+
+        double sumDensity = 0.0;
+
+        for (size_t j = i; j < N; ++j) {
+            // 更新边界
+            minX = std::min(minX, sortedRects[j].x);
+            maxX = std::max(maxX, sortedRects[j].x + sortedRects[j].width);
+            minY = std::min(minY, sortedRects[j].y);
+            maxY = std::max(maxY, sortedRects[j].y + sortedRects[j].height);
+
+            sumDensity += densityScores[j];
+
+            int width = maxX - minX;
+            if (width > maxWidth) break; // 剪枝：太宽了，后续 j 只会更宽
+
+            if (width >= minWidth) {
+                // 计算得分：
+                // 1. 宽度契合度：越接近 expectedBlockWidth 越好
+                double widthDiff = std::abs(width - expectedBlockWidth);
+                double widthScore = 1.0 - (widthDiff / expectedBlockWidth);
+                widthScore = std::max(0.0, widthScore); // 防止负数
+
+                // 2. 平均密度
+                double avgDensity = sumDensity / (j - i + 1);
+                qDebug()<<"avgDensity"<<i<<j<<avgDensity;
+
+                // 3. 综合得分 (权重可根据实际效果调整)
+                double finalScore = avgDensity;// widthScore * 0.6 + avgDensity * 0.4;
+
+                // 只有得分高于某个阈值才加入候选，避免太多垃圾候选
+                if (finalScore > 0.3) {
+                    cv::Rect r(minX, minY, width, maxY - minY);
+                    candidates.push_back({i, j, r, finalScore, -1});
                 }
             }
         }
     }
-    return bestMerge;
+
+    if (candidates.empty()) return results;
+
+    // 4. 动态规划 (DP) 寻找 K 个最佳不重叠块
+    // dp[k][i] 表示：选了 k 个块，且第 k 个块是 candidates[i] 时的最大总得分
+    // 由于 K=13 较小，我们可以用滚动数组或二维 vector
+
+    // 为了节省内存，我们只记录路径
+    // Structure: bestScoreForCount[i] -> map<candidateIndex, totalScore>
+    // 这里简化为：对每个 candidate，记录它作为第 m 个块时的最佳前驱
+
+    // 初始化 DP 表
+    // dp[m][c_idx] = max total score using m blocks ending with candidate c_idx
+    std::vector<std::vector<double>> dp(static_cast<size_t>(K + 1), std::vector<double>(candidates.size(), -1.0));
+    std::vector<std::vector<int>> parent(static_cast<size_t>(K + 1), std::vector<int>(candidates.size(), -1));
+
+    // Base case: m = 1
+    for (size_t c = 0; c < candidates.size(); ++c) {
+        dp[1][c] = candidates[c].score;
+    }
+
+    // Transition: m = 2 to K
+    for (size_t m = 2; m <= K; ++m) {
+        for (size_t curr = 0; curr < candidates.size(); ++curr) {
+            const auto& currCand = candidates[curr];
+            double bestPrevScore = -1.0;
+            int bestPrevIdx = -1;
+
+            // 遍历所有可能的前一个块 prev
+            for (size_t prev = 0; prev < curr; ++prev) {
+                const auto& prevCand = candidates[prev];
+
+                // 约束 1: 索引不重叠
+                if (prevCand.endIdx >= currCand.startIdx) continue;
+
+                // 约束 2: 几何间距 >= minGap
+//                int gap = currCand.rect.x - (prevCand.rect.x + prevCand.rect.width);
+//                if (gap < minGap) continue;
+
+                // 如果前一个状态不可达，跳过
+                if (dp[m-1][prev] < 0) continue;
+
+                double total = dp[m-1][prev] + currCand.score;
+                if (total > bestPrevScore) {
+                    bestPrevScore = total;
+                    bestPrevIdx = static_cast<int>(prev);
+                }
+            }
+
+            if (bestPrevScore > 0) {
+                dp[m][curr] = bestPrevScore;
+                parent[m][curr] = bestPrevIdx;
+            }
+        }
+    }
+
+    // 5. 回溯找到最佳路径
+    // 找到第 K 个块中得分最高的那个
+    double maxFinalScore = -1.0;
+    int lastCandIdx = -1;
+
+    for (size_t c = 0; c < candidates.size(); ++c) {
+        if (dp[K][c] > maxFinalScore) {
+            maxFinalScore = dp[K][c];
+            lastCandIdx = static_cast<int>(c);
+        }
+    }
+
+    if (lastCandIdx == -1) {
+        qDebug() << "Could not find" << K << "valid blocks. Falling back to greedy top-K.";
+        // 降级策略：如果 DP 找不到完整的 K 个，直接取分数最高的 K 个不重叠候选（简单贪心）
+        // 这里省略降级代码，直接返回空或部分结果
+        return results;
+    }
+
+    // 回溯
+    std::vector<cv::Rect> finalBlocks;
+    int currentIdx = lastCandIdx;
+    for (size_t m = K; m >= 1; --m) {
+        finalBlocks.push_back(candidates[static_cast<size_t>(currentIdx)].rect);
+        currentIdx = parent[m][static_cast<size_t>(currentIdx)];
+    }
+
+    // 反转，因为是从后往前找的
+    std::reverse(finalBlocks.begin(), finalBlocks.end());
+
+    return finalBlocks;
 }
 
 
@@ -705,22 +829,24 @@ std::vector<cv::Rect> PictureAnalysis::SegmentationContourFind(const cv::Mat& sr
             qDebug()<<"contours"<<rect.height<<srcMat.rows<<rect.width<<lineWidth;
             continue;
         }
-        cv::Mat roi1 = srcMat(rect);
-        double ratio = static_cast<double>(cv::countNonZero(roi1 > 15)) / roi1.total();
-        qDebug()<<"ratio"<<ratio;
+//        cv::Mat roi1 = srcMat(rect);
+//        double ratio = static_cast<double>(cv::countNonZero(roi1 > 15)) / roi1.total();
+//        qDebug()<<"ratio"<<ratio;
         cv::rectangle(contourMarkMat1, rect, cv::Scalar(255,0,0), 1);
-        double max = 0;
+//        double max = 0;
         if(rect.width < lineWidth) continue;
-        int scan =std::max(rect.width/3, lineWidth);
-        // 找轮廓在线宽范围内的最大值
-        for(int i = 0; i < rect.width - scan; i++)
-        {
-            cv::Rect tempRoi(rect.x + i, rect.y, scan, rect.height);
-            double temp = cv::mean(srcMat(tempRoi))[0];
-            if(max < temp) max = temp;
-        }
-        int cut_thresh = static_cast<int>(max * 0.8);
-        qDebug()<<"max"<<max;
+//        int scan =std::max(rect.width/3, lineWidth);
+//        // 找轮廓在线宽范围内的最大值
+//        for(int i = 0; i < rect.width - scan; i++)
+//        {
+//            cv::Rect tempRoi(rect.x + i, rect.y, scan, rect.height);
+//            cv::Mat roi1 = srcMat(tempRoi);
+//            double ratio = static_cast<double>(cv::countNonZero(roi1 > paperParam.getPaperBinarizationThreshold())) / roi1.total();
+//            double temp = cv::mean(roi1)[0];
+//            if(max < temp && ratio > 0.99) max = temp;
+//        }
+        int cut_thresh = static_cast<int>(cv::mean(srcMat(rect))[0]*0.8);//static_cast<int>(max * 0.8);
+        qDebug()<<"cut_thresh"<<cut_thresh;
         int recordX = 0;
         int startX = 0;
         bool foundStart = false;
@@ -791,7 +917,7 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse1(cv::Mat& srcMat,
     }
     double mmPixel= paperParam.getPaperMmToPixel();
     int segmentMinWidth = static_cast<int>(paperParam.getTestBlockWidth() * mmPixel);
-    int segmentMinSpan = static_cast<int>(1.5 * mmPixel);//paperParam.getTestBlockSpace()
+    int segmentMinSpan = static_cast<int>(1.2 * mmPixel);//paperParam.getTestBlockSpace()
     int headWidth = static_cast<int>(paperParam.getIgnoreHeadLenght() * mmPixel);
     int lineWidth = static_cast<int>(paperParam.getItemLineWidth() * mmPixel);
     // 获取分段总数
@@ -810,39 +936,33 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse1(cv::Mat& srcMat,
     noHeadPath = noHeadPath + +"/" + "analysised" + "/" + paper.sampleId + "-nohead.png";
     cv::imwrite(noHeadPath.toStdString(), threshMat);
 
-    auto find_rects = SegmentationContourFind(srcMat, threshMat, paper, path);
-    cv::Rect imgBounds(0, 0, srcMat.cols, srcMat.rows);
-    cv::Mat contourMarkMat2_1 = srcMat.clone();
-    vector<cv::Rect> last_rects;
-    for(auto & re : find_rects)
-    {
-        cv::Rect safeRoi = re & imgBounds;
-        cv::Mat roi = srcMat(safeRoi);
-        double ratio = static_cast<double>(cv::countNonZero(roi > paperBinarizationThresh)) / roi.total();
-        qDebug()<<"ratio2"<<ratio;
-        if(ratio > 0.9 && re.width > segmentMinWidth/5)
-        {
-            cv::rectangle(contourMarkMat2_1, re, cv::Scalar(255,0,0), 1);
-            last_rects.push_back(re);
-        }
-    }
-    QString inflatePath2_1 = path;
-    inflatePath2_1 = inflatePath2_1 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat2_1.png";
-    cv::imwrite(inflatePath2_1.toStdString(), contourMarkMat2_1);
+    auto last_rects = SegmentationContourFind(srcMat, threshMat, paper, path);
+//    cv::Rect imgBounds(0, 0, srcMat.cols, srcMat.rows);
+//    cv::Mat contourMarkMat2_1 = srcMat.clone();
+//    vector<cv::Rect> last_rects;
+//    for(auto & re : find_rects)
+//    {
+//        cv::Rect safeRoi = re & imgBounds;
+//        cv::Mat roi = srcMat(safeRoi);
+//        double ratio = static_cast<double>(cv::countNonZero(roi > paperBinarizationThresh)) / roi.total();
+//        qDebug()<<"ratio2"<<ratio;
+//        if(ratio > 0.9 && re.width > segmentMinWidth/5)
+//        {
+//            cv::rectangle(contourMarkMat2_1, re, cv::Scalar(255,0,0), 1);
+//            last_rects.push_back(re);
+//        }
+//    }
+//    QString inflatePath2_1 = path;
+//    inflatePath2_1 = inflatePath2_1 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat2_1.png";
+//    cv::imwrite(inflatePath2_1.toStdString(), contourMarkMat2_1);
 
     // 将块间距小于指定值的进行分组
     // 轮廓合并
-    vector<vector<cv::Rect>> segRectsBySpan = groupRectsByHorizontalSpan(last_rects, static_cast<int>(segmentMinSpan*0.8));
-    vector<cv::Rect> mergeRect;
+    vector<cv::Rect> mergeRects = findTopKBlocks(srcMat, last_rects, static_cast<size_t>(segCnt), segmentMinWidth, segmentMinSpan, paperBinarizationThresh);
     cv::Mat contourMarkMat3 = srcMat.clone();
-    for(const auto& rectsInSpan:segRectsBySpan)
+    for(const auto& merge:mergeRects)
     {
-        qDebug()<<"rectsInSpan"<<rectsInSpan.size();
-        if(rectsInSpan.empty()) continue;
-        cv::Rect refinedRect = mergeRectsByScore(srcMat, rectsInSpan, segmentMinWidth, paperBinarizationThresh);
-        if(refinedRect.width < segmentMinWidth * 0.8) continue;
-        cv::rectangle(contourMarkMat3, refinedRect, cv::Scalar(255,0,0), 1);
-        mergeRect.push_back(refinedRect);
+        cv::rectangle(contourMarkMat3, merge, cv::Scalar(255,0,0), 1);
     }
     QString inflatePath3 = path;
     inflatePath3 = inflatePath3 + +"/" + "analysised" + "/" + paper.sampleId + "-contourMarkMat3.png";

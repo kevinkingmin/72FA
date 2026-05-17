@@ -109,7 +109,13 @@ private:
     Error PaperSegmentationParse(cv::Mat& srcMat, cv::Mat& threshMat, TestPaperStrt &paper);
     Error PaperSegmentationParse1(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperStrt &paper);
     std::vector<std::vector<cv::Rect>> groupRectsByHorizontalSpan(const std::vector<cv::Rect>& rects, int span);
-    cv::Rect mergeRectsByScore(const cv::Mat& src, const std::vector<cv::Rect>& rects, int blockWidth, int paperBinarizationThresh);
+    std::vector<cv::Rect> findTopKBlocks(
+        const cv::Mat& src,
+        const std::vector<cv::Rect>& rects,
+        size_t K,                // 目标块数量，例如 13
+        int expectedBlockWidth,
+        int minGap,           // 块之间的最小间距
+        int binarizationThresh);
     std::vector<cv::Rect> SegmentationContourFind(const cv::Mat& srcMat, const cv::Mat& threshMat, TestPaperStrt &paper, const QString& path);
     // 分段膜条项目解析
     Error SegmentPaperItemParse(cv::Mat& cutMat, TestPaperStrt &paper);
