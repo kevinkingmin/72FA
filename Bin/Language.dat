@@ -197,8 +197,7 @@ K1189|月维护浸泡时间：|Soak time of monthly maintenance:
 K1190|月维护泵充灌量：|Pump filling volume of monthly maintenance:
 K1191|周维护泵充灌量：|Pumping filling volume of weekly maintenance:
 K1192|月维护泵校准量：|Pump calibration volume of monthly maintenance:
-K1193|泵校准下限值：|Lower limit of pump calibration:
-K1194|泵校准上限值：|Upper limit of pump calibration:
+K1193|开启图片解析调试：|Enable image parsing debug mode:
 K1195|系统液充灌体积：|System liquid filling volume:
 K1196|系统液清洗体积：|System liquid cleaning volume:
 K1197|关机排空液量：|Shutdown emptying fluid volume:

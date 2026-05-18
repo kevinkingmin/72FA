@@ -953,6 +953,10 @@ PictureAnalysis::Error PictureAnalysis::PaperSegmentationParse(cv::Mat& srcMat,c
     // 将块间距小于指定值的进行分组
     // 轮廓合并
     vector<cv::Rect> mergeRects = findTopKBlocks(srcMat, last_rects, static_cast<size_t>(segCnt), segmentMinWidth, segmentMinSpan, paperBinarizationThresh);
+    if(static_cast<int>(mergeRects.size()) != segCnt)
+    {
+        return Error::DetectSegmentCntError;
+    }
     cv::Mat contourMarkMat3 = srcMat.clone();
     for(const auto& merge:mergeRects)
     {

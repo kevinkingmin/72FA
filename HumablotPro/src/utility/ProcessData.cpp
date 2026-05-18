@@ -494,7 +494,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
 
         // 预计耗时
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),4,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 100, this)),4,1);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 100, this)),4,1,1,3);
         ui.gridLayout->addWidget(new QLabel("s",this),4,4);
     }
     else if(index==1) // 加样本
@@ -519,7 +519,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel("s",this),2,5);
         // 预计耗时
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),3,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 100, this)),3,1);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 100, this)),3,1,1,4);
         ui.gridLayout->addWidget(new QLabel("s",this),3,5);
     }
     else if(index==2) // 排废液
@@ -584,7 +584,7 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
         ui.gridLayout->addWidget(new QLabel("min",this),2,4);
         // 预计耗时
         ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1925")+":",this),3,0,Qt::AlignRight);
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 600000, this)),3,1);
+        ui.gridLayout->addWidget(createEdit(new QIntValidator(0, 600000, this)),3,1,1,3);
         ui.gridLayout->addWidget(new QLabel("s",this),3,4);
     }
     else if(index==6) // 拍照

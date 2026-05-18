@@ -318,7 +318,7 @@ signals:
      * @param paperPosition 膜槽位置
      * @param isSuccess 是否执行成功
      */
-    void sglSignalSamplingResult(int stepId, int shakeBedIndex, QString actGroup, QString act, int samplePosition, int paperPosition, bool isSuccess);
+    void sglSignalSamplingResult(int stepId, int shakeBedIndex, QString actGroup, QString act, QString samplePosition, QString paperPosition, bool isSuccess);
 
     /**
      * @brief 暂停上报状态

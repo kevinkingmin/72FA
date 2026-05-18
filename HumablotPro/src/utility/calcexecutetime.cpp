@@ -134,7 +134,7 @@ qint64 CalcExecuteTime::calcRemainTime(const int stepId) const
 QString CalcExecuteTime::getEstimatedCompletionTime(const int stepId) const
 {
     if(m_state != MachineState::Running) return "00:00:00";
-    QDateTime estimated = QDateTime::currentDateTime().addMSecs(calcRemainTime(stepId));
+    QDateTime estimated = QDateTime::currentDateTime().addSecs(calcRemainTime(stepId));
     return estimated.toString("HH:mm:ss");
 }
 

@@ -146,7 +146,7 @@ void TestSampleWidget::slotStepStateResult(int stepId, bool isStartMessage, int 
     if(isStartMessage)
     {
         QString start = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K2028");//开始执行
-        msg = tr("[%1] %2 %3:%4, %5:%6, %7:%8")
+        msg = tr("[%1] %2 %3%4, %5:%6, %7:%8")
                 .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
                 .arg(shakeBedIndex == 3? "" : "["+bed+QString::number(shakeBedIndex)+"]")
                 .arg(group)
@@ -159,7 +159,7 @@ void TestSampleWidget::slotStepStateResult(int stepId, bool isStartMessage, int 
     {
         QString success = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1029");//执行成功
         QString failure = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1030");//执行失败
-        msg = tr("[%1] %2 %3:%4, %5:%6, %7:%8")
+        msg = tr("[%1] %2 %3%4, %5:%6, %7:%8")
                 .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
                 .arg(shakeBedIndex == 3? "" : "["+bed+QString::number(shakeBedIndex)+"]")
                 .arg(group)
@@ -182,11 +182,11 @@ void TestSampleWidget::slotStepStateResult(int stepId, bool isStartMessage, int 
  * @param paperPosition 膜槽位置
  * @param isSuccess 是否执行成功
  */
-void TestSampleWidget::slotSignalSamplingResult(int stepId, int shakeBedIndex, QString actGroup, QString act, int samplePosition, int paperPosition, bool isSuccess)
+void TestSampleWidget::slotSignalSamplingResult(int stepId, int shakeBedIndex, QString actGroup, QString act, QString samplePosition, QString paperPosition, bool isSuccess)
 {
-    QString group = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1068");//样本位
+    QString sample = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1068");//样本位
     QString slot = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1924");//槽位
-    QString sample = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K2023");//步骤组:
+    QString group = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K2023");//步骤组:
     QString step = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1087");//步骤
     QString bed = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1923");//摇床
     QString status = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1702");//状态
@@ -194,9 +194,9 @@ void TestSampleWidget::slotSignalSamplingResult(int stepId, int shakeBedIndex, Q
     QString failure = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "L1030");//执行失败
 
     QDateTime timeNow = QDateTime::currentDateTime();
-    ui->textBrowser_2->append(tr("[%1] [%2] %3:%4, %5:%6, %7:%8, %9:%10, %11:%12")
+    ui->textBrowser_2->append(tr("[%1] [%2] %3:%4, %5:%6, %7%8, %9:%10, %11:%12")
                               .arg(timeNow.toString("yyyy-MM-dd hh:mm:ss"))
-                              .arg(shakeBedIndex)
+                              .arg(shakeBedIndex == 3? "" : bed+QString::number(shakeBedIndex))
                               .arg(sample)
                               .arg(samplePosition)
                               .arg(slot)

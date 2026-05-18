@@ -127,11 +127,12 @@ void Instrument::analysisFrame(){
     }
     mutex.unlock();
 
-    qDebug()<<"contentData:"<<contentData<<"code:"<<code;
     QJsonDocument doc = QJsonDocument::fromJson(contentData);
     if(doc.isNull()||doc.isEmpty()){
         return;
     }
+    QString jsonString = doc.toJson(QJsonDocument::Indented);
+    dLog("contentData:{},code:{}", jsonString.toStdString(), QString::number(code).toStdString());
     if(code==initMachineCommand){
         QJsonObject obj = doc.object();
         QStringList keys = obj.keys();
@@ -213,8 +214,11 @@ void Instrument::analysisFrame(){
         QString actType = obj.value("actType").toString();
         QString actName = obj.value("actName").toString();
         int shakeBedIndex = obj.value("shakeBedIndex").toInt();
-        int samplePosition = obj.value("samplePosition").toInt();
-        int paperPosition = obj.value("paperPosition").toInt();
+        QString samplePosition = obj.value("samplePosition").toString();
+        QString paperPosition = obj.value("paperPosition").toString();
+
+        dLog("samplePosition:{}, paperPosition:{}", samplePosition.toStdString(), paperPosition.toStdString());
+
         bool success = obj.value("result").toBool();
         emit sglSignalSamplingResult(stepId, shakeBedIndex, actName, actType, samplePosition, paperPosition, success);
     }else if(code == getPauseReportCommand){
