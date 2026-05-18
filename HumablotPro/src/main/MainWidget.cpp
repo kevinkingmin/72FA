@@ -1483,9 +1483,9 @@ void MainWidget::on_btnCloseBeep1_clicked()
     //  iLog("wangzhen");
 
 
-    //_instr->shutdownBee();
+    _instr->shutdownBee();
     //OnAction_CloseBeep();
-    // TODO::WangZ
+    /* TODO::WangZ
     qDebug() << "close bee wz";
     SystemSetModel systemSetting;
     SystemSetDao::instance()->getModel(3, systemSetting);
@@ -1515,7 +1515,7 @@ void MainWidget::on_btnCloseBeep1_clicked()
         {
             qDebug() << "fail " << code;
         }
-    }
+    }*/
 }
 
 //处理窗口关闭

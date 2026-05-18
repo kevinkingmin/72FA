@@ -202,20 +202,20 @@ void Instrument::analysisFrame(){
         QJsonObject obj = doc.object();
         int stepId = obj.value("stepId").toInt();
         bool isStartMessage = obj.value("isStartMessage").toBool();
-        QString actType = obj.value("messageType").toString();
-        QString actName = obj.value("messageType").toString();
-        int shakeBedIndex = obj.value("messageType").toInt();
-        bool success = obj.value("messageType").toBool();
+        QString actType = obj.value("actType").toString();
+        QString actName = obj.value("actName").toString();
+        int shakeBedIndex = obj.value("shakeBedIndex").toInt();
+        bool success = obj.value("result").toBool();
         emit sglStepStateResult(stepId, isStartMessage, shakeBedIndex, actName, actType, success);
     }else if(code == getSamplingReportCommand){
         QJsonObject obj = doc.object();
         int stepId = obj.value("stepId").toInt();
-        QString actType = obj.value("messageType").toString();
-        QString actName = obj.value("messageType").toString();
-        int shakeBedIndex = obj.value("messageType").toInt();
+        QString actType = obj.value("actType").toString();
+        QString actName = obj.value("actName").toString();
+        int shakeBedIndex = obj.value("shakeBedIndex").toInt();
         int samplePosition = obj.value("samplePosition").toInt();
         int paperPosition = obj.value("paperPosition").toInt();
-        bool success = obj.value("messageType").toBool();
+        bool success = obj.value("result").toBool();
         emit sglSignalSamplingResult(stepId, shakeBedIndex, actName, actType, samplePosition, paperPosition, success);
     }else if(code == getPauseReportCommand){
         QJsonObject obj = doc.object();
