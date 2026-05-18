@@ -178,7 +178,7 @@ void TestPaper::initUI()
 
     ui->lblG3ItemCount->setText(GlobalData::LoadLanguageInfo("K1129"));
 
-    ui->lblG4ItemCount->setText(GlobalData::LoadLanguageInfo("K1797"));
+    ui->lblG4ItemCount->setText(GlobalData::LoadLanguageInfo("K1129"));
     ui->pushButton_Save->setText(GlobalData::LoadLanguageInfo("K1038"));
     ui->pushButton_Cancel->setText(GlobalData::LoadLanguageInfo("K1134"));
     ui->lblTestItemNum->setText(GlobalData::LoadLanguageInfo("K1797"));
@@ -322,11 +322,12 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
     }
     // 根据膜条段分组
     QMap<int, QVector<ItemModel>> groupedBySem;
+    int maxSemIdx = _testPaperModel.getTotalNumber();
     for (const ItemModel& m : itemVect)
     {
+        if(m.getSegmentIndex() > maxSemIdx) continue;
         groupedBySem[m.getSegmentIndex()].append(m);
     }
-    int maxSemIdx = groupedBySem.lastKey();
     QVector<BlockData>blockVect;//调用接口,分段膜条所有的块数据
     // 段id起始位置为1
     for(int i = 1; i <= maxSemIdx; i++)
@@ -498,6 +499,10 @@ void TestPaper::slotRightCurveDataSet(int index)
     }
 }
 
+/**
+ * @brief 膜条块中项目数量切换事件
+ * @param data
+ */
 void TestPaper::slotCreatDetailRows(const QString &data)
 {  
     int row=data.toInt();
