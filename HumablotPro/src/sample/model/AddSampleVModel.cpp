@@ -264,7 +264,7 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 		}
         case 4:
 		{
-            if (value.toString().length() > 20)
+            if (value.toString().length() > 100)
 			{
                 MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1357"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
 				_vect[row].patientName = "";

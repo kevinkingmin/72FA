@@ -628,7 +628,7 @@ K1669|登录状态，未取得机器序号|Login status, device serial number not obtained
 K1670|主控板硬件版本号：|Main control board hardware version:
 K1671|主控板软件版本号：|Main control board software version:
 K1672|主控板硬件、软件版本号|Main control board hardware and software version:
-K1673|主控板版本号:|Main control board version:
+K1673|主控板版本号: |Main control board version:
 K1674|该厂家膜条未添加实验流程，请联系技术支持人员，请勿进行下一步操作。|The strip from this manufacturer has not added an experimental process. Please contact technical support. Do not proceed to the next step.
 K1675|测试结束，液位探测正常|End of test, liquid level detection normal
 K1676|测试结束，液位探测异常|End of test, liquid level detection abnormal

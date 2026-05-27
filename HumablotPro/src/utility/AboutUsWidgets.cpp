@@ -20,11 +20,11 @@ AboutUsWidgets::AboutUsWidgets(QWidget *parent)
 	ui.label_5->setText(sz1);
 	sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1672");
 	ui.label_8->setText(sz1);
-	sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1670");
+    sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1670") + "1.1.3";
 	ui.label_7->setText(sz1);
-	sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1671");
+    sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1671") + "1.1.3";
 	ui.label_10->setText(sz1);
-	sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1673");
+    sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1673") + "1.1.3";
 	ui.label_11->setText(sz1);
 	connect(_instrument, &Instrument::sglIsStepSuc, this, &AboutUsWidgets::slotIsStepSuc);
     ui.groupBox_2->setVisible(false);
@@ -50,7 +50,7 @@ void AboutUsWidgets::slotIsStepSuc(int ret)
 		QString sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1670") + QString::number(hardware_version);
 		ui.label_7->setText(sz1);
 		sz1 = GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1671") + QString::number(software_version);
-		ui.label_10->setText(sz1);
+        ui.label_10->setText(sz1);
 	}
 }
 
