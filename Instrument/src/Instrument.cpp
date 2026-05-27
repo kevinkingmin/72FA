@@ -132,7 +132,7 @@ void Instrument::analysisFrame(){
         return;
     }
     QString jsonString = doc.toJson(QJsonDocument::Indented);
-    dLog("contentData:{},code:{}", jsonString.toStdString(), QString::number(code).toStdString());
+    //dLog("contentData:{},code:{}", jsonString.toStdString(), QString::number(code).toStdString());
     if(code==initMachineCommand){
         QJsonObject obj = doc.object();
         QStringList keys = obj.keys();
@@ -195,7 +195,7 @@ void Instrument::analysisFrame(){
 
     }else if(code==detectionStartCommand){
         QJsonObject obj = doc.object();
-        QString resultCode = obj.value("ResultCode").toString();
+        QString resultCode = obj.value("resultCode").toString();
         QString messageType = obj.value("messageType").toString();
         emit sglDetectionStartResult(resultCode, messageType);
 
@@ -217,7 +217,7 @@ void Instrument::analysisFrame(){
         QString samplePosition = obj.value("samplePosition").toString();
         QString paperPosition = obj.value("paperPosition").toString();
 
-        dLog("samplePosition:{}, paperPosition:{}", samplePosition.toStdString(), paperPosition.toStdString());
+       // dLog("samplePosition:{}, paperPosition:{}", samplePosition.toStdString(), paperPosition.toStdString());
 
         bool success = obj.value("result").toBool();
         emit sglSignalSamplingResult(stepId, shakeBedIndex, actName, actType, samplePosition, paperPosition, success);
