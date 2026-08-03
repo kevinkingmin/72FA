@@ -46,19 +46,20 @@ UI_DIR=moc/
 DLLDESTDIR+=../Bin
 DESTDIR+=../Lib
 
-win32{
-    PRECOMPILED_HEADER+= $$PWD\\..\\Include\\Precomp\\precompile.h
-    QMAKE_POST_LINK += xcopy \"$$PWD\\src\\*.h\" \
-        \"$$PWD\\..\\Include\\Analysis\\\" /y &
+win32 {
+    PRECOMPILED_HEADER += $$PWD/../Include/Precomp/precompile.h
 
-    LIBS+=../Lib/DAO.lib \
-          ../Lib/Utilities.lib \
-          ../Lib/Model.lib
+    QMAKE_POST_LINK += xcopy \"$$PWD/src/*.h\" \
+        \"$$PWD/../Include/Analysis/\" /y &
+
+    LIBS += $$quote($$PWD/../Lib/DAO.lib) \
+            $$quote($$PWD/../Lib/Utilities.lib) \
+            $$quote($$PWD/../Lib/Model.lib)
 
     CONFIG(debug, debug|release) {
-        LIBS += ../lib/OpenCV/opencv_world340d.lib
+        LIBS += $$quote($$PWD/../Lib/OpenCV/opencv_world340d.lib)
     } else {
-        LIBS += ../lib/OpenCV/opencv_world340.lib
+        LIBS += $$quote($$PWD/../Lib/OpenCV/opencv_world340.lib)
     }
 }
 unix {

@@ -728,6 +728,7 @@ K1900|错误原因|Error cause
 K1901|其他原因|Other causes
 K1902|柱塞泵堵针|The pump is blocked
 K1903|液面探测失败|Liquid level detection failed
+K1904|样本量不足|Sample not enough
 D0001|请盖上孵育盘盖子,仪器已暂停!|
 D0002|请取下孵育盘盖子,仪器已暂停!|
 D0003|请确认已放上盖子!!|

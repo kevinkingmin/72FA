@@ -176,7 +176,7 @@ static const uint qt_meta_data_TestSampleWidget[] = {
     QMetaType::Void, QMetaType::Int,   34,
     QMetaType::Void, QMetaType::QString, QMetaType::QString,   36,   37,
     QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   29,   39,   40,   41,   42,   43,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::Int, QMetaType::Bool,   29,   40,   41,   42,   45,   46,   43,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   29,   40,   41,   42,   45,   46,   43,
     QMetaType::Void, QMetaType::QString,   48,
     QMetaType::Void, QMetaType::QString,   50,
     QMetaType::Void, QMetaType::QString,   50,
@@ -212,7 +212,7 @@ void TestSampleWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 17: _t->slotIsStepSuc((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 18: _t->slotDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 19: _t->slotStepStateResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< bool(*)>(_a[6]))); break;
-        case 20: _t->slotSignalSamplingResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< int(*)>(_a[5])),(*reinterpret_cast< int(*)>(_a[6])),(*reinterpret_cast< bool(*)>(_a[7]))); break;
+        case 20: _t->slotSignalSamplingResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< bool(*)>(_a[7]))); break;
         case 21: _t->slotPausingResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 22: _t->slotDetectionPauseResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 23: _t->slotDetectionContinueResult((*reinterpret_cast< QString(*)>(_a[1]))); break;

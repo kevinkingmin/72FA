@@ -101,25 +101,25 @@ DLLDESTDIR+=../Bin
 DESTDIR+=../Lib
 MOC_DIR=moc/
 UI_DIR=moc/
-win32{
-    LIBS+=../Lib/Utilities.lib
-    LIBS+=../Lib/Model.lib
-    LIBS+=../Lib/BLL.lib    
+win32 {
+    LIBS += $$quote($$PWD/../Lib/Utilities.lib) \
+            $$quote($$PWD/../Lib/Model.lib) \
+            $$quote($$PWD/../Lib/BLL.lib)
 
     CONFIG(release, debug|release) {
-        LIBS+=../Lib/SerialPortDriver.lib
+        LIBS += $$quote($$PWD/../Lib/SerialPortDriver.lib)
     } else {
-        LIBS+=../Lib/SerialPortDriverd.lib
+        LIBS += $$quote($$PWD/../Lib/SerialPortDriverd.lib)
     }
 
-    PRECOMPILED_HEADER+=../Include/Precomp/precompile.h
+    PRECOMPILED_HEADER += $$PWD/../Include/Precomp/precompile.h
+
     QMAKE_POST_LINK += xcopy \"$$PWD\\src\\instrument_global.h\" \
         \"$$PWD\\..\\Include\\Instrument\\\" /y &
     QMAKE_POST_LINK += xcopy \"$$PWD\\src\\Instrument.h\" \
         \"$$PWD\\..\\Include\\Instrument\\\" /y &
     QMAKE_POST_LINK += xcopy \"$$PWD\\src\\SignalAndSlotHandle.h\" \
         \"$$PWD\\..\\Include\\Instrument\\\" /y &
-
 }
 QMAKE_CXXFLAGS_RELEASE = $$QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO
 QMAKE_LFLAGS_RELEASE = $$QMAKE_LFLAGS_RELEASE_WITH_DEBUGINFO

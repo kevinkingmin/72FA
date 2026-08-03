@@ -230,7 +230,7 @@ static const uint qt_meta_data_Instrument[] = {
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString, QMetaType::QString,   51,   52,
     QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   15,   54,   55,   56,   57,   58,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::Int, QMetaType::Bool,   15,   55,   56,   57,   60,   61,   58,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   15,   55,   56,   57,   60,   61,   58,
     QMetaType::Void, QMetaType::QString,   63,
     QMetaType::Void, QMetaType::QString,   31,
     QMetaType::Void, QMetaType::QString,   31,
@@ -283,7 +283,7 @@ void Instrument::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 25: _t->sglPipFlowbackResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 26: _t->sglDetectionStartResult((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 27: _t->sglStepStateResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< bool(*)>(_a[6]))); break;
-        case 28: _t->sglSignalSamplingResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< int(*)>(_a[5])),(*reinterpret_cast< int(*)>(_a[6])),(*reinterpret_cast< bool(*)>(_a[7]))); break;
+        case 28: _t->sglSignalSamplingResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3])),(*reinterpret_cast< QString(*)>(_a[4])),(*reinterpret_cast< QString(*)>(_a[5])),(*reinterpret_cast< QString(*)>(_a[6])),(*reinterpret_cast< bool(*)>(_a[7]))); break;
         case 29: _t->sglPausingResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 30: _t->sglDetectionPauseResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 31: _t->sglDetectionContinueResult((*reinterpret_cast< QString(*)>(_a[1]))); break;
@@ -497,7 +497,7 @@ void Instrument::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
         {
-            using _t = void (Instrument::*)(int , int , QString , QString , int , int , bool );
+            using _t = void (Instrument::*)(int , int , QString , QString , QString , QString , bool );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Instrument::sglSignalSamplingResult)) {
                 *result = 28;
                 return;
@@ -805,7 +805,7 @@ void Instrument::sglStepStateResult(int _t1, bool _t2, int _t3, QString _t4, QSt
 }
 
 // SIGNAL 28
-void Instrument::sglSignalSamplingResult(int _t1, int _t2, QString _t3, QString _t4, int _t5, int _t6, bool _t7)
+void Instrument::sglSignalSamplingResult(int _t1, int _t2, QString _t3, QString _t4, QString _t5, QString _t6, bool _t7)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)), const_cast<void*>(reinterpret_cast<const void*>(&_t7)) };
     QMetaObject::activate(this, &staticMetaObject, 28, _a);
