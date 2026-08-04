@@ -202,22 +202,22 @@ bool PictureAnalysis::SaveTestData(TestPaperParameter testPaperResult)
         strTestPaper_ID = QString::number(m_nTestPaperID);
         strItemName = testPaperResult.strTestItemName[i];
         strPosition = QString::number(testPaperResult.dItemPosition[i]);
-        if(testPaperResult.dItemGrayValue[i] < 0.01)
+        if(testPaperResult.dItemGrayValue[i] < 0.001)
         {
             strGrayValue = QString::number(0);
         }else
         {
-            strGrayValue = QString::number(testPaperResult.dItemGrayValue[i], 'f', 2);
+            strGrayValue = QString::number(testPaperResult.dItemGrayValue[i], 'f', 3);
         }
-        if(testPaperResult.dItemGrayRatio[i] < 0.01)
+        if(testPaperResult.dItemGrayRatio[i] < 0.001)
         {
             strRatioToCut = QString::number(0);
         }
         else
         {
-            strRatioToCut = QString::number(testPaperResult.dItemGrayRatio[i], 'f', 2);
+            strRatioToCut = QString::number(testPaperResult.dItemGrayRatio[i], 'f', 3);
         }
-        strDiagnosis = CaculateResultText(testPaperResult.dItemGrayRatio[i], strItemName, paper_id.toInt(), testPaperResult.dItemErrorCode[i]);
+        strDiagnosis = CaculateResultText(strRatioToCut.toDouble(), strItemName, paper_id.toInt(), testPaperResult.dItemErrorCode[i]);
         error_code = testPaperResult.dItemErrorCode[i];
         id = testPaperResult.Id;
         bResult = dao->InsertTestData(
