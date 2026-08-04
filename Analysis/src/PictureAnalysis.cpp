@@ -183,7 +183,8 @@ bool PictureAnalysis::AnalysisOneSample(int paperId, QString testId, QString sam
             {
                 result.grayRatio = curve_obj.Calc(curveParameter, c1) + item.getResultOffset();
             }
-            result.qualitativeResult = CaculateResultText(result.grayRatio, item.getRulesId());
+            double ratioForCalc = std::round(result.grayRatio * 1000.0) / 1000.0;
+            result.qualitativeResult = CaculateResultText(ratioForCalc, item.getRulesId());
         }
         qDebug() << "final result " << result.grayValue<<result.backgroundGrayValue << result.backgroundGrayValue-result.grayValue << result.grayRatio<<result.qualitativeResult;
     }
@@ -211,20 +212,20 @@ bool PictureAnalysis::SaveTestData(TestPaperStrt& paper)
         QString articleNo = paper.paperParam.getArticleNo();
         QString strItemName = item.getItemName();
         QString strPosition = QString::number(result.lineCenter);
-        if(result.grayValue < 0.01)
+        if(result.grayValue < 0.001)
         {
             strGrayValue = QString::number(0);
         }else
         {
-            strGrayValue = QString::number(result.grayValue, 'f', 2);
+            strGrayValue = QString::number(result.grayValue, 'f', 3);
         }
-        if(result.grayRatio < 0.01)
+        if(result.grayRatio < 0.001)
         {
             strRatioToCut = QString::number(0);
         }
         else
         {
-            strRatioToCut = QString::number(result.grayRatio, 'f', 2);
+            strRatioToCut = QString::number(result.grayRatio, 'f', 3);
         }
         bResult = dao->InsertTestData(
                     solutionName,
