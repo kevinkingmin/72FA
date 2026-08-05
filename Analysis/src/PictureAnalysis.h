@@ -106,6 +106,8 @@ private:
 
     // 膜条段解析
     Error PaperSegmentationParse(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperStrt &paper);
+    // 膜条段解析(独立的功能线)
+    Error PaperSegmentationParseIndependentFunc(cv::Mat& srcMat,cv::Mat& threshMat, TestPaperStrt &paper);
     std::vector<std::vector<cv::Rect>> groupRectsByHorizontalSpan(const std::vector<cv::Rect>& rects, int span);
     std::vector<cv::Rect> findTopKBlocks(
         const cv::Mat& src,

@@ -2,6 +2,7 @@
 
 const int TestPaperModel::PAPER_TYPE_CONTINUOUS = 0; // 连续膜条
 const int TestPaperModel::PAPER_TYPE_SEGMENT = 1; // 分段膜条
+const int TestPaperModel::PAPER_TYPE_SEGMENT_INDEPENDENT_FUNC = 2; // 分段膜条(独立功能块)
 const int TestPaperModel::PAPER_SHOW_DRAGE_0 = 0; // 膜条展示角度
 const int TestPaperModel::PAPER_SHOW_DRAGE_180 = 180; // 膜条展示角度
 const int TestPaperModel::PAPER_FUNC_FIND_DIR_HEAD = 0; // 功能线查找方向 头

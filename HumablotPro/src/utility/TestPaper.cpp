@@ -252,9 +252,8 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
     ui->rdRulesSingle->setChecked(true);
     ui->rdCurveSingle->setChecked(true);
     _itemModelVect = ItemDao::instance()->selectItems(paperId.toInt());
-    bool isSegmentPaper = _testPaperModel.getPaperType() == TestPaperModel::PAPER_TYPE_SEGMENT;
     ui->cmbCompany->setCurrentIndex(ui->cmbCompany->findData(m_Company_ID));//公司
-    auto segmentTag = isSegmentPaper ? "1" : "0";
+    auto segmentTag = QString::number(_testPaperModel.getPaperType());
     ui->cmbPaperType->setCurrentIndex(ui->cmbPaperType->findData(segmentTag));
     ui->cmbProcess->setCurrentIndex(ui->cmbProcess->findData(QString::number(_testPaperModel.getProcessId())));
     ui->lineEdit_Item_Number->setText(QString::number(_testPaperModel.getTotalNumber()));
@@ -286,7 +285,7 @@ void TestPaper::Set_UI(const QString &paperId, const QString &companyId, bool is
 
     uiCtlSet(ui->lineEdit_Item_Number->text().toInt());
     QVector<ItemModel>itemVect = ItemDao::instance()->selectItems(paperId.toInt());
-    if(!isSegmentPaper)
+    if(_testPaperModel.getPaperType() == TestPaperModel::PAPER_TYPE_CONTINUOUS)
     {
         ui->txtItemSpace->setEnabled(false); // 项目块间距
         ui->txtItemWidth->setEnabled(false); // 项目块宽度
@@ -664,7 +663,7 @@ int TestPaper::Parse_TestPaper_Parameters()
     }
     int paperType = ui->cmbPaperType->currentData().toInt();
     // 分段膜条多验证两个参数
-    if(paperType == TestPaperModel::PAPER_TYPE_SEGMENT)
+    if(paperType != TestPaperModel::PAPER_TYPE_CONTINUOUS)
     {
         if(ui->txtItemSpace->text().trimmed().isEmpty() || ui->txtItemWidth->text().trimmed().isEmpty())
         {
@@ -706,7 +705,7 @@ int TestPaper::Parse_TestPaper_Parameters()
 
     int inputItemCnt =ui->lineEdit_TestItem_Number->text().simplified().toInt();
     _testPaperModel.setTestItemNumber(inputItemCnt); // 设置测试项目数
-    if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
+    if(ui->cmbPaperType->currentData().toInt()!= TestPaperModel::PAPER_TYPE_CONTINUOUS)//分段
     {
        _testPaperModel.setTestBlockSpace(ui->txtItemSpace->text().simplified().toDouble());//项目块间距
        _testPaperModel.setTestBlockWidth(ui->txtItemWidth->text().simplified().toDouble());//项目块宽度
@@ -723,7 +722,7 @@ int TestPaper::Parse_TestPaper_Items()
 {
     int itemCnt = 0;
     qDebug()<<"ui->cmbPaperType->currentData().toInt()"<<ui->cmbPaperType->currentData().toInt();
-    if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
+    if(ui->cmbPaperType->currentData().toInt() != TestPaperModel::PAPER_TYPE_CONTINUOUS)//分段
     {
         getUIBlockAndItemData();
         auto count=ui->lineEdit_TestItem_Number->text().simplified().toInt();
@@ -778,7 +777,7 @@ bool TestPaper::Save_TestPaper_Parameters()
 //调用接口,保存膜条项目
 bool TestPaper::Save_TestPaper_Items()
 {
-    if(ui->cmbPaperType->currentData().toInt()== TestPaperModel::PAPER_TYPE_SEGMENT)//分段
+    if(ui->cmbPaperType->currentData().toInt() != TestPaperModel::PAPER_TYPE_CONTINUOUS)//分段
     {
         // 先删除在插入
         if(!ItemDao::instance()->deleteItems(_paperId.toInt()))
@@ -1076,6 +1075,7 @@ void TestPaper::initComboBox()
     boxDatas.clear();
     boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1809"),QString::number(TestPaperModel::PAPER_TYPE_CONTINUOUS)));
     boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1810"),QString::number(TestPaperModel::PAPER_TYPE_SEGMENT)));
+    boxDatas.push_back(ComboxData(GlobalData::LoadLanguageInfo("K1860"),QString::number(TestPaperModel::PAPER_TYPE_SEGMENT_INDEPENDENT_FUNC)));
     setComBoBoxData(ui->cmbPaperType,boxDatas);
     ui->cmbPaperType->setCurrentText(GlobalData::LoadLanguageInfo("K1809"));
 
@@ -1107,8 +1107,8 @@ void TestPaper::setComBoBoxData(QComboBox *cmb, const QVector<ComboxData> &datas
 void TestPaper::uiCtlSet(const int itemCount)
 {
     int data{ui->cmbPaperType->currentData().toInt()};
-    // 0为连续膜条 1为分段膜条
-    if(data == TestPaperModel::PAPER_TYPE_SEGMENT)
+    // 0为连续膜条 1为分段膜条 2为分段膜条(独立功能区)
+    if(data != TestPaperModel::PAPER_TYPE_CONTINUOUS)
     {
         ui->txtItemWidth->setEnabled(true);
         ui->txtItemSpace->setEnabled(true);

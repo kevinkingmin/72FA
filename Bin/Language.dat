@@ -828,6 +828,7 @@ K1844|保存数据失败!|Failed to save data!
 K1845|所有样本加完执行针充盈|
 K1846|内针充盈:|
 K1847|外针充盈:|
+K1860|分段膜条(独立功能线)|Segmented strip(Independent Func)
 K1910|膜条名称不能重复!|Names must be unique!|
 K1911|选中项次参数不匹配!|Parameter mismatch for selected item|
 K1912|试剂量最少为100微升!|Minimum reagent volume: 100 μL|

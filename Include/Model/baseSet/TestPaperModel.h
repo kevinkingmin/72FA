@@ -8,6 +8,7 @@ class MODELSHARED_EXPORT TestPaperModel
 public:
     static const int PAPER_TYPE_CONTINUOUS; // 连续膜条
     static const int PAPER_TYPE_SEGMENT; // 分段膜条
+    static const int PAPER_TYPE_SEGMENT_INDEPENDENT_FUNC;  // 分段膜条(独立功能块)
     static const int PAPER_SHOW_DRAGE_0; // 膜条展示角度
     static const int PAPER_SHOW_DRAGE_180; // 膜条展示角度
     static const int PAPER_FUNC_FIND_DIR_HEAD; // 功能线查找方向 头
