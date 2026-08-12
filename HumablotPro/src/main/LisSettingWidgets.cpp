@@ -45,7 +45,8 @@ LisSettingWidgets::LisSettingWidgets(QWidget *parent)
     auto ipPm{SystemSetBLL().getRowById(9995)};
     QString ip = ipPm.isNull()?"":ipPm->getSaveDes();
     ui.chkOneWay->setChecked(ipPm.isNull()?false:ipPm->getSaveSet()>0);
-	QString port = dao->SelectTargetValueDes(&bResult, "9996");
+	auto portPm{ SystemSetBLL().getRowById(9996) };
+	QString port = portPm.isNull() ? "" : portPm->getSaveDes();
 	ui.lineEditPort->setText(port);
 	ui.lineEditIP->setText(ip);
 	QString protocol_type = dao->SelectTargetValueDes(&bResult, "9997");
@@ -173,6 +174,7 @@ void LisSettingWidgets::on_pushButtonSave_clicked()
 	}
 	auto port{ ui.lineEditPort->text() };
 	portModel->setSaveDes(port);
+	portModel->setSaveSet(port.toInt());
 	if (!SystemSetBLL().updateByModel(portModel))
 		eLog("portModel update error");
 
