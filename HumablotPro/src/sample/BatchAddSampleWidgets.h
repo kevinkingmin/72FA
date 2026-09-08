@@ -21,7 +21,7 @@ public:
 	using dataStrc = AddSampleVModel::dataStrc;
 	using HeadStrc = AddSampleVModel::HeadStrc;
 	explicit BatchAddSampleWidgets(QObject *parent = nullptr);
-	bool isPureNumber(const QString& str);
+	QString makeSampleNo(const QString& base, int offset);
 	AddSampleVModel *_vModel;
 	int m_added_paper_number ;
 	void updatePage(dataStrc *data);

@@ -22,6 +22,7 @@
 #include "../Include/Model/sample/BatchAddSampleModel.h"
 #include "../Include/Model/baseSet/TestPaperModel.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
+#include "qglobal.h"
 #include "src/main/subDialog/MyMessageBox.h"
 
 BatchAddSampleWidgets::BatchAddSampleWidgets(QWidget *parent)
@@ -84,7 +85,7 @@ BatchAddSampleWidgets::BatchAddSampleWidgets(QWidget *parent)
 	ui.label_4->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1560"));
 	ui.pushButtonAdd->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1561"));
 	ui.label_5->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1562"));
-	
+
 	ui.pushButtonDeleteAll->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1563"));
 	ui.pushButtonDelete->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1140"));
 	ui.pushButtonOk->setText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1564"));
@@ -131,8 +132,9 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
 	ui.lineEditSampleNo->setText("1");
 	int company_id = dao->SelectSaveSetById(&bResult, 5).toInt();
 	QString createDay = QDate::currentDate().toString("yyyy-MM-dd");
+	qDebug()<<company_id<<createDay;
 	QString sql = "";
-    QString sql_getSample = QString("select A.sampleNo from tsample A,t_testpaper B where A.paperId=B.ID and B.CompanyID='%2' and A.stateFlag=1 and A.createDay='%1' GROUP BY A.sampleNo  ORDER BY  A.pkid asc  ").arg(createDay).arg(company_id);
+    QString sql_getSample = QString("select A.sampleNo from tsample A,t_testpaper B where A.paperId=B.ID and B.CompanyID='%2' and A.stateFlag=1 and A.createDay='%1' GROUP BY A.samplePos  ORDER BY  A.pkid asc  ").arg(createDay).arg(company_id);
 	auto selectSampleList = dao->SelectRecord(&bResult, sql_getSample);
 	for (int i = 0; i < 72; i++)
 	{
@@ -176,6 +178,7 @@ void BatchAddSampleWidgets::GetTestPaperInfo()
 	while (selectSampleList.next())
 	{
 		QString sampleNo1 = selectSampleList.value("sampleNo").toString();
+        qDebug()<<"sn1"<<sampleNo1;
 		QString sql_query = QString("select COUNT(*) as number, paperId,sampleNo,PatientName,samplePos from tsample where stateFlag=1 and createDay='%1' and sampleNo='%2' GROUP BY paperId").arg(createDay).arg(sampleNo1);
 		auto countNumberQuery = dao->SelectRecord(&bResult, sql_query);
 		//select COUNT(*) as number, paperId,sampleNo,PatientName,samplePos from tsample where stateFlag=1 and createDay='2022-06-13' and sampleNo='aaa' GROUP BY paperId
@@ -281,7 +284,6 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 		return;
 	}
 	QString sample_no = ui.lineEditSampleNo->text();
-	INT64 sample_no_i = 0;
 	QRegExp regExp("^[A-Za-z0-9]+$");
 	if (regExp.exactMatch(sample_no)) {
         // 匹配成功，字符串只包含字母和数字
@@ -297,8 +299,6 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 		return;
 	}
 
-	QString sample_start_index = ui.lineEditSampleStartIndex->text();
-	QString sample_end_index = ui.lineEditSampleEndIndex->text();
 	int sample_start_index1 = ui.lineEditSampleStartIndex->text().toInt();
 	int sample_end_index1 = ui.lineEditSampleEndIndex->text().toInt();
 
@@ -320,8 +320,6 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 	}
 	//需要膜条数量
 	int need_paper_number = 0;
-	//quint64 aaa = sample_no.toLongLong();//toInt();
-	//quint64 sample_no_i = aaa + (sample_end_index1 - sample_start_index1);
 	if (sample_start_index1 > 72 || sample_start_index1 < 1)
 	{
 		MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1397"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
@@ -332,7 +330,6 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 		MyMessageBox::information(this, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1180"), GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1398"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), "K1181"), "");
 		return;
 	}
-	//QString paper_start_index = ui.lineEditPaperStartIndex->text();
 	//是否复孔
 	bool duplicate_hole = ui.checkBox->checkState();//->isCheckable();
 	//复孔数量
@@ -353,7 +350,6 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 		{
 			ui.checkBox->setChecked(false);
 			ui.lineEditPaperEndIndex->setText("1");
-			//ui.checkBox->setCheckState(true);
 		}
 	}
 
@@ -388,21 +384,7 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 	QString paper_name = m_paper_name;//m_pButtonGroup->checkedButton.checkedButton
 	int rowCount = ui.tvSampleSet->rowCount();//ui.tvSampleSet->rowCount();
 
-	QString sample_middle = "0";
-	if (sample_end_index > 10)
-	{
-		sample_middle = "00";
-		sample_start_index = QString("%1%2").arg(sample_no).arg(sample_middle);
-	}
-	else
-	{
-		sample_middle = "000";
-		sample_start_index = QString("%1%2").arg(sample_no).arg(sample_middle);
-
-	}
-
 	bool is_return = false;
-	//int added_paper_number = 0;
 	m_added_paper_number = 0;
 	if (m_BatchSampleList.size() > 0)
 	{
@@ -454,72 +436,44 @@ void BatchAddSampleWidgets::on_pushButtonAdd_clicked()
 		return;
 	}
 
-	if (isPureNumber(sample_no))
-	{
-		sample_no_i = sample_no.toLongLong();//.toInt();
-	}
-
-	//BatchAddSampleModel
-	for (size_t i = sample_start_index1; i < (sample_end_index1) + 1; i++)
+	int offset = 0;
+	for (int i = sample_start_index1; i <= sample_end_index1; ++i, ++offset)
 	{
 		BatchAddSampleModel basm;
-		basm.setNo(i-1);
+		basm.setNo(i - 1);
 		basm.setPaperName(paper_name);
 		basm.setPaperNumber(duplicate_number.toInt());
-
-		QString sample_no_tmp = "";
-		if (isPureNumber(sample_no))
-		{
-			sample_no_tmp = QString("%1").arg(sample_no_i);
-			sample_no_i++;
-		}
-		else
-		{
-			QString sz = sample_no;
-			int lastIndex = 0;
-			for (int i = sz.length() - 1; i >= 0; i--) {
-				if (!sz.at(i).isDigit()) {
-					lastIndex = i;
-					break;
-				}
-			}
-
-			QString firstPart = sz.left(lastIndex + 1);
-			QString secondPart = sz.mid(lastIndex + 1);
-			int count = secondPart.lastIndexOf(QRegExp("[^0]"));
-
-			if (count >= 0)
-			{
-				QString zerosBeforeOne = secondPart.left(count);
-				if ((secondPart.toInt() + sample_no_i) >= 10)
-				{
-					zerosBeforeOne = zerosBeforeOne.left(zerosBeforeOne.length() - 1);
-				}
-
-				if ((secondPart.toInt() + sample_no_i) >= 100)
-				{
-					zerosBeforeOne = zerosBeforeOne.left(zerosBeforeOne.length() - 2);
-				}
-				sample_no_tmp = QString("%1%2%3").arg(firstPart).arg(zerosBeforeOne).arg(secondPart.toInt() + sample_no_i);
-			}
-			else
-			{
-				sample_no_tmp = QString("%1%2").arg(firstPart).arg(secondPart.toInt() + (sample_no_i+1));
-			}
-			sample_no_i++;
-		}
-
-		basm.setSampleNo(sample_no_tmp);
+		QString sn= makeSampleNo(sample_no, offset);
+	    qDebug()<<"sn"<<sn;
+		basm.setSampleNo(makeSampleNo(sample_no, offset));
 		m_BatchSampleList.append(basm);
 	}
 	SaveSample();
 	GetTestPaperInfo();
 }
 
-bool BatchAddSampleWidgets::isPureNumber(const QString& str) {
-	QRegularExpression regex("^\\d+$");  // 正则表达式匹配纯数字
-	QRegularExpressionMatch match = regex.match(str);
-	return match.hasMatch();
+QString BatchAddSampleWidgets::makeSampleNo(const QString& base, int offset)
+{
+	bool ok = false;
+	const qint64 num = base.toLongLong(&ok);
+	if (ok) {
+		return QString::number(num + offset);
+	}
+
+	int i = base.length() - 1;
+	while (i >= 0 && base.at(i).isDigit()) {
+		--i;
+	}
+	const QString prefix = base.left(i + 1);
+	const QString digits = base.mid(i + 1);
+
+	if (digits.isEmpty()) {
+		return (offset == 0) ? base : (base + QString::number(offset));
+	}
+
+	const int width = digits.length();
+	const qint64 start = digits.toLongLong();
+	return prefix + QString("%1").arg(start + offset, width, 10, QChar('0'));
 }
 
 void BatchAddSampleWidgets::on_pushButtonDeleteAll_clicked()
@@ -675,4 +629,3 @@ void BatchAddSampleWidgets::closeEvent(QCloseEvent *e) {
 		e->ignore();
 	}
 }
-

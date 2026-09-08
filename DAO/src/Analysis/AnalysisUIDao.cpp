@@ -590,7 +590,7 @@ bool AnalysisUIDao::updateTestResult(const QVector<QVector<QString> > &testResul
 		result.at(3).toDouble(&sus);
 		if (!sus)
 			continue;
-        sqlStr+="UPDATE tsample_test set cutGrayValue="+result.at(1)+",testGrayValue="+result.at(3)+",testResult='"+result.at(2)+"' WHERE pkid="+result.at(0)+";";
+        sqlStr+="UPDATE humablotpro.tsample_test set cutGrayValue="+result.at(1)+",testGrayValue="+result.at(3)+",testResult='"+result.at(2)+"' WHERE pkid="+result.at(0)+";";
     }
     return query.exec(sqlStr);
 }
