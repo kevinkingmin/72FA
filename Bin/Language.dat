@@ -846,6 +846,7 @@ K1923|摇床|Bed|
 K1924|槽位|Slot|
 K1925|预计耗时|Estimated Time
 
+K1999|脑脊液|Cerebrospinal|
 K2000|样本信息|Sample information
 K2001|打印报告标题|Report title
 K2002|拍照功能|Camera function
@@ -853,8 +854,8 @@ K2003|单向|One-way LIS
 K2004|病人信息|
 K2005|病 历 号|
 K2006|样本类型|
-K2007|血清|
-K2008|血浆|
+K2007|血清|Serum|
+K2008|血浆|Plasma|
 K2009|岁|
 K2010|月|
 K2011|日|

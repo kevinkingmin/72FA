@@ -323,37 +323,42 @@ void AddSampleWidget::initUI()
     ui->tvSampleSet->setColumnWidth(1,150);
 
     ui->tvSampleSet->horizontalHeader()->setHighlightSections(false);
-    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Interactive);
+    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Fixed);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
-    ui->tvSampleSet->setColumnWidth(2, 100);
+    ui->tvSampleSet->setColumnWidth(2, 80);
+    ui->tvSampleSet->setItemDelegateForColumn(2, new ComboxDelegate(this));
 
-    ui->tvSampleSet->setItemDelegateForColumn(3,new ComboxDelegate(this));
-    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Fixed);
+    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Interactive);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
-    ui->tvSampleSet->setColumnWidth(3, 80);
+    ui->tvSampleSet->setColumnWidth(3, 100);
 
+    ui->tvSampleSet->setItemDelegateForColumn(4,new ComboxDelegate(this));
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Fixed);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(4, 80);
 
-    ui->tvSampleSet->horizontalHeader()->setHighlightSections(false);
-
-    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Interactive);
-    ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
-    ui->tvSampleSet->setColumnWidth(4, 80);
-
-    ui->tvSampleSet->setItemDelegateForColumn(5, new ComboxDelegate(this));
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
-    ui->tvSampleSet->setColumnWidth(5, 60);
+    ui->tvSampleSet->setColumnWidth(5, 80);
 
+    ui->tvSampleSet->horizontalHeader()->setHighlightSections(false);
+
+    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Interactive);
+    ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
+    ui->tvSampleSet->setColumnWidth(5, 80);
+
+    ui->tvSampleSet->setItemDelegateForColumn(6, new ComboxDelegate(this));
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Fixed);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
     ui->tvSampleSet->setColumnWidth(6, 60);
 
+    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(7, QHeaderView::Fixed);
+    ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
+    ui->tvSampleSet->setColumnWidth(7, 60);
+
     auto count=_vModel->columnCount();
 
-    for(int i=7;i<count-1;i++)
+    for(int i=8;i<count-1;i++)
     {
         ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(i,QHeaderView::Fixed);
         ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(65);
@@ -373,14 +378,16 @@ void AddSampleWidget::initUI()
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(4, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
     ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(6, QHeaderView::Fixed);
+    ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(7, QHeaderView::Fixed);
     //ui->tvSampleSet->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Stretch);
     ui->tvSampleSet->setColumnWidth(0, 70);
     ui->tvSampleSet->setColumnWidth(1, 190);
     ui->tvSampleSet->setColumnWidth(2, 160);
     ui->tvSampleSet->setColumnWidth(3, 160);
-    ui->tvSampleSet->setColumnWidth(4, 185);
-    ui->tvSampleSet->setColumnWidth(5, 80);
+    ui->tvSampleSet->setColumnWidth(4, 160);
+    ui->tvSampleSet->setColumnWidth(5, 185);
     ui->tvSampleSet->setColumnWidth(6, 80);
+    ui->tvSampleSet->setColumnWidth(7, 80);
     ui->tvSampleSet->verticalHeader()->setDefaultSectionSize(40);
     //隔行变色
     ui->tvSampleSet->setAlternatingRowColors(true);
@@ -825,7 +832,7 @@ int AddSampleWidget::GetPaperId1(int ii)
     auto head = _vModel->getHeadVect();
     for (auto it : head)
     {
-        if (ii == it.paperId && it.id>6)
+        if (ii == it.paperId && it.id>7)
         {
             id = it.id;
             break;
@@ -914,14 +921,16 @@ void AddSampleWidget::SaveSample()
                     {
                         QString id11 = Id_list.at(ii);
                         //生成修改sql
-                        sql = QString("update tsample set samplePos=%1,paperId=%2,PatientName='%3',SexID=%4,Age=%5,stateFlag=1,paperPos=0,barcode='"+barcode+"' where Id=%6 and samplePos=%1").arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id11);
+                        sql = QString("update tsample set samplePos=%1,paperId=%2,PatientName='%3',SexID=%4,Age=%5,stateFlag=1,paperPos=0,cupType=%6,bloodType='%7',barcode='"+barcode+"' where Id=%8 and samplePos=%1").arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(it.cupType).arg(it.sampleType).arg(id11);
                         sql_list.append(sql);
                     }
                     else
                     {
                         id += 1;
                         //生成添加sql
-                        sql = QString("insert tsample(sampleNo,samplePos,paperId,PatientName,SexID,Age,id,stateFlag,paperPos,createDay,test_batch,barcode)VALUES('%1',%2,%3,'%4',%5,%6,%7,1,0,'%8',%9,'"+barcode+"')").arg(sampleNo).arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id).arg(createDay).arg(test_batch_max);
+                        sql = QString("insert tsample(sampleNo,samplePos,paperId,PatientName,SexID,Age,id,stateFlag,paperPos,createDay,test_batch,barcode,cupType,bloodType)VALUES('%1',%2,%3,'%4',%5,%6,%7,1,0,'%8',%9,'")
+                                .arg(sampleNo).arg(samplePos).arg(paper_id).arg(PatientName).arg(SexID).arg(Age).arg(id).arg(createDay).arg(test_batch_max);
+                        sql += barcode + QString("',%1,'%2')").arg(it.cupType).arg(it.sampleType);
                         sql_list.append(sql);
                     }
                     ii++;
@@ -1091,6 +1100,7 @@ bool AddSampleWidget::setSamplePaperIdMap()
         m.samplePos=it.samplePos;
         m.sampleNo=it.sampleNo;
         m.cupType=it.cupType;
+        m.sampleType=it.sampleType;
         m.articleNo = it.articleNo;
         m.patientName = it.patientName;
         m.sexID = it.sexID;
@@ -1298,6 +1308,7 @@ void AddSampleWidget::createSampleTestData(QMap<SampleStrc,QVector<int>>testMap,
         sample_pos.sprintf("%d", k.samplePos);
         psample->setSampleNo(k.sampleNo);
         psample->setCupType(k.cupType);
+        psample->setBloodType(QString::number(k.sampleType));
         psample->setBarcode(k.articleNo);
         psample->setPatientName(k.patientName);
         //psample->setPaperPos(2);

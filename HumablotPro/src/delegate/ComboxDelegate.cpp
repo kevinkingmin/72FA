@@ -16,7 +16,15 @@ QWidget *ComboxDelegate::createEditor(QWidget *parent,
     Q_UNUSED(option)
     Q_UNUSED(index)
     QComboBox *editor = new QComboBox(parent);
-    if (index.column() == 5)
+    if (index.column() == 2)
+	{
+		auto map = GlobalData::mapSampleType();
+		for (auto it = map.begin(); it != map.end(); it++)
+		{
+			editor->addItem(GlobalData::LoadLanguageInfo(it.value()), it.key());
+		}
+	}
+    else if (index.column() == 6)
 	{
 		auto map = GlobalData::mapSexType();
 		for (auto it = map.begin(); it != map.end(); it++)

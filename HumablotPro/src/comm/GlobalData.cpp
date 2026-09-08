@@ -10,7 +10,8 @@
 
 QMap<ushort,QString> GlobalData::_mapSampleType({
                                                     {1, "K2007"},
-                                                    {2, "K2008"}
+                                                    {2, "K2008"},
+                                                    {3, "K1999"}
                                                 });
 
 QMap<int,QString> GlobalData::_mapSampleCupType({

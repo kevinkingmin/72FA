@@ -26,51 +26,6 @@ SampleDao::~SampleDao()
 {
 }
 
-/*void SampleDao::getTable()
-{
-    QSqlQuery query;
-    if(DAO::createQuery(query)<0)
-        return;
-    QString sqlStr="SELECT * FROM tsample where isDelete=0";
-    if(!query.exec(sqlStr))
-        return;
-    QMap<QString, ptrModel>tempMap;
-    _map.swap(tempMap);
-    while (query.next())
-    {
-        ptrModel pm(new SampleModel);
-        pm->setId(query.value("Id").toString());
-		pm->setTestId(query.value("testId").toString());
-        pm->setSampleNo(query.value("sampleNo").toString());
-		pm->setPaperId(query.value("paperId").toInt());
-        pm->setBarcode(query.value("barcode").toString());
-        pm->setPatientName(query.value("PatientName").toString());
-        pm->setSexID(query.value("SexID").toInt());
-        pm->setAge(query.value("Age").toInt());
-        pm->setAgeUnitID(query.value("AgeUnitID").toInt());
-        pm->setBirthday(query.value("birthday").toLongLong());
-        pm->setBloodType(query.value("bloodType").toString());
-        pm->setAnamnesisNO(query.value("AnamnesisNO").toString());
-        pm->setWardName(query.value("wardName").toString());
-        pm->setBedNo(query.value("BedNo").toString());
-        pm->setDepartmentName(query.value("departmentName").toString());
-        pm->setCupType(query.value("cupType").toInt());
-		//QString paper_pos = query.value("paperPos").toInt();
-		//int paper_pos_i = paper_pos.toInt();
-  //      pm->setSamplePos(paper_pos);
-        pm->setDiagnosis(query.value("diagnosis").toString());
-        pm->setErrorFlag(query.value("errorFlag").toString());
-        pm->setSkipFlag(query.value("skipFlag").toString());
-        pm->setStateFlag(query.value("stateFlag").toInt());
-        pm->setIsDelete(query.value("isDelete").toInt()==0?false:true);
-        pm->setTestTime(query.value("testTime").toLongLong());
-        pm->setTestUser(query.value("testUser").toString());
-        pm->setIntPreField(query.value("intPreField").toInt());
-        pm->setStrPreField(query.value("strPreField").toString());
-        _map.insert(pm->getId(),pm);
-    }
-}*/
-
 void SampleDao::queryBindValue(QSqlQuery &query, ptrModel pm)
 {
     query.bindValue(":Id",pm->getId());

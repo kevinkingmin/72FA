@@ -35,6 +35,8 @@ public:
     {
 		int samplePos;
         QString sampleNo;
+        ushort sampleType;
+        QString sampleTypeText;
         int cupType;
         QString cupTypeText;
 		QString patientName;
@@ -46,6 +48,8 @@ public:
         dataStrc()
             :samplePos(0)
             ,sampleNo("1")
+            ,sampleType(1)
+            ,sampleTypeText(GlobalData::LoadLanguageInfo(GlobalData::getLanguageType(), GlobalData::mapSampleType()[sampleType]))
             ,cupType(1)
 			,patientName("")
 			,sexID(0)

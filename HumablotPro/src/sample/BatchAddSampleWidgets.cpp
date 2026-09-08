@@ -245,7 +245,7 @@ int BatchAddSampleWidgets::GetPaperId1(int ii)
 	auto head = _vModel->getHeadVect();
 	for (auto it : head)
 	{
-		if (ii == it.paperId && it.id > 6)
+		if (ii == it.paperId && it.id > 7)
 		{
 			id = it.id;
 			break;

@@ -39,37 +39,43 @@ AddSampleVModel::AddSampleVModel(QWidget *parent) : QAbstractTableModel(parent)
 	sampleNo.field = sz;//tr("样本编号");
 	_headVect.push_back(sampleNo);
 
+    HeadStrc sampleType;
+    sampleType.paperId = 2;
+    sampleType.id = 2;
+    sampleType.field = QString::fromUtf8("样本类型");
+    _headVect.push_back(sampleType);
+
     HeadStrc articleNo;
-    articleNo.paperId = 2;
-    articleNo.id = 2;
+    articleNo.paperId = 3;
+    articleNo.id = 3;
     sz = GlobalData::LoadLanguageInfo("K1054");
     articleNo.field = sz;// tr("批号");
     _headVect.push_back(articleNo);
 
 	HeadStrc cupType;
-    cupType.paperId = 3;
-    cupType.id = 3;
+    cupType.paperId = 4;
+    cupType.id = 4;
     sz = GlobalData::LoadLanguageInfo("K1050");
 	cupType.field = sz;//tr("试管型号");
 	_headVect.push_back(cupType);
 
 	HeadStrc patientName;
-    patientName.paperId = 4;
-    patientName.id = 4;
+    patientName.paperId = 5;
+    patientName.id = 5;
     sz = GlobalData::LoadLanguageInfo("K1051");
 	patientName.field = sz;//tr("病人姓名");
 	_headVect.push_back(patientName);
 
 	HeadStrc sexID;
-    sexID.paperId = 5;
-    sexID.id = 5;
+    sexID.paperId = 6;
+    sexID.id = 6;
     sz = GlobalData::LoadLanguageInfo("K1052");
 	sexID.field = sz;// tr("性别");
 	_headVect.push_back(sexID);
 
 	HeadStrc age;
-    age.paperId = 6;
-    age.id = 6;
+    age.paperId = 7;
+    age.id = 7;
     sz = GlobalData::LoadLanguageInfo("K1053");
 	age.field = sz;// tr("年龄");
 	_headVect.push_back(age);
@@ -157,14 +163,16 @@ QVariant AddSampleVModel::data(const QModelIndex &index, int role) const
 			else if (column == 1)
                 return m.sampleNo;
 			else if (column == 2)
+                return m.sampleTypeText;
+			else if (column == 3)
                 return m.articleNo;
-            else if (column == 3)
-                return m.cupTypeText;
             else if (column == 4)
-				return m.patientName;
+                return m.cupTypeText;
             else if (column == 5)
-				return m.sexIDText;
+				return m.patientName;
             else if (column == 6)
+				return m.sexIDText;
+            else if (column == 7)
 				return m.age;
 			else if (column > _headVect.count() - m_paper_number-1)
 			{
@@ -200,7 +208,7 @@ Qt::ItemFlags AddSampleVModel::flags(const QModelIndex &index) const
 
 	if (index.column() == 0 || index.column() == _headVect.count())
 		return QAbstractItemModel::flags(index);
-	else if (index.column() == 1 || index.column() == 2 || index.column() == 3 || index.column() == 4 || index.column() == 5 || index.column() == 6)
+	else if (index.column() == 1 || index.column() == 2 || index.column() == 3 || index.column() == 4 || index.column() == 5 || index.column() == 6 || index.column() == 7)
 		return  defaultFlags | QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 	else
 		return  QAbstractItemModel::flags(index) | Qt::ItemIsUserCheckable;
@@ -244,6 +252,16 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 			break;
         case 2:
         {
+            auto arr = value.toString().split(',');
+            if (arr.size() >= 2)
+            {
+                _vect[row].sampleTypeText = arr[0];
+                _vect[row].sampleType = arr[1].toUShort();
+            }
+            break;
+        }
+        case 3:
+        {
             if (value.toString().length() > 15)
             {
                 MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1360"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");
@@ -255,14 +273,14 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
             }
             break;
         }
-        case 3:
+        case 4:
 		{
 			auto arr = value.toString().split(',');
 			_vect[row].cupTypeText = arr[0];
 			_vect[row].cupType = arr[1].toInt();
 			break;
 		}
-        case 4:
+        case 5:
 		{
             if (value.toString().length() > 100)
 			{
@@ -276,14 +294,14 @@ bool AddSampleVModel::setData(const QModelIndex &index, const QVariant &value, i
 			break;
 		}
 
-        case 5:
+        case 6:
 		{
 			auto arr1 = value.toString().split(',');
 			_vect[row].sexIDText = arr1[0];
 			_vect[row].sexID = arr1[1].toInt();
 			break;
 		}
-        case 6:
+        case 7:
 			if (value.toInt() < 0)
 			{
                 MyMessageBox::information(g_parent, GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1358"), MyMessageBox::Ok, GlobalData::LoadLanguageInfo("K1181"),"");

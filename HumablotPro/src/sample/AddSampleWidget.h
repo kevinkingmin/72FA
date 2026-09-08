@@ -33,6 +33,7 @@ public:
         int samplePos;
         QString sampleNo;
         int cupType;
+        ushort sampleType;
         QString patientName;
         int sexID;
         int age;
@@ -41,6 +42,7 @@ public:
             :samplePos(0)
             ,sampleNo("")
             ,cupType(1)
+            ,sampleType(1)
             , patientName("")
             , sexID(0)
             , age(10)
