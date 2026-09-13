@@ -104,6 +104,11 @@ win32{
 
     PRECOMPILED_HEADER+=../Include/Precomp/precompile.h
 
+    # 语言转换 GetLanguageClsBLL（同 GlobalData::LoadLanguageInfo）；需已存在 BLL.lib
+    LIBS+=../Lib/BLL.lib \
+          ../Lib/DAO.lib \
+          ../Lib/Utilities.lib
+
     QMAKE_POST_LINK += xcopy \"$$PWD\\src\\model.h\" \
         \"$$PWD\\..\\Include\\Model\\\" /y &
     QMAKE_POST_LINK += xcopy \"$$PWD\\src\\baseSet\\*.h\" \

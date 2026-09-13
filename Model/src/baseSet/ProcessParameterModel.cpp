@@ -4,6 +4,8 @@
 #include <QJsonArray>
 #include <QJsonParseError>
 #include <QVariant>
+#include <QStringList>
+#include "../../../Include/BLL/comm/GetLanguageClsBLL.h"
 
 const QString ProcessParameterModel::ADD_REAGENT_CODE = "L1901";
 const QString ProcessParameterModel::BED_SHAKING_CODE = "L1902";
@@ -170,7 +172,22 @@ bool ProcessParameterModel::strToSampling(ProcessParameterModel::SamplingStrt& o
     QJsonDocument document = QJsonDocument::fromJson(str.toUtf8(), &parse_error);
     if (document.isNull() ||(parse_error.error != QJsonParseError::NoError)) return false;
     auto obj = document.object();
-    out._sampleUl = obj.value("sampleUl").toDouble(10);
+    out._sampleUl.clear();
+    QJsonValue mapVal = obj.value("sampleUlMap");
+    if (mapVal.isObject()) {
+        // 新结构优先
+        const QJsonObject mapObj = mapVal.toObject();
+        for (auto it = mapObj.begin(); it != mapObj.end(); ++it) {
+            bool ok = false;
+            const int key = it.key().toInt(&ok);
+            if (ok) {
+                out._sampleUl.insert(key, it.value().toDouble());
+            }
+        }
+    } else if (obj.contains("sampleUl")) {
+        // 旧数据库兼容: {"sampleUl":10} -> {1: 10}
+        out._sampleUl.insert(1, obj.value("sampleUl").toDouble(10));
+    }
     out._isFilling = obj.value("isFilling").toBool(false);
     out._innerTime = obj.value("innerTime").toInt(3);
     out._outerTime = obj.value("outerTime").toInt(3);
@@ -181,7 +198,11 @@ bool ProcessParameterModel::strToSampling(ProcessParameterModel::SamplingStrt& o
 QString ProcessParameterModel::SamplingToStr(const SamplingStrt &strt)
 {
     QJsonObject obj;
-    obj.insert("sampleUl",strt._sampleUl);
+    QJsonObject mapObj;
+    for (auto it = strt._sampleUl.constBegin(); it != strt._sampleUl.constEnd(); ++it) {
+        mapObj.insert(QString::number(it.key()), it.value());
+    }
+    obj.insert("sampleUlMap", mapObj);
     obj.insert("isFilling", strt._isFilling);
     obj.insert("innerTime", strt._innerTime);
     obj.insert("outerTime", strt._outerTime);
@@ -519,7 +540,24 @@ QString ProcessParameterModel::toShowString()
     }else if(_actCode == SAMPLING_CODE)
     {
         show+="样本量:";
-        show+=QString::number(_samplingStrt._sampleUl, 'f', 1);
+        {
+            // 与 GlobalData::_mapSampleType 保持一致 (key -> 语言包code)，
+            // 语言转换与 GlobalData::LoadLanguageInfo 同源 (GetLanguageClsBLL)
+            static const QMap<int, QString> sampleTypeLangKeys({
+                {1, "K2007"},
+                {2, "K2008"},
+                {3, "K1999"}
+            });
+            QStringList sampleParts;
+            for (auto it = _samplingStrt._sampleUl.constBegin(); it != _samplingStrt._sampleUl.constEnd(); ++it) {
+                const QString langCode = sampleTypeLangKeys.value(it.key());
+                const QString typeName = langCode.isEmpty()
+                        ? QString::number(it.key())
+                        : GetLanguageClsBLL::getlangValue(langCode);
+                sampleParts << QString("{%1:%2}").arg(typeName).arg(it.value(), 0, 'f', 1);
+            }
+            show+=sampleParts.join(",");
+        }
         show+="ul;";
         show+="是否样本充盈:";
         show+=_samplingStrt._isFilling?"是":"否";        

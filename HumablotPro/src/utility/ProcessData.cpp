@@ -1,5 +1,8 @@
 ﻿#include "ProcessData.h"
 #include <QMessageBox>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonParseError>
 #include "../comm/GlobalData.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
 #include <QListView>
@@ -94,13 +97,63 @@ void ProcessData::SetUI(bool modify)
         }else if(actType == GlobalData::LoadLanguageInfo("K1600")) // 加样本
         {
             on_cmbStepType_currentIndexChanged(1);
-            ProcessParameterModel::SamplingStrt strt;
-            model.getSampling(strt);
-            txtDatas.push_back(QString::number(strt._sampleUl));
-            txtDatas.push_back(QString::number(strt._innerTime));
-            txtDatas.push_back(QString::number(strt._outerTime));
-            txtDatas.push_back(QString::number(strt._estimatedTime));
-            boxDatas.push_back(strt._isFilling?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
+            // 直接从 paras JSON 解析，避免跨 DLL 拷贝含 QMap 的 SamplingStrt 导致崩溃
+            QMap<int, double> sampleUlMap;
+            bool isFilling = false;
+            int innerTime = 3;
+            int outerTime = 3;
+            int estimatedTime = 15;
+            QJsonParseError parseError;
+            const QJsonDocument document = QJsonDocument::fromJson(model.getParas().toUtf8(), &parseError);
+            if (!document.isNull() && parseError.error == QJsonParseError::NoError) {
+                const QJsonObject obj = document.object();
+                const QJsonValue mapVal = obj.value("sampleUlMap");
+                if (mapVal.isObject()) {
+                    const QJsonObject mapObj = mapVal.toObject();
+                    for (auto it = mapObj.begin(); it != mapObj.end(); ++it) {
+                        bool ok = false;
+                        const int key = it.key().toInt(&ok);
+                        if (ok) {
+                            sampleUlMap.insert(key, it.value().toDouble());
+                        }
+                    }
+                } else if (obj.contains("sampleUl")) {
+                    sampleUlMap.insert(1, obj.value("sampleUl").toDouble(10));
+                }
+                isFilling = obj.value("isFilling").toBool(false);
+                innerTime = obj.value("innerTime").toInt(3);
+                outerTime = obj.value("outerTime").toInt(3);
+                const QJsonValue timeVal = obj.value("estimatedTime");
+                estimatedTime = timeVal.isUndefined() ? 15 : timeVal.toInt();
+            }
+
+            // 回显: 优先 key=1 且体积>0, 否则取任意体积>0 的项
+            int displayKey = -1;
+            double displayUl = 0;
+            if (sampleUlMap.contains(1) && sampleUlMap.value(1) > 0) {
+                displayKey = 1;
+                displayUl = sampleUlMap.value(1);
+            } else {
+                for (auto it = sampleUlMap.constBegin(); it != sampleUlMap.constEnd(); ++it) {
+                    if (it.value() > 0) {
+                        displayKey = it.key();
+                        displayUl = it.value();
+                        break;
+                    }
+                }
+            }
+            QString sampleTypeText;
+            const auto sampleTypeMap = GlobalData::mapSampleType();
+            if (displayKey > 0 && sampleTypeMap.contains(static_cast<ushort>(displayKey))) {
+                sampleTypeText = GlobalData::LoadLanguageInfo(sampleTypeMap.value(static_cast<ushort>(displayKey)));
+            }
+            boxDatas.push_back(sampleTypeText);
+            txtDatas.push_back(displayUl > 0 ? QString::number(displayUl) : QString());
+            txtDatas.push_back(QString::number(innerTime));
+            txtDatas.push_back(QString::number(outerTime));
+            txtDatas.push_back(QString::number(estimatedTime));
+            boxDatas.push_back(isFilling?GlobalData::LoadLanguageInfo("K1700"):GlobalData::LoadLanguageInfo("K1701"));
+            _sampleUlMap = sampleUlMap;
 
         }else if(actType == GlobalData::LoadLanguageInfo("K1826"))// 排废液
         {
@@ -261,12 +314,25 @@ void ProcessData::on_pushButton_Save_clicked()
         model.setAddReagent(strt);
     }else if(_currentSelectStep==1)
     {
-        double sampleUl = txtVect[0].toDouble();
-        if(sampleUl < 5)
-        {// 样本量不得少于5微升
-            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1915"), MyMessageBox::Ok,"OK","");
+        // 样本类型下拉为第一个 box, 取 itemData 作为类型 key
+        int sampleTypeKey = -1;
+        for (auto obj : _txtVect) {
+            if (obj->objectName().contains("box")) {
+                auto *box = static_cast<QComboBox *>(obj);
+                if (box->currentIndex() < 0) {
+                    MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K2006"), MyMessageBox::Ok,"OK","");
+                    return;
+                }
+                sampleTypeKey = box->currentData().toInt();
+                break;
+            }
+        }
+        if (sampleTypeKey <= 0) {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K2006"), MyMessageBox::Ok,"OK","");
             return;
         }
+
+        double sampleUl = txtVect[0].toDouble();
 
         int innerTime = txtVect[1].toInt();
         int outerTime = txtVect[2].toInt();
@@ -277,8 +343,53 @@ void ProcessData::on_pushButton_Save_clicked()
         }
 
         int estimatedTime = txtVect[3].toInt();
-        bool isFilling = boxVect[0] == GlobalData::LoadLanguageInfo("K1700");
-        ProcessParameterModel::SamplingStrt strt(sampleUl, isFilling, innerTime, outerTime, estimatedTime);
+        // boxVect[0]=样本类型文案, boxVect[1]=是否充盈
+        bool isFilling = boxVect.size() > 1 && boxVect[1] == GlobalData::LoadLanguageInfo("K1700");
+
+        // 保存时合并进已有 Map；体积<5 则移除该类型
+        QMap<int, double> sampleUlMap;
+        if (m_bModify) {
+            ProcessParameterModel oldModel;
+            ProcessParameterDao::instance()->selectModel(_stepId.toInt(), oldModel);
+            QJsonParseError parseError;
+            const QJsonDocument document = QJsonDocument::fromJson(oldModel.getParas().toUtf8(), &parseError);
+            if (!document.isNull() && parseError.error == QJsonParseError::NoError) {
+                const QJsonObject obj = document.object();
+                const QJsonValue mapVal = obj.value("sampleUlMap");
+                if (mapVal.isObject()) {
+                    const QJsonObject mapObj = mapVal.toObject();
+                    for (auto it = mapObj.begin(); it != mapObj.end(); ++it) {
+                        bool ok = false;
+                        const int key = it.key().toInt(&ok);
+                        if (ok) {
+                            sampleUlMap.insert(key, it.value().toDouble());
+                        }
+                    }
+                } else if (obj.contains("sampleUl")) {
+                    sampleUlMap.insert(1, obj.value("sampleUl").toDouble(10));
+                }
+            }
+        }
+        if (sampleUl < 5) {
+            sampleUlMap.remove(sampleTypeKey);
+        } else {
+            sampleUlMap.insert(sampleTypeKey, sampleUl);
+        }
+
+        // 至少有一项体积 > 5
+        bool hasValidSampleUl = false;
+        for (auto it = sampleUlMap.constBegin(); it != sampleUlMap.constEnd(); ++it) {
+            if (it.value() > 5) {
+                hasValidSampleUl = true;
+                break;
+            }
+        }
+        if (!hasValidSampleUl) {
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1915"), MyMessageBox::Ok,"OK","");
+            return;
+        }
+
+        ProcessParameterModel::SamplingStrt strt(sampleUlMap, isFilling, innerTime, outerTime, estimatedTime);
         model.setActCode(ProcessParameterModel::SAMPLING_CODE);
         model.setActName(ui.cmbStepGroup->currentText());
         model.setProcessId(_processId.toInt());
@@ -407,11 +518,29 @@ void ProcessData::on_pushButton_Cancel_clicked()
 }
 
 
+void ProcessData::updateSampleUlByType(QComboBox *typeBox, QLineEdit *ulEdit)
+{
+    if (typeBox == nullptr || ulEdit == nullptr) {
+        return;
+    }
+    if (typeBox->currentIndex() < 0) {
+        ulEdit->setText("");
+        return;
+    }
+    const int key = typeBox->currentData().toInt();
+    if (_sampleUlMap.contains(key)) {
+        ulEdit->setText(QString::number(_sampleUlMap.value(key)));
+    } else {
+        ulEdit->setText("");
+    }
+}
+
 void ProcessData::on_cmbStepType_currentIndexChanged(int index)
 {
     ui.cmbStepGroup->setCurrentIndex(-1);
     _currentSelectStep = index;
     _txtVect.clear();
+    _sampleUlMap.clear();
     ui.gridLayout->setContentsMargins(35,30,35,10);
     QLayoutItem *item(nullptr);
     while ((item = ui.gridLayout->takeAt(0)) != nullptr)
@@ -500,9 +629,23 @@ void ProcessData::on_cmbStepType_currentIndexChanged(int index)
     else if(index==1) // 加样本
     {
 //        ui.gridLayout->setContentsMargins(30,100,30,0);
-        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1776")+":",this),0,0,Qt::AlignLeft);
-        ui.gridLayout->addWidget(createEdit(new QIntValidator(0,1000,this)),0,1,1,4);
+        // 样本类型 + 样本量 同一行
+        boxVect.clear();
+        const auto sampleTypeMap = GlobalData::mapSampleType();
+        for (auto it = sampleTypeMap.constBegin(); it != sampleTypeMap.constEnd(); ++it) {
+            boxVect.push_back(ComboBoxData(QString::number(it.key()), GlobalData::LoadLanguageInfo(it.value())));
+        }
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K2006")+":",this),0,0,Qt::AlignLeft);
+        QComboBox *sampleTypeBox = createBox(boxVect);
+        ui.gridLayout->addWidget(sampleTypeBox,0,1);
+        ui.gridLayout->addWidget(new QLabel(GlobalData::LoadLanguageInfo("K1776")+":",this),0,2,Qt::AlignLeft);
+        QLineEdit *sampleUlEdit = createEdit(new QIntValidator(0,1000,this));
+        ui.gridLayout->addWidget(sampleUlEdit,0,3,1,2);
         ui.gridLayout->addWidget(new QLabel("ul",this),0,5);
+        connect(sampleTypeBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+                this, [this, sampleTypeBox, sampleUlEdit](int) {
+            updateSampleUlByType(sampleTypeBox, sampleUlEdit);
+        });
 
         boxVect.clear();
         boxVect.push_back(ComboBoxData(GlobalData::LoadLanguageInfo("K1700"),GlobalData::LoadLanguageInfo("K1700")));

@@ -1,5 +1,6 @@
 ﻿#ifndef PROCESS_PARAMETER_MODEL_H
 #define PROCESS_PARAMETER_MODEL_H
+#include <QMap>
 #include <QString>
 #include <QVector>
 #include "../Model.h"
@@ -109,7 +110,8 @@ public:
     //加样本
     struct SamplingStrt
     {
-        double _sampleUl;
+        // key: 样本类型, value: 样本体积(ul)
+        QMap<int, double> _sampleUl;
         // 加完样本后是否做完全充盈
         bool _isFilling;
         // 内针充盈时间
@@ -119,13 +121,13 @@ public:
         // 预计耗时
         int _estimatedTime;
         SamplingStrt()
-            :_sampleUl(0)
+            :_sampleUl()
             ,_isFilling(false)
             ,_innerTime(3)
             ,_outerTime(3)
             ,_estimatedTime(15)
         {}
-        SamplingStrt(const double sampleUl, const bool isFilling, const int& innerTime, const int& outerTime, const int extimatedTime)
+        SamplingStrt(const QMap<int, double>& sampleUl, const bool isFilling, const int& innerTime, const int& outerTime, const int extimatedTime)
             :_sampleUl(sampleUl)
             ,_isFilling(isFilling)
             , _innerTime(innerTime)

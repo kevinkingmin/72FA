@@ -4,6 +4,7 @@
 #include "ui_ProcessData.h"
 #include <QLineEdit>
 #include <QComboBox>
+#include <QMap>
 
 class ProcessData : public QDialog
 {
@@ -36,6 +37,8 @@ public:
     void setStepId(const QString &stepId);
     void setProcessId(const QString &processId);
 private:
+    void updateSampleUlByType(QComboBox *typeBox, QLineEdit *ulEdit);
+private:
     Ui::ProcessData ui;
     bool m_bModify;
     QVector<QWidget*> _txtVect;
@@ -44,4 +47,6 @@ private:
     QString _processId;
     QVector<QString> _actTypeVect;
     int _currentSelectStep;
+    // 当前加样本步骤已配置的样本量 (key=样本类型)
+    QMap<int, double> _sampleUlMap;
 };
