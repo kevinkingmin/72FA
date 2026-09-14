@@ -16,10 +16,12 @@
 #include "../Include/Model/sample/SampleTestModel.h"
 #include "../Include/DAO/Analysis/AnalysisUIDao.h"
 #include "../Include/DAO/Analysis/AnalysisDao.h"
+#include "../Include/DAO/baseSet/ProcessParameterDao.h"
 #include "../Include/BLL/baseSet/SystemSetBLL.h"
 #include "../Include/Model/baseSet/SystemSetModel.h"
 #include "../Include/Utilities/log.h"
 #include "../Include/Utilities/async_task.h"
+#include "../Include/Model/baseSet/ProcessParameterModel.h"
 #include "BatchAddSampleWidgets.h"
 #include "src/comm/Global.h"
 #include <QThread>
@@ -27,6 +29,8 @@
 #include <QPainter>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include "../Include/DAO/baseSet/SystemSetDao.h"
+#include "../Include/Model/baseSet/SystemSetModel.h"
 
 AddSampleWidget::AddSampleWidget(QWidget *parent) :
     QWidget(parent),
@@ -1166,6 +1170,33 @@ void AddSampleWidget::cancelAction()
 
 bool AddSampleWidget::nextAction()
 {
+    int processId = SystemSetDao::instance()->getProcessId();
+    if(processId < 0)
+    {
+        qDebug()<<"p1";
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1674"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
+        return false;
+    }
+    QVector<ProcessParameterModel> processVect = ProcessParameterDao::instance()->selectModel(processId, ProcessParameterModel::SAMPLING_CODE);
+    ProcessParameterModel::SamplingStrt sampleStrc;
+    if(processVect.size() != 1 || !processVect[0].getSampling(sampleStrc))
+    {
+        qDebug()<<"p2";
+        MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1926"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
+        return false;
+    }
+    // 流程样本量配置必须覆盖界面上所有样本类型
+    for (int i = 0; i < _vModel->_vect.size(); ++i)
+    {
+        const int sampleType = static_cast<int>(_vModel->_vect[i].sampleType);
+        qDebug()<<"p3"<<sampleType;
+        if (!sampleStrc._sampleUl.contains(sampleType))
+        {
+            MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1926"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
+            return false;
+        }
+    }
+
     if(!setSamplePaperIdMap())
     {
         MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1379"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");

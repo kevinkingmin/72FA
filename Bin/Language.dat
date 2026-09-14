@@ -845,6 +845,7 @@ K1922|分段识别错误!|Segmentation Recognition Error!|
 K1923|摇床|Bed|
 K1924|槽位|Slot|
 K1925|预计耗时|Estimated Time
+K1926|流程中加样本的步骤配置错误!|Incorrect configuration of the "Add Sample" step in the workflow..|
 
 K1999|脑脊液|Cerebrospinal|
 K2000|样本信息|Sample information
