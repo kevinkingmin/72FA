@@ -332,7 +332,8 @@ void ProcessData::on_pushButton_Save_clicked()
             return;
         }
 
-        double sampleUl = txtVect[0].toDouble();
+        const QString sampleUlText = txtVect[0];
+        double sampleUl = sampleUlText.toDouble();
 
         int innerTime = txtVect[1].toInt();
         int outerTime = txtVect[2].toInt();
@@ -346,7 +347,7 @@ void ProcessData::on_pushButton_Save_clicked()
         // boxVect[0]=样本类型文案, boxVect[1]=是否充盈
         bool isFilling = boxVect.size() > 1 && boxVect[1] == GlobalData::LoadLanguageInfo("K1700");
 
-        // 保存时合并进已有 Map；体积<5 则移除该类型
+        // 保存时合并进已有 Map
         QMap<int, double> sampleUlMap;
         if (m_bModify) {
             ProcessParameterModel oldModel;
@@ -370,8 +371,13 @@ void ProcessData::on_pushButton_Save_clicked()
                 }
             }
         }
-        if (sampleUl < 5) {
+        if (sampleUlText.isEmpty()) {
+            // 空：删除该类型
             sampleUlMap.remove(sampleTypeKey);
+        } else if (sampleUl < 5) {
+            // 有填值且 <5：提示不能小于5ul
+            MyMessageBox::warning(this, GlobalData::LoadLanguageInfo("K1111"),GlobalData::LoadLanguageInfo("K1915"), MyMessageBox::Ok,"OK","");
+            return;
         } else {
             sampleUlMap.insert(sampleTypeKey, sampleUl);
         }
