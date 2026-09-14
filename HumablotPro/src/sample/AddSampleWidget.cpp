@@ -1173,7 +1173,6 @@ bool AddSampleWidget::nextAction()
     int processId = SystemSetDao::instance()->getProcessId();
     if(processId < 0)
     {
-        qDebug()<<"p1";
         MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1674"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return false;
     }
@@ -1181,7 +1180,6 @@ bool AddSampleWidget::nextAction()
     ProcessParameterModel::SamplingStrt sampleStrc;
     if(processVect.size() != 1 || !processVect[0].getSampling(sampleStrc))
     {
-        qDebug()<<"p2";
         MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1926"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
         return false;
     }
@@ -1189,7 +1187,6 @@ bool AddSampleWidget::nextAction()
     for (int i = 0; i < _vModel->_vect.size(); ++i)
     {
         const int sampleType = static_cast<int>(_vModel->_vect[i].sampleType);
-        qDebug()<<"p3"<<sampleType;
         if (!sampleStrc._sampleUl.contains(sampleType))
         {
             MyMessageBox::information(this,GlobalData::LoadLanguageInfo("K1180"), GlobalData::LoadLanguageInfo("K1926"),MyMessageBox::Ok,GlobalData::LoadLanguageInfo("K1181"),"");
