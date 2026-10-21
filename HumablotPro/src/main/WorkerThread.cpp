@@ -64,7 +64,7 @@ void WorkerThread::run()
 				QString testResult = TestDataQuery.value("testResult").toString();
 				QString projectName = TestDataQuery.value("projectName").toString();
 				double testGrayValue = TestDataQuery.value("testGrayValue").toDouble();
-				send_sz += QString("OBX | |NM|%1||%2|F%3||%4 |||| F ||| BetchNo || Admin || HumaBlot 72FA  | %5").arg(testTime).arg(projectName).arg(testResult).arg(testGrayValue).arg(QChar(0x0D));; //"OBX | " + "" + "|NM|" + s.TestTime + "||" + s.ProjectName + "|F" + s.TestResult + "||" + s.TestGrayValue + " |||| F ||| 批号 || Admin || HumaBlot 72FA  | " + "" + "" + getstringforbyte(0x0D);
+				send_sz += QString("OBX | |NM|%1||%2|%3||%4 |||| F ||| BetchNo || Admin || HumaBlot 72FA  | %5").arg(testTime).arg(projectName).arg(testResult).arg(testGrayValue).arg(QChar(0x0D));; //"OBX | " + "" + "|NM|" + s.TestTime + "||" + s.ProjectName + "|F" + s.TestResult + "||" + s.TestGrayValue + " |||| F ||| 批号 || Admin || HumaBlot 72FA  | " + "" + "" + getstringforbyte(0x0D);
 				iii_count++;
 			}
 			send_sz += QString("%1%2").arg(QChar(0x1C)).arg(QChar(0x0D));
